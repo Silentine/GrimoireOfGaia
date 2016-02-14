@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "gaia:items/AccessoryDollCursed"
+        "layer0": "gaia:items/FragmentEmerald"
     },
     "display": {
         "thirdperson": {
