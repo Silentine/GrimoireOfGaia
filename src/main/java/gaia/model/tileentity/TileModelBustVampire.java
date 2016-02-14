@@ -1,0 +1,180 @@
+package gaia.model.tileentity;
+
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+
+public class TileModelBustVampire extends ModelBase {
+	ModelRenderer head;
+	ModelRenderer headaccessory;
+	ModelRenderer headflower;
+	ModelRenderer headleaves;
+	ModelRenderer earright;
+	ModelRenderer earleft;
+	ModelRenderer body;
+    ModelRenderer rightchest;
+    ModelRenderer leftchest;
+	ModelRenderer chestribbon;
+	ModelRenderer rightshoulder;
+	ModelRenderer rightarm;
+	ModelRenderer leftshoulder;
+	ModelRenderer leftarm;
+	ModelRenderer stand1;
+	ModelRenderer stand2;
+	ModelRenderer stand3;
+
+	public TileModelBustVampire() {
+		this.textureWidth = 128;
+		this.textureHeight = 64;
+
+		this.head = new ModelRenderer(this, 0, 0);
+		this.head.addBox(-3F, -9F, -3F, 6, 6, 6);
+		this.head.setRotationPoint(0F, 17F, 0F);
+		this.head.setTextureSize(64, 32);
+		this.head.mirror = true;
+		this.setRotation(head, 0F, 0F, 0F);
+		this.headaccessory = new ModelRenderer(this, 36, 0);
+		this.headaccessory.addBox(-3.5F, -9.5F, -3.5F, 7, 7, 7);
+		this.headaccessory.setRotationPoint(0F, 17F, 0F);
+		this.headaccessory.setTextureSize(64, 32);
+		this.headaccessory.mirror = true;
+		this.setRotation(headaccessory, 0F, 0F, 0F);
+		this.headflower = new ModelRenderer(this, 36, 20);
+		this.headflower.addBox(-6F, -10F, -1F, 2, 1, 2);
+		this.headflower.setRotationPoint(0F, 18F, 0F);
+		this.headflower.setTextureSize(64, 32);
+		this.headflower.mirror = true;
+		this.setRotation(headflower, 0F, 0F, 0.7853982F);
+		this.headleaves = new ModelRenderer(this, 36, 23);
+		this.headleaves.addBox(-7F, -9F, -1.5F, 4, 0, 3);
+		this.headleaves.setRotationPoint(0F, 18F, 0F);
+		this.headleaves.setTextureSize(64, 32);
+		this.headleaves.mirror = true;
+		this.setRotation(headleaves, 0F, 0F, 0.7853982F);
+		this.earright = new ModelRenderer(this, 36, 14);
+		this.earright.addBox(-3.5F, -7F, -1.5F, 0, 2, 4);
+		this.earright.setRotationPoint(0F, 17F, 0F);
+		this.earright.setTextureSize(64, 32);
+		this.earright.mirror = true;
+		this.setRotation(earright, 0F, -0.2617994F, 0F);
+		this.earleft = new ModelRenderer(this, 44, 14);
+		this.earleft.addBox(3.5F, -7F, -1.5F, 0, 2, 4);
+		this.earleft.setRotationPoint(0F, 17F, 0F);
+		this.earleft.setTextureSize(64, 32);
+		this.earleft.mirror = true;
+		this.setRotation(earleft, 0F, 0.2617994F, 0F);
+		this.body = new ModelRenderer(this, 0, 12);
+		this.body.addBox(-2.5F, 0F, -1.5F, 5, 6, 3);
+		this.body.setRotationPoint(0F, 14F, 0F);
+		this.body.setTextureSize(64, 32);
+		this.body.mirror = true;
+		this.setRotation(body, 0F, 0F, 0F);
+		this.rightchest = new ModelRenderer(this, 0, 21);
+		this.rightchest.addBox(-1F, -1F, -1F, 2, 2, 2);
+		this.rightchest.setRotationPoint(-1.3F, 16F, -1.5F);
+		this.rightchest.setTextureSize(64, 32);
+		this.rightchest.mirror = true;
+		this.setRotation(rightchest, 0.7853982F, 0.1745329F, 0.0872665F);
+		this.leftchest = new ModelRenderer(this, 8, 21);
+		this.leftchest.addBox(-1F, -1F, -1F, 2, 2, 2);
+		this.leftchest.setRotationPoint(1.3F, 16F, -1.5F);
+		this.leftchest.setTextureSize(64, 32);
+		this.leftchest.mirror = true;
+		this.setRotation(leftchest, 0.7853982F, -0.1745329F, -0.0872665F);
+		this.chestribbon = new ModelRenderer(this, 36, 26);
+		this.chestribbon.addBox(-1.5F, -1.1F, -2F, 3, 0, 3);
+		this.chestribbon.setRotationPoint(0F, 16F, -1.5F);
+		this.chestribbon.setTextureSize(64, 32);
+		this.chestribbon.mirror = true;
+		this.setRotation(chestribbon, 0.7853982F, 0F, 0F);
+		this.rightshoulder = new ModelRenderer(this, 64, 0);
+		this.rightshoulder.addBox(-3F, -1F, -2F, 4, 4, 4);
+		this.rightshoulder.setRotationPoint(-2.5F, 15.5F, 0F);
+		this.rightshoulder.setTextureSize(64, 32);
+		this.rightshoulder.mirror = true;
+		this.setRotation(rightshoulder, 0.0872665F, 0F, 0.0872665F);
+		this.rightarm = new ModelRenderer(this, 16, 12);
+		this.rightarm.addBox(-2F, -1F, -1F, 2, 4, 2);
+		this.rightarm.setRotationPoint(-2.5F, 15.5F, 0F);
+		this.rightarm.setTextureSize(64, 32);
+		this.rightarm.mirror = true;
+		this.setRotation(rightarm, 0.0872665F, 0F, -0.0872665F);
+		this.leftshoulder = new ModelRenderer(this, 80, 0);
+		this.leftshoulder.addBox(-1F, -1F, -2F, 4, 4, 4);
+		this.leftshoulder.setRotationPoint(2.5F, 15.5F, 0F);
+		this.leftshoulder.setTextureSize(64, 32);
+		this.leftshoulder.mirror = true;
+		this.setRotation(leftshoulder, 0.0872665F, 0F, -0.0872665F);
+		this.leftarm = new ModelRenderer(this, 16, 12);
+		this.leftarm.addBox(0F, -1F, -1F, 2, 4, 2);
+		this.leftarm.setRotationPoint(2.5F, 15.5F, 0F);
+		this.leftarm.setTextureSize(64, 32);
+		this.leftarm.mirror = true;
+		this.setRotation(leftarm, 0.0872665F, 0F, 0.0872665F);
+		this.stand1 = new ModelRenderer(this, 0, 25);
+		this.stand1.addBox(-1.5F, 6F, -1.5F, 3, 1, 3);
+		this.stand1.setRotationPoint(0F, 14F, 0F);
+		this.stand1.setTextureSize(64, 32);
+		this.stand1.mirror = true;
+		this.setRotation(stand1, 0F, 0F, 0F);
+		this.stand2 = new ModelRenderer(this, 0, 29);
+		this.stand2.addBox(-1F, 7F, -1F, 2, 2, 2);
+		this.stand2.setRotationPoint(0F, 14F, 0F);
+		this.stand2.setTextureSize(64, 32);
+		this.stand2.mirror = true;
+		this.setRotation(stand2, 0F, 0F, 0F);
+		this.stand3 = new ModelRenderer(this, 0, 33);
+		this.stand3.addBox(-2F, 9F, -2F, 4, 1, 4);
+		this.stand3.setRotationPoint(0F, 14F, 0F);
+		this.stand3.setTextureSize(64, 32);
+		this.stand3.mirror = true;
+		this.setRotation(stand3, 0F, 0F, 0F);
+	}
+
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+		super.render(entity, par2, par3, par4, par5, par6, par7);
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.headflower.render(par7);
+		this.headleaves.render(par7);
+		this.earright.render(par7);
+		this.earleft.render(par7);
+		this.body.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.chestribbon.render(par7);
+		this.rightshoulder.render(par7);
+		this.rightarm.render(par7);
+		this.leftshoulder.render(par7);
+		this.leftarm.render(par7);
+		this.stand1.render(par7);
+		this.stand2.render(par7);
+		this.stand3.render(par7);
+	}
+
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
+		model.rotateAngleX = x;
+		model.rotateAngleY = y;
+		model.rotateAngleZ = z;
+	}
+
+	public void renderAll(float par7) {
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.headflower.render(par7);
+		this.headleaves.render(par7);
+		this.earright.render(par7);
+		this.earleft.render(par7);
+		this.body.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.chestribbon.render(par7);
+		this.rightshoulder.render(par7);
+		this.rightarm.render(par7);
+		this.leftshoulder.render(par7);
+		this.leftarm.render(par7);
+		this.stand1.render(par7);
+		this.stand2.render(par7);
+		this.stand3.render(par7);
+	}
+}
