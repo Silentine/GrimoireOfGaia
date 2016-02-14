@@ -1,13 +1,12 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -43,9 +42,9 @@ public class ItemFoodPieBerry extends ItemFood {
         }
     }
 
-	/*
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
+	
+    /*public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		super.onFoodEaten(par1ItemStack, par2World, par3EntityPlayer);
 		if(!par2World.isRemote) {
 			par3EntityPlayer.heal(6.0F);
 			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 3600, 0));
@@ -53,10 +52,10 @@ public class ItemFoodPieBerry extends ItemFood {
 		}
 
 		return new ItemStack(Items.bowl);
-	}
-	*/
+	}*/
+	
 
-	public void registerIcons(IIconRegister iconRegister) {
+    /*public void registerIcons(IIconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}
+	}*/
 }

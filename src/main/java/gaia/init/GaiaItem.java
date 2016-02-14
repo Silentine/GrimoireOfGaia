@@ -1,5 +1,6 @@
-package gaia;
+package gaia.init;
 
+import gaia.Gaia;
 import gaia.items.GaiaDispenserBehaviorMobEgg;
 import gaia.items.ItemAccessoryDollCursed;
 import gaia.items.ItemAccessoryRingHaste;
@@ -59,12 +60,14 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropInvisible;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GaiaItem {
 	public static Item Shard;
@@ -83,8 +86,8 @@ public class GaiaItem {
 	public static Item FoodPieMandrake;
 	public static Item FoodPieMeat;
 	public static Item FoodPieBerry;
-	public static Item MiscSoulFire;
-	public static Item MiscSoulFiery;
+	//public static Item MiscSoulFire;
+	//public static Item MiscSoulFiery;
 	public static Item MiscGigaGear;
 	public static Item MiscPage;
 	public static Item MiscBook;
@@ -105,10 +108,10 @@ public class GaiaItem {
 	public static Item BagBook;
 	public static Item BagRecord;
 	public static Item BoxOld;
-	public static Item PropWeapon;
-	public static Item PropWeaponInvisible;
-	public static Item FanIce;
-	public static Item FanFire;
+	//public static Item PropWeapon;
+	//public static Item PropWeaponInvisible;
+	//public static Item FanIce;
+	//public static Item FanFire;
 	public static Item BookFreezing;
 	public static Item BookNightmare;
 	public static Item BookMetal;
@@ -116,14 +119,14 @@ public class GaiaItem {
 	public static Item BookHunger;
 	public static Item BookBattle;
 	public static Item BookNature;
-	public static Item BookWither;
-	public static Item BookBuff;
+	//public static Item BookWither;
+	//public static Item BookBuff;
 	public static Item AccessoryRingSpeed;
 	public static Item AccessoryRingHaste;
 	public static Item AccessoryRingJump;
 	public static Item AccessoryRingNight;
 	public static Item AccessoryDollCursed;
-	public static Item SpawnEgg;
+	//public static Item SpawnEgg;
 
 	public static void init() {
 		addItems();
@@ -149,8 +152,8 @@ public class GaiaItem {
 		FoodPieMandrake = (new ItemFoodPieMandrake(12, 0.8F, true, "FoodPieMandrake")).setAlwaysEdible();
 		FoodPieMeat = (new ItemFoodPieMeat(16, 0.8F, true, "FoodPieMeat"));
 		FoodPieBerry = (new ItemFoodPieBerry(12, 0.2F, true, "FoodPieBerry"));
-		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
-		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
+		//MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
+		//MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
 		MiscPage = new ItemMiscPage("MiscPage");
 		MiscBook = new ItemMiscBook("MiscBook");
@@ -171,10 +174,10 @@ public class GaiaItem {
 		BagBook = new ItemBagBook("BagBook");
 		BagRecord = new ItemBagRecord("BagRecord");
 		BoxOld = new ItemBoxOld("BoxOld");
-		PropWeapon = new ItemWeaponProp("WeaponProp");
-		PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
-		FanIce = new ItemWeaponFanIce("WeaponFanIce");
-		FanFire = new ItemWeaponFanFire("WeaponFanFire");
+		//PropWeapon = new ItemWeaponProp("WeaponProp");
+		//PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
+		//FanIce = new ItemWeaponFanIce("WeaponFanIce");
+		//FanFire = new ItemWeaponFanFire("WeaponFanFire");
 		BookFreezing = new ItemWeaponBookFreezing("WeaponBookFreezing");
 		BookNightmare = new ItemWeaponBookNightmare("WeaponBookNightmare");
 		BookMetal = new ItemWeaponBookMetal("WeaponBookMetal");
@@ -182,14 +185,14 @@ public class GaiaItem {
 		BookHunger = new ItemWeaponBookHunger("WeaponBookHunger");
 		BookBattle = new ItemWeaponBookBattle("WeaponBookBattle");
 		BookNature = new ItemWeaponBookNature("WeaponBookNature");
-		BookWither = new ItemWeaponBookWither("WeaponBookWither");
-		BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
+		//BookWither = new ItemWeaponBookWither("WeaponBookWither");
+		//BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
 		AccessoryRingSpeed = new ItemAccessoryRingSpeed("AccessoryRingSpeed");
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
 		AccessoryDollCursed = new ItemAccessoryDollCursed("AccessoryDollCursed");
-		SpawnEgg = new ItemGaiaSpawnEgg();
+		//SpawnEgg = new ItemGaiaSpawnEgg();
 
 		Item[] items = new Item[] { 
 				Shard, 
@@ -208,8 +211,8 @@ public class GaiaItem {
 				FoodPieMandrake, 
 				FoodPieMeat,
 				FoodPieBerry,
-				MiscSoulFire, 
-				MiscSoulFiery, 
+				//MiscSoulFire, 
+				//MiscSoulFiery, 
 				MiscGigaGear, 
 				MiscPage,
 				MiscBook, 
@@ -230,10 +233,10 @@ public class GaiaItem {
 				BagBook, 
 				BagRecord, 
 				BoxOld, 
-				PropWeapon, 
-				PropWeaponInvisible,
-				FanIce, 
-				FanFire, 
+				//PropWeapon, 
+				//PropWeaponInvisible,
+				//FanIce, 
+				//FanFire, 
 				BookFreezing, 
 				BookNightmare, 
 				BookMetal, 
@@ -241,20 +244,20 @@ public class GaiaItem {
 				BookHunger,
 				BookBattle, 
 				BookNature,
-				BookWither, 
-				BookBuff,
+				//BookWither, 
+				//BookBuff,
 				AccessoryRingSpeed, 
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
 				AccessoryRingNight,
 				AccessoryDollCursed,
-				SpawnEgg 
+				//SpawnEgg 
 		};
 		for (int i = 0; i < items.length; i++) {
 			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
 		}
 
-		BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
+		//BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
     
 	public static void addRecipes() {
@@ -277,8 +280,8 @@ public class GaiaItem {
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryIce, Items.sugar, Items.egg});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryFire, Items.sugar, Items.egg});
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.coal_block, 1), new Object[]{MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel});
-		GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
-		GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
+		//GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
+		//GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingSpeed, 1), new Object[]{new ItemStack(MiscRing, 1, 0), Blocks.beacon});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingHaste, 1), new Object[]{new ItemStack(MiscRing, 1, 1), Blocks.beacon});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingJump, 1), new Object[]{new ItemStack(MiscRing, 1, 2), Blocks.beacon});
@@ -294,6 +297,71 @@ public class GaiaItem {
             OreDictionary.registerOre("shardBlazeRod", new ItemStack(Shard, 1, 6));
             OreDictionary.registerOre("fragmentEmerald", Fragment);
     }
-
+	public static void registerRenders()
+	{
+		registerRender(Shard);
+		registerRender(Fragment);
+		registerRender(FoodMeatMorsel);
+		registerRender(FoodMeat);
+		registerRender(FoodCoalfish);
+		registerRender(FoodWitherMeat);
+		registerRender(FoodSmallAppleGold);
+		registerRender(FoodBerryHealth);
+		registerRender(FoodBerryCure);
+		registerRender(FoodBerryIce);
+		registerRender(FoodBerryFire);
+		registerRender(FoodDriedNetherWart);
+		registerRender(FoodMandrake);
+		registerRender(FoodPieMandrake);
+		registerRender(FoodPieMeat);
+		registerRender(FoodPieBerry);
+		//registerRender(MiscSoulFire);
+		//registerRender(MiscSoulFiery);
+		registerRender(MiscGigaGear);
+		registerRender(MiscPage);
+		registerRender(MiscBook);
+		registerRender(MiscRing);
+		registerRender(MiscFurnaceFuel);
+		registerRender(MiscCurrency);
+		registerRender(MiscWeaponEnchanted);
+		registerRender(SpawnCard);
+		registerRender(SpawnCardCreeperGirl);
+		registerRender(SpawnCardEnderGirl);
+		registerRender(SpawnCardHolstaurus);
+		registerRender(SpawnCardSlimeGirl);
+		registerRender(SpawnCardTrader);
+		registerRender(BoxIron);
+		registerRender(BoxGold);
+		registerRender(BoxDiamond);
+		registerRender(BagOre);
+		registerRender(BagBook);
+		registerRender(BagRecord);
+		registerRender(BoxOld);
+		//registerRender(PropWeapon);
+		//registerRender(PropWeaponInvisible);
+		//registerRender(FanIce);
+		//registerRender(FanFire);
+		registerRender(BookFreezing);
+		registerRender(BookNightmare);
+		registerRender(BookMetal);
+		registerRender(BookEnder);
+		registerRender(BookHunger);
+		registerRender(BookBattle);
+		registerRender(BookNature);
+		//registerRender(BookWither);
+		//registerRender(BookBuff);
+		registerRender(AccessoryRingSpeed);
+		registerRender(AccessoryRingHaste);
+		registerRender(AccessoryRingJump);
+		registerRender(AccessoryRingNight);
+		registerRender(AccessoryDollCursed);
+		//registerRender(SpawnEgg);
+	}
+	
+	public static void registerRender(Item item)
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(Gaia.modid + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+	}
+	
 	public static void addNames() {}
 }

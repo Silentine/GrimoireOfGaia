@@ -1,10 +1,11 @@
 package gaia.entity.passive;
 
-import gaia.GaiaItem;
-import gaia.entity.monster.EntityGaiaMandragora;
-
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
+import gaia.entity.monster.EntityGaiaMandragora;
+import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -16,8 +17,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Sets;
 
 public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 

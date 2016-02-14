@@ -2,6 +2,7 @@ package gaia.block;
 
 import gaia.Gaia;
 import gaia.tileentity.TileEntityDollSlimeGirl;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,7 +19,7 @@ public class BlockDollSlimeGirl extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
-		this.setBlockName("GrimoireOfGaia.DollSlimeGirl");
+		//this.setBlockName("GrimoireOfGaia.DollSlimeGirl");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -38,10 +39,14 @@ public class BlockDollSlimeGirl extends BlockContainer {
 		return false;
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	/*public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		if(entity != null) {
 			TileEntityDollSlimeGirl tile = (TileEntityDollSlimeGirl)world.getTileEntity(x, y, z);
 			tile.direction = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		}
+	}*/
+
+	public Block setBlockTextureName(String string) {
+		return null;
 	}
 }

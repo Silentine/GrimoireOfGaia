@@ -1,11 +1,11 @@
 package gaia.entity.monster;
 
-import gaia.GaiaBlock;
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
+import gaia.init.GaiaBlock;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;

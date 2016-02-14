@@ -1,10 +1,8 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -14,8 +12,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryRingSpeed extends Item {
 	String texture;
@@ -35,7 +33,7 @@ public class ItemAccessoryRingSpeed extends Item {
 
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.epic;
+		return EnumRarity.EPIC;
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
@@ -58,7 +56,7 @@ public class ItemAccessoryRingSpeed extends Item {
 		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 10));
 	}
 
-	public void registerIcons(IIconRegister iconRegister) {
+	/*public void registerIcons(IIconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}
+	}*/
 }

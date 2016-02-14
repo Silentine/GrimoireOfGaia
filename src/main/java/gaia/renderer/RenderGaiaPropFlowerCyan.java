@@ -3,19 +3,17 @@ package gaia.renderer;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.model.ModelGaiaPropFlowerCyan;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class RenderGaiaPropFlowerCyan extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Flower_Cyan.png");
 
-	public RenderGaiaPropFlowerCyan() {
-		super(new ModelGaiaPropFlowerCyan(), 0.5F);
+	public RenderGaiaPropFlowerCyan(RenderManager renderManager, ModelGaiaPropFlowerCyan model, float shadowSize) {
+        super(renderManager, model, shadowSize);
 	}
 
 	protected void preRenderFlowerCyan(EntityGaiaPropFlowerCyan par1EntityFlowerCyan, float par2) {

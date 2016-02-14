@@ -2,6 +2,7 @@ package gaia.block;
 
 import gaia.Gaia;
 import gaia.tileentity.TileEntityDollCreeperGirl;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,7 +19,7 @@ public class BlockDollCreeperGirl extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
-		this.setBlockName("GrimoireOfGaia.DollCreeperGirl");
+		//this.setBlockName("GrimoireOfGaia.DollCreeperGirl");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -38,10 +39,14 @@ public class BlockDollCreeperGirl extends BlockContainer {
 		return false;
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	/*public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		if(entity != null) {
 			TileEntityDollCreeperGirl tile = (TileEntityDollCreeperGirl)world.getTileEntity(x, y, z);
 			tile.direction = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		}
+	}*/
+
+	public Block setBlockTextureName(String string) {
+		return null;
 	}
 }

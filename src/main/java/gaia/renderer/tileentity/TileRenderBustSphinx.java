@@ -1,12 +1,12 @@
 package gaia.renderer.tileentity;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.model.tileentity.TileModelBustSphinx;
 import gaia.tileentity.TileEntityBustSphinx;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 public class TileRenderBustSphinx extends TileEntitySpecialRenderer {
 
@@ -39,7 +39,7 @@ public class TileRenderBustSphinx extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 	}
 
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int destroyStage) {
 		this.renderModel((TileEntityBustSphinx)tileentity, d0, d1, d2, f);
 	}
 }

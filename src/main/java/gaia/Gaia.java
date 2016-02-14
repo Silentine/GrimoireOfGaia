@@ -22,7 +22,6 @@ import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
 import gaia.entity.monster.EntityGaiaJorogumo;
 import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
@@ -39,7 +38,6 @@ import gaia.entity.monster.EntityGaiaSludgeGirl;
 import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaSwamper;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -48,16 +46,10 @@ import gaia.entity.monster.EntityGaiaWitch;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
-import gaia.entity.passive.EntityGaiaNPCEnderGirl;
-import gaia.entity.passive.EntityGaiaNPCHolstaurus;
-import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
-import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
-import gaia.entity.projectile.EntityGaiaProjectileMagic;
-import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
+import gaia.init.GaiaItem;
 import gaia.items.GaiaItemHandlerFuel;
-import gaia.items.ItemGaiaSpawnEgg;
+import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
@@ -67,15 +59,15 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
 		modid = "GrimoireOfGaia",
@@ -95,17 +87,17 @@ public class Gaia
 	@Instance("GrimoireOfGaia")
 	public static Gaia instance = new Gaia();
 	@SidedProxy(
-			clientSide = "gaia.ClientProxyGaia",
-			serverSide = "gaia.CommonProxyGaia"
+			clientSide = "gaia.proxy.ClientProxy",
+			serverSide = "gaia.proxy.CommonProxy"
 			)
-	public static CommonProxyGaia proxy;
+	public static CommonProxy proxy;
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") 
 	{
 		@Override
-		public Item getTabIconItem() 
-		{
+		public Item getTabIconItem() {
 			return GaiaItem.FoodBerryHealth;
 		}
+
 	};
 
 	@EventHandler
@@ -114,7 +106,7 @@ public class Gaia
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
 		cfg.load();
 		ConfigGaia.SpawnAnubis = cfg.get("general", "SpawnRateAnubis", ConfigGaia.SpawnAnubis).getInt();
-		ConfigGaia.SpawnBanshee = cfg.get("general", "SpawnRateBanshee", ConfigGaia.SpawnBanshee).getInt();
+		/*ConfigGaia.SpawnBanshee = cfg.get("general", "SpawnRateBanshee", ConfigGaia.SpawnBanshee).getInt();
 		ConfigGaia.SpawnGryphon = cfg.get("general", "SpawnRateGryphon", ConfigGaia.SpawnGryphon).getInt();
 		ConfigGaia.SpawnBaphomet = cfg.get("general", "SpawnRateBaphomet", ConfigGaia.SpawnBaphomet).getInt();
 		ConfigGaia.SpawnBoneKnight = cfg.get("general", "SpawnRateBoneKnight", ConfigGaia.SpawnBoneKnight).getInt();
@@ -159,7 +151,7 @@ public class Gaia
 		ConfigGaia.SpawnWitch = cfg.get("general", "SpawnRateWitch", ConfigGaia.SpawnWitch).getInt();
 		ConfigGaia.SpawnWitherCow = cfg.get("general", "SpawnRateWitherCow", ConfigGaia.SpawnWitherCow).getInt();
 		ConfigGaia.SpawnYeti = cfg.get("general", "SpawnRateYeti", ConfigGaia.SpawnYeti).getInt();
-		ConfigGaia.SpawnYukiOnna = cfg.get("general", "SpawnRateYukiOnna", ConfigGaia.SpawnYukiOnna).getInt();
+		ConfigGaia.SpawnYukiOnna = cfg.get("general", "SpawnRateYukiOnna", ConfigGaia.SpawnYukiOnna).getInt();*/
 		ConfigGaia.BaseDamage = cfg.get("BASE DAMAGE", "BaseDamage", true).getBoolean(true);
 		ConfigGaia.Tier1maxHealth = cfg.get("MODIFIER", "Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
 		ConfigGaia.Tier1attackDamage = cfg.get("MODIFIER", "Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
@@ -175,22 +167,24 @@ public class Gaia
 		Property modifierproperty = cfg.get("MODIFIER", " ", " ");
 		modifierproperty.comment = "Percentage amount. Default value: 100";
 		cfg.save();
+		//GaiaBlock.init();
+    	GaiaItem.init();
+		//proxy.registerRenderingFactories();
+		
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
-		GaiaItem.init();
-		GaiaBlock.init();
 
-		proxy.registerRenderThings();
+		proxy.registerRenders();
 		proxy.registerSounds();
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		byte trackingRange = 64;
 		byte updateFrequency = 3;
 
 		EntityRegistry.registerModEntity(EntityGaiaAnubis.class, "Anubis", 1, this, trackingRange, updateFrequency, true);
-		EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, this, trackingRange, updateFrequency, true);
+		/*EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, this, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaBaphomet.class, "Baphomet", 3, this, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaBoneKnight.class, "Bone Knight", 4, this, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaCentaur.class, "Centaur", 5, this, trackingRange, updateFrequency, true);
@@ -296,7 +290,7 @@ public class Gaia
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitch.class, 47, 0x303030, 0x943dbb);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitherCow.class, 44, 5791069, 16777215);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYeti.class, 45, 16448250, 7895160);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);*/
 
 		BiomeGenBase[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
 		BiomeGenBase[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
@@ -328,62 +322,62 @@ public class Gaia
 				if(ConfigGaia.SpawnMandragora > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaPropFlowerCyan.class, ConfigGaia.SpawnMandragora, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnDryad > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaDryad.class, ConfigGaia.SpawnDryad, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnWerecat > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaWerecat.class, ConfigGaia.SpawnWerecat, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnSpriggan > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaSpriggan.class, ConfigGaia.SpawnSpriggan, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 			
@@ -394,62 +388,62 @@ public class Gaia
 				if(ConfigGaia.SpawnCyclops > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCyclops.class, ConfigGaia.SpawnCyclops, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnYukiOnna > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaYukiOnna.class, ConfigGaia.SpawnYukiOnna, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFutakuchiOnna > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFutakuchiOnna.class, ConfigGaia.SpawnFutakuchiOnna, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnNineTails > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaNineTails.class, ConfigGaia.SpawnNineTails, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			} 
 			
@@ -460,50 +454,50 @@ public class Gaia
 				if(ConfigGaia.SpawnDhampir > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaDhampir.class, ConfigGaia.SpawnDhampir, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnVampire > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaVampire.class, ConfigGaia.SpawnVampire, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 			
@@ -513,50 +507,50 @@ public class Gaia
 				if(ConfigGaia.SpawnKobold > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaKobold.class, ConfigGaia.SpawnKobold, 2, 6);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnWitch > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaWitch.class, ConfigGaia.SpawnWitch, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 		}
@@ -567,62 +561,62 @@ public class Gaia
 			if(ConfigGaia.SpawnCockatrice > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCockatrice.class, ConfigGaia.SpawnCockatrice, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnHarpy > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaHarpy.class, ConfigGaia.SpawnHarpy, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnAnubis > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaAnubis.class, ConfigGaia.SpawnAnubis, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnSphinx > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSphinx.class, ConfigGaia.SpawnSphinx, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			// underground
 			if(ConfigGaia.SpawnCreep > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnEnderEye > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnJorogumo > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMimic > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnBoneKnight > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnFleshLich > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -632,62 +626,62 @@ public class Gaia
 			if(ConfigGaia.SpawnSatyr > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSatyr.class, ConfigGaia.SpawnSatyr, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnCentaur > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCentaur.class, ConfigGaia.SpawnCentaur, 4, 6);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMinotaurus > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMinotaurus.class, ConfigGaia.SpawnMinotaurus, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMinotaur > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMinotaur.class, ConfigGaia.SpawnMinotaur, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			// underground
 			if(ConfigGaia.SpawnCreep > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnEnderEye > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnJorogumo > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMimic > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnBoneKnight > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnFleshLich > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -697,62 +691,62 @@ public class Gaia
 			if(ConfigGaia.SpawnSiren > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSiren.class, ConfigGaia.SpawnSiren, 4, 6);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 			
 			if(ConfigGaia.SpawnNaga > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaNaga.class, ConfigGaia.SpawnNaga, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnSludgeGirl > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSludgeGirl.class, ConfigGaia.SpawnSludgeGirl, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnSwamper > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSwamper.class, ConfigGaia.SpawnSwamper, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			// underground
 			if(ConfigGaia.SpawnCreep > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnEnderEye > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnJorogumo > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMimic > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnBoneKnight > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnFleshLich > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -762,62 +756,62 @@ public class Gaia
 			if(ConfigGaia.SpawnCobbleGolem > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCobbleGolem.class, ConfigGaia.SpawnCobbleGolem, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnHunter > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaHunter.class, ConfigGaia.SpawnHunter, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnShaman > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaShaman.class, ConfigGaia.SpawnShaman, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnCobblestoneGolem > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCobblestoneGolem.class, ConfigGaia.SpawnCobblestoneGolem, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			// underground
 			if(ConfigGaia.SpawnCreep > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnEnderEye > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnJorogumo > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMimic > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnBoneKnight > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnFleshLich > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -831,50 +825,50 @@ public class Gaia
 				if(ConfigGaia.SpawnYeti > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaYeti.class, ConfigGaia.SpawnYeti, 4, 6);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnSelkie > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaSelkie.class, ConfigGaia.SpawnSelkie, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 		}
@@ -887,62 +881,62 @@ public class Gaia
 				if(ConfigGaia.SpawnGryphon > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaGryphon.class, ConfigGaia.SpawnGryphon, 4, 6);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnValkyrie > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaValkyrie.class, ConfigGaia.SpawnValkyrie, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnDullahan > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaDullahan.class, ConfigGaia.SpawnDullahan, 4, 6);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBanshee > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBanshee.class, ConfigGaia.SpawnBanshee, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				// underground
 				if(ConfigGaia.SpawnCreep > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnEnderEye > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnJorogumo > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnMimic > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnBoneKnight > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 
 				if(ConfigGaia.SpawnFleshLich > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 		}
@@ -953,19 +947,19 @@ public class Gaia
 			if(ConfigGaia.SpawnSahuagin > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSahuagin.class, ConfigGaia.SpawnSahuagin, 4, 6);
-				water[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMermaid > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMermaid.class, ConfigGaia.SpawnMermaid, 2, 4);
-				water[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnSharko > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSharko.class, ConfigGaia.SpawnSharko, 2, 4);
-				water[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -974,19 +968,19 @@ public class Gaia
 			if(ConfigGaia.SpawnSahuagin > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSahuagin.class, ConfigGaia.SpawnSahuagin, 4, 6);
-				beach[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnMermaid > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaMermaid.class, ConfigGaia.SpawnMermaid, 2, 4);
-				beach[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnSharko > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSharko.class, ConfigGaia.SpawnSharko, 2, 4);
-				beach[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -996,19 +990,19 @@ public class Gaia
 			if(ConfigGaia.SpawnSuccubus > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaSuccubus.class, ConfigGaia.SpawnSuccubus, 2, 4);
-				hell[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnWitherCow > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaWitherCow.class, ConfigGaia.SpawnWitherCow, 1, 2);
-				hell[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 
 			if(ConfigGaia.SpawnBaphomet > 0) 
 			{
 				SpawnEntry = new SpawnListEntry(EntityGaiaBaphomet.class, ConfigGaia.SpawnBaphomet, 1, 2);
-				hell[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 			}
 		}
 
@@ -1021,7 +1015,7 @@ public class Gaia
 				if(ConfigGaia.SpawnEnderDragonGirl > 0) 
 				{
 					SpawnEntry = new SpawnListEntry(EntityGaiaEnderDragonGirl.class, ConfigGaia.SpawnEnderDragonGirl, 1, 2);
-					sky[i].getSpawnableList(EnumCreatureType.monster).add(SpawnEntry);
+					sky[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 				}
 			}
 		}

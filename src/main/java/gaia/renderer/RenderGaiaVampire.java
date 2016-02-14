@@ -1,27 +1,24 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.entity.monster.EntityGaiaVampire;
 import gaia.model.ModelGaiaVampire;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class RenderGaiaVampire extends RenderLiving {
 
 	private static final ResourceLocation vampireEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Vampire.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Vampire.png");
 
-	public RenderGaiaVampire() {
-		super(new ModelGaiaVampire(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaVampire());
+	public RenderGaiaVampire(RenderManager renderManager, ModelGaiaVampire model, float shadowSize) {
+        super(renderManager, model, shadowSize);
+		//this.setRenderPassModel(new ModelGaiaVampire());
 	}
 
 	protected int shouldRenderPass(EntityGaiaVampire par1EntityGaiaVampire, int par2, float par3) {

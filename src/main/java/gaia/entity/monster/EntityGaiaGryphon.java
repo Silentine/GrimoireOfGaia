@@ -1,10 +1,10 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;

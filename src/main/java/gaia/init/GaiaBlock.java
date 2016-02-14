@@ -1,5 +1,6 @@
-package gaia;
+package gaia.init;
 
+import gaia.Gaia;
 import gaia.block.BlockBustSphinx;
 import gaia.block.BlockBustValkyrie;
 import gaia.block.BlockBustVampire;
@@ -16,7 +17,10 @@ import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GaiaBlock {
 	public static final String modid = "GrimoireOfGaia";
@@ -69,5 +73,23 @@ public class GaiaBlock {
 	public static void registerBlocks(Block block, String name) {
 		GameRegistry.registerBlock(block, name);
 //		LanguageRegistry.addName(block, name);
+	}
+	
+	public static void registerRenders()
+	{
+		registerRender(BustSphinx);
+		registerRender(BustValkyrie);
+		registerRender(BustVampire);
+		registerRender(DollCreeperGirl);
+		registerRender(DollEnderGirl);
+		registerRender(DollSlimeGirl);
+		registerRender(DollMaid);
+	}
+	
+	
+	public static void registerRender(Block block)
+	{
+		Item item = Item.getItemFromBlock(block);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(Gaia.modid + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

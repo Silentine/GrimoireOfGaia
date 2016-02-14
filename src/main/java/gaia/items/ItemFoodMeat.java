@@ -1,7 +1,6 @@
 package gaia.items;
 
 import gaia.Gaia;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemFood;
 
 public class ItemFoodMeat extends ItemFood {
@@ -14,7 +13,7 @@ public class ItemFoodMeat extends ItemFood {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
-	public void registerIcons(IIconRegister iconRegister) {
+	/*public void registerIcons(IIconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}
+	}*/
 }
