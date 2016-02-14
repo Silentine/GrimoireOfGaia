@@ -6,7 +6,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerRenders(){
 		//GaiaBlock.registerRenders();
-		//GaiaItem.registerRenders();
+		GaiaItem.registerRenders();
 		//RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, new RenderGaiaAnubis());
 		/*RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBanshee.class, new RenderGaiaBanshee());
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBaphomet.class, new RenderGaiaBaphomet());

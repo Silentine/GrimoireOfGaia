@@ -3,17 +3,10 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.model.ModelGaiaAnubis;
 import gaia.model.ModelGaiaBaphomet;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class RenderGaiaBaphomet extends RenderLiving<EntityGaiaBaphomet> {
 

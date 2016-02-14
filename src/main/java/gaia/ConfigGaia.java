@@ -1,6 +1,5 @@
 package gaia;
 
-
 public class ConfigGaia {
 	//taiga, taigaHills, megaTaiga, megaTaigaHills
 	public static int SpawnCyclops = 12;

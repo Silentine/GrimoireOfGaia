@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "Gaia:items/ShardEmerald"
+        "layer0": "gaia:items/ShardEmerald"
     },
     "display": {
         "thirdperson": {

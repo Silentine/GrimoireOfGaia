@@ -1,6 +1,6 @@
 package gaia.entity;
 
-import gaia.ConfigGaia;
+import grimoireofgaia.ConfigGaia;
 
 public class EntityAttributes {
 	public static int experienceValue1 = 10;

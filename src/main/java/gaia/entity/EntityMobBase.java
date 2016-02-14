@@ -1,6 +1,6 @@
 package gaia.entity;
 
-import gaia.ConfigGaia;
+import grimoireofgaia.ConfigGaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;

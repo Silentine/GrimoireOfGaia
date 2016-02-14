@@ -1,7 +1,6 @@
 package gaia.init;
 
 import gaia.Gaia;
-import gaia.items.GaiaDispenserBehaviorMobEgg;
 import gaia.items.ItemAccessoryDollCursed;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
@@ -29,15 +28,12 @@ import gaia.items.ItemFoodPieMeat;
 import gaia.items.ItemFoodSmallAppleGold;
 import gaia.items.ItemFoodWitherMeat;
 import gaia.items.ItemFragment;
-import gaia.items.ItemGaiaSpawnEgg;
 import gaia.items.ItemMiscBook;
 import gaia.items.ItemMiscCurrency;
 import gaia.items.ItemMiscFurnaceFuel;
 import gaia.items.ItemMiscGigaGear;
 import gaia.items.ItemMiscPage;
 import gaia.items.ItemMiscRing;
-import gaia.items.ItemMiscSoulFiery;
-import gaia.items.ItemMiscSoulFire;
 import gaia.items.ItemMiscWeaponEnchanted;
 import gaia.items.ItemShard;
 import gaia.items.ItemSpawnCard;
@@ -47,19 +43,12 @@ import gaia.items.ItemSpawnCardHolstaurus;
 import gaia.items.ItemSpawnCardSlimeGirl;
 import gaia.items.ItemSpawnCardTrader;
 import gaia.items.ItemWeaponBookBattle;
-import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
 import gaia.items.ItemWeaponBookFreezing;
 import gaia.items.ItemWeaponBookHunger;
 import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
-import gaia.items.ItemWeaponBookWither;
-import gaia.items.ItemWeaponFanFire;
-import gaia.items.ItemWeaponFanIce;
-import gaia.items.ItemWeaponProp;
-import gaia.items.ItemWeaponPropInvisible;
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
@@ -256,7 +245,7 @@ public class GaiaItem {
 		for (int i = 0; i < items.length; i++) {
 			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
 		}
-
+		
 		//BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
     

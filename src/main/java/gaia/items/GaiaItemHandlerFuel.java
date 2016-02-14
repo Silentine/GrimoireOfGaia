@@ -16,13 +16,13 @@ public class GaiaItemHandlerFuel implements IFuelHandler {
 			return 3600;
 		}
 		
-		if (fuel.getItem() == GaiaItem.MiscSoulFire) {
+		/*if (fuel.getItem() == GaiaItem.MiscSoulFire) {
 			return 11600;
 		}
 		
 		if (fuel.getItem() == GaiaItem.MiscSoulFiery) {
 			return 20000;
-		}
+		}*/
 		
 		if (fuel.getItem() == GaiaItem.MiscGigaGear) {
 			return 1240000;

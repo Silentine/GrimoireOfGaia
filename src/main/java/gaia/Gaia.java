@@ -70,7 +70,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
-		modid = "GrimoireOfGaia",
+		modid = "gaia",
 		name = "Grimoire of Gaia 3",
 		version = "1.0.0"
 		)
