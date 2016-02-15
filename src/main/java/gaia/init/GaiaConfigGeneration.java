@@ -4,7 +4,7 @@ import gaia.ConfigGaia;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
-public class GaiaConfig {
+public class GaiaConfigGeneration {
 	
 	public static void configOptions(Configuration config) {
 		config.load();

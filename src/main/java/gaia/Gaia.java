@@ -1,64 +1,11 @@
 package gaia;
 
-import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaBanshee;
-import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.entity.monster.EntityGaiaBoneKnight;
-import gaia.entity.monster.EntityGaiaCentaur;
-import gaia.entity.monster.EntityGaiaCobbleGolem;
-import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import gaia.entity.monster.EntityGaiaCockatrice;
-import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaCyclops;
-import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaDullahan;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaEnderEye;
-import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaFutakuchiOnna;
-import gaia.entity.monster.EntityGaiaGryphon;
-import gaia.entity.monster.EntityGaiaHarpy;
-import gaia.entity.monster.EntityGaiaHunter;
-import gaia.entity.monster.EntityGaiaJorogumo;
-import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMimic;
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.entity.monster.EntityGaiaMinotaurus;
-import gaia.entity.monster.EntityGaiaNaga;
-import gaia.entity.monster.EntityGaiaNineTails;
-import gaia.entity.monster.EntityGaiaSahuagin;
-import gaia.entity.monster.EntityGaiaSatyr;
-import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.entity.monster.EntityGaiaShaman;
-import gaia.entity.monster.EntityGaiaSharko;
-import gaia.entity.monster.EntityGaiaSiren;
-import gaia.entity.monster.EntityGaiaSludgeGirl;
-import gaia.entity.monster.EntityGaiaSphinx;
-import gaia.entity.monster.EntityGaiaSpriggan;
-import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSwamper;
-import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
-import gaia.entity.monster.EntityGaiaWitherCow;
-import gaia.entity.monster.EntityGaiaYeti;
-import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.passive.EntityGaiaPropFlowerCyan;
-import gaia.init.GaiaConfig;
-import gaia.init.GaiaEntity;
+import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaItem;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -104,7 +51,7 @@ public class Gaia
 	public void preInit(FMLPreInitializationEvent event) 
 	{
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
-    	GaiaConfig.configOptions(cfg);
+    	GaiaConfigGeneration.configOptions(cfg);
 		
 		//GaiaBlock.init();
     	GaiaItem.init();
@@ -119,6 +66,7 @@ public class Gaia
 	{
 
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
+		GaiaItem.addRecipes();
 		
 		/*ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);
