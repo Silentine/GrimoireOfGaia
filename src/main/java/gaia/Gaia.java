@@ -17,10 +17,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
-		modid = "gaia",
-		name = "Grimoire of Gaia 3",
-		version = "1.0.0"
-		)
+		modid = GaiaReference.MOD_ID, 
+		name = GaiaReference.MOD_NAME, 
+		version = GaiaReference.VERSION)
 /*
 @NetworkMod(
 		clientSideRequired = true,
@@ -30,14 +29,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Gaia 
 {
-	public static final String modid = "GrimoireOfGaia";
-	@Instance("GrimoireOfGaia")
+	@Instance(GaiaReference.MOD_ID)
 	public static Gaia instance = new Gaia();
-	@SidedProxy(
-			clientSide = "gaia.proxy.ClientProxy",
-			serverSide = "gaia.proxy.CommonProxy"
-			)
+	@SidedProxy
+	(clientSide = GaiaReference.CLIENT_PROXY_CLASS, 
+	serverSide = GaiaReference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") 
 	{
 		@Override
