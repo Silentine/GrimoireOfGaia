@@ -1,6 +1,6 @@
 package gaia.init;
 
-import gaia.Gaia;
+import gaia.GaiaReference;
 import gaia.block.BlockBustSphinx;
 import gaia.block.BlockBustValkyrie;
 import gaia.block.BlockBustVampire;
@@ -90,6 +90,6 @@ public class GaiaBlock {
 	public static void registerRender(Block block)
 	{
 		Item item = Item.getItemFromBlock(block);
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(Gaia.modid + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

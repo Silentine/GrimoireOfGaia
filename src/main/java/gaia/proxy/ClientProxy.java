@@ -1,6 +1,8 @@
 package gaia.proxy;
 
 import gaia.init.GaiaItem;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class ClientProxy extends CommonProxy {
 	@Override
@@ -81,5 +83,31 @@ public class ClientProxy extends CommonProxy {
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookNature, new RenderWeaponBookNature());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookWither, new RenderWeaponBookWither());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookBuff, new RenderWeaponBookBuff());*/
+	}
+		
+	private void registerItems(){
+		// Shards
+		ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 0, new ModelResourceLocation("gaia:ShardIron", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 1, new ModelResourceLocation("gaia:ShardGold", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 2, new ModelResourceLocation("gaiaShardDiamond:", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 3, new ModelResourceLocation("gaia:ShardEmerald", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 4, new ModelResourceLocation("gaia:ShardNetherStar", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 5, new ModelResourceLocation("gaia:ShardEnderPearl", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 6, new ModelResourceLocation("gaia:ShardBlazeRod", "inventory"));
+        
+        // Misc Ring
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 0, new ModelResourceLocation("gaia:MiscRingSpeed", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 1, new ModelResourceLocation("gaia:MiscRingHaste", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 2, new ModelResourceLocation("gaia:MiscRingJump", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 3, new ModelResourceLocation("gaia:MiscRingNight", "inventory"));
+        
+        // Misc Currency
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscCurrency, 0, new ModelResourceLocation("gaia:MiscCurrency", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscCurrency, 1, new ModelResourceLocation("gaia:MiscCurrencyMulti", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscCurrency, 2, new ModelResourceLocation("gaia:MiscCurrencyExtra", "inventory"));
+        
+        // Misc Enchanted Weapon
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 0, new ModelResourceLocation("gaia:MiscWeaponFanIce", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 1, new ModelResourceLocation("gaia:MiscWeaponFanFire", "inventory"));
 	}
 }
