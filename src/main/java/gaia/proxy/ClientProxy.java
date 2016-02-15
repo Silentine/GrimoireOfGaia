@@ -90,7 +90,7 @@ public class ClientProxy extends CommonProxy {
 		// Shards
 		ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 0, new ModelResourceLocation("gaia:ShardIron", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 1, new ModelResourceLocation("gaia:ShardGold", "inventory"));
-        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 2, new ModelResourceLocation("gaia:ShardDiamond:", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 2, new ModelResourceLocation("gaia:ShardDiamond", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 3, new ModelResourceLocation("gaia:ShardEmerald", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 4, new ModelResourceLocation("gaia:ShardNetherStar", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 5, new ModelResourceLocation("gaia:ShardEnderPearl", "inventory"));
