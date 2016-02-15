@@ -103,18 +103,16 @@ public class Gaia
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
 	{
-		proxy.registerRenders();
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
-		
+    	GaiaConfig.configOptions(cfg);
 		
 		//GaiaBlock.init();
     	GaiaItem.init();
     	GaiaItem.register();
     	GaiaItem.oreRegistration();
     	GaiaEntity.register();
-    	GaiaConfig.configOptions(cfg);
 		//proxy.registerRenderingFactories();
-		
+    	proxy.registerRenders();
 	}
 
 	@EventHandler
