@@ -57,6 +57,7 @@ public class Gaia
     	GaiaItem.oreRegistration();
 		//proxy.registerRenderingFactories();
     	proxy.registerRenders();
+    	proxy.registerItemsRender();
 	}
 
 	@EventHandler
