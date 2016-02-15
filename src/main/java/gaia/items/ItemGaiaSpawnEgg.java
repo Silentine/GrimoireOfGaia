@@ -68,8 +68,8 @@ public final class ItemGaiaSpawnEgg extends Item {
 			}
 
 			if (entity == null) {
-				// Logger.getlo.logWarning("Skipping Entity with id " +
-				// entityID);
+				 //Logger.getlo.logWarning("Skipping Entity with id " +
+				 //entityID);
 			} else {
 				entity.setLocationAndAngles(posX, posY, posZ, MathHelper
 						.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F),
@@ -203,10 +203,10 @@ public final class ItemGaiaSpawnEgg extends Item {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
 		return renderPass > 0 ? this.overlayIcon : this.baseIcon;
-	}
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_,
