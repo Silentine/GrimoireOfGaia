@@ -82,9 +82,4 @@ public class ClientProxy extends CommonProxy {
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookWither, new RenderWeaponBookWither());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookBuff, new RenderWeaponBookBuff());*/
 	}
-	
-	@Override
-	public void registerRenderingFactories(){
-		//RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, RenderGaiaAnubis.FACTORY);
-	}
 }

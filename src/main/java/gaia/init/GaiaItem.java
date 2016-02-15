@@ -50,12 +50,12 @@ import gaia.items.ItemWeaponBookHunger;
 import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -346,7 +346,7 @@ public class GaiaItem {
 	
 	public static void registerRender(Item item)
 	{
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
 	
 }
