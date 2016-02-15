@@ -169,6 +169,8 @@ public class Gaia
 		cfg.save();
 		//GaiaBlock.init();
     	GaiaItem.init();
+    	GaiaItem.register();
+    	GaiaItem.oreRegistration();
 		//proxy.registerRenderingFactories();
 		
 	}
@@ -178,7 +180,6 @@ public class Gaia
 	{
 
 		proxy.registerRenders();
-		proxy.registerSounds();
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		byte trackingRange = 64;
 		byte updateFrequency = 3;

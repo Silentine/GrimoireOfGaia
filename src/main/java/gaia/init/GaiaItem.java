@@ -1,6 +1,7 @@
 package gaia.init;
 
-import gaia.Gaia;
+import java.util.Locale;
+
 import gaia.items.ItemAccessoryDollCursed;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
@@ -118,13 +119,6 @@ public class GaiaItem {
 	//public static Item SpawnEgg;
 
 	public static void init() {
-		addItems();
-		addNames();
-		addRecipes();
-		oreRegistration();
-	}
-
-	public static void addItems() {
 		Shard = new ItemShard("Shard");
 		Fragment = new ItemFragment("FragmentEmerald");
 		FoodMeatMorsel = new ItemFoodMeatMorsel(4, 0.8F, true, "FoodMeatMorsel");
@@ -182,7 +176,10 @@ public class GaiaItem {
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
 		AccessoryDollCursed = new ItemAccessoryDollCursed("AccessoryDollCursed");
 		//SpawnEgg = new ItemGaiaSpawnEgg();
-
+	}
+	
+	public static void register()
+	{
 		Item[] items = new Item[] { 
 				Shard, 
 				Fragment,
@@ -248,7 +245,7 @@ public class GaiaItem {
 		
 		//BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
-    
+
 	public static void addRecipes() {
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.gold_ingot, 1), new Object[]{new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1)});
@@ -349,8 +346,7 @@ public class GaiaItem {
 	
 	public static void registerRender(Item item)
 	{
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(Gaia.modid + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
 	
-	public static void addNames() {}
 }

@@ -8,8 +8,4 @@ public class CommonProxy {
 	public void registerRenderingFactories(){
 		
 	}
-	
-	public void registerSounds() {
-		
-	}
 }
