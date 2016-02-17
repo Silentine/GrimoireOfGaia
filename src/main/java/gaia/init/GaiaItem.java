@@ -35,6 +35,8 @@ import gaia.items.ItemMiscFurnaceFuel;
 import gaia.items.ItemMiscGigaGear;
 import gaia.items.ItemMiscPage;
 import gaia.items.ItemMiscRing;
+import gaia.items.ItemMiscSoulFiery;
+import gaia.items.ItemMiscSoulFire;
 import gaia.items.ItemMiscWeaponEnchanted;
 import gaia.items.ItemShard;
 import gaia.items.ItemSpawnCard;
@@ -76,8 +78,8 @@ public class GaiaItem {
 	public static Item FoodPieMandrake;
 	public static Item FoodPieMeat;
 	public static Item FoodPieBerry;
-	//public static Item MiscSoulFire;
-	//public static Item MiscSoulFiery;
+	public static Item MiscSoulFire;
+	public static Item MiscSoulFiery;
 	public static Item MiscGigaGear;
 	public static Item MiscPage;
 	public static Item MiscBook;
@@ -135,8 +137,8 @@ public class GaiaItem {
 		FoodPieMandrake = (new ItemFoodPieMandrake(12, 0.8F, true, "FoodPieMandrake")).setAlwaysEdible();
 		FoodPieMeat = (new ItemFoodPieMeat(16, 0.8F, true, "FoodPieMeat"));
 		FoodPieBerry = (new ItemFoodPieBerry(12, 0.2F, true, "FoodPieBerry"));
-		//MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
-		//MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
+		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
+		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
 		MiscPage = new ItemMiscPage("MiscPage");
 		MiscBook = new ItemMiscBook("MiscBook");
@@ -197,8 +199,8 @@ public class GaiaItem {
 				FoodPieMandrake, 
 				FoodPieMeat,
 				FoodPieBerry,
-				//MiscSoulFire, 
-				//MiscSoulFiery, 
+				MiscSoulFire, 
+				MiscSoulFiery, 
 				MiscGigaGear, 
 				MiscPage,
 				MiscBook, 
@@ -301,8 +303,8 @@ public class GaiaItem {
 		registerRender(FoodPieMandrake);
 		registerRender(FoodPieMeat);
 		registerRender(FoodPieBerry);
-		//registerRender(MiscSoulFire);
-		//registerRender(MiscSoulFiery);
+		registerRender(MiscSoulFire);
+		registerRender(MiscSoulFiery);
 		registerRender(MiscGigaGear);
 		registerRender(MiscPage);
 		registerRender(MiscBook);
