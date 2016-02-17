@@ -1,36 +1,30 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.model.ModelGaiaEnderDragonGirl;
-
 import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.entity.monster.EntityGaiaEnderDragonGirl;
+import gaia.model.ModelGaiaEnderDragonGirl;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaEnderDragonGirl extends RenderLiving {
+public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDragonGirl> {
 
 	private static final ResourceLocation enderdragongirlEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Dragon_Girl.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Dragon_Girl.png");
 	private ModelGaiaEnderDragonGirl EnderDragonGirlModel;
 	private Random rnd = new Random();
-
-	public RenderGaiaEnderDragonGirl() {
-		super(new ModelGaiaEnderDragonGirl(), 0.5F);
+	
+	public RenderGaiaEnderDragonGirl(RenderManager renderManager, ModelGaiaEnderDragonGirl model, float shadowSize) {
+        super(renderManager, model, shadowSize);
 		this.EnderDragonGirlModel = (ModelGaiaEnderDragonGirl)super.mainModel;
-		this.setRenderPassModel(this.EnderDragonGirlModel);
+		//this.setRenderPassModel(this.EnderDragonGirlModel);
 	}
 
 	public void renderEnderDragonGirl(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, double par2, double par4, double par6, float par8, float par9) {
@@ -45,7 +39,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving {
 		super.doRender(par1EntityGaiaEnderDragonGirl, par2, par4, par6, par8, par9);
 	}
 
-	protected void renderCarrying(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, float par2) {
+	/*protected void renderCarrying(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, float par2) {
 		super.renderEquippedItems(par1EntityGaiaEnderDragonGirl, par2);
 		int id = par1EntityGaiaEnderDragonGirl.getCarried();
 		Block b = Block.getBlockById(id);
@@ -69,7 +63,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving {
 			GL11.glPopMatrix();
 			GL11.glDisable('\u803a');
 		}
-	}
+	}*/
 
 	protected int shouldRenderPass(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, int par2, float par3) {
 		if (par1EntityGaiaEnderDragonGirl.isInvisible()) {
@@ -104,15 +98,15 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving {
 		return this.shouldRenderPass((EntityGaiaEnderDragonGirl)par1EntityLiving, par2, par3);
 	}
 
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		this.renderCarrying((EntityGaiaEnderDragonGirl)par1EntityLiving, par2);
-	}
+	}*/
 
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+	public void doRender(EntityGaiaEnderDragonGirl par1Entity, double par2, double par4, double par6, float par8, float par9) {
 		this.renderEnderDragonGirl((EntityGaiaEnderDragonGirl)par1Entity, par2, par4, par6, par8, par9);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaEnderDragonGirl entity) {
 		return texture;
 	}
 }

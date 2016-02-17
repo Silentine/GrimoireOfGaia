@@ -1,10 +1,10 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import com.google.common.collect.Multimap;
+
+import gaia.Gaia;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,11 +21,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponBookWither extends ItemSword {
 	private float weaponDamage;
@@ -44,7 +41,7 @@ public class ItemWeaponBookWither extends ItemSword {
 
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.rare;
+		return EnumRarity.RARE;
 	}
 	
 	@Override
@@ -80,7 +77,7 @@ public class ItemWeaponBookWither extends ItemSword {
 	}
 	
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
@@ -96,7 +93,7 @@ public class ItemWeaponBookWither extends ItemSword {
 		return Items.book == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
-	public void registerIcons(IIconRegister iconRegister) {
+	/*public void registerIcons(IIconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}
+	}*/
 }

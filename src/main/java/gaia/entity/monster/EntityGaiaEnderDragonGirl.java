@@ -1,8 +1,8 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
+import gaia.init.GaiaItem;
 
 import java.util.HashSet;
 

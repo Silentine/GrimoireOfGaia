@@ -1,8 +1,8 @@
 package gaia.entity.passive;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
+import gaia.init.GaiaItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;

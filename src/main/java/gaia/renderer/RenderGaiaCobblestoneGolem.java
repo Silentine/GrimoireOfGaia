@@ -1,22 +1,20 @@
 package gaia.renderer;
 
+import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.model.ModelGaiaCobblestoneGolem;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaCobblestoneGolem extends RenderLiving {
+public class RenderGaiaCobblestoneGolem extends RenderLiving<EntityGaiaCobblestoneGolem> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Cobblestone_Golem.png");
 
-	public RenderGaiaCobblestoneGolem() {
-		super(new ModelGaiaCobblestoneGolem(), 0.5F);
-	}
-
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	public RenderGaiaCobblestoneGolem(RenderManager renderManager, ModelGaiaCobblestoneGolem model, float shadowSize) {
+        super(renderManager, model, shadowSize);
+    }
+	
+	protected ResourceLocation getEntityTexture(EntityGaiaCobblestoneGolem entity) {
 		return texture;
 	}
 }

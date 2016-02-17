@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaMinotaur extends ModelBase {
@@ -252,15 +252,15 @@ public class ModelGaiaMinotaur extends ModelBase {
         float f6;
         float f7;
 
-        if (this.onGround > -9990.0F)
+        if (this.swingProgress > -9990.0F)
         {
-            f6 = this.onGround;
-            f6 = 1.0F - this.onGround;
+            f6 = this.swingProgress;
+            f6 = 1.0F - this.swingProgress;
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0F - f6;
             f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.onGround * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
             
             this.rightarmlower.rotateAngleX = (float)((double)this.rightarmlower.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
             this.rightarm.rotateAngleX = this.rightarmlower.rotateAngleX;
@@ -270,7 +270,7 @@ public class ModelGaiaMinotaur extends ModelBase {
             this.rightarm.rotateAngleY = this.rightarmlower.rotateAngleY;
             this.righthandle.rotateAngleY = this.rightarmlower.rotateAngleY;
             this.righthammerhead.rotateAngleY = this.rightarmlower.rotateAngleY;
-            this.rightarm.rotateAngleZ = (MathHelper.sin(this.onGround * (float)Math.PI) * -0.4F);
+            this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
             this.rightarm.rotateAngleZ = this.rightarmlower.rotateAngleZ + 0.1745329F;
             this.righthandle.rotateAngleZ = this.rightarmlower.rotateAngleZ;
             this.righthammerhead.rotateAngleZ = this.rightarmlower.rotateAngleZ;

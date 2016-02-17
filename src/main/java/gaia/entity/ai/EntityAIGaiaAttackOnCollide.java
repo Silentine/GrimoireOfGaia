@@ -52,7 +52,8 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 
 	public boolean continueExecuting() {
 		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-		return entitylivingbase == null?false:(!entitylivingbase.isEntityAlive()?false:(!this.longMemory?!this.attacker.getNavigator().noPath():this.attacker.isWithinHomeDistance(MathHelper.floor_double(entitylivingbase.posX), MathHelper.floor_double(entitylivingbase.posY), MathHelper.floor_double(entitylivingbase.posZ))));
+		//isWithinHomeDistance(MathHelper.floor_double(entitylivingbase.posX), MathHelper.floor_double(entitylivingbase.posY), MathHelper.floor_double(entitylivingbase.posZ))));
+		return entitylivingbase == null?false:(!entitylivingbase.isEntityAlive()?false:(!this.longMemory?!this.attacker.getNavigator().noPath():this.attacker.isWithinHomeDistanceCurrentPosition()));
 	}
 
 	public void startExecuting() {
@@ -86,7 +87,8 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 
 		this.attackTick = Math.max(this.attackTick - 1, 0);
 		double var4 = (double)(this.attacker.width * 2.0F * this.attacker.width * 2.0F + entitylivingbase.width);
-		if(this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.boundingBox.minY, entitylivingbase.posZ) <= var4 && this.attackTick <= 0) {
+		//normally entitylivingbase.boundingBox.minY
+		if(this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ) <= var4 && this.attackTick <= 0) {
 			this.attackTick = 20;
 			if(this.attacker.getHeldItem() != null) {
 				this.attacker.swingItem();

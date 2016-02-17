@@ -2,12 +2,12 @@ package gaia.entity;
 
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Sets;
 
 public abstract class EntityMobDay extends EntityMobBase {
 

@@ -1,27 +1,23 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.model.ModelGaiaEnderEye;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
-public class RenderGaiaEnderEye extends RenderLiving {
+public class RenderGaiaEnderEye extends RenderLiving<EntityGaiaEnderEye> {
 
 	private static final ResourceLocation endereyeEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Eye.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Eye.png");
-
-	public RenderGaiaEnderEye() {
-		super(new ModelGaiaEnderEye(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaEnderEye());
+	
+	public RenderGaiaEnderEye(RenderManager renderManager, ModelGaiaEnderEye model, float shadowSize) {
+        super(renderManager, model, shadowSize);
+		//this.setRenderPassModel(new ModelGaiaEnderEye());
 	}
 
 	protected int shouldRenderPass(EntityGaiaEnderEye par1EntityGaiaEnderEye, int par2, float par3) {
@@ -57,7 +53,7 @@ public class RenderGaiaEnderEye extends RenderLiving {
 		return this.shouldRenderPass((EntityGaiaEnderEye)par1EntityLiving, par2, par3);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaEnderEye entity) {
 		return texture;
 	}
 }

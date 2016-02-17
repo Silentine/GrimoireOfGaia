@@ -20,7 +20,7 @@ public class TileEntityDollCreeperGirl extends TileEntity {
 	}
 
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		this.readFromNBT(pkt.func_148857_g());
+		this.readFromNBT(pkt.getNbtCompound());
 	}
 
 	public Packet getDescriptionPacket() {
@@ -30,7 +30,7 @@ public class TileEntityDollCreeperGirl extends TileEntity {
 			this.writeToNBT(blockinfo);
 		}
 
-		datapacket = new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 5, blockinfo);
+		datapacket = new S35PacketUpdateTileEntity(this.getPos(), 5, blockinfo);
 		return datapacket;
 	}
 

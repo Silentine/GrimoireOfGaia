@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaNineTails extends ModelBase {
@@ -238,21 +238,21 @@ public class ModelGaiaNineTails extends ModelBase {
         float f6;
         float f7;
 
-        if (this.onGround > -9990.0F)
+        if (this.swingProgress > -9990.0F)
         {
-            f6 = this.onGround;
-            f6 = 1.0F - this.onGround;
+            f6 = this.swingProgress;
+            f6 = 1.0F - this.swingProgress;
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0F - f6;
             f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.onGround * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
             
             this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
             this.rightarmupper.rotateAngleX = this.rightarmupper.rotateAngleX;
             this.rightarm.rotateAngleY += (this.bodytop.rotateAngleY * 2.0F);
             this.rightarmupper.rotateAngleY = this.rightarmupper.rotateAngleY;
-            this.rightarm.rotateAngleZ = (MathHelper.sin(this.onGround * (float)Math.PI) * -0.4F) + 0.1745329F;
+            this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F) + 0.1745329F;
             this.rightarmupper.rotateAngleZ = this.rightarmupper.rotateAngleZ;
         }
 	}

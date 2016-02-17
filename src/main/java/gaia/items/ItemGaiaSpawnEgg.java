@@ -1,16 +1,14 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.entity.EntityGaiaEggInfo;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import gaia.Gaia;
+import gaia.entity.EntityGaiaEggInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -20,21 +18,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Facing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class ItemGaiaSpawnEgg extends Item {
-	@SideOnly(Side.CLIENT)
-	private IIcon baseIcon;
-	@SideOnly(Side.CLIENT)
-	private IIcon overlayIcon;
+	//@SideOnly(Side.CLIENT)
+	//private IIcon baseIcon;
+	//@SideOnly(Side.CLIENT)
+	//private IIcon overlayIcon;
 	private static Map<Integer, String> idToName = new HashMap();
 	private static Map<Integer, EntityGaiaEggInfo> idToEgg = new HashMap();
 	private static Map<Integer, Class<? extends EntityLiving>> idToClass = new HashMap();
@@ -72,8 +68,8 @@ public final class ItemGaiaSpawnEgg extends Item {
 			}
 
 			if (entity == null) {
-				// Logger.getlo.logWarning("Skipping Entity with id " +
-				// entityID);
+				 //Logger.getlo.logWarning("Skipping Entity with id " +
+				 //entityID);
 			} else {
 				entity.setLocationAndAngles(posX, posY, posZ, MathHelper
 						.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F),
@@ -207,10 +203,10 @@ public final class ItemGaiaSpawnEgg extends Item {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
 		return renderPass > 0 ? this.overlayIcon : this.baseIcon;
-	}
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_,
@@ -223,9 +219,9 @@ public final class ItemGaiaSpawnEgg extends Item {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegistry) {
 		this.baseIcon = iconRegistry.registerIcon("spawn_egg");
 		this.overlayIcon = iconRegistry.registerIcon("spawn_egg_overlay");
-	}
+	}*/
 }

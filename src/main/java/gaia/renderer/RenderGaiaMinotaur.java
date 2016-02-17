@@ -1,39 +1,27 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.model.ModelGaiaMinotaur;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.entity.monster.EntityGaiaMinotaur;
+import gaia.model.ModelGaiaMinotaur;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
 public class RenderGaiaMinotaur extends RenderLiving {
 
 	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Minotaur.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Minotaur.png");
 
-	public RenderGaiaMinotaur() {
-		super(new ModelGaiaMinotaur(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaMinotaur());
+	public RenderGaiaMinotaur(RenderManager renderManager, ModelGaiaMinotaur model, float shadowSize) {
+        super(renderManager, model, shadowSize);
+		//this.setRenderPassModel(new ModelGaiaMinotaur());
 	}
 
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
 		super.renderEquippedItems(par1EntityLiving, par2);
@@ -88,7 +76,7 @@ public class RenderGaiaMinotaur extends RenderLiving {
 
 			GL11.glPopMatrix();
 		}
-	}
+	}*/
 	
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
