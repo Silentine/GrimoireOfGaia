@@ -56,7 +56,7 @@ public class Gaia
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
     	GaiaConfigGeneration.configOptions(cfg);
 		    	
-		//GaiaBlock.init();
+		GaiaBlock.init();
     	GaiaItem.init();
     	GaiaItem.register();
     	GaiaItem.oreRegistration();

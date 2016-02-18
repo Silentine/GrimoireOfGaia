@@ -39,13 +39,13 @@ public class GaiaBlock {
 	}
 
 	public static void addBlocks() {
-		BustSphinx = (new BlockBustSphinx(Material.rock)).setBlockTextureName("Gaia:Icon_Bust");
-		BustValkyrie = (new BlockBustValkyrie(Material.rock)).setBlockTextureName("Gaia:Icon_Bust");
-		BustVampire = (new BlockBustVampire(Material.rock)).setBlockTextureName("Gaia:Icon_Bust");
-		DollCreeperGirl = (new BlockDollCreeperGirl(Material.cloth)).setBlockTextureName("Gaia:Icon_Doll");
-		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth)).setBlockTextureName("Gaia:Icon_Doll");
-		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth)).setBlockTextureName("Gaia:Icon_Doll");
-		DollMaid = (new BlockDollMaid(Material.cloth)).setBlockTextureName("Gaia:Icon_Doll");
+		BustSphinx = (new BlockBustSphinx(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
+		BustValkyrie = (new BlockBustValkyrie(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
+		BustVampire = (new BlockBustVampire(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
+		DollCreeperGirl = (new BlockDollCreeperGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
+		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
+		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
+		DollMaid = (new BlockDollMaid(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
 	}
 
 //	public static void addRecipes() {}

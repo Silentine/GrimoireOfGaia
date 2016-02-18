@@ -15,6 +15,7 @@ import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaWitherCow;
+import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
 import gaia.renderer.RenderGaiaAnubis;
 import gaia.renderer.RenderGaiaBaphomet;
@@ -31,8 +32,23 @@ import gaia.renderer.RenderGaiaSiren;
 import gaia.renderer.RenderGaiaSpriggan;
 import gaia.renderer.RenderGaiaSummonButler;
 import gaia.renderer.RenderGaiaWitherCow;
+import gaia.renderer.tileentity.TileRenderBustSphinx;
+import gaia.renderer.tileentity.TileRenderBustValkyrie;
+import gaia.renderer.tileentity.TileRenderBustVampire;
+import gaia.renderer.tileentity.TileRenderDollCreeperGirl;
+import gaia.renderer.tileentity.TileRenderDollEnderGirl;
+import gaia.renderer.tileentity.TileRenderDollMaid;
+import gaia.renderer.tileentity.TileRenderDollSlimeGirl;
+import gaia.tileentity.TileEntityBustSphinx;
+import gaia.tileentity.TileEntityBustValkyrie;
+import gaia.tileentity.TileEntityBustVampire;
+import gaia.tileentity.TileEntityDollCreeperGirl;
+import gaia.tileentity.TileEntityDollEnderGirl;
+import gaia.tileentity.TileEntityDollMaid;
+import gaia.tileentity.TileEntityDollSlimeGirl;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
@@ -41,8 +57,9 @@ public class ClientProxy extends CommonProxy {
 		
 		super.registerRenders();
 		
-		//GaiaBlock.registerRenders();	
+		
 		/**	MOVED GaiaItem.registerRenders(); TO REGISTER ITEM RENDERER BELOW**/
+		GaiaBlock.registerRenders();	
 		
 		
 		//RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, new RenderGaiaAnubis());
@@ -121,15 +138,15 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, new RenderGaiaYukiOnna());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(1));
-		
+		*/
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustSphinx.class, new TileRenderBustSphinx());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustValkyrie.class, new TileRenderBustValkyrie());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustVampire.class, new TileRenderBustVampire());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollCreeperGirl.class, new TileRenderDollCreeperGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollEnderGirl.class, new TileRenderDollEnderGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollSlimeGirl.class, new TileRenderDollSlimeGirl());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());*/
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());
+		/*
 	    /*MinecraftForgeClient.registerItemRenderer(GaiaItem.BookFreezing, new RenderWeaponBookFreezing());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookNightmare, new RenderWeaponBookNightmare());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookMetal, new RenderWeaponBookMetal());
@@ -145,6 +162,8 @@ public class ClientProxy extends CommonProxy {
 	public void registerItemsRender(){
 		
 		GaiaItem.registerRenders();
+		
+		
 		// Shards
 		ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 0, new ModelResourceLocation("gaia:ShardIron", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 1, new ModelResourceLocation("gaia:ShardGold", "inventory"));
