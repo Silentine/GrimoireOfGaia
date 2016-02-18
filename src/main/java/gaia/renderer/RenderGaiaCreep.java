@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.model.ModelGaiaCreep;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -18,8 +19,9 @@ public class RenderGaiaCreep extends RenderLiving {
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Creep.png");
 	private ModelBase GaiaCreepModel = new ModelGaiaCreep(2.0F);
 
-	public RenderGaiaCreep(RenderManager renderManager, ModelGaiaCreep model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaCreep(float shadowSize) {
+        super(rend, new ModelGaiaCreep(), shadowSize);
     }
 
 	protected void updateCreepScale(EntityGaiaCreep par1EntityGaiaCreep, float par2) {

@@ -4,6 +4,7 @@ import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCockatrice;
+import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
 import gaia.entity.monster.EntityGaiaKobold;
@@ -21,6 +22,7 @@ import gaia.renderer.RenderGaiaAnubis;
 import gaia.renderer.RenderGaiaBaphomet;
 import gaia.renderer.RenderGaiaBoneKnight;
 import gaia.renderer.RenderGaiaCockatrice;
+import gaia.renderer.RenderGaiaCreep;
 import gaia.renderer.RenderGaiaDullahan;
 import gaia.renderer.RenderGaiaFutakuchiOnna;
 import gaia.renderer.RenderGaiaKobold;
@@ -82,6 +84,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSiren.class, new RenderGaiaSiren(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSpriggan.class, new RenderGaiaSpriggan(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonButler.class, new RenderGaiaSummonButler(small));
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaCreep.class, new RenderGaiaCreep(small));	
 		
 		/*RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBanshee.class, new RenderGaiaBanshee());
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBaphomet.class, new RenderGaiaBaphomet());
