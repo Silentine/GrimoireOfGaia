@@ -17,6 +17,9 @@ import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaWitherCow;
+import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
+import gaia.entity.passive.EntityGaiaNPCHolstaurus;
+import gaia.entity.passive.EntityGaiaNPCTrader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /** Temporary loading work around **/
@@ -54,8 +57,13 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSpriggan.class, "Spriggan", 37, Gaia.instance, trackingRange, updateFrequency, true,dog, mat);
 	EntityRegistry.registerModEntity(EntityGaiaSummonButler.class, "Butler", 81, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
 	
-	
 	EntityRegistry.registerModEntity(EntityGaiaCreep.class, "Creep", 9, Gaia.instance, trackingRange, updateFrequency, true, log, dog);
+	
+	//Questionables - code will need to be revised and fixed up - mostly working however
+	//Villagers interactions changed a bit in 1.8
+	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	
+	EntityRegistry.registerModEntity(EntityGaiaNPCHolstaurus.class, "Holstaurus", 64, Gaia.instance, trackingRange, updateFrequency, true, dog, ice);	
+	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);
 	
 	}
 }

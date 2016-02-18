@@ -1,15 +1,17 @@
 package gaia.entity;
 
-import java.util.Iterator;
-
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
 import gaia.entity.passive.EntityGaiaNPCTrader;
+
+import java.util.Iterator;
+
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -50,11 +52,13 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 //		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)GaiaEntityAttributes.attackDamage1);
 	}
-	
+	/**
 	@Override
 	public boolean isAIEnabled() {
 		return true;
 	}
+	*/
+	
 	@Override
 	protected boolean canDespawn() {
 		return false;
@@ -75,7 +79,8 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	protected void updateAITick() {
 		if(this.randomTickDivider-- <= 0) {
 			this.randomTickDivider = 70 + this.rand.nextInt(50);
-			this.villageObj = this.worldObj.villageCollectionObj.findNearestVillage(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ), 32);
+			//this.villageObj = this.worldObj.villageCollectionObj.findNearestVillage(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ), 32);
+			this.villageObj = this.worldObj.villageCollectionObj.getNearestVillage(this.getPosition(), 32);
 			if(this.villageObj == null) {
 				this.detachHome();
 			} else {
@@ -90,7 +95,8 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 						while (iterator.hasNext()) {
 							MerchantRecipe merchantrecipe = (MerchantRecipe)iterator.next();
 							if (merchantrecipe.isRecipeDisabled()) {
-								merchantrecipe.func_82783_a(this.rand.nextInt(6) + this.rand.nextInt(6) + 2);
+								//merchantrecipe.func_82783_a(this.rand.nextInt(6) + this.rand.nextInt(6) + 2);
+								merchantrecipe.increaseMaxTradeUses(this.rand.nextInt(6) + this.rand.nextInt(6) + 2);
 							}
 						}
 					}
@@ -106,23 +112,25 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 		super.updateAITick();
 	}
 	@Override
-	public boolean interact(EntityPlayer par1EntityPlayer) {
-		ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
+	public boolean interact(EntityPlayer player) {
+		ItemStack var2 = player.inventory.getCurrentItem();
 		boolean var3 = var2 != null && var2.getItem() == Items.spawn_egg;
 		if(!var3 && this.isEntityAlive() && !this.isTrading() && !this.isChild()) {
 			if(!this.worldObj.isRemote) {
-				this.setCustomer(par1EntityPlayer);
+				this.setCustomer(player);
 				String name = this.getCustomNameTag();
 				if(null == name || name.length() < 1) {
-					name = this.getCommandSenderName();
+					name = this.getCommandSenderEntity().getName();
+					//.getCommandSenderEntity();
 				}
 
-				par1EntityPlayer.displayGUIMerchant(this, name);
+				//player.displayGUIMerchant(this, name);
+				player.displayVillagerTradeGui(this);
 			}
 
 			return true;
 		} else {
-			return super.interact(par1EntityPlayer);
+			return super.interact(player);
 		}
 	}
 
@@ -150,25 +158,65 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 			else this.buyingList = new MerchantRecipeList(var2);
 		}
 	}
+	/**
 	@Override
-	public void useRecipe(MerchantRecipe var1) {
-		var1.incrementToolUses();
+	public void useRecipe(MerchantRecipe recipe) {
+		recipe.incrementToolUses();
 		
-		if(var1.hasSameIDsAs((MerchantRecipe)this.buyingList.get(this.buyingList.size() - 1))) {
+		if(recipe.hasSameIDsAs((MerchantRecipe)this.buyingList.get(this.buyingList.size() - 1))) {
 			this.timeUntilReset = 40;
 			this.needsInitilization = true;
 			if(this.buyingPlayer != null) {
-				this.buyersName = this.buyingPlayer.getCommandSenderName();
+				this.buyersName = this.buyingPlayer.getCommandSenderEntity();
 			} else {
 				this.buyersName = null;
 			}
 		}
 		
-		if(var1.getItemToBuy().getItem() == Items.emerald) {
-			this.wealth += var1.getItemToBuy().stackSize;
+		if(recipe.getItemToBuy().getItem() == Items.emerald) {
+			this.wealth += recipe.getItemToBuy().stackSize;
 		}
 	}
-	public void func_110297_a_(ItemStack par1ItemStack) { }
+	*/
+	public void useRecipe(MerchantRecipe recipe)
+    {
+        recipe.incrementToolUses();
+        this.livingSoundTime = -this.getTalkInterval();
+        this.playSound("mob.villager.yes", this.getSoundVolume(), this.getSoundPitch());
+        int i = 3 + this.rand.nextInt(4);
+
+        if (recipe.getToolUses() == 1 || this.rand.nextInt(5) == 0)
+        {
+            this.timeUntilReset = 40;
+            this.needsInitilization = true;
+            ///TODO Will need to come back to this, mating code got changed
+            //TODO this.isWillingToMate = true;
+
+            if (this.buyingPlayer != null)
+            {
+                this.lastBuyingPlayer = this.buyingPlayer.getName();
+            }
+            else
+            {
+                this.lastBuyingPlayer = null;
+            }
+
+            i += 5;
+        }
+
+        if (recipe.getItemToBuy().getItem() == Items.emerald)
+        {
+            this.wealth += recipe.getItemToBuy().stackSize;
+        }
+
+        if (recipe.getRewardsExp())
+        {
+            this.worldObj.spawnEntityInWorld(new EntityXPOrb(this.worldObj, this.posX, this.posY + 0.5D, this.posZ, i));
+        }
+    }
+	
+	
+	public void func_110297_a_(ItemStack itemstack) { }
 	@Override
 	public MerchantRecipeList getRecipes(EntityPlayer var1) {
 		if(this.buyingList == null) {
