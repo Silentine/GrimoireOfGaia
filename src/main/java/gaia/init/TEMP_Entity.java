@@ -20,6 +20,7 @@ import gaia.entity.monster.EntityGaiaSahuagin;
 import gaia.entity.monster.EntityGaiaShaman;
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
+import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -32,7 +33,7 @@ import gaia.entity.passive.EntityGaiaNPCTrader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /** Temporary loading work around **/
-/** Remove no longer testing **/
+/** Remove when no longer testing **/
 public class TEMP_Entity {
 
 	public static void register(){
@@ -67,7 +68,7 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSummonButler.class, "Butler", 81, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
 	
 	EntityRegistry.registerModEntity(EntityGaiaCreep.class, "Creep", 9, Gaia.instance, trackingRange, updateFrequency, true, log, dog);
-	EntityRegistry.registerModEntity(EntityGaiaDhampir.class, "Dhampir", 12, Gaia.instance, trackingRange, updateFrequency, true, ice, mat);
+	EntityRegistry.registerModEntity(EntityGaiaDhampir.class, "Dhampir", 12, Gaia.instance, trackingRange, updateFrequency, true, ice, mat); //Has an obvious rendering issue - Might be assets related
 	EntityRegistry.registerModEntity(EntityGaiaMimic.class, "Mimic", 24, Gaia.instance, trackingRange, updateFrequency, true, dog, cat);
 	EntityRegistry.registerModEntity(EntityGaiaJorogumo.class, "Jorogumo", 22, Gaia.instance, trackingRange, updateFrequency, true, mat, cat);
 	EntityRegistry.registerModEntity(EntityGaiaMinotaur.class, "Minotaur", 25, Gaia.instance, trackingRange, updateFrequency, true, ice, hat);
@@ -75,13 +76,13 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 42, Gaia.instance, trackingRange, updateFrequency, true, dog, hat);
 	EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, Gaia.instance, trackingRange, updateFrequency, true, rat, hat);
 	EntityRegistry.registerModEntity(EntityGaiaCentaur.class, "Centaur", 5, Gaia.instance, trackingRange, updateFrequency, true, fox, ice);
+	EntityRegistry.registerModEntity(EntityGaiaSphinx.class, "Sphinx", 36, Gaia.instance, trackingRange, updateFrequency, true, ice, cat);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
 	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCHolstaurus.class, "Holstaurus", 64, Gaia.instance, trackingRange, updateFrequency, true, dog, ice);	
-	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);
-	
+	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCEnderGirl.class, "Ender Girl", 63, Gaia.instance, trackingRange, updateFrequency, true, dog, log);
 	}
 }

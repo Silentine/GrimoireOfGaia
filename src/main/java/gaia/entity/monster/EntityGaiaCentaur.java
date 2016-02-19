@@ -124,7 +124,7 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 	/*
 	protected void entityInit() {
 		super.entityInit();
-		//NOPE this.dataWatcher.addObject(19, new Byte((byte)0));
+		this.dataWatcher.addObject(19, new Byte((byte)0));
 	}
 	*/
 	public void onUpdate() {
@@ -132,7 +132,7 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 		//Oh no....
 		//No freaking way....
 		//WHYYYYYY
-		//Who put this here? :^)
+		//Who put this here!? :^)
 		/*
 		this.field_70924_f = this.field_70926_e;
 		if(this.func_70922_bv()) {

@@ -30,6 +30,9 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 					par1MovingObjectPosition.entityHit.setFire(4);
 				}
 			} else {
+				//What the heck
+				//This does nothing :^)
+				/*
 				int var2 = par1MovingObjectPosition.blockX;
 				int var3 = par1MovingObjectPosition.blockY;
 				int var4 = par1MovingObjectPosition.blockZ;
@@ -52,7 +55,7 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 					break;
 				case 5:
 					++var2;
-				}
+				}*/
 			}
 
 			this.setDead();

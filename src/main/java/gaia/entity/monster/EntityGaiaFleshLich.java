@@ -31,7 +31,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
-		this.isImmuneToFire = true;
+		this.isImmuneToFire	 = true;
 		this.getNavigator().setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));

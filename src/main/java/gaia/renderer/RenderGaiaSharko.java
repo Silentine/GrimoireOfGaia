@@ -17,8 +17,8 @@ public class RenderGaiaSharko extends RenderLiving {
 	
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
-	public RenderGaiaSharko() {
-        super(rend, new ModelGaiaSharko(), 0.5F);
+	public RenderGaiaSharko(float shadow) {
+        super(rend, new ModelGaiaSharko(), shadow);
         this.addLayer(new held_rightarm(this, ModelGaiaSharko.rightarmlower));
 	}
 
