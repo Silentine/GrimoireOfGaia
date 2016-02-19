@@ -5,6 +5,7 @@ import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaItem;
 import gaia.init.TEMP_Entity;
+import gaia.init.TEMP_Spawning;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import gaia.renderer.RenderGaiaAnubis;
@@ -74,6 +75,7 @@ public class Gaia
 		GaiaItem.addRecipes();
 		
 		TEMP_Entity.register();
+		TEMP_Spawning.register_spawn();
 		/** Moved register renders to load init; required for entity renders **/
 		proxy.registerRenders();    	
     	

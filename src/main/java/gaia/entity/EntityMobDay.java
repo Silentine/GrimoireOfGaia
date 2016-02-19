@@ -54,6 +54,8 @@ public abstract class EntityMobDay extends EntityMobBase {
 					&& !this.worldObj.isAnyLiquid(this.boundingBox);
 		}
 		**/
-		return false;
+		//TODO returns false normally
+		return true;
+		//return false;
 	}
 }
