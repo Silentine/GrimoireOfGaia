@@ -5,6 +5,7 @@ import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBoneKnight;
+import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaDhampir;
@@ -73,6 +74,7 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 41, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
 	EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 42, Gaia.instance, trackingRange, updateFrequency, true, dog, hat);
 	EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, Gaia.instance, trackingRange, updateFrequency, true, rat, hat);
+	EntityRegistry.registerModEntity(EntityGaiaCentaur.class, "Centaur", 5, Gaia.instance, trackingRange, updateFrequency, true, fox, ice);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
