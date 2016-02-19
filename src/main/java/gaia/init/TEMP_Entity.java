@@ -6,6 +6,7 @@ import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
+import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
 import gaia.entity.monster.EntityGaiaKobold;
@@ -18,6 +19,7 @@ import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
+import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -58,6 +60,7 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSummonButler.class, "Butler", 81, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
 	
 	EntityRegistry.registerModEntity(EntityGaiaCreep.class, "Creep", 9, Gaia.instance, trackingRange, updateFrequency, true, log, dog);
+	EntityRegistry.registerModEntity(EntityGaiaDhampir.class, "Dhampir", 12, Gaia.instance, trackingRange, updateFrequency, true, ice, mat);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
@@ -65,5 +68,6 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaNPCHolstaurus.class, "Holstaurus", 64, Gaia.instance, trackingRange, updateFrequency, true, dog, ice);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);
 	
+	EntityRegistry.registerModEntity(EntityGaiaNPCEnderGirl.class, "Ender Girl", 63, Gaia.instance, trackingRange, updateFrequency, true, dog, log);
 	}
 }

@@ -5,6 +5,7 @@ import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
+import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
 import gaia.entity.monster.EntityGaiaKobold;
@@ -17,6 +18,7 @@ import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
+import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.init.GaiaBlock;
@@ -26,10 +28,12 @@ import gaia.renderer.RenderGaiaBaphomet;
 import gaia.renderer.RenderGaiaBoneKnight;
 import gaia.renderer.RenderGaiaCockatrice;
 import gaia.renderer.RenderGaiaCreep;
+import gaia.renderer.RenderGaiaDhampir;
 import gaia.renderer.RenderGaiaDullahan;
 import gaia.renderer.RenderGaiaFutakuchiOnna;
 import gaia.renderer.RenderGaiaKobold;
 import gaia.renderer.RenderGaiaNPCCreeperGirl;
+import gaia.renderer.RenderGaiaNPCEnderGirl;
 import gaia.renderer.RenderGaiaNPCHolstaurus;
 import gaia.renderer.RenderGaiaNPCTrader;
 import gaia.renderer.RenderGaiaNaga;
@@ -91,10 +95,13 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSpriggan.class, new RenderGaiaSpriggan(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonButler.class, new RenderGaiaSummonButler(small));
 		
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaCreep.class, new RenderGaiaCreep(small));	
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaCreep.class, new RenderGaiaCreep(small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaDhampir.class, new RenderGaiaDhampir(small));
+		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCCreeperGirl.class, new RenderGaiaNPCCreeperGirl(small));		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCHolstaurus.class, new RenderGaiaNPCHolstaurus(small));		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCTrader.class, new RenderGaiaNPCTrader(small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCEnderGirl.class, new RenderGaiaNPCEnderGirl(small));
 		
 		/*RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBanshee.class, new RenderGaiaBanshee());
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaBaphomet.class, new RenderGaiaBaphomet());
