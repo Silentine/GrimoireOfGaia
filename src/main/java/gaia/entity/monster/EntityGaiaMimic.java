@@ -141,6 +141,7 @@ public class EntityGaiaMimic extends EntityMobBase {
 
 	protected void fall(float f) {}
 
+	//Is no knockback intended - never noticed it :^)
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
 
 	public boolean getCanSpawnHere() {

@@ -49,4 +49,6 @@ public class Glowing_layer implements LayerRenderer<EntityLiving>
 	        return true;
 	    }
 
+		
+
 	}
