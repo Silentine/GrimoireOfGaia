@@ -17,8 +17,8 @@ public class RenderGaiaMinotaur extends RenderLiving {
 
 	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Minotaur.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Minotaur.png");
-
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
 	public RenderGaiaMinotaur(float shadowSize) {
         super(rend, new ModelGaiaMinotaur(), shadowSize);
         

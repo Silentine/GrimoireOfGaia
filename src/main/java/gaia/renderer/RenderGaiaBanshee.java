@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.model.ModelGaiaBanshee;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -14,11 +15,14 @@ public class RenderGaiaBanshee extends RenderLiving<EntityGaiaBanshee> {
 
 	private static final ResourceLocation bansheeEyesTexture = new ResourceLocation("gaia", "textures/models/Banshee.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Banshee.png");
-
-	public RenderGaiaBanshee(RenderManager renderManager, ModelGaiaBanshee model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaBanshee( float shadowSize) {
+        super(rend, new ModelGaiaBanshee(), shadowSize);
+        
+        this.addLayer(new Glowing_layer(this, bansheeEyesTexture));
     }
-
+	/*
 	protected int shouldRenderPass(EntityGaiaBanshee par1EntityGaiaBanshee, int par2, float par3) {
 		if(par2 != 0) {
 			return -1;
@@ -45,7 +49,7 @@ public class RenderGaiaBanshee extends RenderLiving<EntityGaiaBanshee> {
             return 1;
 		}
 	}
-
+	*/
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {
 		return this.shouldRenderPass((EntityGaiaBanshee)par1EntityLiving, par2, par3);
 	}

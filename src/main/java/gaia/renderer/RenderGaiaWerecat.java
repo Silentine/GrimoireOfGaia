@@ -3,8 +3,10 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaWerecat;
+import gaia.model.ModelGaiaDhampir;
 import gaia.model.ModelGaiaWerecat;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -21,12 +23,17 @@ public class RenderGaiaWerecat extends RenderLiving {
 	private static final ResourceLocation werecatEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Werecat.png");
 	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Werecat01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Werecat02.png");
-
-	public RenderGaiaWerecat(RenderManager renderManager, ModelGaiaWerecat model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaWerecat( float shadowSize) {
+        super(rend, new ModelGaiaWerecat(), shadowSize);
+        this.addLayer(new Glowing_layer(this, werecatEyesTexture));
+        
+        //Not sure why this is here - but okay
+        this.addLayer(new held_rightarm(this, ModelGaiaWerecat.righthand));        
 		//this.setRenderPassModel(new ModelGaiaWerecat());
 	}
-	
+	/*
 	protected int shouldRenderPass(EntityGaiaWerecat par1EntityGaiaWerecat, int par2, float par3) {
 		if (par1EntityGaiaWerecat.isInvisible()) {
 			return 0;
@@ -59,7 +66,9 @@ public class RenderGaiaWerecat extends RenderLiving {
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {
 		return this.shouldRenderPass((EntityGaiaWerecat)par1EntityLiving, par2, par3);
 	}
-
+	*/
+	
+	//Well thats weird
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
