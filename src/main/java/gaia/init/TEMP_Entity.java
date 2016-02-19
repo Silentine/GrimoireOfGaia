@@ -9,6 +9,7 @@ import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaDhampir;
+import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
@@ -98,6 +99,7 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSwamper.class, "Swamper", 39, Gaia.instance, trackingRange, updateFrequency, true, mat, dog);
 	EntityRegistry.registerModEntity(EntityGaiaSatyr.class, "Satyr", 30, Gaia.instance, trackingRange, updateFrequency, true, dog, rat);
 	EntityRegistry.registerModEntity(EntityGaiaGryphon.class, "Gryphon", 19, Gaia.instance, trackingRange, updateFrequency, true, cat, mat);
+	EntityRegistry.registerModEntity(EntityGaiaDryad.class, "Dryad", 13, Gaia.instance, trackingRange, updateFrequency, true, log, ice);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8

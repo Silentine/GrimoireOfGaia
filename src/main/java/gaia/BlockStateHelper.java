@@ -87,6 +87,6 @@ public class BlockStateHelper {
 			world.setBlockState(pos, state2, flags);
 	        return; 
 	    }
-		
+				
 	
 }

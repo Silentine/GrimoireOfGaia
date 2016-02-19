@@ -1,10 +1,14 @@
 package gaia.entity.monster;
 
+import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -22,14 +26,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityGaiaDryad extends EntityMobDay {
-	private float field_70926_e;
-	private float field_70924_f;
 
 	public EntityGaiaDryad(World par1World) {
 		super(par1World);
@@ -144,10 +148,15 @@ public class EntityGaiaDryad extends EntityMobDay {
             i = MathHelper.floor_double(this.posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
             j = MathHelper.floor_double(this.posY);
             k = MathHelper.floor_double(this.posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-
-            if (this.worldObj.getBlock(i, j, k).getMaterial() == Material.air && Blocks.tallgrass.canPlaceBlockAt(this.worldObj, i, j, k) && (this.rand.nextFloat() < 0.8F))
+            BlockPos pos = new BlockPos(i,j,k);
+            //if (this.worldObj.getBlockState(i, j, k).getMaterial() == Material.air && Blocks.tallgrass.canPlaceBlockAt(this.worldObj, pos) && (this.rand.nextFloat() < 0.8F))
+            if (BlockStateHelper.getBlockfromState(worldObj, pos).getMaterial() == Material.air && Blocks.tallgrass.canPlaceBlockAt(this.worldObj, pos) && (this.rand.nextFloat() < 0.8F))
             {
-                this.worldObj.setBlock(i, j, k, Blocks.tallgrass, 1, 3);
+               // this.worldObj.setBlock(i, j, k, Blocks.tallgrass, 1, 3);
+            	IBlockState iblockstate1 = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);//why is this so big :(
+                this.worldObj.setBlockState(pos, iblockstate1, 3);
+            
+            	
             }
         }
 	}
@@ -193,7 +202,7 @@ public class EntityGaiaDryad extends EntityMobDay {
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
-	
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
@@ -203,6 +212,16 @@ public class EntityGaiaDryad extends EntityMobDay {
 
 		return par1IEntityLivingData;
 	}
+	*/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 	
 	protected void entityInit() {
 		super.entityInit();

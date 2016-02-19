@@ -3,8 +3,10 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaDryad;
+import gaia.model.ModelGaiaAnubis;
 import gaia.model.ModelGaiaDryad;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -20,9 +22,11 @@ public class RenderGaiaDryad extends RenderLiving<EntityGaiaDryad> {
 
 	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Dryad01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Dryad02.png");
-
-	public RenderGaiaDryad(RenderManager renderManager, ModelGaiaDryad model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaDryad( float shadowSize) {
+        super(rend, new ModelGaiaDryad(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaDryad.rightarm));
     }
 	
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
