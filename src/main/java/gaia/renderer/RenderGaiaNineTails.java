@@ -3,6 +3,7 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.model.ModelGaiaNineTails;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -11,10 +12,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaNineTails extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Nine_Tails.png");
-
-	public RenderGaiaNineTails(RenderManager renderManager, ModelGaiaNineTails	 model, float shadowSize) {
-        super(renderManager, model, shadowSize);
-        this.addLayer(new held_rightarm(this, model.rightarm));
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaNineTails( float shadowSize) {
+        super(rend, new ModelGaiaNineTails(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaNineTails.rightarm));
 	}
 	
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

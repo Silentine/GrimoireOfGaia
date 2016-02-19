@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.model.ModelGaiaFleshLich;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
@@ -11,10 +12,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaFleshLich extends RenderLiving<EntityGaiaFleshLich> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Flesh_Lich.png");
-
-	public RenderGaiaFleshLich(RenderManager renderManager, ModelGaiaFleshLich model, float shadowSize) {
-        super(renderManager, model, shadowSize);
-        this.addLayer(new held_rightarm(this, model.rightarm));
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaFleshLich( float shadowSize) {
+        super(rend, new ModelGaiaFleshLich(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaFleshLich.rightarm));
     }
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

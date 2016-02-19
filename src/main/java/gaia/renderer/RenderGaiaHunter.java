@@ -2,8 +2,10 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.model.ModelGaiaAnubis;
 import gaia.model.ModelGaiaHunter;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -17,9 +19,11 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class RenderGaiaHunter extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Hunter.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
-	public RenderGaiaHunter(RenderManager renderManager, ModelGaiaHunter model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	public RenderGaiaHunter( float shadowSize) {
+        super(rend, new ModelGaiaHunter(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaHunter.rightarm));
     }
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

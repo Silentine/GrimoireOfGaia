@@ -17,7 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderGaiaAnubis extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Anubis.png");
-
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaAnubis() {

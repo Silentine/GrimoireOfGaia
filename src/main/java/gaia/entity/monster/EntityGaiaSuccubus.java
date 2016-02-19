@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -139,7 +140,7 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
-	
+	/*
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
@@ -149,6 +150,17 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
 		return par1IEntityLivingData;
 	}
+	*/
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	protected void fall(float f) {}
 

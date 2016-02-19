@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.model.ModelGaiaYukiOnna;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -17,9 +18,10 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class RenderGaiaYukiOnna extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Yuki_Onna.png");
-
-	public RenderGaiaYukiOnna(RenderManager renderManager, ModelGaiaYukiOnna model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaYukiOnna( float shadowSize) {
+        super(rend, new ModelGaiaYukiOnna(), shadowSize);
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

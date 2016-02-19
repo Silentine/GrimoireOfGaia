@@ -115,33 +115,8 @@ public class EntityGaiaDryad extends EntityMobDay {
 		return true;
 	}
 
-	public void onUpdate() {
-		super.onUpdate();
-		this.field_70924_f = this.field_70926_e;
-		if(this.func_70922_bv()) {
-			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-		} else {
-			this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-		}
-
-		if(this.func_70922_bv()) {
-			this.numTicksToChaseTarget = 10;
-		}
-	}
-
-	public boolean func_70922_bv() {
-		return this.dataWatcher.getWatchableObjectByte(19) == 1;
-	}
-
-	public void func_70918_i(boolean par1) {
-		if(par1) {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
-		} else {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
-		}
-	}
-
-	public void setTarget(Entity par1Entity) {
+	//TODO Millienare support
+	/*public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		if(elements.length > 2) {
 			StackTraceElement previousMethod = elements[2];
@@ -152,7 +127,7 @@ public class EntityGaiaDryad extends EntityMobDay {
 
 		super.setTarget(par1Entity);
 	}
-
+	*/
 	public void onLivingUpdate() {
         super.onLivingUpdate();
         int i = MathHelper.floor_double(this.posX);

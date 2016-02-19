@@ -22,6 +22,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
@@ -82,38 +83,8 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 	public boolean isAIEnabled() {
 		return true;
 	}
-
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(19, new Byte((byte)0));
-	}
-
-	public void onUpdate() {
-		super.onUpdate();
-		this.field_70924_f = this.field_70926_e;
-		if(this.func_70922_bv()) {
-			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-		} else {
-			this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-		}
-
-		if(this.func_70922_bv()) {
-			this.numTicksToChaseTarget = 10;
-		}
-	}
-
-	public boolean func_70922_bv() {
-		return this.dataWatcher.getWatchableObjectByte(19) == 1;
-	}
-
-	public void func_70918_i(boolean par1) {
-		if(par1) {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
-		} else {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
-		}
-	}
-
+	//TODO millanaire support
+	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		if(elements.length > 2) {
@@ -125,7 +96,7 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 
 		super.setTarget(par1Entity);
 	}
-
+	*/
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 	}
@@ -167,13 +138,23 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
-	
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 		this.enchantEquipment();
 		return par1IEntityLivingData;
 	}
+	*/
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	public boolean getCanSpawnHere() {
 		return this.posY > 60.0D && super.getCanSpawnHere();

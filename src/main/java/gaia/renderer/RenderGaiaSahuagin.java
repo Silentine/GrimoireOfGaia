@@ -12,8 +12,8 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaSahuagin extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Sahuagin.png");
-
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
 	public RenderGaiaSahuagin( float shadowSize) {
         super(rend, new ModelGaiaSahuagin(), shadowSize);
         this.addLayer(new held_rightarm(this, ModelGaiaSahuagin.rightarm));

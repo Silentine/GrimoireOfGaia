@@ -10,22 +10,32 @@ import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDullahan;
+import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
+import gaia.entity.monster.EntityGaiaGryphon;
+import gaia.entity.monster.EntityGaiaHarpy;
+import gaia.entity.monster.EntityGaiaHunter;
 import gaia.entity.monster.EntityGaiaJorogumo;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
 import gaia.entity.monster.EntityGaiaNaga;
+import gaia.entity.monster.EntityGaiaNineTails;
 import gaia.entity.monster.EntityGaiaSahuagin;
+import gaia.entity.monster.EntityGaiaSatyr;
 import gaia.entity.monster.EntityGaiaShaman;
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
+import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
+import gaia.entity.monster.EntityGaiaSwamper;
 import gaia.entity.monster.EntityGaiaVampire;
 import gaia.entity.monster.EntityGaiaWerecat;
 import gaia.entity.monster.EntityGaiaWitherCow;
+import gaia.entity.monster.EntityGaiaYeti;
+import gaia.entity.monster.EntityGaiaYukiOnna;
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
@@ -77,6 +87,17 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, Gaia.instance, trackingRange, updateFrequency, true, rat, hat);
 	EntityRegistry.registerModEntity(EntityGaiaCentaur.class, "Centaur", 5, Gaia.instance, trackingRange, updateFrequency, true, fox, ice);
 	EntityRegistry.registerModEntity(EntityGaiaSphinx.class, "Sphinx", 36, Gaia.instance, trackingRange, updateFrequency, true, ice, cat);
+	
+	EntityRegistry.registerModEntity(EntityGaiaYeti.class, "Yeti", 45, Gaia.instance, trackingRange, updateFrequency, true, hat, rat);
+	EntityRegistry.registerModEntity(EntityGaiaYukiOnna.class, "Yuki-Onna", 46, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
+	EntityRegistry.registerModEntity(EntityGaiaHarpy.class, "Harpy", 20, Gaia.instance, trackingRange, updateFrequency, true,hat, fox);
+	EntityRegistry.registerModEntity(EntityGaiaHunter.class, "Hunter", 21, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
+	EntityRegistry.registerModEntity(EntityGaiaNineTails.class, "NineTails", 28, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);
+	EntityRegistry.registerModEntity(EntityGaiaFleshLich.class, "Flesh Lich", 17, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
+	EntityRegistry.registerModEntity(EntityGaiaSuccubus.class, "Succubus", 38, Gaia.instance, trackingRange, updateFrequency, true,dog, fox);
+	EntityRegistry.registerModEntity(EntityGaiaSwamper.class, "Swamper", 39, Gaia.instance, trackingRange, updateFrequency, true, mat, dog);
+	EntityRegistry.registerModEntity(EntityGaiaSatyr.class, "Satyr", 30, Gaia.instance, trackingRange, updateFrequency, true, dog, rat);
+	EntityRegistry.registerModEntity(EntityGaiaGryphon.class, "Gryphon", 19, Gaia.instance, trackingRange, updateFrequency, true, cat, mat);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
