@@ -25,7 +25,7 @@ public class Glowing_layer implements LayerRenderer<EntityLiving>
 	    {
 	        this.livingEntityRenderer.bindTexture(glowing_texture);
 	        GlStateManager.enableBlend();
-	        GlStateManager.disableAlpha();
+	        //GlStateManager.disableAlpha();
 	        GlStateManager.blendFunc(1, 1);
 	        GlStateManager.disableLighting();
 	        GlStateManager.depthMask(!entity.isInvisible());
