@@ -20,6 +20,7 @@ import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSummonButler;
+import gaia.entity.monster.EntityGaiaVampire;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
@@ -67,6 +68,7 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaMimic.class, "Mimic", 24, Gaia.instance, trackingRange, updateFrequency, true, dog, cat);
 	EntityRegistry.registerModEntity(EntityGaiaJorogumo.class, "Jorogumo", 22, Gaia.instance, trackingRange, updateFrequency, true, mat, cat);
 	EntityRegistry.registerModEntity(EntityGaiaMinotaur.class, "Minotaur", 25, Gaia.instance, trackingRange, updateFrequency, true, ice, hat);
+	EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 41, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
