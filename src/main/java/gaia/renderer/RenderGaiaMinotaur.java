@@ -3,7 +3,9 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaMinotaur;
+import gaia.model.ModelGaiaAnubis;
 import gaia.model.ModelGaiaMinotaur;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -16,9 +18,12 @@ public class RenderGaiaMinotaur extends RenderLiving {
 	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Minotaur.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Minotaur.png");
 
-	public RenderGaiaMinotaur(RenderManager renderManager, ModelGaiaMinotaur model, float shadowSize) {
-        super(renderManager, model, shadowSize);
-		//this.setRenderPassModel(new ModelGaiaMinotaur());
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaMinotaur(float shadowSize) {
+        super(rend, new ModelGaiaMinotaur(), shadowSize);
+        
+        this.addLayer(new held_rightarm(this, ModelGaiaMinotaur.rightarmlower));
+        this.addLayer(new Glowing_layer(this, minotaurEyesTexture));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
