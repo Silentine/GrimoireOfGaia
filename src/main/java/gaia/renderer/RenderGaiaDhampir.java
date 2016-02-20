@@ -20,8 +20,8 @@ public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	
 	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Dhampir.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Dhampir.png");
-
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
 	public RenderGaiaDhampir(float shadowSize) {
         super(rend, new ModelGaiaDhampir(), shadowSize);
         this.addLayer(new held_rightarm(this, ModelGaiaDhampir.rightarm));

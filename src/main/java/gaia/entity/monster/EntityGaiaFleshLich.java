@@ -157,8 +157,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO PropWeapons 
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

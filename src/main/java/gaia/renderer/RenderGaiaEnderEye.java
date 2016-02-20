@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.model.ModelGaiaEnderEye;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -14,12 +15,14 @@ public class RenderGaiaEnderEye extends RenderLiving<EntityGaiaEnderEye> {
 
 	private static final ResourceLocation endereyeEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Eye.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Eye.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
-	public RenderGaiaEnderEye(RenderManager renderManager, ModelGaiaEnderEye model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	public RenderGaiaEnderEye(float shadowSize) {
+        super(rend, new ModelGaiaEnderEye(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaEnderEye());
+        this.addLayer(new Glowing_layer(this, endereyeEyesTexture));
 	}
-
+/*
 	protected int shouldRenderPass(EntityGaiaEnderEye par1EntityGaiaEnderEye, int par2, float par3) {
 		if (par1EntityGaiaEnderEye.isInvisible()) {
 			return 0;
@@ -48,7 +51,7 @@ public class RenderGaiaEnderEye extends RenderLiving<EntityGaiaEnderEye> {
             return 1;
 		}
 	}
-
+*/
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {
 		return this.shouldRenderPass((EntityGaiaEnderEye)par1EntityLiving, par2, par3);
 	}

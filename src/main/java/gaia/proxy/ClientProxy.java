@@ -13,6 +13,8 @@ import gaia.entity.monster.EntityGaiaCyclops;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
+import gaia.entity.monster.EntityGaiaEnderDragonGirl;
+import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
 import gaia.entity.monster.EntityGaiaGryphon;
@@ -62,6 +64,8 @@ import gaia.renderer.RenderGaiaCyclops;
 import gaia.renderer.RenderGaiaDhampir;
 import gaia.renderer.RenderGaiaDryad;
 import gaia.renderer.RenderGaiaDullahan;
+import gaia.renderer.RenderGaiaEnderDragonGirl;
+import gaia.renderer.RenderGaiaEnderEye;
 import gaia.renderer.RenderGaiaFleshLich;
 import gaia.renderer.RenderGaiaFutakuchiOnna;
 import gaia.renderer.RenderGaiaGryphon;
@@ -176,6 +180,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaWitch.class, new RenderGaiaWitch(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaMandragora.class, new RenderGaiaMandragora(tiny));
 		
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderEye.class, new RenderGaiaEnderEye(small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderDragonGirl.class, new RenderGaiaEnderDragonGirl(small));
+		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCCreeperGirl.class, new RenderGaiaNPCCreeperGirl(small));		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCHolstaurus.class, new RenderGaiaNPCHolstaurus(small));		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCTrader.class, new RenderGaiaNPCTrader(small));
@@ -282,14 +289,16 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscCurrency, 1, new ModelResourceLocation("gaia:MiscCurrencyMulti", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscCurrency, 2, new ModelResourceLocation("gaia:MiscCurrencyExtra", "inventory"));
         
-     // Misc Enchanted Weapon
+        // Misc Enchanted Weapon
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 0, new ModelResourceLocation("gaia:MiscWeaponFanIce", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 1, new ModelResourceLocation("gaia:MiscWeaponFanFire", "inventory"));
-        
+	
         // Prop Weapon
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 0, new ModelResourceLocation("gaia:WeaponPropEnder", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 1, new ModelResourceLocation("gaia:WeaponPropBlaze", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 2, new ModelResourceLocation("gaia:WeaponPropSpear", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 3, new ModelResourceLocation("gaia:WeaponPropDagger", "inventory"));
+	
+
 	}
 }

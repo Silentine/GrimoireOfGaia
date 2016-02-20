@@ -27,6 +27,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -93,6 +94,24 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 			return false;
 		}
 	}
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+	if(this.worldObj.rand.nextInt(4) == 0) {
+		this.tasks.addTask(2, this.aiArrowAttack);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.enchantEquipmentRanged();
+		this.setTextureType(1);
+	} else {
+		this.tasks.addTask(2, this.aiAttackOnCollide);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.fishing_rod));
+		this.enchantEquipment();
+		this.setMobType(1);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
+		this.setTextureType(0);
+	}	
+		
+    }
 
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);

@@ -155,8 +155,7 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO PropWeapons 
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

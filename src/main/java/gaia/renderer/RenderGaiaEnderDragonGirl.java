@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.model.ModelGaiaEnderDragonGirl;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -20,16 +21,21 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Dragon_Girl.png");
 	private ModelGaiaEnderDragonGirl EnderDragonGirlModel;
 	private Random rnd = new Random();
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
-	public RenderGaiaEnderDragonGirl(RenderManager renderManager, ModelGaiaEnderDragonGirl model, float shadowSize) {
-        super(renderManager, model, shadowSize);
-		this.EnderDragonGirlModel = (ModelGaiaEnderDragonGirl)super.mainModel;
+	
+	public RenderGaiaEnderDragonGirl(float shadowSize) {
+        super(rend, new ModelGaiaEnderDragonGirl(), shadowSize);
+		//this.EnderDragonGirlModel = (ModelGaiaEnderDragonGirl)super.mainModel;
 		//this.setRenderPassModel(this.EnderDragonGirlModel);
+        this.addLayer(new Glowing_layer(this, enderdragongirlEyesTexture));
 	}
 
+	/**TODO  disabling carry code for now.... I don't think it has been used anyways **/
+	
 	public void renderEnderDragonGirl(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, double par2, double par4, double par6, float par8, float par9) {
-		this.EnderDragonGirlModel.isCarrying = par1EntityGaiaEnderDragonGirl.getCarried() > 0;
-		this.EnderDragonGirlModel.isAttacking = par1EntityGaiaEnderDragonGirl.isScreaming();
+		//this.EnderDragonGirlModel.isCarrying = par1EntityGaiaEnderDragonGirl.getCarried() > 0;
+		//this.EnderDragonGirlModel.isAttacking = par1EntityGaiaEnderDragonGirl.isScreaming();
 		if(par1EntityGaiaEnderDragonGirl.isScreaming()) {
 			double var10 = 0.02D;
 			par2 += this.rnd.nextGaussian() * var10;
@@ -38,7 +44,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
 
 		super.doRender(par1EntityGaiaEnderDragonGirl, par2, par4, par6, par8, par9);
 	}
-
+	
 	/*protected void renderCarrying(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, float par2) {
 		super.renderEquippedItems(par1EntityGaiaEnderDragonGirl, par2);
 		int id = par1EntityGaiaEnderDragonGirl.getCarried();
@@ -64,7 +70,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
 			GL11.glDisable('\u803a');
 		}
 	}*/
-
+	/*
 	protected int shouldRenderPass(EntityGaiaEnderDragonGirl par1EntityGaiaEnderDragonGirl, int par2, float par3) {
 		if (par1EntityGaiaEnderDragonGirl.isInvisible()) {
 			return 0;
@@ -93,7 +99,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
             return 1;
 		}
 	}
-
+	*/
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {
 		return this.shouldRenderPass((EntityGaiaEnderDragonGirl)par1EntityLiving, par2, par3);
 	}
@@ -101,11 +107,11 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		this.renderCarrying((EntityGaiaEnderDragonGirl)par1EntityLiving, par2);
 	}*/
-
+	
 	public void doRender(EntityGaiaEnderDragonGirl par1Entity, double par2, double par4, double par6, float par8, float par9) {
 		this.renderEnderDragonGirl((EntityGaiaEnderDragonGirl)par1Entity, par2, par4, par6, par8, par9);
 	}
-
+	
 	protected ResourceLocation getEntityTexture(EntityGaiaEnderDragonGirl entity) {
 		return texture;
 	}

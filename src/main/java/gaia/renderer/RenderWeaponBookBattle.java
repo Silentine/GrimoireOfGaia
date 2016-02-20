@@ -1,7 +1,5 @@
 package gaia.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import gaia.model.ModelWeaponBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
@@ -11,6 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 public class RenderWeaponBookBattle implements IItemRenderer {
 

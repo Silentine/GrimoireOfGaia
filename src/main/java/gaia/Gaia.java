@@ -1,5 +1,6 @@
 package gaia;
 
+import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaItem;
@@ -7,9 +8,11 @@ import gaia.init.TEMP_Entity;
 import gaia.init.TEMP_Spawning;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
+import gaia.renderer.RenderGaiaAnubis;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
