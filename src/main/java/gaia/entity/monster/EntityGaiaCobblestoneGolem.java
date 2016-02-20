@@ -163,7 +163,9 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	}
 
 	protected String getLivingSound() {
-		return "none";
+		//TODO Living sound
+		return null;
+		//return "none";
 	}
 
 	protected String getHurtSound() {

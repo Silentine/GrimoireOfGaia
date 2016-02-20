@@ -166,7 +166,9 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 	}
 
 	protected String getLivingSound() {
-		return "none";
+		//TODO no sound thing
+		return null;
+		//return "none";
 	}
 
 	protected String getHurtSound() {
