@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -67,16 +68,19 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		this.setDead();
 	}
 
-	private void generateRandomParticles(String par1Str) {
+	//TODO Generaterandom particles - not sure if this does anything
+	/**
+	private void generateRandomParticles(EnumParticleTypes par1Str) {
 		for(int i = 0; i < 5; ++i) {
 			double d0 = this.rand.nextGaussian() * 0.02D;
 			double d1 = this.rand.nextGaussian() * 0.02D;
 			double d2 = this.rand.nextGaussian() * 0.02D;
+			//this.worldObj.spawnParticle(par1Str, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2);
 			this.worldObj.spawnParticle(par1Str, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2);
 		}
 
 	}
-
+	**/
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
 		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
 	}

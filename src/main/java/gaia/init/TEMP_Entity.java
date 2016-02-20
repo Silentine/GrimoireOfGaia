@@ -14,6 +14,8 @@ import gaia.entity.monster.EntityGaiaCyclops;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
+import gaia.entity.monster.EntityGaiaEnderDragonGirl;
+import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaFutakuchiOnna;
 import gaia.entity.monster.EntityGaiaGryphon;
@@ -115,6 +117,10 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 43, Gaia.instance, trackingRange, updateFrequency, true, fox, cat);
 	EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true, cat, hat);
 	EntityRegistry.registerModEntity(EntityGaiaMandragora.class, "Mandragora", 80, Gaia.instance, trackingRange, updateFrequency, true, vat, cat);
+	
+	
+	EntityRegistry.registerModEntity(EntityGaiaEnderEye.class, "Ender Eye", 16, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
+	EntityRegistry.registerModEntity(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, Gaia.instance, trackingRange, updateFrequency, true, mat, log);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8

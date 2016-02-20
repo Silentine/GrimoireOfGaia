@@ -5,6 +5,8 @@ import gaia.entity.Trade;
 import gaia.init.GaiaItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -13,6 +15,13 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 	public EntityGaiaNPCCreeperGirl(World var1) {
 		super(var1);
 	}
+	
+	public IChatComponent getDisplayName()
+    {
+		 String s = "Creeper Girl";
+		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
+		 return chatcomponenttext;
+    }
 	
 	@Override
 	protected String getLivingSound() {
@@ -34,6 +43,9 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
             this.entityDropItem(new ItemStack(GaiaItem.SpawnCardCreeperGirl, 1, 1), 0.0F);
 		}
 	}
+	
+	
+	
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
