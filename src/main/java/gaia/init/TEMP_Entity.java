@@ -6,6 +6,8 @@ import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCentaur;
+import gaia.entity.monster.EntityGaiaCobbleGolem;
+import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaCyclops;
@@ -34,8 +36,10 @@ import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaSwamper;
+import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
 import gaia.entity.monster.EntityGaiaWerecat;
+import gaia.entity.monster.EntityGaiaWitch;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.entity.monster.EntityGaiaYukiOnna;
@@ -104,7 +108,10 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaDryad.class, "Dryad", 13, Gaia.instance, trackingRange, updateFrequency, true, log, ice);
 	EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true,fox, log);
 	EntityRegistry.registerModEntity(EntityGaiaMermaid.class, "Mermaid", 23, Gaia.instance, trackingRange, updateFrequency, true,rat, log);
-	
+	EntityRegistry.registerModEntity(EntityGaiaValkyrie.class, "Valkyrie", 40, Gaia.instance, trackingRange, updateFrequency, true, ice, rat);
+	EntityRegistry.registerModEntity(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, Gaia.instance, trackingRange, updateFrequency, true, mat, hat);
+	EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 43, Gaia.instance, trackingRange, updateFrequency, true, fox, cat);
+	EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true, cat, hat);
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
 	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	

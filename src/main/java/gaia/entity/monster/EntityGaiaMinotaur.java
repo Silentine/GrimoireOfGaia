@@ -113,7 +113,7 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
 						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
 						crackid,crackmeta);
-						;
+						
 				
 				
 			}

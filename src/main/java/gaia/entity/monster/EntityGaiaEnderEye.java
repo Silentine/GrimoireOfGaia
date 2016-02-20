@@ -234,7 +234,8 @@ public class EntityGaiaEnderEye extends EntityMobBase {
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
+		//TODO Fix no sound thing
+		//this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
