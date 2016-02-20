@@ -12,8 +12,4 @@ public class ItemFoodDriedNetherWart extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodDriedNetherWart");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

@@ -74,8 +74,4 @@ public class ItemWeaponBookEnder extends ItemSword {
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return Items.ender_pearl == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

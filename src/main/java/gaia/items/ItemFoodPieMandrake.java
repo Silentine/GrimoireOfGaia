@@ -57,10 +57,5 @@ public class ItemFoodPieMandrake extends ItemFood {
 		}
 
 		return new ItemStack(Items.bowl);
-	}
-	*/
-
-    /*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}*/
 }

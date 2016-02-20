@@ -31,8 +31,4 @@ public class ItemFoodWitherMeat extends ItemFood {
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 600, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 0));
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

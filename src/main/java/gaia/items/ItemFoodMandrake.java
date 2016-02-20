@@ -33,8 +33,4 @@ public class ItemFoodMandrake extends ItemFood {
 		par3EntityPlayer.addExhaustion(40.0F);
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

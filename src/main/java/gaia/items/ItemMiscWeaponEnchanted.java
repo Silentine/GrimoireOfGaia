@@ -31,20 +31,6 @@ public class ItemMiscWeaponEnchanted extends Item {
 		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscWeaponEnchanted.desc"));
 	}
 
-	/*public IIcon[] icons = new IIcon[2];
-
-	@Override
-	public void registerIcons(IIconRegister reg) {
-		this.icons[0] = reg.registerIcon("gaia:" + "MiscWeaponFanIce");
-		this.icons[1] = reg.registerIcon("gaia:" + "MiscWeaponFanFire");
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int meta) {
-		if (meta > 1) meta = 0;
-		return this.icons[meta];
-	}*/
-
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 2; i ++) {

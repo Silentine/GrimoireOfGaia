@@ -39,8 +39,4 @@ public class ItemFoodBerryCure extends ItemFood {
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		this.clearNegativePotions(par3EntityPlayer);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }
