@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.model.ModelGaiaSharko;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -13,9 +14,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaSharko extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Sharko.png");
-
-	public RenderGaiaSharko(RenderManager renderManager, ModelGaiaSharko model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaSharko(float shadow) {
+        super(rend, new ModelGaiaSharko(), shadow);
+        this.addLayer(new held_rightarm(this, ModelGaiaSharko.rightarmlower));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -44,7 +45,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.switchHealth = 0;
 	}
 
@@ -61,9 +62,11 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 	
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
+		//this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
+		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
 		double d0 = par1EntityLivingBase.posX - this.posX;
-		double d1 = par1EntityLivingBase.boundingBox.minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
+		//double d1 = par1EntityLivingBase.boundingBox.minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
+		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = par1EntityLivingBase.posZ - this.posZ;
 		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
 		
@@ -77,9 +80,9 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 			if(par1Entity instanceof EntityLiving) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -164,7 +167,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 			this.dropItem(GaiaItem.BagBook,1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.BookWither,1);
+			//TODO Enable BookWither
+			//TODO this.dropItem(GaiaItem.BookWither,1);
 			break;
 		case 3:
 			this.dropItem(GaiaItem.MiscPage,1);
@@ -174,13 +178,23 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
-
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));
 		this.enchantEquipment();
 		return par1IEntityLivingData;
 	}
+	*/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 	
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);

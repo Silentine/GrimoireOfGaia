@@ -3,8 +3,10 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.model.ModelGaiaAnubis;
 import gaia.model.ModelGaiaCyclops;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,9 +20,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class RenderGaiaCyclops extends RenderLiving<EntityGaiaCyclops> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Cyclops.png");
-
-	public RenderGaiaCyclops(RenderManager renderManager, ModelGaiaCyclops model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaCyclops( float shadowSize) {
+        super(rend, new ModelGaiaCyclops(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaCyclops.rightarm));
+        this.addLayer(new Held_leftarm(this, ModelGaiaCyclops.leftarm));
     }
 	
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

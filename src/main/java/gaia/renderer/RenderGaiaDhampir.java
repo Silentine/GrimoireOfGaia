@@ -2,11 +2,10 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
-import gaia.entity.monster.EntityGaiaCyclops;
 import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.model.ModelGaiaCobblestoneGolem;
 import gaia.model.ModelGaiaDhampir;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -17,13 +16,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-public class RenderGaiaDhampir extends RenderLiving<EntityGaiaCyclops> {
+public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	
 	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Dhampir.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Dhampir.png");
 
-	public RenderGaiaDhampir(RenderManager renderManager, ModelGaiaDhampir model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaDhampir(float shadowSize) {
+        super(rend, new ModelGaiaDhampir(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaDhampir.rightarm));
+        this.addLayer(new Glowing_layer(this, dhampirEyesTexture));
     }
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
@@ -120,7 +122,7 @@ public class RenderGaiaDhampir extends RenderLiving<EntityGaiaCyclops> {
 		return this.shouldRenderPass((EntityGaiaDhampir)par1EntityLiving, par2, par3);
 	}
 
-	protected ResourceLocation getEntityTexture(EntityGaiaCyclops entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaDhampir entity) {
 		return texture;
 	}
 }

@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.model.ModelGaiaNPCEnderGirl;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -16,9 +17,11 @@ public class RenderGaiaNPCEnderGirl extends RenderLiving {
 	private static final ResourceLocation endergirlEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Girl.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Girl.png");
 
-	public RenderGaiaNPCEnderGirl(RenderManager renderManager, ModelGaiaNPCEnderGirl model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaNPCEnderGirl( float shadowSize) {
+        super(rend, new ModelGaiaNPCEnderGirl(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaNPCEnderGirl());
+        this.addLayer(new Glowing_layer(this, endergirlEyesTexture));
 	}
 
 	protected int shouldRenderPass(EntityGaiaNPCEnderGirl par1EntityGaiaNPCEnderGirl, int par2, float par3) {

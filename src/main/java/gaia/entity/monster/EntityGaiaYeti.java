@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -35,7 +36,7 @@ public class EntityGaiaYeti extends EntityMobDay {
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
@@ -55,9 +56,9 @@ public class EntityGaiaYeti extends EntityMobDay {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -80,7 +81,9 @@ public class EntityGaiaYeti extends EntityMobDay {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posZ);
 		int k = MathHelper.floor_double(this.posY);
-		if(this.worldObj.getBiomeGenForCoords(i, j).getFloatTemperature(i, k, j) > 1.0F) {
+		BlockPos pos = new BlockPos(i,j,k);
+		//TODO doublecheck biomegenforcoords code	
+		if(this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
 			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
 		}

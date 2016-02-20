@@ -4,7 +4,9 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.model.ModelGaiaCentaur;
+import gaia.model.ModelGaiaDhampir;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,9 +19,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class RenderGaiaCentaur extends RenderLiving<EntityGaiaCentaur> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Centaur.png");
-
-	public RenderGaiaCentaur(RenderManager renderManager, ModelGaiaCentaur model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaCentaur(float shadowSize) {
+        super(rend, new ModelGaiaCentaur(), shadowSize);
+        
+        this.addLayer(new held_rightarm(this, ModelGaiaCentaur.rightarm));
     }
 	
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

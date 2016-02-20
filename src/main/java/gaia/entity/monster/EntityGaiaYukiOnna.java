@@ -18,8 +18,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -57,9 +59,9 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -81,38 +83,8 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 	public boolean isAIEnabled() {
 		return true;
 	}
-
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(19, new Byte((byte)0));
-	}
-
-	public void onUpdate() {
-		super.onUpdate();
-		this.field_70924_f = this.field_70926_e;
-		if(this.func_70922_bv()) {
-			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-		} else {
-			this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-		}
-
-		if(this.func_70922_bv()) {
-			this.numTicksToChaseTarget = 10;
-		}
-	}
-
-	public boolean func_70922_bv() {
-		return this.dataWatcher.getWatchableObjectByte(19) == 1;
-	}
-
-	public void func_70918_i(boolean par1) {
-		if(par1) {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
-		} else {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
-		}
-	}
-
+	//TODO millianare support
+	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		if(elements.length > 2) {
@@ -124,12 +96,15 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 
 		super.setTarget(par1Entity);
 	}
-
+	*/
+	
 	public void onLivingUpdate() {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posZ);
 		int k = MathHelper.floor_double(this.posY);
-		if(this.worldObj.getBiomeGenForCoords(i, j).getFloatTemperature(i, k, j) > 1.0F) {
+		BlockPos pos = new BlockPos(i,j,k);
+		//TODO doublecheck biomegenforcoords code	
+		if(this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
 			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
 		}
@@ -150,7 +125,8 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
+		//TODO Resolve no sound thing
+		//this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
@@ -188,12 +164,25 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
+	/*
 	
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
 		return par1IEntityLivingData;
 	}
+	*/
+	
+	/** Updated onSpawnEgg, armor and held Item functions to 1.8 equivalence **/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	protected void fall(float f) {}
 

@@ -46,12 +46,18 @@ import gaia.items.ItemSpawnCardHolstaurus;
 import gaia.items.ItemSpawnCardSlimeGirl;
 import gaia.items.ItemSpawnCardTrader;
 import gaia.items.ItemWeaponBookBattle;
+import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
 import gaia.items.ItemWeaponBookFreezing;
 import gaia.items.ItemWeaponBookHunger;
 import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
+import gaia.items.ItemWeaponBookWither;
+import gaia.items.ItemWeaponFanFire;
+import gaia.items.ItemWeaponFanIce;
+import gaia.items.ItemWeaponProp;
+import gaia.items.ItemWeaponPropInvisible;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -100,10 +106,10 @@ public class GaiaItem {
 	public static Item BagBook;
 	public static Item BagRecord;
 	public static Item BoxOld;
-	//public static Item PropWeapon;
-	//public static Item PropWeaponInvisible;
-	//public static Item FanIce;
-	//public static Item FanFire;
+	public static Item PropWeapon;
+	public static Item PropWeaponInvisible;
+	public static Item FanIce;
+	public static Item FanFire;
 	public static Item BookFreezing;
 	public static Item BookNightmare;
 	public static Item BookMetal;
@@ -111,8 +117,8 @@ public class GaiaItem {
 	public static Item BookHunger;
 	public static Item BookBattle;
 	public static Item BookNature;
-	//public static Item BookWither;
-	//public static Item BookBuff;
+	public static Item BookWither;
+	public static Item BookBuff;
 	public static Item AccessoryRingSpeed;
 	public static Item AccessoryRingHaste;
 	public static Item AccessoryRingJump;
@@ -159,10 +165,10 @@ public class GaiaItem {
 		BagBook = new ItemBagBook("BagBook");
 		BagRecord = new ItemBagRecord("BagRecord");
 		BoxOld = new ItemBoxOld("BoxOld");
-		//PropWeapon = new ItemWeaponProp("WeaponProp");
-		//PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
-		//FanIce = new ItemWeaponFanIce("WeaponFanIce");
-		//FanFire = new ItemWeaponFanFire("WeaponFanFire");
+		PropWeapon = new ItemWeaponProp("WeaponProp");
+		PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
+		FanIce = new ItemWeaponFanIce("WeaponFanIce");
+		FanFire = new ItemWeaponFanFire("WeaponFanFire");
 		BookFreezing = new ItemWeaponBookFreezing("WeaponBookFreezing");
 		BookNightmare = new ItemWeaponBookNightmare("WeaponBookNightmare");
 		BookMetal = new ItemWeaponBookMetal("WeaponBookMetal");
@@ -170,8 +176,8 @@ public class GaiaItem {
 		BookHunger = new ItemWeaponBookHunger("WeaponBookHunger");
 		BookBattle = new ItemWeaponBookBattle("WeaponBookBattle");
 		BookNature = new ItemWeaponBookNature("WeaponBookNature");
-		//BookWither = new ItemWeaponBookWither("WeaponBookWither");
-		//BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
+		BookWither = new ItemWeaponBookWither("WeaponBookWither");
+		BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
 		AccessoryRingSpeed = new ItemAccessoryRingSpeed("AccessoryRingSpeed");
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
@@ -221,10 +227,10 @@ public class GaiaItem {
 				BagBook, 
 				BagRecord, 
 				BoxOld, 
-				//PropWeapon, 
-				//PropWeaponInvisible,
-				//FanIce, 
-				//FanFire, 
+				PropWeapon, 
+				PropWeaponInvisible,
+				FanIce, 
+				FanFire, 
 				BookFreezing, 
 				BookNightmare, 
 				BookMetal, 
@@ -232,8 +238,8 @@ public class GaiaItem {
 				BookHunger,
 				BookBattle, 
 				BookNature,
-				//BookWither, 
-				//BookBuff,
+				BookWither, 
+				BookBuff,
 				AccessoryRingSpeed, 
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
@@ -268,8 +274,8 @@ public class GaiaItem {
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryIce, Items.sugar, Items.egg});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryFire, Items.sugar, Items.egg});
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.coal_block, 1), new Object[]{MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel});
-		//GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
-		//GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
+		GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
+		GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingSpeed, 1), new Object[]{new ItemStack(MiscRing, 1, 0), Blocks.beacon});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingHaste, 1), new Object[]{new ItemStack(MiscRing, 1, 1), Blocks.beacon});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingJump, 1), new Object[]{new ItemStack(MiscRing, 1, 2), Blocks.beacon});
@@ -325,10 +331,10 @@ public class GaiaItem {
 		registerRender(BagBook);
 		registerRender(BagRecord);
 		registerRender(BoxOld);
-		//registerRender(PropWeapon);
-		//registerRender(PropWeaponInvisible);
-		//registerRender(FanIce);
-		//registerRender(FanFire);
+		registerRender(PropWeapon);
+		registerRender(PropWeaponInvisible);
+		registerRender(FanIce);
+		registerRender(FanFire);
 		registerRender(BookFreezing);
 		registerRender(BookNightmare);
 		registerRender(BookMetal);
@@ -336,8 +342,8 @@ public class GaiaItem {
 		registerRender(BookHunger);
 		registerRender(BookBattle);
 		registerRender(BookNature);
-		//registerRender(BookWither);
-		//registerRender(BookBuff);
+		registerRender(BookWither);
+		registerRender(BookBuff);
 		registerRender(AccessoryRingSpeed);
 		registerRender(AccessoryRingHaste);
 		registerRender(AccessoryRingJump);

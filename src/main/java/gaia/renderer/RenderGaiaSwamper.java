@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaSwamper;
 import gaia.model.ModelGaiaSwamper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -13,9 +14,10 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaSwamper extends RenderLiving {
 	
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Swamper.png");
-
-	public RenderGaiaSwamper(RenderManager renderManager, ModelGaiaSwamper model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaSwamper( float shadowSize) {
+        super(rend, new ModelGaiaSwamper(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaSwamper());
 	}
 

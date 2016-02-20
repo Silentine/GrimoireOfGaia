@@ -2,7 +2,9 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.model.ModelGaiaCyclops;
 import gaia.model.ModelGaiaMermaid;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -11,9 +13,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaMermaid extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Mermaid.png");
-
-	public RenderGaiaMermaid(RenderManager renderManager, ModelGaiaMermaid model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaMermaid( float shadowSize) {
+        super(rend, new ModelGaiaMermaid(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaMermaid.rightarm));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

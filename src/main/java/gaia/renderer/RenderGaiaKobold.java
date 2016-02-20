@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.model.ModelGaiaKobold;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -19,9 +20,11 @@ public class RenderGaiaKobold extends RenderLiving {
 
 	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Kobold01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Kobold02.png");
-
-	public RenderGaiaKobold(RenderManager renderManager, ModelGaiaKobold model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaKobold( float shadowSize) {
+        super(rend, new ModelGaiaKobold(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaKobold.righthand));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

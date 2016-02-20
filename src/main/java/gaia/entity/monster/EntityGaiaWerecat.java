@@ -19,10 +19,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -32,7 +34,9 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		this.getNavigator().setAvoidsWater(true);
+		//par1World.this.getNavigator().setAvoidsWater(true);
+		//TODO Water avoid navigate may or may not work - I can't really tell
+		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIGaiaLeapAtTarget(this, 0.4F));
 		this.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
@@ -40,7 +44,7 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
@@ -60,9 +64,9 @@ public class EntityGaiaWerecat extends EntityMobBase {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -134,7 +138,7 @@ public class EntityGaiaWerecat extends EntityMobBase {
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
-	
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
@@ -144,6 +148,16 @@ public class EntityGaiaWerecat extends EntityMobBase {
 
 		return par1IEntityLivingData;
 	}
+	*/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 	
 	protected void entityInit() {
 		super.entityInit();

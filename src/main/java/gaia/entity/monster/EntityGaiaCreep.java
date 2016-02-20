@@ -24,8 +24,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaCreep extends EntityMobBase {
 	private int lastActiveTime;
@@ -44,7 +44,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
 	}
 
@@ -68,9 +68,12 @@ public class EntityGaiaCreep extends EntityMobBase {
 		return this.getAttackTarget() == null?3:3 + (int)(this.getHealth() - 1.0F);
 	}
 
-	protected void fall(float par1) {
-		super.fall(par1);
-		this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + par1 * 1.5F);
+	public void fall(float distance, float damageMultiplier)
+    {
+	//protected void fall(float par1) {
+		//super.fall(par1)
+		super.fall(distance, damageMultiplier);
+		this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + distance * 1.5F);
 		if(this.timeSinceIgnited > this.fuseTime - 5) {
 			this.timeSinceIgnited = this.fuseTime - 5;
 		}
@@ -120,7 +123,8 @@ public class EntityGaiaCreep extends EntityMobBase {
 			if(this.timeSinceIgnited >= this.fuseTime) {
 				this.timeSinceIgnited = this.fuseTime;
 				if(!this.worldObj.isRemote) {
-					boolean var2 = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+					//boolean var2 = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+					boolean var2 = this.worldObj.getGameRules().getBoolean("mobGriefing");
 					if(this.getPowered()) {
 						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)(this.explosionRadius * 2), var2);
 					} else {

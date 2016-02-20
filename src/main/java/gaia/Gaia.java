@@ -1,7 +1,10 @@
 package gaia;
 
+import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaItem;
+import gaia.init.TEMP_Entity;
+import gaia.init.TEMP_Spawning;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -50,14 +53,15 @@ public class Gaia
 	{
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
     	GaiaConfigGeneration.configOptions(cfg);
-		
-		//GaiaBlock.init();
+		    	
+		GaiaBlock.init();
     	GaiaItem.init();
     	GaiaItem.register();
     	GaiaItem.oreRegistration();
 		//proxy.registerRenderingFactories();
-    	proxy.registerRenders();
+    	/** Separated and moved item render from entity portion **/
     	proxy.registerItemsRender();
+    	
 	}
 
 	@EventHandler
@@ -66,6 +70,12 @@ public class Gaia
 
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		GaiaItem.addRecipes();
+		
+		TEMP_Entity.register();
+		TEMP_Spawning.register_spawn();
+		/** Moved register renders to load init; required for entity renders **/
+		proxy.registerRenders();    	
+    	
 		
 		/*ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);

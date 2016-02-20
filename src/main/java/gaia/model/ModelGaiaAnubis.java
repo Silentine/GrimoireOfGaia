@@ -4,9 +4,11 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ModelGaiaAnubis extends ModelBase {
 	ModelRenderer head;
 	ModelRenderer headaccessory;
@@ -39,7 +41,7 @@ public class ModelGaiaAnubis extends ModelBase {
 	ModelRenderer rightfoot;
 	ModelRenderer leftfoot;
 	//New
-	private float onGround;
+	//private float onGround;
 
 	public ModelGaiaAnubis() {
 		this.textureWidth = 128;
@@ -301,14 +303,14 @@ public class ModelGaiaAnubis extends ModelBase {
         float f6;
         float f7;
 
-        if (this.onGround > -9990.0F) {
-            f6 = this.onGround;
-            f6 = 1.0F - this.onGround;
+        if (this.swingProgress > -9990.0F) {
+            f6 = this.swingProgress;
+            f6 = 1.0F - this.swingProgress;
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0F - f6;
             f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.onGround * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
             
             this.rightarmhand.rotateAngleX = (float)((double)this.rightarmhand.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
             this.rightarm.rotateAngleX = this.rightarmhand.rotateAngleX; 
@@ -316,7 +318,7 @@ public class ModelGaiaAnubis extends ModelBase {
             this.rightarmhand.rotateAngleY += (this.bodytop.rotateAngleY * 2.0F);
             this.rightarm.rotateAngleY = this.rightarmhand.rotateAngleY; 
             this.rightarmlower.rotateAngleY = this.rightarmhand.rotateAngleY;
-            this.rightarmhand.rotateAngleZ = (MathHelper.sin(this.onGround * (float)Math.PI) * -0.4F) + 0.1745329F;
+            this.rightarmhand.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F) + 0.1745329F;
             this.rightarm.rotateAngleZ = this.rightarmhand.rotateAngleZ; 
             this.rightarmlower.rotateAngleZ = this.rightarmhand.rotateAngleZ;
         }

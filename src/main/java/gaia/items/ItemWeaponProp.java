@@ -35,9 +35,9 @@ public class ItemWeaponProp extends Item {
 		return true;
 	}
 
-	public IIcon[] icons = new IIcon[4];
+	/*public IIcon[] icons = new IIcon[4];
 
-	/*@Override
+	@Override
 	public void registerIcons(IIconRegister reg) {
 		this.icons[0] = reg.registerIcon("gaia:" + "WeaponPropEnder");
 		this.icons[1] = reg.registerIcon("gaia:" + "WeaponPropBlaze");

@@ -3,6 +3,7 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.model.ModelGaiaSpriggan;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -12,8 +13,10 @@ public class RenderGaiaSpriggan extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Spriggan.png");
 
-	public RenderGaiaSpriggan(RenderManager renderManager, ModelGaiaSpriggan model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaSpriggan(float shadowSize) {
+        super(rend, new ModelGaiaSpriggan(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaSpriggan.rightarmlower));
 	}
 	
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

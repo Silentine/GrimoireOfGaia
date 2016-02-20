@@ -13,6 +13,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -23,7 +24,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -51,7 +54,8 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		//this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		/** updated to 1.8 version, simply removed the int variable - not sure if that impacts anything**/
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.switchHealth = 0;
 		this.spawn = 0;
 	}
@@ -68,12 +72,14 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		return EntityAttributes.rateArmor2;
 	}
 	
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
+	public void attackEntityWithRangedAttack(EntityLivingBase living, float par2) {
+		/**Updated AUX Effect to 1.8 Equivalent - haven't tested it yet though**/
 		//this.worldObj.playAuxSFXAtEntity(player, sfxType, pos, p_180498_4_);((EntityPlayer)null, 1009, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
-		double d0 = par1EntityLivingBase.posX - this.posX;
+		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		double d0 = living.posX - this.posX;
 		//BoundingBox
-		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
-		double d2 = par1EntityLivingBase.posZ - this.posZ;
+		double d1 = living.getEntityBoundingBox().minY + (double)(living.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
+		double d2 = living.posZ - this.posZ;
 		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
 		
 		EntityGaiaProjectileMagic var11 = new EntityGaiaProjectileMagic(this.worldObj, this, d0 + this.rand.nextGaussian() * (double)f1, d1, d2 + this.rand.nextGaussian() * (double)f1);
@@ -126,7 +132,9 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		if(this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0 && !this.worldObj.isRemote) {
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+			/**Updated onspawnWithEgg with 1.8 version (includes difficulty too) **/
 			//spawnMob.onSpawnWithEgg((IEntityLivingData)null);
+			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
 		}
@@ -134,7 +142,8 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		if(this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1 && !this.worldObj.isRemote) {
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-			//spawnMob.onSpawnWithEgg((IEntityLivingData)null);
+			//Updated onspawnEgg here too
+			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 2;
 		}
@@ -208,12 +217,24 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
 
+	/** Updated onSpawnEgg, armor and held Item functions to 1.8 equivalence **/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		//TODO PropWeapons 
+		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		//this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));
 		//this.enchantEquipment();
 		return par1IEntityLivingData;
 	}
+	*/
 	
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);

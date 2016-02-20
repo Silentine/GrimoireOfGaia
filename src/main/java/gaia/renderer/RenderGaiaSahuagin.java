@@ -3,6 +3,7 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.model.ModelGaiaSahuagin;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -11,9 +12,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaSahuagin extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Sahuagin.png");
-
-	public RenderGaiaSahuagin(RenderManager renderManager, ModelGaiaSahuagin model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaSahuagin( float shadowSize) {
+        super(rend, new ModelGaiaSahuagin(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaSahuagin.rightarm));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

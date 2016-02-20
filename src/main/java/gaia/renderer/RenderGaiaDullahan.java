@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.model.ModelGaiaDullahan;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,8 +19,10 @@ public class RenderGaiaDullahan extends RenderLiving<EntityGaiaDullahan> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Dullahan.png");
 	
-	public RenderGaiaDullahan(RenderManager renderManager, ModelGaiaDullahan model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaDullahan( float shadowSize) {
+        super(rend, new ModelGaiaDullahan(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaDullahan.rightgauntlet));
     }
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

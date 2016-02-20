@@ -24,8 +24,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -50,7 +52,7 @@ public class EntityGaiaVampire extends EntityMobBase {
 		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.spawnTime = 0;
 		this.spawnTime2 = 0;
 	}
@@ -72,9 +74,9 @@ public class EntityGaiaVampire extends EntityMobBase {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -102,7 +104,7 @@ public class EntityGaiaVampire extends EntityMobBase {
 		if(this.worldObj.isDaytime() && !this.worldObj.isRemote) {
 			float f = this.getBrightness(1.0F);
 			
-			if(f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ))) {
+			if(f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())) {
 				this.attackEntityFrom(DamageSource.generic, EntityAttributes.maxHealth3 * 0.25F);
 				this.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 100, 0));
 			}
@@ -125,13 +127,15 @@ public class EntityGaiaVampire extends EntityMobBase {
 
 		if(this.getHealth() <= EntityAttributes.maxHealth3 * 0.25F && this.getHealth() > 0.0F) {
 			for(int i = 0; i < 2; ++i) {
-				this.worldObj.spawnParticle("smoke", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				//"smoke"
+				this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
 		if(this.getHealth() <= 0.0F) {
 			for(int i = 0; i < 2; ++i) {
-				this.worldObj.spawnParticle("largeexplode", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				//"largeexplode"
+				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 			
 			EntityBat spawnMob2 = new EntityBat(this.worldObj);
@@ -139,7 +143,8 @@ public class EntityGaiaVampire extends EntityMobBase {
 				this.spawnTime2 = 1;
 			} else if(this.spawnTime2 == 1 && !this.worldObj.isRemote) {
 				spawnMob2.setLocationAndAngles(this.posX, this.posY + 1.0D, this.posZ, this.rotationYaw, 0.0F);
-				spawnMob2.onSpawnWithEgg((IEntityLivingData)null);
+				//spawnMob2.onSpawnWithEgg((IEntityLivingData)null);
+				spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
 				this.worldObj.spawnEntityInWorld(spawnMob2);
 				this.spawnTime2 = 2;
 			}
@@ -161,7 +166,8 @@ public class EntityGaiaVampire extends EntityMobBase {
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
+		//TODO fix this no sound thingy
+		//this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

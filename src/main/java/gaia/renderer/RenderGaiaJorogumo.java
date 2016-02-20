@@ -3,7 +3,9 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaJorogumo;
+import gaia.model.ModelGaiaDhampir;
 import gaia.model.ModelGaiaJorogumo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -16,9 +18,13 @@ public class RenderGaiaJorogumo extends RenderLiving {
 	private static final ResourceLocation jorogumoEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Jorogumo.png");
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Jorogumo.png");
 
-	public RenderGaiaJorogumo(RenderManager renderManager, ModelGaiaJorogumo model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaJorogumo( float shadowSize) {
+        super(rend, new ModelGaiaJorogumo(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaJorogumo());
+        this.addLayer(new held_rightarm(this, ModelGaiaJorogumo.rightarm));
+        this.addLayer(new Glowing_layer(this, jorogumoEyesTexture));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

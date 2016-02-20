@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.model.ModelGaiaHarpy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -12,9 +13,10 @@ public class RenderGaiaHarpy extends RenderLiving {
 
 	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Harpy01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Harpy02.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
-	public RenderGaiaHarpy(RenderManager renderManager, ModelGaiaHarpy model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	public RenderGaiaHarpy( float shadowSize) {
+        super(rend, new ModelGaiaHarpy(), shadowSize);
     }
 	
 	@Override

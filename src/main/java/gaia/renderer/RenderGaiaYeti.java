@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.model.ModelGaiaYeti;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -13,9 +14,10 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaYeti extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Yeti.png");
-
-	public RenderGaiaYeti(RenderManager renderManager, ModelGaiaYeti model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaYeti(float shadowSize) {
+        super(rend, new ModelGaiaYeti(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaYeti());
 	}
 

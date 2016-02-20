@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.model.ModelGaiaBoneKnight;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,8 +19,10 @@ public class RenderGaiaBoneKnight extends RenderLiving<EntityGaiaBoneKnight> {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Bone_Knight.png");
 
-	public RenderGaiaBoneKnight(RenderManager renderManager, ModelGaiaBoneKnight model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaBoneKnight(float shadowSize) {
+        super(rend, new ModelGaiaBoneKnight(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaBoneKnight.rightgauntlet));
     }
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

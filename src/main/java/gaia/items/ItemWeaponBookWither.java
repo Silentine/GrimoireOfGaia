@@ -47,7 +47,7 @@ public class ItemWeaponBookWither extends ItemSword {
 	@Override
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", -0.15000000000000002D, 2));
+		multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", -0.15000000000000002D, 2));
 		return multimap;
 	}
 

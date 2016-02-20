@@ -1,6 +1,7 @@
 package gaia.renderer;
 
 import gaia.model.ModelGaiaFutakuchiOnna;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -10,8 +11,9 @@ public class RenderGaiaFutakuchiOnna extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Futakuchi_Onna.png");
 	
-	public RenderGaiaFutakuchiOnna(RenderManager renderManager, ModelGaiaFutakuchiOnna model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaFutakuchiOnna( float shadowSize) {
+        super(rend, new ModelGaiaFutakuchiOnna(), shadowSize);
     }
 
 	protected ResourceLocation getEntityTexture(Entity entity) {

@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.model.ModelGaiaGryphon;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -13,9 +14,10 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaGryphon extends RenderLiving {
 
 	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Gryphon.png");
-
-	public RenderGaiaGryphon(RenderManager renderManager, ModelGaiaGryphon model, float shadowSize) {
-        super(renderManager, model, shadowSize);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaGryphon(float shadowSize) {
+        super(rend, new ModelGaiaGryphon(), shadowSize);
 		//this.setRenderPassModel(new ModelGaiaGryphon());
 	}
 
