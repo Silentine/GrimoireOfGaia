@@ -8,6 +8,7 @@ import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.entity.monster.EntityGaiaCreep;
+import gaia.entity.monster.EntityGaiaCyclops;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
@@ -18,6 +19,7 @@ import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
 import gaia.entity.monster.EntityGaiaJorogumo;
 import gaia.entity.monster.EntityGaiaKobold;
+import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
 import gaia.entity.monster.EntityGaiaNaga;
@@ -100,6 +102,8 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSatyr.class, "Satyr", 30, Gaia.instance, trackingRange, updateFrequency, true, dog, rat);
 	EntityRegistry.registerModEntity(EntityGaiaGryphon.class, "Gryphon", 19, Gaia.instance, trackingRange, updateFrequency, true, cat, mat);
 	EntityRegistry.registerModEntity(EntityGaiaDryad.class, "Dryad", 13, Gaia.instance, trackingRange, updateFrequency, true, log, ice);
+	EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true,fox, log);
+	EntityRegistry.registerModEntity(EntityGaiaMermaid.class, "Mermaid", 23, Gaia.instance, trackingRange, updateFrequency, true,rat, log);
 	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
