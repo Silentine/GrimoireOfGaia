@@ -292,5 +292,13 @@ public class ClientProxy extends CommonProxy {
         // Misc Enchanted Weapon
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 0, new ModelResourceLocation("gaia:MiscWeaponFanIce", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 1, new ModelResourceLocation("gaia:MiscWeaponFanFire", "inventory"));
+	
+        // Prop Weapon
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 0, new ModelResourceLocation("gaia:WeaponPropEnder", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 1, new ModelResourceLocation("gaia:WeaponPropBlaze", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 2, new ModelResourceLocation("gaia:WeaponPropSpear", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 3, new ModelResourceLocation("gaia:WeaponPropDagger", "inventory"));
+	
+
 	}
 }

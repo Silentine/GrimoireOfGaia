@@ -40,7 +40,7 @@ public class ItemWeaponFanFire extends Item {
 
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", (double)this.weaponDamage, 0));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double)this.weaponDamage, 0));
 		return multimap;
 	}
 	
@@ -81,8 +81,4 @@ public class ItemWeaponFanFire extends Item {
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return GaiaItem.MiscSoulFiery == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }
