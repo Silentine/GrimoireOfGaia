@@ -20,8 +20,8 @@ public class RenderGaiaKobold extends RenderLiving {
 
 	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Kobold01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Kobold02.png");
-
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
 	public RenderGaiaKobold( float shadowSize) {
         super(rend, new ModelGaiaKobold(), shadowSize);
         this.addLayer(new held_rightarm(this, ModelGaiaKobold.righthand));

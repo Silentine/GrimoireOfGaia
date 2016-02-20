@@ -21,6 +21,7 @@ import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
 import gaia.entity.monster.EntityGaiaJorogumo;
 import gaia.entity.monster.EntityGaiaKobold;
+import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
@@ -67,6 +68,7 @@ public class TEMP_Entity {
 		int log =0x4e3738;
 		int hat =0xc9b161;
 		int mat =11013646;
+		int vat =0x339933;
 
 	EntityRegistry.registerModEntity(EntityGaiaAnubis.class, "Anubis", 1, Gaia.instance, trackingRange, updateFrequency, true, cat, dog);
 	EntityRegistry.registerModEntity(EntityGaiaBaphomet.class, "Baphomet", 3, Gaia.instance, trackingRange, updateFrequency, true, dog, fox);
@@ -112,6 +114,8 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, Gaia.instance, trackingRange, updateFrequency, true, mat, hat);
 	EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 43, Gaia.instance, trackingRange, updateFrequency, true, fox, cat);
 	EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true, cat, hat);
+	EntityRegistry.registerModEntity(EntityGaiaMandragora.class, "Mandragora", 80, Gaia.instance, trackingRange, updateFrequency, true, vat, cat);
+	
 	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
 	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	
