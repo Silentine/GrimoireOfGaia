@@ -223,8 +223,7 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO Propweapon
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));	
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

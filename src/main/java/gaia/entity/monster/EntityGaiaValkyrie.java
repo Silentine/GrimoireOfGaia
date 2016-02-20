@@ -189,8 +189,7 @@ public class EntityGaiaValkyrie extends EntityMobDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO PropWeapons 
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 2));	
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 2));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

@@ -167,8 +167,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 			this.dropItem(GaiaItem.BagBook,1);
 			break;
 		case 2:
-			//TODO Enable BookWither
-			//TODO this.dropItem(GaiaItem.BookWither,1);
+			this.dropItem(GaiaItem.BookWither,1);
 			break;
 		case 3:
 			this.dropItem(GaiaItem.MiscPage,1);
@@ -189,8 +188,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO PropWeapons 
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

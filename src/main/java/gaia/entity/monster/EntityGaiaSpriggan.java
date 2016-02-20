@@ -138,8 +138,7 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 	
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData eld) {
 		IEntityLivingData res = super.onSpawnWithEgg(eld);
-		//TODO Propweapon
-		//TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
 		return res;
 	}
 

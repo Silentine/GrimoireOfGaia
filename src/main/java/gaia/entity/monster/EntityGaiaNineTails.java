@@ -129,8 +129,7 @@ public class EntityGaiaNineTails extends EntityMobBase implements IRangedAttackM
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO prop weapons
-		//this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 		

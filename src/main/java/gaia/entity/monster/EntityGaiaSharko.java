@@ -116,8 +116,7 @@ public class EntityGaiaSharko extends EntityMobBase {
 			this.dropItem(GaiaItem.BagBook,1);
 			break;
 		case 2:
-			//TODO Bookbuff
-			//TODO this.dropItem(GaiaItem.BookBuff,1);
+			this.dropItem(GaiaItem.BookBuff,1);
 		}
 	}
 

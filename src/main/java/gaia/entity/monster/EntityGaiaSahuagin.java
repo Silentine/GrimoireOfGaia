@@ -117,8 +117,7 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 		}
 
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.switchHealth == 0)) {
-			//TODO Prop Weapon
-            //TODO this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 3));
+			this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 3));
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAttackOnCollide);
 			this.switchHealth = 1;
