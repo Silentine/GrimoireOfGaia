@@ -1,6 +1,7 @@
 package gaia.init;
 
-import gaia.GaiaReference;
+import java.util.Locale;
+
 import gaia.block.BlockBustSphinx;
 import gaia.block.BlockBustValkyrie;
 import gaia.block.BlockBustVampire;
@@ -17,9 +18,9 @@ import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GaiaBlock {
@@ -33,12 +34,6 @@ public class GaiaBlock {
 	public static Block DollMaid;
 
 	public static void init() {
-		addBlocks();
-		prepareBlocks();
-		registerTileEntities();
-	}
-
-	public static void addBlocks() {
 		BustSphinx = (new BlockBustSphinx(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
 		BustValkyrie = (new BlockBustValkyrie(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
 		BustVampire = (new BlockBustVampire(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
@@ -46,18 +41,19 @@ public class GaiaBlock {
 		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
 		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
 		DollMaid = (new BlockDollMaid(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
+		registerTileEntities();
 	}
 
 //	public static void addRecipes() {}
 
-	public static void prepareBlocks() {
-		registerBlocks(BustSphinx, "The Sphinx");
-		registerBlocks(BustValkyrie, "The Valkyrie");
-		registerBlocks(BustVampire, "The Vampire");
-		registerBlocks(DollCreeperGirl, "Creeper Girl Doll");
-		registerBlocks(DollEnderGirl, "Ender Girl Doll");
-		registerBlocks(DollSlimeGirl, "Slime Girl Doll");
-		registerBlocks(DollMaid, "Maid Doll");
+	public static void register() {
+		GameRegistry.registerBlock(BustSphinx, "BustSphinx");
+		GameRegistry.registerBlock(BustValkyrie, "BustValkyrie");
+		GameRegistry.registerBlock(BustVampire, "BustVampire");
+		GameRegistry.registerBlock(DollCreeperGirl, "DollCreeperGirl");
+		GameRegistry.registerBlock(DollEnderGirl, "DollEnderGirl");
+		GameRegistry.registerBlock(DollSlimeGirl, "DollSlimeGirl");
+		GameRegistry.registerBlock(DollMaid, "DollMaid");
 	}
 
 	public static void registerTileEntities() {
@@ -68,11 +64,6 @@ public class GaiaBlock {
 		GameRegistry.registerTileEntity(TileEntityDollEnderGirl.class, "DollEnderGirl");
 		GameRegistry.registerTileEntity(TileEntityDollSlimeGirl.class, "DollSlimeGirl");
 		GameRegistry.registerTileEntity(TileEntityDollMaid.class, "DollMaid");
-	}
-
-	public static void registerBlocks(Block block, String name) {
-		GameRegistry.registerBlock(block, name);
-//		LanguageRegistry.addName(block, name);
 	}
 	
 	public static void registerRenders()
@@ -90,6 +81,6 @@ public class GaiaBlock {
 	public static void registerRender(Block block)
 	{
 		Item item = Item.getItemFromBlock(block);
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
 }

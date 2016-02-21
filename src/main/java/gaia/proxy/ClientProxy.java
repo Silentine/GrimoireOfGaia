@@ -49,7 +49,6 @@ import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCTrader;
-import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
 import gaia.renderer.RenderGaiaAnubis;
@@ -84,7 +83,6 @@ import gaia.renderer.RenderGaiaNPCHolstaurus;
 import gaia.renderer.RenderGaiaNPCTrader;
 import gaia.renderer.RenderGaiaNaga;
 import gaia.renderer.RenderGaiaNineTails;
-import gaia.renderer.RenderGaiaProjectileMagic;
 import gaia.renderer.RenderGaiaSahuagin;
 import gaia.renderer.RenderGaiaSatyr;
 import gaia.renderer.RenderGaiaShaman;
@@ -136,7 +134,7 @@ public class ClientProxy extends CommonProxy {
 		
 		
 		/**	MOVED GaiaItem.registerRenders(); TO REGISTER ITEM RENDERER BELOW**/
-		GaiaBlock.registerRenders();	
+		//GaiaBlock.registerRenders();	
 		
 		float tiny = 0.25F;
 		float small = 0.4F;
@@ -278,7 +276,10 @@ public class ClientProxy extends CommonProxy {
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookWither, new RenderWeaponBookWither());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookBuff, new RenderWeaponBookBuff());*/
 	}
-		
+	@Override
+	public void registerBlocksRender(){
+		GaiaBlock.registerRenders();
+	}
 	@Override
 	public void registerItemsRender(){
 		

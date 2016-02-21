@@ -1,5 +1,7 @@
 package gaia.proxy;
 
+import gaia.init.GaiaBlock;
+
 public class CommonProxy {
 	public void registerRenders() {
 		
@@ -9,4 +11,7 @@ public class CommonProxy {
 		
 	}
 	
+	public void registerBlocksRender(){
+
+	}
 }

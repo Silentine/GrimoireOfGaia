@@ -55,12 +55,14 @@ public class Gaia
     	GaiaConfigGeneration.configOptions(cfg);
 		    	
 		GaiaBlock.init();
+		GaiaBlock.register();
     	GaiaItem.init();
     	GaiaItem.register();
     	GaiaItem.oreRegistration();
 		//proxy.registerRenderingFactories();
     	/** Separated and moved item render from entity portion **/
     	proxy.registerItemsRender();
+    	proxy.registerBlocksRender();
     	
 	}
 
