@@ -21,7 +21,7 @@ public class BlockDollEnderGirl extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
-		//this.setBlockName("GrimoireOfGaia.DollEnderGirl");
+		this.setUnlocalizedName("GrimoireOfGaia.DollEnderGirl");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

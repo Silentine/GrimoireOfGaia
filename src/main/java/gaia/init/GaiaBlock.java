@@ -23,7 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GaiaBlock {
-	public static final String modid = "GrimoireOfGaia";
+	//public static final String modid = "GrimoireOfGaia";
 	public static Block BustSphinx;
 	public static Block BustValkyrie;
 	public static Block BustVampire;

@@ -21,7 +21,7 @@ public class BlockDollCreeperGirl extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
-		//this.setBlockName("GrimoireOfGaia.DollCreeperGirl");
+		this.setUnlocalizedName("GrimoireOfGaia.DollCreeperGirl");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

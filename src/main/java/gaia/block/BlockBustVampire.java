@@ -21,7 +21,7 @@ public class BlockBustVampire extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
-		//this.setBlockName("GrimoireOfGaia.BustVampire");
+		this.setUnlocalizedName("GrimoireOfGaia.BustVampire");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
