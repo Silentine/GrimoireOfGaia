@@ -47,13 +47,13 @@ public class GaiaBlock {
 //	public static void addRecipes() {}
 
 	public static void register() {
-		GameRegistry.registerBlock(BustSphinx, "BustSphinx");
-		GameRegistry.registerBlock(BustValkyrie, "BustValkyrie");
-		GameRegistry.registerBlock(BustVampire, "BustVampire");
-		GameRegistry.registerBlock(DollCreeperGirl, "DollCreeperGirl");
-		GameRegistry.registerBlock(DollEnderGirl, "DollEnderGirl");
-		GameRegistry.registerBlock(DollSlimeGirl, "DollSlimeGirl");
-		GameRegistry.registerBlock(DollMaid, "DollMaid");
+		GameRegistry.registerBlock(BustSphinx, "The Sphinx");
+		GameRegistry.registerBlock(BustValkyrie, "The Valkyrie");
+		GameRegistry.registerBlock(BustVampire, "The Vampire");
+		GameRegistry.registerBlock(DollCreeperGirl, "Creeper Girl Doll");
+		GameRegistry.registerBlock(DollEnderGirl, "Ender Girl Doll");
+		GameRegistry.registerBlock(DollSlimeGirl, "Slime Girl Doll");
+		GameRegistry.registerBlock(DollMaid, "Maid Doll");
 	}
 
 	public static void registerTileEntities() {
