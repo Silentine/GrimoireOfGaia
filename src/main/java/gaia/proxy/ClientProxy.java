@@ -52,6 +52,7 @@ import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
+import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
 import gaia.renderer.RenderGaiaAnubis;
@@ -87,6 +88,7 @@ import gaia.renderer.RenderGaiaNPCHolstaurus;
 import gaia.renderer.RenderGaiaNPCTrader;
 import gaia.renderer.RenderGaiaNaga;
 import gaia.renderer.RenderGaiaNineTails;
+import gaia.renderer.RenderGaiaProjectileMagic;
 import gaia.renderer.RenderGaiaPropFlowerCyan;
 import gaia.renderer.RenderGaiaSahuagin;
 import gaia.renderer.RenderGaiaSatyr;
@@ -120,12 +122,19 @@ import gaia.tileentity.TileEntityDollCreeperGirl;
 import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
+	
+	static RenderManager Randy = Minecraft.getMinecraft().getRenderManager();	
+	static RenderItem Item = Minecraft.getMinecraft().getRenderItem();
+	
 	//@Override	
 	public void registerRenders(){
 		
@@ -192,6 +201,9 @@ public class ClientProxy extends CommonProxy {
 		//TODO Ender mobs need a teleport bug fixed
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderEye.class, new RenderGaiaEnderEye(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderDragonGirl.class, new RenderGaiaEnderDragonGirl(small));
+		
+		//TODO double check projectile working as intended		
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(Randy, GaiaItem.Shard, Item));
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCCreeperGirl.class, new RenderGaiaNPCCreeperGirl(small));		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCHolstaurus.class, new RenderGaiaNPCHolstaurus(small));		
