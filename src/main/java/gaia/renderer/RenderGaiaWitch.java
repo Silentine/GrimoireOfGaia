@@ -2,7 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
-import gaia.model.ModelGaiaWerecat;
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaWitch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaWitch extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Witch.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Witch.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaWitch( float shadowSize) {

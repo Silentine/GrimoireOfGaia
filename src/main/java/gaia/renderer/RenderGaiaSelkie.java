@@ -2,8 +2,8 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.model.ModelGaiaDhampir;
 import gaia.model.ModelGaiaSelkie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -13,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaSelkie extends RenderLiving {
 	
-	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Selkie01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Selkie02.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Selkie01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Selkie02.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaSelkie( float shadowSize) {

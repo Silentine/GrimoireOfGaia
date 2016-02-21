@@ -2,24 +2,20 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.model.ModelGaiaDhampir;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	
-	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Dhampir.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Dhampir.png");
+	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Dhampir.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Dhampir.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaDhampir(float shadowSize) {

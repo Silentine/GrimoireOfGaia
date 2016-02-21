@@ -1,5 +1,6 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.model.ModelGaiaPropFlowerCyan;
 import net.minecraft.client.Minecraft;
@@ -11,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaPropFlowerCyan extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Flower_Cyan.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Flower_Cyan.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 
 	public RenderGaiaPropFlowerCyan( float shadowSize) {

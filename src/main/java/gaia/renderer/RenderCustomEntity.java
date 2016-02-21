@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.model.ModelGaiaMimic;
 import net.minecraft.client.model.ModelBase;
@@ -13,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderCustomEntity extends RenderLiving {
 	
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Mimic.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Mimic.png");
 
 	private ModelBase model;
 

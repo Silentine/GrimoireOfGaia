@@ -2,6 +2,7 @@ package gaia.init;
 
 import java.util.Locale;
 
+import gaia.GaiaReference;
 import gaia.items.ItemAccessoryDollCursed;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
@@ -354,7 +355,7 @@ public class GaiaItem {
 	
 	public static void registerRender(Item item)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
 	
 }

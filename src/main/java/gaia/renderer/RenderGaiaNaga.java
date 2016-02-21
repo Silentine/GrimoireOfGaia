@@ -2,22 +2,17 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaNaga;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class RenderGaiaNaga extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Naga.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Naga.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaNaga(float shadowSize) {

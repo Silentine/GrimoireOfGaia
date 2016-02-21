@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.model.ModelGaiaYeti;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaYeti extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Yeti.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Yeti.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaYeti(float shadowSize) {

@@ -1,5 +1,6 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaNPCTrader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -9,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaNPCTrader extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Trader.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Trader.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaNPCTrader( float shadowSize) {

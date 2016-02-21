@@ -2,6 +2,7 @@ package gaia.renderer.tileentity;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.model.tileentity.TileModelBustValkyrie;
 import gaia.tileentity.TileEntityBustValkyrie;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -15,7 +16,7 @@ public class TileRenderBustValkyrie extends TileEntitySpecialRenderer {
 
 
 	public void renderModel(TileEntityBustValkyrie te, double d, double d1, double d2, float f) {
-		this.texture = new ResourceLocation("gaia", "textures/models/blocks/Bust_Valkyrie.png");
+		this.texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/Bust_Valkyrie.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d + 0.5F, (float)d1 + 1.5F, (float)d2 + 0.5F);
 		if(te.direction == 0) {

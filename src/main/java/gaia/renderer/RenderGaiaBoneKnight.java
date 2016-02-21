@@ -2,22 +2,17 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.model.ModelGaiaBoneKnight;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class RenderGaiaBoneKnight extends RenderLiving<EntityGaiaBoneKnight> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Bone_Knight.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Bone_Knight.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaBoneKnight(float shadowSize) {

@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaSludgeGirl;
 import gaia.model.ModelGaiaSludgeGirl;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaSludgeGirl extends RenderLiving {
 
-	private static final ResourceLocation hairSludgeGirl = new ResourceLocation("gaia", "textures/models/Sludge_Girl_Hair.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Sludge_Girl.png");
+	private static final ResourceLocation hairSludgeGirl = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Sludge_Girl_Hair.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Sludge_Girl.png");
 
 	public RenderGaiaSludgeGirl(RenderManager renderManager, ModelGaiaSludgeGirl model, float shadowSize) {
         super(renderManager, model, shadowSize);

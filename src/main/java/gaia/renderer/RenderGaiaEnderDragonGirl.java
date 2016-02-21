@@ -2,23 +2,19 @@ package gaia.renderer;
 
 import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
-
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.model.ModelGaiaEnderDragonGirl;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDragonGirl> {
 
-	private static final ResourceLocation enderdragongirlEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Dragon_Girl.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Dragon_Girl.png");
+	private static final ResourceLocation enderdragongirlEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Ender_Dragon_Girl.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Ender_Dragon_Girl.png");
 	private ModelGaiaEnderDragonGirl EnderDragonGirlModel;
 	private Random rnd = new Random();
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();

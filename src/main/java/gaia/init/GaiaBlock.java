@@ -2,6 +2,7 @@ package gaia.init;
 
 import java.util.Locale;
 
+import gaia.GaiaReference;
 import gaia.block.BlockBustSphinx;
 import gaia.block.BlockBustValkyrie;
 import gaia.block.BlockBustVampire;
@@ -24,7 +25,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GaiaBlock {
-	//public static final String modid = "GrimoireOfGaia";
 	public static Block BustSphinx;
 	public static Block BustValkyrie;
 	public static Block BustVampire;
@@ -81,6 +81,6 @@ public class GaiaBlock {
 	public static void registerRender(Block block)
 	{
 		Item item = Item.getItemFromBlock(block);
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("gaia:" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
 }

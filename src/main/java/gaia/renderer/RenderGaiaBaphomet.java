@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.model.ModelGaiaBaphomet;
 import net.minecraft.client.Minecraft;
@@ -11,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaBaphomet extends RenderLiving<EntityGaiaBaphomet> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Baphomet.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Baphomet.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaBaphomet(float shadowSize) {

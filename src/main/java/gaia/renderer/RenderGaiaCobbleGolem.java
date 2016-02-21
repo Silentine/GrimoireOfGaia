@@ -1,5 +1,6 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.model.ModelGaiaCobbleGolem;
 import net.minecraft.client.Minecraft;
@@ -9,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Cobble_Golem.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Cobble_Golem.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaCobbleGolem( float shadowSize) {

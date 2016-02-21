@@ -2,7 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
-import gaia.model.ModelGaiaAnubis;
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaSatyr;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaSatyr extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Satyr.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Satyr.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaSatyr( float shadowSize) {
