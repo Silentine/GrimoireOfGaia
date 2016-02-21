@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import gaia.BlockStateHelper;
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
@@ -15,6 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -68,8 +70,9 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		this.setDead();
 	}
 
-	//TODO Generaterandom particles - not sure if this does anything
-	/**
+	//TODO Generaterandom particles - not sure if this does anything really
+	//Nope, checked it, never did anything
+	/*
 	private void generateRandomParticles(EnumParticleTypes par1Str) {
 		for(int i = 0; i < 5; ++i) {
 			double d0 = this.rand.nextGaussian() * 0.02D;
@@ -80,7 +83,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		}
 
 	}
-	**/
+	*/
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
 		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
 	}
@@ -123,14 +126,19 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	
 	public boolean getCanSpawnHere() {
 		int i = MathHelper.floor_double(this.posX);
-		int j = MathHelper.floor_double(this.boundingBox.minY);
+		int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor_double(this.posZ);
-		Block var1 = this.worldObj.getBlock(i, j - 1, k);
+		BlockPos pos = new BlockPos(i, k, k);
+		Block var1 = BlockStateHelper.getBlockfromState(this.worldObj, pos);
+		//Block var1 = this.worldObj.getBlock(i, j - 1, k);
 		if (spawnBlocks.contains(var1)) {
-			return this.posY > 60.0D && this.worldObj.getBlockLightValue(i, j, k) > 8 
-					&& this.worldObj.checkNoEntityCollision(this.boundingBox) 
-					&& this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() 
-					&& !this.worldObj.isAnyLiquid(this.boundingBox);
+			/** TODO Double check prop cyan mob's spawning **/
+			//int oldLight = getBlockState(pos).getBlock().getLightValue(this, pos);
+			//return this.posY > 60.0D && this.worldObj.getBlockLightValue(i, j, k) > 8 
+			return this.posY > 60.0D && var1.getLightValue() > 8 
+					&& this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox()) 
+					&& this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() 
+					&& !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
 		}
 		return false;
 	}
