@@ -27,10 +27,12 @@ import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
+import gaia.entity.monster.EntityGaiaMinotaurus;
 import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaNineTails;
 import gaia.entity.monster.EntityGaiaSahuagin;
 import gaia.entity.monster.EntityGaiaSatyr;
+import gaia.entity.monster.EntityGaiaSelkie;
 import gaia.entity.monster.EntityGaiaShaman;
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
@@ -50,6 +52,7 @@ import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCTrader;
+import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /** Temporary loading work around **/
@@ -117,7 +120,9 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 43, Gaia.instance, trackingRange, updateFrequency, true, fox, cat);
 	EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true, cat, hat);
 	EntityRegistry.registerModEntity(EntityGaiaMandragora.class, "Mandragora", 80, Gaia.instance, trackingRange, updateFrequency, true, vat, cat);
-	
+	EntityRegistry.registerModEntity(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
+	EntityRegistry.registerModEntity(EntityGaiaSelkie.class, "Selkie", 31, Gaia.instance, trackingRange, updateFrequency, true, hat, ice);
+	EntityRegistry.registerModEntity(EntityGaiaMinotaurus.class, "Minotaurus", 26, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
 	
 	EntityRegistry.registerModEntity(EntityGaiaEnderEye.class, "Ender Eye", 16, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
 	EntityRegistry.registerModEntity(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, Gaia.instance, trackingRange, updateFrequency, true, mat, log);
