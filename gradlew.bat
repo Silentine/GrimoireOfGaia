@@ -9,7 +9,11 @@
 if "%OS%"=="Windows_NT" setlocal
 
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+<<<<<<< HEAD
+set DEFAULT_JVM_OPTS="-Xmx2G"
+=======
 set DEFAULT_JVM_OPTS=
+>>>>>>> refs/remotes/Silentine/1.8.9-Dev
 
 set DIRNAME=%~dp0
 if "%DIRNAME%" == "" set DIRNAME=.
