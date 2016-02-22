@@ -21,7 +21,11 @@ public class BlockBustSphinx extends BlockContainer {
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
+<<<<<<< HEAD
 		//this.setBlockName("GrimoireOfGaia.BustSphinx");
+=======
+		this.setUnlocalizedName("GrimoireOfGaia.BustSphinx");
+>>>>>>> refs/remotes/Silentine/1.8.9-Dev
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
