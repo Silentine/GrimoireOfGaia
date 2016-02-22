@@ -32,7 +32,7 @@ public class ItemMiscBook extends Item {
 		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainLevels", new Object[]{Integer.valueOf(10)}));
 	}
 
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(!par3EntityPlayer.capabilities.isCreativeMode) {
 			--par1ItemStack.stackSize;
 		}
