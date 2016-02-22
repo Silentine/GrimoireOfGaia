@@ -59,8 +59,4 @@ public class ItemAccessoryDollCursed extends Item {
 		player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 200, 1));
 		player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 200, 1));
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

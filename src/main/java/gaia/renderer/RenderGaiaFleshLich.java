@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.model.ModelGaiaFleshLich;
 import net.minecraft.client.Minecraft;
@@ -11,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaFleshLich extends RenderLiving<EntityGaiaFleshLich> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Flesh_Lich.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Flesh_Lich.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaFleshLich( float shadowSize) {

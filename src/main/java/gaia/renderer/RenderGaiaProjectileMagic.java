@@ -1,10 +1,5 @@
 package gaia.renderer;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import gaia.entity.projectile.EntityGaiaProjectileMagic;
-import gaia.init.GaiaItem;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
@@ -41,7 +36,6 @@ public class RenderGaiaProjectileMagic extends Render
     
     public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks)
     {
-    	
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
@@ -57,9 +51,8 @@ public class RenderGaiaProjectileMagic extends Render
 
     public ItemStack get_itemStack(Entity entity)
     {
-    	//return new ItemStack(GaiaItem.Shard, 1, 0);
         //return new ItemStack(this.T_item, 1, 0);
-       return new ItemStack(this.T_item, 1, 5);
+        return new ItemStack(this.T_item, 1, 5);
         
     }
 

@@ -33,8 +33,4 @@ public class ItemWeaponPropInvisible extends Item {
 	public boolean isFull3D() {
 		return true;
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

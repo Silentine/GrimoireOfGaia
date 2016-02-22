@@ -66,8 +66,4 @@ public class ItemBoxGold extends Item {
 			return itemstack;
 		}
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

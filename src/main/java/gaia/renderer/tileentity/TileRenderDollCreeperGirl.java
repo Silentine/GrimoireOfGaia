@@ -1,12 +1,13 @@
 package gaia.renderer.tileentity;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.model.tileentity.TileModelDoll;
 import gaia.tileentity.TileEntityDollCreeperGirl;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 public class TileRenderDollCreeperGirl extends TileEntitySpecialRenderer {
 
@@ -14,7 +15,7 @@ public class TileRenderDollCreeperGirl extends TileEntitySpecialRenderer {
 	private TileModelDoll model = new TileModelDoll();
 
 	public void renderModel(TileEntityDollCreeperGirl te, double d, double d1, double d2, float f) {
-		this.texture = new ResourceLocation("gaia", "textures/models/blocks/Doll_Creeper_Girl.png");
+		this.texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/Doll_Creeper_Girl.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d + 0.5F, (float)d1 + 1.5F, (float)d2 + 0.5F);
 		if(te.direction == 0) {

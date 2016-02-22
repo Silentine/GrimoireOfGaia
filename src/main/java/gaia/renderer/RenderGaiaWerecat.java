@@ -2,27 +2,20 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.model.ModelGaiaDhampir;
 import gaia.model.ModelGaiaWerecat;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class RenderGaiaWerecat extends RenderLiving {
 
-	private static final ResourceLocation werecatEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Werecat.png");
-	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Werecat01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Werecat02.png");
+	private static final ResourceLocation werecatEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Werecat.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Werecat01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Werecat02.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaWerecat( float shadowSize) {

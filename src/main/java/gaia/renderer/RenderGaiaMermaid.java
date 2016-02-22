@@ -2,7 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
-import gaia.model.ModelGaiaCyclops;
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaMermaid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaMermaid extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Mermaid.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Mermaid.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	
 	public RenderGaiaMermaid( float shadowSize) {

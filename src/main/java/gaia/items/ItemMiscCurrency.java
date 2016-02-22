@@ -32,22 +32,7 @@ public class ItemMiscCurrency extends Item {
 			par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscCurrency.desc"));
 		}
 	}
-
-	/*public IIcon[] icons = new IIcon[3];
-
-	@Override
-	public void registerIcons(IIconRegister reg) {
-		this.icons[0] = reg.registerIcon("gaia:" + "MiscCurrency");
-		this.icons[1] = reg.registerIcon("gaia:" + "MiscCurrencyMulti");
-		this.icons[2] = reg.registerIcon("gaia:" + "MiscCurrencyExtra");
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int meta) {
-		if (meta > 2) meta = 0;
-		return this.icons[meta];
-	}*/
-
+	
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 3; i ++) {

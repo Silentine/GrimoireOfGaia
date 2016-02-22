@@ -44,8 +44,4 @@ public class ItemBagBook extends Item {
 		ItemStack book = Items.enchanted_book.getEnchantedItemStack(new EnchantmentData(enchantment, k));
 		return book;
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

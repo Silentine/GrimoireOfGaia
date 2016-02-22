@@ -55,8 +55,4 @@ public class ItemAccessoryRingNight extends Item {
 	public void doEffect(EntityPlayer player, ItemStack item) {
 		player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 0, 0));
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

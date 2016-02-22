@@ -2,8 +2,8 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaJorogumo;
-import gaia.model.ModelGaiaDhampir;
 import gaia.model.ModelGaiaJorogumo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaJorogumo extends RenderLiving {
 
-	private static final ResourceLocation jorogumoEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Jorogumo.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Jorogumo.png");
+	private static final ResourceLocation jorogumoEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Jorogumo.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Jorogumo.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	

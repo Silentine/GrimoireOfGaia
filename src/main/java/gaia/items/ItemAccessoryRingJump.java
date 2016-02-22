@@ -55,8 +55,4 @@ public class ItemAccessoryRingJump extends Item {
 		player.addPotionEffect(new PotionEffect(Potion.jump.id, 0, 0));
 		player.jumpMovementFactor = 0.015F;
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

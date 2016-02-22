@@ -1,5 +1,6 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCockatrice;
 import gaia.model.ModelGaiaCockatrice;
 import net.minecraft.client.Minecraft;
@@ -9,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaCockatrice extends RenderLiving<EntityGaiaCockatrice> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Cockatrice.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Cockatrice.png");
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaCockatrice( float shadowSize) {

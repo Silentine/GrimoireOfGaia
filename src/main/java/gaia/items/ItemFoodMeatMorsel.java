@@ -12,8 +12,4 @@ public class ItemFoodMeatMorsel extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodMeatMorsel");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

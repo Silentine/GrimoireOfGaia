@@ -2,6 +2,7 @@ package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.model.ModelGaiaCreep;
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGaiaCreep extends RenderLiving {
 
 	private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Creep.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Creep.png");
 	private ModelBase GaiaCreepModel = new ModelGaiaCreep(2.0F);
 
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();

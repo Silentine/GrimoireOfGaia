@@ -29,8 +29,4 @@ public class ItemFoodBerryIce extends ItemFood {
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 400, 0));
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

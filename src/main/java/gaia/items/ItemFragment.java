@@ -11,8 +11,4 @@ public class ItemFragment extends Item {
 		this.setUnlocalizedName("GrimoireOfGaia.Fragment");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
-
-	/*public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
-	}*/
 }

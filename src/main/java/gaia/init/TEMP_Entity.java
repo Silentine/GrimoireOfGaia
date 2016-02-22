@@ -124,18 +124,14 @@ public class TEMP_Entity {
 	EntityRegistry.registerModEntity(EntityGaiaSelkie.class, "Selkie", 31, Gaia.instance, trackingRange, updateFrequency, true, hat, ice);
 	EntityRegistry.registerModEntity(EntityGaiaMinotaurus.class, "Minotaurus", 26, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
 	
-	//Questionables - code will need to be revised and fixed up - mostly working however
 	EntityRegistry.registerModEntity(EntityGaiaEnderEye.class, "Ender Eye", 16, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
 	EntityRegistry.registerModEntity(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, Gaia.instance, trackingRange, updateFrequency, true, mat, log);
-		
+	
+	//Questionables - code will need to be revised and fixed up - mostly working however
 	//Villagers interactions changed a bit in 1.8
 	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCHolstaurus.class, "Holstaurus", 64, Gaia.instance, trackingRange, updateFrequency, true, dog, ice);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);	
 	EntityRegistry.registerModEntity(EntityGaiaNPCEnderGirl.class, "Ender Girl", 63, Gaia.instance, trackingRange, updateFrequency, true, dog, log);
-	
-	
-	
-	
 	}
 }

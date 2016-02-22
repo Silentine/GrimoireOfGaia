@@ -1,5 +1,8 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.model.ModelWeaponBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
@@ -9,9 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderWeaponBookFreezing implements IItemRenderer {
 
@@ -53,7 +53,7 @@ public class RenderWeaponBookFreezing implements IItemRenderer {
 				GL11.glTranslatef(0.25F, 0.1F, 0.0F);
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("gaia", "textures/models/weapons/WeaponBookFreezing.png"));
+			Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(GaiaReference.MOD_ID, "textures/models/weapons/WeaponBookFreezing.png"));
 			this.bookModel.render((Entity)data[1], 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, isFirstPerson);
 			GL11.glPopMatrix();
 		default:
