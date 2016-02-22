@@ -17,9 +17,10 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
 	}
 	
-	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase par2EntityLivingBase, double par3, double par5, double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
+	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase living, double par3, double par5, double par7) {
+		super(par1World, living, par3, par5, par7);
         this.setSize(0.3125F, 0.3125F);
+        
 	}
 	
     protected float getMotionFactor() {
@@ -32,19 +33,20 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
 	} */
 	
+    @Override
     public boolean isBurning() {
         return false;
     }
     
-    protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
+    protected void onImpact(MovingObjectPosition mop)
     {
     	if (!this.worldObj.isRemote)
     	{
-    		if (par1MovingObjectPosition.entityHit != null)
+    		if (mop.entityHit != null)
     		{
-    			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
+    			mop.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
 
-    			if (par1MovingObjectPosition.entityHit instanceof EntityLivingBase)
+    			if (mop.entityHit instanceof EntityLivingBase)
     			{
     				byte byte0 = 0;
 
@@ -59,7 +61,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 
     				if (byte0 > 0)
     				{
-    					((EntityLivingBase)par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 1));
+    					((EntityLivingBase)mop.entityHit).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 1));
     				}
     			}
 
