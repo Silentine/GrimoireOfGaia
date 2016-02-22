@@ -1,21 +1,70 @@
 package gaia.renderer;
 
-import gaia.GaiaItem;
-import gaia.entity.projectile.EntityGaiaProjectileMagic;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.IIcon;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+@SideOnly(Side.CLIENT)
+public class RenderGaiaProjectileMagic extends Render
+{
+    
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+	protected final Item T_item;
+    private final RenderItem render;
+    /**
+    probably should make a master class to render
+     all itemstack item projectile kind of things, but we'll save that for later
+    protected ItemStack stacky; 
+     */
 
+    public RenderGaiaProjectileMagic(RenderManager rend, Item itemin, RenderItem rendin)
+    {
+        super(rend);
+        this.T_item = itemin;
+        this.render = rendin;
+    }
 
+    
+    public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks)
+    {
+        GlStateManager.pushMatrix();
+        GlStateManager.translate((float)x, (float)y, (float)z);
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.scale(0.5F, 0.5F, 0.5F);
+        GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        this.bindTexture(TextureMap.locationBlocksTexture);
+        this.render.renderItem(this.get_itemStack(entity), ItemCameraTransforms.TransformType.GROUND);
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
+    }
+
+    public ItemStack get_itemStack(Entity entity)
+    {
+        //return new ItemStack(this.T_item, 1, 0);
+        return new ItemStack(this.T_item, 1, 5);
+        
+    }
+
+    protected ResourceLocation getEntityTexture(Entity entity)
+    {
+        return TextureMap.locationBlocksTexture;
+    }
+}
+
+//Old stuff
+
+/*
 @SideOnly(Side.CLIENT)
 public class RenderGaiaProjectileMagic extends Render
 {
@@ -67,3 +116,4 @@ public class RenderGaiaProjectileMagic extends Render
 		this.doRender((EntityGaiaProjectileMagic)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
 	}
 }
+*/

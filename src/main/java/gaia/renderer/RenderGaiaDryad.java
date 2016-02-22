@@ -1,37 +1,28 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaDryad;
-import gaia.model.ModelGaiaDryad;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaDryad;
+import gaia.model.ModelGaiaDryad;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaDryad extends RenderLiving {
 
-	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Dryad01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Dryad02.png");
+public class RenderGaiaDryad extends RenderLiving<EntityGaiaDryad> {
 
-	public RenderGaiaDryad() {
-		super(new ModelGaiaDryad(), 0.5F);
-	}
-
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Dryad01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Dryad02.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaDryad( float shadowSize) {
+        super(rend, new ModelGaiaDryad(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaDryad.rightarm));
+    }
+	
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
 		super.renderEquippedItems(par1EntityLiving, par2);
@@ -86,14 +77,14 @@ public class RenderGaiaDryad extends RenderLiving {
 
 			GL11.glPopMatrix();
 		}
-	}
+	}*/
 
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaDryad entity) {
 		return this.getTexture((EntityGaiaDryad) entity);
 	}
 

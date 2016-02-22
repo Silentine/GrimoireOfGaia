@@ -1,27 +1,28 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.model.ModelGaiaNPCEnderGirl;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class RenderGaiaNPCEnderGirl extends RenderLiving {
 
-	private static final ResourceLocation endergirlEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Ender_Girl.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Ender_Girl.png");
+	private static final ResourceLocation endergirlEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Ender_Girl.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Ender_Girl.png");
 
-	public RenderGaiaNPCEnderGirl() {
-		super(new ModelGaiaNPCEnderGirl(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaNPCEnderGirl());
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaNPCEnderGirl( float shadowSize) {
+        super(rend, new ModelGaiaNPCEnderGirl(), shadowSize);
+		//this.setRenderPassModel(new ModelGaiaNPCEnderGirl());
+        this.addLayer(new Glowing_layer(this, endergirlEyesTexture));
 	}
 
 	protected int shouldRenderPass(EntityGaiaNPCEnderGirl par1EntityGaiaNPCEnderGirl, int par2, float par3) {

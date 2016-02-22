@@ -1,10 +1,12 @@
 package gaia.entity.passive;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
+import gaia.init.GaiaItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -13,6 +15,13 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 	public EntityGaiaNPCSlimeGirl(World var1) {
 		super(var1);
 	}
+	
+	public IChatComponent getDisplayName()
+    {
+		 String s = "Slime Girl";
+		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
+		 return chatcomponenttext;
+    }
 	
 	@Override
 	protected String getLivingSound() {

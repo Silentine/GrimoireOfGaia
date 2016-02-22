@@ -1,9 +1,10 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
+import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,13 +18,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	private int attackTimer;
@@ -35,13 +39,14 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
-		this.getNavigator().setAvoidsWater(true);
+		//this.getNavigator().setAvoidsWater(true);
+		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 0.5D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
@@ -69,14 +74,14 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void handleHealthUpdate(byte par1) {
+	public void handleStatusUpdate(byte par1) {
 		if(par1 == 4) {
 			this.attackTimer = 10;
 			this.playSound("mob.irongolem.throw", 1.0F, 1.0F);
 		} else if(par1 == 11) {
 			this.holdRoseTick = 400;
 		} else {
-			super.handleHealthUpdate(par1);
+			super.handleStatusUpdate(par1);
 		}
 
 	}
@@ -137,18 +142,30 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 
 		if(this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
 			int var1 = MathHelper.floor_double(this.posX);
-			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset);
+			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D);// - (double)this.yOffset);
 			int var3 = MathHelper.floor_double(this.posZ);
-			Block var4 = this.worldObj.getBlock(var1, var2, var3);
-			if(var4 != Blocks.air) {
-				this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(var4) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.boundingBox.minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
-			}
-		}
+			World world = this.worldObj;
+			BlockPos pos = new BlockPos(var1, var2, var3);
+			int crackid = BlockStateHelper.getblock_ID(world, pos);
+			int crackmeta = BlockStateHelper.getMetafromState(world, pos);
+			
+			//Block b = this.worldObj.getBlock(var1, var2, var3);
+			Block b = BlockStateHelper.getBlockfromState(this.worldObj, pos);
+			if(b != Blocks.air) {
+				//this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(b) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
+				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
+						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D,
+						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
+						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
+						crackid,crackmeta);
+		}}
 
 	}
 
 	protected String getLivingSound() {
-		return "none";
+		//TODO Living sound
+		return null;
+		//return "none";
 	}
 
 	protected String getHurtSound() {

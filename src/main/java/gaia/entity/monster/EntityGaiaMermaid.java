@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -56,9 +57,9 @@ public class EntityGaiaMermaid extends EntityMobBase {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -78,37 +79,8 @@ public class EntityGaiaMermaid extends EntityMobBase {
 		return true;
 	}
 
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(19, new Byte((byte)0));
-	}
-
-	public void onUpdate() {
-		super.onUpdate();
-		this.field_70924_f = this.field_70926_e;
-		if(this.func_70922_bv()) {
-			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-		} else {
-			this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-		}
-
-		if(this.func_70922_bv()) {
-			this.numTicksToChaseTarget = 10;
-		}
-	}
-
-	public boolean func_70922_bv() {
-		return this.dataWatcher.getWatchableObjectByte(19) == 1;
-	}
-
-	public void func_70918_i(boolean par1) {
-		if(par1) {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
-		} else {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
-		}
-	}
-
+	//TODO millianare support
+	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		if(elements.length > 2) {
@@ -120,7 +92,8 @@ public class EntityGaiaMermaid extends EntityMobBase {
 
 		super.setTarget(par1Entity);
 	}
-
+	*/
+	
 	public void onLivingUpdate() {
 		if(this.isInWater()) {
 			this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 0));
@@ -177,13 +150,22 @@ public class EntityGaiaMermaid extends EntityMobBase {
 	public boolean handleLavaMovement() {
 		return false;
 	}
-
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
 		this.enchantEquipment();
 		return par1IEntityLivingData;
 	}
+	*/
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
 		if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {

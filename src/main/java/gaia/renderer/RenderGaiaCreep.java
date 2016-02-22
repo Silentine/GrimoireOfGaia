@@ -1,29 +1,29 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.model.ModelGaiaCreep;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class RenderGaiaCreep extends RenderLiving {
 
 	private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Creep.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Creep.png");
 	private ModelBase GaiaCreepModel = new ModelGaiaCreep(2.0F);
 
-	public RenderGaiaCreep() {
-		super(new ModelGaiaCreep(), 0.5F);
-	}
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaCreep(float shadowSize) {
+        super(rend, new ModelGaiaCreep(), shadowSize);
+    }
 
 	protected void updateCreepScale(EntityGaiaCreep par1EntityGaiaCreep, float par2) {
 		float f1 = par1EntityGaiaCreep.getGaiaCreepFlashIntensity(par2);
@@ -102,14 +102,21 @@ public class RenderGaiaCreep extends RenderLiving {
 		return -1;
 	}
 
+	//new
+	private void setRenderPassModel(ModelBase gaiaCreepModel2) {
+		
+	}
+
 	protected int func_77061_b(EntityGaiaCreep par1EntityGaiaCreep, int par2, float par3) {
 		return -1;
 	}
-
+	
+	//Normally EntityLivingBase
 	protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
 		this.updateCreepScale((EntityGaiaCreep)par1EntityLivingBase, par2);
 	}
-
+	
+	//Normally EntityLivingBase
 	protected int getColorMultiplier(EntityLivingBase par1EntityLivingBase, float par2, float par3) {
 		return this.updateCreepColorMultiplier((EntityGaiaCreep)par1EntityLivingBase, par2, par3);
 	}

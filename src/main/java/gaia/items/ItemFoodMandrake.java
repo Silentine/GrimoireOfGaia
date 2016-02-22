@@ -1,10 +1,8 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -34,9 +32,5 @@ public class ItemFoodMandrake extends ItemFood {
 		par3EntityPlayer.heal(4.0F);
 		par3EntityPlayer.addExhaustion(40.0F);
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}
 }

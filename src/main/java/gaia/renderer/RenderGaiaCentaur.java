@@ -1,35 +1,27 @@
 package gaia.renderer;
 
-import gaia.model.ModelGaiaCentaur;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaCentaur;
+import gaia.model.ModelGaiaCentaur;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaCentaur extends RenderLiving {
+public class RenderGaiaCentaur extends RenderLiving<EntityGaiaCentaur> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Centaur.png");
-
-	public RenderGaiaCentaur() {
-		super(new ModelGaiaCentaur(), 0.5F);
-	}
-
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Centaur.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaCentaur(float shadowSize) {
+        super(rend, new ModelGaiaCentaur(), shadowSize);
+        
+        this.addLayer(new held_rightarm(this, ModelGaiaCentaur.rightarm));
+    }
+	
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
 		super.renderEquippedItems(par1EntityLiving, par2);
@@ -84,13 +76,13 @@ public class RenderGaiaCentaur extends RenderLiving {
 
 			GL11.glPopMatrix();
 		}
-	}
+	}*/
 
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaCentaur entity) {
 		return texture;
 	}
 }

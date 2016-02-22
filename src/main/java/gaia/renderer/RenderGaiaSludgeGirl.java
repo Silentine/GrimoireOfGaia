@@ -1,28 +1,24 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaSludgeGirl;
 import gaia.model.ModelGaiaSludgeGirl;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class RenderGaiaSludgeGirl extends RenderLiving {
 
-	private static final ResourceLocation hairSludgeGirl = new ResourceLocation("gaia", "textures/models/Sludge_Girl_Hair.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Sludge_Girl.png");
+	private static final ResourceLocation hairSludgeGirl = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Sludge_Girl_Hair.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Sludge_Girl.png");
 
-	public RenderGaiaSludgeGirl() {
-		super(new ModelGaiaSludgeGirl(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaSludgeGirl());
+	public RenderGaiaSludgeGirl(RenderManager renderManager, ModelGaiaSludgeGirl model, float shadowSize) {
+        super(renderManager, model, shadowSize);
+		//this.setRenderPassModel(new ModelGaiaSludgeGirl());
 	}
 	
 	protected int shouldRenderPass(EntityGaiaSludgeGirl par1EntityGaiaSludgeGirl, int par2, float par3) {

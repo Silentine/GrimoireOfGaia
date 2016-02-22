@@ -1,39 +1,30 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.model.ModelGaiaDhampir;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaDhampir;
+import gaia.model.ModelGaiaDhampir;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaDhampir extends RenderLiving {
+public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	
-	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Dhampir.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Dhampir.png");
+	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Dhampir.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Dhampir.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaDhampir(float shadowSize) {
+        super(rend, new ModelGaiaDhampir(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaDhampir.rightarm));
+        this.addLayer(new Glowing_layer(this, dhampirEyesTexture));
+    }
 
-	public RenderGaiaDhampir() {
-		super(new ModelGaiaDhampir(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaDhampir());
-	}
-
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
 		super.renderEquippedItems(par1EntityLiving, par2);
@@ -88,7 +79,7 @@ public class RenderGaiaDhampir extends RenderLiving {
 
 			GL11.glPopMatrix();
 		}
-	}
+	}*/
 
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
@@ -127,7 +118,7 @@ public class RenderGaiaDhampir extends RenderLiving {
 		return this.shouldRenderPass((EntityGaiaDhampir)par1EntityLiving, par2, par3);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityGaiaDhampir entity) {
 		return texture;
 	}
 }

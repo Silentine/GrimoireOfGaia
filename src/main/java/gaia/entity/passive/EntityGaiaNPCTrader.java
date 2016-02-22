@@ -1,9 +1,11 @@
 package gaia.entity.passive;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
+import gaia.init.GaiaItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -12,6 +14,13 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 	public EntityGaiaNPCTrader(World var1) {
 		super(var1);
 	}
+	
+	public IChatComponent getDisplayName()
+    {
+		 String s = "Trader";
+		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
+		 return chatcomponenttext;
+    }
 	
 	@Override
 	protected String getLivingSound() {
@@ -58,15 +67,15 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 		recipes.add(new Trade(new ItemStack(GaiaItem.SpawnCardTrader, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 2, 0)));
 //		recipes.add(new Trade(new ItemStack(GaiaItem.PropWeapon, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 2, 0)));
 //		recipes.add(new Trade(new ItemStack(GaiaItem.PropWeapon, 1, 1), new ItemStack(GaiaItem.MiscCurrency, 2, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.FanFire, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.FanIce, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
+//		recipes.add(new Trade(new ItemStack(GaiaItem.FanFire, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
+//		recipes.add(new Trade(new ItemStack(GaiaItem.FanIce, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookBattle, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookHunger, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookNature, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.BookWither, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
+//		recipes.add(new Trade(new ItemStack(GaiaItem.BookWither, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookEnder, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookFreezing, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.BookBuff, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
+//		recipes.add(new Trade(new ItemStack(GaiaItem.BookBuff, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookNightmare, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.BookMetal, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 4, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.AccessoryDollCursed, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 8, 0)));

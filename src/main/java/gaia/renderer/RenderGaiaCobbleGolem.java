@@ -1,22 +1,24 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.model.ModelGaiaCobbleGolem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-public class RenderGaiaCobbleGolem extends RenderLiving {
+public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Cobble_Golem.png");
-
-	public RenderGaiaCobbleGolem() {
-		super(new ModelGaiaCobbleGolem(), 0.5F);
-	}
-
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Cobble_Golem.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaCobbleGolem( float shadowSize) {
+        super(rend, new ModelGaiaCobbleGolem(), shadowSize);
+        
+    }
+	
+	protected ResourceLocation getEntityTexture(EntityGaiaCobbleGolem entity) {
 		return texture;
 	}
 }

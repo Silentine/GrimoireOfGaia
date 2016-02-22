@@ -1,7 +1,6 @@
 package gaia.items;
 
 import gaia.Gaia;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemFood;
 
 public class ItemFoodMeatMorsel extends ItemFood {
@@ -12,9 +11,5 @@ public class ItemFoodMeatMorsel extends ItemFood {
 		this.texture = texture;
 		this.setUnlocalizedName("GrimoireOfGaia.FoodMeatMorsel");
 		this.setCreativeTab(Gaia.tabGaia);
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}
 }

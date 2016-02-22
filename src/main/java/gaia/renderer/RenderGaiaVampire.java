@@ -1,29 +1,26 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaVampire;
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaVampire;
-import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class RenderGaiaVampire extends RenderLiving {
 
-	private static final ResourceLocation vampireEyesTexture = new ResourceLocation("gaia", "textures/models/eyes/Eyes_Vampire.png");
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Vampire.png");
+	private static final ResourceLocation vampireEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/eyes/Eyes_Vampire.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Vampire.png");
 
-	public RenderGaiaVampire() {
-		super(new ModelGaiaVampire(), 0.5F);
-		this.setRenderPassModel(new ModelGaiaVampire());
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaVampire( float shadowSize) {
+        super(rend, new ModelGaiaVampire(), shadowSize);
+        this.addLayer(new Glowing_layer(this, vampireEyesTexture));
+		//this.setRenderPassModel(new ModelGaiaVampire());
 	}
 
+	/*
 	protected int shouldRenderPass(EntityGaiaVampire par1EntityGaiaVampire, int par2, float par3) {
 		if (par1EntityGaiaVampire.isInvisible()) {
 			return 0;
@@ -57,7 +54,9 @@ public class RenderGaiaVampire extends RenderLiving {
 		return this.shouldRenderPass((EntityGaiaVampire)par1EntityLiving, par2, par3);
 	}
 
+	 */
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		return texture;
 	}
+	
 }

@@ -2,12 +2,11 @@ package gaia.entity;
 
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Sets;
 
 public abstract class EntityMobDay extends EntityMobBase {
 
@@ -39,6 +38,8 @@ public abstract class EntityMobDay extends EntityMobBase {
 	
 	@Override
 	public boolean getCanSpawnHere() {
+		//TODO renable day spawning thingy
+		/**
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.boundingBox.minY);
 		int k = MathHelper.floor_double(this.posZ);
@@ -51,6 +52,9 @@ public abstract class EntityMobDay extends EntityMobBase {
 					&& this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
 					&& !this.worldObj.isAnyLiquid(this.boundingBox);
 		}
-		return false;
+		**/
+		//TODO returns false normally
+		return true;
+		//return false;
 	}
 }
