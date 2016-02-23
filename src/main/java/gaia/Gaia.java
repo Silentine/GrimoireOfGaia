@@ -2,6 +2,7 @@ package gaia;
 
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
+import gaia.init.GaiaEntity;
 import gaia.init.GaiaItem;
 import gaia.init.TEMP_Entity;
 import gaia.init.TEMP_Spawning;
@@ -74,12 +75,13 @@ public class Gaia
 		GaiaItem.addRecipes();
 		
 		TEMP_Entity.register();
-		TEMP_Spawning.register_spawn();
+		GaiaEntity.register();
+		//TEMP_Spawning.register_spawn();
 		/** Moved register renders to load init; required for entity renders **/
 		proxy.registerRenders();    	
     	
-		
-		/*ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
+		/*
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBanshee.class, 2, 0xeed2e8, 0xc6b0ed);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBaphomet.class, 3, 3559756, 14197864);
