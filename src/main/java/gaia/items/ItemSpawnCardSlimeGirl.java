@@ -34,7 +34,7 @@ public class ItemSpawnCardSlimeGirl extends Item {
 		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.SpawnSlimeGirl.desc"));
 	}
 
-	public ItemStack onEaten(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {
 		if(!entityplayer.capabilities.isCreativeMode) {
 			--par1ItemStack.stackSize;
 		}
@@ -42,7 +42,7 @@ public class ItemSpawnCardSlimeGirl extends Item {
 		world.playSoundAtEntity(entityplayer, "gaia:book_hit", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if(!world.isRemote) {
 			EntityGaiaNPCSlimeGirl entityspawning = new EntityGaiaNPCSlimeGirl(world);
-			entityspawning.setPosition(entityplayer.posX + 0.0D, entityplayer.posY + 0.0D, entityplayer.posZ + 0.0D);
+			entityspawning.setLocationAndAngles(entityplayer.posX + 0.5, entityplayer.posY, entityplayer.posZ + 0.5, 0,0); 
 			world.spawnEntityInWorld(entityspawning);
 		}
 
