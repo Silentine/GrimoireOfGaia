@@ -84,7 +84,7 @@ public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
 	}	
-
+	/*
 	protected int shouldRenderPass(EntityGaiaDhampir par1EntityGaiaDhampir, int par2, float par3) {
 		if (par1EntityGaiaDhampir.isInvisible()) {
 			return 0;
@@ -117,6 +117,7 @@ public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {
 		return this.shouldRenderPass((EntityGaiaDhampir)par1EntityLiving, par2, par3);
 	}
+	*/
 
 	protected ResourceLocation getEntityTexture(EntityGaiaDhampir entity) {
 		return texture;
