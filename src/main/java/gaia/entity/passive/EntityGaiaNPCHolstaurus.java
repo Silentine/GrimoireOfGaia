@@ -41,7 +41,7 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 	
 	protected void dropFewItems(boolean par1, int par2) {
 		if(par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardHolstaurus, 1, 1), 0.0F);
+            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardHolstaurus, 1, 0), 0.0F);
 		}
 	}
 
