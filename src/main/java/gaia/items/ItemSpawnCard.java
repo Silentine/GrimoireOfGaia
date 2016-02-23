@@ -35,7 +35,7 @@ public class ItemSpawnCard extends Item {
 	}
 
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		world.playSoundAtEntity(entityplayer, "gaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		world.playSoundAtEntity(entityplayer, "grimoireofgaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(5);

@@ -98,7 +98,7 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {

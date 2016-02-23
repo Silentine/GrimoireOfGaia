@@ -38,7 +38,7 @@ public class ItemSpawnCardTrader extends Item {
 			--par1ItemStack.stackSize;
 		}
 
-		world.playSoundAtEntity(entityplayer, "gaia:book_hit", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		world.playSoundAtEntity(entityplayer, "grimoireofgaia:book_hit", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if(!world.isRemote) {
 			EntityGaiaNPCTrader entityspawning = new EntityGaiaNPCTrader(world);
 			entityspawning.setLocationAndAngles(entityplayer.posX + 0.5, entityplayer.posY, entityplayer.posZ + 0.5, 0,0); 
