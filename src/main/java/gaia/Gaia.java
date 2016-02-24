@@ -1,12 +1,59 @@
 package gaia;
 
+import gaia.entity.monster.EntityGaiaAnubis;
+import gaia.entity.monster.EntityGaiaBanshee;
+import gaia.entity.monster.EntityGaiaBaphomet;
+import gaia.entity.monster.EntityGaiaBoneKnight;
+import gaia.entity.monster.EntityGaiaCentaur;
+import gaia.entity.monster.EntityGaiaCobbleGolem;
+import gaia.entity.monster.EntityGaiaCobblestoneGolem;
+import gaia.entity.monster.EntityGaiaCockatrice;
+import gaia.entity.monster.EntityGaiaCreep;
+import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.entity.monster.EntityGaiaDhampir;
+import gaia.entity.monster.EntityGaiaDryad;
+import gaia.entity.monster.EntityGaiaDullahan;
+import gaia.entity.monster.EntityGaiaEnderDragonGirl;
+import gaia.entity.monster.EntityGaiaEnderEye;
+import gaia.entity.monster.EntityGaiaFleshLich;
+import gaia.entity.monster.EntityGaiaFutakuchiOnna;
+import gaia.entity.monster.EntityGaiaGryphon;
+import gaia.entity.monster.EntityGaiaHarpy;
+import gaia.entity.monster.EntityGaiaHunter;
+import gaia.entity.monster.EntityGaiaJorogumo;
+import gaia.entity.monster.EntityGaiaKobold;
+import gaia.entity.monster.EntityGaiaMermaid;
+import gaia.entity.monster.EntityGaiaMimic;
+import gaia.entity.monster.EntityGaiaMinotaur;
+import gaia.entity.monster.EntityGaiaMinotaurus;
+import gaia.entity.monster.EntityGaiaNaga;
+import gaia.entity.monster.EntityGaiaNineTails;
+import gaia.entity.monster.EntityGaiaSahuagin;
+import gaia.entity.monster.EntityGaiaSatyr;
+import gaia.entity.monster.EntityGaiaSelkie;
+import gaia.entity.monster.EntityGaiaShaman;
+import gaia.entity.monster.EntityGaiaSharko;
+import gaia.entity.monster.EntityGaiaSiren;
+import gaia.entity.monster.EntityGaiaSludgeGirl;
+import gaia.entity.monster.EntityGaiaSphinx;
+import gaia.entity.monster.EntityGaiaSpriggan;
+import gaia.entity.monster.EntityGaiaSuccubus;
+import gaia.entity.monster.EntityGaiaSwamper;
+import gaia.entity.monster.EntityGaiaValkyrie;
+import gaia.entity.monster.EntityGaiaVampire;
+import gaia.entity.monster.EntityGaiaWerecat;
+import gaia.entity.monster.EntityGaiaWitch;
+import gaia.entity.monster.EntityGaiaWitherCow;
+import gaia.entity.monster.EntityGaiaYeti;
+import gaia.entity.monster.EntityGaiaYukiOnna;
+import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
 import gaia.init.GaiaItem;
 import gaia.init.TEMP_Entity;
-import gaia.init.TEMP_Spawning;
 import gaia.items.GaiaItemHandlerFuel;
+import gaia.items.ItemGaiaSpawnEgg;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -18,6 +65,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
@@ -80,13 +128,13 @@ public class Gaia
 		/** Moved register renders to load init; required for entity renders **/
 		proxy.registerRenders();    	
     	
-		/*
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);
+		
+		//ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBanshee.class, 2, 0xeed2e8, 0xc6b0ed);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBaphomet.class, 3, 3559756, 14197864);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBoneKnight.class, 4, 4602533, 13619151);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCentaur.class, 5, 0x8d4f41, 0x353535);
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCentaur.class, 5, 0x8d4f41, 0x353535);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCobbleGolem.class, 6, 11513775, 11513775);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCobblestoneGolem.class, 7, 11513775, 11513775);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCockatrice.class, 8, 0xc9b161, 0xe2e2e2);
@@ -128,8 +176,9 @@ public class Gaia
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitch.class, 47, 0x303030, 0x943dbb);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitherCow.class, 44, 5791069, 16777215);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYeti.class, 45, 16448250, 7895160);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);*/
-
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);	
+		
+		
 	}
 	
 	/*

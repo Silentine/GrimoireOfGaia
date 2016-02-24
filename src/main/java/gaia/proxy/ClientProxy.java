@@ -1,5 +1,7 @@
 package gaia.proxy;
 
+import java.util.Iterator;
+
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
@@ -56,6 +58,7 @@ import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
+import gaia.items.ItemGaiaSpawnEgg;
 import gaia.renderer.RenderGaiaAnubis;
 import gaia.renderer.RenderGaiaBanshee;
 import gaia.renderer.RenderGaiaBaphomet;
@@ -125,12 +128,17 @@ import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -327,6 +335,12 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 2, new ModelResourceLocation("grimoireofgaia:WeaponPropSpear", "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 3, new ModelResourceLocation("grimoireofgaia:WeaponPropDagger", "inventory"));
 	
-
+        
+        /** Should get it's list count to iterate through dynamically in the future**/
+        //For now uses a static list to iterate
+        for (int i = 0; i < 52; ++i) {
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.SpawnEgg, i, new ModelResourceLocation("minecraft:spawn_egg", "inventory"));
+        }
+        
 	}
 }

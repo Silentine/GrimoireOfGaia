@@ -3,6 +3,7 @@ package gaia.init;
 import java.util.Locale;
 
 import gaia.GaiaReference;
+import gaia.items.GaiaDispenserBehaviorMobEgg;
 import gaia.items.ItemAccessoryDollCursed;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
@@ -30,6 +31,7 @@ import gaia.items.ItemFoodPieMeat;
 import gaia.items.ItemFoodSmallAppleGold;
 import gaia.items.ItemFoodWitherMeat;
 import gaia.items.ItemFragment;
+import gaia.items.ItemGaiaSpawnEgg;
 import gaia.items.ItemMiscBook;
 import gaia.items.ItemMiscCurrency;
 import gaia.items.ItemMiscFurnaceFuel;
@@ -59,6 +61,7 @@ import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropInvisible;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -125,7 +128,7 @@ public class GaiaItem {
 	public static Item AccessoryRingJump;
 	public static Item AccessoryRingNight;
 	public static Item AccessoryDollCursed;
-	//public static Item SpawnEgg;
+	public static Item SpawnEgg;
 
 	public static void init() {
 		Shard = new ItemShard("Shard");
@@ -184,7 +187,7 @@ public class GaiaItem {
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
 		AccessoryDollCursed = new ItemAccessoryDollCursed("AccessoryDollCursed");
-		//SpawnEgg = new ItemGaiaSpawnEgg();
+		SpawnEgg = new ItemGaiaSpawnEgg();
 	}
 	
 	public static void register()
@@ -246,7 +249,8 @@ public class GaiaItem {
 				AccessoryRingJump, 
 				AccessoryRingNight,
 				AccessoryDollCursed,
-				//SpawnEgg 
+				SpawnEgg
+				
 		};
 		for (int i = 0; i < items.length; i++) {
 			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
