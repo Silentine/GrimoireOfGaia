@@ -256,7 +256,7 @@ public class GaiaItem {
 			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
 		}
 		
-		//BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
 
 	public static void addRecipes() {
