@@ -1,5 +1,6 @@
 package gaia.renderer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
@@ -19,18 +20,16 @@ public class RenderGaiaProjectileMagic extends Render
     
 
 	protected final Item T_item;
-    private final RenderItem render;
-    /**
-    probably should make a master class to render
-     all itemstack item projectile kind of things, but we'll save that for later
-    protected ItemStack stacky; 
-     */
-
+    //private final RenderItem render;
+    private final RenderItem render= Minecraft.getMinecraft().getRenderItem();
+    
+    //Oh boy the main client proxy has some big issue with passing down the renderer managers
+    //Finally figured it out/gave up and statically assigned it like the rest of the renderers :^)
     public RenderGaiaProjectileMagic(RenderManager rend, Item itemin, RenderItem rendin)
     {
-        super(rend);
+        super(Minecraft.getMinecraft().getRenderManager());
         this.T_item = itemin;
-        this.render = rendin;
+        //this.render = rendin;
     }
 
     
@@ -62,12 +61,12 @@ public class RenderGaiaProjectileMagic extends Render
     }
 }
 
-//Old stuff
+	//Old stuff
 
-/*
-@SideOnly(Side.CLIENT)
-public class RenderGaiaProjectileMagic extends Render
-{
+	/*
+	@SideOnly(Side.CLIENT)
+	public class RenderGaiaProjectileMagic extends Render
+	{
 	private float field_77002_a;
 
 	public RenderGaiaProjectileMagic(float par2) {
