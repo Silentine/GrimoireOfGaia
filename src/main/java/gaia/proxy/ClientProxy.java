@@ -1,7 +1,5 @@
 package gaia.proxy;
 
-import java.util.Iterator;
-
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
@@ -37,6 +35,7 @@ import gaia.entity.monster.EntityGaiaSelkie;
 import gaia.entity.monster.EntityGaiaShaman;
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
+import gaia.entity.monster.EntityGaiaSludgeGirl;
 import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
@@ -58,7 +57,6 @@ import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
-import gaia.items.ItemGaiaSpawnEgg;
 import gaia.renderer.RenderGaiaAnubis;
 import gaia.renderer.RenderGaiaBanshee;
 import gaia.renderer.RenderGaiaBaphomet;
@@ -101,6 +99,7 @@ import gaia.renderer.RenderGaiaSelkie;
 import gaia.renderer.RenderGaiaShaman;
 import gaia.renderer.RenderGaiaSharko;
 import gaia.renderer.RenderGaiaSiren;
+import gaia.renderer.RenderGaiaSludgeGirl;
 import gaia.renderer.RenderGaiaSphinx;
 import gaia.renderer.RenderGaiaSpriggan;
 import gaia.renderer.RenderGaiaSuccubus;
@@ -128,17 +127,12 @@ import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -206,9 +200,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaMandragora.class, new RenderGaiaMandragora(tiny));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSelkie.class, new RenderGaiaSelkie(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaMinotaurus.class, new RenderGaiaMinotaurus(small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSludgeGirl.class, new RenderGaiaSludgeGirl(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, new RenderGaiaPropFlowerCyan(0.0F));
 		
-		//TODO Ender mobs need a teleport bug fixed
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderEye.class, new RenderGaiaEnderEye(small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderDragonGirl.class, new RenderGaiaEnderDragonGirl(small));
 		
