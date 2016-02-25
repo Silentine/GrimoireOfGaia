@@ -1,5 +1,8 @@
 package gaia.renderer;
 
+import gaia.entity.monster.EntityGaiaNaga;
+import gaia.entity.monster.EntityGaiaSharko;
+import gaia.model.ModelGaiaSharko;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
@@ -17,30 +20,23 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-/** Render Item being held in entity's right arm**/
-/** Original Vanilla code can be found at held_layer.class **/
-public class held_rightarm implements LayerRenderer<EntityLivingBase>
+public class held_rightarm_special implements LayerRenderer<EntityLivingBase>
 {
-    
-    /** The Model Object to append Item on **/
     ModelRenderer rightarm;
-    /** The Entity's Renderer **/
     private final RendererLivingEntity<?> livingEntityRenderer;
     
-    /**
-     * [ Render Item being held in entity's right arm ]
-     * PARAMETERS - Entity's Renderer, Entity Model Object (boxes, limbs head)
-     *
-     **/    
-    
-    public held_rightarm(RendererLivingEntity<?> livingEntityRendererIn, ModelRenderer limb)
+    /**Tried to setup another constructor to pass variables to a second set of GL rotations and translations
+     * For dynamic assigning - without having to have said dozens of extra classes that do the same thing really
+     * But values didn't want to read and right for whatever reason so here we go static assignments -for now- 
+     * Leaving this here as a reminder to come back and figure out what went wrong    
+     */
+    public held_rightarm_special(RendererLivingEntity<?> livingEntityRendererIn, ModelRenderer limb)
     {
         this.livingEntityRenderer = livingEntityRendererIn;
         this.rightarm = limb;
     }
         
-
-    /** The Actual rendering code**/
+  
     public void doRenderLayer(EntityLivingBase entity, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
     {
         ItemStack itemstack = entity.getHeldItem();
@@ -80,9 +76,7 @@ public class held_rightarm implements LayerRenderer<EntityLivingBase>
                 float f1 = 0.375F;
                 GlStateManager.scale(-f1, -f1, f1);
             }
-            
-            //We can add more checks to tweak and fix item locations like so
-            //Or add more rendering effects if we fancy it
+           
             if(item == Items.bow) {
             	GlStateManager.translate(0.0F, 0F, -0.05F);
             }
@@ -90,7 +84,16 @@ public class held_rightarm implements LayerRenderer<EntityLivingBase>
             if (entity.isSneaking())
             {
                 GlStateManager.translate(0.0F, 0.203125F, 0.0F);
-            }            
+            }          
+            if(entity instanceof EntityGaiaSharko){
+            	GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
+            	GlStateManager.translate(0F, -0.05F, 0.35F);
+            }
+            if(entity instanceof EntityGaiaNaga){
+            	GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
+            	GlStateManager.translate(0F, 0.25F, 0.1F);
+            }
+            
             
             minecraft.getItemRenderer().renderItem(entity, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON);
             GlStateManager.popMatrix();

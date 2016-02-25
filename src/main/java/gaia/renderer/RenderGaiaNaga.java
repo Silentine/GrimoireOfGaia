@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaNaga;
+import gaia.model.ModelGaiaSharko;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -17,7 +18,7 @@ public class RenderGaiaNaga extends RenderLiving {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaNaga(float shadowSize) {
         super(rend, new ModelGaiaNaga(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaNaga.rightarmlower));
+        this.addLayer(new held_rightarm_special(this, ModelGaiaNaga.rightarmlower));
 	}
 
 	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {

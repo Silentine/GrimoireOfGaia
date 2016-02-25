@@ -228,7 +228,6 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		int j = MathHelper.floor_double(this.posZ);
 		int k = MathHelper.floor_double(this.posY);
 		BlockPos pos = new BlockPos(i,j,k);
-		//TODO doublecheck biomegenforcoords code	
 		if(this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
 			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
