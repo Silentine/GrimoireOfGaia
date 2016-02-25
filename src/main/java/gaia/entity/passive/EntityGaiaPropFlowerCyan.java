@@ -123,18 +123,33 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 			Blocks.grass, Blocks.dirt, 
 			Blocks.double_stone_slab //???
 	});
+		
+	public boolean getCanSpawnHere(){
+		
+		if(this.worldObj.isDaytime()) {
+			float f = this.getBrightness(1.0F);
+			if(f > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
+				
+				int i = MathHelper.floor_double(this.posX);
+		        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+		        int k = MathHelper.floor_double(this.posZ);
+				BlockPos blockpos = new BlockPos(i, j, k);			
+				Block var1 = this.worldObj.getBlockState(blockpos.down()).getBlock();
+				
+				return spawnBlocks.contains(var1)&& !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
+			}}
+		
+		return false;
+		}
 	
+	/*
 	public boolean getCanSpawnHere() {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor_double(this.posZ);
 		BlockPos pos = new BlockPos(i, k, k);
 		Block var1 = BlockStateHelper.getBlockfromState(this.worldObj, pos);
-		//Block var1 = this.worldObj.getBlock(i, j - 1, k);
 		if (spawnBlocks.contains(var1)) {
-			/** TODO Double check prop cyan mob's spawning **/
-			//int oldLight = getBlockState(pos).getBlock().getLightValue(this, pos);
-			//return this.posY > 60.0D && this.worldObj.getBlockLightValue(i, j, k) > 8 
 			return this.posY > 60.0D && var1.getLightValue() > 8 
 					&& this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox()) 
 					&& this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() 
@@ -142,6 +157,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		}
 		return false;
 	}
+	*/
 
 	public EntityAgeable createChild(EntityAgeable entityageable) {
 		return null;
