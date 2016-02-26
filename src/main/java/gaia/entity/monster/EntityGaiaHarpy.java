@@ -97,15 +97,15 @@ public class EntityGaiaHarpy extends EntityMobDay {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:aggressive_hurt";
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:aggressive_death";
+		return "grimoireofgaia:aggressive_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {

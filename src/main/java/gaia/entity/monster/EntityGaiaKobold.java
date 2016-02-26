@@ -224,15 +224,15 @@ public class EntityGaiaKobold extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:aggressive_hurt";
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:aggressive_death";
+		return "grimoireofgaia:aggressive_death";
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

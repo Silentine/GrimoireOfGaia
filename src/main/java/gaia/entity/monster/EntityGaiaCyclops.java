@@ -96,15 +96,15 @@ public class EntityGaiaCyclops extends EntityMobDay {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:assist_say";
+		return "grimoireofgaia:assist_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:assist_hurt";
+		return "grimoireofgaia:assist_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:assist_death";
+		return "grimoireofgaia:assist_death";
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

@@ -102,8 +102,7 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posZ);
 		int k = MathHelper.floor_double(this.posY);
-		BlockPos pos = new BlockPos(i,j,k);
-		//TODO doublecheck biomegenforcoords code	
+		BlockPos pos = new BlockPos(i,j,k);	
 		if(this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
 			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
@@ -113,15 +112,15 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:assist_say";
+		return "grimoireofgaia:assist_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:assist_hurt";
+		return "grimoireofgaia:assist_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:assist_death";
+		return "grimoireofgaia:assist_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {

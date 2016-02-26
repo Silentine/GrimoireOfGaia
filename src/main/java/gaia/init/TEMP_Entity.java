@@ -1,137 +1,192 @@
 package gaia.init;
 
-import gaia.Gaia;
-import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaBanshee;
-import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.entity.monster.EntityGaiaBoneKnight;
-import gaia.entity.monster.EntityGaiaCentaur;
-import gaia.entity.monster.EntityGaiaCobbleGolem;
-import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import gaia.entity.monster.EntityGaiaCockatrice;
+import gaia.ConfigGaia;
 import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaCyclops;
-import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaDullahan;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaEnderEye;
-import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaFutakuchiOnna;
-import gaia.entity.monster.EntityGaiaGryphon;
-import gaia.entity.monster.EntityGaiaHarpy;
-import gaia.entity.monster.EntityGaiaHunter;
-import gaia.entity.monster.EntityGaiaJorogumo;
 import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMandragora;
-import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMimic;
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.entity.monster.EntityGaiaMinotaurus;
-import gaia.entity.monster.EntityGaiaNaga;
-import gaia.entity.monster.EntityGaiaNineTails;
-import gaia.entity.monster.EntityGaiaSahuagin;
-import gaia.entity.monster.EntityGaiaSatyr;
-import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.entity.monster.EntityGaiaShaman;
-import gaia.entity.monster.EntityGaiaSharko;
-import gaia.entity.monster.EntityGaiaSiren;
-import gaia.entity.monster.EntityGaiaSphinx;
-import gaia.entity.monster.EntityGaiaSpriggan;
-import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSummonButler;
-import gaia.entity.monster.EntityGaiaSwamper;
-import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
-import gaia.entity.monster.EntityGaiaWitherCow;
-import gaia.entity.monster.EntityGaiaYeti;
-import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
-import gaia.entity.passive.EntityGaiaNPCEnderGirl;
-import gaia.entity.passive.EntityGaiaNPCHolstaurus;
-import gaia.entity.passive.EntityGaiaNPCTrader;
-import gaia.entity.passive.EntityGaiaPropFlowerCyan;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
-/** Temporary loading work around **/
-/** Remove when no longer testing **/
-public class TEMP_Entity {
+/** Temporary class to try and streamline spawning.**/
+public class TEMP_Spawning {
+	
+	
+	static BiomeGenBase[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
+	static BiomeGenBase[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
+	static BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
+	static BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
+	static BiomeGenBase[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
+	static BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
+	static BiomeGenBase[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
+	static BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 
-	public static void register(){
-		byte trackingRange = 64;
-		byte updateFrequency = 3;
-		//vanilla spawn eggs && coloring
-		//random colors
-		int dog = 0x353535;
-		int cat = 0xb19534;
-		int fox =0x303030;
-		int rat =0x943dbb;
-		int box =3815994;
-		int ice =7895160;
-		int log =0x4e3738;
-		int hat =0xc9b161;
-		int mat =11013646;
-		int vat =0x339933;
+	static BiomeGenBase[] water = BiomeDictionary.getBiomesForType(Type.WATER);
+	static BiomeGenBase[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
 
-	EntityRegistry.registerModEntity(EntityGaiaAnubis.class, "Anubis", 1, Gaia.instance, trackingRange, updateFrequency, true, cat, dog);
-	EntityRegistry.registerModEntity(EntityGaiaBaphomet.class, "Baphomet", 3, Gaia.instance, trackingRange, updateFrequency, true, dog, fox);
-	EntityRegistry.registerModEntity(EntityGaiaBoneKnight.class, "Bone Knight", 4, Gaia.instance, trackingRange, updateFrequency, true,fox, rat);
-	EntityRegistry.registerModEntity(EntityGaiaDullahan.class, "Dullahan", 14, Gaia.instance, trackingRange, updateFrequency, true, fox, box);
-	EntityRegistry.registerModEntity(EntityGaiaKobold.class, "Kobold", 47, Gaia.instance, trackingRange, updateFrequency, true, log, fox);
-	EntityRegistry.registerModEntity(EntityGaiaShaman.class, "Shaman", 32, Gaia.instance, trackingRange, updateFrequency, true, rat, dog);
-	EntityRegistry.registerModEntity(EntityGaiaSharko.class, "Sharko", 33, Gaia.instance, trackingRange, updateFrequency, true, dog, cat);
-	EntityRegistry.registerModEntity(EntityGaiaWitherCow.class, "Wither Cow", 44, Gaia.instance, trackingRange, updateFrequency, true, ice ,cat);
-	EntityRegistry.registerModEntity(EntityGaiaCockatrice.class, "Cockatrice", 8, Gaia.instance, trackingRange, updateFrequency, true, hat, cat);
-	EntityRegistry.registerModEntity(EntityGaiaFutakuchiOnna.class, "FutakuchiOnna", 18, Gaia.instance, trackingRange, updateFrequency, true, mat, ice);
-	EntityRegistry.registerModEntity(EntityGaiaNaga.class, "Naga", 27, Gaia.instance, trackingRange, updateFrequency, true, fox, mat);
-	EntityRegistry.registerModEntity(EntityGaiaSahuagin.class, "Sahuagin", 29, Gaia.instance, trackingRange, updateFrequency, true, dog,ice);
-	EntityRegistry.registerModEntity(EntityGaiaSiren.class, "Siren", 34, Gaia.instance, trackingRange, updateFrequency, true, ice, rat);
-	EntityRegistry.registerModEntity(EntityGaiaSpriggan.class, "Spriggan", 37, Gaia.instance, trackingRange, updateFrequency, true,dog, mat);
-	EntityRegistry.registerModEntity(EntityGaiaSummonButler.class, "Butler", 81, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
+	static BiomeGenBase[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
+	static BiomeGenBase[] sky = BiomeDictionary.getBiomesForType(Type.END);
+
+	static int i;
+	static SpawnListEntry SpawnEntry;
 	
-	EntityRegistry.registerModEntity(EntityGaiaCreep.class, "Creep", 9, Gaia.instance, trackingRange, updateFrequency, true, log, dog);
-	EntityRegistry.registerModEntity(EntityGaiaDhampir.class, "Dhampir", 12, Gaia.instance, trackingRange, updateFrequency, true, ice, mat); //Has an obvious rendering issue - Might be assets related
-	EntityRegistry.registerModEntity(EntityGaiaMimic.class, "Mimic", 24, Gaia.instance, trackingRange, updateFrequency, true, dog, cat);
-	EntityRegistry.registerModEntity(EntityGaiaJorogumo.class, "Jorogumo", 22, Gaia.instance, trackingRange, updateFrequency, true, mat, cat);
-	EntityRegistry.registerModEntity(EntityGaiaMinotaur.class, "Minotaur", 25, Gaia.instance, trackingRange, updateFrequency, true, ice, hat);
-	EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 41, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
-	EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 42, Gaia.instance, trackingRange, updateFrequency, true, dog, hat);
-	EntityRegistry.registerModEntity(EntityGaiaBanshee.class, "Banshee", 2, Gaia.instance, trackingRange, updateFrequency, true, rat, hat);
-	EntityRegistry.registerModEntity(EntityGaiaCentaur.class, "Centaur", 5, Gaia.instance, trackingRange, updateFrequency, true, fox, ice);
-	EntityRegistry.registerModEntity(EntityGaiaSphinx.class, "Sphinx", 36, Gaia.instance, trackingRange, updateFrequency, true, ice, cat);
+	/**specific subbiome to use**/
+	public enum subbiome{
+		TAIGA, COLDTAIGA, SPOOKY, NONE
+	}
 	
-	EntityRegistry.registerModEntity(EntityGaiaYeti.class, "Yeti", 45, Gaia.instance, trackingRange, updateFrequency, true, hat, rat);
-	EntityRegistry.registerModEntity(EntityGaiaYukiOnna.class, "Yuki-Onna", 46, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
-	EntityRegistry.registerModEntity(EntityGaiaHarpy.class, "Harpy", 20, Gaia.instance, trackingRange, updateFrequency, true,hat, fox);
-	EntityRegistry.registerModEntity(EntityGaiaHunter.class, "Hunter", 21, Gaia.instance, trackingRange, updateFrequency, true, mat, fox);
-	EntityRegistry.registerModEntity(EntityGaiaNineTails.class, "NineTails", 28, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);
-	EntityRegistry.registerModEntity(EntityGaiaFleshLich.class, "Flesh Lich", 17, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
-	EntityRegistry.registerModEntity(EntityGaiaSuccubus.class, "Succubus", 38, Gaia.instance, trackingRange, updateFrequency, true,dog, fox);
-	EntityRegistry.registerModEntity(EntityGaiaSwamper.class, "Swamper", 39, Gaia.instance, trackingRange, updateFrequency, true, mat, dog);
-	EntityRegistry.registerModEntity(EntityGaiaSatyr.class, "Satyr", 30, Gaia.instance, trackingRange, updateFrequency, true, dog, rat);
-	EntityRegistry.registerModEntity(EntityGaiaGryphon.class, "Gryphon", 19, Gaia.instance, trackingRange, updateFrequency, true, cat, mat);
-	EntityRegistry.registerModEntity(EntityGaiaDryad.class, "Dryad", 13, Gaia.instance, trackingRange, updateFrequency, true, log, ice);
-	EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true,fox, log);
-	EntityRegistry.registerModEntity(EntityGaiaMermaid.class, "Mermaid", 23, Gaia.instance, trackingRange, updateFrequency, true,rat, log);
-	EntityRegistry.registerModEntity(EntityGaiaValkyrie.class, "Valkyrie", 40, Gaia.instance, trackingRange, updateFrequency, true, ice, rat);
-	EntityRegistry.registerModEntity(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, Gaia.instance, trackingRange, updateFrequency, true, mat, hat);
-	EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 43, Gaia.instance, trackingRange, updateFrequency, true, fox, cat);
-	EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true, cat, hat);
-	EntityRegistry.registerModEntity(EntityGaiaMandragora.class, "Mandragora", 80, Gaia.instance, trackingRange, updateFrequency, true, vat, cat);
-	EntityRegistry.registerModEntity(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
-	EntityRegistry.registerModEntity(EntityGaiaSelkie.class, "Selkie", 31, Gaia.instance, trackingRange, updateFrequency, true, hat, ice);
-	EntityRegistry.registerModEntity(EntityGaiaMinotaurus.class, "Minotaurus", 26, Gaia.instance, trackingRange, updateFrequency, true, cat, rat);
+	/** Init area **/
+	public static void register_spawn(){
+		
+		//General addition
+		//usage (configuration weight, entity, min to spawn, max to spawn, biome to spawn in
+		addspawn(ConfigGaia.SpawnDryad, EntityGaiaDryad.class, 4, 6, forest);
+		
+		//specific additions
+		//usage (configuration weight, entity, min to spawn, max to spawn, biome to spawn, biome subtype
+		addspawn(ConfigGaia.SpawnKobold, EntityGaiaKobold.class, 2, 6, forest, subbiome.SPOOKY);
+		
+		//add to all caves
+		//usage (configuration weight, entity, min to spawn, max to spawn, spawn to caves
+		addcave(ConfigGaia.SpawnCreep, EntityGaiaCreep.class, 2, 4);
+		
+	}
 	
-	EntityRegistry.registerModEntity(EntityGaiaEnderEye.class, "Ender Eye", 16, Gaia.instance, trackingRange, updateFrequency, true, cat, vat);
-	EntityRegistry.registerModEntity(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, Gaia.instance, trackingRange, updateFrequency, true, mat, log);
+	/**Bridge methods**/
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome){
+		addspawn(groupmax, entityclassIn, groupmax, groupmax, biome, false, subbiome.NONE);
+	}
+	public static void addcave(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax){
+		addspawn(groupmax, entityclassIn, groupmax, groupmax, forest, true, subbiome.NONE);
+	}
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, subbiome subtype){
+		addspawn(groupmax, entityclassIn, groupmax, groupmax, forest, false, subtype);
+	}
 	
-	//Questionables - code will need to be revised and fixed up - mostly working however
-	//Villagers interactions changed a bit in 1.8
-	EntityRegistry.registerModEntity(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 60, Gaia.instance, trackingRange, updateFrequency, true, cat, ice);	
-	EntityRegistry.registerModEntity(EntityGaiaNPCHolstaurus.class, "Holstaurus", 64, Gaia.instance, trackingRange, updateFrequency, true, dog, ice);	
-	EntityRegistry.registerModEntity(EntityGaiaNPCTrader.class, "Trader", 61, Gaia.instance, trackingRange, updateFrequency, true, hat, fox);	
-	EntityRegistry.registerModEntity(EntityGaiaNPCEnderGirl.class, "Ender Girl", 63, Gaia.instance, trackingRange, updateFrequency, true, dog, log);
+	/** Iterates through the chosen biome to spawn and add mob to that spawning list **/
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, boolean caves, subbiome subtype){	
+		
+		if(biome == forest || caves){
+			for(i = 0; i < forest.length; ++i) 
+			{
+				// forest, forestHills, birchForest, birchForestHills
+				if(subtype == subbiome.NONE || caves){
+				if(!BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
+						&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY)  
+						&& !BiomeDictionary.isBiomeOfType(forest[i], Type.MOUNTAIN) 
+						&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY) 
+						&& !BiomeDictionary.isBiomeOfType(forest[i], Type.MAGICAL))  	 
+				{
+					addtoentry(configuration, entityclassIn, groupmin, groupmax, forest, i);
+				}}
+				
+				//taiga, taigaHills, megaTaiga, megaTaigaHills
+				if(subtype == subbiome.TAIGA || caves){
+				if(BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
+						&& (!BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
+				{
+					addtoentry(configuration, entityclassIn, groupmin, groupmax, forest, i);
+				}}
+				
+				// coldTaiga, coldTaigaHills
+				if(subtype == subbiome.COLDTAIGA || caves){
+				if(BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS)
+						&& (BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
+				{
+					addtoentry(configuration, entityclassIn, groupmin, groupmax, forest, i);				
+				}}
+				
+				// roofedForest
+				if(subtype == subbiome.SPOOKY || caves){
+				if(BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY)) 
+				{
+					addtoentry(configuration, entityclassIn, groupmin, groupmax, forest, i);				
+				}}
+			}}
+		
+		// desert, desertHills, mesa, mesaPlateau, mesaPlateau_F 
+		if(biome == sandy || caves){
+			for(i = 0; i < sandy.length; ++i) 
+			{
+			addtoentry(configuration, entityclassIn, groupmin, groupmax, sandy, i);
+			}}
+		
+		// plains, savanna, savannaPlateau 
+		if(biome == plains || caves){
+			for(i = 0; i < plains.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, plains, i);
+			}}
+		
+		// swamp
+		
+		if(biome == swamp || caves){
+			for(i = 0; i < swamp.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, swamp, i);
+			}}
+		// jungle
+		
+		if(biome == jungle || caves){
+			for(i = 0; i < jungle.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, jungle, i);
+			}
+		}
+		
+		// icePlains, iceMountains
+		if(biome == snowy || caves){
+			for(i = 0; i < snowy.length; ++i) 
+			{
+				if(!BiomeDictionary.isBiomeOfType(snowy[i], Type.FOREST) 
+					|| !BiomeDictionary.isBiomeOfType(snowy[i], Type.OCEAN) 
+					|| !BiomeDictionary.isBiomeOfType(snowy[i], Type.RIVER)) 
+				{
+					addtoentry(configuration, entityclassIn, groupmin, groupmax, snowy, i);
+				}}}
+		
+		// extremeHills, extremeHillsPlus
+		if(biome == mountain || caves){
+			for(i = 0; i < mountain.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, mountain, i);
+			}}
+		
+		// frozenRiver, coldBeach, stoneBeach, river, beach, ocean, deepOcean
+		if(biome == water){
+			for(i = 0; i < water.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, water, i);
+			}}
+		
+		//beach
+		if(biome == beach){
+			for(i = 0; i < beach.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, beach, i);
+			}}
+		
+		//hell
+		if(biome == hell){
+			for(i = 0; i < hell.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, hell, i);
+			}}
+		
+		//sky
+		if(biome == sky){
+			for(i = 0; i < sky.length; ++i) 
+			{
+				addtoentry(configuration, entityclassIn, groupmin, groupmax, sky, i);
+			}}
+	}
+	
+	public static void addtoentry(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, int subbiome){	
+		
+		SpawnEntry = new SpawnListEntry(entityclassIn, configuration, groupmin, groupmax);
+		biome[subbiome].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
 	}
 }

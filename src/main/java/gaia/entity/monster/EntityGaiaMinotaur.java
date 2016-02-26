@@ -139,15 +139,15 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:minotaur_say";
+		return "grimoireofgaia:minotaur_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:minotaur_hurt";
+		return "grimoireofgaia:minotaur_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:minotaur_hurt";
+		return "grimoireofgaia:minotaur_hurt";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {

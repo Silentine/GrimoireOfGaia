@@ -17,8 +17,8 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
 	}
 	
-	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase par2EntityLivingBase, double par3, double par5, double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
+	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase entity, double par3, double par5, double par7) {
+		super(par1World, entity, par3, par5, par7);
         this.setSize(0.3125F, 0.3125F);
 	}
 	
@@ -31,7 +31,8 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 		super(par1World, par2, par4, par6, par8, par10, par12);
         this.setSize(0.3125F, 0.3125F);
 	} */
-	
+  
+    
     public boolean isBurning() {
         return false;
     }

@@ -128,15 +128,15 @@ public class EntityGaiaSatyr extends EntityMobDay {
 	}
 	*/
 	protected String getLivingSound() {
-		return "gaia:assist_say";
+		return "grimoireofgaia:assist_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:assist_hurt";
+		return "grimoireofgaia:assist_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:assist_death";
+		return "grimoireofgaia:assist_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
