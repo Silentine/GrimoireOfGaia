@@ -74,13 +74,13 @@ item.GrimoireOfGaia.AccessoryRingNight.name=Ring of Night Vision
 item.GrimoireOfGaia.AccessoryDollCursed.name=Unlucky Horseshoe
 item.GrimoireOfGaia.MonsterPlacer.name=Spawn
 
-tile.grimoireofgaia.BustValkyrie.name=The Valkyrie
-tile.grimoireofgaia.BustVampire.name=The Vampire
-tile.grimoireofgaia.BustSphinx.name=The Sphinx
-tile.grimoireofgaia.DollCreeperGirl.name=Creeper Girl Doll
-tile.grimoireofgaia.DollEnderGirl.name=Ender Girl Doll
-tile.grimoireofgaia.DollSlimeGirl.name=Slime Girl Doll
-tile.grimoireofgaia.DollMaid.name=Maid Doll
+tile.GrimoireOfGaia.BustValkyrie.name=The Valkyrie
+tile.GrimoireOfGaia.BustVampire.name=The Vampire
+tile.GrimoireOfGaia.BustSphinx.name=The Sphinx
+tile.GrimoireOfGaia.DollCreeperGirl.name=Creeper Girl Doll
+tile.GrimoireOfGaia.DollEnderGirl.name=Ender Girl Doll
+tile.GrimoireOfGaia.DollSlimeGirl.name=Slime Girl Doll
+tile.GrimoireOfGaia.DollMaid.name=Maid Doll
 
 entity.grimoireofgaia.Anubis.name=Anubis
 entity.grimoireofgaia.Banshee.name=Banshee
