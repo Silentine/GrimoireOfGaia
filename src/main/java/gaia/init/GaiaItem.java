@@ -254,7 +254,8 @@ public class GaiaItem {
 				
 		};
 		for (int i = 0; i < items.length; i++) {
-			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
+			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName().substring(5));
+			//substring to trim off (item.) tag
 			//GameRegistry.registerItem(items[i], items[i].getUnlocalizedName().substring(trim));
 		}
 		
