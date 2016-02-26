@@ -18,7 +18,7 @@ public class ItemFoodBerryIce extends ItemFood {
 		super(par2, par3, par4);
 		this.texture = texture;
 		this.setMaxStackSize(16);
-		this.setUnlocalizedName("GrimoireOfGaia.FoodBerryIce");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

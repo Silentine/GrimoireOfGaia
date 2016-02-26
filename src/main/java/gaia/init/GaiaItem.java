@@ -62,6 +62,7 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropInvisible;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -132,7 +133,7 @@ public class GaiaItem {
 
 	public static void init() {
 		Shard = new ItemShard("Shard");
-		Fragment = new ItemFragment("FragmentEmerald");
+		Fragment = new ItemFragment("Fragment");
 		FoodMeatMorsel = new ItemFoodMeatMorsel(4, 0.8F, true, "FoodMeatMorsel");
 		FoodMeat = new ItemFoodMeat(8, 0.8F, true, "FoodMeat");
 		FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "FoodCoalfish");
@@ -187,7 +188,7 @@ public class GaiaItem {
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
 		AccessoryDollCursed = new ItemAccessoryDollCursed("AccessoryDollCursed");
-		SpawnEgg = new ItemGaiaSpawnEgg();
+		SpawnEgg = new ItemGaiaSpawnEgg("SpawnEgg");
 	}
 	
 	public static void register()
@@ -254,10 +255,12 @@ public class GaiaItem {
 		};
 		for (int i = 0; i < items.length; i++) {
 			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
+			//GameRegistry.registerItem(items[i], items[i].getUnlocalizedName().substring(trim));
 		}
 		
 		BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
+	static int trim = (GaiaReference.MOD_ID).length()+6;
 
 	public static void addRecipes() {
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
@@ -355,11 +358,17 @@ public class GaiaItem {
 		registerRender(AccessoryRingNight);
 		registerRender(AccessoryDollCursed);
 		//registerRender(SpawnEgg);
+		
+		
 	}
 	
 	public static void registerRender(Item item)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0,
+				//new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+				new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5).toLowerCase(Locale.US), "inventory"));
 	}
+	
+	
 	
 }

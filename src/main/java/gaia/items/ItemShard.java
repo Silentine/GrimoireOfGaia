@@ -13,7 +13,7 @@ public class ItemShard extends Item {
 	public ItemShard(String texture) {
 		this.texture = texture;
         this.setHasSubtypes(true);
-        this.setUnlocalizedName("GrimoireOfGaia.Shard");
+        this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

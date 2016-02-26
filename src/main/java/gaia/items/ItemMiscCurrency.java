@@ -18,7 +18,7 @@ public class ItemMiscCurrency extends Item {
 	public ItemMiscCurrency(String texture) {
 		this.texture = texture;
         this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscCurrency");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

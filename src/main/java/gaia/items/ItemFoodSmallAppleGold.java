@@ -21,7 +21,7 @@ public class ItemFoodSmallAppleGold extends ItemFood {
 		super(par2, par3, par4);
 		this.texture = texture;
 		this.maxStackSize = 64;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodSmallAppleGold");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

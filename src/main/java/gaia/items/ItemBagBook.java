@@ -23,7 +23,7 @@ public class ItemBagBook extends Item {
 
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BagBook");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

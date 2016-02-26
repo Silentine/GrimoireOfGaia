@@ -22,7 +22,7 @@ public class ItemAccessoryRingNight extends Item {
 
 		this.texture = texture;
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingNight");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

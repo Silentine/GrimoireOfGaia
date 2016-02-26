@@ -22,7 +22,7 @@ public class ItemAccessoryRingSpeed extends Item {
 
 		this.texture = texture;
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingSpeed");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

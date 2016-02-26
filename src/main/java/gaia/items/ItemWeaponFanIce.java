@@ -32,7 +32,7 @@ public class ItemWeaponFanIce extends Item {
 		this.weaponDamage = 0;
 		this.maxStackSize = 1;
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponFanIce");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

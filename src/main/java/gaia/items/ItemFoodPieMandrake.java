@@ -21,7 +21,7 @@ public class ItemFoodPieMandrake extends ItemFood {
 		super(par2, par3, par4);
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMandrake");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

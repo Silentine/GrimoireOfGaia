@@ -22,7 +22,7 @@ public class ItemBoxIron extends Item {
 
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BoxIron");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

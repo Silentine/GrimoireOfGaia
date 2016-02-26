@@ -20,7 +20,7 @@ public class ItemBagOre extends Item {
 	public ItemBagOre(String texture) {
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BagOre");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

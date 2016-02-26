@@ -21,7 +21,7 @@ public class ItemSpawnCardCreeperGirl extends Item {
 
 		this.texture = texture;
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnCardCreeperGirl");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

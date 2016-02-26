@@ -8,7 +8,7 @@ public class ItemFragment extends Item {
 
 	public ItemFragment(String texture) {
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.Fragment");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 }

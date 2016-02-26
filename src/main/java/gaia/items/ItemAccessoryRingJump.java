@@ -21,7 +21,7 @@ public class ItemAccessoryRingJump extends Item {
 	public ItemAccessoryRingJump(String texture) {
 		this.texture = texture;
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingJump");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

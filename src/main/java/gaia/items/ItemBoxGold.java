@@ -21,7 +21,7 @@ public class ItemBoxGold extends Item {
 	public ItemBoxGold(String texture) {
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BoxGold");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

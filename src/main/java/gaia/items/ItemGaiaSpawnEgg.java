@@ -101,10 +101,10 @@ public final class ItemGaiaSpawnEgg extends Item {
 		return null == result ? -1 : result.intValue();
 	}
 
-	public ItemGaiaSpawnEgg() {
+	public ItemGaiaSpawnEgg(String texture) {
 		this.setHasSubtypes(true);
 		this.setCreativeTab(Gaia.tabGaia);
-		this.setUnlocalizedName("GrimoireOfGaia.MonsterPlacer");
+		this.setUnlocalizedName(texture);
 	}
 
 	public String getItemStackDisplayName(ItemStack istack) {

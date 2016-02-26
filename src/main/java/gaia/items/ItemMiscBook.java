@@ -19,7 +19,7 @@ public class ItemMiscBook extends Item {
 	public ItemMiscBook(String texture) {
 
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.MiscBook");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

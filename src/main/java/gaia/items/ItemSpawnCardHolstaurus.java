@@ -21,7 +21,7 @@ public class ItemSpawnCardHolstaurus extends Item {
 
 		this.texture = texture;
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnCardHolstaurus");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

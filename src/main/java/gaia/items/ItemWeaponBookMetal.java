@@ -27,7 +27,7 @@ public class ItemWeaponBookMetal extends ItemSword {
 		this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses()*3.48F));
 		this.weaponDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookMetal");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

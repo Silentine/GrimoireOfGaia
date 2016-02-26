@@ -18,7 +18,7 @@ public class ItemWeaponProp extends Item {
 	public ItemWeaponProp(String texture) {
 		this.texture = texture;
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponProp");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

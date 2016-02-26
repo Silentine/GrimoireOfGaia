@@ -9,7 +9,7 @@ public class ItemFoodDriedNetherWart extends ItemFood {
 	public ItemFoodDriedNetherWart(int par2, float par3, boolean par4, String texture) {
 		super(par2, par3, par4);
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodDriedNetherWart");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 }

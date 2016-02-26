@@ -20,7 +20,7 @@ public class ItemSpawnCardTrader extends Item {
 	public ItemSpawnCardTrader(String texture) {
 
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnCardTrader");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

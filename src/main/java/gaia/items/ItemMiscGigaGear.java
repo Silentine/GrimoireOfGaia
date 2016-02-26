@@ -18,7 +18,7 @@ public class ItemMiscGigaGear extends Item {
 	public ItemMiscGigaGear(String texture) {
 		this.texture = texture;
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscGigaGear");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

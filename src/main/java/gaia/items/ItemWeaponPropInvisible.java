@@ -16,7 +16,7 @@ public class ItemWeaponPropInvisible extends Item {
 
 	public ItemWeaponPropInvisible(String texture) {
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponPropInvisible");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

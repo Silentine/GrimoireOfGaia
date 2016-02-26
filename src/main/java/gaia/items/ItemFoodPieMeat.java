@@ -21,7 +21,7 @@ public class ItemFoodPieMeat extends ItemFood {
 		super(par2, par3, par4);
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMeat");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

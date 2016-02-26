@@ -20,7 +20,7 @@ public class ItemMiscSoulFire extends Item {
 	public ItemMiscSoulFire(String texture) {
 
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.MiscSoulFire");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

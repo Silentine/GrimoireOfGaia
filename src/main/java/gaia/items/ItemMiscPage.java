@@ -17,7 +17,7 @@ public class ItemMiscPage extends Item {
 
 	public ItemMiscPage(String texture) {
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.MiscPage");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

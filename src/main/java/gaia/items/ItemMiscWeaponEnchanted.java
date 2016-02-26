@@ -18,7 +18,7 @@ public class ItemMiscWeaponEnchanted extends Item {
 	public ItemMiscWeaponEnchanted(String texture) {
 		this.texture = texture;
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscWeaponEnchanted");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -27,7 +27,7 @@ public class ItemWeaponBookNightmare extends ItemSword {
 		this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses()*3.48F));
 		this.weaponDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
 		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookNightmare");
+		this.setUnlocalizedName(texture);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 	
