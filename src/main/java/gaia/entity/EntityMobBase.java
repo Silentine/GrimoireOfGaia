@@ -3,6 +3,7 @@ package gaia.entity;
 import gaia.ConfigGaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -23,6 +24,10 @@ public abstract class EntityMobBase extends EntityMob {
 		} else {
 			return false;
 		}
+	}
+
+	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1iEntityLivingData) {
+		return null;
 	}
 
 	/** 

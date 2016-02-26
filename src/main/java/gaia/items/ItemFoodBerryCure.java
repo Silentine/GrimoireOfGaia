@@ -1,10 +1,8 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -40,9 +38,5 @@ public class ItemFoodBerryCure extends ItemFood {
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		this.clearNegativePotions(par3EntityPlayer);
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}
 }

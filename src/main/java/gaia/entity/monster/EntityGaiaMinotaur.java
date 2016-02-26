@@ -1,9 +1,10 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
+import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,12 +19,16 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -42,7 +47,7 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.spawnTime = 0;
 	}
 
@@ -63,9 +68,9 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 			if(par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -92,11 +97,25 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 
 		if(this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
 			int var1 = MathHelper.floor_double(this.posX);
-			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset);
+			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D);// - (double)this.yOffset);
 			int var3 = MathHelper.floor_double(this.posZ);
-			Block b = this.worldObj.getBlock(var1, var2, var3);
+			World world = this.worldObj;
+			BlockPos pos = new BlockPos(var1, var2, var3);
+			int crackid = BlockStateHelper.getblock_ID(world, pos);
+			int crackmeta = BlockStateHelper.getMetafromState(world, pos);
+			
+			//Block b = this.worldObj.getBlock(var1, var2, var3);
+			Block b = BlockStateHelper.getBlockfromState(this.worldObj, pos);
 			if(b != Blocks.air) {
-				this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(b) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.boundingBox.minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
+				//this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(b) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
+				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
+						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D,
+						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
+						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
+						crackid,crackmeta);
+						
+				
+				
 			}
 		}
 
@@ -104,13 +123,15 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 			this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 100, 0));
 			for(int i = 0; i < 2; ++i) {
-				this.worldObj.spawnParticle("explode", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				//"explode"
+				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
 		if(this.getHealth() <= 0.0F) {
 			for(int i = 0; i < 2; ++i) {
-				this.worldObj.spawnParticle("largeexplode", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				//this.worldObj.spawnParticle("largeexplode", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
@@ -118,15 +139,15 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:minotaur_say";
+		return "grimoireofgaia:minotaur_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:minotaur_hurt";
+		return "grimoireofgaia:minotaur_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:minotaur_hurt";
+		return "grimoireofgaia:minotaur_hurt";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
@@ -164,11 +185,15 @@ public class EntityGaiaMinotaur extends EntityMobBase {
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
 	
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
-		return par1IEntityLivingData;
-	}
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	public float MinotaurScaleAmount() {
 		return 1.25F;

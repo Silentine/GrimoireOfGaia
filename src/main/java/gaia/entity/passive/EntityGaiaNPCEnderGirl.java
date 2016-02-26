@@ -1,10 +1,12 @@
 package gaia.entity.passive;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
+import gaia.init.GaiaItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -14,24 +16,30 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 		super(var1);
 	}
 	
+	public IChatComponent getDisplayName()
+    {
+		 String s = "Ender Girl";
+		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
+		 return chatcomponenttext;
+    }
 	@Override
 	protected String getLivingSound() {
-		return "gaia:passive_say";
+		return "grimoireofgaia:passive_say";
 	}
 
 	@Override
 	protected String getHurtSound() {
-		return "gaia:passive_hurt";
+		return "grimoireofgaia:passive_hurt";
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return "gaia:passive_death";
+		return "grimoireofgaia:passive_death";
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {
 		if(par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardEnderGirl, 1, 1), 0.0F);
+            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardEnderGirl, 1, 0), 0.0F);
 		}
 	}
 

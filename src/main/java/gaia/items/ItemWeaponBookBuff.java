@@ -1,10 +1,10 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import com.google.common.collect.Multimap;
+
+import gaia.Gaia;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -18,11 +18,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponBookBuff extends Item {
 	private float weaponDamage;
@@ -39,12 +36,12 @@ public class ItemWeaponBookBuff extends Item {
 
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.epic;
+		return EnumRarity.EPIC;
 	}
 
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", (double)this.weaponDamage, 0));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double)this.weaponDamage, 0));
 		return multimap;
 	}
 
@@ -67,7 +64,7 @@ public class ItemWeaponBookBuff extends Item {
 	}
 
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.block;
+		return EnumAction.BLOCK;
 	}
 
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
@@ -81,9 +78,5 @@ public class ItemWeaponBookBuff extends Item {
 
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return Items.book == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}
 }

@@ -1,37 +1,28 @@
 package gaia.renderer;
 
-import gaia.entity.monster.EntityGaiaKobold;
-import gaia.model.ModelGaiaKobold;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaKobold;
+import gaia.model.ModelGaiaKobold;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
 public class RenderGaiaKobold extends RenderLiving {
 
-	private static final ResourceLocation texture01 = new ResourceLocation("gaia", "textures/models/Kobold01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation("gaia", "textures/models/alternate/Kobold02.png");
-
-	public RenderGaiaKobold() {
-		super(new ModelGaiaKobold(), 0.5F);
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Kobold01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Kobold02.png");
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	
+	public RenderGaiaKobold( float shadowSize) {
+        super(rend, new ModelGaiaKobold(), shadowSize);
+        this.addLayer(new held_rightarm(this, ModelGaiaKobold.righthand));
 	}
 
-	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
+	/*protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		float var3 = 1.0F;
 		GL11.glColor3f(var3, var3, var3);
 		super.renderEquippedItems(par1EntityLiving, par2);
@@ -86,7 +77,7 @@ public class RenderGaiaKobold extends RenderLiving {
 
 			GL11.glPopMatrix();
 		}
-	}
+	}*/
 
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);

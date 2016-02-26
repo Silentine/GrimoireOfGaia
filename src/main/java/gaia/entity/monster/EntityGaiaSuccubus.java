@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -41,7 +42,7 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
@@ -62,9 +63,9 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 				((EntityLivingBase)par1Entity).setFire(8);
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -93,15 +94,15 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:aggressive_hurt";
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:aggressive_death";
+		return "grimoireofgaia:aggressive_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
@@ -139,7 +140,7 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
-	
+	/*
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
@@ -149,6 +150,16 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
 		return par1IEntityLivingData;
 	}
+	*/
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 
 	protected void fall(float f) {}
 

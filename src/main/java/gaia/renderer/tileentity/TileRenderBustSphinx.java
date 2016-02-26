@@ -1,12 +1,13 @@
 package gaia.renderer.tileentity;
 
+import org.lwjgl.opengl.GL11;
+
+import gaia.GaiaReference;
 import gaia.model.tileentity.TileModelBustSphinx;
 import gaia.tileentity.TileEntityBustSphinx;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 public class TileRenderBustSphinx extends TileEntitySpecialRenderer {
 
@@ -14,7 +15,7 @@ public class TileRenderBustSphinx extends TileEntitySpecialRenderer {
 	private TileModelBustSphinx model = new TileModelBustSphinx();
 
 	public void renderModel(TileEntityBustSphinx te, double d, double d1, double d2, float f) {
-		this.texture = new ResourceLocation("gaia", "textures/models/blocks/Bust_Sphinx.png");
+		this.texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/Bust_Sphinx.png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d + 0.5F, (float)d1 + 1.5F, (float)d2 + 0.5F);
 		if(te.direction == 0) {
@@ -39,7 +40,7 @@ public class TileRenderBustSphinx extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 	}
 
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int destroyStage) {
 		this.renderModel((TileEntityBustSphinx)tileentity, d0, d1, d2, f);
 	}
 }

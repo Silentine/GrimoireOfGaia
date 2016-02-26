@@ -9,8 +9,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityGaiaProjectileMagic extends EntityFireball {
 
@@ -19,8 +17,8 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
 	}
 	
-	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase par2EntityLivingBase, double par3, double par5, double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
+	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase entity, double par3, double par5, double par7) {
+		super(par1World, entity, par3, par5, par7);
         this.setSize(0.3125F, 0.3125F);
 	}
 	
@@ -28,12 +26,13 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         return this.isInvulnerable() ? 0.73F : super.getMotionFactor();
     }
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public EntityGaiaProjectileMagic(World par1World, double par2, double par4, double par6, double par8, double par10, double par12) {
 		super(par1World, par2, par4, par6, par8, par10, par12);
         this.setSize(0.3125F, 0.3125F);
-	}
-	
+	} */
+  
+    
     public boolean isBurning() {
         return false;
     }
@@ -50,11 +49,11 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
     			{
     				byte byte0 = 0;
 
-    				if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL)
+    				if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL)
     				{
     					byte0 = 7;
     				}
-    				else if (this.worldObj.difficultySetting == EnumDifficulty.HARD)
+    				else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD)
     				{
     					byte0 = 15;
     				}

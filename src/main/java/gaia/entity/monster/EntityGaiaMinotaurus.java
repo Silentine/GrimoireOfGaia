@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -26,6 +26,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -33,8 +34,8 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 
-	public EntityGaiaMinotaurus(World par1World) {
-		super(par1World);
+	public EntityGaiaMinotaurus(World world) {
+		super(world);
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(1, new EntityAISwimming(this));
@@ -42,8 +43,8 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-		if(par1World != null && !par1World.isRemote) {
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		if(world != null && !world.isRemote) {
 			this.setCombatTask();
 		}
 	}
@@ -73,20 +74,20 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		this.dataWatcher.addObject(13, new Byte((byte)0));
 	}
 
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		if(super.attackEntityAsMob(par1Entity)) {
-			if(this.getMobType() == 1 && par1Entity instanceof EntityLivingBase) {
+	public boolean attackEntityAsMob(Entity entity) {
+		if(super.attackEntityAsMob(entity)) {
+			if(this.getMobType() == 1 && entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
 				if(byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 60));
+					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60));
+					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 60));
 				}
 			}
 
@@ -96,27 +97,28 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		}
 	}
 
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		if(this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-			this.enchantEquipmentRanged();
+			this.enchantEquipmentRanged(difficulty);
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
-	        this.addRandomArmor();
-			this.enchantEquipment();
+	        this.setEquipmentBasedOnDifficulty(difficulty);
+	        this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setMobType(1);
 			this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
 			this.setTextureType(0);
 		}
 		
-		return par1IEntityLivingData;
+		return livingdata;
 	}
 	
-    protected void addRandomArmor() {
-        super.addRandomArmor();
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
+    {
         int i = this.rand.nextInt(3);
 
         if (i == 0) {
@@ -126,8 +128,8 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
         }
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
+	public void setCurrentItemOrArmor(int par1, ItemStack stack) {
+		super.setCurrentItemOrArmor(par1, stack);
 		if(!this.worldObj.isRemote && par1 == 0) {
 			this.setCombatTask();
 		}
@@ -144,11 +146,11 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		}
 	}
 
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.difficultySetting.ordinal() * 4));
+	public void attackEntityWithRangedAttack(EntityLivingBase entityLivingBase, float par2) {
+		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, entityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.ordinal() * 0.11F));
+		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if(i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
 		}
@@ -198,9 +200,9 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		par1NBTTagCompound.setByte("MobType", (byte)this.getTextureType());
 	}
 
-    protected void enchantEquipmentRanged()
+    protected void enchantEquipmentRanged(DifficultyInstance difficulty)
     {
-        float f = this.worldObj.func_147462_b(this.posX, this.posY, this.posZ);
+    	float f = difficulty.getClampedAdditionalDifficulty();
 
         if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f)
         {
@@ -209,7 +211,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 
         for (int i = 0; i < 4; ++i)
         {
-            ItemStack itemstack = this.func_130225_q(i);
+            ItemStack itemstack = this.getCurrentArmor(i);
 
             if (itemstack != null && this.rand.nextFloat() < 5.0F * f)
             {
@@ -219,15 +221,15 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
     }
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:aggressive_hurt";
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:aggressive_death";
+		return "grimoireofgaia:aggressive_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
@@ -270,7 +272,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		}
 	}
 
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
+	public void knockBack(Entity entity, float par2, double par3, double par5) {
 		if(this.getMobType() == 1) {
 			if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
 				this.isAirBorne = true;
@@ -287,7 +289,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 				}
 			}
 		} else {
-			super.knockBack(par1Entity, par2, par3, par5);
+			super.knockBack(entity, par2, par3, par5);
 		}
 	}
 

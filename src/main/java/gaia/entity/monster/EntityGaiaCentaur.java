@@ -1,8 +1,8 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
+import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,6 +23,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob {
@@ -32,8 +33,9 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 	private int fullHealth;
 	private int regenerateHealth;
 	
-	private float field_70926_e;
-	private float field_70924_f;
+	//NOPE
+	//private float field_70926_e;
+	//private float field_70924_f;
 
 	public EntityGaiaCentaur(World par1World) {
 		super(par1World);
@@ -62,10 +64,10 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.difficultySetting.ordinal() * 4));
+		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.ordinal() * 0.11F));
+		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if(i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
 		}
@@ -118,14 +120,20 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 
 		super.onLivingUpdate();
 	}
-
+	//NOPE 
+	/*
 	protected void entityInit() {
 		super.entityInit();
 		this.dataWatcher.addObject(19, new Byte((byte)0));
 	}
-
+	*/
 	public void onUpdate() {
 		super.onUpdate();
+		//Oh no....
+		//No freaking way....
+		//WHYYYYYY
+		//Who put this here!? :^)
+		/*
 		this.field_70924_f = this.field_70926_e;
 		if(this.func_70922_bv()) {
 			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
@@ -136,12 +144,16 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 		if(this.func_70922_bv()) {
 			this.numTicksToChaseTarget = 10;
 		}
+		*/
 	}
-
+	//NOPE
+	/*
 	public boolean func_70922_bv() {
 		return this.dataWatcher.getWatchableObjectByte(19) == 1;
 	}
-
+	*/
+	//NOPE
+	/*
 	public void func_70918_i(boolean par1) {
 		if(par1) {
 			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
@@ -149,7 +161,9 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
 		}
 	}
-
+	*/
+	//TODO millenaire support to renable appearently
+	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		if(elements.length > 2) {
@@ -157,26 +171,27 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 			if(previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
 				return;
 			}
-			/*
+			
 			if(previousMethod.getClassName().startsWith("MCA.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
 				return;
 			}
-			*/
+			
 		}
 		
 		super.setTarget(par1Entity);
 	}
+	*/
 
 	protected String getLivingSound() {
-		return "gaia:assist_say";
+		return "grimoireofgaia:assist_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:assist_hurt";
+		return "grimoireofgaia:assist_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:assist_death";
+		return "grimoireofgaia:assist_death";
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
@@ -213,12 +228,23 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
     }
 	
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 		this.enchantEquipment();
 		return par1IEntityLivingData;
 	}
+	*/
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+		
+    }
 	
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);

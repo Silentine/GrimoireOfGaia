@@ -1,3 +1,4 @@
+
 package gaia.model;
 
 import net.minecraft.client.model.ModelBase;
@@ -314,14 +315,14 @@ public class ModelGaiaKobold extends ModelBase {
         float f6;
         float f7;
 
-        if (this.onGround > -9990.0F) {
-            f6 = this.onGround;
-            f6 = 1.0F - this.onGround;
+        if (this.swingProgress > -9990.0F) {
+            f6 = this.swingProgress;
+            f6 = 1.0F - this.swingProgress;
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0F - f6;
             f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.onGround * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
             
             this.righthand.rotateAngleX = (float)((double)this.righthand.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
             this.rightarm.rotateAngleX = this.righthand.rotateAngleX; 
@@ -329,7 +330,7 @@ public class ModelGaiaKobold extends ModelBase {
             this.righthand.rotateAngleY += (this.bodytop.rotateAngleY * 2.0F);
             this.rightarm.rotateAngleY = this.righthand.rotateAngleY; 
             this.rightarmlower.rotateAngleY = this.righthand.rotateAngleY;
-            this.righthand.rotateAngleZ = (MathHelper.sin(this.onGround * (float)Math.PI) * -0.4F);
+            this.righthand.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
             this.rightarm.rotateAngleZ = this.righthand.rotateAngleZ + 0.1745329F; 
             this.rightarmlower.rotateAngleZ = this.righthand.rotateAngleZ + 0.1745329F;
             this.righthand.rotateAngleZ = this.righthand.rotateAngleZ + 0.0872665F;

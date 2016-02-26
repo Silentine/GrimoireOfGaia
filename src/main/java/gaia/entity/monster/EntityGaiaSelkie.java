@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -25,7 +25,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -43,7 +45,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		if(par1World != null && !par1World.isRemote) {
 			this.setCombatTask();
 		}
@@ -75,9 +77,9 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 			if(this.getMobType() == 1 && par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
@@ -92,13 +94,33 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 			return false;
 		}
 	}
-
+	
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
+    {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+	if(this.worldObj.rand.nextInt(4) == 0) {
+		this.tasks.addTask(2, this.aiArrowAttack);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.enchantEquipmentRanged(difficulty);
+		this.setTextureType(1);
+	} else {
+		this.tasks.addTask(2, this.aiAttackOnCollide);
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.fishing_rod));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		this.setMobType(1);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
+		this.setTextureType(0);
+	}
+	return livingdata;	
+		
+    }
+	/*
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		if(this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-			this.enchantEquipmentRanged();
+			this.enchantEquipmentRanged(null);
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
@@ -111,7 +133,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		
 		return par1IEntityLivingData;
 	}
-	
+	*/
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);
 		if(!this.worldObj.isRemote && par1 == 0) {
@@ -131,10 +153,10 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.difficultySetting.ordinal() * 4));
+		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.ordinal() * 0.11F));
+		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if(i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
 		}
@@ -181,9 +203,9 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		par1NBTTagCompound.setByte("MobType", (byte)this.getMobType());
 	}
 	
-    protected void enchantEquipmentRanged()
+    protected void enchantEquipmentRanged(DifficultyInstance difficulty)
     {
-        float f = this.worldObj.func_147462_b(this.posX, this.posY, this.posZ);
+        float f = difficulty.getClampedAdditionalDifficulty();
 
         if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f)
         {
@@ -192,7 +214,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 
         for (int i = 0; i < 4; ++i)
         {
-            ItemStack itemstack = this.func_130225_q(i);
+            ItemStack itemstack = this.getCurrentArmor(i);
 
             if (itemstack != null && this.rand.nextFloat() < 5.0F * f)
             {
@@ -205,7 +227,8 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posZ);
 		int k = MathHelper.floor_double(this.posY);
-		if(this.worldObj.getBiomeGenForCoords(i, j).getFloatTemperature(i, k, j) > 1.0F) {
+		BlockPos pos = new BlockPos(i,j,k);
+		if(this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
 			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
 			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
 		}
@@ -214,15 +237,15 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	protected String getLivingSound() {
-		return "gaia:aggressive_say";
+		return "grimoireofgaia:aggressive_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:aggressive_hurt";
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:aggressive_death";
+		return "grimoireofgaia:aggressive_death";
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

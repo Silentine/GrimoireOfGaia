@@ -1,20 +1,18 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.GaiaItem;
-
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnCard extends Item {
 	String texture;
@@ -29,7 +27,7 @@ public class ItemSpawnCard extends Item {
 
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.epic;
+		return EnumRarity.EPIC;
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
@@ -37,7 +35,7 @@ public class ItemSpawnCard extends Item {
 	}
 
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		world.playSoundAtEntity(entityplayer, "gaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		world.playSoundAtEntity(entityplayer, "grimoireofgaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(5);
@@ -55,9 +53,5 @@ public class ItemSpawnCard extends Item {
 		default:
 			return itemstack;
 		}
-	}
-
-	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon("gaia:" + this.texture);
 	}
 }
