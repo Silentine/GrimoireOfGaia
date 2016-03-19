@@ -1,4 +1,4 @@
-package gaia.renderer;
+/*package gaia.renderer;
 
 import org.lwjgl.opengl.GL11;
 
@@ -81,3 +81,4 @@ public class RenderWeaponBookFreezing implements IItemRenderer {
 		}
 	}
 }
+*/
