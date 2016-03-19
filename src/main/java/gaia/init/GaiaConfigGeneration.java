@@ -3,12 +3,29 @@ package gaia.init;
 import gaia.ConfigGaia;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class GaiaConfigGeneration {
 	
-	public static void configOptions(Configuration config) {
-		config.load();
+	public static Configuration config;
+	
+	public static void configOptions(FMLPreInitializationEvent event) {
 		
+		config = new Configuration(event.getSuggestedConfigurationFile());
+		syncConfig();
+	}
+	
+	/**
+	public static void configOptions(Configuration config) {
+		
+	*/
+	public static String DAMAGE = "base damage";
+	public static String MODIFIER = "modifier";
+	
+	public static void syncConfig(){
+		
+		//config.load();
+	
 		//Spawning
 		ConfigGaia.SpawnAnubis = config.get("general", "SpawnRateAnubis", ConfigGaia.SpawnAnubis).getInt();
 		ConfigGaia.SpawnBanshee = config.get("general", "SpawnRateBanshee", ConfigGaia.SpawnBanshee).getInt();
@@ -57,23 +74,32 @@ public class GaiaConfigGeneration {
 		ConfigGaia.SpawnWitherCow = config.get("general", "SpawnRateWitherCow", ConfigGaia.SpawnWitherCow).getInt();
 		ConfigGaia.SpawnYeti = config.get("general", "SpawnRateYeti", ConfigGaia.SpawnYeti).getInt();
 		ConfigGaia.SpawnYukiOnna = config.get("general", "SpawnRateYukiOnna", ConfigGaia.SpawnYukiOnna).getInt();
+		
 		//Base damage
-		ConfigGaia.BaseDamage = config.get("BASE DAMAGE", "BaseDamage", true).getBoolean(true);
+		ConfigGaia.BaseDamage = config.get("base damage", "BaseDamage", true).getBoolean(true);
+		
 		//Tier info
-		ConfigGaia.Tier1maxHealth = config.get("MODIFIER", "Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
-		ConfigGaia.Tier1attackDamage = config.get("MODIFIER", "Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
-		ConfigGaia.Tier2maxHealth = config.get("MODIFIER", "Tier2maxHealth", ConfigGaia.Tier2maxHealth).getInt();
-		ConfigGaia.Tier2attackDamage = config.get("MODIFIER", "Tier2attackDamage", ConfigGaia.Tier2attackDamage).getInt();
-		ConfigGaia.Tier3maxHealth = config.get("MODIFIER", "Tier3maxHealth", ConfigGaia.Tier3maxHealth).getInt();
-		ConfigGaia.Tier3attackDamage = config.get("MODIFIER", "Tier3attackDamage", ConfigGaia.Tier3attackDamage).getInt();
+		ConfigGaia.Tier1maxHealth = config.get("modifier", "Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
+		ConfigGaia.Tier1attackDamage = config.get("modifier", "Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
+		ConfigGaia.Tier2maxHealth = config.get("modifier", "Tier2maxHealth", ConfigGaia.Tier2maxHealth).getInt();
+		ConfigGaia.Tier2attackDamage = config.get("modifier", "Tier2attackDamage", ConfigGaia.Tier2attackDamage).getInt();
+		ConfigGaia.Tier3maxHealth = config.get("modifier", "Tier3maxHealth", ConfigGaia.Tier3maxHealth).getInt();
+		ConfigGaia.Tier3attackDamage = config.get("modifier", "Tier3attackDamage", ConfigGaia.Tier3attackDamage).getInt();
 	
 		Property generalproperty = config.get("general", " ", " ");
 		generalproperty.comment = "Spawn Rate. Set to 0 to disable mob from spawning. Recommended: 10> Day, <100 Night";
-		Property basedamageproperty = config.get("BASE DAMAGE", " ", " ");
+		Property basedamageproperty = config.get("base damage", " ", " ");
 		basedamageproperty.comment = "If BaseDamage is set to true, all mobs will deal 1.0 piercing damage (ignores armor).";
-		Property modifierproperty = config.get("MODIFIER", " ", " ");
+		Property modifierproperty = config.get("modifier", " ", " ");
 		modifierproperty.comment = "Percentage amount. Default value: 100";
-		config.save();
-		config.load();
+		
+		
+		
+		//config.save();
+		//config.load();
+		 if(config.hasChanged())
+			 config.save();
 	}
+
+	
 }

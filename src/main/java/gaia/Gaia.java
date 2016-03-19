@@ -1,63 +1,16 @@
 package gaia;
 
-import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaBanshee;
-import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.entity.monster.EntityGaiaBoneKnight;
-import gaia.entity.monster.EntityGaiaCentaur;
-import gaia.entity.monster.EntityGaiaCobbleGolem;
-import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import gaia.entity.monster.EntityGaiaCockatrice;
-import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaCyclops;
-import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaDullahan;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaEnderEye;
-import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaFutakuchiOnna;
-import gaia.entity.monster.EntityGaiaGryphon;
-import gaia.entity.monster.EntityGaiaHarpy;
-import gaia.entity.monster.EntityGaiaHunter;
-import gaia.entity.monster.EntityGaiaJorogumo;
-import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMimic;
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.entity.monster.EntityGaiaMinotaurus;
-import gaia.entity.monster.EntityGaiaNaga;
-import gaia.entity.monster.EntityGaiaNineTails;
-import gaia.entity.monster.EntityGaiaSahuagin;
-import gaia.entity.monster.EntityGaiaSatyr;
-import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.entity.monster.EntityGaiaShaman;
-import gaia.entity.monster.EntityGaiaSharko;
-import gaia.entity.monster.EntityGaiaSiren;
-import gaia.entity.monster.EntityGaiaSludgeGirl;
-import gaia.entity.monster.EntityGaiaSphinx;
-import gaia.entity.monster.EntityGaiaSpriggan;
-import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSwamper;
-import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
-import gaia.entity.monster.EntityGaiaWitherCow;
-import gaia.entity.monster.EntityGaiaYeti;
-import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
 import gaia.init.GaiaItem;
 import gaia.init.GaiaSpawning;
 import gaia.items.GaiaItemHandlerFuel;
-import gaia.items.ItemGaiaSpawnEgg;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -65,19 +18,15 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(
 		modid = GaiaReference.MOD_ID, 
 		name = GaiaReference.MOD_NAME, 
-		version = GaiaReference.VERSION)
-/*
-@NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false
-		)
-*/
+		version = GaiaReference.VERSION,
+		guiFactory = GaiaReference.guiFactory)
+
 
 public class Gaia 
 {
@@ -96,13 +45,15 @@ public class Gaia
 		}
 
 	};
-
+	
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
 	{
-		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
-    	GaiaConfigGeneration.configOptions(cfg);
-		    	
+		//Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
+    	//GaiaConfigGeneration.configOptions(cfg);
+		GaiaConfigGeneration.configOptions(event);
+		
 		GaiaBlock.init();
 		GaiaBlock.register();
     	GaiaItem.init();
@@ -130,9 +81,14 @@ public class Gaia
 		proxy.registerRenders();    	
     	
 		
-		
-		
+		MinecraftForge.EVENT_BUS.register(this);		
 	}
+	
+	@SubscribeEvent
+	  public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
+	    if(eventArgs.modID.equals(GaiaReference.MOD_ID))
+	      GaiaConfigGeneration.syncConfig();
+	  }
 	
 	/*
 	//debug, remove before compile/release
