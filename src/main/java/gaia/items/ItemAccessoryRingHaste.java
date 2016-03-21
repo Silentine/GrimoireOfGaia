@@ -3,7 +3,10 @@ package gaia.items;
 import java.util.List;
 
 import gaia.Gaia;
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -15,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAccessoryRingHaste extends Item {
+public class ItemAccessoryRingHaste extends Item implements IBauble{
 	String texture;
 
 	public ItemAccessoryRingHaste(String texture) {
@@ -52,7 +55,42 @@ public class ItemAccessoryRingHaste extends Item {
 		}
 	}
 
-	public void doEffect(EntityPlayer player, ItemStack item) {
-		player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 0, 0));
+	public void doEffect(EntityPlayer player, ItemStack item) {		
+		//player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 0, 0));
+		
+		if (!player.isPotionActive(Potion.digSpeed)) {
+			player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 60, 0, true, false));		
+			}
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack) {
+		return BaubleType.RING;
+	}
+
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+		
+		this.doEffect((EntityPlayer)player, itemstack);	
+	}
+
+	@Override
+	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+		
+	}
+
+	@Override
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+		player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 20, 0));
+	}
+
+	@Override
+	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
 	}
 }

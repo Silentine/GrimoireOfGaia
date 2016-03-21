@@ -2,8 +2,11 @@ package gaia.items;
 
 import java.util.List;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import gaia.Gaia;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -15,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAccessoryRingJump extends Item {
+public class ItemAccessoryRingJump extends Item implements IBauble{
 	String texture;
 
 	public ItemAccessoryRingJump(String texture) {
@@ -51,8 +54,47 @@ public class ItemAccessoryRingJump extends Item {
 		}
 	}
 
-	public void doEffect(EntityPlayer player, ItemStack item) {
-		player.addPotionEffect(new PotionEffect(Potion.jump.id, 0, 0));
+	public void doEffect(EntityPlayer player, ItemStack item) {		
+		//player.addPotionEffect(new PotionEffect(Potion.jump.id, 0, 0));
+		//player.jumpMovementFactor = 0.015F;
+		
+		if (!player.isPotionActive(Potion.jump)) {
+		player.addPotionEffect(new PotionEffect(Potion.jump.id, 60, 0, true, false));		
+		}
 		player.jumpMovementFactor = 0.015F;
+	}
+	
+	public void doParticle(EntityPlayer player, ItemStack item) {
+		player.addPotionEffect(new PotionEffect(Potion.jump.id, 20, 0));
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack) {
+		return BaubleType.RING;
+	}
+
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {		
+		this.doEffect((EntityPlayer)player, itemstack);	
+	}
+
+	@Override
+	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+		this.doParticle((EntityPlayer)player, itemstack);	
+	}
+
+	@Override
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+		this.doParticle((EntityPlayer)player, itemstack);	
+	}
+
+	@Override
+	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
 	}
 }
