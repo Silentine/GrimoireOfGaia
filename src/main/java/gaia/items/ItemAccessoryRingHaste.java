@@ -15,8 +15,14 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+@InterfaceList({
+	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
+	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
 public class ItemAccessoryRingHaste extends Item implements IBauble{
 	String texture;

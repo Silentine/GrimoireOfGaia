@@ -1,5 +1,8 @@
 package gaia;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
@@ -11,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -25,7 +29,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 		modid = GaiaReference.MOD_ID, 
 		name = GaiaReference.MOD_NAME, 
 		version = GaiaReference.VERSION,
-		guiFactory = GaiaReference.guiFactory)
+		guiFactory = GaiaReference.guiFactory,
+		dependencies = GaiaReference.DEPENDENCIES
+		)
 
 
 public class Gaia 
@@ -36,6 +42,9 @@ public class Gaia
 	(clientSide = GaiaReference.CLIENT_PROXY_CLASS, 
 	serverSide = GaiaReference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
+	public static final Logger logger = LogManager.getLogger(GaiaReference.MOD_ID);
+	public static boolean isBaublesEnabled = false;
 	
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") 
 	{
@@ -50,6 +59,10 @@ public class Gaia
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) 
 	{
+		isBaublesEnabled = Loader.isModLoaded("Baubles");
+		if(isBaublesEnabled)logger.info("Loading With Baubles");
+		else{logger.info("Loading Without Baubles");}
+		
 		//Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
     	//GaiaConfigGeneration.configOptions(cfg);
 		GaiaConfigGeneration.configOptions(event);
