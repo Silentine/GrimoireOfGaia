@@ -3,11 +3,13 @@ package gaia;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import gaia.init.Aspects_Items;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
 import gaia.init.GaiaItem;
 import gaia.init.GaiaSpawning;
+import gaia.init.Aspects_Entity;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -45,6 +47,7 @@ public class Gaia
 	
 	public static final Logger logger = LogManager.getLogger(GaiaReference.MOD_ID);
 	public static boolean isBaublesEnabled = false;
+	public static boolean isThaumcraftEnabled = false;
 	
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") 
 	{
@@ -62,6 +65,10 @@ public class Gaia
 		isBaublesEnabled = Loader.isModLoaded("Baubles");
 		if(isBaublesEnabled)logger.info("Loading With Baubles");
 		else{logger.info("Loading Without Baubles");}
+		
+		isThaumcraftEnabled = Loader.isModLoaded("Thaumcraft");
+		if(isThaumcraftEnabled)logger.info("Loading With Thaumcraft");
+		else{logger.info("Loading Without Thaumcraft");}
 		
 		//Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
     	//GaiaConfigGeneration.configOptions(cfg);
@@ -89,6 +96,14 @@ public class Gaia
 		//TEMP_Entity.register();
 		GaiaEntity.register();
 		GaiaSpawning.register();
+		
+		if(isThaumcraftEnabled){
+			logger.info("Registering Aspects");	
+			Aspects_Entity.Entity_Aspects();
+			Aspects_Items.Item_Aspects();
+			logger.info("Aspects Successfully Loaded");	
+		}
+		
 		//TEMP_Spawning.register_spawn();
 		/** Moved register renders to load init; required for entity renders **/
 		proxy.registerRenders();    	
