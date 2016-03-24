@@ -3,8 +3,8 @@ package gaia.model;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaPropFlowerCyan extends ModelBase {
@@ -19,13 +19,11 @@ public class ModelGaiaPropFlowerCyan extends ModelBase {
 		this.headflower1.addBox(-3.0F, -10.0F, 0.0F, 6, 11, 0);
 		this.headflower1.setRotationPoint(0.0F, 23.0F, 0.0F);
 		this.headflower1.setTextureSize(64, 32);
-		this.headflower1.mirror = true;
 		this.setRotation(this.headflower1, 0.0F, -0.7853982F, 0.0F);
 		this.headflower2 = new ModelRenderer(this, 0, 0);
 		this.headflower2.addBox(-3.0F, -10.0F, 0.0F, 6, 11, 0);
 		this.headflower2.setRotationPoint(0.0F, 23.0F, 0.0F);
 		this.headflower2.setTextureSize(64, 32);
-		this.headflower2.mirror = true;
 		this.setRotation(this.headflower2, 0.0F, 0.7853982F, 0.0F);
 	}
 

@@ -5,10 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIGaiaCreepSwell extends EntityAIBase {
-
    EntityGaiaCreep swellingCreep;
    EntityLivingBase CreepAttackTarget;
-
 
    public EntityAIGaiaCreepSwell(EntityGaiaCreep par1EntityGaiaCreep) {
       this.swellingCreep = par1EntityGaiaCreep;
@@ -30,15 +28,14 @@ public class EntityAIGaiaCreepSwell extends EntityAIBase {
    }
 
    public void updateTask() {
-      if(this.CreepAttackTarget == null) {
+      if (this.CreepAttackTarget == null) {
          this.swellingCreep.setGaiaCreepState(-1);
-      } else if(this.swellingCreep.getDistanceSqToEntity(this.CreepAttackTarget) > 49.0D) {
+      } else if (this.swellingCreep.getDistanceSqToEntity(this.CreepAttackTarget) > 49.0D) {
          this.swellingCreep.setGaiaCreepState(-1);
-      } else if(!this.swellingCreep.getEntitySenses().canSee(this.CreepAttackTarget)) {
+      } else if (!this.swellingCreep.getEntitySenses().canSee(this.CreepAttackTarget)) {
          this.swellingCreep.setGaiaCreepState(-1);
       } else {
          this.swellingCreep.setGaiaCreepState(1);
       }
-
    }
 }

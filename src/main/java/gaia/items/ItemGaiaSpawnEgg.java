@@ -1,5 +1,6 @@
 package gaia.items;
 
+import gaia.BlockStateHelper;
 import gaia.Gaia;
 import gaia.entity.EntityGaiaEggInfo;
 
@@ -9,40 +10,42 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Facing;
-import net.minecraft.util.IIcon;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class ItemGaiaSpawnEgg extends Item {
-	@SideOnly(Side.CLIENT)
-	private IIcon baseIcon;
-	@SideOnly(Side.CLIENT)
-	private IIcon overlayIcon;
 	private static Map<Integer, String> idToName = new HashMap();
 	private static Map<Integer, EntityGaiaEggInfo> idToEgg = new HashMap();
 	private static Map<Integer, Class<? extends EntityLiving>> idToClass = new HashMap();
 	private static Map<Class<? extends EntityLiving>, Integer> classToID = new HashMap();
 
 	public static void registerEntityEgg(
-			Class<? extends EntityLiving> entityClass, int entityID,
-			int primaryColor, int secondaryColor) {
+			Class<? extends EntityLiving> entityClass, int entityID,int primaryColor, int secondaryColor) {
+
 		Integer id = Integer.valueOf(entityID);
 		idToClass.put(id, entityClass);
 		classToID.put(entityClass, id);
@@ -65,22 +68,20 @@ public final class ItemGaiaSpawnEgg extends Item {
 				if (exception != null) {
 					entity = (EntityLiving) exception.getConstructor(
 							new Class[] { World.class }).newInstance(
-							new Object[] { world });
+									new Object[] { world });
 				}
 			} catch (Exception var11) {
 				var11.printStackTrace();
 			}
 
 			if (entity == null) {
-				// Logger.getlo.logWarning("Skipping Entity with id " +
-				// entityID);
 			} else {
 				entity.setLocationAndAngles(posX, posY, posZ, MathHelper
 						.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F),
 						0.0F);
 				entity.rotationYawHead = entity.rotationYaw;
 				entity.renderYawOffset = entity.rotationYaw;
-				entity.onSpawnWithEgg((IEntityLivingData) null);
+				entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
 				world.spawnEntityInWorld(entity);
 				entity.playLivingSound();
 			}
@@ -124,32 +125,48 @@ public final class ItemGaiaSpawnEgg extends Item {
 				: 16777215;
 	}
 
-	public boolean onItemUse(ItemStack istack, EntityPlayer player,
-			World world, int posX, int posY, int posZ, int side, float par8,
-			float par9, float par10) {
-		if (world.isRemote) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote) {
 			return true;
+		}
+		else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
+			return false;
 		} else {
-			Block b = world.getBlock(posX, posY, posZ);
-			posX += Facing.offsetsXForSide[side];
-			posY += Facing.offsetsYForSide[side];
-			posZ += Facing.offsetsZForSide[side];
-			double verticalOffset = 0.0D;
-			if (side == 1 && b != Blocks.air && b.getRenderType() == 11) {
-				verticalOffset = 0.5D;
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+
+			if (iblockstate.getBlock() == Blocks.mob_spawner) {
+				TileEntity tileentity = worldIn.getTileEntity(pos);
+
+				if (tileentity instanceof TileEntityMobSpawner) {
+					MobSpawnerBaseLogic mobspawnerbaselogic = ((TileEntityMobSpawner)tileentity).getSpawnerBaseLogic();
+					mobspawnerbaselogic.setEntityName(ItemMonsterPlacer.getEntityName(stack));
+					tileentity.markDirty();
+					worldIn.markBlockForUpdate(pos);
+
+					if (!playerIn.capabilities.isCreativeMode) {
+						--stack.stackSize;
+					}
+
+					return true;
+				}
 			}
 
-			Entity entity = spawnCreature(world, istack.getItemDamage(),
-					(double) posX + 0.5D, (double) posY + verticalOffset,
-					(double) posZ + 0.5D);
+			pos = pos.offset(side);
+			double d0 = 0.0D;
+
+			if (side == EnumFacing.UP && iblockstate.getBlock() instanceof BlockFence) {
+				d0 = 0.5D;
+			}
+
+			Entity entity = spawnCreature(worldIn, stack.getItemDamage(),
+					(double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D);
 			if (entity != null) {
-				if (entity instanceof EntityLiving && istack.hasDisplayName()) {
-					((EntityLiving) entity).setCustomNameTag(istack
-							.getDisplayName());
+				if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
+					entity.setCustomNameTag(stack.getDisplayName());
 				}
 
-				if (!player.capabilities.isCreativeMode) {
-					--istack.stackSize;
+				if (!playerIn.capabilities.isCreativeMode) {
+					--stack.stackSize;
 				}
 			}
 
@@ -162,22 +179,23 @@ public final class ItemGaiaSpawnEgg extends Item {
 		if (world.isRemote) {
 			return istack;
 		} else {
-			MovingObjectPosition movingobjectposition = this
+			MovingObjectPosition mop = this
 					.getMovingObjectPositionFromPlayer(world, player, true);
-			if (movingobjectposition == null) {
+			if (mop == null) {
 				return istack;
 			} else {
-				if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
-					int posX = movingobjectposition.blockX;
-					int posY = movingobjectposition.blockY;
-					int posZ = movingobjectposition.blockZ;
-					if (!world.canMineBlock(player, posX, posY, posZ)
-							|| !player.canPlayerEdit(posX, posY, posZ,
-									movingobjectposition.sideHit, istack)) {
+				if (mop.typeOfHit == MovingObjectType.BLOCK) {
+					int posX = mop.getBlockPos().getX();
+					int posY = mop.getBlockPos().getX();
+					int posZ = mop.getBlockPos().getX();
+					BlockPos pos = mop.getBlockPos();
+					if (!world.canMineBlockBody(player, pos)
+							|| !player.canPlayerEdit(pos,
+									mop.sideHit, istack)) {
 						return istack;
 					}
 
-					Block b = world.getBlock(posX, posY, posZ);
+					Block b = BlockStateHelper.getBlockfromState(world, pos);
 
 					if (b.getMaterial() == Material.water) {
 						Entity entity = spawnCreature(world,
@@ -208,11 +226,6 @@ public final class ItemGaiaSpawnEgg extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
-		return renderPass > 0 ? this.overlayIcon : this.baseIcon;
-	}
-
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_,
 			List p_150895_3_) {
 		Iterator it = idToEgg.values().iterator();
@@ -221,11 +234,5 @@ public final class ItemGaiaSpawnEgg extends Item {
 			EntityGaiaEggInfo info = (EntityGaiaEggInfo) it.next();
 			p_150895_3_.add(new ItemStack(p_150895_1_, 1, info.spawnedID));
 		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegistry) {
-		this.baseIcon = iconRegistry.registerIcon("spawn_egg");
-		this.overlayIcon = iconRegistry.registerIcon("spawn_egg_overlay");
 	}
 }

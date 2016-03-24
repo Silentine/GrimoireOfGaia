@@ -1,6 +1,5 @@
 package gaia;
 
-
 public class ConfigGaia {
 	//taiga, taigaHills, megaTaiga, megaTaigaHills
 	public static int SpawnCyclops = 12;
@@ -28,7 +27,7 @@ public class ConfigGaia {
 	public static int SpawnSludgeGirl = 80;
 	public static int SpawnSwamper = 60;
 	// roofedForest
-	public static int SpawnKobold = 24;
+	public static int SpawnMatango = 24;
 	public static int SpawnWitch = 50;
 	// jungle
 	public static int SpawnCobbleGolem = 16;

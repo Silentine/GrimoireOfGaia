@@ -18,7 +18,10 @@ public class EntityAttributes {
 	public static int rateArmor1 = 4;
 	public static int rateArmor2 = 8;
 	public static int rateArmor3 = 16;
+	public static double knockbackbase = 0.4000000059604645D;
 	public static double knockback1 = 0.30D;
 	public static double knockback2 = 0.25D;
 	public static double knockback3 = 0.20D;
+	public static int rateraredrop = 40;
+	public static double followrange = 44.0D;
 }

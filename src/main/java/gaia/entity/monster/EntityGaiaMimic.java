@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -24,13 +24,16 @@ import net.minecraft.world.World;
 
 public class EntityGaiaMimic extends EntityMobBase {
 	private static final Item[] chestDrops = new Item[] { 
-		Items.gunpowder, Items.gunpowder, 
-		Items.ender_pearl, Items.ender_pearl,
-		Items.slime_ball, Items.slime_ball,
-		Items.string,
-		Items.spider_eye,
+		Items.sugar,
 		Items.bone,
-		Items.rotten_flesh };
+		Items.fermented_spider_eye,
+		Items.spider_eye,
+		Items.rotten_flesh,
+		Items.glass_bottle,
+		Items.gunpowder,
+		Items.stick,
+		Items.stick
+		};
 
 	public EntityGaiaMimic(World par1World) {
 		super(par1World);
@@ -42,16 +45,15 @@ public class EntityGaiaMimic extends EntityMobBase {
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-		//		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue((double)GaiaEntityAttributes.knockback1);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -59,17 +61,17 @@ public class EntityGaiaMimic extends EntityMobBase {
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
-		if(super.attackEntityAsMob(par1Entity)) {
-			if(par1Entity instanceof EntityLivingBase) {
+		if (super.attackEntityAsMob(par1Entity)) {
+			if (par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
                 	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
-				if(byte0 > 0) {
+				if (byte0 > 0) {
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.hunger.id, byte0 * 60, 0));
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 30, 0));
 				}
@@ -86,7 +88,7 @@ public class EntityGaiaMimic extends EntityMobBase {
 	}
 
 	public void onLivingUpdate() {
-		if(!this.onGround && this.motionY < 0.0D) {
+		if (!this.onGround && this.motionY < 0.0D) {
 			this.motionY *= 0.8D;
 		}
 
@@ -106,40 +108,45 @@ public class EntityGaiaMimic extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		for(int var4 = 0; var4 < 1; ++var4) {
+		for (int var4 = 0; var4 < 1; ++var4) {
 			Item var6 = chestDrops[this.rand.nextInt(chestDrops.length)];
 
-			for(int var7 = 0; var7 < 1; ++var7) {
+			for (int var7 = 0; var7 < 1; ++var7) {
 				this.dropItem(var6, 1);
 			}
 		}
 
-		if(par1 && (this.rand.nextInt(10) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.MiscFurnaceFuel,1);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.dropItem(GaiaItem.MiscFurnaceFuel, 1);
 		}
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
+
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+		}
+		
+		//Very Rare
+		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
+			this.dropItem(GaiaItem.SpawnTrader, 1);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
-		switch(this.rand.nextInt(4)) {
+	protected void addRandomDrop() {
+		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BagOre,1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagRecord,1);
+			this.dropItem(GaiaItem.BagRecord, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.SpawnCardTrader,1);
-			break;
-		case 3:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
 
-	protected void fall(float f) {}
+	public void fall(float distance, float damageMultiplier) {}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
 

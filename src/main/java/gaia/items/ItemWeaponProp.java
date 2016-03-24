@@ -1,20 +1,16 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import gaia.Gaia;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponProp extends Item {
 	String texture;
@@ -28,7 +24,7 @@ public class ItemWeaponProp extends Item {
 
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.uncommon;
+		return EnumRarity.UNCOMMON;
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
@@ -39,25 +35,9 @@ public class ItemWeaponProp extends Item {
 		return true;
 	}
 
-	public IIcon[] icons = new IIcon[4];
-
-	@Override
-	public void registerIcons(IIconRegister reg) {
-		this.icons[0] = reg.registerIcon("gaia:" + "WeaponPropEnder");
-		this.icons[1] = reg.registerIcon("gaia:" + "WeaponPropBlaze");
-		this.icons[2] = reg.registerIcon("gaia:" + "WeaponPropSpear");
-		this.icons[3] = reg.registerIcon("gaia:" + "WeaponPropDagger");
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int meta) {
-		if (meta > 3) meta = 0;
-		return this.icons[meta];
-	}
-
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 4; i ++) {
+		for (int i = 0; i < 5; i ++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

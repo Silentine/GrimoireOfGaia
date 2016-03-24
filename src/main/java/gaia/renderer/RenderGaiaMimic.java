@@ -1,19 +1,20 @@
 package gaia.renderer;
 
+import gaia.GaiaReference;
 import gaia.model.ModelGaiaMimic;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class RenderGaiaMimic extends RenderLiving {
 
-	private static final ResourceLocation texture = new ResourceLocation("gaia", "textures/models/Mimic.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Mimic.png");
 
-	public RenderGaiaMimic() {
-		super(new ModelGaiaMimic(), 0.5F);
+	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
+	public RenderGaiaMimic(float shadowSize) {
+        super(rend, new ModelGaiaMimic(), shadowSize);
 	}
 
 	protected ResourceLocation getEntityTexture(Entity entity) {

@@ -1,9 +1,9 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -18,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -30,18 +31,18 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -49,17 +50,17 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
-		if(super.attackEntityAsMob(par1Entity)) {
-			if(par1Entity instanceof EntityLivingBase) {
-                byte byte0 = 0;
+		if (super.attackEntityAsMob(par1Entity)) {
+			if (par1Entity instanceof EntityLivingBase) {
+				byte byte0 = 0;
 
-                if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL){
-                	byte0 = 7;
-                } else if (this.worldObj.difficultySetting == EnumDifficulty.HARD) {
-                	byte0 = 15;
-                }
+				if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 7;
+				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 15;
+				}
 
-				if(byte0 > 0) {
+				if (byte0 > 0) {
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.wither.id, byte0 * 60, 0));
 				}
 			}
@@ -75,8 +76,8 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 	}
 
 	public void onLivingUpdate() {
-		for(int i = 0; i < 2; ++i) {
-			this.worldObj.spawnParticle("smoke", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+		for (int i = 0; i < 2; ++i) {
+			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 		}
 		super.onLivingUpdate();
 	}
@@ -98,38 +99,39 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
-
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItem.FoodMeatMorsel,1);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.dropItem(Items.quartz, 1);
+		}
+		
+		if (par1 && (this.rand.nextInt(8) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.entityDropItem(new ItemStack(GaiaItem.FoodWither, 1, 0), 0.0F);
 		}
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.FoodWitherMeat,1);
-		}
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
-
-		if(par1 && (this.rand.nextInt(8) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.quartz,1);
+		
+		if (par1 && (this.rand.nextInt(16) == 0 || this.rand.nextInt(1) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.ShardMisc, 1, 2), 0.0F);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
+	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron,1);
+			this.dropItem(GaiaItem.BoxIron, 1);
 			break;
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
 
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
-
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
 		return par1PotionEffect.getPotionID() == Potion.wither.id?false:super.isPotionApplicable(par1PotionEffect);
 	}
+
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
 }

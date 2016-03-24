@@ -1,11 +1,11 @@
 package gaia.entity.monster;
 
-import gaia.GaiaBlock;
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
+import gaia.init.GaiaBlock;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -22,10 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaCreep extends EntityMobBase {
 	private int lastActiveTime;
@@ -44,16 +43,16 @@ public class EntityGaiaCreep extends EntityMobBase {
 		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -68,10 +67,10 @@ public class EntityGaiaCreep extends EntityMobBase {
 		return this.getAttackTarget() == null?3:3 + (int)(this.getHealth() - 1.0F);
 	}
 
-	protected void fall(float par1) {
-		super.fall(par1);
-		this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + par1 * 1.5F);
-		if(this.timeSinceIgnited > this.fuseTime - 5) {
+	public void fall(float distance, float damageMultiplier){
+		super.fall(distance, damageMultiplier);
+		this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + distance * 1.5F);
+		if (this.timeSinceIgnited > this.fuseTime - 5) {
 			this.timeSinceIgnited = this.fuseTime - 5;
 		}
 	}
@@ -84,7 +83,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 
 	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeEntityToNBT(par1NBTTagCompound);
-		if(this.dataWatcher.getWatchableObjectByte(17) == 1) {
+		if (this.dataWatcher.getWatchableObjectByte(17) == 1) {
 			par1NBTTagCompound.setBoolean("powered", true);
 		}
 
@@ -95,33 +94,33 @@ public class EntityGaiaCreep extends EntityMobBase {
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readEntityFromNBT(par1NBTTagCompound);
 		this.dataWatcher.updateObject(17, Byte.valueOf((byte)(par1NBTTagCompound.getBoolean("powered")?1:0)));
-		if(par1NBTTagCompound.hasKey("Fuse")) {
+		if (par1NBTTagCompound.hasKey("Fuse")) {
 			this.fuseTime = par1NBTTagCompound.getShort("Fuse");
 		}
 
-		if(par1NBTTagCompound.hasKey("ExplosionRadius")) {
+		if (par1NBTTagCompound.hasKey("ExplosionRadius")) {
 			this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
 		}
 	}
 
 	public void onUpdate() {
-		if(this.isEntityAlive()) {
+		if (this.isEntityAlive()) {
 			this.lastActiveTime = this.timeSinceIgnited;
 			int var1 = this.getGaiaCreepState();
-			if(var1 > 0 && this.timeSinceIgnited == 0) {
+			if (var1 > 0 && this.timeSinceIgnited == 0) {
 				this.playSound("random.fuse", 1.0F, 0.5F);
 			}
 
 			this.timeSinceIgnited += var1;
-			if(this.timeSinceIgnited < 0) {
+			if (this.timeSinceIgnited < 0) {
 				this.timeSinceIgnited = 0;
 			}
 
-			if(this.timeSinceIgnited >= this.fuseTime) {
+			if (this.timeSinceIgnited >= this.fuseTime) {
 				this.timeSinceIgnited = this.fuseTime;
-				if(!this.worldObj.isRemote) {
-					boolean var2 = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-					if(this.getPowered()) {
+				if (!this.worldObj.isRemote) {
+					boolean var2 = this.worldObj.getGameRules().getBoolean("mobGriefing");
+					if (this.getPowered()) {
 						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)(this.explosionRadius * 2), var2);
 					} else {
 						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)this.explosionRadius, var2);
@@ -136,7 +135,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 	}
 
 	public void onLivingUpdate() {
-		if(this.getHealth() <= EntityAttributes.maxHealth1 * 0.10F) {
+		if (this.getHealth() <= EntityAttributes.maxHealth1 * 0.10F) {
 			this.addPotionEffect(new PotionEffect(Potion.invisibility.id, 100, 0));
 		}
 		super.onLivingUpdate();
@@ -151,30 +150,29 @@ public class EntityGaiaCreep extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
-
-		for(int var4 = 0; var4 < var3; ++var4) {
+		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			this.dropItem(Items.gunpowder, 1);
 		}
-		
-		if(par1 && (this.rand.nextInt(10) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.gunpowder,1);
-		}
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
+
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+		}
+		
+		//Very Rare
+		if (par1 && (this.rand.nextInt(40) == 0 || this.rand.nextInt(1) > 0)) {
+			this.dropItem(GaiaItem.SpawnCreeperGirl, 1);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
-		switch(this.rand.nextInt(4)) {
+	protected void addRandomDrop() {
+		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BagOre,1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.SpawnCardCreeperGirl,1);
-			break;
-		case 2:
 			this.dropItem(Item.getItemFromBlock(GaiaBlock.DollCreeperGirl), 1);
 			break;
 		case 3:	
@@ -209,20 +207,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
-			this.isAirBorne = true;
-			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
-			float f2 = 0.4F;
-			this.motionX /= 2.0D;
-			this.motionY /= 2.0D;
-			this.motionZ /= 2.0D;
-			this.motionX -= par3 / (double)f1 * (double)f2;
-			this.motionY += (double)f2;
-			this.motionZ -= par5 / (double)f1 * (double)f2;
-			if(this.motionY > EntityAttributes.knockback1) {
-				this.motionY = EntityAttributes.knockback1;
-			}
-		}
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback1);
 	}
 
 	public boolean getCanSpawnHere() {

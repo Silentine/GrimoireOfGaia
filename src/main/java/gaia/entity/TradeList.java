@@ -2,6 +2,7 @@ package gaia.entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.village.MerchantRecipeList;
+
 public class TradeList extends MerchantRecipeList {
 	public TradeList() {}
 

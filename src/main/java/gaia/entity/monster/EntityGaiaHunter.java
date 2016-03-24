@@ -1,8 +1,8 @@
 package gaia.entity.monster;
 
-import gaia.GaiaItem;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
+import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
@@ -44,9 +44,9 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -54,19 +54,19 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.difficultySetting.ordinal() * 4));
+		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.ordinal() * 0.11F));
-		if(i > 0) {
+		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
+		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
 		}
 
-		if(j > 0) {
+		if (j > 0) {
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if(EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
 			entityarrow.setFire(100);
 		}
 
@@ -82,97 +82,70 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 	public boolean isAIEnabled() {
 		return true;
 	}
-
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(19, new Byte((byte)0));
-	}
-
-	public void onUpdate() {
-		super.onUpdate();
-		this.field_70924_f = this.field_70926_e;
-		if(this.func_70922_bv()) {
-			this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-		} else {
-			this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-		}
-
-		if(this.func_70922_bv()) {
-			this.numTicksToChaseTarget = 10;
-		}
-	}
-
-	public boolean func_70922_bv() {
-		return this.dataWatcher.getWatchableObjectByte(19) == 1;
-	}
-
-	public void func_70918_i(boolean par1) {
-		if(par1) {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)1));
-		} else {
-			this.dataWatcher.updateObject(19, Byte.valueOf((byte)0));
-		}
-	}
-
+	
+	//TODO millanaire support
+	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if(elements.length > 2) {
+		if (elements.length > 2) {
 			StackTraceElement previousMethod = elements[2];
-			if(previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
+			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
 				return;
 			}
 		}
 
 		super.setTarget(par1Entity);
 	}
-
+	*/
+	
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 	}
 
 	protected String getLivingSound() {
-		return "gaia:assist_say";
+		return "grimoireofgaia:assist_say";
 	}
 
 	protected String getHurtSound() {
-		return "gaia:assist_hurt";
+		return "grimoireofgaia:assist_hurt";
 	}
 
 	protected String getDeathSound() {
-		return "gaia:assist_death";
+		return "grimoireofgaia:assist_death";
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
-
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItem.FoodMeatMorsel,1);
+		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.dropItem(GaiaItem.FoodRottenHeart, 1);
 		}
 
-		if(par1 && (this.rand.nextInt(10) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.FoodBerryHealth,1);
-		}
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
+	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron,1);
+			this.dropItem(GaiaItem.BoxIron, 1);
 			break;
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
 	
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-		this.enchantEquipment();
-		return par1IEntityLivingData;
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		return livingdata;		
+    }
+	
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockbackbase);
 	}
 
 	public boolean getCanSpawnHere() {

@@ -9,8 +9,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityGaiaProjectileMagic extends EntityFireball {
 
@@ -19,56 +17,43 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
 	}
 	
-	public EntityGaiaProjectileMagic(World par1World, EntityLivingBase par2EntityLivingBase, double par3, double par5, double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
+    public EntityGaiaProjectileMagic(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
+        super(worldIn, shooter, accelX, accelY, accelZ);
         this.setSize(0.3125F, 0.3125F);
-	}
-	
+    }
+
     protected float getMotionFactor() {
         return this.isInvulnerable() ? 0.73F : super.getMotionFactor();
     }
 
-	@SideOnly(Side.CLIENT)
-	public EntityGaiaProjectileMagic(World par1World, double par2, double par4, double par6, double par8, double par10, double par12) {
-		super(par1World, par2, par4, par6, par8, par10, par12);
-        this.setSize(0.3125F, 0.3125F);
-	}
-	
     public boolean isBurning() {
         return false;
     }
     
-    protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
-    {
-    	if (!this.worldObj.isRemote)
-    	{
-    		if (par1MovingObjectPosition.entityHit != null)
-    		{
-    			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
+    /** EntityWitherSkull **/
+    protected void onImpact(MovingObjectPosition movingObject) {
+        if (!this.worldObj.isRemote) {
+            if (movingObject.entityHit != null) {
+            	movingObject.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
 
-    			if (par1MovingObjectPosition.entityHit instanceof EntityLivingBase)
-    			{
-    				byte byte0 = 0;
+            	if (movingObject.entityHit instanceof EntityLivingBase) {
+            		int i = 0;
 
-    				if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL)
-    				{
-    					byte0 = 7;
-    				}
-    				else if (this.worldObj.difficultySetting == EnumDifficulty.HARD)
-    				{
-    					byte0 = 15;
-    				}
+                    if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+                        i = 10;
+                    }
+                    else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                        i = 40;
+                    }
 
-    				if (byte0 > 0)
-    				{
-    					((EntityLivingBase)par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 1));
-    				}
-    			}
+                    if (i > 0) {
+                        ((EntityLivingBase)movingObject.entityHit).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30 * i, 0));
+                    }
+                }
+            }
 
-    		}
-
-    		this.setDead();
-    	}
+            this.setDead();
+        }
     }
 
     public boolean canBeCollidedWith() {
