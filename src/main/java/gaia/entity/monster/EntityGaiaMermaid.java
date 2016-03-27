@@ -132,10 +132,8 @@ public class EntityGaiaMermaid extends EntityMobBase {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
 		
-		//MiscShards
-		int var13 = this.rand.nextInt(2) + 1;
-
-		for (int var14 = 0; var14 < var13; ++var14) {
+		//Very Rare
+		if (par1 && (this.rand.nextInt(40) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(GaiaItem.BoxOld, 1);
 		}
 	}

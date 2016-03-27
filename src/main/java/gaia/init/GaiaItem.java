@@ -138,8 +138,8 @@ public class GaiaItem {
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
 		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
 		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
-		FoodPieMandrake = (new ItemFoodPieMandrake(12, 0.8F, false, "FoodPieMandrake"));
-		FoodPieMeat = (new ItemFoodPieMeat(16, 0.8F, true, "FoodPieMeat"));
+		FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "FoodPieMandrake"));
+		FoodPieMeat = (new ItemFoodPieMeat(12, 0.8F, true, "FoodPieMeat"));
 		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
 		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
