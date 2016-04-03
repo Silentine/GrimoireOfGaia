@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaCobbleGolem extends EntityMobDay {
+public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	private int attackTimer;
 	private int holdRoseTick;
 
@@ -150,7 +151,7 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 			--this.attackTimer;
 		}
 
-		if (this.holdRoseTick > 0){
+		if (this.holdRoseTick > 0) {
 			--this.holdRoseTick;
 		}
 
@@ -170,8 +171,8 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
 						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
 						crackid,crackmeta);
-		}}
-
+			}
+		}
 	}
 
 	protected String getLivingSound() {

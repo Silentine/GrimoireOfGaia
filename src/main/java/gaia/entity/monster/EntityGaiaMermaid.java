@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistBase;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
@@ -24,7 +25,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-public class EntityGaiaMermaid extends EntityMobBase {
+public class EntityGaiaMermaid extends EntityMobAssistBase {
 	
 	public EntityGaiaMermaid(World par1World) {
 		super(par1World);
@@ -133,7 +134,7 @@ public class EntityGaiaMermaid extends EntityMobBase {
 		}
 		
 		//Very Rare
-		if (par1 && (this.rand.nextInt(40) == 0 || this.rand.nextInt(1) > 0)) {
+		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(GaiaItem.BoxOld, 1);
 		}
 	}

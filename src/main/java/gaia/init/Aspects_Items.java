@@ -35,10 +35,10 @@ public class Aspects_Items extends GaiaItem{
 				(new AspectList()).add(Aspect.CRYSTAL, 1));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ShardMisc, 1, 0),
-				(new AspectList()).add(Aspect.ELDRITCH, 2).add(Aspect.MOTION, 2).add(Aspect.ORDER, 2).add(Aspect.LIGHT, 2));
+				(new AspectList()).add(Aspect.METAL, 1));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ShardMisc, 1, 1),
-				(new AspectList()).add(Aspect.ELDRITCH, 1).add(Aspect.MOTION, 1));
+				(new AspectList()).add(Aspect.METAL, 1));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ShardMisc, 1, 2),
 				(new AspectList()).add(Aspect.FIRE, 1));
@@ -62,7 +62,7 @@ public class Aspects_Items extends GaiaItem{
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.FIRE, 1).add(Aspect.MOTION, 1));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(FoodSmallAppleGold),
-				(new AspectList()).add(Aspect.FIRE, 2).add(Aspect.AVERSION, 1).add(Aspect.ELDRITCH, 1));
+				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.DESIRE, 4).add(Aspect.LIFE, 2).add(Aspect.MOTION, 1).add(Aspect.PLANT, 1));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(FoodMandrake),
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.LIFE, 2).add(Aspect.SOUL, 1));
@@ -75,6 +75,9 @@ public class Aspects_Items extends GaiaItem{
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(FoodPieMeat),
 				(new AspectList()).add(Aspect.LIFE, 2).add(Aspect.DESIRE, 1).add(Aspect.MAN, 1));
+		
+		ThaumcraftApi.registerObjectTag(new ItemStack(FoodPieAppleGold),
+				(new AspectList()).add(Aspect.METAL, 32).add(Aspect.DESIRE, 32).add(Aspect.LIFE, 4).add(Aspect.MOTION, 2).add(Aspect.PLANT, 1));
 
 		ThaumcraftApi.registerObjectTag(new ItemStack(MiscSoulFire),
 				(new AspectList()).add(Aspect.FIRE, 2).add(Aspect.TRAP, 1).add(Aspect.SOUL, 1));

@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
@@ -24,7 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
+public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttackMob {
 	private float field_70926_e;
 	private float field_70924_f;
 

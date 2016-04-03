@@ -108,10 +108,6 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.quartz, 1);
-		}
-		
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			this.dropItem(GaiaItem.MiscSoulFiery,1);
 		}
@@ -123,15 +119,15 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
 		
-		if (par1 && (this.rand.nextInt(16) == 0 || this.rand.nextInt(1) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.ShardMisc, 1, 2), 0.0F);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
+            this.dropItem(Items.quartz, 1);
 		}
 	}
 
 	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron, 1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;

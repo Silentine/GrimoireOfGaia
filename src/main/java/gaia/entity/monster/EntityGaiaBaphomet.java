@@ -132,15 +132,17 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.playSound("mob.cow.step", 0.15F, 1.0F);
 	}
 
-	protected void dropFewItems(boolean par1, int par2) {
-		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.glowstone_dust, 1);
-		}
-		
+	protected void dropFewItems(boolean par1, int par2) {		
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
 			this.dropItem(GaiaItem.MiscSoulFiery, 1);
+		}
+		
+		int var5 = this.rand.nextInt(3 + par2);
+
+		for (int var6 = 0; var6 < var5; ++var6) {
+			this.dropItem(GaiaItem.FoodNetherWart, 1);
 		}
 		
 		//Shards
@@ -151,14 +153,14 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.ShardMisc, 1, 2), 0.0F);
+			this.dropItem(Items.glowstone_dust, 1);
 		}
 	}
 
 	protected void addRandomDrop() {
 		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold, 1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
 			this.dropItem(GaiaItem.BagBook, 1);

@@ -131,17 +131,18 @@ public class EntityGaiaMimic extends EntityMobBase {
 		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(GaiaItem.SpawnTrader, 1);
 		}
+		
+		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
+			this.dropItem(GaiaItem.BagRecord, 1);
+		}
 	}
 
 	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
+		switch(this.rand.nextInt(2)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagRecord, 1);
-			break;
-		case 2:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}

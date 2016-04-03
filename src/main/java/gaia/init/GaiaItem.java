@@ -19,6 +19,7 @@ import gaia.items.ItemFoodIce;
 import gaia.items.ItemFoodMandrake;
 import gaia.items.ItemFoodMeat;
 import gaia.items.ItemFoodNetherWart;
+import gaia.items.ItemFoodPieAppleGold;
 import gaia.items.ItemFoodPieMandrake;
 import gaia.items.ItemFoodPieMeat;
 import gaia.items.ItemFoodRoot;
@@ -84,6 +85,7 @@ public class GaiaItem {
 	public static Item FoodWither;
 	public static Item FoodPieMandrake;
 	public static Item FoodPieMeat;
+	public static Item FoodPieAppleGold;
 	public static Item MiscSoulFire;
 	public static Item MiscSoulFiery;
 	public static Item MiscGigaGear;
@@ -140,6 +142,7 @@ public class GaiaItem {
 		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
 		FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "FoodPieMandrake"));
 		FoodPieMeat = (new ItemFoodPieMeat(12, 0.8F, true, "FoodPieMeat"));
+		FoodPieAppleGold = (new ItemFoodPieAppleGold(12, 0.8F, true, "FoodPieAppleGold"));
 		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
 		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
@@ -198,6 +201,7 @@ public class GaiaItem {
 				FoodWither, 
 				FoodPieMandrake, 
 				FoodPieMeat, 
+				FoodPieAppleGold,
 				MiscSoulFire, 
 				MiscSoulFiery, 
 				MiscGigaGear, 
@@ -257,12 +261,10 @@ public class GaiaItem {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.gold_ingot, "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.diamond, "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.emerald, "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald"));
-		GameRegistry.addRecipe(new ItemStack(Items.nether_star, 2), new Object[]{"Y Y", " X ", "Y Y", Character.valueOf('X'), Items.nether_star, Character.valueOf('Y'), new ItemStack(ShardMisc, 1, 0)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.ender_pearl, 1), new Object[]{new ItemStack(ShardMisc, 1, 1), new ItemStack(ShardMisc, 1, 1), new ItemStack(ShardMisc, 1, 1), new ItemStack(ShardMisc, 1, 1)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.blaze_rod, 1), new Object[]{new ItemStack(ShardMisc, 1, 2), new ItemStack(ShardMisc, 1, 2), new ItemStack(ShardMisc, 1, 2), new ItemStack(ShardMisc, 1, 2)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.golden_apple, 1, 1), new Object[]{FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold});
+
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMandrake, 1), new Object[]{FoodMandrake, Items.sugar, Items.egg});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{FoodRottenHeart, Items.rotten_flesh, Items.rotten_flesh, Items.rotten_flesh, Items.sugar, Items.egg});
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieAppleGold, 1), new Object[]{FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold});
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.coal_block, 1), new Object[]{MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel});
 		GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
 		GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
@@ -277,6 +279,8 @@ public class GaiaItem {
 		OreDictionary.registerOre("nuggetGold", new ItemStack(Shard, 1, 1));
 		OreDictionary.registerOre("nuggetDiamond", new ItemStack(Shard, 1, 2));
 		OreDictionary.registerOre("nuggetEmerald", new ItemStack(Shard, 1, 3));
+		OreDictionary.registerOre("nuggetCopper", new ItemStack(ShardMisc, 1, 0));
+		OreDictionary.registerOre("nuggetSilver", new ItemStack(ShardMisc, 1, 1));
 	}
 
 	public static void registerRenders() {
@@ -293,6 +297,7 @@ public class GaiaItem {
 		registerRender(FoodWither);
 		registerRender(FoodPieMandrake);
 		registerRender(FoodPieMeat);
+		registerRender(FoodPieAppleGold);
 		registerRender(MiscSoulFire);
 		registerRender(MiscSoulFiery);
 		registerRender(MiscGigaGear);

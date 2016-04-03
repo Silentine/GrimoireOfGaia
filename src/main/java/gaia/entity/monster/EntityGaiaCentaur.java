@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.init.GaiaItem;
 import net.minecraft.enchantment.Enchantment;
@@ -26,7 +27,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob {
+public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAttackMob {
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, 1.0D, 1.4D);
 	
@@ -105,14 +106,14 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 	*/
 	
 	public void onLivingUpdate() {
-		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)){
+		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)) {
             this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, 16341));
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAvoid);
 			this.fullHealth = 1;
 		}
 
-		if ((this.getHealth() < EntityAttributes.maxHealth1) && (this.fullHealth == 1)){
+		if ((this.getHealth() < EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
 			if (this.regenerateHealth <= 100) {
 				++this.regenerateHealth;
 			} else {
@@ -120,7 +121,7 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 360, 3));
 				this.regenerateHealth = 0;
 			}
-		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)){
+		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
 			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 			this.removePotionEffect(Potion.regeneration.id);
 			this.tasks.removeTask(this.aiAvoid);

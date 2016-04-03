@@ -162,27 +162,17 @@ public class EntityGaiaJorogumo extends EntityMobBase {
 		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
-		
-		//MiscShards
-		int var13 = this.rand.nextInt(2) + 1;
-
-		for (int var14 = 0; var14 < var13; ++var14) {
-            this.entityDropItem(new ItemStack(GaiaItem.ShardMisc, 1, 1), 0.0F);
-		}
 	}
 
 	protected void addRandomDrop() {
-		switch(this.rand.nextInt(4)) {
+		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagRecord, 1);
-			break;
-		case 2:
 			this.dropItem(GaiaItem.MiscBook, 1);
 			break;
-		case 3:
+		case 2:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}

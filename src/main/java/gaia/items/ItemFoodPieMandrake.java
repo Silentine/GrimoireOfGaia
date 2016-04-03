@@ -26,10 +26,10 @@ public class ItemFoodPieMandrake extends ItemFood {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer world, List list, boolean par4) {
-		list.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		list.add(StatCollector.translateToLocal("potion.nightVision") + " (3:00)");
-		list.add(StatCollector.translateToLocal("potion.waterBreathing") + " (3:00)");
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
+		par3List.add(StatCollector.translateToLocal("potion.nightVision") + " (3:00)");
+		par3List.add(StatCollector.translateToLocal("potion.waterBreathing") + " (3:00)");
 	}
 	
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2world, EntityPlayer par3EntityPlayer) {

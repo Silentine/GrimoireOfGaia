@@ -177,11 +177,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 				this.dropItem(var6, 1);
 			}
 		}
-		
-		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.FoodNetherWart, 1);
-		}
-		
+
 		//Shards
 		int var11 = this.rand.nextInt(3) + 1;
 
@@ -191,13 +187,6 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
-		}
-		
-		//MiscShards
-		int var13 = this.rand.nextInt(2) + 1;
-
-		for (int var14 = 0; var14 < var13; ++var14) {
-            this.entityDropItem(new ItemStack(GaiaItem.ShardMisc, 1, 1), 0.0F);
 		}
 	}
 

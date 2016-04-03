@@ -221,6 +221,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollSlimeGirl.class, new TileRenderDollSlimeGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());
 
+		//TODO Fix 1st Person 3D items
 	    /*
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookFreezing, new RenderWeaponBookFreezing());
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookNightmare, new RenderWeaponBookNightmare());
@@ -249,9 +250,8 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 2, new ModelResourceLocation("grimoireofgaia:ShardDiamond".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 3, new ModelResourceLocation("grimoireofgaia:ShardEmerald".toLowerCase(), "inventory"));
         
-        ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 0, new ModelResourceLocation("grimoireofgaia:ShardNetherStar".toLowerCase(), "inventory"));
-        ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 1, new ModelResourceLocation("grimoireofgaia:ShardEnderPearl".toLowerCase(), "inventory"));
-        ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 2, new ModelResourceLocation("grimoireofgaia:ShardBlazeRod".toLowerCase(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 0, new ModelResourceLocation("grimoireofgaia:ShardCopper".toLowerCase(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 1, new ModelResourceLocation("grimoireofgaia:ShardSilver".toLowerCase(), "inventory"));
         
         // Misc Ring
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 0, new ModelResourceLocation("grimoireofgaia:MiscRingSpeed".toLowerCase(), "inventory"));

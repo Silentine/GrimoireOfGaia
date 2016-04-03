@@ -105,7 +105,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.fishing_rod));
+			this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 2));
 			this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setMobType(1);
 			this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);

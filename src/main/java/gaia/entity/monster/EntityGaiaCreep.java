@@ -162,7 +162,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 		}
 		
 		//Very Rare
-		if (par1 && (this.rand.nextInt(40) == 0 || this.rand.nextInt(1) > 0)) {
+		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(GaiaItem.SpawnCreeperGirl, 1);
 		}
 	}

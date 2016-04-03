@@ -11,9 +11,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class EntityMobBase extends EntityMob {
+//This is a direct copy of EntityMobBase
+public abstract class EntityMobAssistBase extends EntityMobAssist {
 
-	public EntityMobBase(World par1World) {
+	public EntityMobAssistBase(World par1World) {
 		super(par1World);
 	}
 
@@ -51,18 +52,4 @@ public abstract class EntityMobBase extends EntityMob {
 			}
 		}
 	}
-
-	//TODO Custom Damage Source which includes the name of the monster
-	/*
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		if (super.attackEntityAsMob(par1Entity)) {
-			if (ConfigGaia.BaseDamage) {
-	            ((EntityLivingBase)par1Entity).attackEntityFrom(CustomDamageSource.pierce, 2.0F);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-	*/
 }

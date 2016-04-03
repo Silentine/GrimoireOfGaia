@@ -31,16 +31,16 @@ public class ItemFoodSmallAppleGold extends ItemFood {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
-		par3List.add(StatCollector.translateToLocal("potion.resistance") + " (0:30)");
-		par3List.add(StatCollector.translateToLocal("potion.fireResistance") + " (0:30)");
 		par3List.add(StatCollector.translateToLocal("potion.absorption") + " (2:00)");
+		par3List.add(StatCollector.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
+		par3List.add(StatCollector.translateToLocal("potion.resistance") + " (0:50)");
+		par3List.add(StatCollector.translateToLocal("potion.fireResistance") + " (0:50)");
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 3));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 600, 0));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.absorption.id, 2400, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 4));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 1000, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 1000, 0));
 	}
 }

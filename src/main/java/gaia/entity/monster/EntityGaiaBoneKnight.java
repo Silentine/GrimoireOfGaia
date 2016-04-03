@@ -90,7 +90,7 @@ public class EntityGaiaBoneKnight extends EntityMobBase {
 	public void onLivingUpdate() {
 		if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
 			float f = this.getBrightness(1.0F);			
-			if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())){
+			if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())) {
 			this.setFire(8);
 				this.heal(-20.0F);
 			}

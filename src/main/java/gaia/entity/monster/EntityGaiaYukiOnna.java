@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
@@ -25,7 +26,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-public class EntityGaiaYukiOnna extends EntityMobDay {
+public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 	private float field_70926_e;
 	private float field_70924_f;
 

@@ -1,13 +1,13 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/WeaponPropSpear"
+        "layer0": "grimoireofgaia:items/ShardSilver"
     },
     "display": {
         "thirdperson": {
-            "rotation": [ 0, 90, -35 ],
-            "translation": [ 0, 1.25, -3.75 ],
-            "scale": [ 0.9, 0.9, 0.9 ]
+            "rotation": [ -90, 0, 0 ],
+            "translation": [ 0, 1, -3 ],
+            "scale": [ 0.55, 0.55, 0.55 ]
         },
         "firstperson": {
             "rotation": [ 0, -135, 25 ],

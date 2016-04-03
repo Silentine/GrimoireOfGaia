@@ -312,7 +312,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 	protected void addRandomDrop() {
 		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold, 1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
 			this.dropItem(GaiaItem.BagBook, 1);

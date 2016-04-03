@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
@@ -23,7 +24,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-public class EntityGaiaSatyr extends EntityMobDay {
+public class EntityGaiaSatyr extends EntityMobAssistDay {
 	private EntityAIGaiaAttackOnCollide aiMeleeAttack = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, 1.0D, 1.4D);
 	
@@ -143,7 +144,7 @@ public class EntityGaiaSatyr extends EntityMobDay {
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.leather, 1);
+			this.dropItem(GaiaItem.FoodMeat, 1);
 		}
 		
 		//Shards
@@ -167,7 +168,7 @@ public class EntityGaiaSatyr extends EntityMobDay {
 	@Override
     protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {}
 	
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata){
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
