@@ -49,8 +49,8 @@ import gaia.entity.monster.EntityGaiaYeti;
 import gaia.entity.monster.EntityGaiaYukiOnna;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -58,20 +58,20 @@ public class GaiaSpawning {
 
 	public static void register(){
 		//TODO Streamline spawning
-		BiomeGenBase[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
-		BiomeGenBase[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
-		BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
-		BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
-		BiomeGenBase[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
-		BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
-		BiomeGenBase[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
-		BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
+		Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
+		Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
+		Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
+		Biome[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
+		Biome[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
+		Biome[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
+		Biome[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
+		Biome[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 
-		BiomeGenBase[] water = BiomeDictionary.getBiomesForType(Type.WATER);
-		BiomeGenBase[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
+		Biome[] water = BiomeDictionary.getBiomesForType(Type.WATER);
+		Biome[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
 
-		BiomeGenBase[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
-		BiomeGenBase[] sky = BiomeDictionary.getBiomesForType(Type.END);
+		Biome[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
+		Biome[] sky = BiomeDictionary.getBiomesForType(Type.END);
 
 		int i;
 		SpawnListEntry SpawnEntry;

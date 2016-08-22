@@ -43,7 +43,7 @@ public class ItemBoxDiamond extends Item {
 		case 0:
 			return new ItemStack(Items.diamond);
 		case 1:
-			return new ItemStack(Items.diamond_axe);
+			return new ItemStack(Items.DIAMOND_AXE);
 		case 2:
 			return new ItemStack(Items.diamond_pickaxe);
 		case 3:

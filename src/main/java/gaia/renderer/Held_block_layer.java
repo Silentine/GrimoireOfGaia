@@ -25,7 +25,7 @@ public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl
     public void doRenderLayer(EntityGaiaEnderDragonGirl entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
-        if (iblockstate.getBlock().getMaterial() != Material.air) {
+        if (iblockstate.getMaterial() != Material.AIR) {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
@@ -43,7 +43,7 @@ public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl
             int k = i / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.endermanRenderer.bindTexture(TextureMap.locationBlocksTexture);
+            this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
             
             GlStateManager.popMatrix();

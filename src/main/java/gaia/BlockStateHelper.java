@@ -3,7 +3,7 @@ package gaia;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /** A library for simplifying blockstate interactions **/
@@ -39,7 +39,7 @@ public class BlockStateHelper {
 
 	/**Extracts a Block from a State**/
 	public static Block getBlockfromState (World world, BlockPos pos1) {
-		Block blocky = Blocks.air;
+		Block blocky = Blocks.AIR;
 
 		int ID = BlockStateHelper.returnID(world, pos1);
 		blocky = BlockStateHelper.returnBlock(ID);

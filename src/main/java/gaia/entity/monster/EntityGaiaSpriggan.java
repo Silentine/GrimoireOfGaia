@@ -37,10 +37,10 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -53,23 +53,23 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 			EntityPlayer player = (EntityPlayer) entity;
 			ItemStack itemstack = player.getCurrentEquippedItem();
 			if (itemstack != null) {
-				if (itemstack.getItem() == Items.wooden_axe) {
+				if (itemstack.getItem() == Items.WOODEN_AXE) {
 					par2 = 7;
 				}
 
-				if (itemstack.getItem() == Items.stone_axe) {
+				if (itemstack.getItem() == Items.STONE_AXE) {
 					par2 = 8;
 				}
 
-				if (itemstack.getItem() == Items.iron_axe) {
+				if (itemstack.getItem() == Items.IRON_AXE) {
 					par2 = 9;
 				}
 
-				if (itemstack.getItem() == Items.golden_axe) {
+				if (itemstack.getItem() == Items.GOLDEN_AXE) {
 					par2 = 7;
 				}
 
-				if (itemstack.getItem() == Items.diamond_axe) {
+				if (itemstack.getItem() == Items.DIAMOND_AXE) {
 					par2 = 10;
 				}
 			}

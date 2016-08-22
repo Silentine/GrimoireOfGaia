@@ -1,11 +1,10 @@
 package gaia.entity.ai;
 
+import akka.dispatch.CachingConfig.PathEntry;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
@@ -15,7 +14,7 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 	int attackTick;
 	double speedTowardsTarget;
 	boolean longMemory;
-	PathEntity entityPathEntity;
+	PathEntry entityPathEntity;
 	Class classTarget;
 	private int field_75445_i;
 	private int failedPathFindingPenalty;

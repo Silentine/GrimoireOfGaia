@@ -14,8 +14,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Sets;
@@ -30,7 +30,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(1.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
 	}
 
 	public boolean isAIEnabled() {
@@ -44,9 +44,9 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-				this.dropItem(Item.getItemFromBlock(Blocks.yellow_flower), 1);
+				this.dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
 			} else {
-				this.dropItem(Item.getItemFromBlock(Blocks.red_flower), 1);
+				this.dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
 			}
 		} else {
 			EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(this.worldObj);

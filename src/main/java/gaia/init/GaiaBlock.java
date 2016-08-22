@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -35,13 +35,13 @@ public class GaiaBlock {
 	public static Block DollMaid;
 
 	public static void init() {
-		BustSphinx = (new BlockBustSphinx(Material.rock));
-		BustValkyrie = (new BlockBustValkyrie(Material.rock));
-		BustVampire = (new BlockBustVampire(Material.rock));
-		DollCreeperGirl = (new BlockDollCreeperGirl(Material.cloth));
-		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth));
-		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth));
-		DollMaid = (new BlockDollMaid(Material.cloth));
+		BustSphinx = (new BlockBustSphinx(Material.ROCK));
+		BustValkyrie = (new BlockBustValkyrie(Material.ROCK));
+		BustVampire = (new BlockBustVampire(Material.ROCK));
+		DollCreeperGirl = (new BlockDollCreeperGirl(Material.CLOTH));
+		DollEnderGirl = (new BlockDollEnderGirl(Material.CLOTH));
+		DollSlimeGirl = (new BlockDollSlimeGirl(Material.CLOTH));
+		DollMaid = (new BlockDollMaid(Material.CLOTH));
 		registerTileEntities();
 	}
 

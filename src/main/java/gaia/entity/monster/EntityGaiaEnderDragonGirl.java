@@ -34,12 +34,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -79,10 +79,10 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -461,7 +461,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 		public void resetTask() {
 			this.player = null;
 			this.enderman.setScreaming(false);
-			IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 			iattributeinstance.removeModifier(EntityGaiaEnderDragonGirl.attackingSpeedBoostModifier);
 			super.resetTask();
 		}
@@ -494,7 +494,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 					super.startExecuting();
 					this.enderman.playSound("mob.endermen.stare", 1.0F, 1.0F);
 					this.enderman.setScreaming(true);
-					IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+					IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 					iattributeinstance.applyModifier(EntityGaiaEnderDragonGirl.attackingSpeedBoostModifier);
 				}
 			} else {
@@ -545,7 +545,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 
 			if (this.func_179474_a(world, blockpos, this.enderman.getHeldBlockState().getBlock(), block, block1)) {
 				world.setBlockState(blockpos, this.enderman.getHeldBlockState(), 3);
-				this.enderman.setHeldBlockState(Blocks.air.getDefaultState());
+				this.enderman.setHeldBlockState(Blocks.AIR.getDefaultState());
 			}
 		}
 
@@ -583,7 +583,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 
 			if (EntityGaiaEnderDragonGirl.carriableBlocks.contains(block)) {
 				this.enderman.setHeldBlockState(iblockstate);
-				world.setBlockState(blockpos, Blocks.air.getDefaultState());
+				world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
 			}
 		}
 		

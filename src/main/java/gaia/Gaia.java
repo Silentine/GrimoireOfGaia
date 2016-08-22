@@ -101,7 +101,7 @@ public class Gaia {
 
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-		if (eventArgs.modID.equals(GaiaReference.MOD_ID))
+		if (eventArgs.getModID().equals(GaiaReference.MOD_ID))
 			GaiaConfigGeneration.syncConfig();
 	}
 

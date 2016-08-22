@@ -49,17 +49,17 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 		
 		//Buy List
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.bone, 2, 0)));
-		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.rotten_flesh, 4, 0)));
-		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.gunpowder, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.spider_eye, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.ROTTEN_FLESH, 4, 0)));
+		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.GUNPOWDER, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.SPIDER_EYE, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.string, 2, 0)));
 		
 		//Sell List
 		recipes.add(new Trade(new ItemStack(Items.bone, 4, 0), new ItemStack(Items.slime_ball, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.slime_ball, 2, 0)));
-		recipes.add(new Trade(new ItemStack(Items.gunpowder, 2, 0), new ItemStack(Items.slime_ball, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.rotten_flesh, 6, 0), new ItemStack(Items.slime_ball, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.GUNPOWDER, 2, 0), new ItemStack(Items.slime_ball, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ROTTEN_FLESH, 6, 0), new ItemStack(Items.slime_ball, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.string, 4, 0), new ItemStack(Items.slime_ball, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.spider_eye, 2, 0), new ItemStack(Items.slime_ball, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.SPIDER_EYE, 2, 0), new ItemStack(Items.slime_ball, 1, 0)));
 	}
 }

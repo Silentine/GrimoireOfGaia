@@ -51,10 +51,10 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -109,7 +109,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	        this.setEquipmentBasedOnDifficulty(difficulty);
 	        this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setMobType(1);
-			this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
 			this.setTextureType(0);
 		}
 		
@@ -122,7 +122,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
         if (i == 0) {
         	this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
         } else {
-        	this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_axe));
+        	this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_AXE));
         }
     }
 	

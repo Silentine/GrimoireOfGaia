@@ -42,10 +42,10 @@ public class EntityGaiaDullahan extends EntityMobBase {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -87,7 +87,7 @@ public class EntityGaiaDullahan extends EntityMobBase {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
-					if (item == Items.golden_axe) {
+					if (item == Items.GOLDEN_AXE) {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}

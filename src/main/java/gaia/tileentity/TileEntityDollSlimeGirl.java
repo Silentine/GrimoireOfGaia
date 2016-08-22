@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityDollSlimeGirl extends TileEntity {
@@ -19,18 +20,18 @@ public class TileEntityDollSlimeGirl extends TileEntity {
 		return true;
 	}
 
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		this.readFromNBT(pkt.getNbtCompound());
 	}
 
 	public Packet getDescriptionPacket() {
-		S35PacketUpdateTileEntity datapacket = null;
+		SPacketUpdateTileEntity datapacket = null;
 		NBTTagCompound blockinfo = new NBTTagCompound();
 		if (blockinfo.toString() != "") {
 			this.writeToNBT(blockinfo);
 		}
 
-		datapacket = new S35PacketUpdateTileEntity(this.getPos(), 5, blockinfo);
+		datapacket = new SPacketUpdateTileEntity(this.getPos(), 5, blockinfo);
 		return datapacket;
 	}
 

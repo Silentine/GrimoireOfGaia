@@ -6,8 +6,8 @@ import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaWitch;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -15,20 +15,20 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class TEMP_Spawning {
 	
 	
-	static BiomeGenBase[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
-	static BiomeGenBase[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
-	static BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
-	static BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
-	static BiomeGenBase[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
-	static BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
-	static BiomeGenBase[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
-	static BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
+	static Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
+	static Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
+	static Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
+	static Biome[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
+	static Biome[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
+	static Biome[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
+	static Biome[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
+	static Biome[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 
-	static BiomeGenBase[] water = BiomeDictionary.getBiomesForType(Type.WATER);
-	static BiomeGenBase[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
+	static Biome[] water = BiomeDictionary.getBiomesForType(Type.WATER);
+	static Biome[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
 
-	static BiomeGenBase[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
-	static BiomeGenBase[] sky = BiomeDictionary.getBiomesForType(Type.END);
+	static Biome[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
+	static Biome[] sky = BiomeDictionary.getBiomesForType(Type.END);
 
 	static int i;
 	static SpawnListEntry SpawnEntry;
@@ -56,18 +56,18 @@ public class TEMP_Spawning {
 	}
 	
 	/**Bridge methods**/
-	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome){
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome){
 		addspawn(groupmax, entityclassIn, groupmax, groupmax, biome, false, subbiome.NONE);
 	}
 	public static void addcave(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax){
 		addspawn(groupmax, entityclassIn, groupmax, groupmax, forest, true, subbiome.NONE);
 	}
-	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, subbiome subtype){
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, subbiome subtype){
 		addspawn(groupmax, entityclassIn, groupmax, groupmax, forest, false, subtype);
 	}
 	
 	/** Iterates through the chosen biome to spawn and add mob to that spawning list **/
-	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, boolean caves, subbiome subtype){	
+	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, boolean caves, subbiome subtype){	
 		
 		if(biome == forest || caves){
 			for(i = 0; i < forest.length; ++i) 
@@ -184,7 +184,7 @@ public class TEMP_Spawning {
 			}}
 	}
 	
-	public static void addtoentry(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, BiomeGenBase[] biome, int subbiome){	
+	public static void addtoentry(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, int subbiome){	
 		
 		SpawnEntry = new SpawnListEntry(entityclassIn, configuration, groupmin, groupmax);
 		biome[subbiome].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);

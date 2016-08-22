@@ -40,29 +40,29 @@ public class ItemBagRecord extends Item {
 		int i = random.nextInt(12);
 		switch(i) {
 		case 0:
-			return new ItemStack(Items.record_13);
+			return new ItemStack(Items.RECORD_13);
 		case 1:
-			return new ItemStack(Items.record_cat);
+			return new ItemStack(Items.RECORD_CAT);
 		case 2:
-			return new ItemStack(Items.record_blocks);
+			return new ItemStack(Items.RECORD_BLOCKS);
 		case 3:
-			return new ItemStack(Items.record_chirp);
+			return new ItemStack(Items.RECORD_CHIRP);
 		case 4:
-			return new ItemStack(Items.record_far);
+			return new ItemStack(Items.RECORD_FAR);
 		case 5:
-			return new ItemStack(Items.record_mall);
+			return new ItemStack(Items.RECORD_MALL);
 		case 6:
-			return new ItemStack(Items.record_mellohi);
+			return new ItemStack(Items.RECORD_MELLOHI);
 		case 7:
-			return new ItemStack(Items.record_stal);
+			return new ItemStack(Items.RECORD_STAL);
 		case 8:
-			return new ItemStack(Items.record_strad);
+			return new ItemStack(Items.RECORD_STRAD);
 		case 9:
-			return new ItemStack(Items.record_ward);
+			return new ItemStack(Items.RECORD_WARD);
 		case 10:
-			return new ItemStack(Items.record_11);
+			return new ItemStack(Items.RECORD_11);
 		case 11:
-			return new ItemStack(Items.record_wait);
+			return new ItemStack(Items.RECORD_WAIT);
 		default:
 			return itemstack;
 		}

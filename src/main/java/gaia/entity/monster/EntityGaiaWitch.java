@@ -31,10 +31,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,12 +42,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	private static final Item[] witchDrops = new Item[] { 
-		Items.sugar, 
-		Items.spider_eye, 
-		Items.glass_bottle,
-		Items.gunpowder,
-		Items.stick,
-		Items.stick
+		Items.SUGAR, 
+		Items.SPIDER_EYE, 
+		Items.GLASS_BOTTLE,
+		Items.GUNPOWDER,
+		Items.STICK,
+		Items.STICK
 		};
 	private int spawn;
 	
@@ -73,10 +73,10 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -144,11 +144,11 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 						}
 					}
 					
-					this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(field_110185_bq);
+					this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(field_110185_bq);
 				}
 			} else {
 				short var7 = -1;
-                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.water) && !this.isPotionActive(Potion.waterBreathing)) {
+                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(Potion.waterBreathing)) {
                 	var7 = 8237;
                 }
                 else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
@@ -168,7 +168,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
                     this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, var7));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
-                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
                     iattributeinstance.removeModifier(field_110185_bq);
                     iattributeinstance.applyModifier(field_110185_bq);
 				}

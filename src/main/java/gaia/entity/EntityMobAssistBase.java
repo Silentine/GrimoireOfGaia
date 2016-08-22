@@ -5,10 +5,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 //This is a direct copy of EntityMobBase
@@ -37,7 +36,7 @@ public abstract class EntityMobAssistBase extends EntityMobAssist {
 	 * Used to adjust the motionY when a mob is hit.
 	 */
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5, double par6) {
-		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
+		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			this.isAirBorne = true;
 			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
 			float f2 = 0.4F;

@@ -49,17 +49,17 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 		
 		//Buy List
 		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.bone, 8, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.rotten_flesh, 16, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.gunpowder, 4, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.spider_eye, 4, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.ROTTEN_FLESH, 16, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.GUNPOWDER, 4, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.SPIDER_EYE, 4, 0)));
 		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.string, 8, 0)));
 		
 		//Sell List
 		recipes.add(new Trade(new ItemStack(Items.bone, 16, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.gunpowder, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.rotten_flesh, 24, 0), new ItemStack(Items.ender_pearl, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.GUNPOWDER, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ROTTEN_FLESH, 24, 0), new ItemStack(Items.ender_pearl, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.string, 16, 0), new ItemStack(Items.ender_pearl, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.spider_eye, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.SPIDER_EYE, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
 	}
 }

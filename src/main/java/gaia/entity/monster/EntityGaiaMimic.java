@@ -24,15 +24,15 @@ import net.minecraft.world.World;
 
 public class EntityGaiaMimic extends EntityMobBase {
 	private static final Item[] chestDrops = new Item[] { 
-		Items.sugar,
-		Items.bone,
-		Items.fermented_spider_eye,
-		Items.spider_eye,
-		Items.rotten_flesh,
-		Items.glass_bottle,
-		Items.gunpowder,
-		Items.stick,
-		Items.stick
+		Items.SUGAR,
+		Items.BONE,
+		Items.FERMENTED_SPIDER_EYE,
+		Items.SPIDER_EYE,
+		Items.ROTTEN_FLESH,
+		Items.GLASS_BOTTLE,
+		Items.GUNPOWDER,
+		Items.STICK,
+		Items.STICK
 		};
 
 	public EntityGaiaMimic(World par1World) {
@@ -50,10 +50,10 @@ public class EntityGaiaMimic extends EntityMobBase {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {

@@ -60,6 +60,6 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 		recipes.add(new Trade(new ItemStack(Blocks.pumpkin, 2, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
 		recipes.add(new Trade(new ItemStack(Blocks.melon_block, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 2, 2)));
 		recipes.add(new Trade(new ItemStack(Items.egg, 8, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
-		recipes.add(new Trade(new ItemStack(Items.sugar, 16, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
+		recipes.add(new Trade(new ItemStack(Items.SUGAR, 16, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
 	}
 }
