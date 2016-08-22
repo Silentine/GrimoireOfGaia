@@ -1,7 +1,5 @@
 package gaia.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.model.ModelGaiaCreep;
@@ -13,6 +11,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 public class RenderGaiaCreep extends RenderLiving {
 
@@ -102,21 +102,16 @@ public class RenderGaiaCreep extends RenderLiving {
 		return -1;
 	}
 
-	//new
-	private void setRenderPassModel(ModelBase gaiaCreepModel2) {
-		
-	}
+	private void setRenderPassModel(ModelBase gaiaCreepModel2) {}
 
 	protected int func_77061_b(EntityGaiaCreep par1EntityGaiaCreep, int par2, float par3) {
 		return -1;
 	}
 	
-	//Normally EntityLivingBase
 	protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
 		this.updateCreepScale((EntityGaiaCreep)par1EntityLivingBase, par2);
 	}
 	
-	//Normally EntityLivingBase
 	protected int getColorMultiplier(EntityLivingBase par1EntityLivingBase, float par2, float par3) {
 		return this.updateCreepColorMultiplier((EntityGaiaCreep)par1EntityLivingBase, par2, par3);
 	}

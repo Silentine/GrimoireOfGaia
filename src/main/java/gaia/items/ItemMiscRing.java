@@ -16,7 +16,7 @@ public class ItemMiscRing extends Item {
 	public ItemMiscRing(String texture) {
 		this.texture = texture;
         this.setHasSubtypes(true);
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscRing");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

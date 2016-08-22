@@ -14,30 +14,34 @@ import net.minecraft.world.World;
 public abstract class EntityMobDay extends EntityMobBase {
 
 	static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-			Blocks.grass, Blocks.dirt, Blocks.gravel, Blocks.sand, Blocks.snow_layer
+			Blocks.grass, 
+			Blocks.dirt,
+			Blocks.gravel, 
+			Blocks.sand, 
+			Blocks.snow_layer
 	});
+	
 	public EntityMobDay(World par1World) {
 		super(par1World);
 	}
 
-	
-	public boolean getCanSpawnHere(){
-		
-		if(this.worldObj.isDaytime()) {
+	public boolean getCanSpawnHere() {
+		if (this.worldObj.isDaytime()) {
 			float f = this.getBrightness(1.0F);
-			if(f > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
-				
+			if (f > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
+
 				int i = MathHelper.floor_double(this.posX);
-		        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
-		        int k = MathHelper.floor_double(this.posZ);
+				int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+				int k = MathHelper.floor_double(this.posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);			
 				Block var1 = this.worldObj.getBlockState(blockpos.down()).getBlock();
-				
+
 				return spawnBlocks.contains(var1)&& !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
-			}}
+			}
+		}
 		
 		return false;
-		}
+	}
 	
 	/** Legacy code below this point **/
 	/*
@@ -56,17 +60,14 @@ public abstract class EntityMobDay extends EntityMobBase {
 					&& this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
 					&& !this.worldObj.isAnyLiquid(this.boundingBox);
 		}
-		
-		
+
 		return true;
-		
 	}
 	*/
 	
-
 	/*
 	//This method is really stupid, you should not allocated 4096 booleans each call,
-	//This method is getting call several million times per second
+	//This method is getting called several million times per second
 	public boolean getCanSpawnHere() {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.boundingBox.minY);

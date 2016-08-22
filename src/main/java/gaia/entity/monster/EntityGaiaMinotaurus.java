@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -38,13 +37,14 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		super(world);
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
-		this.tasks.addTask(1, new EntityAISwimming(this));
-		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(4, new EntityAILookIdle(this));
+		this.tasks.addTask(0, new EntityAISwimming(this));
+//NULL	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-		if(world != null && !world.isRemote) {
+		if (world != null && !world.isRemote) {
 			this.setCombatTask();
 		}
 	}
@@ -52,9 +52,9 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -75,17 +75,17 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	}
 
 	public boolean attackEntityAsMob(Entity entity) {
-		if(super.attackEntityAsMob(entity)) {
-			if(this.getMobType() == 1 && entity instanceof EntityLivingBase) {
+		if (super.attackEntityAsMob(entity)) {
+			if (this.getMobType() == 1 && entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
                 	byte0 = 7;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
-				if(byte0 > 0) {
+				if (byte0 > 0) {
 					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60));
 					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 60));
 				}
@@ -97,10 +97,9 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		}
 	}
 
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
-    {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		if(this.worldObj.rand.nextInt(4) == 0) {
+		if (this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 			this.enchantEquipmentRanged(difficulty);
@@ -117,8 +116,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		return livingdata;
 	}
 	
-	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
-    {
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         int i = this.rand.nextInt(3);
 
         if (i == 0) {
@@ -130,7 +128,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	
 	public void setCurrentItemOrArmor(int par1, ItemStack stack) {
 		super.setCurrentItemOrArmor(par1, stack);
-		if(!this.worldObj.isRemote && par1 == 0) {
+		if (!this.worldObj.isRemote && par1 == 0) {
 			this.setCombatTask();
 		}
 	}
@@ -139,7 +137,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		this.tasks.removeTask(this.aiAttackOnCollide);
 		this.tasks.removeTask(this.aiArrowAttack);
 		ItemStack itemstack = this.getHeldItem();
-		if(itemstack != null && itemstack.getItem() == Items.bow) {
+		if (itemstack != null && itemstack.getItem() == Items.bow) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
@@ -151,15 +149,15 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
 		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
-		if(i > 0) {
+		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
 		}
 
-		if(j > 0) {
+		if (j > 0) {
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if(EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
 			entityarrow.setFire(100);
 		}
 
@@ -185,7 +183,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readEntityFromNBT(par1NBTTagCompound);
-		if(par1NBTTagCompound.hasKey("MobType")) {
+		if (par1NBTTagCompound.hasKey("MobType")) {
 			byte b0 = par1NBTTagCompound.getByte("MobType");
 			this.setMobType(b0);
 			this.setTextureType(b0);
@@ -200,21 +198,17 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		par1NBTTagCompound.setByte("MobType", (byte)this.getTextureType());
 	}
 
-    protected void enchantEquipmentRanged(DifficultyInstance difficulty)
-    {
+    protected void enchantEquipmentRanged(DifficultyInstance difficulty) {
     	float f = difficulty.getClampedAdditionalDifficulty();
 
-        if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f)
-        {
+        if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f) {
             EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItem(), (int)(5.0F + f * (float)this.rand.nextInt(18)));
         }
 
-        for (int i = 0; i < 4; ++i)
-        {
+        for (int i = 0; i < 4; ++i) {
             ItemStack itemstack = this.getCurrentArmor(i);
 
-            if (itemstack != null && this.rand.nextFloat() < 5.0F * f)
-            {
+            if (itemstack != null && this.rand.nextFloat() < 5.0F * f) {
                 EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int)(5.0F + f * (float)this.rand.nextInt(18)));
             }
         }
@@ -239,58 +233,42 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	protected void dropFewItems(boolean par1, int par2) {
 		int var3 = this.rand.nextInt(3 + par2);
 
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItem.FoodMeat,1);
+		for (int var4 = 0; var4 < var3; ++var4) {
+			this.dropItem(Items.leather, 1);
 		}
 
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
+		for (int var12 = 0; var12 < var11; ++var12) {
+            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
 		}
-
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.Fragment, 1);
+		
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+		}
+		
+		//Very Rare
+		if (par1 && (this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
+			this.dropItem(GaiaItem.SpawnHolstaurus, 1);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
-		switch(this.rand.nextInt(5)) {
+	protected void addRandomDrop() {
+		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold,1);
+			this.dropItem(GaiaItem.BoxGold, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagBook,1);
+			this.dropItem(GaiaItem.BagBook, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.BookBattle,1);
-			break;
-		case 3:
-			this.dropItem(GaiaItem.MiscPage,1);
-			break;
-		case 4:
-			this.dropItem(GaiaItem.SpawnCardHolstaurus,1);
+			this.dropItem(GaiaItem.BookBattle, 1);
 		}
 	}
 
-	public void knockBack(Entity entity, float par2, double par3, double par5) {
-		if(this.getMobType() == 1) {
-			if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
-				this.isAirBorne = true;
-				float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
-				float f2 = 0.4F;
-				this.motionX /= 2.0D;
-				this.motionY /= 2.0D;
-				this.motionZ /= 2.0D;
-				this.motionX -= par3 / (double)f1 * (double)f2;
-				this.motionY += (double)f2;
-				this.motionZ -= par5 / (double)f1 * (double)f2;
-				if(this.motionY > EntityAttributes.knockback2) {
-					this.motionY = EntityAttributes.knockback2;
-				}
-			}
-		} else {
-			super.knockBack(entity, par2, par3, par5);
-		}
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback2);
 	}
 
 	public boolean getCanSpawnHere() {

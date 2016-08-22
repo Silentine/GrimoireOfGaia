@@ -18,7 +18,7 @@ public class ItemMiscCurrency extends Item {
 	public ItemMiscCurrency(String texture) {
 		this.texture = texture;
         this.setHasSubtypes(true);
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscCurrency");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -28,14 +28,14 @@ public class ItemMiscCurrency extends Item {
 	}
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if (par1ItemStack.getItemDamage() == 1) {
+		if (par1ItemStack.getItemDamage() == 3) {
 			par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscCurrency.desc"));
 		}
 	}
 	
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 3; i ++) {
+		for (int i = 0; i < 4; i ++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

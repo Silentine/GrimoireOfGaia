@@ -18,7 +18,7 @@ public class ItemWeaponProp extends Item {
 	public ItemWeaponProp(String texture) {
 		this.texture = texture;
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.WeaponProp");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -37,7 +37,7 @@ public class ItemWeaponProp extends Item {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 4; i ++) {
+		for (int i = 0; i < 5; i ++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

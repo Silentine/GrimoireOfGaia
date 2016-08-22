@@ -15,21 +15,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl>
-{
+public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl> {
     private final RenderGaiaEnderDragonGirl endermanRenderer;
 
-    public Held_block_layer(RenderGaiaEnderDragonGirl renderGaiaEnderDragonGirl)
-    {
+    public Held_block_layer(RenderGaiaEnderDragonGirl renderGaiaEnderDragonGirl) {
         this.endermanRenderer = renderGaiaEnderDragonGirl;
     }
 
-    public void doRenderLayer(EntityGaiaEnderDragonGirl entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
-    {
+    public void doRenderLayer(EntityGaiaEnderDragonGirl entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
-        if (iblockstate.getBlock().getMaterial() != Material.air)
-        {
+        if (iblockstate.getBlock().getMaterial() != Material.air) {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
@@ -55,8 +51,7 @@ public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl
         }
     }
 
-    public boolean shouldCombineTextures()
-    {
+    public boolean shouldCombineTextures() {
         return false;
     }
 }

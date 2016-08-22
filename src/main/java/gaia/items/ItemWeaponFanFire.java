@@ -29,7 +29,7 @@ public class ItemWeaponFanFire extends Item {
 		this.weaponDamage = 8;
 		this.maxStackSize = 1;
 		this.texture = texture;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.WeaponFanFire");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

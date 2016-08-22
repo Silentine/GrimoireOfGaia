@@ -1,7 +1,5 @@
 package gaia.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaAnubis;
 import net.minecraft.client.Minecraft;
@@ -11,6 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaAnubis extends RenderLiving {
@@ -22,9 +22,10 @@ public class RenderGaiaAnubis extends RenderLiving {
         super(rend, new ModelGaiaAnubis(), shadow);
         //Held Item rendering simplified to a single class
         //May need more parameters in the future to accommodate or tweak per mob
-        this.addLayer(new held_rightarm(this, ModelGaiaAnubis.rightarmhand));
+        this.addLayer(new held_rightarm(this, ModelGaiaAnubis.rightarm));
     }
-
+	
+	//No idea if this serves any purpose now
 	protected void func_82422_c() {
 		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
 	}
@@ -32,5 +33,4 @@ public class RenderGaiaAnubis extends RenderLiving {
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		return texture;
 	}
-
 }

@@ -19,7 +19,6 @@ public class RenderGaiaSwamper extends RenderLiving {
 	
 	public RenderGaiaSwamper( float shadowSize) {
         super(rend, new ModelGaiaSwamper(), shadowSize);
-		//this.setRenderPassModel(new ModelGaiaSwamper());
 	}
 
 	protected void scaleSwamper(EntityGaiaSwamper par1EntityGaiaSwamper, float par2) {

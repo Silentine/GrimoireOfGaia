@@ -18,10 +18,9 @@ public class ItemBagRecord extends Item {
 	String texture;
 
 	public ItemBagRecord(String texture) {
-
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.BagRecord");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

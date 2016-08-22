@@ -3,7 +3,7 @@ package gaia.init;
 import gaia.ConfigGaia;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaKobold;
+import gaia.entity.monster.EntityGaiaWitch;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -47,7 +47,7 @@ public class TEMP_Spawning {
 		
 		//specific additions
 		//usage (configuration weight, entity, min to spawn, max to spawn, biome to spawn, biome subtype
-		addspawn(ConfigGaia.SpawnKobold, EntityGaiaKobold.class, 2, 6, forest, subbiome.SPOOKY);
+		addspawn(ConfigGaia.SpawnMatango, EntityGaiaWitch.class, 2, 6, forest, subbiome.SPOOKY);
 		
 		//add to all caves
 		//usage (configuration weight, entity, min to spawn, max to spawn, spawn to caves

@@ -4,9 +4,9 @@
         "layer0": "grimoireofgaia:items/WeaponPropDagger"
     },
     "display": {
-       "thirdperson": {
-            "rotation": [ 0, 90, -45 ],
-            "translation": [ 0, 1.25, -2.5 ],
+        "thirdperson": {
+            "rotation": [ 0, 90, -35 ],
+            "translation": [ 0, 1.25, -3.75 ],
             "scale": [ 0.9, 0.9, 0.9 ]
         },
         "firstperson": {
@@ -14,6 +14,5 @@
             "translation": [ 0, 4, 2 ],
             "scale": [ 1.7, 1.7, 1.7 ]
         }
-
     }
 }

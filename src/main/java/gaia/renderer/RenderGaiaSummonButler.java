@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaSummonButler extends RenderBiped {
 
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Summon_Butler.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/biped/Summon_Butler.png");
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 
 	public RenderGaiaSummonButler( float shadowSize) {

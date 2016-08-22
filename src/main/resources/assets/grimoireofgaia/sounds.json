@@ -14,4 +14,5 @@
   "box_open2": { "category": "neutral", "sounds": ["box_open2"]},
   "bag_open": { "category": "neutral", "sounds": ["bag_open"]},
   "book_hit": { "category": "neutral", "sounds": ["book_hit1","book_hit2","book_hit3","book_hit4"]}
+  "none": { "category": "neutral", "sounds": ["none"]}
 }

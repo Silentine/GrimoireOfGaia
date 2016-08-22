@@ -40,7 +40,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-//		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+//NULL	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -52,9 +52,9 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -62,10 +62,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 	
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		//this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, (int)this.posX, (int)this.posY, (int)this.posZ, 0);
 		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
 		double d0 = par1EntityLivingBase.posX - this.posX;
-		//double d1 = par1EntityLivingBase.boundingBox.minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = par1EntityLivingBase.posZ - this.posZ;
 		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
@@ -76,8 +74,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
-		if(super.attackEntityAsMob(par1Entity)) {
-			if(par1Entity instanceof EntityLiving) {
+		if (super.attackEntityAsMob(par1Entity)) {
+			if (par1Entity instanceof EntityLiving) {
                 byte byte0 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
@@ -86,7 +84,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
                 	byte0 = 15;
                 }
 
-				if(byte0 > 0) {
+				if (byte0 > 0) {
 					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
 					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(Potion.weakness.id, byte0 * 60, 0));
 				}
@@ -103,13 +101,13 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public void onLivingUpdate() {
-		if ((this.getHealth() < EntityAttributes.maxHealth2 * 0.75F) && (this.switchHealth == 0)){
+		if ((this.getHealth() < EntityAttributes.maxHealth2 * 0.75F) && (this.switchHealth == 0)) {
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAttackOnCollide);
 			this.switchHealth = 1;
 		}
 
-		if ((this.getHealth() > EntityAttributes.maxHealth2 * 0.75F) && (this.switchHealth == 1)){
+		if ((this.getHealth() > EntityAttributes.maxHealth2 * 0.75F) && (this.switchHealth == 1)) {
 			this.tasks.removeTask(this.aiAttackOnCollide);
 			this.tasks.addTask(1, this.aiArrowAttack);
 			this.switchHealth = 0;
@@ -134,69 +132,57 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.playSound("mob.cow.step", 0.15F, 1.0F);
 	}
 
-	protected void dropFewItems(boolean par1, int par2) {
+	protected void dropFewItems(boolean par1, int par2) {		
 		int var3 = this.rand.nextInt(3 + par2);
 
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItem.MiscSoulFiery,1);
+		for (int var4 = 0; var4 < var3; ++var4) {
+			this.dropItem(GaiaItem.MiscSoulFiery, 1);
 		}
 		
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 6), 0.0F);
-		}
+		int var5 = this.rand.nextInt(3 + par2);
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		for (int var6 = 0; var6 < var5; ++var6) {
+			this.dropItem(GaiaItem.FoodNetherWart, 1);
+		}
+		
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1 ;
+
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
 		}
 		
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.FoodDriedNetherWart, 1, 3), 0.0F);
-		}
-
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.quartz,1);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
+			this.dropItem(Items.glowstone_dust, 1);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
-		switch(this.rand.nextInt(4)) {
+	protected void addRandomDrop() {
+		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold,1);
+			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagBook,1);
+			this.dropItem(GaiaItem.BagBook, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.BookWither,1);
-			break;
-		case 3:
-			this.dropItem(GaiaItem.MiscPage,1);
+			this.dropItem(GaiaItem.BookWither, 1);
 		}
 	}
 
 	@Override
-    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
-    }
-	/*
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));
-		this.enchantEquipment();
-		return par1IEntityLivingData;
-	}
-	*/
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
-    {
+    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {}
+
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
-		
     }
 	
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if(!this.worldObj.isRemote && par1 == 0) {
+		if (!this.worldObj.isRemote && par1 == 0) {
 			this.setCombatTask();
 		}
 	}
@@ -211,19 +197,6 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
-			this.isAirBorne = true;
-			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
-			float f2 = 0.4F;
-			this.motionX /= 2.0D;
-			this.motionY /= 2.0D;
-			this.motionZ /= 2.0D;
-			this.motionX -= par3 / (double)f1 * (double)f2;
-			this.motionY += (double)f2;
-			this.motionZ -= par5 / (double)f1 * (double)f2;
-			if(this.motionY > EntityAttributes.knockback2) {
-				this.motionY = EntityAttributes.knockback2;
-			}
-		}
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback2);
 	}
 }

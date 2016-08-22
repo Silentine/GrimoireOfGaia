@@ -2,8 +2,11 @@ package gaia.items;
 
 import java.util.List;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import gaia.Gaia;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -12,17 +15,22 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAccessoryRingSpeed extends Item {
+@InterfaceList({
+	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
+	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
+
+public class ItemAccessoryRingSpeed extends Item implements IBauble{
 	String texture;
 
 	public ItemAccessoryRingSpeed(String texture) {
-
 		this.texture = texture;
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingSpeed");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -44,15 +52,46 @@ public class ItemAccessoryRingSpeed extends Item {
 		super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 		EntityPlayer player = (EntityPlayer)par3Entity;
 
-		for(int i = 0; i < 9; ++i) {
-			if(player.inventory.getStackInSlot(i) == par1ItemStack) {
+		for (int i = 0; i < 9; ++i) {
+			if (player.inventory.getStackInSlot(i) == par1ItemStack) {
 				this.doEffect(player, par1ItemStack);
 				break;
 			}
 		}
 	}
 
-	public void doEffect(EntityPlayer player, ItemStack item) {
-		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 10));
+	public void doEffect(EntityPlayer player, ItemStack item) {	
+		if (!player.isPotionActive(Potion.moveSpeed)) {
+			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 0, true, false));		
+			}
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack) {
+		return BaubleType.RING;
+	}
+
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+		
+		this.doEffect((EntityPlayer)player, itemstack);	
+	}
+
+	@Override
+	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {}
+
+	@Override
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 20, 0));
+	}
+
+	@Override
+	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
 	}
 }

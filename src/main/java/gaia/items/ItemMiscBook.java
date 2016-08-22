@@ -17,9 +17,8 @@ public class ItemMiscBook extends Item {
 	String texture;
 
 	public ItemMiscBook(String texture) {
-
 		this.texture = texture;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscBook");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -33,11 +32,11 @@ public class ItemMiscBook extends Item {
 	}
 
 	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par3EntityPlayer.capabilities.isCreativeMode) {
+		if (!par3EntityPlayer.capabilities.isCreativeMode) {
 			--par1ItemStack.stackSize;
 		}
 
-		if(!par2World.isRemote) {
+		if (!par2World.isRemote) {
 			par3EntityPlayer.addExperienceLevel(10);
 		}
 

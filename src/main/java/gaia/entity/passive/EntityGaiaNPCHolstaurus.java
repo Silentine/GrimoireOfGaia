@@ -17,8 +17,7 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 		super(var1);
 	}
 	
-	public IChatComponent getDisplayName()
-    {
+	public IChatComponent getDisplayName() {
 		 String s = "Holstaurus";
 		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
 		 return chatcomponenttext;
@@ -40,20 +39,22 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {
-		if(par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardHolstaurus, 1, 0), 0.0F);
+		if (par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.SpawnHolstaurus, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 1), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));	
+		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));	
+		
 		//Buy List
 		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 2), new ItemStack(Items.wheat_seeds, 8, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 2), new ItemStack(Items.pumpkin_seeds, 16, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 2, 2), new ItemStack(Items.melon_seeds, 16, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 16, 2), new ItemStack(Items.cake, 1, 0)));
 		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 8, 2), new ItemStack(Items.pumpkin_pie, 1, 0)));
+		
 		//Sell List
 		recipes.add(new Trade(new ItemStack(Items.wheat, 8, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
 		recipes.add(new Trade(new ItemStack(Blocks.pumpkin, 2, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));

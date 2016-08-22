@@ -1,8 +1,9 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
-import gaia.Gaia;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -18,7 +19,7 @@ public class ItemMiscWeaponEnchanted extends Item {
 	public ItemMiscWeaponEnchanted(String texture) {
 		this.texture = texture;
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscWeaponEnchanted");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

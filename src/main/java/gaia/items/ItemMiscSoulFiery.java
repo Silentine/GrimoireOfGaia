@@ -1,8 +1,9 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
-import gaia.Gaia;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,9 +19,8 @@ public class ItemMiscSoulFiery extends Item {
 	String texture;
 
 	public ItemMiscSoulFiery(String texture) {
-
 		this.texture = texture;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscSoulFiery");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -29,25 +29,20 @@ public class ItemMiscSoulFiery extends Item {
 		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscSoulFiery.desc"));
 	}
 	
-	
-	
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = par3World.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if(!par2EntityPlayer.capabilities.isCreativeMode) {
+        if (!par2EntityPlayer.capabilities.isCreativeMode) {
             --par1ItemStack.stackSize;
         }
         
         pos = pos.offset(side);
         
-        if (!par2EntityPlayer.canPlayerEdit(pos, side, par1ItemStack))
-        {
+        if (!par2EntityPlayer.canPlayerEdit(pos, side, par1ItemStack)) {
             return false;
-        }
-        else {
-			if(par3World.isAirBlock(pos)) {
+        } else {
+			if (par3World.isAirBlock(pos)) {
 				par3World.playSoundEffect((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), "mob.ghast.scream", 0.4F, 0.8F);
 				par3World.setBlockState(pos, Blocks.flowing_lava.getDefaultState());
 			}

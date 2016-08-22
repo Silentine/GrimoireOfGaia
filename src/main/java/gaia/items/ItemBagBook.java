@@ -20,10 +20,9 @@ public class ItemBagBook extends Item {
 	String texture;
 
 	public ItemBagBook(String texture) {
-
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.BagBook");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
@@ -41,18 +42,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	private static final Item[] witchDrops = new Item[] { 
-		Items.book, 
 		Items.sugar, 
-		Items.paper, 
 		Items.spider_eye, 
-		Items.glass_bottle, 
-		Items.gunpowder };
+		Items.glass_bottle,
+		Items.gunpowder,
+		Items.stick,
+		Items.stick
+		};
 	private int spawn;
 	
 	private static final UUID field_110184_bp = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
 	private static final AttributeModifier field_110185_bq = (new AttributeModifier(field_110184_bp, "Drinking speed penalty", -0.25D, 0)).setSaved(false);
 	private int witchAttackTimer;
-//	private static final String __OBFID = "CL_00001701";
 	private final float moveSpeed;
 
 	public EntityGaiaWitch(World par1World) {
@@ -73,9 +74,9 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -100,43 +101,40 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	}
 
 	public void onLivingUpdate() {
-		if(!this.onGround && this.motionY < 0.0D) {
+		if (!this.onGround && this.motionY < 0.0D) {
 			this.motionY *= 0.8D;
 		}
 
-		for(int var5 = 0; var5 < 2; ++var5) {
-			//"witchMagic"
+		for (int var5 = 0; var5 < 2; ++var5) {
 			this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 		}
 
 		EntitySpider mob;
-		if(this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0 && !this.worldObj.isRemote) {
+		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0 && !this.worldObj.isRemote) {
 			mob = new EntitySpider(this.worldObj);
 			mob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-			//mob.onSpawnWithEgg((IEntityLivingData)null);
 			mob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(mob)), (IEntityLivingData)null);
 			this.worldObj.spawnEntityInWorld(mob);
 			this.spawn = 1;
 		}
 
-		if(this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1 && !this.worldObj.isRemote) {
+		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1 && !this.worldObj.isRemote) {
 			mob = new EntitySpider(this.worldObj);
 			mob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-			//mob.onSpawnWithEgg((IEntityLivingData)null);
 			mob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(mob)), (IEntityLivingData)null);
 			this.worldObj.spawnEntityInWorld(mob);
 			this.spawn = 2;
 		}
 
-		if(!this.worldObj.isRemote) {
-			if(this.getAggressive()) {
-				if(this.witchAttackTimer-- <= 0) {
+		if (!this.worldObj.isRemote) {
+			if (this.getAggressive()) {
+				if (this.witchAttackTimer-- <= 0) {
 					this.setAggressive(false);
 					ItemStack var6 = this.getHeldItem();
 					this.setCurrentItemOrArmor(0, (ItemStack)null);
-					if(var6 != null && var6.getItem() == Items.potionitem) {
+					if (var6 != null && var6.getItem() == Items.potionitem) {
 						List var2 = Items.potionitem.getEffects(var6);
-						if(var2 != null) {
+						if (var2 != null) {
 							Iterator var3 = var2.iterator();
 
 							while(var3.hasNext()) {
@@ -153,20 +151,20 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
                 if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.water) && !this.isPotionActive(Potion.waterBreathing)) {
                 	var7 = 8237;
                 }
-                else if(this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
+                else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
 					var7 = 16307;
 				} 
-                else if(this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
+                else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
 					var7 = 16341;
 				} 
-                else if(this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
 					var7 = 16274;
 				} 
-                else if(this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
 					var7 = 16274;
 				}
 
-				if(var7 > -1) {
+				if (var7 > -1) {
                     this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, var7));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
@@ -176,7 +174,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 				}
 			}
 
-			if(this.rand.nextFloat() < 7.5E-4F) {
+			if (this.rand.nextFloat() < 7.5E-4F) {
 				this.worldObj.setEntityState(this, (byte)15);
 			}
 		}
@@ -186,11 +184,11 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 
 	protected float applyPotionDamageCalculations(DamageSource par1DamageSource, float par2) {
 		par2 = super.applyPotionDamageCalculations(par1DamageSource, par2);
-		if(par1DamageSource.getEntity() == this) {
+		if (par1DamageSource.getEntity() == this) {
 			par2 = 0.0F;
 		}
 
-		if(par1DamageSource.isMagicDamage()) {
+		if (par1DamageSource.isMagicDamage()) {
 			par2 = (float)((double)par2 * 0.15D);
 		}
 
@@ -199,9 +197,8 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte par1) {
-		if(par1 == 15) {
-			for(int var2 = 0; var2 < this.rand.nextInt(35) + 10; ++var2) {
-				//"witchMagic"
+		if (par1 == 15) {
+			for (int var2 = 0; var2 < this.rand.nextInt(35) + 10; ++var2) {
 				this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + this.rand.nextGaussian() * 0.12999999523162842D, this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D, this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
@@ -211,7 +208,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 
 	public float getAIMoveSpeed() {
 		float speed = super.getAIMoveSpeed();
-		if(this.getAggressive()) {
+		if (this.getAggressive()) {
 			speed *= 0.75F;
 		}
 
@@ -219,18 +216,18 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLiving, float par2) {
-		if(!this.getAggressive()) {
+		if (!this.getAggressive()) {
 			EntityPotion var2 = new EntityPotion(this.worldObj, this, 32732);
 			var2.rotationPitch -= -20.0F;
 			double var3 = par1EntityLiving.posX + par1EntityLiving.motionX - this.posX;
 			double var5 = par1EntityLiving.posY + (double)par1EntityLiving.getEyeHeight() - 1.100000023841858D - this.posY;
 			double var7 = par1EntityLiving.posZ + par1EntityLiving.motionZ - this.posZ;
 			float var9 = MathHelper.sqrt_double(var3 * var3 + var7 * var7);
-			if(var9 >= 8.0F && !par1EntityLiving.isPotionActive(Potion.moveSlowdown)) {
+			if (var9 >= 8.0F && !par1EntityLiving.isPotionActive(Potion.moveSlowdown)) {
 				var2.setPotionDamage(32698);
-			} else if(par1EntityLiving.getHealth() >= 8.0F && !par1EntityLiving.isPotionActive(Potion.poison)) {
+			} else if (par1EntityLiving.getHealth() >= 8.0F && !par1EntityLiving.isPotionActive(Potion.poison)) {
 				var2.setPotionDamage(32660);
-			} else if(var9 <= 3.0F && !par1EntityLiving.isPotionActive(Potion.weakness) && this.rand.nextFloat() < 0.25F) {
+			} else if (var9 <= 3.0F && !par1EntityLiving.isPotionActive(Potion.weakness) && this.rand.nextFloat() < 0.25F) {
 				var2.setPotionDamage(32696);
 			}
 
@@ -252,79 +249,71 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 	}
 
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		//TODO fix this no sound thingy
-		//this.worldObj.playSoundAtEntity(this, "none", 1.0F, 1.0F);
+		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
 		int var3 = this.rand.nextInt(3) + 1;
 
-		for(int var4 = 0; var4 < var3; ++var4) {
+		for (int var4 = 0; var4 < var3; ++var4) {
 			int var5 = this.rand.nextInt(3);
 			Item var6 = witchDrops[this.rand.nextInt(witchDrops.length)];
-			if(par2 > 0) {
+			if (par2 > 0) {
 				var5 += this.rand.nextInt(par2 + 1);
 			}
 
-			for(int var7 = 0; var7 < var5; ++var7) {
+			for (int var7 = 0; var7 < var5; ++var7) {
 				this.dropItem(var6, 1);
 			}
 		}
 		
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 5), 0.0F);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.dropItem(GaiaItem.FoodNetherWart, 1);
 		}
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
+
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
 		}
 		
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.FoodDriedNetherWart, 1, 3), 0.0F);
-		}
-
-		if(par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.Fragment, 1);
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
+	protected void addRandomDrop() {
 		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold,1);
+			this.dropItem(GaiaItem.BoxGold, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagBook,1);
+			this.dropItem(GaiaItem.BagBook, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.MiscBook,1);
+			this.dropItem(GaiaItem.MiscBook, 1);
 		}
 	}
 
-	protected void fall(float f) {}
+	public void fall(float distance, float damageMultiplier) {}
 	
 	@Override
-    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {
-    }
-	/*
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));
-		this.enchantEquipment();
-		return par1IEntityLivingData;
-	}
-	*/
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
-    {
+    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {}
+
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
-		
     }
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
 		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+	}
+	
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockbackbase);
 	}
 
 	public boolean getCanSpawnHere() {

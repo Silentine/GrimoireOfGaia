@@ -1,10 +1,11 @@
 package gaia.items;
 
+import gaia.Gaia;
+import gaia.init.GaiaItem;
+
 import java.util.List;
 import java.util.Random;
 
-import gaia.Gaia;
-import gaia.init.GaiaItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
@@ -19,10 +20,9 @@ public class ItemBoxOld extends Item {
 	String texture;
 
 	public ItemBoxOld(String texture) {
-
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.BoxOld");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -39,24 +39,20 @@ public class ItemBoxOld extends Item {
 		world.playSoundAtEntity(entityplayer, "grimoireofgaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
-		int i = random.nextInt(8);
+		int i = random.nextInt(6);
 		switch(i) {
 		case 0:
-			return new ItemStack(GaiaItem.Shard, 1, 4);
-		case 1:
-			return new ItemStack(GaiaItem.Shard, 1, 4);
-		case 2:
 			return new ItemStack(GaiaItem.MiscGigaGear);
-		case 3:
-			return new ItemStack(GaiaItem.SpawnCard);
-		case 4:
+		case 1:
+			return new ItemStack(GaiaItem.Spawn);
+		case 2:
 			return new ItemStack(Items.saddle);
+		case 3:
+			return new ItemStack(Items.saddle);
+		case 4:
+			return new ItemStack(Items.name_tag);
 		case 5:
 			return new ItemStack(Items.name_tag);
-		case 6:
-			return new ItemStack(GaiaItem.Shard, 1, 4);
-		case 7:
-			return new ItemStack(GaiaItem.Shard, 1, 4);
 		default:
 			return itemstack;
 		}

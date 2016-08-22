@@ -12,9 +12,8 @@ public class ItemMiscFurnaceFuel extends Item {
 	String texture;
 
 	public ItemMiscFurnaceFuel(String texture) {
-
 		this.texture = texture;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscFurnaceFuel");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

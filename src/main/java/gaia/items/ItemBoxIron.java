@@ -19,10 +19,9 @@ public class ItemBoxIron extends Item {
 	String texture;
 
 	public ItemBoxIron(String texture) {
-
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.BoxIron");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

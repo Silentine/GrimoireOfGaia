@@ -16,8 +16,7 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 		super(var1);
 	}
 	
-	public IChatComponent getDisplayName()
-    {
+	public IChatComponent getDisplayName() {
 		 String s = "Slime Girl";
 		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
 		 return chatcomponenttext;
@@ -39,20 +38,22 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {
-		if(par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnCardSlimeGirl, 1, 0), 0.0F);
+		if (par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.SpawnSlimeGirl, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 1), new ItemStack(Items.slime_ball, 1, 0)));	
+		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(Items.slime_ball, 1, 0)));
+		
 		//Buy List
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.bone, 2, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.rotten_flesh, 4, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.gunpowder, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.spider_eye, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.slime_ball, 1, 0), new ItemStack(Items.string, 2, 0)));
+		
 		//Sell List
 		recipes.add(new Trade(new ItemStack(Items.bone, 4, 0), new ItemStack(Items.slime_ball, 1, 0)));
 		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.slime_ball, 2, 0)));

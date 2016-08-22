@@ -19,7 +19,6 @@ public class RenderGaiaSphinx extends RenderLiving {
 	
 	public RenderGaiaSphinx( float shadowSize) {
         super(rend, new ModelGaiaSphinx(), shadowSize);
-		//this.setRenderPassModel(new ModelGaiaSphinx());
 	}
 
 	protected void scaleSphinx(EntityGaiaSphinx sphinx, float par2) {

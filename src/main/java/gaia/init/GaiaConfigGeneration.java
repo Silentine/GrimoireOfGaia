@@ -3,13 +3,22 @@ package gaia.init;
 import gaia.ConfigGaia;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class GaiaConfigGeneration {
-	
-	public static void configOptions(Configuration config) {
-		config.load();
-		
-		//Spawning
+
+	public static Configuration config;
+
+	public static void configOptions(FMLPreInitializationEvent event) {
+		config = new Configuration(event.getSuggestedConfigurationFile());
+		syncConfig();
+	}
+
+	public static String DAMAGE = "base damage";
+	public static String ATTRIBUTES = "attributes";
+
+	public static void syncConfig(){
+		//Spawn Rate
 		ConfigGaia.SpawnAnubis = config.get("general", "SpawnRateAnubis", ConfigGaia.SpawnAnubis).getInt();
 		ConfigGaia.SpawnBanshee = config.get("general", "SpawnRateBanshee", ConfigGaia.SpawnBanshee).getInt();
 		ConfigGaia.SpawnGryphon = config.get("general", "SpawnRateGryphon", ConfigGaia.SpawnGryphon).getInt();
@@ -32,7 +41,7 @@ public class GaiaConfigGeneration {
 		ConfigGaia.SpawnHarpy = config.get("general", "SpawnRateHarpy", ConfigGaia.SpawnHarpy).getInt();
 		ConfigGaia.SpawnHunter = config.get("general", "SpawnRateHunter", ConfigGaia.SpawnHunter).getInt();
 		ConfigGaia.SpawnJorogumo = config.get("general", "SpawnRateJorogumo", ConfigGaia.SpawnJorogumo).getInt();
-		ConfigGaia.SpawnKobold = config.get("general", "SpawnRateSpawnKobold", ConfigGaia.SpawnKobold).getInt();
+		ConfigGaia.SpawnMatango = config.get("general", "SpawnRateSpawnMatango", ConfigGaia.SpawnMatango).getInt();
 		ConfigGaia.SpawnMandragora = config.get("general", "SpawnRateSpawnMandragora", ConfigGaia.SpawnMandragora).getInt();
 		ConfigGaia.SpawnMermaid = config.get("general", "SpawnRateMermaid", ConfigGaia.SpawnMermaid).getInt();
 		ConfigGaia.SpawnMimic = config.get("general", "SpawnRateMimic", ConfigGaia.SpawnMimic).getInt();
@@ -57,23 +66,29 @@ public class GaiaConfigGeneration {
 		ConfigGaia.SpawnWitherCow = config.get("general", "SpawnRateWitherCow", ConfigGaia.SpawnWitherCow).getInt();
 		ConfigGaia.SpawnYeti = config.get("general", "SpawnRateYeti", ConfigGaia.SpawnYeti).getInt();
 		ConfigGaia.SpawnYukiOnna = config.get("general", "SpawnRateYukiOnna", ConfigGaia.SpawnYukiOnna).getInt();
-		//Base damage
-		ConfigGaia.BaseDamage = config.get("BASE DAMAGE", "BaseDamage", true).getBoolean(true);
-		//Tier info
-		ConfigGaia.Tier1maxHealth = config.get("MODIFIER", "Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
-		ConfigGaia.Tier1attackDamage = config.get("MODIFIER", "Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
-		ConfigGaia.Tier2maxHealth = config.get("MODIFIER", "Tier2maxHealth", ConfigGaia.Tier2maxHealth).getInt();
-		ConfigGaia.Tier2attackDamage = config.get("MODIFIER", "Tier2attackDamage", ConfigGaia.Tier2attackDamage).getInt();
-		ConfigGaia.Tier3maxHealth = config.get("MODIFIER", "Tier3maxHealth", ConfigGaia.Tier3maxHealth).getInt();
-		ConfigGaia.Tier3attackDamage = config.get("MODIFIER", "Tier3attackDamage", ConfigGaia.Tier3attackDamage).getInt();
-	
-		Property generalproperty = config.get("general", " ", " ");
-		generalproperty.comment = "Spawn Rate. Set to 0 to disable mob from spawning. Recommended: 10> Day, <100 Night";
-		Property basedamageproperty = config.get("BASE DAMAGE", " ", " ");
-		basedamageproperty.comment = "If BaseDamage is set to true, all mobs will deal 1.0 piercing damage (ignores armor).";
-		Property modifierproperty = config.get("MODIFIER", " ", " ");
-		modifierproperty.comment = "Percentage amount. Default value: 100";
-		config.save();
-		config.load();
+
+		//Base Damage
+		ConfigGaia.BaseDamage = config.get("base damage", "configgui.GrimoireOfGaia.category.damage.BaseDamage", true).getBoolean(true);
+
+		//Attributes
+		ConfigGaia.Tier1maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
+		ConfigGaia.Tier1attackDamage = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
+		ConfigGaia.Tier2maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth", ConfigGaia.Tier2maxHealth).getInt();
+		ConfigGaia.Tier2attackDamage = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage", ConfigGaia.Tier2attackDamage).getInt();
+		ConfigGaia.Tier3maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth", ConfigGaia.Tier3maxHealth).getInt();
+		ConfigGaia.Tier3attackDamage = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage", ConfigGaia.Tier3attackDamage).getInt();
+
+		//Descriptions
+		// Disabled due to it messing up the ConfigGui by including an extra input box
+		/*
+		Property generalproperty = config.get("general", "", "");
+		generalproperty.comment = "Set to 0 to disable mob from spawning. Recommended: 10> Day, <100 Night";
+		Property basedamageproperty = config.get("base damage", "", "");
+		basedamageproperty.comment = "If set to true, all mobs will deal an additional 1.0 magical damage (bypasses armor)";
+		Property attributesproperty = config.get("attributes", "", "");
+		attributesproperty.comment = "Attributes based on percentage. WARNING: Do not set below 50";
+		*/
+		if(config.hasChanged())
+			config.save();
 	}
 }

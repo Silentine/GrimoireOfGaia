@@ -20,5 +20,4 @@ public class RenderGaiaWitherCow extends RenderLiving {
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		return texture;
 	}
-
 }

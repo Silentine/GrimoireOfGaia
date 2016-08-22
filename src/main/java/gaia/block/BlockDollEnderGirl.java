@@ -41,21 +41,18 @@ public class BlockDollEnderGirl extends BlockContainer {
 		return false;
 	}
 	
-	public boolean isFullCube()
-    {
+	public boolean isFullCube() {
         return false;
     }
 
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack)
-    {
-		if(entity != null) {
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		if (entity != null) {
 			TileEntityDollEnderGirl tile = (TileEntityDollEnderGirl)world.getTileEntity(pos);
 			tile.direction = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		}
 	}
 
 	public Block setBlockTextureName(String string) {
-
 		return null;
 	}
 }

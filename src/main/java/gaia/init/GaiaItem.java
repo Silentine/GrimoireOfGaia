@@ -1,10 +1,8 @@
 package gaia.init;
 
-import java.util.Locale;
-
 import gaia.GaiaReference;
 import gaia.items.GaiaDispenserBehaviorMobEgg;
-import gaia.items.ItemAccessoryDollCursed;
+import gaia.items.ItemAccessoryCursed;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
 import gaia.items.ItemAccessoryRingNight;
@@ -16,38 +14,36 @@ import gaia.items.ItemBoxDiamond;
 import gaia.items.ItemBoxGold;
 import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
-import gaia.items.ItemFoodBerryCure;
-import gaia.items.ItemFoodBerryFire;
-import gaia.items.ItemFoodBerryHealth;
-import gaia.items.ItemFoodBerryIce;
 import gaia.items.ItemFoodCoalfish;
-import gaia.items.ItemFoodDriedNetherWart;
+import gaia.items.ItemFoodIce;
 import gaia.items.ItemFoodMandrake;
 import gaia.items.ItemFoodMeat;
-import gaia.items.ItemFoodMeatMorsel;
-import gaia.items.ItemFoodPieBerry;
+import gaia.items.ItemFoodNetherWart;
+import gaia.items.ItemFoodPieAppleGold;
 import gaia.items.ItemFoodPieMandrake;
 import gaia.items.ItemFoodPieMeat;
+import gaia.items.ItemFoodRoot;
+import gaia.items.ItemFoodRottenHeart;
 import gaia.items.ItemFoodSmallAppleGold;
-import gaia.items.ItemFoodWitherMeat;
-import gaia.items.ItemFragment;
+import gaia.items.ItemFoodWither;
 import gaia.items.ItemGaiaSpawnEgg;
 import gaia.items.ItemMiscBook;
 import gaia.items.ItemMiscCurrency;
 import gaia.items.ItemMiscFurnaceFuel;
 import gaia.items.ItemMiscGigaGear;
-import gaia.items.ItemMiscPage;
 import gaia.items.ItemMiscRing;
 import gaia.items.ItemMiscSoulFiery;
 import gaia.items.ItemMiscSoulFire;
 import gaia.items.ItemMiscWeaponEnchanted;
 import gaia.items.ItemShard;
-import gaia.items.ItemSpawnCard;
-import gaia.items.ItemSpawnCardCreeperGirl;
-import gaia.items.ItemSpawnCardEnderGirl;
-import gaia.items.ItemSpawnCardHolstaurus;
-import gaia.items.ItemSpawnCardSlimeGirl;
-import gaia.items.ItemSpawnCardTrader;
+import gaia.items.ItemShardMisc;
+import gaia.items.ItemSpawn;
+import gaia.items.ItemSpawnCreeperGirl;
+import gaia.items.ItemSpawnEnderGirl;
+import gaia.items.ItemSpawnHolstaurus;
+import gaia.items.ItemSpawnSlimeGirl;
+import gaia.items.ItemSpawnTrader;
+import gaia.items.ItemSpawnWeresheep;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
@@ -61,8 +57,10 @@ import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropInvisible;
+
+import java.util.Locale;
+
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -71,39 +69,38 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class GaiaItem {
 	public static Item Shard;
-	public static Item Fragment;
-	public static Item FoodMeatMorsel;
+	public static Item ShardMisc;
 	public static Item FoodMeat;
+	public static Item FoodRottenHeart;
+	public static Item FoodRoot;
+	public static Item FoodIce;
 	public static Item FoodCoalfish;
-	public static Item FoodWitherMeat;
+	public static Item FoodNetherWart;
 	public static Item FoodSmallAppleGold;
-	public static Item FoodBerryHealth;
-	public static Item FoodBerryCure;
-	public static Item FoodBerryIce;
-	public static Item FoodBerryFire;
-	public static Item FoodDriedNetherWart;
 	public static Item FoodMandrake;
+	public static Item FoodWither;
 	public static Item FoodPieMandrake;
 	public static Item FoodPieMeat;
-	public static Item FoodPieBerry;
+	public static Item FoodPieAppleGold;
 	public static Item MiscSoulFire;
 	public static Item MiscSoulFiery;
 	public static Item MiscGigaGear;
-	public static Item MiscPage;
 	public static Item MiscBook;
 	public static Item MiscRing;
 	public static Item MiscFurnaceFuel;
 	public static Item MiscCurrency;
 	public static Item MiscWeaponEnchanted;
-	public static Item SpawnCard;
-	public static Item SpawnCardCreeperGirl;
-	public static Item SpawnCardEnderGirl;
-	public static Item SpawnCardHolstaurus;
-	public static Item SpawnCardSlimeGirl;
-	public static Item SpawnCardTrader;
+	public static Item Spawn;
+	public static Item SpawnCreeperGirl;
+	public static Item SpawnSlimeGirl;
+	public static Item SpawnEnderGirl;
+	public static Item SpawnTrader;
+	public static Item SpawnHolstaurus;
+	public static Item SpawnWeresheep;
 	public static Item BoxIron;
 	public static Item BoxGold;
 	public static Item BoxDiamond;
@@ -128,41 +125,39 @@ public class GaiaItem {
 	public static Item AccessoryRingHaste;
 	public static Item AccessoryRingJump;
 	public static Item AccessoryRingNight;
-	public static Item AccessoryDollCursed;
+	public static Item AccessoryCursed;
 	public static Item SpawnEgg;
 
 	public static void init() {
 		Shard = new ItemShard("Shard");
-		Fragment = new ItemFragment("Fragment");
-		FoodMeatMorsel = new ItemFoodMeatMorsel(4, 0.8F, true, "FoodMeatMorsel");
-		FoodMeat = new ItemFoodMeat(8, 0.8F, true, "FoodMeat");
+		ShardMisc = new ItemShardMisc("ShardMisc");
+		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");
+		FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "FoodRottenHeart").setAlwaysEdible();
+		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
+		FoodIce = (new ItemFoodIce(4, 0.0F, true, "FoodIce")).setAlwaysEdible();
 		FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "FoodCoalfish");
-		FoodWitherMeat = new ItemFoodWitherMeat(8, 0.8F, true, "FoodWitherMeat");
+		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart")).setPotionEffect("+4");
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
-		FoodBerryHealth = (new ItemFoodBerryHealth(4, 0.0F, false, "FoodBerryHealth")).setAlwaysEdible();
-		FoodBerryCure = (new ItemFoodBerryCure(4, 0.0F, true, "FoodBerryCure")).setAlwaysEdible();
-		FoodBerryIce = (new ItemFoodBerryIce(4, 0.0F, true, "FoodBerryIce")).setAlwaysEdible();
-		FoodBerryFire = (new ItemFoodBerryFire(4, 0.0F, true, "FoodBerryFire")).setAlwaysEdible();
-		FoodDriedNetherWart = (new ItemFoodDriedNetherWart(4, 0.4F, true, "FoodDriedNetherWart")).setPotionEffect("+4");
-		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, true, "FoodMandrake")).setAlwaysEdible();
-		FoodPieMandrake = (new ItemFoodPieMandrake(12, 0.8F, true, "FoodPieMandrake")).setAlwaysEdible();
-		FoodPieMeat = (new ItemFoodPieMeat(16, 0.8F, true, "FoodPieMeat"));
-		FoodPieBerry = (new ItemFoodPieBerry(12, 0.2F, true, "FoodPieBerry"));
+		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
+		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
+		FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "FoodPieMandrake"));
+		FoodPieMeat = (new ItemFoodPieMeat(12, 0.8F, true, "FoodPieMeat"));
+		FoodPieAppleGold = (new ItemFoodPieAppleGold(12, 0.8F, true, "FoodPieAppleGold"));
 		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
 		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
-		MiscPage = new ItemMiscPage("MiscPage");
 		MiscBook = new ItemMiscBook("MiscBook");
 		MiscRing = new ItemMiscRing("MiscRing");
 		MiscFurnaceFuel = new ItemMiscFurnaceFuel("MiscFurnaceFuel");
 		MiscCurrency = new ItemMiscCurrency("MiscCurrency");
 		MiscWeaponEnchanted = new ItemMiscWeaponEnchanted("MiscWeaponEnchanted");
-		SpawnCard = new ItemSpawnCard("SpawnCard");
-		SpawnCardCreeperGirl = new ItemSpawnCardCreeperGirl("SpawnCardCreeperGirl");
-		SpawnCardEnderGirl = new ItemSpawnCardEnderGirl("SpawnCardEnderGirl");
-		SpawnCardHolstaurus = new ItemSpawnCardHolstaurus("SpawnCardHolstaurus");
-		SpawnCardSlimeGirl = new ItemSpawnCardSlimeGirl("SpawnCardSlimeGirl");
-		SpawnCardTrader = new ItemSpawnCardTrader("SpawnCardTrader");
+		Spawn = new ItemSpawn("Spawn");
+		SpawnCreeperGirl = new ItemSpawnCreeperGirl("SpawnCreeperGirl");
+		SpawnSlimeGirl = new ItemSpawnSlimeGirl("SpawnSlimeGirl");
+		SpawnEnderGirl = new ItemSpawnEnderGirl("SpawnEnderGirl");
+		SpawnTrader = new ItemSpawnTrader("SpawnTrader");
+		SpawnHolstaurus = new ItemSpawnHolstaurus("SpawnHolstaurus");
+		SpawnWeresheep = new ItemSpawnWeresheep("SpawnWeresheep");
 		BoxIron = new ItemBoxIron("BoxIron");
 		BoxGold = new ItemBoxGold("BoxGold");
 		BoxDiamond = new ItemBoxDiamond("BoxDiamond");
@@ -187,44 +182,41 @@ public class GaiaItem {
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
-		AccessoryDollCursed = new ItemAccessoryDollCursed("AccessoryDollCursed");
-		SpawnEgg = new ItemGaiaSpawnEgg("SpawnEgg");
+		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
+		SpawnEgg = new ItemGaiaSpawnEgg();
 	}
 	
-	public static void register()
-	{
+	public static void register() {
 		Item[] items = new Item[] { 
 				Shard, 
-				Fragment,
-				FoodMeatMorsel, 
+				ShardMisc, 
 				FoodMeat, 
+				FoodRottenHeart, 
+				FoodRoot, 
+				FoodIce, 
 				FoodCoalfish, 
-				FoodWitherMeat,
+				FoodNetherWart, 
 				FoodSmallAppleGold, 
-				FoodBerryHealth, 
-				FoodBerryCure, 
-				FoodBerryIce, 
-				FoodBerryFire,
-				FoodDriedNetherWart, 
 				FoodMandrake, 
+				FoodWither, 
 				FoodPieMandrake, 
-				FoodPieMeat,
-				FoodPieBerry,
+				FoodPieMeat, 
+				FoodPieAppleGold,
 				MiscSoulFire, 
 				MiscSoulFiery, 
 				MiscGigaGear, 
-				MiscPage,
 				MiscBook, 
 				MiscRing, 
 				MiscFurnaceFuel,
 				MiscCurrency,
 				MiscWeaponEnchanted,
-				SpawnCard, 
-				SpawnCardCreeperGirl, 
-				SpawnCardEnderGirl, 
-				SpawnCardHolstaurus,
-				SpawnCardSlimeGirl,
-				SpawnCardTrader, 
+				Spawn, 
+				SpawnCreeperGirl, 
+				SpawnEnderGirl, 
+				SpawnSlimeGirl,
+				SpawnTrader, 
+				SpawnHolstaurus,
+				SpawnWeresheep,
 				BoxIron, 
 				BoxGold, 
 				BoxDiamond, 
@@ -249,39 +241,30 @@ public class GaiaItem {
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
 				AccessoryRingNight,
-				AccessoryDollCursed,
+				AccessoryCursed,
 				SpawnEgg
 				
 		};
 		for (int i = 0; i < items.length; i++) {
-			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName().substring(5));
-			//substring to trim off (item.) tag
-			//GameRegistry.registerItem(items[i], items[i].getUnlocalizedName().substring(trim));
+			GameRegistry.registerItem(items[i], items[i].getUnlocalizedName());
 		}
 		
 		BlockDispenser.dispenseBehaviorRegistry.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
-	static int trim = (GaiaReference.MOD_ID).length()+6;
 
 	public static void addRecipes() {
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.gold_ingot, 1), new Object[]{new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.diamond, 1), new Object[]{new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.emerald, 1), new Object[]{new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Shard, 1, 3), new Object[]{Fragment, Fragment});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.emerald, 1), new Object[]{Fragment, Fragment, Fragment, Fragment, Fragment, Fragment, Fragment, Fragment});
-		GameRegistry.addRecipe(new ItemStack(Items.nether_star, 2), new Object[]{"Y Y", " X ", "Y Y", Character.valueOf('X'), Items.nether_star, Character.valueOf('Y'), new ItemStack(Shard, 1, 4)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.ender_pearl, 1), new Object[]{new ItemStack(Shard, 1, 5), new ItemStack(Shard, 1, 5), new ItemStack(Shard, 1, 5), new ItemStack(Shard, 1, 5)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.blaze_rod, 1), new Object[]{new ItemStack(Shard, 1, 6), new ItemStack(Shard, 1, 6), new ItemStack(Shard, 1, 6), new ItemStack(Shard, 1, 6)});
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.golden_apple, 1, 1), new Object[]{FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold});
+//		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
+//		GameRegistry.addShapelessRecipe(new ItemStack(Items.gold_ingot, 1), new Object[]{new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1)});
+//		GameRegistry.addShapelessRecipe(new ItemStack(Items.diamond, 1), new Object[]{new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2)});
+//		GameRegistry.addShapelessRecipe(new ItemStack(Items.emerald, 1), new Object[]{new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3)});
+		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.iron_ingot, "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.gold_ingot, "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.diamond, "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.emerald, "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald"));
+
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMandrake, 1), new Object[]{FoodMandrake, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{FoodMeatMorsel, FoodMeatMorsel, FoodMeatMorsel, FoodMeatMorsel, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{FoodMeat, FoodMeat, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{FoodWitherMeat, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryHealth, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryCure, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryIce, Items.sugar, Items.egg});
-		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieBerry, 1), new Object[]{FoodBerryFire, Items.sugar, Items.egg});
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{FoodRottenHeart, Items.rotten_flesh, Items.rotten_flesh, Items.rotten_flesh, Items.sugar, Items.egg});
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieAppleGold, 1), new Object[]{FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold, FoodSmallAppleGold});
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.coal_block, 1), new Object[]{MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel, MiscFurnaceFuel});
 		GameRegistry.addShapelessRecipe(new ItemStack(FanIce, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 0), Items.snowball});
 		GameRegistry.addShapelessRecipe(new ItemStack(FanFire, 1), new Object[]{new ItemStack(MiscWeaponEnchanted, 1, 1), Items.coal});
@@ -290,49 +273,46 @@ public class GaiaItem {
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingJump, 1), new Object[]{new ItemStack(MiscRing, 1, 2), Blocks.beacon});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingNight, 1), new Object[]{new ItemStack(MiscRing, 1, 3), Blocks.beacon});
 	}
-	
-    public static void oreRegistration() {
-            OreDictionary.registerOre("shardIronIngot", new ItemStack(Shard, 1, 0));
-            OreDictionary.registerOre("shardGoldIngot", new ItemStack(Shard, 1, 1));
-            OreDictionary.registerOre("shardDiamond", new ItemStack(Shard, 1, 2));
-            OreDictionary.registerOre("shardEmerald", new ItemStack(Shard, 1, 3));
-            OreDictionary.registerOre("shardEnderPearl", new ItemStack(Shard, 1, 5));
-            OreDictionary.registerOre("shardBlazeRod", new ItemStack(Shard, 1, 6));
-            OreDictionary.registerOre("fragmentEmerald", Fragment);
-    }
-	public static void registerRenders()
-	{
+
+	public static void oreRegistration() {
+		OreDictionary.registerOre("nuggetIron", new ItemStack(Shard, 1, 0));
+		OreDictionary.registerOre("nuggetGold", new ItemStack(Shard, 1, 1));
+		OreDictionary.registerOre("nuggetDiamond", new ItemStack(Shard, 1, 2));
+		OreDictionary.registerOre("nuggetEmerald", new ItemStack(Shard, 1, 3));
+		OreDictionary.registerOre("nuggetCopper", new ItemStack(ShardMisc, 1, 0));
+		OreDictionary.registerOre("nuggetSilver", new ItemStack(ShardMisc, 1, 1));
+	}
+
+	public static void registerRenders() {
 		registerRender(Shard);
-		registerRender(Fragment);
-		registerRender(FoodMeatMorsel);
+		registerRender(ShardMisc);
 		registerRender(FoodMeat);
+		registerRender(FoodRottenHeart);
+		registerRender(FoodRoot);
+		registerRender(FoodIce);
 		registerRender(FoodCoalfish);
-		registerRender(FoodWitherMeat);
+		registerRender(FoodNetherWart);
 		registerRender(FoodSmallAppleGold);
-		registerRender(FoodBerryHealth);
-		registerRender(FoodBerryCure);
-		registerRender(FoodBerryIce);
-		registerRender(FoodBerryFire);
-		registerRender(FoodDriedNetherWart);
 		registerRender(FoodMandrake);
+		registerRender(FoodWither);
 		registerRender(FoodPieMandrake);
 		registerRender(FoodPieMeat);
-		registerRender(FoodPieBerry);
+		registerRender(FoodPieAppleGold);
 		registerRender(MiscSoulFire);
 		registerRender(MiscSoulFiery);
 		registerRender(MiscGigaGear);
-		registerRender(MiscPage);
 		registerRender(MiscBook);
 		registerRender(MiscRing);
 		registerRender(MiscFurnaceFuel);
 		registerRender(MiscCurrency);
 		registerRender(MiscWeaponEnchanted);
-		registerRender(SpawnCard);
-		registerRender(SpawnCardCreeperGirl);
-		registerRender(SpawnCardEnderGirl);
-		registerRender(SpawnCardHolstaurus);
-		registerRender(SpawnCardSlimeGirl);
-		registerRender(SpawnCardTrader);
+		registerRender(Spawn);
+		registerRender(SpawnCreeperGirl);
+		registerRender(SpawnSlimeGirl);
+		registerRender(SpawnEnderGirl);
+		registerRender(SpawnTrader);
+		registerRender(SpawnHolstaurus);
+		registerRender(SpawnWeresheep);
 		registerRender(BoxIron);
 		registerRender(BoxGold);
 		registerRender(BoxDiamond);
@@ -357,19 +337,11 @@ public class GaiaItem {
 		registerRender(AccessoryRingHaste);
 		registerRender(AccessoryRingJump);
 		registerRender(AccessoryRingNight);
-		registerRender(AccessoryDollCursed);
-		//registerRender(SpawnEgg);
-		
-		
+		registerRender(AccessoryCursed);
+//		registerRender(SpawnEgg);
 	}
 	
-	public static void registerRender(Item item)
-	{
-		ModelLoader.setCustomModelResourceLocation(item, 0,
-				//new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
-				new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5).toLowerCase(Locale.US), "inventory"));
+	public static void registerRender(Item item) {
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}
-	
-	
-	
 }

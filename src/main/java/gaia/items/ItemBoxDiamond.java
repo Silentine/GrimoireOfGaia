@@ -19,10 +19,9 @@ public class ItemBoxDiamond extends Item {
 	String texture;
 
 	public ItemBoxDiamond(String texture) {
-
 		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.BoxDiamond");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

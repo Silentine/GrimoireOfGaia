@@ -35,7 +35,6 @@ public class EntityGaiaMandragora extends EntityMobDay {
 		this.setSize(0.5F, 1.5F);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		//this.getNavigator().setAvoidsWater(true);
 		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -47,9 +46,9 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -57,17 +56,17 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
-		if(super.attackEntityAsMob(par1Entity)) {
-			if(par1Entity instanceof EntityLivingBase) {
+		if (super.attackEntityAsMob(par1Entity)) {
+			if (par1Entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
+                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
                 	byte0 = 7;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
                 	byte0 = 15;
                 }
 
-				if(byte0 > 0) {
+				if (byte0 > 0) {
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 40, 3));
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.nightVision.id, byte0 * 60, 0));
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.confusion.id, byte0 * 60, 0));
@@ -117,7 +116,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	}
 
 	public void onLivingUpdate() {
-		if(this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
+		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
 			int var1 = MathHelper.floor_double(this.posX);
 			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D);// - (double)this.yOffset);
 			int var3 = MathHelper.floor_double(this.posZ);
@@ -126,10 +125,8 @@ public class EntityGaiaMandragora extends EntityMobDay {
 			int crackid = BlockStateHelper.getblock_ID(world, pos);
 			int crackmeta = BlockStateHelper.getMetafromState(world, pos);
 			
-			//Block b = this.worldObj.getBlock(var1, var2, var3);
 			Block b = BlockStateHelper.getBlockfromState(this.worldObj, pos);
-			if(b != Blocks.air) {
-				//this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(b) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
+			if (b != Blocks.air) {
 				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
 						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D,
 						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
@@ -138,22 +135,22 @@ public class EntityGaiaMandragora extends EntityMobDay {
 			}
 		}
 
-		if(this.getHealth() < 40.0F) {
-			if(this.spawnTime < 100 && this.spawnTime > 0) {
+		if (this.getHealth() < 40.0F) {
+			if (this.spawnTime < 100 && this.spawnTime > 0) {
 				++this.spawnTime;
 			}
 
-			if(this.spawnTime == 50) {
-				this.heal(10.0F);
+			if (this.spawnTime == 50) {
+				this.heal(EntityAttributes.maxHealth1 * 0.20F);
 				++this.spawnTime;
 			}
 
-			if(this.spawnTime == 100) {
+			if (this.spawnTime == 100) {
 				this.spawnTime = 0;
 			}
 		}
 
-		if(this.getHealth() <= 10.0F) {
+		if (this.getHealth() <= 10.0F) {
 			this.spawnTime = -1;
 		}
 
@@ -173,25 +170,22 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
-
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(Items.wheat_seeds,1);
+		if (par1 && (this.rand.nextInt(8) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.dropItem(GaiaItem.FoodMandrake, 1);
 		}
 
-		if(par1 && (this.rand.nextInt(10) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(GaiaItem.FoodMandrake,1);
-		}
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
+	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron,1);
+			this.dropItem(GaiaItem.BoxIron, 1);
 			break;
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
@@ -206,24 +200,9 @@ public class EntityGaiaMandragora extends EntityMobDay {
 		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
-			this.isAirBorne = true;
-			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
-			float f2 = 0.4F;
-			this.motionX /= 2.0D;
-			this.motionY /= 2.0D;
-			this.motionZ /= 2.0D;
-			this.motionX -= par3 / (double)f1 * (double)f2;
-			this.motionY += (double)f2;
-			this.motionZ -= par5 / (double)f1 * (double)f2;
-			if(this.motionY > EntityAttributes.knockback1) {
-				this.motionY = EntityAttributes.knockback1;
-			}
-		}
-	}
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
 
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && super.getCanSpawnHere();
+		return this.posY < 0.0D && super.getCanSpawnHere();
 	}
 }

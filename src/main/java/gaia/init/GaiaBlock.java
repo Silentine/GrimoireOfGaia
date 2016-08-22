@@ -1,7 +1,5 @@
 package gaia.init;
 
-import java.util.Locale;
-
 import gaia.GaiaReference;
 import gaia.block.BlockBustSphinx;
 import gaia.block.BlockBustValkyrie;
@@ -17,6 +15,9 @@ import gaia.tileentity.TileEntityDollCreeperGirl;
 import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
+
+import java.util.Locale;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -34,13 +35,13 @@ public class GaiaBlock {
 	public static Block DollMaid;
 
 	public static void init() {
-		BustSphinx = (new BlockBustSphinx(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
-		BustValkyrie = (new BlockBustValkyrie(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
-		BustVampire = (new BlockBustVampire(Material.rock));//.setBlockTextureName("Gaia:Icon_Bust");
-		DollCreeperGirl = (new BlockDollCreeperGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
-		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
-		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
-		DollMaid = (new BlockDollMaid(Material.cloth));//.setBlockTextureName("Gaia:Icon_Doll");
+		BustSphinx = (new BlockBustSphinx(Material.rock));
+		BustValkyrie = (new BlockBustValkyrie(Material.rock));
+		BustVampire = (new BlockBustVampire(Material.rock));
+		DollCreeperGirl = (new BlockDollCreeperGirl(Material.cloth));
+		DollEnderGirl = (new BlockDollEnderGirl(Material.cloth));
+		DollSlimeGirl = (new BlockDollSlimeGirl(Material.cloth));
+		DollMaid = (new BlockDollMaid(Material.cloth));
 		registerTileEntities();
 	}
 
@@ -66,8 +67,7 @@ public class GaiaBlock {
 		GameRegistry.registerTileEntity(TileEntityDollMaid.class, "DollMaid");
 	}
 	
-	public static void registerRenders()
-	{
+	public static void registerRenders() {
 		registerRender(BustSphinx);
 		registerRender(BustValkyrie);
 		registerRender(BustVampire);
@@ -77,9 +77,7 @@ public class GaiaBlock {
 		registerRender(DollMaid);
 	}
 	
-	
-	public static void registerRender(Block block)
-	{
+	public static void registerRender(Block block) {
 		Item item = Item.getItemFromBlock(block);
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
 	}

@@ -1,15 +1,16 @@
 [
 {
-  "modid": "GrimoireOfGaia",
+  "modid": "grimoireofgaia",
   "name": "Grimoire of Gaia 3",
   "description": "Adds mobs, monsters and monster girls.",
-  "version": "1.4.0",
+  "version": "1.8.9-1.3.3",
   "mcversion": "1.8.9",
+  "logoFile": "GrimoireOfGaia.png",
   "url": "http://www.minecraftforum.net/topic/1355291-",
   "updateUrl": "",
   "authorList": ["Silentine"],
-  "credits": "Thank nidefawl for making this update possible.",
-  "logoFile": "GrimoireOfGaia.png",
+  "credits": "Special thanks to §lDoctor_Wiggles §rand §lMrbysco §rfor porting the mod to 1.8.9",
+  "parent": "",
   "screenshots": [],
   "dependencies": []
 }

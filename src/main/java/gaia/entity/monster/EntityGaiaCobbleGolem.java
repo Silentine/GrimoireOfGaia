@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
+import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaCobbleGolem extends EntityMobDay {
+public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	private int attackTimer;
 	private int holdRoseTick;
 
@@ -37,7 +38,6 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
-		//this.getNavigator().setAvoidsWater(true);
 		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 0.5D));
@@ -49,9 +49,9 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		//		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
 	public int getTotalArmorValue() {
@@ -62,7 +62,7 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 		this.attackTimer = 10;
 		this.worldObj.setEntityState(this, (byte)4);
 		boolean var2 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(7 + this.rand.nextInt(15)));
-		if(var2) {
+		if (var2) {
 			par1Entity.motionY += 0.2000000059604645D;
 		}
 
@@ -72,22 +72,23 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte par1) {
-		if(par1 == 4) {
+		if (par1 == 4) {
 			this.attackTimer = 10;
 			this.playSound("mob.irongolem.throw", 1.0F, 1.0F);
-		} else if(par1 == 11) {
+		} else if (par1 == 11) {
 			this.holdRoseTick = 400;
 		} else {
-			//handleHealthUpdate
 			super.handleStatusUpdate(par1);
 		}
 	}
 	
-	
-
 	@SideOnly(Side.CLIENT)
 	public int getAttackTimer() {
 		return this.attackTimer;
+	}
+	
+	public int getHoldRoseTick() {
+		return this.holdRoseTick;
 	}
 
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float damage) {
@@ -127,13 +128,14 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 	public boolean isAIEnabled() {
 		return true;
 	}
-	//TODO Millinaire support
+	
+	//TODO Millinaire/MCA support
 	/*
 	public void setTarget(Entity par1Entity) {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if(elements.length > 2) {
+		if (elements.length > 2) {
 			StackTraceElement previousMethod = elements[2];
-			if(previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
+			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
 				return;
 			}
 		}
@@ -141,9 +143,19 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 		super.setTarget(par1Entity);
 	}
 	*/
+	
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if(this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
+
+		if (this.attackTimer > 0) {
+			--this.attackTimer;
+		}
+
+		if (this.holdRoseTick > 0) {
+			--this.holdRoseTick;
+		}
+
+		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
 			int var1 = MathHelper.floor_double(this.posX);
 			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D);// - (double)this.yOffset);
 			int var3 = MathHelper.floor_double(this.posZ);
@@ -151,24 +163,20 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 			BlockPos pos = new BlockPos(var1, var2, var3);
 			int crackid = BlockStateHelper.getblock_ID(world, pos);
 			int crackmeta = BlockStateHelper.getMetafromState(world, pos);
-			
-			//Block b = this.worldObj.getBlock(var1, var2, var3);
+		
 			Block b = BlockStateHelper.getBlockfromState(this.worldObj, pos);
-			if(b != Blocks.air) {
-				//this.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(b) + "_" + this.worldObj.getBlockMetadata(var1, var2, var3), this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D);
+			if (b != Blocks.air) {
 				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
 						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D,
 						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
 						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
 						crackid,crackmeta);
-		}}
-
+			}
+		}
 	}
 
 	protected String getLivingSound() {
-		//TODO no sound thing
-		return null;
-		//return "none";
+		return "grimoireofgaia:none";
 	}
 
 	protected String getHurtSound() {
@@ -184,25 +192,22 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
-
-		for(int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(Item.getItemFromBlock(Blocks.cobblestone), 1);
+		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
-		}
+		//Shards
+		int var11 = this.rand.nextInt(3) + 1;
 
-		if(par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
+		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
 	}
 
-	protected void dropRareDrop(int par1) {
+	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron,1);
+			this.dropItem(GaiaItem.BoxIron, 1);
 			break;
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
@@ -214,20 +219,7 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		if(this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
-			this.isAirBorne = true;
-			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
-			float f2 = 0.4F;
-			this.motionX /= 2.0D;
-			this.motionY /= 2.0D;
-			this.motionZ /= 2.0D;
-			this.motionX -= par3 / (double)f1 * (double)f2;
-			this.motionY += (double)f2;
-			this.motionZ -= par5 / (double)f1 * (double)f2;
-			if(this.motionY > EntityAttributes.knockback1) {
-				this.motionY = EntityAttributes.knockback1;
-			}
-		}
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback1);
 	}
 	
 	public boolean getCanSpawnHere() {

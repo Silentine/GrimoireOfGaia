@@ -19,7 +19,6 @@ public class RenderGaiaYeti extends RenderLiving {
 	
 	public RenderGaiaYeti(float shadowSize) {
         super(rend, new ModelGaiaYeti(), shadowSize);
-		//this.setRenderPassModel(new ModelGaiaYeti());
 	}
 
 	protected void scaleYeti(EntityGaiaYeti par1EntityGaiaYeti, float par2) {

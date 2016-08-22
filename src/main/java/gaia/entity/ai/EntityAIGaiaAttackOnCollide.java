@@ -35,13 +35,13 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 
 	public boolean shouldExecute() {
 		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-		if(entitylivingbase == null) {
+		if (entitylivingbase == null) {
 			return false;
-		} else if(!entitylivingbase.isEntityAlive()) {
+		} else if (!entitylivingbase.isEntityAlive()) {
 			return false;
-		} else if(this.classTarget != null && !this.classTarget.isAssignableFrom(entitylivingbase.getClass())) {
+		} else if (this.classTarget != null && !this.classTarget.isAssignableFrom(entitylivingbase.getClass())) {
 			return false;
-		} else if(--this.field_75445_i <= 0) {
+		} else if (--this.field_75445_i <= 0) {
 			this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 			this.field_75445_i = 4 + this.attacker.getRNG().nextInt(7);
 			return this.entityPathEntity != null;
@@ -68,14 +68,14 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 	public void updateTask() {
 		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 		this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
-		if((this.longMemory || this.attacker.getEntitySenses().canSee(entitylivingbase)) && --this.field_75445_i <= 0) {
+		if ((this.longMemory || this.attacker.getEntitySenses().canSee(entitylivingbase)) && --this.field_75445_i <= 0) {
 			this.field_75445_i = this.failedPathFindingPenalty + 4 + this.attacker.getRNG().nextInt(7);
 			this.attacker.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget);
-			if(this.attacker.getNavigator().getPath() != null) {
+			if (this.attacker.getNavigator().getPath() != null) {
 				PathPoint d0 = this.attacker.getNavigator().getPath().getFinalPathPoint();
 				float minDistance = this.attacker.width + entitylivingbase.width;
 				minDistance *= minDistance;
-				if(d0 != null && entitylivingbase.getDistanceSq((double)d0.xCoord, (double)d0.yCoord, (double)d0.zCoord) < (double)minDistance) {
+				if (d0 != null && entitylivingbase.getDistanceSq((double)d0.xCoord, (double)d0.yCoord, (double)d0.zCoord) < (double)minDistance) {
 					this.failedPathFindingPenalty = 0;
 				} else {
 					this.failedPathFindingPenalty += 10;
@@ -88,9 +88,9 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 		this.attackTick = Math.max(this.attackTick - 1, 0);
 		double var4 = (double)(this.attacker.width * 2.0F * this.attacker.width * 2.0F + entitylivingbase.width);
 		//normally entitylivingbase.boundingBox.minY
-		if(this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ) <= var4 && this.attackTick <= 0) {
+		if (this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ) <= var4 && this.attackTick <= 0) {
 			this.attackTick = 20;
-			if(this.attacker.getHeldItem() != null) {
+			if (this.attacker.getHeldItem() != null) {
 				this.attacker.swingItem();
 			}
 

@@ -10,52 +10,25 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
 	public EntityGaiaProjectileSmallFireball(World par1World) {
 		super(par1World);
-        this.setSize(0.3125F, 0.3125F);
+		this.setSize(0.3125F, 0.3125F);
 	}
 
-	public EntityGaiaProjectileSmallFireball(World par1World, double par2, double par4, double par6, double par8, double par10, double par12) {
-		super(par1World, par2, par4, par6, par8, par10, par12);
+    public EntityGaiaProjectileSmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
+        super(worldIn, shooter, accelX, accelY, accelZ);
         this.setSize(0.3125F, 0.3125F);
-	}
+    }
 
-	public EntityGaiaProjectileSmallFireball(World par1World, EntityLivingBase par2EntityLivingBase, double par3, double par5, double par7) {
-		super(par1World, par2EntityLivingBase, par3, par5, par7);
+    public EntityGaiaProjectileSmallFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
+        super(worldIn, x, y, z, accelX, accelY, accelZ);
         this.setSize(0.3125F, 0.3125F);
-	}
+    }
 
 	protected void onImpact(MovingObjectPosition par1MovingObjectPosition) {
-		if(!this.worldObj.isRemote) {
-			if(par1MovingObjectPosition.entityHit != null) {
-				if(!par1MovingObjectPosition.entityHit.isImmuneToFire() && par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
+		if (!this.worldObj.isRemote) {
+			if (par1MovingObjectPosition.entityHit != null) {
+				if (!par1MovingObjectPosition.entityHit.isImmuneToFire() && par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
 					par1MovingObjectPosition.entityHit.setFire(4);
 				}
-			} else {
-				//What the heck
-				//This does nothing :^)
-				/*
-				int var2 = par1MovingObjectPosition.blockX;
-				int var3 = par1MovingObjectPosition.blockY;
-				int var4 = par1MovingObjectPosition.blockZ;
-				
-				switch(par1MovingObjectPosition.sideHit) {
-				case 0:
-					--var3;
-					break;
-				case 1:
-					++var3;
-					break;
-				case 2:
-					--var4;
-					break;
-				case 3:
-					++var4;
-					break;
-				case 4:
-					--var2;
-					break;
-				case 5:
-					++var2;
-				}*/
 			}
 
 			this.setDead();

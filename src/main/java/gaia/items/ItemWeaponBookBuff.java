@@ -30,7 +30,7 @@ public class ItemWeaponBookBuff extends Item {
 		this.weaponDamage = 0;
 		this.maxStackSize = 1;
 		this.texture = texture;
-		this.setUnlocalizedName(texture);
+		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookBuff");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
