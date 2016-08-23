@@ -16,6 +16,8 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -80,21 +82,6 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 		return true;
 	}
 
-	//TODO millianare support
-	/*
-	public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if (elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
-
-		super.setTarget(par1Entity);
-	}
-	*/
-	
 	public void onLivingUpdate() {
 		if (this.isInWater()) {
 			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
@@ -103,15 +90,15 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:assist_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:assist_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:assist_death";
 	}
 
@@ -159,7 +146,7 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.GOLDEN_SWORD));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

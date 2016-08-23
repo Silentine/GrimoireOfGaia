@@ -22,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -151,15 +152,15 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
@@ -209,7 +210,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

@@ -18,6 +18,8 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -113,7 +115,7 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 
 		if (this.getHealth() <= EntityAttributes.maxHealth3 * 0.25F && this.getHealth() > 0.0F) {
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
 			for (int i = 0; i < 2; ++i) {
 				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}
@@ -128,19 +130,19 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 		}
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:minotaur_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:minotaur_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:minotaur_hurt";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.playSound("mob.irongolem.walk", 1.0F, 1.0F);
 	}
 
@@ -181,7 +183,7 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

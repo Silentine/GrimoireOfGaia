@@ -114,19 +114,6 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 		return true;
 	}
 
-	//TODO Millienare support
-	/*public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if (elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
-
-		super.setTarget(par1Entity);
-	}
-	*/
 	
 	public void onLivingUpdate() {
         super.onLivingUpdate();
@@ -140,15 +127,15 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 		}
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:assist_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:assist_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:assist_death";
 	}
 
@@ -180,7 +167,7 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

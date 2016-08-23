@@ -132,19 +132,19 @@ public class EntityGaiaValkyrie extends EntityMobDay {
 		}
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	}
 	
@@ -185,7 +185,7 @@ public class EntityGaiaValkyrie extends EntityMobDay {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 2));	
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 2));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

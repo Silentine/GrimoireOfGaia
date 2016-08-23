@@ -117,14 +117,14 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		}
 		
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.switchHealth == 0)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 3));
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 3));
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAttackOnCollide);
 			this.switchHealth = 1;
 		}
 
 		if ((this.getHealth() > EntityAttributes.maxHealth1 * 0.50F) && (this.switchHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			this.tasks.removeTask(this.aiAttackOnCollide);
 			this.tasks.addTask(1, this.aiArrowAttack);
 			this.switchHealth = 0;
@@ -133,15 +133,15 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
@@ -181,7 +181,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));	
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

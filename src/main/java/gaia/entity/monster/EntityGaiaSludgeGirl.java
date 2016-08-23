@@ -6,6 +6,7 @@ import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -18,12 +19,16 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -96,20 +101,20 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
-		return "mob.slime";
+	protected SoundEvent getHurtSound(){
+		return SoundEvents.ENTITY_SLIME_JUMP;
 	}
 
-	protected String getDeathSound() {
-		return "mob.slime";
+	protected SoundEvent getDeathSound(){
+		return SoundEvents.ENTITY_SLIME_JUMP;
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "mob.slime", 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn){	
+		this.playSound(SoundEvents.ENTITY_SLIME_JUMP, 1.0F, 1.0F);	
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

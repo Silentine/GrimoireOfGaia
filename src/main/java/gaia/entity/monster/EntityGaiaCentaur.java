@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.init.GaiaItem;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,9 +24,11 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -94,7 +97,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 		
 	public void onLivingUpdate() {
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)) {
-            this.setCurrentItemOrArmor(0, new ItemStack(Items.POTIONITEM, 1, 16341));
+            this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.POTIONITEM, 1, 16341));
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAvoid);
 			this.fullHealth = 1;
@@ -109,7 +112,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 				this.regenerateHealth = 0;
 			}
 		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			this.removePotionEffect(MobEffects.REGENERATION);
 			this.tasks.removeTask(this.aiAvoid);
 			this.tasks.addTask(1, this.aiArrowAttack);
@@ -120,22 +123,26 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:assist_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:assist_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:assist_death";
 	}
-
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	/**
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.playSound("mob.pig.step", 0.15F, 1.0F);
 	}
-
+	**/
+	protected void playStepSound(BlockPos pos, Block blockIn){		
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
+	
 	protected void dropFewItems(boolean par1, int par2) {		
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			this.dropItem(Items.LEATHER, 1);
@@ -164,7 +171,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

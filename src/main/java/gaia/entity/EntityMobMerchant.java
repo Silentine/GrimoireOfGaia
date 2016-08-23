@@ -57,17 +57,17 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return null;
 	}
 
 	@Override
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return null;
 	}
 
 	@Override
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return null;
 	}
 

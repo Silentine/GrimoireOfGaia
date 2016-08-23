@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -25,6 +26,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -69,7 +71,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 			par1Entity.motionY += 0.6000000059604645D;
 		}
 
-		this.playSound("mob.irongolem.throw", 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
 		return var2;
 	}
 
@@ -77,7 +79,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	public void handleStatusUpdate(byte par1) {
 		if (par1 == 4) {
 			this.attackTimer = 10;
-			this.playSound("mob.irongolem.throw", 1.0F, 1.0F);
+			this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
 		} else if (par1 == 11) {
 			this.holdRoseTick = 400;
 		} else {
@@ -164,20 +166,20 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	}
 
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:none";
 	}
 
-	protected String getHurtSound() {
-		return "dig.stone";
+	protected SoundEvent getHurtSound(){
+		return SoundEvents.BLOCK_STONE_BREAK;
 	}
 
-	protected String getDeathSound() {
-		return "mob.irongolem.death";
+	protected SoundEvent getDeathSound(){
+		return SoundEvents.ENTITY_IRONGOLEM_DEATH;		
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "mob.irongolem.walk", 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn){	
+		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

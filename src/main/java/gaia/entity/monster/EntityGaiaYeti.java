@@ -91,7 +91,7 @@ public class EntityGaiaYeti extends EntityMobDay {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:none";
 	}
 

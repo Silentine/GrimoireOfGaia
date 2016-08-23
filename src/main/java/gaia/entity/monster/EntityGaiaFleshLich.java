@@ -86,19 +86,19 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "mob.zombie.say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "mob.zombie.hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "mob.zombie.death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.playSound("mob.zombie.step", 0.15F, 1.0F);
 	}
 
@@ -139,7 +139,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

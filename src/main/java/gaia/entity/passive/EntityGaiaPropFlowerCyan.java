@@ -37,7 +37,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		return true;
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "dig.grass";
 	}
 

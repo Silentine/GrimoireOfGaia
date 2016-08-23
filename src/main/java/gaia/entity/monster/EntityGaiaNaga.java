@@ -138,7 +138,7 @@ public class EntityGaiaNaga extends EntityMobDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		/**TODO LOOK OVER EQUIPMENT SLOT FUNCTIONS
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.GOLDEN_SWORD));	
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));	
 		**/
 		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		this.setEnchantmentBasedOnDifficulty(difficulty);

@@ -86,20 +86,6 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 		return true;
 	}
 	
-	//TODO millianare support
-	/*
-	public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if (elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
-
-		super.setTarget(par1Entity);
-	}
-	*/
 	
 	public void onLivingUpdate() {
 		int i = MathHelper.floor_double(this.posX);
@@ -114,19 +100,19 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:assist_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:assist_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:assist_death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	}
 	
@@ -167,7 +153,7 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

@@ -83,20 +83,20 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "mob.cow.say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "mob.cow.hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "mob.cow.say";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.playSound("mob.cow.step", 0.15F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn){	
+		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

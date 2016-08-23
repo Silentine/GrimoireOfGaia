@@ -100,12 +100,12 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		if (this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			this.enchantEquipmentRanged(difficulty);
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
-			this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 2));
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 2));
 			this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setMobType(1);
 			this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
@@ -212,15 +212,15 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 

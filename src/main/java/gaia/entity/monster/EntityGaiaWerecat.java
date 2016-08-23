@@ -91,19 +91,19 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		super.onLivingUpdate();
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.playSound("mob.wolf.step", 0.15F, 1.0F);
 	}
 
@@ -135,7 +135,7 @@ public class EntityGaiaWerecat extends EntityMobBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 	}

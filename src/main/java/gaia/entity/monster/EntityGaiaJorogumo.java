@@ -5,6 +5,7 @@ import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
 import gaia.init.GaiaItem;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -19,6 +20,9 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -33,7 +37,7 @@ import net.minecraft.world.World;
 public class EntityGaiaJorogumo extends EntityMobBase {
 	private static final Item[] jorogumoDrops = new Item[] { 
 		Items.SUGAR, 
-		Items.fermented_spider_eye, 
+		Items.FERMENTED_SPIDER_EYE, 
 		Items.GLASS_BOTTLE,
 		Items.GUNPOWDER,
 		Items.STICK,
@@ -121,20 +125,20 @@ public class EntityGaiaJorogumo extends EntityMobBase {
 		return super.attackEntityFrom(ds, amount * (float)(ds.isProjectile()?2:1));
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.playSound("mob.spider.step", 0.15F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn){	
+		this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
@@ -182,7 +186,7 @@ public class EntityGaiaJorogumo extends EntityMobBase {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void setInWeb() {}
@@ -192,7 +196,7 @@ public class EntityGaiaJorogumo extends EntityMobBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

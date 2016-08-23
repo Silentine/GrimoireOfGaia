@@ -17,11 +17,13 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -140,14 +142,24 @@ public class EntityGaiaCreep extends EntityMobBase {
 		}
 		super.onLivingUpdate();
 	}
-
-	protected String getHurtSound() {
+	/** TODO BEGIN SOUND REWORK
+	protected SoundEvent getHurtSound(){
 		return "mob.creeper.say";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "mob.creeper.death";
 	}
+	**/
+	protected SoundEvent getHurtSound()
+    {
+        return SoundEvents.ENTITY_CREEPER_HURT;
+    }
+
+    protected SoundEvent getDeathSound()
+    {
+        return SoundEvents.ENTITY_CREEPER_DEATH;
+    }
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {

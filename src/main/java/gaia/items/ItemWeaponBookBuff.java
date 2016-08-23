@@ -53,7 +53,7 @@ public class ItemWeaponBookBuff extends Item {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 600, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 600, 0));
 		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id, 600, 0));
 		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 		return true;

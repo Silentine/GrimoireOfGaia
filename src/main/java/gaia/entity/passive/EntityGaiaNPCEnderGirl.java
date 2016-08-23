@@ -28,17 +28,17 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 		 return text;
 	}
 	@Override
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:passive_say";
 	}
 
 	@Override
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:passive_hurt";
 	}
 
 	@Override
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:passive_death";
 	}
 	

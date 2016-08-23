@@ -92,15 +92,15 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 		super.onLivingUpdate();
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "step.wood";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "mob.zombie.woodbreak";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.playSound("step.wood", 0.15F, 1.0F);
 	}
 
@@ -141,7 +141,7 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 	}

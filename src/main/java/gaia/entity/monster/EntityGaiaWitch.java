@@ -132,7 +132,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 				if (this.witchAttackTimer-- <= 0) {
 					this.setAggressive(false);
 					ItemStack var6 = this.getHeldItem();
-					this.setCurrentItemOrArmor(0, (ItemStack)null);
+					this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, (ItemStack)null);
 					if (var6 != null && var6.getItem() == Items.POTIONITEM) {
 						List var2 = Items.POTIONITEM.getEffects(var6);
 						if (var2 != null) {
@@ -166,7 +166,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 				}
 
 				if (var7 > -1) {
-                    this.setCurrentItemOrArmor(0, new ItemStack(Items.POTIONITEM, 1, var7));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.POTIONITEM, 1, var7));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
                     IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -237,19 +237,19 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 		}
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "grimoireofgaia:aggressive_death";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	protected void playStepSound(BlockPos pos, Block blockIn){	
 		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	}
 
@@ -304,7 +304,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

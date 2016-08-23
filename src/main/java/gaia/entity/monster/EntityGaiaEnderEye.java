@@ -17,7 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -58,7 +58,7 @@ public class EntityGaiaEnderEye extends EntityMobBase {
 		this.setSize(1.0F, 2.4F);
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, 1.0D, false));
+		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
 		this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
@@ -265,19 +265,19 @@ public class EntityGaiaEnderEye extends EntityMobBase {
 		 }
 	 }
 
-	 protected String getLivingSound() {
+	 protected SoundEvent getAmbientSound(){
 		 return this.isScreaming() ? "mob.endermen.scream" : "mob.endermen.idle";
 	 }
 
-	 protected String getHurtSound() {
+	 protected SoundEvent getHurtSound(){
 		 return "mob.endermen.hit";
 	 }
 
-	 protected String getDeathSound() {
+	 protected SoundEvent getDeathSound(){
 		 return "mob.endermen.death";
 	 }
 
-	 protected void playStepSound(int par1, int par2, int par3, int par4) {
+	 protected void playStepSound(BlockPos pos, Block blockIn){	
 		 this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	 }
 

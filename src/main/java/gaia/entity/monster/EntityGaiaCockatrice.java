@@ -75,20 +75,20 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 		return true;
 	}
 
-	protected String getLivingSound() {
+	protected SoundEvent getAmbientSound(){
 		return "mob.chicken.say";
 	}
 
-	protected String getHurtSound() {
+	protected SoundEvent getHurtSound(){
 		return "mob.chicken.hurt";
 	}
 
-	protected String getDeathSound() {
+	protected SoundEvent getDeathSound(){
 		return "mob.chicken.hurt";
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.playSound("mob.chicken.step", 0.15F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn){	
+		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
