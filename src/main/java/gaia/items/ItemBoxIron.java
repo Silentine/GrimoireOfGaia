@@ -45,11 +45,11 @@ public class ItemBoxIron extends Item {
 		case 1:
 			return new ItemStack(Items.IRON_AXE);
 		case 2:
-			return new ItemStack(Items.iron_pickaxe);
+			return new ItemStack(Items.IRON_PICKAXE);
 		case 3:
 			return new ItemStack(Items.iron_shovel);
 		case 4:
-			return new ItemStack(Items.iron_sword);
+			return new ItemStack(Items.IRON_SWORD);
 		case 5:
 			return new ItemStack(Items.iron_helmet);
 		case 6:

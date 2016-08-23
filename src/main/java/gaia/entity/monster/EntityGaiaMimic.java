@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -72,8 +73,8 @@ public class EntityGaiaMimic extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.hunger.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 30, 0));
 				}
 			}
 

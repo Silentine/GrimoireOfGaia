@@ -4,8 +4,8 @@ import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
 import gaia.init.GaiaItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -14,13 +14,18 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 	public EntityGaiaNPCTrader(World var1) {
 		super(var1);
 	}
-	
+	/** TODO ICHATCOMPONENT 
 	public IChatComponent getDisplayName() {
 		 String s = "Trader";
 		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
 		 return chatcomponenttext;
     }
-	
+	**/
+	public ITextComponent getDisplayName() {
+		 String s = "Trader";
+		 TextComponentTranslation text = new TextComponentTranslation(s);
+		 return text;
+	}
 	@Override
 	protected String getLivingSound() {
 		return "grimoireofgaia:passive_say";

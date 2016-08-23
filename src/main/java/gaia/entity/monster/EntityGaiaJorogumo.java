@@ -81,8 +81,8 @@ public class EntityGaiaJorogumo extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.weakness.id, byte0 * 20, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 20, 0));
 				}
 			}
 
@@ -182,7 +182,7 @@ public class EntityGaiaJorogumo extends EntityMobBase {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void setInWeb() {}

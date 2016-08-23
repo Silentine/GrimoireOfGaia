@@ -64,8 +64,8 @@ public class EntityGaiaSwamper extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 30, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -80,7 +80,7 @@ public class EntityGaiaSwamper extends EntityMobBase {
 	}
 	
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void onLivingUpdate() {
@@ -89,8 +89,8 @@ public class EntityGaiaSwamper extends EntityMobBase {
 		int k = MathHelper.floor_double(this.posY);
 		BlockPos pos = new BlockPos(i,j,k);
 		if (this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
 		super.onLivingUpdate();
@@ -100,7 +100,7 @@ public class EntityGaiaSwamper extends EntityMobBase {
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(Items.slime_ball, 1);
+			this.dropItem(Items.SLIME_BALL, 1);
 		}
 
 		//Shards

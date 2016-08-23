@@ -27,6 +27,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -132,8 +133,8 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 					this.setAggressive(false);
 					ItemStack var6 = this.getHeldItem();
 					this.setCurrentItemOrArmor(0, (ItemStack)null);
-					if (var6 != null && var6.getItem() == Items.potionitem) {
-						List var2 = Items.potionitem.getEffects(var6);
+					if (var6 != null && var6.getItem() == Items.POTIONITEM) {
+						List var2 = Items.POTIONITEM.getEffects(var6);
 						if (var2 != null) {
 							Iterator var3 = var2.iterator();
 
@@ -148,24 +149,24 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 				}
 			} else {
 				short var7 = -1;
-                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(Potion.waterBreathing)) {
+                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(MobEffects.WATER_BREATHING)) {
                 	var7 = 8237;
                 }
-                else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
+                else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
 					var7 = 16307;
 				} 
                 else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
 					var7 = 16341;
 				} 
-                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(MobEffects.SPEED) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
 					var7 = 16274;
 				} 
-                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(MobEffects.SPEED) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
 					var7 = 16274;
 				}
 
 				if (var7 > -1) {
-                    this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, var7));
+                    this.setCurrentItemOrArmor(0, new ItemStack(Items.POTIONITEM, 1, var7));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
                     IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -223,11 +224,11 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 			double var5 = par1EntityLiving.posY + (double)par1EntityLiving.getEyeHeight() - 1.100000023841858D - this.posY;
 			double var7 = par1EntityLiving.posZ + par1EntityLiving.motionZ - this.posZ;
 			float var9 = MathHelper.sqrt_double(var3 * var3 + var7 * var7);
-			if (var9 >= 8.0F && !par1EntityLiving.isPotionActive(Potion.moveSlowdown)) {
+			if (var9 >= 8.0F && !par1EntityLiving.isPotionActive(MobEffects.SLOWNESS)) {
 				var2.setPotionDamage(32698);
-			} else if (par1EntityLiving.getHealth() >= 8.0F && !par1EntityLiving.isPotionActive(Potion.poison)) {
+			} else if (par1EntityLiving.getHealth() >= 8.0F && !par1EntityLiving.isPotionActive(MobEffects.POISON)) {
 				var2.setPotionDamage(32660);
-			} else if (var9 <= 3.0F && !par1EntityLiving.isPotionActive(Potion.weakness) && this.rand.nextFloat() < 0.25F) {
+			} else if (var9 <= 3.0F && !par1EntityLiving.isPotionActive(MobEffects.WEAKNESS) && this.rand.nextFloat() < 0.25F) {
 				var2.setPotionDamage(32696);
 			}
 
@@ -309,7 +310,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
     }
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 	
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {

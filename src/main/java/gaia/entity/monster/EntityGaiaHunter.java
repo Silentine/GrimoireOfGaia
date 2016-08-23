@@ -20,6 +20,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DifficultyInstance;
@@ -56,8 +57,8 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
 		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
 		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
@@ -67,7 +68,7 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
 			entityarrow.setFire(100);
 		}
 
@@ -82,22 +83,7 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
 
 	public boolean isAIEnabled() {
 		return true;
-	}
-	
-	//TODO millanaire support
-	/*
-	public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if (elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if (previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
-
-		super.setTarget(par1Entity);
-	}
-	*/
+	}	
 	
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
@@ -140,7 +126,7 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

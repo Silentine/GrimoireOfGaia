@@ -52,7 +52,7 @@ public class ItemFoodPieAppleGold extends ItemFood {
 		spawnEntity(par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, entity, par2world, par3EntityPlayer);
 		
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.absorption.id, 2400, 0));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 600, 4));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 600, 4));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 6000, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 6000, 0));
 	}

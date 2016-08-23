@@ -68,9 +68,9 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 10, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 10, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 30, 0));
 				}
 			}
 
@@ -85,7 +85,7 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public boolean attackEntityFrom(DamageSource ds, float amount) {
@@ -114,7 +114,7 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.slime_ball, 1);
+			this.dropItem(Items.SLIME_BALL, 1);
 		}
 		
 		//Shards

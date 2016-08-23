@@ -80,7 +80,7 @@ public class EntityGaiaVampire extends EntityMobBase {
                 }
 
 				if (byte0 > 0 && this.getHealth() < EntityAttributes.maxHealth3 * 0.75F) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.confusion.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
 					this.heal(EntityAttributes.maxHealth1 * 0.10F);
 				}
 			}

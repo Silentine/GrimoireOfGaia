@@ -67,9 +67,9 @@ public class EntityGaiaMandragora extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 40, 3));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 40, 3));
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.nightVision.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.confusion.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
 				}
 			}
 
@@ -98,7 +98,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 					par2 = 9;
 				}
 
-				if (itemstack.getItem() == Items.golden_shovel) {
+				if (itemstack.getItem() == Items.GOLDEN_SHOVEL) {
 					par2 = 7;
 				}
 
@@ -197,7 +197,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}

@@ -15,14 +15,14 @@ public class ItemFoodRoot extends ItemFood {
 	String texture;
 
 	public void clearNegativePotions(EntityPlayer entityplayer) {
-		entityplayer.removePotionEffect(Potion.moveSlowdown.id);
-		entityplayer.removePotionEffect(Potion.digSlowdown.id);
-		entityplayer.removePotionEffect(Potion.confusion.id);
-		entityplayer.removePotionEffect(Potion.blindness.id);
-		entityplayer.removePotionEffect(Potion.hunger.id);
-		entityplayer.removePotionEffect(Potion.weakness.id);
-		entityplayer.removePotionEffect(Potion.poison.id);
-		entityplayer.removePotionEffect(Potion.wither.id);
+		entityplayer.removePotionEffect(MobEffects.SLOWNESS);
+		entityplayer.removePotionEffect(MobEffects.MINING_FATIGUE);
+		entityplayer.removePotionEffect(MobEffects.NAUSEA);
+		entityplayer.removePotionEffect(MobEffects.BLINDNESS);
+		entityplayer.removePotionEffect(MobEffects.HUNGER);
+		entityplayer.removePotionEffect(MobEffects.WEAKNESS);
+		entityplayer.removePotionEffect(MobEffects.POISON);
+		entityplayer.removePotionEffect(MobEffects.WITHER);
 	}
 
 	public ItemFoodRoot(int par2, float par3, boolean par4, String texture) {

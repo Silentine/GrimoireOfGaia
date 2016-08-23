@@ -21,7 +21,7 @@ public class ItemFoodMandrake extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodMandrake");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.confusion.id, 30, 0, 0.8F);
+		this.setPotionEffect(MobEffects.NAUSEA, 30, 0, 0.8F);
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

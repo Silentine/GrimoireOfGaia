@@ -53,7 +53,7 @@ public class ItemWeaponFanIce extends Item {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 3));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 3));
 		return true;
 	}
 		

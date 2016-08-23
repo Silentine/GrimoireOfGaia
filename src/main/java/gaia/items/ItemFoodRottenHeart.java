@@ -27,8 +27,8 @@ public class ItemFoodRottenHeart extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodRottenHeart");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F);
-		this.setSecondPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
+		this.setPotionEffect(MobEffects.REGENERATION, 10, 0, 1.0F);
+		this.setSecondPotionEffect(MobEffects.HUNGER, 30, 0, 0.8F);
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

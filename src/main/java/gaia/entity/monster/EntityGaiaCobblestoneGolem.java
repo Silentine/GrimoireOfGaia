@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -105,23 +106,23 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {
-					if (item == Items.wooden_pickaxe) {
+					if (item == Items.WOODEN_PICKAXE) {
 						par2 = 6;
 					}
 
-					if (item == Items.stone_pickaxe) {
+					if (item == Items.STONE_PICKAXE) {
 						par2 = 7;
 					}
 
-					if (item == Items.iron_pickaxe) {
+					if (item == Items.IRON_PICKAXE) {
 						par2 = 8;
 					}
 
-					if (item == Items.golden_pickaxe) {
+					if (item == Items.GOLDEN_PICKAXE) {
 						par2 = 6;
 					}
 
-					if (item == Items.diamond_pickaxe) {
+					if (item == Items.DIAMOND_PICKAXE) {
 						par2 = 9;
 					}
 				}
@@ -212,7 +213,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {

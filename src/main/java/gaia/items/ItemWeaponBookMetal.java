@@ -43,7 +43,7 @@ public class ItemWeaponBookMetal extends ItemSword {
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.confusion.id, 80, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 80, 0));
 		return true;
 	}
 

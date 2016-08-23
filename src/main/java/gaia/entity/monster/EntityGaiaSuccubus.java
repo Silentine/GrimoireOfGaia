@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -68,8 +69,8 @@ public class EntityGaiaSuccubus extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.confusion.id, byte0 * 60, 0));
-					this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 3));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
+					this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 				}
 			}
 

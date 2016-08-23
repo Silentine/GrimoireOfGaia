@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,7 +66,7 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 20, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
 				}
 			}
 
@@ -134,8 +135,8 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
         int k = MathHelper.floor_double(this.posZ);
         
 		if (this.isBurning()) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 	}
 

@@ -99,23 +99,23 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {
-					if (item == Items.wooden_pickaxe) {
+					if (item == Items.WOODEN_PICKAXE) {
 						damage = 6.0F;
 					}
 
-					if (item == Items.stone_pickaxe) {
+					if (item == Items.STONE_PICKAXE) {
 						damage = 7.0F;
 					}
 
-					if (item == Items.iron_pickaxe) {
+					if (item == Items.IRON_PICKAXE) {
 						damage = 8.0F;
 					}
 
-					if (item == Items.golden_pickaxe) {
+					if (item == Items.GOLDEN_PICKAXE) {
 						damage = 6.0F;
 					}
 
-					if (item == Items.diamond_pickaxe) {
+					if (item == Items.DIAMOND_PICKAXE) {
 						damage = 9.0F;
 					}
 				}
@@ -215,7 +215,7 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {

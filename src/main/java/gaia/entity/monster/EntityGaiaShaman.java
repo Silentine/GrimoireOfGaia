@@ -21,6 +21,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -97,8 +98,8 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 20, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.weakness.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 60, 0));
 				}
 			}
 
@@ -113,7 +114,7 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 	}
 	
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void onLivingUpdate() {
@@ -134,7 +135,7 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntityZombie(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.pumpkin));	
+			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
 		}
@@ -143,7 +144,7 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntityZombie(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.pumpkin));	
+			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 2;
 		}

@@ -9,15 +9,17 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockBustVampire extends BlockContainer {
 
 	public BlockBustVampire(Material par2Material) {
 		super(par2Material);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+		//this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
@@ -25,6 +27,14 @@ public class BlockBustVampire extends BlockContainer {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
+	/** TODO BOUNDS**/
+	protected static final AxisAlignedBB BOUNDS = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+	
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        return BOUNDS;
+    }
+	
 	public int getRenderType() {
 		return -1;
 	}

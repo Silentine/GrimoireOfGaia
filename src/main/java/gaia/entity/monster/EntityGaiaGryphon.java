@@ -64,7 +64,7 @@ public class EntityGaiaGryphon extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 20, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
 				}
 			}
 
@@ -94,7 +94,7 @@ public class EntityGaiaGryphon extends EntityMobDay {
 	
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.feather, 1);
+			this.dropItem(Items.FEATHER, 1);
 		}
 		
 		//Shards

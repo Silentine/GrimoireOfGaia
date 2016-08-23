@@ -61,7 +61,7 @@ public class EntityGaiaCyclops extends EntityMobAssistDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -130,7 +130,7 @@ public class EntityGaiaCyclops extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));	
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

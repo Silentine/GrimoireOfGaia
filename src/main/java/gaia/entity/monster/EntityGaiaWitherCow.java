@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -61,7 +62,7 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.wither.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WITHER, byte0 * 60, 0));
 				}
 			}
 
@@ -126,7 +127,7 @@ public class EntityGaiaWitherCow extends EntityMobBase {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.wither.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.WITHER?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}

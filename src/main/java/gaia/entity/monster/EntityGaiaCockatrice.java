@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -60,7 +61,7 @@ public class EntityGaiaCockatrice extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 10, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 10, 0));
 				}
 			}
 
@@ -92,7 +93,7 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.egg, 1);
+			this.dropItem(Items.EGG, 1);
 		}
 
 		//Shards

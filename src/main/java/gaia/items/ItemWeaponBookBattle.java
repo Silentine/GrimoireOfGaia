@@ -42,7 +42,7 @@ public class ItemWeaponBookBattle extends ItemSword {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.weakness.id, 80, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80, 0));
 		return true;
 	}
 

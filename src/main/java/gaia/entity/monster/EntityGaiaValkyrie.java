@@ -19,6 +19,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -73,8 +74,8 @@ public class EntityGaiaValkyrie extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.weakness.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -115,8 +116,8 @@ public class EntityGaiaValkyrie extends EntityMobDay {
 		}
 
 		if (this.getHealth() <= EntityAttributes.maxHealth3 * 0.25F && this.getHealth() > 0.0F) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
 			for (int i = 0; i < 2; ++i) {
 				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
 			}

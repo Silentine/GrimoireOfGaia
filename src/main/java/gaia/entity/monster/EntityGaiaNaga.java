@@ -16,6 +16,8 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -66,8 +68,8 @@ public class EntityGaiaNaga extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, byte0 * 60, 2));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 60, 2));
 				}
 			}
 
@@ -83,18 +85,18 @@ public class EntityGaiaNaga extends EntityMobDay {
 
 	public void onLivingUpdate() {
 		if (this.isInWater()) {
-			this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
 		}
 		
 		if (this.getHealth() <= EntityAttributes.maxHealth2 * 0.25F) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 100, 0));
 		}
 
 		super.onLivingUpdate();
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
@@ -102,9 +104,9 @@ public class EntityGaiaNaga extends EntityMobDay {
 		
 		for (int var4 = 0; var4 < var3; ++var4) {
 			if (this.isBurning()) {
-				this.dropItem(Items.cooked_fish, 1);
+				this.dropItem(Items.COOKED_FISH, 1);
 			} else {
-				this.dropItem(Items.fish, 1);
+				this.dropItem(Items.FISH, 1);
 			}
 		}
 
@@ -135,7 +137,10 @@ public class EntityGaiaNaga extends EntityMobDay {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));		
+		/**TODO LOOK OVER EQUIPMENT SLOT FUNCTIONS
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.GOLDEN_SWORD));	
+		**/
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

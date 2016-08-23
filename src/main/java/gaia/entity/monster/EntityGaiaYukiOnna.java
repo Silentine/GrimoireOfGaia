@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -67,7 +68,7 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 10, 3));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 10, 3));
 					double x = par1Entity.posX - this.posX * 1.0012D;
 					double z = par1Entity.posZ - this.posZ * 1.0012D;
 					par1Entity.addVelocity(x, 0.0D, z);
@@ -106,8 +107,8 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 		int k = MathHelper.floor_double(this.posY);
 		BlockPos pos = new BlockPos(i,j,k);	
 		if (this.worldObj.getBiomeGenForCoords(new BlockPos(i,j,k)).getFloatTemperature(pos) > 1.0F) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
 		super.onLivingUpdate();

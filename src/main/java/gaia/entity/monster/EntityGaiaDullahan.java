@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -64,7 +65,7 @@ public class EntityGaiaDullahan extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -83,7 +84,7 @@ public class EntityGaiaDullahan extends EntityMobBase {
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {
-					if (item == Items.golden_sword) {
+					if (item == Items.GOLDEN_SWORD) {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
@@ -91,15 +92,15 @@ public class EntityGaiaDullahan extends EntityMobBase {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
-					if (item == Items.golden_shovel) {
+					if (item == Items.GOLDEN_SHOVEL) {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
-					if (item == Items.golden_hoe) {
+					if (item == Items.GOLDEN_HOE) {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
-					if (item == Items.golden_pickaxe) {
+					if (item == Items.GOLDEN_PICKAXE) {
 						par2 = 14;
 						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
@@ -155,7 +156,7 @@ public class EntityGaiaDullahan extends EntityMobBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));		
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

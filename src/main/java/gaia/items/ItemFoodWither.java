@@ -19,7 +19,7 @@ public class ItemFoodWither extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodWither");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.wither.id, 10, 0, 0.6F);
+		this.setPotionEffect(MobEffects.WITHER, 10, 0, 0.6F);
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

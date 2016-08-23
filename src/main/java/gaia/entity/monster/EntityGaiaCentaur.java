@@ -20,7 +20,9 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -62,8 +64,8 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
 		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
 		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
@@ -73,7 +75,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
 			entityarrow.setFire(100);
 		}
 
@@ -89,25 +91,10 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	public boolean isAIEnabled() {
 		return true;
 	}
-	
-	//TODO Millinaire/MCA support
-	/*
-	public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if(elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if(previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
 		
-		super.setTarget(par1Entity);
-	}
-	*/
-	
 	public void onLivingUpdate() {
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)) {
-            this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, 16341));
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.POTIONITEM, 1, 16341));
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAvoid);
 			this.fullHealth = 1;
@@ -118,12 +105,12 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 				++this.regenerateHealth;
 			} else {
 				this.playSound("random.drink", 0.15F, 1.0F);
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 360, 3));
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 360, 3));
 				this.regenerateHealth = 0;
 			}
 		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-			this.removePotionEffect(Potion.regeneration.id);
+			this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
+			this.removePotionEffect(MobEffects.REGENERATION);
 			this.tasks.removeTask(this.aiAvoid);
 			this.tasks.addTask(1, this.aiArrowAttack);
 			this.fullHealth = 0;
@@ -151,7 +138,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 
 	protected void dropFewItems(boolean par1, int par2) {		
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.leather, 1);
+			this.dropItem(Items.LEATHER, 1);
 		}
 		
 		//Shards
@@ -177,7 +164,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

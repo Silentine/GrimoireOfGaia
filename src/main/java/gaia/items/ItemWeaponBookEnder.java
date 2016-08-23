@@ -54,7 +54,7 @@ public class ItemWeaponBookEnder extends ItemSword {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, 80, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80, 0));
 		return true;
 	}
 
@@ -72,6 +72,6 @@ public class ItemWeaponBookEnder extends ItemSword {
 	}
 
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return Items.ender_pearl == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
+		return Items.ENDER_PEARL == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 }

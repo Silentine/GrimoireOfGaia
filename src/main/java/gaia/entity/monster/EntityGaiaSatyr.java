@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -69,7 +70,7 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -85,7 +86,7 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 	
 	public void onLivingUpdate() {
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)) {
-            this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, 16341));
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.POTIONITEM, 1, 16341));
 			this.tasks.removeTask(this.aiMeleeAttack);
 			this.tasks.addTask(1, this.aiAvoid);
 			this.fullHealth = 1;
@@ -96,12 +97,12 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 				++this.regenerateHealth;
 			} else {
 				this.playSound("random.drink", 0.15F, 1.0F);
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 360, 3));
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 360, 3));
 				this.regenerateHealth = 0;
 			}
 		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
-			this.removePotionEffect(Potion.regeneration.id);
+			this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));
+			this.removePotionEffect(MobEffects.REGENERATION);
 			this.tasks.removeTask(this.aiAvoid);
 			this.tasks.addTask(1, this.aiMeleeAttack);
 			this.fullHealth = 0;
@@ -170,7 +171,7 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

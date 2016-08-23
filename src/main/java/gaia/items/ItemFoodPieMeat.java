@@ -29,8 +29,8 @@ public class ItemFoodPieMeat extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMeat");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.moveSlowdown.id, 30, 0, 1.0F);
-		this.setSecondPotionEffect(Potion.hunger.id, 30, 0, 0.4F);
+		this.setPotionEffect(MobEffects.SLOWNESS, 30, 0, 1.0F);
+		this.setSecondPotionEffect(MobEffects.HUNGER, 30, 0, 0.4F);
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

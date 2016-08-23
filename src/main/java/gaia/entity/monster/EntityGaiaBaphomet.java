@@ -20,6 +20,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -85,8 +86,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
                 }
 
 				if (byte0 > 0) {
-					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(Potion.weakness.id, byte0 * 60, 0));
+					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLiving)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 60, 0));
 				}
 			}
 
@@ -153,7 +154,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-			this.dropItem(Items.glowstone_dust, 1);
+			this.dropItem(Items.GLOWSTONE_DUST, 1);
 		}
 	}
 
@@ -193,7 +194,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.wither.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.WITHER?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {

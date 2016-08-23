@@ -54,7 +54,7 @@ public class ItemWeaponBookFreezing extends ItemSword {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 80, 1));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80, 1));
 		return true;
 	}
 

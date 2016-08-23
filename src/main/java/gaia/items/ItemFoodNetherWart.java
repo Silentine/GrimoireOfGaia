@@ -24,7 +24,7 @@ public class ItemFoodNetherWart extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodNetherWart");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.moveSpeed.id, 30, 0, 0.4F);
+		this.setPotionEffect(MobEffects.SPEED, 30, 0, 0.4F);
 		this.setSecondPotionEffect(Potion.digSpeed.id, 30, 0, 0.4F);
 	}
 	

@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -84,8 +85,8 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 
 	public void onLivingUpdate() {
 		if (this.isBurning()) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0));
-			this.addPotionEffect(new PotionEffect(Potion.weakness.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
 		super.onLivingUpdate();

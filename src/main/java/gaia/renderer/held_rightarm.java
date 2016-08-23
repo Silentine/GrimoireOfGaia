@@ -58,7 +58,7 @@ public class held_rightarm implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.translate(-0.0625F, 0.4375F, 0.0625F);
 
 			if (entity instanceof EntityPlayer && ((EntityPlayer)entity).fishEntity != null) {
-				itemstack = new ItemStack(Items.fishing_rod, 0);
+				itemstack = new ItemStack(Items.FISHing_rod, 0);
 			}
 
 			Item item = itemstack.getItem();
@@ -74,7 +74,7 @@ public class held_rightarm implements LayerRenderer<EntityLivingBase> {
 
 			//We can add more checks to tweak and fix item locations like so
 			//Or add more rendering effects if we fancy it
-			if(item == Items.bow) {
+			if(item == Items.BOW) {
 				GlStateManager.translate(0.0F, 0F, -0.05F);
 			}
 

@@ -59,7 +59,7 @@ public class EntityGaiaFutakuchiOnna extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.hunger.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 60, 0));
 				}
 			}
 

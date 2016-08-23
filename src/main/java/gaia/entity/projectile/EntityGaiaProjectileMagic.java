@@ -47,7 +47,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
                     }
 
                     if (i > 0) {
-                        ((EntityLivingBase)movingObject.entityHit).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30 * i, 0));
+                        ((EntityLivingBase)movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
                     }
                 }
             }

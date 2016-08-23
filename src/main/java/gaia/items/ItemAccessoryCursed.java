@@ -56,7 +56,7 @@ public class ItemAccessoryCursed extends Item {
 	}
 
 	public void doEffect(EntityPlayer player, ItemStack item) {
-		player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 200, 1));
-		player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 200, 1));
+		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 1));
+		player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 200, 1));
 	}
 }

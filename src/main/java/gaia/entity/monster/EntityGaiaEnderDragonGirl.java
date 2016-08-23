@@ -129,7 +129,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 	private boolean shouldAttackPlayer(EntityPlayer player) {
 		ItemStack itemstack = player.inventory.armorInventory[3];
 
-		if (itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin)) {
+		if (itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
 			return false;
 		} else {
 			Vec3 vec3 = player.getLook(1.0F).normalize();
@@ -283,7 +283,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(Items.ender_pearl, 1);
+			this.dropItem(Items.ENDER_PEARL, 1);
 		}
 		
 		int var5 = this.rand.nextInt(3 + par2) + 1;
@@ -403,19 +403,19 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 	}
 
 	static {
-		carriableBlocks.add(Blocks.grass);
-		carriableBlocks.add(Blocks.dirt);
+		carriableBlocks.add(Blocks.GRASS);
+		carriableBlocks.add(Blocks.DIRT);
 		carriableBlocks.add(Blocks.sand);
 		carriableBlocks.add(Blocks.gravel);
 		carriableBlocks.add(Blocks.yellow_flower);
 		carriableBlocks.add(Blocks.red_flower);
-		carriableBlocks.add(Blocks.brown_mushroom);
-		carriableBlocks.add(Blocks.red_mushroom);
+		carriableBlocks.add(Blocks.BROWN_MUSHROOM);
+		carriableBlocks.add(Blocks.RED_MUSHROOM);
 		carriableBlocks.add(Blocks.tnt);
 		carriableBlocks.add(Blocks.cactus);
 		carriableBlocks.add(Blocks.clay);
-		carriableBlocks.add(Blocks.pumpkin);
-		carriableBlocks.add(Blocks.melon_block);
+		carriableBlocks.add(Blocks.PUMPKIN);
+		carriableBlocks.add(Blocks.MELON_BLOCK);
 		carriableBlocks.add(Blocks.mycelium);
 	}
 

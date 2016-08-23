@@ -61,8 +61,8 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
 		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
 		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
@@ -72,7 +72,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
 			entityarrow.setFire(100);
 		}
 
@@ -97,7 +97,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
                 }
                 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, byte0 * 30, 1));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 30, 1));
 				}
 			}
 
@@ -113,7 +113,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 
 	public void onLivingUpdate() {
 		if (this.isInWater()) {
-			this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
 		}
 		
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.switchHealth == 0)) {
@@ -124,7 +124,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		}
 
 		if ((this.getHealth() > EntityAttributes.maxHealth1 * 0.50F) && (this.switchHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+			this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
 			this.tasks.removeTask(this.aiAttackOnCollide);
 			this.tasks.addTask(1, this.aiArrowAttack);
 			this.switchHealth = 0;
@@ -148,9 +148,9 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			if (this.isBurning()) {
-				this.dropItem(Items.cooked_fish, 1);
+				this.dropItem(Items.COOKED_FISH, 1);
 			} else {
-				this.dropItem(Items.fish, 1);
+				this.dropItem(Items.FISH, 1);
 			}
 		}
 		
@@ -173,7 +173,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 	
 	@Override
@@ -181,7 +181,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));	
+		this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));	
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

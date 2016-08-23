@@ -64,8 +64,8 @@ public class EntityGaiaSharko extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, byte0 * 60, 2));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 60, 2));
 				}
 			}
 
@@ -81,11 +81,11 @@ public class EntityGaiaSharko extends EntityMobBase {
 
 	public void onLivingUpdate() {
 		if (this.isInWater()) {
-			this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
 		}
 		
 		if (this.getHealth() <= EntityAttributes.maxHealth2 * 0.25F) {
-			this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 100, 0));
 		}
 		super.onLivingUpdate();
 	}

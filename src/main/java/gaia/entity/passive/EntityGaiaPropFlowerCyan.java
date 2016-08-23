@@ -70,7 +70,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, int par2, double par3, double par5) {}
@@ -92,8 +92,8 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-			Blocks.grass, 
-			Blocks.dirt
+			Blocks.GRASS, 
+			Blocks.DIRT
 	});
 		
 	public boolean getCanSpawnHere() {
@@ -107,7 +107,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 				BlockPos blockpos = new BlockPos(i, j, k);			
 				Block var1 = this.worldObj.getBlockState(blockpos.down()).getBlock();
 				
-				return spawnBlocks.contains(var1)&& !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
+				return spawnBlocks.contains(var1)&& !this.worldObj.containsAnyLiquid(this.getEntityBoundingBox());
 			}}
 		
 		return false;

@@ -5,8 +5,8 @@ import gaia.entity.Trade;
 import gaia.init.GaiaItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -15,13 +15,18 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 	public EntityGaiaNPCEnderGirl(World var1) {
 		super(var1);
 	}
-	
+	/** TODO ICHATCOMPONENT 
 	public IChatComponent getDisplayName() {
 		 String s = "Ender Girl";
 		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
 		 return chatcomponenttext;
     }
-	
+	**/
+	public ITextComponent getDisplayName() {
+		 String s = "Ender Girl";
+		 TextComponentTranslation text = new TextComponentTranslation(s);
+		 return text;
+	}
 	@Override
 	protected String getLivingSound() {
 		return "grimoireofgaia:passive_say";
@@ -45,21 +50,21 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(Items.ender_pearl, 1, 0)));	
+		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));	
 		
 		//Buy List
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.bone, 8, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.ROTTEN_FLESH, 16, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.GUNPOWDER, 4, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.SPIDER_EYE, 4, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ender_pearl, 1, 0), new ItemStack(Items.string, 8, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.BONE, 8, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.ROTTEN_FLESH, 16, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.GUNPOWDER, 4, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.SPIDER_EYE, 4, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.STRING, 8, 0)));
 		
 		//Sell List
-		recipes.add(new Trade(new ItemStack(Items.bone, 16, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.GUNPOWDER, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.ROTTEN_FLESH, 24, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.string, 16, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.slime_ball, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
-		recipes.add(new Trade(new ItemStack(Items.SPIDER_EYE, 8, 0), new ItemStack(Items.ender_pearl, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.BONE, 16, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.GUNPOWDER, 8, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.ROTTEN_FLESH, 24, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.STRING, 16, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.SLIME_BALL, 8, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(Items.SPIDER_EYE, 8, 0), new ItemStack(Items.ENDER_PEARL, 1, 0)));
 	}
 }

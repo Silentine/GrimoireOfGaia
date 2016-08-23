@@ -101,7 +101,7 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 						this.villageObj.setReputationForPlayer(this.lastBuyingPlayer, 30);
 					}
 				}
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 200, 0));
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, 0));
 			}
 		}
 		super.updateAITick();

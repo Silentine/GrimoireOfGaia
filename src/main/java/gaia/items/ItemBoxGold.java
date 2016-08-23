@@ -45,11 +45,11 @@ public class ItemBoxGold extends Item {
 		case 1:
 			return new ItemStack(Items.GOLDEN_AXE);
 		case 2:
-			return new ItemStack(Items.golden_pickaxe);
+			return new ItemStack(Items.GOLDEN_PICKAXE);
 		case 3:
-			return new ItemStack(Items.golden_shovel);
+			return new ItemStack(Items.GOLDEN_SHOVEL);
 		case 4:
-			return new ItemStack(Items.golden_sword);
+			return new ItemStack(Items.GOLDEN_SWORD);
 		case 5:
 			return new ItemStack(Items.golden_helmet);
 		case 6:

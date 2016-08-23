@@ -42,7 +42,7 @@ public class ItemWeaponBookNature extends ItemSword {
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.poison.id, 80, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.POISON, 80, 0));
 		return true;
 	}
 	

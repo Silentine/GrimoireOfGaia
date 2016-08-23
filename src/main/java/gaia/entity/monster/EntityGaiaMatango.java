@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -29,8 +30,8 @@ import net.minecraft.world.World;
 
 public class EntityGaiaMatango extends EntityMobDay {
 	private static final Item[] matangoDrops = new Item[] { 
-		Item.getItemFromBlock(Blocks.red_mushroom), 
-		Item.getItemFromBlock(Blocks.brown_mushroom) };
+		Item.getItemFromBlock(Blocks.RED_MUSHROOM), 
+		Item.getItemFromBlock(Blocks.BROWN_MUSHROOM) };
 	private int spawnTime;
 
 	public EntityGaiaMatango(World par1World) {
@@ -69,7 +70,7 @@ public class EntityGaiaMatango extends EntityMobDay {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.poison.id, byte0 * 60, 3));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 60, 3));
 				}
 			}
 
@@ -115,7 +116,7 @@ public class EntityGaiaMatango extends EntityMobDay {
 						this.worldObj.spawnEntityInWorld(spawnMob);
 					}
 				}
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 3));
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 				this.spawnTime = 1;
 			}
 		}
@@ -163,7 +164,7 @@ public class EntityGaiaMatango extends EntityMobDay {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}

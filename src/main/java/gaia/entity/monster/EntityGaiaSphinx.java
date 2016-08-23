@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -68,8 +69,8 @@ public class EntityGaiaSphinx extends EntityMobBase {
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.digSlowdown.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 60, 0));
 				}
 			}
 
@@ -92,7 +93,7 @@ public class EntityGaiaSphinx extends EntityMobBase {
 			if ((this.spawnTime > 0) && (this.spawnTime <= 200)) {
 				++this.spawnTime;
 			} else {
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 3));
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 				this.spawnTime = 1;
 			}
 		}

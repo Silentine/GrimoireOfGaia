@@ -21,6 +21,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -37,7 +38,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob {
 	private static final Item[] anubisDrops = new Item[] {
 		Items.SUGAR, 
-		Items.bone, 
+		Items.BONE, 
 		Items.GLASS_BOTTLE,
 		Items.GUNPOWDER,
 		Items.STICK,
@@ -100,8 +101,8 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, byte0 * 60, 0));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.blindness.id, byte0 * 30, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, byte0 * 30, 0));
 				}
 			}
 
@@ -133,7 +134,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.pumpkin));	
+			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
 		}
@@ -142,7 +143,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.pumpkin));	
+			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 2;
 		}
