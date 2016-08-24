@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItem;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -20,10 +21,14 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -87,26 +92,27 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "mob.zombie.say";
+		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "mob.zombie.hurt";
+		return SoundEvents.ENTITY_ZOMBIE_HURT;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "mob.zombie.death";
+		return SoundEvents.ENTITY_ZOMBIE_DEATH;
+		
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	
-		this.playSound("mob.zombie.step", 0.15F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
 		int var3 = this.rand.nextInt(3) + 1;
 
 		for (int var4 = 0; var4 < var3; ++var4) {
-            this.entityDropItem(new ItemStack(Items.dye, 1, 4), 0.0F);
+            this.entityDropItem(new ItemStack(Items.DYE, 1, 4), 0.0F);
 		}
 		
 		//Shards
@@ -127,10 +133,10 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 			this.dropItem(GaiaItem.BagOre, 1);
 			break;
 		case 1:
-			this.dropItem(Item.getItemFromBlock(Blocks.lapis_block), 1);
+			this.dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
 			break;
 		case 2:
-			this.entityDropItem(new ItemStack(Items.skull, 1, 2), 0.0F);
+			this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
 		}
 	}
 	

@@ -4,12 +4,12 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -17,8 +17,10 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -75,15 +77,15 @@ public class EntityGaiaNineTails extends EntityMobBase implements IRangedAttackM
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:aggressive_say";
+		return Sounds.aggressive_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:aggressive_hurt";
+		return Sounds.aggressive_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:aggressive_death";
+		return Sounds.aggressive_death;
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

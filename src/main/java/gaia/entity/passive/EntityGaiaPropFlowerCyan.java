@@ -2,6 +2,7 @@ package gaia.entity.passive;
 
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 
 import java.util.Set;
 
@@ -11,9 +12,12 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -38,7 +42,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "dig.grass";
+		return SoundEvents.BLOCK_GRASS_BREAK;		
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
@@ -70,7 +74,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, int par2, double par3, double par5) {}

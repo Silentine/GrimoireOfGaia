@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -82,19 +84,19 @@ public class EntityGaiaBanshee extends EntityMobBase {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:aggressive_say";
+		return Sounds.aggressive_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:aggressive_hurt";
+		return Sounds.aggressive_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:aggressive_death";
+		return Sounds.aggressive_death;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	
-		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
+		this.playSound(Sounds.none, 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

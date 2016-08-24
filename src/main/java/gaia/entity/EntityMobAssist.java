@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
@@ -55,12 +56,12 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
         }
     }
 
-    protected String getSwimSound()
+    protected SoundEvent getSwimSound()
     {
         return "game.hostile.swim";
     }
 
-    protected String getSplashSound()
+    protected SoundEvent getSplashSound()
     {
         return "game.hostile.swim.splash";
     }
@@ -88,7 +89,7 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
     /**
      * Returns the sound this mob makes when it is hurt.
      */
-    protected String getHurtSound()
+    protected SoundEvent getHurtSound()
     {
         return "game.hostile.hurt";
     }
@@ -96,7 +97,7 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
     /**
      * Returns the sound this mob makes on death.
      */
-    protected String getDeathSound()
+    protected SoundEvent getDeathSound()
     {
         return "game.hostile.die";
     }

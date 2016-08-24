@@ -5,6 +5,7 @@ import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -118,15 +120,15 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 
 	
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:assist_say";
+		return Sounds.assist_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:assist_hurt";
+		return Sounds.assist_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:assist_death";
+		return Sounds.assist_death;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	

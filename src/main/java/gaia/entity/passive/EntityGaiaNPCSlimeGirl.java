@@ -3,8 +3,10 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
@@ -29,17 +31,17 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 	}
 	@Override
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:passive_say";
+		return Sounds.passive_say;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:passive_hurt";
+		return Sounds.passive_hurt;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:passive_death";
+		return Sounds.passive_death;
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {

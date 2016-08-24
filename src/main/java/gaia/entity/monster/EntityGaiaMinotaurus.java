@@ -4,6 +4,8 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -20,11 +22,15 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -215,15 +221,15 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
     }
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:aggressive_say";
+		return Sounds.aggressive_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:aggressive_hurt";
+		return Sounds.aggressive_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:aggressive_death";
+		return Sounds.aggressive_death;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	

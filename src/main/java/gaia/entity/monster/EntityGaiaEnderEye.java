@@ -278,7 +278,7 @@ public class EntityGaiaEnderEye extends EntityMobBase {
 	 }
 
 	 protected void playStepSound(BlockPos pos, Block blockIn){	
-		 this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
+		 this.playSound(Sounds.none, 1.0F, 1.0F);
 	 }
 
 	 protected void dropFewItems(boolean par1, int par2) {

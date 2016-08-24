@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -20,9 +21,9 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -121,15 +122,15 @@ public class EntityGaiaDullahan extends EntityMobBase {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:aggressive_say";
+		return Sounds.aggressive_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:aggressive_hurt";
+		return Sounds.aggressive_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:aggressive_death";
+		return Sounds.aggressive_death;
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

@@ -6,6 +6,7 @@ import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -165,7 +166,7 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:none";
+		return Sounds.none;	
 	}
 
 	protected SoundEvent getHurtSound(){

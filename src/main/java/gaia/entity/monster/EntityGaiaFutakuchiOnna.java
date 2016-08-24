@@ -79,15 +79,15 @@ public class EntityGaiaFutakuchiOnna extends EntityMobBase {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:aggressive_say";
+		return Sounds.aggressive_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:aggressive_hurt";
+		return Sounds.aggressive_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:aggressive_death";
+		return Sounds.aggressive_death;
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

@@ -91,15 +91,15 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:assist_say";
+		return Sounds.assist_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:assist_hurt";
+		return Sounds.assist_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:assist_death";
+		return Sounds.assist_death;
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

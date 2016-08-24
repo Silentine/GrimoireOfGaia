@@ -10,6 +10,7 @@ import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
 import gaia.init.GaiaItem;
 import gaia.init.GaiaSpawning;
+import gaia.init.Sounds;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -59,6 +60,7 @@ public class Gaia {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		
 		isBaublesEnabled = Loader.isModLoaded("Baubles");
 		if(isBaublesEnabled)logger.info("Loading With Baubles");
 		else{logger.info("Loading Without Baubles");}
@@ -74,6 +76,7 @@ public class Gaia {
 		GaiaItem.init();
 		GaiaItem.register();
 		GaiaItem.oreRegistration();
+		Sounds.Sounds_Init();
 
 		proxy.registerItemsRender();
 		proxy.registerBlocksRender();

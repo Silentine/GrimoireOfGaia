@@ -27,6 +27,6 @@ public class ItemFoodIce extends ItemFood {
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 400, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 400, 0));
 	}
 }

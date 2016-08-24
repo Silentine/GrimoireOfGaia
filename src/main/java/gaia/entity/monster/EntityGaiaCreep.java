@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -138,7 +139,7 @@ public class EntityGaiaCreep extends EntityMobBase {
 
 	public void onLivingUpdate() {
 		if (this.getHealth() <= EntityAttributes.maxHealth1 * 0.10F) {
-			this.addPotionEffect(new PotionEffect(Potion.invisibility.id, 100, 0));
+			this.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 100, 0));
 		}
 		super.onLivingUpdate();
 	}

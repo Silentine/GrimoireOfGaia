@@ -5,6 +5,7 @@ import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -128,15 +130,15 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:assist_say";
+		return Sounds.assist_say;	
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:assist_hurt";
+		return Sounds.assist_hurt;		
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:assist_death";
+		return Sounds.assist_death;		
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

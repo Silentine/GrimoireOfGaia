@@ -15,10 +15,12 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
@@ -110,7 +112,7 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	@Override
 	public boolean interact(EntityPlayer player) {
 		ItemStack var2 = player.inventory.getCurrentItem();
-		boolean var3 = var2 != null && var2.getItem() == Items.spawn_egg;
+		boolean var3 = var2 != null && var2.getItem() == Items.SPAWN_EGG;
 		if (!var3 && this.isEntityAlive() && !this.isTrading() && !this.isChild()) {
 			if (!this.worldObj.isRemote) {
 				this.setCustomer(player);

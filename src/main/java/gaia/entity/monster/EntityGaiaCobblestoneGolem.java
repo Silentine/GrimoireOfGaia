@@ -167,7 +167,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:none";
+		return Sounds.none;
 	}
 
 	protected SoundEvent getHurtSound(){
