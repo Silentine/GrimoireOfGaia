@@ -212,7 +212,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, new RenderGaiaYukiOnna(small));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(Randy, GaiaItem.PropWeapon, Item));
-		
+		/** TODO *temp
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustSphinx.class, new TileRenderBustSphinx());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustValkyrie.class, new TileRenderBustValkyrie());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustVampire.class, new TileRenderBustVampire());
@@ -220,7 +220,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollEnderGirl.class, new TileRenderDollEnderGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollSlimeGirl.class, new TileRenderDollSlimeGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());
-
+		**/
 		//TODO Fix 1st Person 3D items
 	    /*
 	    MinecraftForgeClient.registerItemRenderer(GaiaItem.BookFreezing, new RenderWeaponBookFreezing());
@@ -237,11 +237,12 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void registerBlocksRender(){
-		GaiaBlock.registerRenders();
+		//TODO *temp GaiaBlock.registerRenders();
 	}
 	
 	@Override
 	public void registerItemsRender(){
+		/** TODO *temp
 		GaiaItem.registerRenders();
 		
 		// Shards
@@ -276,10 +277,11 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 3, new ModelResourceLocation("grimoireofgaia:WeaponPropDagger".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 4, new ModelResourceLocation("grimoireofgaia:WeaponPropProjectile".toLowerCase(), "inventory"));
         
-        /** Should get it's list count to iterate through dynamically in the future**/
+        // Should get it's list count to iterate through dynamically in the future
         //For now uses a static list to iterate
         for (int i = 0; i < 52; ++i) {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.SpawnEgg, i, new ModelResourceLocation("minecraft:spawn_egg", "inventory"));
         }
+        **/
 	}
 }

@@ -110,7 +110,8 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaSuccubus.class, "Succubus", 39, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaSwamper.class, "Swamper", 40, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaValkyrie.class, "Valkyrie", 41, Gaia.instance, trackingRange, updateFrequency, true);
-		EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 42, Gaia.instance, trackingRange, updateFrequency, true);
+		//TODO *temp EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 42, Gaia.instance, trackingRange, updateFrequency, true);
+		EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 42, Gaia.instance, trackingRange, updateFrequency, true, 0xc23021, 0xc9b161);
 		EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 43, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 44, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaWitherCow.class, "Wither Cow", 45, Gaia.instance, trackingRange, updateFrequency, true);
@@ -135,6 +136,7 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaSummonSporeling.class, "Sporeling", 83, Gaia.instance, trackingRange, updateFrequency, true); 
 		
 		/** Eggs to register **/
+		/** TODO *temp
 		//ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBanshee.class, 2, 0xeed2e8, 0xc6b0ed);
@@ -183,5 +185,6 @@ public class GaiaEntity {
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitherCow.class, 44, 5791069, 16777215);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYeti.class, 45, 16448250, 7895160);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);	
+		**/
 	}
 }

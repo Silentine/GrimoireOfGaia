@@ -14,6 +14,7 @@ import gaia.init.Sounds;
 import gaia.items.GaiaItemHandlerFuel;
 import gaia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -54,7 +55,8 @@ public class Gaia {
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") {
 		@Override
 		public Item getTabIconItem() {
-			return GaiaItem.MiscBook;
+			//TODO *temp return GaiaItem.MiscBook;
+			return Items.BEEF;
 		}
 	};
 
@@ -70,24 +72,28 @@ public class Gaia {
 		else{logger.info("Loading Without Thaumcraft");}
 
 		GaiaConfigGeneration.configOptions(event);
-
+		/** TODO *temp
 		GaiaBlock.init();
 		GaiaBlock.register();
 		GaiaItem.init();
 		GaiaItem.register();
 		GaiaItem.oreRegistration();
+		**/
 		Sounds.Sounds_Init();
-
+		/** TODO *temp
 		proxy.registerItemsRender();
 		proxy.registerBlocksRender();
+		**/
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
+		/** TODO *temp
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		GaiaItem.addRecipes();
+		**/
 		GaiaEntity.register();
-		GaiaSpawning.register();
+		/// TODO *temp GaiaSpawning.register();
 		//TEMP_Spawning.register_spawn();
 		
 		if(isThaumcraftEnabled){
