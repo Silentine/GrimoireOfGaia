@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,20 +21,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class held_rightarm_special implements LayerRenderer<EntityLivingBase> {
 	ModelRenderer rightarm;
-	private final RendererLivingEntity<?> livingEntityRenderer;
+	private final RenderLiving livingEntityRenderer;
 
 	/**Tried to setup another constructor to pass variables to a second set of GL rotations and translations
 	 * For dynamic assigning - without having to have said dozens of extra classes that do the same thing really
 	 * But values didn't want to read and right for whatever reason so here we go static assignments -for now- 
 	 * Leaving this here as a reminder to come back and figure out what went wrong    
 	 */
-	public held_rightarm_special(RendererLivingEntity<?> livingEntityRendererIn, ModelRenderer limb){
+	public held_rightarm_special(RenderLiving livingEntityRendererIn, ModelRenderer limb){
 		this.livingEntityRenderer = livingEntityRendererIn;
 		this.rightarm = limb;
 	}
 
 	public void doRenderLayer(EntityLivingBase entity, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-		ItemStack itemstack = entity.getHeldItem();
+		ItemStack itemstack = entity.getHeldItem(null);
 
 		if (itemstack != null) {
 			GlStateManager.pushMatrix();
@@ -53,12 +53,12 @@ public class held_rightarm_special implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.translate(-0.0625F, 0.4375F, 0.0625F);
 
 			if (entity instanceof EntityPlayer && ((EntityPlayer)entity).fishEntity != null) {
-				itemstack = new ItemStack(Items.FISHing_rod, 0);
+				itemstack = new ItemStack(Items.FISHING_ROD, 0);
 			}
 
 			Item item = itemstack.getItem();
 			Minecraft minecraft = Minecraft.getMinecraft();
-
+			/** TODO
 			if (item instanceof ItemBlock && Block.getBlockFromItem(item).getRenderType() == 2) {
 				GlStateManager.translate(0.0F, 0.1875F, -0.3125F);
 				GlStateManager.rotate(20.0F, 1.0F, 0.0F, 0.0F);
@@ -66,7 +66,7 @@ public class held_rightarm_special implements LayerRenderer<EntityLivingBase> {
 				float f1 = 0.375F;
 				GlStateManager.scale(-f1, -f1, f1);
 			}
-
+			**/
 			if(item == Items.BOW) {
 				GlStateManager.translate(0.0F, 0F, -0.05F);
 			}
@@ -86,7 +86,7 @@ public class held_rightarm_special implements LayerRenderer<EntityLivingBase> {
 			}
 
 
-			minecraft.getItemRenderer().renderItem(entity, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON);
+			minecraft.getItemRenderer().renderItem(entity, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
 			GlStateManager.popMatrix();
 		}
 	}

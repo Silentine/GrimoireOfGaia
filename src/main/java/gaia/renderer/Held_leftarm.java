@@ -5,7 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
+import net.minecraft.client.renderer.entity.RenderEntity;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,7 @@ public class Held_leftarm implements LayerRenderer<EntityLivingBase> {
 	/** The Model Object to append Item on **/
 	ModelRenderer rightarm;
 	/** The Entity's Renderer **/
-	private final RendererLivingEntity<?> livingEntityRenderer;
+	private final RenderLiving livingEntityRenderer;
 
 	/**
 	 * [ Render Item being held in entity's right arm ]
@@ -32,14 +33,14 @@ public class Held_leftarm implements LayerRenderer<EntityLivingBase> {
 	 *
 	 **/    
 
-	public Held_leftarm(RendererLivingEntity<?> livingEntityRendererIn, ModelRenderer limb) {
+	public Held_leftarm(RenderLiving livingEntityRendererIn, ModelRenderer limb) {
 		this.livingEntityRenderer = livingEntityRendererIn;
 		this.rightarm = limb;
 	}
 
 	/** The Actual rendering code**/
 	public void doRenderLayer(EntityLivingBase entity, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-		ItemStack itemstack = entity.getHeldItem();
+		ItemStack itemstack = entity.getHeldItemOffhand();
 		GlStateManager.translate(0.1F, -0.1F, 0.0F);
 
 		if (itemstack != null) {
@@ -58,12 +59,12 @@ public class Held_leftarm implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.translate(-0.0625F, 0.4375F, 0.0625F);
 
 			if (entity instanceof EntityPlayer && ((EntityPlayer)entity).fishEntity != null) {
-				itemstack = new ItemStack(Items.FISHing_rod, 0);
+				itemstack = new ItemStack(Items.FISHING_ROD, 0);
 			}
 
 			Item item = itemstack.getItem();
 			Minecraft minecraft = Minecraft.getMinecraft();
-
+			/** TODO
 			if (item instanceof ItemBlock && Block.getBlockFromItem(item).getRenderType() == 2) {
 				GlStateManager.translate(0.0F, 0.1875F, -0.3125F);
 				GlStateManager.rotate(20.0F, 1.0F, 0.0F, 0.0F);
@@ -71,7 +72,7 @@ public class Held_leftarm implements LayerRenderer<EntityLivingBase> {
 				float f1 = 0.375F;
 				GlStateManager.scale(-f1, -f1, f1);
 			}
-
+			 **/
 			//We can add more checks to tweak and fix item locations like so
 			//Or add more rendering effects if we fancy it
 			if(item == Items.BOW) {
@@ -82,7 +83,7 @@ public class Held_leftarm implements LayerRenderer<EntityLivingBase> {
 				GlStateManager.translate(0.0F, 0.203125F, 0.0F);
 			}
 
-			minecraft.getItemRenderer().renderItem(entity, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON);
+			minecraft.getItemRenderer().renderItem(entity, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND);
 			GlStateManager.popMatrix();
 		}
 	}

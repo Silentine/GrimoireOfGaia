@@ -2,17 +2,17 @@ package gaia.renderer;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
 public class Glowing_layer implements LayerRenderer<EntityLiving> {
-	ResourceLocation glowing_texture;
-	RendererLivingEntity<?> livingEntityRenderer;
+	private final ResourceLocation glowing_texture;
+	private final RenderLiving livingEntityRenderer;
 
-	public Glowing_layer(RendererLivingEntity<?> livingEntityRendererIn, ResourceLocation textureIn) {
+	public Glowing_layer(RenderLiving livingEntityRendererIn, ResourceLocation textureIn) {
 		this.livingEntityRenderer = livingEntityRendererIn;
 		this.glowing_texture = textureIn;
 	}
@@ -31,7 +31,7 @@ public class Glowing_layer implements LayerRenderer<EntityLiving> {
 		GlStateManager.enableLighting();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.livingEntityRenderer.getMainModel().render(entity, f1, f2, f4, f5, f6, scale);
-		((RenderLiving) this.livingEntityRenderer).func_177105_a(entity, partialTicks);
+		this.livingEntityRenderer.setLightmap(entity, partialTicks);
 		GlStateManager.depthMask(true);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();

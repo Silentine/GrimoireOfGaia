@@ -1,20 +1,16 @@
 package gaia.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
 public class Alpha_layer implements LayerRenderer<EntityLiving> {
 	ResourceLocation alpha_texture;
-	RendererLivingEntity<?> livingEntityRenderer;
+	RenderLiving livingEntityRenderer;
 
-	public Alpha_layer(RendererLivingEntity<?> livingEntityRendererIn, ResourceLocation textureIn) {
+	public Alpha_layer(RenderLiving livingEntityRendererIn, ResourceLocation textureIn) {
 		this.livingEntityRenderer = livingEntityRendererIn;
 		this.alpha_texture = textureIn;
 	}
@@ -27,7 +23,7 @@ public class Alpha_layer implements LayerRenderer<EntityLiving> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(770, 771);
 		this.livingEntityRenderer.getMainModel().render(entity, f1, f2, f4, f5, f6, scale);
-		((RenderLiving) this.livingEntityRenderer).func_177105_a(entity, partialTicks);
+		this.livingEntityRenderer.setLightmap(entity, partialTicks);
 		GlStateManager.disableBlend();
 		GlStateManager.disableNormalize();
 	}

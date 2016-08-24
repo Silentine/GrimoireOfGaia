@@ -29,7 +29,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
 	}
 
 	public void renderEnderDragonGirl(EntityGaiaEnderDragonGirl entity, double par2, double par4, double par6, float par8, float par9) {
-		this.EnderDragonGirlModel.isCarrying = entity.getHeldBlockState().getBlock().getMaterial() != Material.air;
+		this.EnderDragonGirlModel.isCarrying = entity.getHeldBlockState().getMaterial() != Material.AIR;
         this.EnderDragonGirlModel.isAttacking = entity.isScreaming();
         
 		if(entity.isScreaming()) {
