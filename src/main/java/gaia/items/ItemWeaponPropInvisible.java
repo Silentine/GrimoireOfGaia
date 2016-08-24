@@ -26,8 +26,8 @@ public class ItemWeaponPropInvisible extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.WeaponProp.desc"));
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.WeaponPropInvisible.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.WeaponProp.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.WeaponPropInvisible.desc"));
 	}
 
 	public boolean isFull3D() {

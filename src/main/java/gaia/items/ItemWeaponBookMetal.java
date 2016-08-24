@@ -37,7 +37,7 @@ public class ItemWeaponBookMetal extends ItemSword {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.confusion") + " (0:04)");
+		par3List.add(I18n.translateToLocal("potion.confusion") + " (0:04)");
 	}
 
 	@Override

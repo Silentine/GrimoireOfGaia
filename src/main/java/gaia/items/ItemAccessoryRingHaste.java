@@ -46,7 +46,7 @@ public class ItemAccessoryRingHaste extends Item implements IBauble{
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.digSpeed"));
+		par3List.add(I18n.translateToLocal("potion.digSpeed"));
 	}
 
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
@@ -63,7 +63,7 @@ public class ItemAccessoryRingHaste extends Item implements IBauble{
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
 		if (!player.isPotionActive(Potion.digSpeed)) {
-			player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 60, 0, true, false));		
+			player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 60, 0, true, false));		
 			}
 	}
 
@@ -83,7 +83,7 @@ public class ItemAccessoryRingHaste extends Item implements IBauble{
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 20, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 20, 0));
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,9 +40,9 @@ public class ItemAccessoryCursed extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(EnumChatFormatting.ITALIC + (StatCollector.translateToLocal("item.GrimoireOfGaia.AccessoryCursed.desc")));
-		par3List.add(StatCollector.translateToLocal("potion.moveSlowdown"));
-		par3List.add(StatCollector.translateToLocal("potion.digSlowDown"));
+		par3List.add(EnumChatFormatting.ITALIC + (I18n.translateToLocal("item.GrimoireOfGaia.AccessoryCursed.desc")));
+		par3List.add(I18n.translateToLocal("potion.moveSlowdown"));
+		par3List.add(I18n.translateToLocal("potion.digSlowDown"));
 	}
 
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {

@@ -5,10 +5,10 @@ import gaia.Gaia;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodMandrake extends ItemFood {
@@ -25,9 +25,9 @@ public class ItemFoodMandrake extends ItemFood {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.RecoverHearts", new Object[]{Integer.valueOf(2)}));
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.LoseHunger", new Object[]{Integer.valueOf(4)}));
-		par3List.add("(80%) " + StatCollector.translateToLocal("potion.confusion") + " (0:20)");
+		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.RecoverHearts", new Object[]{Integer.valueOf(2)}));
+		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.LoseHunger", new Object[]{Integer.valueOf(4)}));
+		par3List.add("(80%) " + I18n.translateToLocal("potion.confusion") + " (0:20)");
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {

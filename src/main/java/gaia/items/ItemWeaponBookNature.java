@@ -37,7 +37,7 @@ public class ItemWeaponBookNature extends ItemSword {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.poison") + " (0:04)");
+		par3List.add(I18n.translateToLocal("potion.poison") + " (0:04)");
 	}
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {

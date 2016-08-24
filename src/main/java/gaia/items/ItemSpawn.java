@@ -1,15 +1,17 @@
 package gaia.items;
 
+import gaia.Gaia;
+import gaia.init.GaiaItem;
+import gaia.init.Sounds;
+
 import java.util.List;
 import java.util.Random;
 
-import gaia.Gaia;
-import gaia.init.GaiaItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,11 +32,11 @@ public class ItemSpawn extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
+		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		world.playSoundAtEntity(entityplayer, "grimoireofgaia:box_open2", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		entityplayer.playSound(Sounds.box_open2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(5);

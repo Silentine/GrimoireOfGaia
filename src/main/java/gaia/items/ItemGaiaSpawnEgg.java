@@ -30,6 +30,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.StatCollector;
@@ -77,8 +78,7 @@ public final class ItemGaiaSpawnEgg extends Item {
 			if (entity == null) {
 			} else {
 				entity.setLocationAndAngles(posX, posY, posZ, MathHelper
-						.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F),
-						0.0F);
+						.wrapDegrees(world.rand.nextFloat() * 360.0F),0.0F);
 				entity.rotationYawHead = entity.rotationYaw;
 				entity.renderYawOffset = entity.rotationYaw;
 				entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
@@ -100,16 +100,16 @@ public final class ItemGaiaSpawnEgg extends Item {
 		this.setCreativeTab(Gaia.tabGaia);
 		this.setUnlocalizedName("GrimoireOfGaia.MonsterPlacer");
 	}
-
+		
 	public String getItemStackDisplayName(ItemStack istack) {
-		String ownName = ("" + StatCollector.translateToLocal(this
+		String ownName = ("" + I18n.translateToLocal(this
 				.getUnlocalizedName() + ".name")).trim();
 		String mobName = (String) idToName.get(Integer.valueOf(istack
 				.getItemDamage()));
 		if (mobName != null) {
 			ownName = ownName
 					+ " "
-					+ StatCollector.translateToLocal("entity." + mobName
+					+ I18n.translateToLocal("entity." + mobName
 							+ ".name");
 		}
 
@@ -134,14 +134,14 @@ public final class ItemGaiaSpawnEgg extends Item {
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 
-			if (iblockstate.getBlock() == Blocks.mob_spawner) {
+			if (iblockstate.getBlock() == Blocks.MOB_SPAWNER) {
 				TileEntity tileentity = worldIn.getTileEntity(pos);
 
 				if (tileentity instanceof TileEntityMobSpawner) {
 					MobSpawnerBaseLogic mobspawnerbaselogic = ((TileEntityMobSpawner)tileentity).getSpawnerBaseLogic();
 					mobspawnerbaselogic.setEntityName(ItemMonsterPlacer.getEntityName(stack));
 					tileentity.markDirty();
-					worldIn.markBlockForUpdate(pos);
+					worldIn.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
 
 					if (!playerIn.capabilities.isCreativeMode) {
 						--stack.stackSize;
@@ -197,7 +197,7 @@ public final class ItemGaiaSpawnEgg extends Item {
 
 					Block b = BlockStateHelper.getBlockfromState(world, pos);
 
-					if (b.getMaterial() == Material.water) {
+					if (b.getMaterial() == Material.WATER) {
 						Entity entity = spawnCreature(world,
 								istack.getItemDamage(), (double) posX,
 								(double) posY, (double) posZ);

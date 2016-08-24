@@ -5,10 +5,10 @@ import gaia.Gaia;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodRoot extends ItemFood {
@@ -34,7 +34,7 @@ public class ItemFoodRoot extends ItemFood {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.NegativeStatus.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.NegativeStatus.desc"));
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {

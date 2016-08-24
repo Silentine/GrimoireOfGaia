@@ -34,9 +34,9 @@ public class ItemFoodPieMeat extends ItemFood {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		par3List.add(StatCollector.translateToLocal("potion.moveSlowdown") + " (0:30)");
-		par3List.add("(80%) " + StatCollector.translateToLocal("potion.hunger") + " (0:30)");
+		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
+		par3List.add(I18n.translateToLocal("potion.moveSlowdown") + " (0:30)");
+		par3List.add("(80%) " + I18n.translateToLocal("potion.hunger") + " (0:30)");
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2world, EntityPlayer par3EntityPlayer) {

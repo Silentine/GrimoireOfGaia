@@ -45,7 +45,7 @@ public class ItemAccessoryRingSpeed extends Item implements IBauble{
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.moveSpeed"));
+		par3List.add(I18n.translateToLocal("potion.moveSpeed"));
 	}
 
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {

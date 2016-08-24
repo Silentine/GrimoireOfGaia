@@ -1,15 +1,16 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
-import gaia.Gaia;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,16 +32,16 @@ public class ItemFoodSmallAppleGold extends ItemFood {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.absorption") + " (2:00)");
-		par3List.add(StatCollector.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
-		par3List.add(StatCollector.translateToLocal("potion.resistance") + " (0:50)");
-		par3List.add(StatCollector.translateToLocal("potion.fireResistance") + " (0:50)");
+		par3List.add(I18n.translateToLocal("potion.absorption") + " (2:00)");
+		par3List.add(I18n.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
+		par3List.add(I18n.translateToLocal("potion.resistance") + " (0:50)");
+		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (0:50)");
 	}
 
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.absorption.id, 2400, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 4));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 1000, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1000, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 1000, 0));
 	}
 }

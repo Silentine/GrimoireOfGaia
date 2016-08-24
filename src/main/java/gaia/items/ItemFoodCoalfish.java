@@ -1,12 +1,13 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
-import gaia.Gaia;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 public class ItemFoodCoalfish extends ItemFood {
 	String texture;
@@ -19,6 +20,6 @@ public class ItemFoodCoalfish extends ItemFood {
 	}
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.FuelForSeconds", new Object[]{Integer.valueOf(180)}));
+		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.FuelForSeconds", new Object[]{Integer.valueOf(180)}));
 	}
 }

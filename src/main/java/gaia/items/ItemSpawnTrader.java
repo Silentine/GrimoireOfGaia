@@ -30,7 +30,7 @@ public class ItemSpawnTrader extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.SpawnTrader.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.SpawnTrader.desc"));
 	}
 
 	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {

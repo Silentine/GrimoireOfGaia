@@ -11,6 +11,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,7 +31,7 @@ public class ItemSpawnWeresheep extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.SpawnWeresheep.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.SpawnWeresheep.desc"));
 	}
 
 	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {

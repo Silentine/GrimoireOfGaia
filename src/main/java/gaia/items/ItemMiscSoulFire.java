@@ -25,8 +25,8 @@ public class ItemMiscSoulFire extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.FuelForSeconds", new Object[]{Integer.valueOf(580)}));
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscSoulFire.desc"));
+		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.FuelForSeconds", new Object[]{Integer.valueOf(580)}));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.MiscSoulFire.desc"));
 	}
 
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

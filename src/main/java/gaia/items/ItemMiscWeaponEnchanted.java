@@ -29,7 +29,7 @@ public class ItemMiscWeaponEnchanted extends Item {
 	}
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscWeaponEnchanted.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.MiscWeaponEnchanted.desc"));
 	}
 
 	@Override

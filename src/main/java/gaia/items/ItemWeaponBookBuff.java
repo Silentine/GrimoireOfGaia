@@ -46,15 +46,15 @@ public class ItemWeaponBookBuff extends Item {
 	}
 
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("potion.damageBoost") + " (1:00)");
-		par3List.add(StatCollector.translateToLocal("potion.resistance") + " (1:00)");
-		par3List.add(StatCollector.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
+		par3List.add(I18n.translateToLocal("potion.damageBoost") + " (1:00)");
+		par3List.add(I18n.translateToLocal("potion.resistance") + " (1:00)");
+		par3List.add(I18n.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
 	}
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
 		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 600, 0));
-		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id, 600, 0));
+		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0));
 		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 		return true;
 	}
