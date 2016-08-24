@@ -112,7 +112,8 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaValkyrie.class, "Valkyrie", 41, Gaia.instance, trackingRange, updateFrequency, true);
 		//TODO *temp EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 42, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaVampire.class, "Vampire", 42, Gaia.instance, trackingRange, updateFrequency, true, 0xc23021, 0xc9b161);
-		EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 43, Gaia.instance, trackingRange, updateFrequency, true);
+		//TODO *temp EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 43, Gaia.instance, trackingRange, updateFrequency, true);
+		EntityRegistry.registerModEntity(EntityGaiaWerecat.class, "Werecat", 43, Gaia.instance, trackingRange, updateFrequency, true, 0x7a7e8a, 0xdddadb);
 		EntityRegistry.registerModEntity(EntityGaiaWitch.class, "Witch", 44, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaWitherCow.class, "Wither Cow", 45, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaYeti.class, "Yeti", 46, Gaia.instance, trackingRange, updateFrequency, true);

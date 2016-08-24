@@ -22,8 +22,6 @@ public class RenderGaiaWerecat extends RenderLiving {
 	public RenderGaiaWerecat( float shadowSize) {
         super(rend, new ModelGaiaWerecat(), shadowSize);
         this.addLayer(new Glowing_layer(this, werecatEyesTexture));
-        this.addLayer(new held_rightarm(this, ModelGaiaCyclops.rightarm));
-        this.addLayer(new Held_leftarm(this, ModelGaiaCyclops.leftarm));
 	}
 
 	protected void func_82422_c() {

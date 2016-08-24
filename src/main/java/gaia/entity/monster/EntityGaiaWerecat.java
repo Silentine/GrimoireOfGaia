@@ -17,12 +17,17 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -40,10 +45,10 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO *temp ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIGaiaLeapAtTarget(this, 0.4F));
-		this.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		//TODO *tempthis.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
@@ -141,22 +146,28 @@ public class EntityGaiaWerecat extends EntityMobBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		//TODO *temp this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));			
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
 	}
 
+	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+			
 	protected void entityInit() {
 		super.entityInit();
-		this.dataWatcher.addObject(13, new Byte((byte)0));
+		//TODO DATAWATCHER
+		//this.dataWatcher.addObject(13, new Byte((byte)0));
+		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 
 	public int getTextureType() {
-		return this.dataWatcher.getWatchableObjectByte(13);
+		//return this.dataWatcher.getWatchableObjectByte(13);
+		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setTextureType(int par1) {
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		//this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
