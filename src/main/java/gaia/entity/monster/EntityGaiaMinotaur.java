@@ -5,6 +5,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +20,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -132,19 +134,19 @@ public class EntityGaiaMinotaur extends EntityMobBase {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "grimoireofgaia:minotaur_say";
+		return Sounds.minotaur_say;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "grimoireofgaia:minotaur_hurt";
+		return Sounds.minotaur_hurt;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "grimoireofgaia:minotaur_hurt";
+		return Sounds.minotaur_hurt;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	
-		this.playSound("mob.irongolem.walk", 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

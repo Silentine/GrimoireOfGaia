@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,6 +25,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 

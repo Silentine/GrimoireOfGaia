@@ -62,7 +62,7 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
 		if (!player.isPotionActive(Potion.nightVision)) {
-			player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 60, 0, true, false));		
+			player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 60, 0, true, false));		
 			}
 	}
 
@@ -82,7 +82,7 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 20, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 20, 0));
 	}
 
 	@Override

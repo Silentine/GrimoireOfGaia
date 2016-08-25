@@ -4,6 +4,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -15,10 +16,14 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -93,15 +98,15 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "step.wood";
+		return SoundEvents.BLOCK_WOOD_STEP;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "mob.zombie.woodbreak";
+		return SoundEvents.ENTITY_ZOMBIE_BREAK_DOOR_WOOD;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn){	
-		this.playSound("step.wood", 0.15F, 1.0F);
+		this.playSound(SoundEvents.BLOCK_WOOD_STEP, 0.15F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

@@ -27,6 +27,9 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
@@ -77,7 +80,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 
 	protected void entityInit() {
 		super.entityInit();
-		this.dataWatcher.addObject(13, new Byte((byte)0));
+		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 
 	public boolean attackEntityAsMob(Entity entity) {
@@ -170,21 +173,22 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		this.worldObj.spawnEntityInWorld(entityarrow);
 	}
+	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
 	
 	public int getTextureType() {
-		return this.dataWatcher.getWatchableObjectByte(13);
+		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setTextureType(int par1) {
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 
 	public int getMobType() {
-		return this.dataWatcher.getWatchableObjectByte(13);
+		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setMobType(int par1) {
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {

@@ -37,7 +37,7 @@ public class ItemFoodPieMandrake extends ItemFood {
 		spawnEntity(par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, entity, par2world, par3EntityPlayer);
         
 		par3EntityPlayer.heal(4.0F);
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 3600, 0));
+		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 3600, 0));
 		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 3600, 0));
 	}
 	

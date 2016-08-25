@@ -102,7 +102,7 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 			if (this.regenerateHealth <= 100) {
 				++this.regenerateHealth;
 			} else {
-				this.playSound("random.drink", 0.15F, 1.0F);
+				this.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.15F, 1.0F);
 				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 360, 3));
 				this.regenerateHealth = 0;
 			}
