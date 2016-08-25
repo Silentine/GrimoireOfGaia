@@ -177,15 +177,15 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	protected void entityInit() {
 		super.entityInit();
 		this.dataWatcher.addObject(19, new Byte((byte)0));
-		this.dataWatcher.addObject(13, new Byte((byte)0));
+		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 	
 	public int getTextureType() {
-		return this.dataWatcher.getWatchableObjectByte(13);
+		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setTextureType(int par1) {
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {

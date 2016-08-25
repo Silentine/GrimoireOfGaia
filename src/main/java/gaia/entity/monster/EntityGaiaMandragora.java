@@ -5,6 +5,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
@@ -23,6 +25,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -68,7 +71,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 
 				if (byte0 > 0) {
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 40, 3));
-					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.nightVision.id, byte0 * 60, 0));
+					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, byte0 * 60, 0));
 					((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
 				}
 			}
@@ -86,15 +89,15 @@ public class EntityGaiaMandragora extends EntityMobDay {
 			ItemStack itemstack = player.getCurrentEquippedItem();
 			if (itemstack != null) {
 
-				if (itemstack.getItem() == Items.wooden_shovel) {
+				if (itemstack.getItem() == Items.WOODEN_SHOVEL) {
 					par2 = 7;
 				}
 
-				if (itemstack.getItem() == Items.stone_shovel) {
+				if (itemstack.getItem() == Items.STONE_SHOVEL) {
 					par2 = 8;
 				}
 
-				if (itemstack.getItem() == Items.iron_shovel) {
+				if (itemstack.getItem() == Items.IRON_SHOVEL) {
 					par2 = 9;
 				}
 
@@ -102,7 +105,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 					par2 = 7;
 				}
 
-				if (itemstack.getItem() == Items.diamond_shovel) {
+				if (itemstack.getItem() == Items.DIAMOND_SHOVEL) {
 					par2 = 10;
 				}
 			}
@@ -197,7 +200,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}

@@ -9,7 +9,7 @@ public class EntityAIGaiaLeapAtTarget extends EntityAIBase {
 	EntityLiving leaper;
 	EntityLivingBase leapTarget;
 	float leapMotionY;
-
+	
 	public EntityAIGaiaLeapAtTarget(EntityLiving par1EntityLiving, float par2) {
 		this.leaper = par1EntityLiving;
 		this.leapMotionY = par2;

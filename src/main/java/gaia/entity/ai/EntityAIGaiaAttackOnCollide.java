@@ -23,7 +23,7 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 		this(par1EntityCreature, par3, par5);
 		this.classTarget = par2Class;
 	}
-
+	
 	public EntityAIGaiaAttackOnCollide(EntityCreature par1EntityCreature, double par2, boolean par4) {
 		this.attacker = par1EntityCreature;
 		this.worldObj = par1EntityCreature.worldObj;

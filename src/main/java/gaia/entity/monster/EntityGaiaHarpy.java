@@ -23,6 +23,9 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -138,12 +141,6 @@ public class EntityGaiaHarpy extends EntityMobDay {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
-	
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(13, new Byte((byte)0));
-	}
-
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
 		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
 		if (this.worldObj.rand.nextInt(6) == 0) {
@@ -153,12 +150,19 @@ public class EntityGaiaHarpy extends EntityMobDay {
 		return par1IEntityLivingData;
 	}
 	
-	public int getTextureType() {
-		return this.dataWatcher.getWatchableObjectByte(13);
+	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
+	
+	protected void entityInit() {
+		super.entityInit();		
+		this.dataManager.register(SKIN, Integer.valueOf(0));
+	}
+	
+	public int getTextureType() {		
+		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setTextureType(int par1) {
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
