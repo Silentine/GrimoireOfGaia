@@ -38,10 +38,18 @@ public class TileEntityBustSphinx extends TileEntity {
 		super.readFromNBT(nbt);
 		this.direction = nbt.getInteger("direction");
 	}
-
+	/** TODO TE NBT fix
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		new NBTTagList();
 		nbt.setInteger("direction", this.direction);
+	}
+	 * @return 
+	**/
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		new NBTTagList();
+		nbt.setInteger("direction", this.direction);
+		return nbt;
 	}
 }

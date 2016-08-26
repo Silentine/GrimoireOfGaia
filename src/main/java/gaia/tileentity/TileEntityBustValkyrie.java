@@ -40,9 +40,10 @@ public class TileEntityBustValkyrie extends TileEntity {
 		this.direction = nbt.getInteger("direction");
 	}
 
-	public void writeToNBT(NBTTagCompound nbt) {
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		new NBTTagList();
 		nbt.setInteger("direction", this.direction);
+		return nbt;
 	}
 }
