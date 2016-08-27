@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -19,6 +20,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -28,11 +30,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAttackMob {
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);	
 	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, 1.0D, 1.4D);
 	
 	private int fullHealth;
@@ -63,11 +66,19 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	public int getTotalArmorValue() {
 		return EntityAttributes.rateArmor1;
 	}
-
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
+	/**TODO Arrow attacks may need to be completely redone **/
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
+		//EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
+		EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this);
+        double d0 = target.posX - this.posX;
+        double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityarrow.posY;
+        double d2 = target.posZ - this.posZ;
+        double d3 = (double)MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+        entityarrow.setThrowableHeading(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
+		//int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
+		//int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
+		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
+		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);		
 		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
@@ -77,11 +88,12 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 			entityarrow.setKnockbackStrength(j);
 		}
 
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
+		//if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
+		if (EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0) {		
 			entityarrow.setFire(100);
 		}
 
-		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+		this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		this.worldObj.spawnEntityInWorld(entityarrow);
 	}
 	
@@ -106,7 +118,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 			if (this.regenerateHealth <= 100) {
 				++this.regenerateHealth;
 			} else {
-				this.playSound("random.drink", 0.15F, 1.0F);
+				this.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.15F, 1.0F);
 				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 360, 3));
 				this.regenerateHealth = 0;
 			}
@@ -174,10 +186,17 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }
-	
+	/** TODO check setcurrentItemorArmor Lines
 	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
 		super.setCurrentItemOrArmor(par1, par2ItemStack);
 		if (!this.worldObj.isRemote && par1 == 0) {
+			this.setCombatTask();
+		}
+	}
+	**/
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 			this.setCombatTask();
 		}
 	}

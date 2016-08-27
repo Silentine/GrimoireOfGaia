@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -36,27 +37,24 @@ public class BlockBustSphinx extends BlockContainer {
     {
         return BOUNDS;
     }
+	
+	public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
+    }
 
-	public int getRenderType() {
-		return -1;
-	}
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
 
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.INVISIBLE;
+    }
 	public TileEntity createNewTileEntity(World par1World, int i) {
 		return new TileEntityBustSphinx();
 	}
-
-	public boolean isOpaqueCube() {
-		return false;
-	}
-
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
-	
-	/** Had an odd occlusion shadow issue **/
-	public boolean isFullCube() {
-        return false;
-    }
 
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {	
 		if (entity != null) {

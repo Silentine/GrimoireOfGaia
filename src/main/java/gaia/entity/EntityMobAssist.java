@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -58,17 +59,18 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
 
     protected SoundEvent getSwimSound()
     {
-        return "game.hostile.swim";
+        return SoundEvents.ENTITY_HOSTILE_SWIM;        
     }
 
     protected SoundEvent getSplashSound()
     {
-        return "game.hostile.swim.splash";
+        return SoundEvents.ENTITY_HOSTILE_SPLASH;       
     }
 
     /**
      * Called when the entity is attacked.
      */
+    /** TODO updated attack line
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
         if (this.isEntityInvulnerable(source))
@@ -85,13 +87,18 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
             return false;
         }
     }
+    **/
+    public boolean attackEntityFrom(DamageSource source, float amount)
+    {
+        return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+    }
 
     /**
      * Returns the sound this mob makes when it is hurt.
      */
     protected SoundEvent getHurtSound()
     {
-        return "game.hostile.hurt";
+        return SoundEvents.ENTITY_HOSTILE_HURT;
     }
 
     /**
@@ -99,7 +106,7 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
      */
     protected SoundEvent getDeathSound()
     {
-        return "game.hostile.die";
+        return SoundEvents.ENTITY_HOSTILE_DEATH;
     }
 
     protected String getFallSoundString(int damageValue)
@@ -114,7 +121,8 @@ public abstract class EntityMobAssist extends EntityCreature implements IMob
 
         if (entityIn instanceof EntityLivingBase)
         {
-            f += EnchantmentHelper.func_152377_a(this.getHeldItem(), ((EntityLivingBase)entityIn).getCreatureAttribute());
+            //f += EnchantmentHelper.func_152377_a(this.getHeldItem(), ((EntityLivingBase)entityIn).getCreatureAttribute());
+            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
             i += EnchantmentHelper.getKnockbackModifier(this);
         }
 

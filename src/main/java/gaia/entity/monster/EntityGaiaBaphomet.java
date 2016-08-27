@@ -11,6 +11,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -35,7 +37,7 @@ import net.minecraft.world.World;
 import com.jcraft.jorbis.Block;
 
 public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMob {
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 	
 	private int switchHealth;
@@ -46,7 +48,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-//NULL	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+//TODO *temp	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -67,8 +69,9 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		return EntityAttributes.rateArmor2;
 	}
 	
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {		
+		//TODO Check up - this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		this.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		double d0 = par1EntityLivingBase.posX - this.posX;
 		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = par1EntityLivingBase.posZ - this.posZ;
@@ -138,7 +141,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);		
 	}
 
-	protected void dropFewItems(boolean par1, int par2) {		
+	protected void dropFewItems(boolean par1, int par2) {	
+		/** TODO *TEMP
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
@@ -161,9 +165,11 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(Items.GLOWSTONE_DUST, 1);
 		}
+		**/
 	}
 
 	protected void addRandomDrop() {
+		/** TODO *TEMP
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -174,6 +180,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		case 2:
 			this.dropItem(GaiaItem.BookWither, 1);
 		}
+		**/
 	}
 
 	@Override
@@ -181,14 +188,14 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
+		//TODO *temp this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 			this.setCombatTask();
 		}
 	}
