@@ -44,7 +44,7 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 		Items.STICK,
 		Items.STICK
 		};
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 
 	private int switchHealth;

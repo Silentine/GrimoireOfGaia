@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.MathHelper;
@@ -20,7 +21,7 @@ public abstract class EntityMobAssistBase extends EntityMobAssist {
 	public boolean attackEntityAsMob(Entity par1Entity) {
 		if (super.attackEntityAsMob(par1Entity)) {
 			if (ConfigGaia.BaseDamage) {
-				((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.harm.id, 2, 0));
+				((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 2, 0));
 			}
 			return true;
 		} else {

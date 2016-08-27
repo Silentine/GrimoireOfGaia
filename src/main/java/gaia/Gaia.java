@@ -71,19 +71,19 @@ public class Gaia {
 		if(isThaumcraftEnabled)logger.info("Loading With Thaumcraft");
 		else{logger.info("Loading Without Thaumcraft");}
 
-		GaiaConfigGeneration.configOptions(event);
-		/** TODO *temp
+		GaiaConfigGeneration.configOptions(event);	
 		GaiaBlock.init();
 		GaiaBlock.register();
+		/** TODO *TEMP
 		GaiaItem.init();
 		GaiaItem.register();
 		GaiaItem.oreRegistration();
 		**/
+		
 		Sounds.Sounds_Init();
-		/** TODO *temp
-		proxy.registerItemsRender();
+		// TODO *TEMP proxy.registerItemsRender();
 		proxy.registerBlocksRender();
-		**/
+		
 	}
 
 	@EventHandler
