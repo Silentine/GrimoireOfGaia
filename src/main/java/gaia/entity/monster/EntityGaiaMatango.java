@@ -40,7 +40,7 @@ public class EntityGaiaMatango extends EntityMobDay {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(2, new EntityAILookIdle(this));

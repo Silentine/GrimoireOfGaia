@@ -3,7 +3,6 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
-import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,7 +10,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -19,13 +18,9 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -40,9 +35,9 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire	 = true;
-		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -63,7 +58,8 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		//this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		this.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		double d0 = par1EntityLivingBase.posX - this.posX;
 		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = par1EntityLivingBase.posZ - this.posZ;
@@ -114,7 +110,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		for (int var4 = 0; var4 < var3; ++var4) {
             this.entityDropItem(new ItemStack(Items.DYE, 1, 4), 0.0F);
 		}
-		
+		/** TODO temp*
 		//Shards
 		int var11 = this.rand.nextInt(3) + 1;
 
@@ -125,9 +121,11 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
+		**/
 	}
 
 	protected void addRandomDrop() {
+		/** TODO temp*
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -138,6 +136,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		case 2:
 			this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
 		}
+		**/
 	}
 	
 	@Override
@@ -145,7 +144,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
+		//TODO temp* this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

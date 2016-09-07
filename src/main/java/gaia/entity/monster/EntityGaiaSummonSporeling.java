@@ -20,7 +20,7 @@ public class EntityGaiaSummonSporeling extends EntityMobBase {
 		this.setSize(0.25F, 0.50F);
 		this.experienceValue = 0;
 		this.stepHeight = 1.0F;
-		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 //		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));

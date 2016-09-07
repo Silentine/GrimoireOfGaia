@@ -2,30 +2,26 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
+import gaia.entity.ai.ArrowGen;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
@@ -64,25 +60,8 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return EntityAttributes.rateArmor1;
 	}
 
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
-		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
-		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
-		if (i > 0) {
-			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-		}
-
-		if (j > 0) {
-			entityarrow.setKnockbackStrength(j);
-		}
-
-		if (EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0) {
-			entityarrow.setFire(100);
-		}
-
-		this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(entityarrow);
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
+		ArrowGen.RangedAttack(target, this, par2);
 	}
 	
 	@Override
@@ -178,7 +157,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
+		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
 	}
 	
 	@Override
@@ -191,12 +170,13 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return livingdata;		
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
-			this.setCombatTask();
+	//TODO check itemstackslot
+		public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+			super.setItemStackToSlot(par1, par2ItemStack);
+			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
+				this.setCombatTask();
+			}
 		}
-	}
 	
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);

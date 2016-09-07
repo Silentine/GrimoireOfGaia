@@ -12,6 +12,7 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -23,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -78,7 +80,8 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 	}
 	
 	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		//this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		this.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		double d0 = par1EntityLivingBase.posX - this.posX;
 		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = par1EntityLivingBase.posZ - this.posZ;
@@ -223,12 +226,13 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 		return livingdata;		
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
-			this.setCombatTask();
+	//TODO check itemstackslot
+		public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+			super.setItemStackToSlot(par1, par2ItemStack);
+			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
+				this.setCombatTask();
+			}
 		}
-	}
 	
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);

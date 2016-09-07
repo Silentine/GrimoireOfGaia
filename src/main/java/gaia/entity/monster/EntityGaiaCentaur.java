@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
+import gaia.entity.ai.ArrowGen;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import net.minecraft.block.Block;
@@ -68,33 +69,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	}
 	/**TODO Arrow attacks may need to be completely redone **/
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		//EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this);
-        double d0 = target.posX - this.posX;
-        double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entityarrow.posY;
-        double d2 = target.posZ - this.posZ;
-        double d3 = (double)MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-        entityarrow.setThrowableHeading(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
-		//int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getHeldItem());
-		//int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getHeldItem());
-		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
-		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);		
-		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
-		if (i > 0) {
-			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-		}
-
-		if (j > 0) {
-			entityarrow.setKnockbackStrength(j);
-		}
-
-		//if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, this.getHeldItem()) > 0) {
-		if (EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0) {		
-			entityarrow.setFire(100);
-		}
-
-		this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(entityarrow);
+		ArrowGen.RangedAttack(target, this, par2);
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
+import gaia.entity.ai.ArrowGen;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -14,6 +15,7 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -24,7 +26,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -153,25 +157,8 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		}
 	}
 
-	public void attackEntityWithRangedAttack(EntityLivingBase entityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, entityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
-		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
-		entityarrow.setDamage((double)(par2 * 4.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
-		if (i > 0) {
-			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-		}
-
-		if (j > 0) {
-			entityarrow.setKnockbackStrength(j);
-		}
-
-		if (EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0) {
-			entityarrow.setFire(100);
-		}
-
-		this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(entityarrow);
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
+		ArrowGen.RangedAttack(target, this, par2);
 	}
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
 	

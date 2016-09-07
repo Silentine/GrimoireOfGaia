@@ -168,9 +168,9 @@ public class EntityGaiaSatyr extends EntityMobAssistDay {
 		return livingdata;		
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 			this.setCombatTask();
 		}
 	}
