@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -98,15 +99,15 @@ public class EntityGaiaMimic extends EntityMobBase {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		return "random.chestopen";
+		return SoundEvents.BLOCK_CHEST_OPEN;
 	}
 
 	protected SoundEvent getHurtSound(){
-		return "step.wood";
+		return SoundEvents.BLOCK_WOOD_STEP;
 	}
 
 	protected SoundEvent getDeathSound(){
-		return "random.chestopen";
+		return SoundEvents.BLOCK_CHEST_OPEN;
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {

@@ -42,7 +42,7 @@ public class ItemWeaponBookEnder extends ItemSword {
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4) {
 		par1ItemStack.damageItem(5, par3EntityPlayer);
 		par3EntityPlayer.addExhaustion(5.0F);
-		par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		par2World.playSoundAtEntity(par3EntityPlayer, SoundEvents.ENTITY_ARROW_SHOOT, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if(!par2World.isRemote) {
 			par2World.spawnEntityInWorld(new EntityEnderPearl(par2World, par3EntityPlayer));
 		}

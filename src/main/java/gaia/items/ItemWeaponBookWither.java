@@ -54,7 +54,7 @@ public class ItemWeaponBookWither extends ItemSword {
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityPlayer entityplayer, int par4) {
 		par1ItemStack.damageItem(27, entityplayer);
 		entityplayer.addExhaustion(5.0F);
-		world.playSoundAtEntity(entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		world.playSoundAtEntity(entityplayer, SoundEvents.ENTITY_ARROW_SHOOT, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if(!world.isRemote) {
 			Vec3 look = entityplayer.getLookVec();
 			EntityWitherSkull fireball2 = new EntityWitherSkull(world, entityplayer, 1.0D, 1.0D, 1.0D);

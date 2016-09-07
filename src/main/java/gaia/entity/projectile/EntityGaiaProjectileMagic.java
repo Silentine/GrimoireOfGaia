@@ -1,12 +1,16 @@
 package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
+import gaia.entity.monster.EntityGaiaWerecat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.potion.Potion;
+import net.minecraft.init.MobEffects;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -31,7 +35,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
     }
     
     /** EntityWitherSkull **/
-    protected void onImpact(MovingObjectPosition movingObject) {
+    protected void onImpact(RayTraceResult movingObject) {
         if (!this.worldObj.isRemote) {
             if (movingObject.entityHit != null) {
             	movingObject.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
@@ -63,16 +67,26 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         return false;
     }
-
+    /*
     protected void entityInit() {
         this.dataWatcher.addObject(10, Byte.valueOf((byte)0));
     }
+    */
+    private static final DataParameter<Integer> Vuln = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+    protected void entityInit() {
+		super.entityInit();		
+		//this.dataWatcher.addObject(13, new Byte((byte)0));
+		this.dataManager.register(Vuln, Integer.valueOf(0));
+	}
 
     public boolean isInvulnerable() {
-        return this.dataWatcher.getWatchableObjectByte(10) == 1;
+        //return this.dataWatcher.getWatchableObjectByte(10) == 1;
+        return ((Integer)this.dataManager.get(Vuln)).intValue() ==1;
     }
 
     public void setInvulnerable(boolean par1) {
-        this.dataWatcher.updateObject(10, Byte.valueOf((byte)(par1 ? 1 : 0)));
+    	//TODO No idea what these are for, gotta double check later.
+        //this.dataWatcher.updateObject(10, Byte.valueOf((byte)(par1 ? 1 : 0)));
+        this.dataManager.set(Vuln, (par1 ? 1 : 0));
     }
 }

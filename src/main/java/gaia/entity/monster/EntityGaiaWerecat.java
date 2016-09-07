@@ -45,7 +45,7 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		//TODO *temp ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO *temp //TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIGaiaLeapAtTarget(this, 0.4F));
 		//TODO *tempthis.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));

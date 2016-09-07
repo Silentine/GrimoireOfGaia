@@ -8,8 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 /** Experimental, probably won't work; adapted from Psi code**/
 public class Sounds {
 	
-	//static String MODID = GaiaReference.MOD_ID;
-	static String MODID = "grimoireofgaia";
+	static String MODID = GaiaReference.MOD_ID;
 	
 	public static SoundEvent passive_say;
 	public static SoundEvent passive_hurt;

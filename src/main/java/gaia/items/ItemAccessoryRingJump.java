@@ -8,6 +8,7 @@ import gaia.Gaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -62,7 +63,7 @@ public class ItemAccessoryRingJump extends Item implements IBauble{
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
 		if (!player.isPotionActive(Potion.jump)) {
-			player.addPotionEffect(new PotionEffect(Potion.jump.id, 60, 0, true, false));		
+			player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 0, true, false));		
 			}
 	}
 	
@@ -82,7 +83,7 @@ public class ItemAccessoryRingJump extends Item implements IBauble{
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		player.addPotionEffect(new PotionEffect(Potion.jump.id, 20, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 20, 0));
 	}
 
 	@Override
