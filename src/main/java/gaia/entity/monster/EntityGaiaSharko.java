@@ -2,7 +2,6 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
-import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -19,7 +18,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -93,6 +91,7 @@ public class EntityGaiaSharko extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
+		/** TODO *temp
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
@@ -109,9 +108,11 @@ public class EntityGaiaSharko extends EntityMobBase {
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
+		**/
 	}
 
 	protected void addRandomDrop() {
+		/** TODO *TEMP
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -122,6 +123,7 @@ public class EntityGaiaSharko extends EntityMobBase {
 		case 2:
 			this.dropItem(GaiaItem.BookBuff, 1);
 		}
+		**/
 	}
 
 	public boolean canBreatheUnderwater() {
@@ -138,7 +140,7 @@ public class EntityGaiaSharko extends EntityMobBase {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));		
+		//TODO *TEMP this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

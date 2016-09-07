@@ -17,7 +17,7 @@ public class RenderGaiaShaman extends RenderLiving {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaShaman(float shadowSize) {
         super(rend, new ModelGaiaShaman(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaShaman.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaShaman.rightarm));
 	}
 
 	protected void func_82422_c() {

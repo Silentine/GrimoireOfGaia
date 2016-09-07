@@ -17,7 +17,7 @@ public class RenderGaiaHunter extends RenderLiving {
 	
 	public RenderGaiaHunter( float shadowSize) {
         super(rend, new ModelGaiaHunter(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaHunter.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaHunter.rightarm));
     }
 
 	protected void func_82422_c() {

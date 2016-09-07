@@ -17,7 +17,7 @@ public class RenderGaiaFleshLich extends RenderLiving<EntityGaiaFleshLich> {
 	
 	public RenderGaiaFleshLich( float shadowSize) {
         super(rend, new ModelGaiaFleshLich(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaFleshLich.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaFleshLich.rightarm));
     }
 
 	protected void func_82422_c() {

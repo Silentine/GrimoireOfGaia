@@ -35,7 +35,7 @@ public class EntityGaiaNaga extends EntityMobDay {
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		//TODO Temp* this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -137,10 +137,8 @@ public class EntityGaiaNaga extends EntityMobDay {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		/**TODO LOOK OVER EQUIPMENT SLOT FUNCTIONS
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));	
-		**/
 		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+		//this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.SHIELD));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

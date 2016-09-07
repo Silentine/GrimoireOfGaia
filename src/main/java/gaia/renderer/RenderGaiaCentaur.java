@@ -1,5 +1,7 @@
 package gaia.renderer;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.model.ModelGaiaCentaur;
@@ -8,8 +10,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
 public class RenderGaiaCentaur extends RenderLiving<EntityGaiaCentaur> {
 
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Centaur.png");
@@ -17,7 +17,7 @@ public class RenderGaiaCentaur extends RenderLiving<EntityGaiaCentaur> {
 	
 	public RenderGaiaCentaur(float shadowSize) {
         super(rend, new ModelGaiaCentaur(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaCentaur.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this,ModelGaiaCentaur.rightarm));
     }
 	
 	protected void func_82422_c() {

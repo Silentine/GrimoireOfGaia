@@ -80,7 +80,8 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaCockatrice.class, "Cockatrice", 8, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaCreep.class, "Creep", 9, Gaia.instance, trackingRange, updateFrequency, true);
-		EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true);
+		//TODO *Temp EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true);
+		EntityRegistry.registerModEntity(EntityGaiaCyclops.class, "Cyclops", 10, Gaia.instance, trackingRange, updateFrequency, true,4936602, 3487029);
 		EntityRegistry.registerModEntity(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaDhampir.class, "Dhampir", 12, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaDryad.class, "Dryad", 13, Gaia.instance, trackingRange, updateFrequency, true);
@@ -99,14 +100,16 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaMimic.class, "Mimic", 25, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaMinotaur.class, "Minotaur", 26, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaMinotaurus.class, "Minotaurus", 27, Gaia.instance, trackingRange, updateFrequency, true);
-		EntityRegistry.registerModEntity(EntityGaiaNaga.class, "Naga", 28, Gaia.instance, trackingRange, updateFrequency, true);
+		//TODO *temp EntityRegistry.registerModEntity(EntityGaiaNaga.class, "Naga", 28, Gaia.instance, trackingRange, updateFrequency, true);
+		EntityRegistry.registerModEntity(EntityGaiaNaga.class, "Naga", 28, Gaia.instance, trackingRange, updateFrequency, true, 0x29bc55, 0xccb63f);
 		EntityRegistry.registerModEntity(EntityGaiaNineTails.class, "NineTails", 29, Gaia.instance, trackingRange, updateFrequency, true);
 		//TODO *temp EntityRegistry.registerModEntity(EntityGaiaSahuagin.class, "Sahuagin", 30, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaSahuagin.class, "Sahuagin", 30, Gaia.instance, trackingRange, updateFrequency, true,0x5c70b1, 0x84a498);
 		EntityRegistry.registerModEntity(EntityGaiaSatyr.class, "Satyr", 31, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaSelkie.class, "Selkie", 32, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaShaman.class, "Shaman", 33, Gaia.instance, trackingRange, updateFrequency, true);
-		EntityRegistry.registerModEntity(EntityGaiaSharko.class, "Sharko", 34, Gaia.instance, trackingRange, updateFrequency, true);
+		//TODO *TEMP EntityRegistry.registerModEntity(EntityGaiaSharko.class, "Sharko", 34, Gaia.instance, trackingRange, updateFrequency, true);
+		EntityRegistry.registerModEntity(EntityGaiaSharko.class, "Sharko", 34, Gaia.instance, trackingRange, updateFrequency, true, 0x84a498, 0x5c70b1);
 		EntityRegistry.registerModEntity(EntityGaiaSiren.class, "Siren", 35, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaSludgeGirl.class, "Sludge Girl", 36, Gaia.instance, trackingRange, updateFrequency, true);
 		EntityRegistry.registerModEntity(EntityGaiaSphinx.class, "Sphinx", 37, Gaia.instance, trackingRange, updateFrequency, true);

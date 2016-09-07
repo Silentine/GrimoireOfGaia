@@ -17,7 +17,7 @@ public class RenderGaiaBaphomet extends RenderLiving<EntityGaiaBaphomet> {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaBaphomet(float shadowSize) {
         super(rend, new ModelGaiaBaphomet(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaBaphomet.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaBaphomet.rightarm));
     }
 
 	protected void func_82422_c() {

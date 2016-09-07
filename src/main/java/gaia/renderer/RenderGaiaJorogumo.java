@@ -22,7 +22,7 @@ public class RenderGaiaJorogumo extends RenderLiving {
 	
 	public RenderGaiaJorogumo( float shadowSize) {
         super(rend, new ModelGaiaJorogumo(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaJorogumo.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaJorogumo.rightarm));
         this.addLayer(new Glowing_layer(this, jorogumoEyesTexture));
 	}
 

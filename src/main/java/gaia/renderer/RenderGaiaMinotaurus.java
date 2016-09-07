@@ -19,7 +19,7 @@ public class RenderGaiaMinotaurus extends RenderLiving {
 	
 	public RenderGaiaMinotaurus( float shadowSize) {
         super(rend, new ModelGaiaMinotaurus(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaMinotaurus.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaMinotaurus.rightarm));
 	}
 
 	protected void func_82422_c() {

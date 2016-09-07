@@ -17,7 +17,7 @@ public class RenderGaiaValkyrie extends RenderLiving {
 	
 	public RenderGaiaValkyrie( float shadowSize) {
         super(rend, new ModelGaiaValkyrie(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaValkyrie.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaValkyrie.rightarm));
 	}
 
 	protected void func_82422_c() {

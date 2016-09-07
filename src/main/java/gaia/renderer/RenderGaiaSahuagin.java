@@ -17,7 +17,7 @@ public class RenderGaiaSahuagin extends RenderLiving {
 	
 	public RenderGaiaSahuagin( float shadowSize) {
         super(rend, new ModelGaiaSahuagin(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaSahuagin.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaSahuagin.rightarm));
 	}
 
 	protected void func_82422_c() {

@@ -17,7 +17,7 @@ public class RenderGaiaNineTails extends RenderLiving {
 	
 	public RenderGaiaNineTails( float shadowSize) {
         super(rend, new ModelGaiaNineTails(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaNineTails.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaNineTails.rightarm));
 	}
 
 	protected void func_82422_c() {

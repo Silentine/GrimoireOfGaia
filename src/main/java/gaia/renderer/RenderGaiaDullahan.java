@@ -17,7 +17,7 @@ public class RenderGaiaDullahan extends RenderLiving<EntityGaiaDullahan> {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaDullahan( float shadowSize) {
         super(rend, new ModelGaiaDullahan(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaDullahan.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaDullahan.rightarm));
     }
 
 	protected void func_82422_c() {
