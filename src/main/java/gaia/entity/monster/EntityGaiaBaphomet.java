@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
+import gaia.entity.ai.ArrowGen;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -69,17 +70,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		return EntityAttributes.rateArmor2;
 	}
 	
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {		
-		//TODO Check up - this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
-		this.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		double d0 = par1EntityLivingBase.posX - this.posX;
-		double d1 = par1EntityLivingBase.getEntityBoundingBox().minY + (double)(par1EntityLivingBase.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
-		double d2 = par1EntityLivingBase.posZ - this.posZ;
-		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
-		
-		EntitySmallFireball var11 = new EntitySmallFireball(this.worldObj, this, d0 + this.rand.nextGaussian() * (double)f1, d1, d2 + this.rand.nextGaussian() * (double)f1);
-		var11.posY = this.posY + (double)(this.height / 2.0F) + 0.5D;
-		this.worldObj.spawnEntityInWorld(var11);
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {		
+		ArrowGen.fireball(target, this, par2);
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {

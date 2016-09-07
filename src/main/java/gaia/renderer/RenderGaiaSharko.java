@@ -19,7 +19,8 @@ public class RenderGaiaSharko extends RenderLiving {
 	
 	public RenderGaiaSharko(float shadow) {
         super(rend, new ModelGaiaSharko(), shadow);
-        this.addLayer(new held_rightarm_special(this, ModelGaiaSharko.rightarm));
+        //this.addLayer(new held_rightarm_special(this, ModelGaiaSharko.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaSharko.rightarm));
 	}
 
 	protected void func_82422_c() {

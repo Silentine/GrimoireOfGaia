@@ -5,6 +5,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
+import gaia.init.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -101,10 +102,11 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 	}
 
 	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
+		//TODO Re-look golem pickaxe bonus damage
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {
@@ -167,7 +169,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 
 
 	protected SoundEvent getAmbientSound(){
-		return Sounds.none;
+		return Sounds.none;	
 	}
 
 	protected SoundEvent getHurtSound(){

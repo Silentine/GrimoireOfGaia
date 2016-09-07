@@ -18,7 +18,7 @@ public class RenderGaiaDhampir extends RenderLiving<EntityGaiaDhampir> {
 	
 	public RenderGaiaDhampir(float shadowSize) {
         super(rend, new ModelGaiaDhampir(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaDhampir.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaDhampir.rightarm));
         this.addLayer(new Glowing_layer(this, dhampirEyesTexture));
     }
 

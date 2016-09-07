@@ -19,7 +19,7 @@ public class RenderGaiaSelkie extends RenderLiving {
 	
 	public RenderGaiaSelkie( float shadowSize) {
         super(rend, new ModelGaiaSelkie(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaSelkie.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaSelkie.rightarm));
 	}
 
 	protected void func_82422_c() {

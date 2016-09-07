@@ -17,7 +17,7 @@ public class RenderGaiaSpriggan extends RenderLiving {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaSpriggan(float shadowSize) {
         super(rend, new ModelGaiaSpriggan(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaSpriggan.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaSpriggan.rightarm));
 	}
 	
 	protected void func_82422_c() {

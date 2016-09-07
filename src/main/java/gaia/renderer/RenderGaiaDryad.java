@@ -19,7 +19,7 @@ public class RenderGaiaDryad extends RenderLiving<EntityGaiaDryad> {
 	
 	public RenderGaiaDryad( float shadowSize) {
         super(rend, new ModelGaiaDryad(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaDryad.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaDryad.rightarm));
     }
 
 	protected void func_82422_c() {

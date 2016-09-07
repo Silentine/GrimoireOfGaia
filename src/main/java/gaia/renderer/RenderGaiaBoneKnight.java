@@ -17,7 +17,7 @@ public class RenderGaiaBoneKnight extends RenderLiving<EntityGaiaBoneKnight> {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaBoneKnight(float shadowSize) {
         super(rend, new ModelGaiaBoneKnight(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaBoneKnight.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaBoneKnight.rightarm));
     }
 
 	protected void func_82422_c() {

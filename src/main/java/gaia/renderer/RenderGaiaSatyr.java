@@ -17,7 +17,7 @@ public class RenderGaiaSatyr extends RenderLiving {
 	
 	public RenderGaiaSatyr( float shadowSize) {
         super(rend, new ModelGaiaSatyr(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaSatyr.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaSatyr.rightarm));
 	}
 
 	protected void func_82422_c() {

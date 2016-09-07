@@ -96,10 +96,11 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	}
 
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float damage) {
+		//TODO Re-look golem pickaxe bonus damage
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {

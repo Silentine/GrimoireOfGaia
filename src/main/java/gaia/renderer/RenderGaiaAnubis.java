@@ -22,7 +22,7 @@ public class RenderGaiaAnubis extends RenderLiving {
         super(rend, new ModelGaiaAnubis(), shadow);
         //Held Item rendering simplified to a single class
         //May need more parameters in the future to accommodate or tweak per mob
-        this.addLayer(new held_rightarm(this, ModelGaiaAnubis.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaAnubis.rightarm));
     }
 	
 	//No idea if this serves any purpose now

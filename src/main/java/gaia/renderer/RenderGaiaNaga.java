@@ -18,7 +18,8 @@ public class RenderGaiaNaga extends RenderLiving {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaNaga(float shadowSize) {
         super(rend, new ModelGaiaNaga(), shadowSize);
-        this.addLayer(new held_rightarm_special(this, ModelGaiaNaga.rightarm));
+        //this.addLayer(new held_rightarm_special(this, ModelGaiaNaga.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaNaga.rightarm));
 	}
 
 	protected void func_82422_c() {

@@ -17,7 +17,7 @@ public class RenderGaiaMermaid extends RenderLiving {
 	
 	public RenderGaiaMermaid( float shadowSize) {
         super(rend, new ModelGaiaMermaid(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaMermaid.rightarm));
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaMermaid.rightarm));
 	}
 
 	protected void func_82422_c() {

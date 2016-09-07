@@ -17,7 +17,7 @@ public class RenderGaiaWitch extends RenderLiving {
 	
 	public RenderGaiaWitch( float shadowSize) {
         super(rend, new ModelGaiaWitch(), shadowSize);
-        this.addLayer(new held_rightarm(this, ModelGaiaWitch.rightarm));    
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaWitch.rightarm));    
 	}
 
 	protected void func_82422_c() {
