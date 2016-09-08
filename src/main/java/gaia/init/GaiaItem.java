@@ -129,9 +129,10 @@ public class GaiaItem {
 	public static Item SpawnEgg;
 
 	public static void init() {
-		Shard = new ItemShard("Shard");
+		Shard = new ItemShard("Shard");		
 		ShardMisc = new ItemShardMisc("ShardMisc");
 		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");
+		/** TODO Temp*
 		FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "FoodRottenHeart").setAlwaysEdible();
 		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
 		FoodIce = (new ItemFoodIce(4, 0.0F, true, "FoodIce")).setAlwaysEdible();
@@ -146,7 +147,9 @@ public class GaiaItem {
 		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
 		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
 		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
+		**/
 		MiscBook = new ItemMiscBook("MiscBook");
+		/** TODO Temp*
 		MiscRing = new ItemMiscRing("MiscRing");
 		MiscFurnaceFuel = new ItemMiscFurnaceFuel("MiscFurnaceFuel");
 		MiscCurrency = new ItemMiscCurrency("MiscCurrency");
@@ -183,14 +186,16 @@ public class GaiaItem {
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
 		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
+		**/
 		SpawnEgg = new ItemGaiaSpawnEgg();
 	}
 	
 	public static void register() {
 		Item[] items = new Item[] { 
-				Shard, 
+				Shard,
 				ShardMisc, 
 				FoodMeat, 
+				/** TODO Temp*
 				FoodRottenHeart, 
 				FoodRoot, 
 				FoodIce, 
@@ -205,7 +210,9 @@ public class GaiaItem {
 				MiscSoulFire, 
 				MiscSoulFiery, 
 				MiscGigaGear, 
+				**/
 				MiscBook, 
+				/** TODO Temp*
 				MiscRing, 
 				MiscFurnaceFuel,
 				MiscCurrency,
@@ -242,6 +249,7 @@ public class GaiaItem {
 				AccessoryRingJump, 
 				AccessoryRingNight,
 				AccessoryCursed,
+				**/
 				SpawnEgg
 				
 		};
@@ -284,9 +292,10 @@ public class GaiaItem {
 	}
 
 	public static void registerRenders() {
-		registerRender(Shard);
+		registerRender(Shard);		
 		registerRender(ShardMisc);
 		registerRender(FoodMeat);
+		/** TODO Temp*
 		registerRender(FoodRottenHeart);
 		registerRender(FoodRoot);
 		registerRender(FoodIce);
@@ -301,7 +310,9 @@ public class GaiaItem {
 		registerRender(MiscSoulFire);
 		registerRender(MiscSoulFiery);
 		registerRender(MiscGigaGear);
+		**/
 		registerRender(MiscBook);
+		/** TODO Temp*
 		registerRender(MiscRing);
 		registerRender(MiscFurnaceFuel);
 		registerRender(MiscCurrency);
@@ -338,7 +349,8 @@ public class GaiaItem {
 		registerRender(AccessoryRingJump);
 		registerRender(AccessoryRingNight);
 		registerRender(AccessoryCursed);
-//		registerRender(SpawnEgg);
+		**/
+ 		registerRender(SpawnEgg);
 	}
 	
 	public static void registerRender(Item item) {

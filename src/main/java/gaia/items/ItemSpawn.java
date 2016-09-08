@@ -27,11 +27,11 @@ public class ItemSpawn extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.EPIC;
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 

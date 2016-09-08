@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -27,13 +28,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,8 +54,8 @@ public final class ItemGaiaSpawnEgg extends Item {
 		classToID.put(entityClass, id);
 		idToEgg.put(id, new EntityGaiaEggInfo(entityID, primaryColor,
 				secondaryColor));
-		idToName.put(id,
-				(String) EntityList.classToStringMapping.get(entityClass));
+		//idToName.put(id, (String) EntityList.classToStringMapping.get(entityClass));
+		idToName.put(id, (String) EntityList.getEntityStringFromClass(entityClass));
 	}
 
 	public static Entity spawnCreature(World world, int entityID, double posX,
@@ -115,6 +117,11 @@ public final class ItemGaiaSpawnEgg extends Item {
 
 		return ownName;
 	}
+	
+	public String MobName(ItemStack istack){
+		return (String) idToName.get(Integer.valueOf(istack
+				.getItemDamage()));
+	}
 
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack istack, int renderPass) {
@@ -124,13 +131,35 @@ public final class ItemGaiaSpawnEgg extends Item {
 				: EntityGaiaEggInfo.secondaryColor)
 				: 16777215;
 	}
+	
+	 @SideOnly(Side.CLIENT)
+	    public static IItemColor getItemColor()
+	    {
+	        return new IItemColor()
+	        {
+	            @Override
+	            public int getColorFromItemstack(ItemStack stack, int pass) 
+	            {
+	            	EntityGaiaEggInfo EntityGaiaEggInfo = (EntityGaiaEggInfo) idToEgg
+	        				.get(Integer.valueOf(stack.getItemDamage()));
+	        		return EntityGaiaEggInfo != null ? (pass == 0 ? EntityGaiaEggInfo.primaryColor
+	        				: EntityGaiaEggInfo.secondaryColor)
+	        				: 16777215;
+	            }
+	        };
+	    }
+	 
+	 
+	 
 
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+	//public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
 		if (worldIn.isRemote) {
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
-		else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
-			return false;
+		else if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
+			return EnumActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -139,7 +168,9 @@ public final class ItemGaiaSpawnEgg extends Item {
 
 				if (tileentity instanceof TileEntityMobSpawner) {
 					MobSpawnerBaseLogic mobspawnerbaselogic = ((TileEntityMobSpawner)tileentity).getSpawnerBaseLogic();
-					mobspawnerbaselogic.setEntityName(ItemMonsterPlacer.getEntityName(stack));
+					//mobspawnerbaselogic.setEntityName(ItemMonsterPlacer.getEntityName(stack));
+					//mobspawnerbaselogic.setEntityName(getEntityIdFromItem(stack));
+					mobspawnerbaselogic.setEntityName(MobName(stack));
 					tileentity.markDirty();
 					worldIn.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
 
@@ -147,14 +178,14 @@ public final class ItemGaiaSpawnEgg extends Item {
 						--stack.stackSize;
 					}
 
-					return true;
+					return EnumActionResult.SUCCESS;
 				}
 			}
 
-			pos = pos.offset(side);
+			pos = pos.offset(facing);
 			double d0 = 0.0D;
 
-			if (side == EnumFacing.UP && iblockstate.getBlock() instanceof BlockFence) {
+			if (facing == EnumFacing.UP && iblockstate.getBlock() instanceof BlockFence) {
 				d0 = 0.5D;
 			}
 
@@ -170,21 +201,24 @@ public final class ItemGaiaSpawnEgg extends Item {
 				}
 			}
 
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 	}
 
-	public ItemStack onItemRightClick(ItemStack istack, World world,
-			EntityPlayer player) {
+	//public ItemStack onItemRightClick(ItemStack istack, World world,EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack istack, World world, EntityPlayer player, EnumHand hand)
+	{
 		if (world.isRemote) {
-			return istack;
+			//return istack;
+			return new ActionResult(EnumActionResult.PASS, istack);
 		} else {
-			MovingObjectPosition mop = this
-					.getMovingObjectPositionFromPlayer(world, player, true);
+			//RayTraceResult mop = this.getMovingObjectPositionFromPlayer(world, player, true);
+			RayTraceResult mop = this.rayTrace(world, player, true);
 			if (mop == null) {
-				return istack;
+				//return istack;
+				return new ActionResult(EnumActionResult.PASS, istack);
 			} else {
-				if (mop.typeOfHit == MovingObjectType.BLOCK) {
+				if (mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 					int posX = mop.getBlockPos().getX();
 					int posY = mop.getBlockPos().getX();
 					int posZ = mop.getBlockPos().getX();
@@ -192,11 +226,13 @@ public final class ItemGaiaSpawnEgg extends Item {
 					if (!world.canMineBlockBody(player, pos)
 							|| !player.canPlayerEdit(pos,
 									mop.sideHit, istack)) {
-						return istack;
+						//return istack;
+						return new ActionResult(EnumActionResult.PASS, istack);
 					}
 
-					Block b = BlockStateHelper.getBlockfromState(world, pos);
-
+					//Block b = BlockStateHelper.getBlockfromState(world, pos);
+					 IBlockState b = world.getBlockState(pos);
+					 
 					if (b.getMaterial() == Material.WATER) {
 						Entity entity = spawnCreature(world,
 								istack.getItemDamage(), (double) posX,
@@ -215,7 +251,8 @@ public final class ItemGaiaSpawnEgg extends Item {
 					}
 				}
 
-				return istack;
+				//return istack;
+				return new ActionResult(EnumActionResult.PASS, istack);
 			}
 		}
 	}

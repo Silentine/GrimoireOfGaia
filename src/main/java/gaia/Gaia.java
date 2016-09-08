@@ -12,7 +12,10 @@ import gaia.init.GaiaItem;
 import gaia.init.GaiaSpawning;
 import gaia.init.Sounds;
 import gaia.items.GaiaItemHandlerFuel;
+import gaia.items.ItemGaiaSpawnEgg;
+import gaia.proxy.ClientProxy;
 import gaia.proxy.CommonProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -55,8 +58,7 @@ public class Gaia {
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") {
 		@Override
 		public Item getTabIconItem() {
-			//TODO *temp return GaiaItem.MiscBook;
-			return Items.BEEF;
+			return GaiaItem.MiscBook;			
 		}
 	};
 
@@ -74,14 +76,13 @@ public class Gaia {
 		GaiaConfigGeneration.configOptions(event);	
 		GaiaBlock.init();
 		GaiaBlock.register();
-		/** TODO *TEMP
 		GaiaItem.init();
 		GaiaItem.register();
-		GaiaItem.oreRegistration();
-		**/
+		// TODO *TEMP GaiaItem.oreRegistration();
+		
 		
 		Sounds.Sounds_Init();
-		// TODO *TEMP proxy.registerItemsRender();
+		proxy.registerItemsRender();
 		proxy.registerBlocksRender();
 		
 	}
@@ -105,7 +106,7 @@ public class Gaia {
 
 		proxy.registerRenders();    	
 
-		MinecraftForge.EVENT_BUS.register(this);	
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent

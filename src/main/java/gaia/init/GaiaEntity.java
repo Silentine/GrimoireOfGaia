@@ -144,7 +144,7 @@ public class GaiaEntity {
 		EntityRegistry.registerModEntity(EntityGaiaSummonSporeling.class, "Sporeling", 83, Gaia.instance, trackingRange, updateFrequency, true); 
 		
 		/** Eggs to register **/
-		/** TODO *temp
+		
 		//ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaEntity.class, 0, body, spots);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaAnubis.class, 1, 0x353535, 0xb19534);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBanshee.class, 2, 0xeed2e8, 0xc6b0ed);
@@ -152,8 +152,8 @@ public class GaiaEntity {
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaBoneKnight.class, 4, 4602533, 13619151);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCentaur.class, 5, 0x8d4f41, 0x353535);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCobbleGolem.class, 6, 11513775, 11513775);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCobblestoneGolem.class, 7, 11513775, 11513775);
-		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCockatrice.class, 8, 0xc9b161, 0xe2e2e2);
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCobblestoneGolem.class, 7, 11513775, 11513775);		
+		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCockatrice.class, 8, 0xc9b161, 0xe2e2e2);		
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCreep.class, 9, 7917159, 2053400);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaCyclops.class, 10, 4936602, 3487029);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaDhampir.class, 11, 0x9c1c2b, 0xc9b161);
@@ -193,6 +193,6 @@ public class GaiaEntity {
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaWitherCow.class, 44, 5791069, 16777215);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYeti.class, 45, 16448250, 7895160);
 		ItemGaiaSpawnEgg.registerEntityEgg(EntityGaiaYukiOnna.class, 51, 6781114, 13817330);	
-		**/
+		
 	}
 }

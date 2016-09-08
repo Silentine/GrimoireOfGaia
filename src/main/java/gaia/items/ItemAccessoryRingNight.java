@@ -36,26 +36,26 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack par1ItemStack) {
+	public boolean hasEffect(ItemStack stack) {
 		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.EPIC;
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("potion.nightVision"));
 	}
 
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {
+		super.onUpdate(stack, world, par3Entity, par4, par5);
 		EntityPlayer player = (EntityPlayer)par3Entity;
 
 		for (int i = 0; i < 9; ++i) {
-			if (player.inventory.getStackInSlot(i) == par1ItemStack) {
-				this.doEffect(player, par1ItemStack);
+			if (player.inventory.getStackInSlot(i) == stack) {
+				this.doEffect(player, stack);
 				break;
 			}
 		}

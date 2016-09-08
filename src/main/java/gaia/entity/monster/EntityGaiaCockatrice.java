@@ -2,8 +2,6 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
-import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
-import gaia.init.GaiaItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,11 +13,8 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +28,7 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		// TODO Temp this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -96,6 +91,7 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
+		/** TODO Temp
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
 			this.dropItem(Items.EGG, 1);
 		}
@@ -106,9 +102,11 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 		for (int var12 = 0; var12 < var11; ++var12) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
 		}
+		**/
 	}
 
 	protected void addRandomDrop() {
+		/** TODO Temp
 		switch(this.rand.nextInt(2)) {
 		case 0:
 			this.dropItem(GaiaItem.BoxIron, 1);
@@ -116,6 +114,7 @@ public class EntityGaiaCockatrice extends EntityMobDay {
 		case 1:
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
+		**/
 	}
 
 	public void fall(float distance, float damageMultiplier) {}
