@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.translation.I18n;
 
 public class ItemFoodWither extends ItemFood {
@@ -19,10 +20,10 @@ public class ItemFoodWither extends ItemFood {
 		this.setUnlocalizedName("GrimoireOfGaia.FoodWither");
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(MobEffects.WITHER, 10, 0, 0.6F);
+		this.setPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 0), 0.6F);
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add("(60%) " + I18n.translateToLocal("potion.wither") + " (0:10)");
 	}
 }

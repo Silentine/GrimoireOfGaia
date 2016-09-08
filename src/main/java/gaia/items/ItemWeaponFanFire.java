@@ -34,7 +34,7 @@ public class ItemWeaponFanFire extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
@@ -44,9 +44,9 @@ public class ItemWeaponFanFire extends Item {
 		return multimap;
 	}
 	
-	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par1ItemStack.addEnchantment(Enchantment.fireAspect, 2);
-		par1ItemStack.addEnchantment(Enchantment.knockback, 1);
+	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
+		stack.addEnchantment(Enchantment.fireAspect, 2);
+		stack.addEnchantment(Enchantment.knockback, 1);
 	}
 
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
@@ -56,8 +56,8 @@ public class ItemWeaponFanFire extends Item {
 		par3List.add(is);
 	}
 
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
-		par1ItemStack.damageItem(1, par3EntityLiving);
+	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
+		stack.damageItem(1, par3EntityLiving);
 		return true;
 	}
 
@@ -65,20 +65,20 @@ public class ItemWeaponFanFire extends Item {
 		return true;
 	}
 
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.BLOCK;
 	}
 
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getMaxItemUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+		return stack;
 	}
 
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return GaiaItem.MiscSoulFiery == par2ItemStack.getItem()?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack stack, ItemStack par2ItemStack) {
+		return GaiaItem.MiscSoulFiery == par2ItemStack.getItem()?true:super.getIsRepairable(stack, par2ItemStack);
 	}
 }

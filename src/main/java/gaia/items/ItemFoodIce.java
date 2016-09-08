@@ -22,11 +22,11 @@ public class ItemFoodIce extends ItemFood {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 	
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (0:20)");
 	}
 
-	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 400, 0));
+	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 400, 0));
 	}
 }

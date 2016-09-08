@@ -27,21 +27,21 @@ public class ItemFoodSmallAppleGold extends ItemFood {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("potion.absorption") + " (2:00)");
 		par3List.add(I18n.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
 		par3List.add(I18n.translateToLocal("potion.resistance") + " (0:50)");
 		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (0:50)");
 	}
 
-	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 0));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 4));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1000, 0));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 1000, 0));
+	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+		player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 4));
+		player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1000, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 1000, 0));
 	}
 }

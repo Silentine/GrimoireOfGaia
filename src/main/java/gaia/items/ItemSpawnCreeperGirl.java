@@ -26,17 +26,17 @@ public class ItemSpawnCreeperGirl extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.SpawnCreeperGirl.desc"));
 	}
 
-	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer entityplayer) {
 		if (!entityplayer.capabilities.isCreativeMode) {
-			--par1ItemStack.stackSize;
+			--stack.stackSize;
 		}
 
 		world.playSoundAtEntity(entityplayer, "grimoireofgaia:book_hit", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
@@ -46,19 +46,19 @@ public class ItemSpawnCreeperGirl extends Item {
 			world.spawnEntityInWorld(entityspawning);
 		}
 
-		return par1ItemStack;
+		return stack;
 	}
 
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getMaxItemUseDuration(ItemStack stack) {
 		return 16;
 	}
 
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.BOW;
 	}
 
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+		return stack;
 	}
 }

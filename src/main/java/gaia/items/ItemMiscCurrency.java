@@ -24,12 +24,12 @@ public class ItemMiscCurrency extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
 	
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if (par1ItemStack.getItemDamage() == 3) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
+		if (stack.getItemDamage() == 3) {
 			par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.MiscCurrency.desc"));
 		}
 	}
