@@ -4,10 +4,7 @@ import gaia.Gaia;
 
 import java.util.List;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
@@ -25,7 +22,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
 	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
-public class ItemAccessoryRingSpeed extends Item implements IBauble{
+public class ItemAccessoryRingSpeed extends Item //implements IBauble
+{
 	String texture;
 
 	public ItemAccessoryRingSpeed(String texture) {
@@ -66,7 +64,7 @@ public class ItemAccessoryRingSpeed extends Item implements IBauble{
 			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 0, true, false));		
 			}
 	}
-
+	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.RING;
@@ -95,4 +93,5 @@ public class ItemAccessoryRingSpeed extends Item implements IBauble{
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
+	*/
 }

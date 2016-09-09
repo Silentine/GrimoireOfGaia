@@ -151,11 +151,8 @@ public class GaiaItem {
 		MiscFurnaceFuel = new ItemMiscFurnaceFuel("MiscFurnaceFuel");
 		MiscCurrency = new ItemMiscCurrency("MiscCurrency");
 		MiscWeaponEnchanted = new ItemMiscWeaponEnchanted("MiscWeaponEnchanted");
-		
-		//TODO Temp* Spawn = new ItemSpawn("Spawn");
-		
+		Spawn = new ItemSpawn("Spawn");
 		SpawnCreeperGirl = new ItemSpawnCreeperGirl("SpawnCreeperGirl");
-		/** TODO Temp*
 		SpawnSlimeGirl = new ItemSpawnSlimeGirl("SpawnSlimeGirl");
 		SpawnEnderGirl = new ItemSpawnEnderGirl("SpawnEnderGirl");
 		SpawnTrader = new ItemSpawnTrader("SpawnTrader");
@@ -165,12 +162,9 @@ public class GaiaItem {
 		BoxGold = new ItemBoxGold("BoxGold");
 		BoxDiamond = new ItemBoxDiamond("BoxDiamond");
 		BagOre = new ItemBagOre("BagOre");
-		**/
 		BagBook = new ItemBagBook("BagBook");
-		/** TODO Temp*
 		BagRecord = new ItemBagRecord("BagRecord");
 		BoxOld = new ItemBoxOld("BoxOld");
-		**/
 		PropWeapon = new ItemWeaponProp("WeaponProp");
 		PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
 		/** TODO Temp*
@@ -185,11 +179,11 @@ public class GaiaItem {
 		BookNature = new ItemWeaponBookNature("WeaponBookNature");
 		BookWither = new ItemWeaponBookWither("WeaponBookWither");
 		BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
+		**/
 		AccessoryRingSpeed = new ItemAccessoryRingSpeed("AccessoryRingSpeed");
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
-		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
-		**/
+		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");		
 		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
 		
 		SpawnEgg = new ItemGaiaSpawnEgg();
@@ -219,9 +213,8 @@ public class GaiaItem {
 				MiscFurnaceFuel,
 				MiscCurrency,
 				MiscWeaponEnchanted,
-				//TODO Temp* Spawn, 
-				SpawnCreeperGirl, 
-				/** TODO Temp*
+				Spawn, 
+				SpawnCreeperGirl,
 				SpawnEnderGirl, 
 				SpawnSlimeGirl,
 				SpawnTrader, 
@@ -231,12 +224,9 @@ public class GaiaItem {
 				BoxGold, 
 				BoxDiamond, 
 				BagOre, 
-				**/
 				BagBook, 
-				/** TODO Temp*
 				BagRecord, 
 				BoxOld, 
-				**/
 				PropWeapon, 
 				PropWeaponInvisible,
 				/** TODO Temp*
@@ -251,11 +241,11 @@ public class GaiaItem {
 				BookNature,
 				BookWither, 
 				BookBuff,
+				**/
 				AccessoryRingSpeed, 
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
-				AccessoryRingNight,
-				**/
+				AccessoryRingNight,				
 				AccessoryCursed,
 				SpawnEgg
 				
@@ -321,10 +311,8 @@ public class GaiaItem {
 		registerRender(MiscFurnaceFuel);
 		registerRender(MiscCurrency);
 		registerRender(MiscWeaponEnchanted);
-		//TODO Temp*registerRender(Spawn);
-		
+		registerRender(Spawn);
 		registerRender(SpawnCreeperGirl);
-		/** TODO Temp*
 		registerRender(SpawnSlimeGirl);
 		registerRender(SpawnEnderGirl);
 		registerRender(SpawnTrader);
@@ -334,12 +322,9 @@ public class GaiaItem {
 		registerRender(BoxGold);
 		registerRender(BoxDiamond);
 		registerRender(BagOre);
-		**/
 		registerRender(BagBook);
-		/** TODO Temp*
 		registerRender(BagRecord);
 		registerRender(BoxOld);
-		**/
 		registerRender(PropWeapon);
 		registerRender(PropWeaponInvisible);
 		/** TODO Temp*
@@ -354,11 +339,11 @@ public class GaiaItem {
 		registerRender(BookNature);
 		registerRender(BookWither);
 		registerRender(BookBuff);
+		**/
 		registerRender(AccessoryRingSpeed);
 		registerRender(AccessoryRingHaste);
 		registerRender(AccessoryRingJump);
-		registerRender(AccessoryRingNight);
-		**/
+		registerRender(AccessoryRingNight);		
 		registerRender(AccessoryCursed);
  		registerRender(SpawnEgg);
 	}

@@ -4,16 +4,12 @@ import gaia.Gaia;
 
 import java.util.List;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -26,7 +22,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
 	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
-public class ItemAccessoryRingHaste extends Item implements IBauble{
+public class ItemAccessoryRingHaste extends Item //implements IBauble
+{
 	String texture;
 
 	public ItemAccessoryRingHaste(String texture) {
@@ -67,7 +64,7 @@ public class ItemAccessoryRingHaste extends Item implements IBauble{
 			player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 60, 0, true, false));		
 			}
 	}
-
+	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.RING;
@@ -96,4 +93,5 @@ public class ItemAccessoryRingHaste extends Item implements IBauble{
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
+	*/
 }
