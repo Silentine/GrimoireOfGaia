@@ -51,7 +51,7 @@ public class ItemWeaponBookEnder extends ItemSword {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.blindness") + " (0:04)");
+		par3List.add(I18n.translateToLocal("effect.blindness") + " (0:04)");
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {

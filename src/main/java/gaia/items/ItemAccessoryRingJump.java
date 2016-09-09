@@ -44,7 +44,7 @@ public class ItemAccessoryRingJump extends Item //implements IBauble
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.jump"));
+		par3List.add(I18n.translateToLocal("effect.jump"));
 	}
 
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {

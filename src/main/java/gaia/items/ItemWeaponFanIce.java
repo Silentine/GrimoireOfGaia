@@ -49,7 +49,7 @@ public class ItemWeaponFanIce extends Item {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.moveSlowdown") + " IV" + " (0:05)");
+		par3List.add(I18n.translateToLocal("effect.moveSlowdown") + " IV" + " (0:05)");
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {

@@ -168,6 +168,7 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 				}
 
 				if (var7 > -1) {
+					//TODO
                     this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.POTIONITEM, 1, var7));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);

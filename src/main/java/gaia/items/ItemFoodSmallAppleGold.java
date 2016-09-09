@@ -30,10 +30,10 @@ public class ItemFoodSmallAppleGold extends ItemFood {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.absorption") + " (2:00)");
-		par3List.add(I18n.translateToLocal("potion.regeneration") + " (IV)" + " (0:04)");
-		par3List.add(I18n.translateToLocal("potion.resistance") + " (0:50)");
-		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (0:50)");
+		par3List.add(I18n.translateToLocal("effect.absorption") + " (2:00)");
+		par3List.add(I18n.translateToLocal("effect.regeneration") + " (IV)" + " (0:04)");
+		par3List.add(I18n.translateToLocal("effect.resistance") + " (0:50)");
+		par3List.add(I18n.translateToLocal("effect.fireResistance") + " (0:50)");
 	}
 
 	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {

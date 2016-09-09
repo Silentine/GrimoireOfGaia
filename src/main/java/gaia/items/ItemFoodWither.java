@@ -24,6 +24,6 @@ public class ItemFoodWither extends ItemFood {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add("(60%) " + I18n.translateToLocal("potion.wither") + " (0:10)");
+		par3List.add("(60%) " + I18n.translateToLocal("effect.wither") + " (0:10)");
 	}
 }

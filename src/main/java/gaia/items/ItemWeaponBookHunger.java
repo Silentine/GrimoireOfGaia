@@ -38,7 +38,7 @@ public class ItemWeaponBookHunger extends ItemSword {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.hunger") + " (0:04)");
+		par3List.add(I18n.translateToLocal("effect.hunger") + " (0:04)");
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {

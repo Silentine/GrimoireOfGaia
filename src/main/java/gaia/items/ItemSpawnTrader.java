@@ -28,6 +28,7 @@ public class ItemSpawnTrader extends Item {
 
 	public ItemSpawnTrader(String texture) {
 		this.texture = texture;
+		this.maxStackSize = 16;
 		this.setUnlocalizedName("GrimoireOfGaia.SpawnTrader");
 		this.setCreativeTab(Gaia.tabGaia);
 	}

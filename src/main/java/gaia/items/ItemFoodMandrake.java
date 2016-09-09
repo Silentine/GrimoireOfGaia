@@ -28,7 +28,7 @@ public class ItemFoodMandrake extends ItemFood {
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.RecoverHearts", new Object[]{Integer.valueOf(2)}));
 		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.LoseHunger", new Object[]{Integer.valueOf(4)}));
-		par3List.add("(80%) " + I18n.translateToLocal("potion.confusion") + " (0:20)");
+		par3List.add("(80%) " + I18n.translateToLocal("effect.confusion") + " (0:20)");
 	}
 
 	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {

@@ -6,11 +6,13 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional.Interface;
@@ -44,7 +46,7 @@ public class ItemAccessoryRingSpeed extends Item //implements IBauble
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.moveSpeed"));
+		par3List.add(I18n.translateToLocal("effect.moveSpeed"));
 	}
 
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {

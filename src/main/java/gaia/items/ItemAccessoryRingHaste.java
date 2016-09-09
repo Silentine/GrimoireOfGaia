@@ -4,6 +4,7 @@ import gaia.Gaia;
 
 import java.util.List;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -43,8 +44,8 @@ public class ItemAccessoryRingHaste extends Item //implements IBauble
 		return EnumRarity.EPIC;
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.digSpeed"));
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		list.add(I18n.translateToLocal("effect.digSpeed"));
 	}
 
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {
