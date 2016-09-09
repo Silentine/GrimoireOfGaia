@@ -16,11 +16,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFoodSmallAppleGold extends ItemFood {
-	String texture;
 
-	public ItemFoodSmallAppleGold(int par2, float par3, boolean par4, String texture) {
+	public ItemFoodSmallAppleGold(int par2, float par3, boolean par4, String unlocal) {
 		super(par2, par3, par4);
-		this.texture = texture;
 		this.maxStackSize = 64;
 		this.setUnlocalizedName("GrimoireOfGaia.FoodSmallAppleGold");
 		this.setCreativeTab(Gaia.tabGaia);

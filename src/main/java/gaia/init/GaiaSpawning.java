@@ -57,7 +57,9 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class GaiaSpawning {
 
 	public static void register(){
-		//TODO Streamline spawning
+
+		//TODO Woah... this need's to be redone badly
+		
 		Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
 		Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
 		Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);

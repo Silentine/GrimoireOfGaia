@@ -18,13 +18,6 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 	public EntityGaiaNPCHolstaurus(World var1) {
 		super(var1);
 	}
-	/** TODO ICHATCOMPONENT 
-	public IChatComponent getDisplayName() {
-		 String s = "Holstaurus";
-		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
-		 return chatcomponenttext;
-    }
-	**/
 	public ITextComponent getDisplayName() {
 		 String s = "Holstaurus";
 		 TextComponentTranslation text = new TextComponentTranslation(s);

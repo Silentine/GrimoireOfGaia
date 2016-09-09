@@ -17,13 +17,6 @@ public class EntityGaiaNPCWeresheep extends EntityMobMerchant {
 	public EntityGaiaNPCWeresheep(World var1) {
 		super(var1);
 	}
-	/** TODO ICHATCOMPONENT 
-	public IChatComponent getDisplayName() {
-		 String s = "Weresheep";
-		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
-		 return chatcomponenttext;
-    }
-	**/
 	public ITextComponent getDisplayName() {
 		 String s = "Weresheep";
 		 TextComponentTranslation text = new TextComponentTranslation(s);

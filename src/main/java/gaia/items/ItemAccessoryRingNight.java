@@ -1,10 +1,10 @@
 package gaia.items;
 
-import java.util.List;
+import gaia.Gaia;
 
+import java.util.List;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import gaia.Gaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +12,8 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.common.Optional.InterfaceList;
@@ -62,7 +61,7 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 	}
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
-		if (!player.isPotionActive(Potion.nightVision)) {
+		if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
 			player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 60, 0, true, false));		
 			}
 	}

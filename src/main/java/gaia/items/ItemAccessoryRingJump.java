@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.common.Optional.InterfaceList;
@@ -62,7 +63,7 @@ public class ItemAccessoryRingJump extends Item implements IBauble{
 	}
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
-		if (!player.isPotionActive(Potion.jump)) {
+		if (!player.isPotionActive(MobEffects.JUMP_BOOST)) {
 			player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 0, true, false));		
 			}
 	}

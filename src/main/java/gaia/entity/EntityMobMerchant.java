@@ -6,7 +6,7 @@ import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 
-import java.util.Iterator;
+import javax.annotation.Nullable;
 
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
@@ -15,11 +15,10 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.MerchantRecipe;
@@ -72,7 +71,7 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	protected SoundEvent getHurtSound(){
 		return null;
 	}
-
+	/* TODO check
 	@Override
 	protected void updateAITick() {
 		if (this.randomTickDivider-- <= 0) {
@@ -108,7 +107,8 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 		}
 		super.updateAITick();
 	}
-
+	*/
+	/* TODO check
 	@Override
 	public boolean interact(EntityPlayer player) {
 		ItemStack var2 = player.inventory.getCurrentItem();
@@ -129,6 +129,31 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 			return super.interact(player);
 		}
 	}
+	*/
+	public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack)
+    {
+        boolean flag = stack != null && stack.getItem() == Items.SPAWN_EGG;
+
+        if (!flag && this.isEntityAlive() && !this.isTrading() && !this.isChild() && !player.isSneaking())
+        {
+            if (!this.worldObj.isRemote && (this.buyingList == null || !this.buyingList.isEmpty()))
+            {
+                this.setCustomer(player);
+                String name = this.getCustomNameTag();
+				if (null == name || name.length() < 1) {
+					name = this.getCommandSenderEntity().getName();
+				}
+                player.displayVillagerTradeGui(this);
+            }
+
+            player.addStat(StatList.TALKED_TO_VILLAGER);
+            return true;
+        }
+        else
+        {
+            return super.processInteract(player, hand, stack);
+        }
+    }
 
 	public abstract void addRecipies(MerchantRecipeList list);
 
