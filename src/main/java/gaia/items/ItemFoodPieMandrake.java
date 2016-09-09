@@ -26,8 +26,8 @@ public class ItemFoodPieMandrake extends Gaia_FoodItem {
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		par3List.add(I18n.translateToLocal("potion.nightVision") + " (3:00)");
-		par3List.add(I18n.translateToLocal("potion.waterBreathing") + " (3:00)");
+		par3List.add(I18n.translateToLocal("effect.nightVision") + " (3:00)");
+		par3List.add(I18n.translateToLocal("effect.waterBreathing") + " (3:00)");
 	}
 	@Override
 	public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {

@@ -43,19 +43,19 @@ public class ItemWeaponBookFreezing extends ItemSword {
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int par4) {
 		stack.damageItem(1, player);
 		player.addExhaustion(5.0F);
-		world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		//TODO world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if(!world.isRemote) {
 			world.spawnEntityInWorld(new EntitySnowball(world, player));
 		}
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.moveSlowdown") + " II" + " (0:04)");
+		par3List.add(I18n.translateToLocal("effect.moveSlowdown") + " II" + " (0:04)");
 	}
 
-	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
-		stack.damageItem(1, par3EntityLiving);
-		par2EntityLiving.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80, 1));
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
+		stack.damageItem(1, host);
+		target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80, 1));
 		return true;
 	}
 

@@ -23,7 +23,7 @@ public class ItemFoodIce extends ItemFood {
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (0:20)");
+		par3List.add(I18n.translateToLocal("effect.fireResistance") + " (0:20)");
 	}
 
 	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {

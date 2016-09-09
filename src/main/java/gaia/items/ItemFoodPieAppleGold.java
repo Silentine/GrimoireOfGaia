@@ -37,10 +37,10 @@ public class ItemFoodPieAppleGold extends Gaia_FoodItem {
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		par3List.add(I18n.translateToLocal("potion.absorption") + " (2:00)");
-		par3List.add(I18n.translateToLocal("potion.regeneration") + " (IV)" + " (0:20)");
-		par3List.add(I18n.translateToLocal("potion.resistance") + " (5:00)");
-		par3List.add(I18n.translateToLocal("potion.fireResistance") + " (5:00)");
+		par3List.add(I18n.translateToLocal("effect.absorption") + " (2:00)");
+		par3List.add(I18n.translateToLocal("effect.regeneration") + " (IV)" + " (0:20)");
+		par3List.add(I18n.translateToLocal("effect.resistance") + " (5:00)");
+		par3List.add(I18n.translateToLocal("effect.fireResistance") + " (5:00)");
 	}
 
 	//PotionEffect is a direct copy of ItemAppleGold

@@ -11,12 +11,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBagRecord extends Item {
+public class ItemBagRecord extends Gaia_Lootable {
 	String texture;
 
 	public ItemBagRecord(String texture) {
@@ -35,38 +38,39 @@ public class ItemBagRecord extends Item {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		entityplayer.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+	{
+		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(12);
 		switch(i) {
 		case 0:
-			return new ItemStack(Items.RECORD_13);
+			return loot(Items.RECORD_13);
 		case 1:
-			return new ItemStack(Items.RECORD_CAT);
+			return loot(Items.RECORD_CAT);
 		case 2:
-			return new ItemStack(Items.RECORD_BLOCKS);
+			return loot(Items.RECORD_BLOCKS);
 		case 3:
-			return new ItemStack(Items.RECORD_CHIRP);
+			return loot(Items.RECORD_CHIRP);
 		case 4:
-			return new ItemStack(Items.RECORD_FAR);
+			return loot(Items.RECORD_FAR);
 		case 5:
-			return new ItemStack(Items.RECORD_MALL);
+			return loot(Items.RECORD_MALL);
 		case 6:
-			return new ItemStack(Items.RECORD_MELLOHI);
+			return loot(Items.RECORD_MELLOHI);
 		case 7:
-			return new ItemStack(Items.RECORD_STAL);
+			return loot(Items.RECORD_STAL);
 		case 8:
-			return new ItemStack(Items.RECORD_STRAD);
+			return loot(Items.RECORD_STRAD);
 		case 9:
-			return new ItemStack(Items.RECORD_WARD);
+			return loot(Items.RECORD_WARD);
 		case 10:
-			return new ItemStack(Items.RECORD_11);
+			return loot(Items.RECORD_11);
 		case 11:
-			return new ItemStack(Items.RECORD_WAIT);
+			return loot(Items.RECORD_WAIT);
 		default:
-			return itemstack;
+			return new ActionResult(EnumActionResult.SUCCESS, stack);
 		}
 	}
 }

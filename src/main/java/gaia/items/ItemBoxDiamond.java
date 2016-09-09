@@ -12,12 +12,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBoxDiamond extends Item {
+public class ItemBoxDiamond extends Gaia_Lootable {
 	String texture;
 
 	public ItemBoxDiamond(String texture) {
@@ -36,36 +39,37 @@ public class ItemBoxDiamond extends Item {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		entityplayer.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+	{
+		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(11);
 		switch(i) {
 		case 0:
-			return new ItemStack(Items.DIAMOND);
+			return  loot(Items.DIAMOND);
 		case 1:
-			return new ItemStack(Items.DIAMOND_AXE);
+			return  loot(Items.DIAMOND_AXE);
 		case 2:
-			return new ItemStack(Items.DIAMOND_PICKAXE);
+			return  loot(Items.DIAMOND_PICKAXE);
 		case 3:
-			return new ItemStack(Items.DIAMOND_SHOVEL);
+			return  loot(Items.DIAMOND_SHOVEL);
 		case 4:
-			return new ItemStack(Items.DIAMOND_SWORD);
+			return loot(Items.DIAMOND_SWORD);
 		case 5:
-			return new ItemStack(Items.DIAMOND_HELMET);
+			return loot(Items.DIAMOND_HELMET);
 		case 6:
-			return new ItemStack(Items.DIAMOND_CHESTPLATE);
+			return loot(Items.DIAMOND_CHESTPLATE);
 		case 7:
-			return new ItemStack(Items.DIAMOND_LEGGINGS);
+			return loot(Items.DIAMOND_LEGGINGS);
 		case 8:
-			return new ItemStack(Items.DIAMOND_BOOTS);
+			return loot(Items.DIAMOND_BOOTS);
 		case 9:
-			return new ItemStack(Blocks.DIAMOND_BLOCK);
+			return loot(Blocks.DIAMOND_BLOCK);
 		case 10:
-			return new ItemStack(Items.DIAMOND_HORSE_ARMOR);
+			return loot(Items.DIAMOND_HORSE_ARMOR);
 		default:
-			return itemstack;
+			return new ActionResult(EnumActionResult.SUCCESS, stack);
 		}
 	}
 }

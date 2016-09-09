@@ -86,7 +86,8 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
+			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {

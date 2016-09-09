@@ -11,12 +11,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBagOre extends Item {
+public class ItemBagOre extends Gaia_Lootable {
 	String texture;
 
 	public ItemBagOre(String texture) {
@@ -35,28 +38,29 @@ public class ItemBagOre extends Item {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		entityplayer.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+	{
+		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(7);
 		switch(i) {
 		case 0:
-			return new ItemStack(Blocks.COAL_ORE);
+			return loot(Blocks.COAL_ORE);
 		case 1:
-			return new ItemStack(Blocks.IRON_ORE);
+			return loot(Blocks.IRON_ORE);
 		case 2:
-			return new ItemStack(Blocks.GOLD_ORE);
+			return loot(Blocks.GOLD_ORE);
 		case 3:
-			return new ItemStack(Blocks.DIAMOND_ORE);
+			return loot(Blocks.DIAMOND_ORE);
 		case 4:
-			return new ItemStack(Blocks.EMERALD_ORE);
+			return loot(Blocks.EMERALD_ORE);
 		case 5:
-			return new ItemStack(Blocks.REDSTONE_ORE);
+			return loot(Blocks.REDSTONE_ORE);
 		case 6:
-			return new ItemStack(Blocks.LAPIS_ORE);
+			return loot(Blocks.LAPIS_ORE);
 		default:
-			return itemstack;
+			return new ActionResult(EnumActionResult.SUCCESS, stack);
 		}
 	}
 }

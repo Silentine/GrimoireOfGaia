@@ -39,8 +39,8 @@ public class ItemAccessoryCursed extends Item {
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(TextFormatting.ITALIC + (I18n.translateToLocal("item.GrimoireOfGaia.AccessoryCursed.desc")));
-		par3List.add(I18n.translateToLocal("potion.moveSlowdown"));
-		par3List.add(I18n.translateToLocal("potion.digSlowDown"));
+		par3List.add(I18n.translateToLocal("effect.moveSlowdown"));
+		par3List.add(I18n.translateToLocal("effect.digSlowDown"));
 	}
 
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {

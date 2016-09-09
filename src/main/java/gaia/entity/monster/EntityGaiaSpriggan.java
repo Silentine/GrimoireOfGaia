@@ -57,7 +57,8 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
+			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 				if (itemstack.getItem() == Items.WOODEN_AXE) {
 					par2 = 7;

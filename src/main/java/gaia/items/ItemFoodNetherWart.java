@@ -22,8 +22,8 @@ public class ItemFoodNetherWart extends Gaia_FoodItem {
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add("(40%) " + I18n.translateToLocal("potion.moveSpeed") + " (0:30)");
-		par3List.add("(40%) " + I18n.translateToLocal("potion.digSpeed") + " (0:30)");
+		par3List.add("(40%) " + I18n.translateToLocal("effect.moveSpeed") + " (0:30)");
+		par3List.add("(40%) " + I18n.translateToLocal("effect.digSpeed") + " (0:30)");
 	}
 
 }

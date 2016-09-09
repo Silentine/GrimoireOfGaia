@@ -25,8 +25,8 @@ public class ItemFoodRottenHeart extends Gaia_FoodItem {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.regeneration") + " (0:10)");
-		par3List.add("(80%) " + I18n.translateToLocal("potion.hunger") + " (0:30)");
+		par3List.add(I18n.translateToLocal("effect.regeneration") + " (0:10)");
+		par3List.add("(80%) " + I18n.translateToLocal("effect.hunger") + " (0:30)");
 	}
 
 }

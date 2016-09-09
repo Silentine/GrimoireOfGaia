@@ -4,10 +4,11 @@ import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.common.Optional.InterfaceList;
 import gaia.Gaia;
 import gaia.GaiaReference;
+/*
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.ThaumcraftApi;
-
+*/
 @InterfaceList({
 	@Interface(iface="thaumcraft.api.ThaumcraftApi", modid="Thaumcraft", striprefs=true),
 	@Interface(iface="thaumcraft.api.aspects.Aspect", modid="Thaumcraft", striprefs=true),
@@ -26,7 +27,7 @@ public class Aspects_Entity extends GaiaEntity{
 		//Tier 1 - 1-2<4
 		//Tier 2 - 2-3<6
 		//Tier 3 - 2-4<8
-		
+		/*
 		ThaumcraftApi.registerEntityTag(ref+"Anubis",
 				(new AspectList()).add(Aspect.BEAST, 3).add(Aspect.DARKNESS, 3));
 		
@@ -190,5 +191,6 @@ public class Aspects_Entity extends GaiaEntity{
 		//Spawn
 		ThaumcraftApi.registerEntityTag(ref+"Mandragora",
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.EARTH, 1));
+				*/
 	}
 }

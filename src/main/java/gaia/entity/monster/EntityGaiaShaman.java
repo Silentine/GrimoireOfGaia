@@ -11,7 +11,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -28,7 +27,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -141,7 +139,8 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntityZombie(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			//TODO check spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
 		}
@@ -150,7 +149,8 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntityZombie(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			//spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 2;
 		}
@@ -227,12 +227,12 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
     }
 	
 	//TODO check itemstackslot
-		public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
-			super.setItemStackToSlot(par1, par2ItemStack);
-			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
-				this.setCombatTask();
-			}
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
+			this.setCombatTask();
 		}
+	}
 	
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);

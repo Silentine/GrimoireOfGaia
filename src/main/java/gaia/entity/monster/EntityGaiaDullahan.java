@@ -81,8 +81,9 @@ public class EntityGaiaDullahan extends EntityMobBase {
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
-
+			//ItemStack itemstack = player.getCurrentEquippedItem();
+			//TODO lookover bonus damage
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {

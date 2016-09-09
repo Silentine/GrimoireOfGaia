@@ -3,10 +3,8 @@ package gaia.items;
 import gaia.Gaia;
 
 import java.util.List;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
@@ -24,7 +22,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
 	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
-public class ItemAccessoryRingNight extends Item implements IBauble{
+public class ItemAccessoryRingNight extends Item //implements IBauble
+{
 	String texture;
 
 	public ItemAccessoryRingNight(String texture) {
@@ -45,7 +44,7 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("potion.nightVision"));
+		par3List.add(I18n.translateToLocal("effect.nightVision"));
 	}
 
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int par4, boolean par5) {
@@ -65,7 +64,7 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 			player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 60, 0, true, false));		
 			}
 	}
-
+	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.RING;
@@ -94,4 +93,5 @@ public class ItemAccessoryRingNight extends Item implements IBauble{
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
+	*/
 }
