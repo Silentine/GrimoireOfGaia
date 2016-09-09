@@ -16,13 +16,6 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 	public EntityGaiaNPCTrader(World var1) {
 		super(var1);
 	}
-	/** TODO ICHATCOMPONENT 
-	public IChatComponent getDisplayName() {
-		 String s = "Trader";
-		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
-		 return chatcomponenttext;
-    }
-	**/
 	public ITextComponent getDisplayName() {
 		 String s = "Trader";
 		 TextComponentTranslation text = new TextComponentTranslation(s);

@@ -10,10 +10,8 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,7 +38,7 @@ public class ItemAccessoryCursed extends Item {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(EnumChatFormatting.ITALIC + (I18n.translateToLocal("item.GrimoireOfGaia.AccessoryCursed.desc")));
+		par3List.add(TextFormatting.ITALIC + (I18n.translateToLocal("item.GrimoireOfGaia.AccessoryCursed.desc")));
 		par3List.add(I18n.translateToLocal("potion.moveSlowdown"));
 		par3List.add(I18n.translateToLocal("potion.digSlowDown"));
 	}

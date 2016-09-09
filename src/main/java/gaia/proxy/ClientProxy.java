@@ -260,7 +260,7 @@ public class ClientProxy extends CommonProxy {
         
         ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 0, new ModelResourceLocation("grimoireofgaia:ShardCopper".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 1, new ModelResourceLocation("grimoireofgaia:ShardSilver".toLowerCase(), "inventory"));
-        /** TODO Temp*
+        
         // Misc Ring
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 0, new ModelResourceLocation("grimoireofgaia:MiscRingSpeed".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 1, new ModelResourceLocation("grimoireofgaia:MiscRingHaste".toLowerCase(), "inventory"));
@@ -276,14 +276,14 @@ public class ClientProxy extends CommonProxy {
         // Misc Enchanted Weapon
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 0, new ModelResourceLocation("grimoireofgaia:MiscWeaponFanIce".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscWeaponEnchanted, 1, new ModelResourceLocation("grimoireofgaia:MiscWeaponFanFire".toLowerCase(), "inventory"));
-	
+       
         // Prop Weapon
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 0, new ModelResourceLocation("grimoireofgaia:WeaponPropEnder".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 1, new ModelResourceLocation("grimoireofgaia:WeaponPropBlaze".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 2, new ModelResourceLocation("grimoireofgaia:WeaponPropSpear".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 3, new ModelResourceLocation("grimoireofgaia:WeaponPropDagger".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.PropWeapon, 4, new ModelResourceLocation("grimoireofgaia:WeaponPropProjectile".toLowerCase(), "inventory"));
-        **/
+        
         // Should get it's list count to iterate through dynamically in the future
         //For now uses a static list to iterate        
         for (int i = 0; i < 52; ++i) {

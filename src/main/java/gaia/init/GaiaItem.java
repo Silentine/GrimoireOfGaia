@@ -131,13 +131,12 @@ public class GaiaItem {
 	public static void init() {
 		Shard = new ItemShard("Shard");		
 		ShardMisc = new ItemShardMisc("ShardMisc");
-		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");
-		/** TODO Temp*
+		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");		
 		FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "FoodRottenHeart").setAlwaysEdible();
 		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
 		FoodIce = (new ItemFoodIce(4, 0.0F, true, "FoodIce")).setAlwaysEdible();
 		FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "FoodCoalfish");
-		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart")).setPotionEffect("+4");
+		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart"));//TODO.setPotionEffect("+4");
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
 		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
 		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
@@ -146,16 +145,17 @@ public class GaiaItem {
 		FoodPieAppleGold = (new ItemFoodPieAppleGold(12, 0.8F, true, "FoodPieAppleGold"));
 		MiscSoulFire = new ItemMiscSoulFire("MiscSoulFire");
 		MiscSoulFiery = new ItemMiscSoulFiery("MiscSoulFiery");
-		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");
-		**/
-		MiscBook = new ItemMiscBook("MiscBook");
-		/** TODO Temp*
+		MiscGigaGear = new ItemMiscGigaGear("MiscGigaGear");		
+		MiscBook = new ItemMiscBook("MiscBook");		
 		MiscRing = new ItemMiscRing("MiscRing");
 		MiscFurnaceFuel = new ItemMiscFurnaceFuel("MiscFurnaceFuel");
 		MiscCurrency = new ItemMiscCurrency("MiscCurrency");
 		MiscWeaponEnchanted = new ItemMiscWeaponEnchanted("MiscWeaponEnchanted");
-		Spawn = new ItemSpawn("Spawn");
+		
+		//TODO Temp* Spawn = new ItemSpawn("Spawn");
+		
 		SpawnCreeperGirl = new ItemSpawnCreeperGirl("SpawnCreeperGirl");
+		/** TODO Temp*
 		SpawnSlimeGirl = new ItemSpawnSlimeGirl("SpawnSlimeGirl");
 		SpawnEnderGirl = new ItemSpawnEnderGirl("SpawnEnderGirl");
 		SpawnTrader = new ItemSpawnTrader("SpawnTrader");
@@ -165,11 +165,15 @@ public class GaiaItem {
 		BoxGold = new ItemBoxGold("BoxGold");
 		BoxDiamond = new ItemBoxDiamond("BoxDiamond");
 		BagOre = new ItemBagOre("BagOre");
+		**/
 		BagBook = new ItemBagBook("BagBook");
+		/** TODO Temp*
 		BagRecord = new ItemBagRecord("BagRecord");
 		BoxOld = new ItemBoxOld("BoxOld");
+		**/
 		PropWeapon = new ItemWeaponProp("WeaponProp");
 		PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
+		/** TODO Temp*
 		FanIce = new ItemWeaponFanIce("WeaponFanIce");
 		FanFire = new ItemWeaponFanFire("WeaponFanFire");
 		BookFreezing = new ItemWeaponBookFreezing("WeaponBookFreezing");
@@ -185,8 +189,9 @@ public class GaiaItem {
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");
-		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
 		**/
+		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
+		
 		SpawnEgg = new ItemGaiaSpawnEgg();
 	}
 	
@@ -194,8 +199,7 @@ public class GaiaItem {
 		Item[] items = new Item[] { 
 				Shard,
 				ShardMisc, 
-				FoodMeat, 
-				/** TODO Temp*
+				FoodMeat, 				
 				FoodRottenHeart, 
 				FoodRoot, 
 				FoodIce, 
@@ -209,16 +213,15 @@ public class GaiaItem {
 				FoodPieAppleGold,
 				MiscSoulFire, 
 				MiscSoulFiery, 
-				MiscGigaGear, 
-				**/
+				MiscGigaGear, 				
 				MiscBook, 
-				/** TODO Temp*
 				MiscRing, 
 				MiscFurnaceFuel,
 				MiscCurrency,
 				MiscWeaponEnchanted,
-				Spawn, 
+				//TODO Temp* Spawn, 
 				SpawnCreeperGirl, 
+				/** TODO Temp*
 				SpawnEnderGirl, 
 				SpawnSlimeGirl,
 				SpawnTrader, 
@@ -228,11 +231,15 @@ public class GaiaItem {
 				BoxGold, 
 				BoxDiamond, 
 				BagOre, 
+				**/
 				BagBook, 
+				/** TODO Temp*
 				BagRecord, 
 				BoxOld, 
+				**/
 				PropWeapon, 
 				PropWeaponInvisible,
+				/** TODO Temp*
 				FanIce, 
 				FanFire, 
 				BookFreezing, 
@@ -248,8 +255,8 @@ public class GaiaItem {
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
 				AccessoryRingNight,
-				AccessoryCursed,
 				**/
+				AccessoryCursed,
 				SpawnEgg
 				
 		};
@@ -295,7 +302,6 @@ public class GaiaItem {
 		registerRender(Shard);		
 		registerRender(ShardMisc);
 		registerRender(FoodMeat);
-		/** TODO Temp*
 		registerRender(FoodRottenHeart);
 		registerRender(FoodRoot);
 		registerRender(FoodIce);
@@ -310,15 +316,15 @@ public class GaiaItem {
 		registerRender(MiscSoulFire);
 		registerRender(MiscSoulFiery);
 		registerRender(MiscGigaGear);
-		**/
 		registerRender(MiscBook);
-		/** TODO Temp*
 		registerRender(MiscRing);
 		registerRender(MiscFurnaceFuel);
 		registerRender(MiscCurrency);
 		registerRender(MiscWeaponEnchanted);
-		registerRender(Spawn);
+		//TODO Temp*registerRender(Spawn);
+		
 		registerRender(SpawnCreeperGirl);
+		/** TODO Temp*
 		registerRender(SpawnSlimeGirl);
 		registerRender(SpawnEnderGirl);
 		registerRender(SpawnTrader);
@@ -328,11 +334,15 @@ public class GaiaItem {
 		registerRender(BoxGold);
 		registerRender(BoxDiamond);
 		registerRender(BagOre);
+		**/
 		registerRender(BagBook);
+		/** TODO Temp*
 		registerRender(BagRecord);
 		registerRender(BoxOld);
+		**/
 		registerRender(PropWeapon);
 		registerRender(PropWeaponInvisible);
+		/** TODO Temp*
 		registerRender(FanIce);
 		registerRender(FanFire);
 		registerRender(BookFreezing);
@@ -348,8 +358,8 @@ public class GaiaItem {
 		registerRender(AccessoryRingHaste);
 		registerRender(AccessoryRingJump);
 		registerRender(AccessoryRingNight);
-		registerRender(AccessoryCursed);
 		**/
+		registerRender(AccessoryCursed);
  		registerRender(SpawnEgg);
 	}
 	

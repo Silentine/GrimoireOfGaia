@@ -1,10 +1,11 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import gaia.Gaia;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +13,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional.Interface;
@@ -63,7 +62,7 @@ public class ItemAccessoryRingSpeed extends Item implements IBauble{
 	}
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
-		if (!player.isPotionActive(Potion.moveSpeed)) {
+		if (!player.isPotionActive(MobEffects.SPEED)) {
 			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 0, true, false));		
 			}
 	}
