@@ -167,7 +167,6 @@ public class GaiaItem {
 		BoxOld = new ItemBoxOld("BoxOld");
 		PropWeapon = new ItemWeaponProp("WeaponProp");
 		PropWeaponInvisible = new ItemWeaponPropInvisible("WeaponPropInvisible");
-		/** TODO Temp*
 		FanIce = new ItemWeaponFanIce("WeaponFanIce");
 		FanFire = new ItemWeaponFanFire("WeaponFanFire");
 		BookFreezing = new ItemWeaponBookFreezing("WeaponBookFreezing");
@@ -179,7 +178,6 @@ public class GaiaItem {
 		BookNature = new ItemWeaponBookNature("WeaponBookNature");
 		BookWither = new ItemWeaponBookWither("WeaponBookWither");
 		BookBuff = new ItemWeaponBookBuff("WeaponBookBuff");
-		**/
 		AccessoryRingSpeed = new ItemAccessoryRingSpeed("AccessoryRingSpeed");
 		AccessoryRingHaste = new ItemAccessoryRingHaste("AccessoryRingHaste");
 		AccessoryRingJump = new ItemAccessoryRingJump("AccessoryRingJump");
@@ -229,7 +227,6 @@ public class GaiaItem {
 				BoxOld, 
 				PropWeapon, 
 				PropWeaponInvisible,
-				/** TODO Temp*
 				FanIce, 
 				FanFire, 
 				BookFreezing, 
@@ -241,7 +238,6 @@ public class GaiaItem {
 				BookNature,
 				BookWither, 
 				BookBuff,
-				**/
 				AccessoryRingSpeed, 
 				AccessoryRingHaste, 
 				AccessoryRingJump, 
@@ -327,7 +323,6 @@ public class GaiaItem {
 		registerRender(BoxOld);
 		registerRender(PropWeapon);
 		registerRender(PropWeaponInvisible);
-		/** TODO Temp*
 		registerRender(FanIce);
 		registerRender(FanFire);
 		registerRender(BookFreezing);
@@ -339,7 +334,6 @@ public class GaiaItem {
 		registerRender(BookNature);
 		registerRender(BookWither);
 		registerRender(BookBuff);
-		**/
 		registerRender(AccessoryRingSpeed);
 		registerRender(AccessoryRingHaste);
 		registerRender(AccessoryRingJump);

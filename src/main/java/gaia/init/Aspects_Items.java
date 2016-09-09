@@ -4,9 +4,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.common.Optional.InterfaceList;
+/*
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+*/
 import gaia.Gaia;
 import gaia.GaiaReference;
 
@@ -20,7 +22,7 @@ public class Aspects_Items extends GaiaItem{
 	public static void Item_Aspects() {
 			
 		Gaia.logger.info("Registering Item Aspects");
-
+		/*
 		//Items
 		ThaumcraftApi.registerObjectTag(new ItemStack(Shard, 1, 0),
 				(new AspectList()).add(Aspect.METAL, 1));
@@ -223,5 +225,6 @@ public class Aspects_Items extends GaiaItem{
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(GaiaBlock.DollMaid),
 				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.CRAFT, 2).add(Aspect.DESIRE, 1));
+				*/
 	}
 }

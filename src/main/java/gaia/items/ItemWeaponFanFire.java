@@ -12,10 +12,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,27 +41,33 @@ public class ItemWeaponFanFire extends Item {
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
-
+	/*
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
 		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double)this.weaponDamage, 0));
 		return multimap;
 	}
+	*/
+	public Multimap getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap multimap = super.getAttributeModifiers(slot, stack);
+		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier( "Tool modifier", (double)this.weaponDamage, 0));
+		return multimap;
+	}
 	
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
-		stack.addEnchantment(Enchantment.fireAspect, 2);
-		stack.addEnchantment(Enchantment.knockback, 1);
+		stack.addEnchantment(Enchantment.getEnchantmentByLocation("fireAspect"), 2);
+		stack.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
 	}
 
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		ItemStack is = new ItemStack(par1, 1, 0);
-		is.addEnchantment(Enchantment.fireAspect, 2);
-		is.addEnchantment(Enchantment.knockback, 1);
-		par3List.add(is);
+		ItemStack stack = new ItemStack(par1, 1, 0);
+		stack.addEnchantment(Enchantment.getEnchantmentByLocation("fireAspect"), 2);
+		stack.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
+		par3List.add(stack);
 	}
 
-	public boolean hitEntity(ItemStack stack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
-		stack.damageItem(1, par3EntityLiving);
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
+		stack.damageItem(1, host);
 		return true;
 	}
 
@@ -73,10 +83,17 @@ public class ItemWeaponFanFire extends Item {
 		return 72000;
 	}
 
+	/*
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 		return stack;
 	}
+	*/
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    {
+        playerIn.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+    }
 
 	public boolean getIsRepairable(ItemStack stack, ItemStack par2ItemStack) {
 		return GaiaItem.MiscSoulFiery == par2ItemStack.getItem()?true:super.getIsRepairable(stack, par2ItemStack);
