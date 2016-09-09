@@ -38,7 +38,7 @@ public class EntityGaiaMandragora extends EntityMobDay {
 		this.setSize(0.5F, 1.5F);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+		//TODO ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(2, new EntityAILookIdle(this));
@@ -86,7 +86,8 @@ public class EntityGaiaMandragora extends EntityMobDay {
 		Entity entity = par1DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getCurrentEquippedItem();
+			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
+			ItemStack itemstack = player.getActiveItemStack();
 			if (itemstack != null) {
 
 				if (itemstack.getItem() == Items.WOODEN_SHOVEL) {

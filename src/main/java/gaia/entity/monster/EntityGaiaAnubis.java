@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -77,7 +78,8 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 	}
 	
 	public void attackEntityWithRangedAttack(EntityLivingBase living, float par2) {
-		this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		//TODO check this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, this.getPosition(), 0);
+		living.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 		double d0 = living.posX - this.posX;
 		double d1 = living.getEntityBoundingBox().minY + (double)(living.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
 		double d2 = living.posZ - this.posZ;
@@ -133,7 +135,8 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			//TODO check spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));	
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
 		}
@@ -142,7 +145,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntitySkeleton(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
+			spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 2;
 		}
@@ -213,11 +216,12 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		return livingdata;		
     }
 	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
-			this.setCombatTask();
-		}
+	//TODO check itemstackslot
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
+				this.setCombatTask();
+			}
 	}
 	
 	public void setCombatTask() {
