@@ -182,7 +182,7 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	
 	protected void entityInit() {
 		super.entityInit();
-		this.dataWatcher.addObject(19, new Byte((byte)0));
+		//TODO Temp* this.dataWatcher.addObject(19, new Byte((byte)0));
 		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 	
