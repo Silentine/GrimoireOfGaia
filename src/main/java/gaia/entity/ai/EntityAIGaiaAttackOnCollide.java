@@ -41,7 +41,7 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 		} else if (this.classTarget != null && !this.classTarget.isAssignableFrom(entitylivingbase.getClass())) {
 			return false;
 		} else if (--this.field_75445_i <= 0) {
-			this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
+			//TODO* Temp this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 			this.field_75445_i = 4 + this.attacker.getRNG().nextInt(7);
 			return this.entityPathEntity != null;
 		} else {
@@ -56,7 +56,7 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 	}
 
 	public void startExecuting() {
-		this.attacker.getNavigator().setPath(this.entityPathEntity, this.speedTowardsTarget);
+		//TODO* Temp this.attacker.getNavigator().setPath(this.entityPathEntity, this.speedTowardsTarget);
 		this.field_75445_i = 0;
 	}
 
@@ -89,10 +89,11 @@ public class EntityAIGaiaAttackOnCollide extends EntityAIBase {
 		//normally entitylivingbase.boundingBox.minY
 		if (this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ) <= var4 && this.attackTick <= 0) {
 			this.attackTick = 20;
+			/** TODO TEMP*
 			if (this.attacker.getHeldItem() != null) {
 				this.attacker.swingItem();
 			}
-
+			 	*/
 			this.attacker.attackEntityAsMob(entitylivingbase);
 		}
 	}

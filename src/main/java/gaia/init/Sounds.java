@@ -1,11 +1,12 @@
 package gaia.init;
 
+import gaia.Gaia;
 import gaia.GaiaReference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-/** Experimental, probably won't work; adapted from Psi code**/
+/**http://www.minecraftforge.net/forum/index.php/topic,38076.0.html**/
 public class Sounds {
 	
 	static String MODID = GaiaReference.MOD_ID;
@@ -32,17 +33,15 @@ public class Sounds {
 	
 	public static SoundEvent none;
 	
+	
 	public static void Sounds_Init(){
-		/*
-		ResourceLocation location = new ResourceLocation("mymod", "openChest");
-		SoundEvent event = new SoundEvent(location);
-		GameRegistry.register(event, location);
-		*/
-		/**
-		ResourceLocation location = new ResourceLocation(MODID, "openChest");
-		openChest = new SoundEvent(location);
-		GameRegistry.register(openChest, location);
-		**/
+		Gaia.logger.info("Registering Sounds");
+		SoundsRegister();
+		Gaia.logger.info("Sounds Finished");
+	}
+	
+	public static void SoundsRegister(){
+		
 		passive_say = Reg("passive_say");
 		passive_hurt = Reg("passive_hurt");
 		passive_death = Reg("passive_death");
@@ -68,10 +67,9 @@ public class Sounds {
 	
 	public static SoundEvent Reg(String name){
 		ResourceLocation location = new ResourceLocation(MODID, name);
-		SoundEvent event = new SoundEvent(location);
-		GameRegistry.register(event, location);
 		
-		return event;				
+		return GameRegistry.register(new SoundEvent(location).setRegistryName(location));
+		
 	}
 	
 	
