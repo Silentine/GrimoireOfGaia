@@ -15,12 +15,14 @@ import gaia.items.GaiaItemHandlerFuel;
 import gaia.items.ItemGaiaSpawnEgg;
 import gaia.proxy.ClientProxy;
 import gaia.proxy.CommonProxy;
+import gaia.util.Gaia_Commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +32,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -74,10 +77,12 @@ public class Gaia {
 		else{logger.info("Loading Without Thaumcraft");}
 
 		GaiaConfigGeneration.configOptions(event);	
+		logger.info("Registering Items");
 		GaiaBlock.init();
 		GaiaBlock.register();
 		GaiaItem.init();
 		GaiaItem.register();
+		logger.info("Items Registered");
 		// TODO *TEMP GaiaItem.oreRegistration();
 		
 		
@@ -93,6 +98,7 @@ public class Gaia {
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		GaiaItem.addRecipes();
 		**/
+		logger.info("Registering Entities");
 		GaiaEntity.register();
 		/// TODO *temp GaiaSpawning.register();
 		//TEMP_Spawning.register_spawn();
@@ -105,8 +111,14 @@ public class Gaia {
 		}
 
 		proxy.registerRenders();    	
-
+		
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@EventHandler
+	public void serverLoad(FMLServerStartingEvent event)
+	{
+		event.registerServerCommand(new Gaia_Commands());
 	}
 
 	@SubscribeEvent
