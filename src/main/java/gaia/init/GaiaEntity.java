@@ -81,14 +81,14 @@ public class GaiaEntity {
 		Register(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, 11513775, 11513775);
 		Register(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, 11513775, 11513775);
 		Register(EntityGaiaCockatrice.class, "Cockatrice", 8, 0xc9b161, 0xe2e2e2);
-		Register(EntityGaiaCreep.class, "Creep", 9, 7917159, 2053400);
+		//TODO TEMP* Register(EntityGaiaCreep.class, "Creep", 9, 7917159, 2053400);
 		Register(EntityGaiaCyclops.class, "Cyclops", 10, 4936602, 3487029);				
 		Register(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, 1073920, 4045287);
 		Register(EntityGaiaDhampir.class, "Dhampir", 12, 0x9c1c2b, 0xc9b161);
 		Register(EntityGaiaDryad.class, "Dryad", 13,10255437, 5681460);
 		Register(EntityGaiaDullahan.class, "Dullahan", 14, 0x824fab, 0xa4452d);
-		Register(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, 3158064, 14711290);
-		Register(EntityGaiaEnderEye.class, "Ender Eye", 16, 2039583, 3158064);
+		//TODO TEMP* Register(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, 3158064, 14711290);
+		//TODO TEMP* Register(EntityGaiaEnderEye.class, "Ender Eye", 16, 2039583, 3158064);
 		Register(EntityGaiaFleshLich.class, "Flesh Lich", 17, 0x00cccc, 0x799c65);		
 		Register(EntityGaiaFutakuchiOnna.class, "FutakuchiOnna", 18, 0x4e3738, 0xb43434);
 		Register(EntityGaiaGryphon.class, "Gryphon", 19, 0xf09942, 0xe2e2e2);
@@ -99,7 +99,7 @@ public class GaiaEntity {
 		Register(EntityGaiaMermaid.class, "Mermaid", 24, 0x5c70b1, 0xa4452d);
 		Register(EntityGaiaMimic.class, "Mimic", 25, 11237677, 4274991);
 		Register(EntityGaiaMinotaur.class, "Minotaur", 26, 0x8d4f41, 0xd54242);
-		Register(EntityGaiaMinotaurus.class, "Minotaurus", 27, 0x8d4f41, 0xa9a9a9);
+		//TODO TEMP* Register(EntityGaiaMinotaurus.class, "Minotaurus", 27, 0x8d4f41, 0xa9a9a9);
 		Register(EntityGaiaNaga.class, "Naga", 28, 0x29bc55, 0xccb63f);		
 		Register(EntityGaiaNineTails.class, "NineTails", 29, 11809844, 13218145);
 		Register(EntityGaiaSahuagin.class, "Sahuagin", 30, 0x5c70b1, 0x84a498);		
@@ -116,7 +116,7 @@ public class GaiaEntity {
 		Register(EntityGaiaValkyrie.class, "Valkyrie", 41, 0xc9b161, 0xd54242);
 		Register(EntityGaiaVampire.class, "Vampire", 42, 0xc23021, 0xc9b161);		
 		Register(EntityGaiaWerecat.class, "Werecat", 43, 0x7a7e8a, 0xdddadb);		
-		Register(EntityGaiaWitch.class, "Witch", 44, 0x303030, 0x943dbb);
+		//TODO TEMP* Register(EntityGaiaWitch.class, "Witch", 44, 0x303030, 0x943dbb);
 		Register(EntityGaiaWitherCow.class, "Wither Cow", 45, 5791069, 16777215);
 		Register(EntityGaiaYeti.class, "Yeti", 46, 16448250, 7895160);
 		Register(EntityGaiaYukiOnna.class, "Yuki-Onna", 47, 6781114, 13817330);
@@ -140,7 +140,7 @@ public class GaiaEntity {
 		
 		
 	}
-	
+	public static int MaxEgg;
 	/**Shortcut for registering entities with forge**/
 	public static void Register(Class entityClass, String entityName, int id)
 	{
@@ -153,6 +153,7 @@ public class GaiaEntity {
 	{
 		Register(entityClass, entityName, id);
 		ItemGaiaSpawnEgg.registerEntityEgg(entityClass, id, primaryColor, secondaryColor);
+		MaxEgg = id;
 		
 	}
 }

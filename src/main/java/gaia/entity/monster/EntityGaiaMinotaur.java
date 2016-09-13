@@ -1,11 +1,11 @@
 package gaia.entity.monster;
 
-import gaia.BlockStateHelper;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.util.BlockStateHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

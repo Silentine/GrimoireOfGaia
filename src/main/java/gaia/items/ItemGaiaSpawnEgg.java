@@ -1,8 +1,8 @@
 package gaia.items;
 
-import gaia.BlockStateHelper;
 import gaia.Gaia;
 import gaia.entity.EntityGaiaEggInfo;
+import gaia.util.BlockStateHelper;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class ItemGaiaSpawnEgg extends Item {
 	private static Map<Integer, String> idToName = new HashMap();
-	private static Map<Integer, EntityGaiaEggInfo> idToEgg = new HashMap();
+	public static Map<Integer, EntityGaiaEggInfo> idToEgg = new HashMap();
 	private static Map<Integer, Class<? extends EntityLiving>> idToClass = new HashMap();
 	private static Map<Class<? extends EntityLiving>, Integer> classToID = new HashMap();
 
