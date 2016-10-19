@@ -143,15 +143,6 @@ public class EntityGaiaCreep extends EntityMobBase {
 		}
 		super.onLivingUpdate();
 	}
-	/** TODO BEGIN SOUND REWORK
-	protected SoundEvent getHurtSound(){
-		return "mob.creeper.say";
-	}
-
-	protected SoundEvent getDeathSound(){
-		return "mob.creeper.death";
-	}
-	**/
 	protected SoundEvent getHurtSound()
     {
         return SoundEvents.ENTITY_CREEPER_HURT;
