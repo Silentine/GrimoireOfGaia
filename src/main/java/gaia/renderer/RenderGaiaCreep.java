@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.layers.LayerCreeperCharge;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +24,11 @@ public class RenderGaiaCreep extends RenderLiving {
 	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 	public RenderGaiaCreep(float shadowSize) {
         super(rend, new ModelGaiaCreep(), shadowSize);
+        this.addLayer(new Charged_Layer(this));
     }
 
 	protected void updateCreepScale(EntityGaiaCreep par1EntityGaiaCreep, float par2) {
-		float f1 = par1EntityGaiaCreep.getGaiaCreepFlashIntensity(par2);
+		float f1 = par1EntityGaiaCreep.getCreeperFlashIntensity(par2);
 		float f2 = 1.0F + MathHelper.sin(f1 * 100.0F) * f1 * 0.01F;
 		if(f1 < 0.0F) {
 			f1 = 0.0F;
@@ -44,7 +46,7 @@ public class RenderGaiaCreep extends RenderLiving {
 	}
 
 	protected int updateCreepColorMultiplier(EntityGaiaCreep par1EntityGaiaCreep, float par2, float par3) {
-		float f2 = par1EntityGaiaCreep.getGaiaCreepFlashIntensity(par3);
+		float f2 = par1EntityGaiaCreep.getCreeperFlashIntensity(par3);
 		if((int)(f2 * 10.0F) % 2 == 0) {
 			return 0;
 		} else {

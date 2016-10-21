@@ -15,8 +15,10 @@ public class EntityAIGaiaCreepSwell extends EntityAIBase {
 
    public boolean shouldExecute() {
       EntityLivingBase entitylivingbase = this.swellingCreep.getAttackTarget();
-      return this.swellingCreep.getGaiaCreepState() > 0 || entitylivingbase != null && this.swellingCreep.getDistanceSqToEntity(entitylivingbase) < 9.0D;
+      return this.swellingCreep.getCreeperState() > 0 || entitylivingbase != null && this.swellingCreep.getDistanceSqToEntity(entitylivingbase) < 9.0D;
    }
+   
+   
 
    public void startExecuting() {
       this.swellingCreep.getNavigator().clearPathEntity();
@@ -29,13 +31,13 @@ public class EntityAIGaiaCreepSwell extends EntityAIBase {
 
    public void updateTask() {
       if (this.CreepAttackTarget == null) {
-         this.swellingCreep.setGaiaCreepState(-1);
+         this.swellingCreep.setCreeperState(-1);
       } else if (this.swellingCreep.getDistanceSqToEntity(this.CreepAttackTarget) > 49.0D) {
-         this.swellingCreep.setGaiaCreepState(-1);
+         this.swellingCreep.setCreeperState(-1);
       } else if (!this.swellingCreep.getEntitySenses().canSee(this.CreepAttackTarget)) {
-         this.swellingCreep.setGaiaCreepState(-1);
+         this.swellingCreep.setCreeperState(-1);
       } else {
-         this.swellingCreep.setGaiaCreepState(1);
+         this.swellingCreep.setCreeperState(1);
       }
    }
 }

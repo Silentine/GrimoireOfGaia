@@ -81,7 +81,7 @@ public class GaiaEntity {
 		Register(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, 11513775, 11513775);
 		Register(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, 11513775, 11513775);
 		Register(EntityGaiaCockatrice.class, "Cockatrice", 8, 0xc9b161, 0xe2e2e2);
-		//TODO TEMP* Register(EntityGaiaCreep.class, "Creep", 9, 7917159, 2053400);
+		Register(EntityGaiaCreep.class, "Creep", 9, 7917159, 2053400);
 		Register(EntityGaiaCyclops.class, "Cyclops", 10, 4936602, 3487029);				
 		Register(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, 1073920, 4045287);
 		Register(EntityGaiaDhampir.class, "Dhampir", 12, 0x9c1c2b, 0xc9b161);
