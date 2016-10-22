@@ -7,14 +7,11 @@ import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -23,8 +20,6 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -34,7 +29,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -115,7 +109,8 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		if (this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-			this.enchantEquipmentRanged(difficulty);
+			//TODO this.enchantEquipmentRanged(difficulty);
+			this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
@@ -138,18 +133,18 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
         }
     }
-	
+	/** TODO check setcurrentItemorArmor Lines
 	public void setCurrentItemOrArmor(int par1, ItemStack stack) {
 		super.setCurrentItemOrArmor(par1, stack);
 		if (!this.worldObj.isRemote && par1 == 0) {
 			this.setCombatTask();
 		}
 	}
-
+	**/
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);
 		this.tasks.removeTask(this.aiArrowAttack);
-		ItemStack itemstack = this.getHeldItem();
+		ItemStack itemstack = this.getHeldItemMainhand();
 		if (itemstack != null && itemstack.getItem() == Items.BOW) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 		} else {
@@ -194,23 +189,6 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 		par1NBTTagCompound.setByte("MobType", (byte)this.getMobType());
 		par1NBTTagCompound.setByte("MobType", (byte)this.getTextureType());
 	}
-
-    protected void enchantEquipmentRanged(DifficultyInstance difficulty) {
-    	float f = difficulty.getClampedAdditionalDifficulty();
-
-        if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f) {
-            EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItem(), (int)(5.0F + f * (float)this.rand.nextInt(18)));
-        }
-
-        for (int i = 0; i < 4; ++i) {
-            ItemStack itemstack = this.getCurrentArmor(i);
-
-            if (itemstack != null && this.rand.nextFloat() < 5.0F * f) {
-                EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int)(5.0F + f * (float)this.rand.nextInt(18)));
-            }
-        }
-    }
-
 	protected SoundEvent getAmbientSound(){
 		return Sounds.aggressive_say;
 	}

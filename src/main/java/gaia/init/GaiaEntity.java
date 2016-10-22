@@ -99,7 +99,7 @@ public class GaiaEntity {
 		Register(EntityGaiaMermaid.class, "Mermaid", 24, 0x5c70b1, 0xa4452d);
 		Register(EntityGaiaMimic.class, "Mimic", 25, 11237677, 4274991);
 		Register(EntityGaiaMinotaur.class, "Minotaur", 26, 0x8d4f41, 0xd54242);
-		//TODO TEMP* Register(EntityGaiaMinotaurus.class, "Minotaurus", 27, 0x8d4f41, 0xa9a9a9);
+		Register(EntityGaiaMinotaurus.class, "Minotaurus", 27, 0x8d4f41, 0xa9a9a9);
 		Register(EntityGaiaNaga.class, "Naga", 28, 0x29bc55, 0xccb63f);		
 		Register(EntityGaiaNineTails.class, "NineTails", 29, 11809844, 13218145);
 		Register(EntityGaiaSahuagin.class, "Sahuagin", 30, 0x5c70b1, 0x84a498);		
