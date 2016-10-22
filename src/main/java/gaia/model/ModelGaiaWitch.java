@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaWitch extends ModelBase {
-    ModelRenderer anchor;
+	public static ModelRenderer anchor;
 	ModelRenderer head;
 	ModelRenderer headeyes;
 	ModelRenderer headaccessory;

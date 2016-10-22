@@ -84,20 +84,20 @@ public class Gaia_Commands implements ICommand{
 					spawn_npc(world, player);
 					sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Summoning: npcs"));
 					return;
-			}
-			if((args[1].equalsIgnoreCase("mobs"))||
-				(args[1].equalsIgnoreCase("mobs")))
-			{
-				sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Summoning: "
-						+ TextFormatting.ITALIC +""+ TextFormatting.GRAY + spawn_mobs(world, player)
-						+ TextFormatting.RESET+ TextFormatting.GREEN + " mobs"));
-			}
-			}
-			else{
-				failed(sender); return;
 				}
-			}
+				if((args[1].equalsIgnoreCase("mobs"))||
+						(args[1].equalsIgnoreCase("mob")))
+				{
+					sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Summoning: "
+							+ TextFormatting.ITALIC +""+ TextFormatting.GRAY + spawn_mobs(world, player)
+							+ TextFormatting.RESET+ TextFormatting.GREEN + " mobs"));
+				}
+				else{failed(sender); return;}
+			}	
+			else{failed(sender); return;}
+			}		
 	}
+	
 	/** Dynamically spawns mobs based on egg mappings **/
 	public static  int spawn_mobs(World world, EntityPlayer player) {
 		int IDs;

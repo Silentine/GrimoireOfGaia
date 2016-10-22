@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -30,6 +31,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -102,8 +104,6 @@ public class EntityGaiaHarpy extends EntityMobDay {
 	}
 
 	protected SoundEvent getAmbientSound(){
-		/**TODO REPLACED GAIA SOUNDS
-		return "grimoireofgaia:aggre ssive_say"; **/
 		return Sounds.aggressive_say;
 	}
 
@@ -141,13 +141,13 @@ public class EntityGaiaHarpy extends EntityMobDay {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setEnchantmentBasedOnDifficulty(difficulty);
 		if (this.worldObj.rand.nextInt(6) == 0) {
 			this.setTextureType(1);
 		}
-
-		return par1IEntityLivingData;
+		return livingdata;		
 	}
 	
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);

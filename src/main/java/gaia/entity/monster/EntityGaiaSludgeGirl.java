@@ -33,6 +33,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -148,14 +149,15 @@ public class EntityGaiaSludgeGirl extends EntityMobBase {
 	}
 
 
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1IEntityLivingData) {
-		par1IEntityLivingData = super.onSpawnWithEgg(par1IEntityLivingData);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		this.setEnchantmentBasedOnDifficulty(difficulty);
 		if (this.worldObj.rand.nextInt(6) == 0) {
 			this.setTextureType(1);
 		}
-
-		return par1IEntityLivingData;
+		return livingdata;		
 	}
+	
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaSludgeGirl.class, DataSerializers.VARINT);
 	
 	protected void entityInit() {

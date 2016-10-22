@@ -50,7 +50,7 @@ public class EntityGaiaVampire extends EntityMobBase {
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIRestrictSun(this));
 		this.tasks.addTask(2, new EntityAIFleeSun(this, (double)this.moveSpeed));
-		// TODO *temp this.tasks.addTask(3, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		this.tasks.addTask(3, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));

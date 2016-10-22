@@ -19,9 +19,11 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -100,8 +102,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		for (int var4 = 0; var4 < var3; ++var4) {
             this.entityDropItem(new ItemStack(Items.DYE, 1, 4), 0.0F);
 		}
-		/** TODO temp*
-		//Shards
+		
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
@@ -111,11 +112,9 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
-		**/
 	}
 
 	protected void addRandomDrop() {
-		/** TODO temp*
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -126,7 +125,6 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		case 2:
 			this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
 		}
-		**/
 	}
 	
 	@Override

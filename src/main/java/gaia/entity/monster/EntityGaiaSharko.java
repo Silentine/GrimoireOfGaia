@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -112,7 +113,6 @@ public class EntityGaiaSharko extends EntityMobBase {
 	}
 
 	protected void addRandomDrop() {
-		/** TODO *TEMP
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -123,7 +123,6 @@ public class EntityGaiaSharko extends EntityMobBase {
 		case 2:
 			this.dropItem(GaiaItem.BookBuff, 1);
 		}
-		**/
 	}
 
 	public boolean canBreatheUnderwater() {

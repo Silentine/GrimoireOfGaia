@@ -174,10 +174,14 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));			
 		this.setEnchantmentBasedOnDifficulty(difficulty);
+		if (this.worldObj.rand.nextInt(4) == 0) {
+			this.setTextureType(1);
+		}
 		return livingdata;		
-    }
+	}
+	
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 	
 	protected void entityInit() {

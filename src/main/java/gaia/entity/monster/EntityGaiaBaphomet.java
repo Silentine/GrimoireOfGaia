@@ -49,7 +49,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-//TODO *temp	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+        this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -134,7 +134,6 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {	
-		/** TODO *TEMP
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
@@ -157,11 +156,9 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
 			this.dropItem(Items.GLOWSTONE_DUST, 1);
 		}
-		**/
 	}
 
 	protected void addRandomDrop() {
-		/** TODO *TEMP
 		switch(this.rand.nextInt(3)) {
 		case 0:
 			this.dropItem(GaiaItem.BagOre, 1);
@@ -172,7 +169,6 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		case 2:
 			this.dropItem(GaiaItem.BookWither, 1);
 		}
-		**/
 	}
 
 	@Override
@@ -180,7 +176,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO *temp this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 1));		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

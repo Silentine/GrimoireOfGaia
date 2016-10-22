@@ -48,7 +48,7 @@ public class EntityGaiaWerecat extends EntityMobBase {
 		//TODO *temp //TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIGaiaLeapAtTarget(this, 0.4F));
-		//TODO *tempthis.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		this.tasks.addTask(2, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
@@ -146,8 +146,11 @@ public class EntityGaiaWerecat extends EntityMobBase {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO *temp this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));			
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));			
 		this.setEnchantmentBasedOnDifficulty(difficulty);
+		if (this.worldObj.rand.nextInt(4) == 0) {
+			this.setTextureType(1);
+		}
 		return livingdata;		
 	}
 
@@ -155,18 +158,14 @@ public class EntityGaiaWerecat extends EntityMobBase {
 			
 	protected void entityInit() {
 		super.entityInit();
-		//TODO DATAWATCHER
-		//this.dataWatcher.addObject(13, new Byte((byte)0));
 		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 
 	public int getTextureType() {
-		//return this.dataWatcher.getWatchableObjectByte(13);
 		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
 
 	public void setTextureType(int par1) {
-		//this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
 		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
 

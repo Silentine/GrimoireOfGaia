@@ -139,7 +139,6 @@ public class EntityGaiaShaman extends EntityMobBase implements IRangedAttackMob 
 			spawnMob = new EntityZombie(this.worldObj);
 			spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
 			spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-			//TODO check spawnMob.setCurrentItemOrArmor(4, new ItemStack(Blocks.PUMPKIN));	
 			spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
 			this.worldObj.spawnEntityInWorld(spawnMob);
 			this.spawn = 1;
