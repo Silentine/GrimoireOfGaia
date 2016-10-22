@@ -3,6 +3,7 @@ package gaia.renderer;
 import org.lwjgl.opengl.GL11;
 
 import gaia.GaiaReference;
+import gaia.model.ModelGaiaNineTails;
 import gaia.model.ModelGaiaYukiOnna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -17,6 +18,7 @@ public class RenderGaiaYukiOnna extends RenderLiving {
 	
 	public RenderGaiaYukiOnna( float shadowSize) {
         super(rend, new ModelGaiaYukiOnna(), shadowSize);
+        this.addLayer(GaiaHeldItem.Right(this, ModelGaiaYukiOnna.rightarm));
 	}
 
 	protected void func_82422_c() {

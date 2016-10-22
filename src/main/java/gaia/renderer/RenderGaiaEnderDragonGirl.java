@@ -7,6 +7,7 @@ import gaia.model.ModelGaiaEnderDragonGirl;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -28,17 +29,19 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityGaiaEnderDrago
         this.addLayer(new Held_block_layer(this));
 	}
 
-	public void renderEnderDragonGirl(EntityGaiaEnderDragonGirl entity, double par2, double par4, double par6, float par8, float par9) {
-		this.EnderDragonGirlModel.isCarrying = entity.getHeldBlockState().getMaterial() != Material.AIR;
+	public void renderEnderDragonGirl(EntityGaiaEnderDragonGirl entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		IBlockState iblockstate = entity.getHeldBlockState();
+        this.EnderDragonGirlModel.isCarrying = iblockstate != null;
         this.EnderDragonGirlModel.isAttacking = entity.isScreaming();
-        
-		if(entity.isScreaming()) {
-			double var10 = 0.02D;
-			par2 += this.rnd.nextGaussian() * var10;
-			par6 += this.rnd.nextGaussian() * var10;
-		}
 
-		super.doRender(entity, par2, par4, par6, par8, par9);
+        if (entity.isScreaming())
+        {
+            double d0 = 0.02D;
+            x += this.rnd.nextGaussian() * 0.02D;
+            z += this.rnd.nextGaussian() * 0.02D;
+        }
+
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3) {

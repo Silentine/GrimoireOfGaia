@@ -157,7 +157,13 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
+		
+		int Chance = this.worldObj.rand.nextInt(12);
+		if (Chance == 0) {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.MiscWeaponEnchanted));}
+		else if (Chance == 1) {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.FanIce));}
+		else {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));}
+		
+		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

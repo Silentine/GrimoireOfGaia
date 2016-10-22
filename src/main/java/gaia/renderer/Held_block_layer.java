@@ -23,9 +23,11 @@ public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl
     }
 
     public void doRenderLayer(EntityGaiaEnderDragonGirl entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
+
         IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
-        if (iblockstate.getMaterial() != Material.AIR) {
+        if (iblockstate != null)
+        {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
@@ -35,17 +37,15 @@ public class Held_block_layer implements LayerRenderer<EntityGaiaEnderDragonGirl
             GlStateManager.translate(0.25F, 0.1875F, 0.25F);
             
             GlStateManager.translate(-0.2F, -0.2F, 0.3F);
-            
             float f = 0.6F;
             GlStateManager.scale(-f, -f, f);
             int i = entitylivingbaseIn.getBrightnessForRender(partialTicks);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
-            
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();
         }

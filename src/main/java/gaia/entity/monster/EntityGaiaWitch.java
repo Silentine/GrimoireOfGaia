@@ -76,7 +76,6 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		//TODO check* this.tasks.addTask(1, new EntityAIArrowAttack(this, (double)this.moveSpeed, 60, 10.0F));
 		this.tasks.addTask(2, new EntityAIAttackRanged(this, this.moveSpeed, 60, 10.0F));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));

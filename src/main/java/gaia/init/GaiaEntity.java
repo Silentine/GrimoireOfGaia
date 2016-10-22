@@ -87,8 +87,8 @@ public class GaiaEntity {
 		Register(EntityGaiaDhampir.class, "Dhampir", 12, 0x9c1c2b, 0xc9b161);
 		Register(EntityGaiaDryad.class, "Dryad", 13,10255437, 5681460);
 		Register(EntityGaiaDullahan.class, "Dullahan", 14, 0x824fab, 0xa4452d);
-		//TODO TEMP* Register(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, 3158064, 14711290);
-		//TODO TEMP* Register(EntityGaiaEnderEye.class, "Ender Eye", 16, 2039583, 3158064);
+		Register(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, 3158064, 14711290);
+		Register(EntityGaiaEnderEye.class, "Ender Eye", 16, 2039583, 3158064);
 		Register(EntityGaiaFleshLich.class, "Flesh Lich", 17, 0x00cccc, 0x799c65);		
 		Register(EntityGaiaFutakuchiOnna.class, "FutakuchiOnna", 18, 0x4e3738, 0xb43434);
 		Register(EntityGaiaGryphon.class, "Gryphon", 19, 0xf09942, 0xe2e2e2);

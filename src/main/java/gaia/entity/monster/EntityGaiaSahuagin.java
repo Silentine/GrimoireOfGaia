@@ -44,7 +44,7 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 		this.stepHeight = 1.0F;
 		this.fireResistance = 10;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-//NULL	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+	    this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));

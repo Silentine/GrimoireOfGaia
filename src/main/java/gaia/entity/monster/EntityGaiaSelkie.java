@@ -6,6 +6,7 @@ import gaia.entity.ai.ArrowGen;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -100,7 +101,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		if (this.worldObj.rand.nextInt(4) == 0) {
 			this.tasks.addTask(2, this.aiArrowAttack);
 			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-			this.enchantEquipmentRanged(difficulty);
+			this.setEnchantmentBasedOnDifficulty(difficulty);
 			this.setTextureType(1);
 		} else {
 			this.tasks.addTask(2, this.aiAttackOnCollide);
@@ -172,23 +173,7 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 		par1NBTTagCompound.setByte("MobType", (byte)this.getMobType());
 	}
 
-	protected void enchantEquipmentRanged(DifficultyInstance difficulty) {
-		float f = difficulty.getClampedAdditionalDifficulty();
-		/** TODO Temp*
-		if (this.getHeldItem() != null && this.rand.nextFloat() < 2.5F * f) {
-			EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItem(), (int)(5.0F + f * (float)this.rand.nextInt(18)));
-		}
-
-		for (int i = 0; i < 4; ++i) {
-			ItemStack itemstack = this.getCurrentArmor(i);
-
-			if (itemstack != null && this.rand.nextFloat() < 5.0F * f) {
-				EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int)(5.0F + f * (float)this.rand.nextInt(18)));
-			}
-		}
-		**/
-	}
-
+	
 	public void onLivingUpdate() {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posZ);

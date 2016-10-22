@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -70,6 +71,8 @@ public class EntityGaiaNineTails extends EntityMobBase implements IRangedAttackM
 			this.worldObj.spawnEntityInWorld(var11);
 		}
 	}
+	
+	
 
 	public boolean isAIEnabled() {
 		return true;
@@ -128,7 +131,12 @@ public class EntityGaiaNineTails extends EntityMobBase implements IRangedAttackM
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));	
+		
+		int Chance = this.worldObj.rand.nextInt(12);
+		if (Chance == 0) {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.MiscWeaponEnchanted, 1, 1));}
+		else if (Chance == 1) {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.FanFire));}
+		else {this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));}
+		
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

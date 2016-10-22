@@ -83,7 +83,7 @@ public class Gaia {
 		GaiaItem.init();
 		GaiaItem.register();
 		logger.info("Items Registered");
-		// TODO *TEMP GaiaItem.oreRegistration();
+		GaiaItem.oreRegistration();
 		
 		
 		Sounds.Sounds_Init();
@@ -94,13 +94,12 @@ public class Gaia {
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		/** TODO *temp
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		GaiaItem.addRecipes();
-		**/
+		
 		logger.info("Registering Entities");
 		GaiaEntity.register();
-		/// TODO *temp GaiaSpawning.register();
+		GaiaSpawning.register();
 		//TEMP_Spawning.register_spawn();
 		
 		if(isThaumcraftEnabled){

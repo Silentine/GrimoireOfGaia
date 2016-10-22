@@ -19,7 +19,7 @@ public class ModelGaiaYukiOnna extends ModelBase {
 	ModelRenderer bodybottom;
 	ModelRenderer rightchest;
 	ModelRenderer leftchest;
-	ModelRenderer rightarm;
+	public static ModelRenderer rightarm;
 	ModelRenderer leftarm;
 	ModelRenderer rightleg;
 	ModelRenderer leftleg;
