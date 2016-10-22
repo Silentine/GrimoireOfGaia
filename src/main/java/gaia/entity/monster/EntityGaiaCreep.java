@@ -40,6 +40,10 @@ public class EntityGaiaCreep extends EntityMobBase {
 	private int timeSinceIgnited;
 	private int fuseTime = 30;
 	private int explosionRadius = 3;
+	
+	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityGaiaCreep.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaCreep(World par1World) {
 		super(par1World);
@@ -84,10 +88,6 @@ public class EntityGaiaCreep extends EntityMobBase {
 		}
 	}
 	
-	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityCreeper.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityCreeper.class, DataSerializers.BOOLEAN);
-
 	protected void entityInit() {
 		super.entityInit();
         this.dataManager.register(STATE, Integer.valueOf(-1));

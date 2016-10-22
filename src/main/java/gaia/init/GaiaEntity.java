@@ -116,7 +116,7 @@ public class GaiaEntity {
 		Register(EntityGaiaValkyrie.class, "Valkyrie", 41, 0xc9b161, 0xd54242);
 		Register(EntityGaiaVampire.class, "Vampire", 42, 0xc23021, 0xc9b161);		
 		Register(EntityGaiaWerecat.class, "Werecat", 43, 0x7a7e8a, 0xdddadb);		
-		//TODO TEMP* Register(EntityGaiaWitch.class, "Witch", 44, 0x303030, 0x943dbb);
+		Register(EntityGaiaWitch.class, "Witch", 44, 0x303030, 0x943dbb);
 		Register(EntityGaiaWitherCow.class, "Wither Cow", 45, 5791069, 16777215);
 		Register(EntityGaiaYeti.class, "Yeti", 46, 16448250, 7895160);
 		Register(EntityGaiaYukiOnna.class, "Yuki-Onna", 47, 6781114, 13817330);

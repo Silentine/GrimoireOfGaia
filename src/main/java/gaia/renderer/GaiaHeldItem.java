@@ -2,6 +2,8 @@ package gaia.renderer;
 
 import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaSharko;
+import gaia.entity.monster.EntityGaiaWitch;
+import gaia.model.ModelGaiaWitch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
@@ -14,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -76,6 +79,8 @@ public class GaiaHeldItem implements LayerRenderer<EntityLivingBase>
 				GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
 				GlStateManager.translate(0F, 0.25F, 0.1F);
 			}
+            
+            
             if (slot == EntityEquipmentSlot.MAINHAND) this.renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
             if (slot == EntityEquipmentSlot.OFFHAND) this.renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
             else this.renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);          
@@ -83,7 +88,7 @@ public class GaiaHeldItem implements LayerRenderer<EntityLivingBase>
         }
     }
 
-    private void renderHeldItem(EntityLivingBase living, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide)
+    public void renderHeldItem(EntityLivingBase living, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide)
     {
         if (stack != null)
         {
@@ -93,7 +98,7 @@ public class GaiaHeldItem implements LayerRenderer<EntityLivingBase>
             {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
-            limb.postRender(0.0625F);   
+            limb.postRender(0.0625F);
             GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
             boolean flag = handSide == EnumHandSide.LEFT;
