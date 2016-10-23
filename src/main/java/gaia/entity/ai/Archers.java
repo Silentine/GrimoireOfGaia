@@ -1,5 +1,6 @@
 package gaia.entity.ai;
 
+import gaia.ConfigGaia;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 
 import java.util.Random;
@@ -24,7 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class ArrowGen {
+public class Archers {
 	
 	/**Shortcut Method for Entities attacking with bows,
 	 * Grafted from skeleton codebase
@@ -52,7 +53,7 @@ public class ArrowGen {
         //TODO buffs to archers
         //Gaia archers have always been a tad weak, and with shields they're almost trivial foes
         //This will of course need delicate tweaking and balance
-        if(host.worldObj.getDifficulty().getDifficultyId()==3){
+        if(host.worldObj.getDifficulty().getDifficultyId()==3 && ConfigGaia.HardmodeArchers){
         entitytippedarrow.addEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
         entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));
         }

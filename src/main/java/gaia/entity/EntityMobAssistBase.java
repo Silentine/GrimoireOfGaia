@@ -5,7 +5,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.MathHelper;
@@ -18,10 +21,21 @@ public abstract class EntityMobAssistBase extends EntityMobAssist {
 		super(par1World);
 	}
 
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		if (super.attackEntityAsMob(par1Entity)) {
+	public boolean attackEntityAsMob(Entity entity) {
+		if (super.attackEntityAsMob(entity)) {
 			if (ConfigGaia.BaseDamage) {
-				((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 2, 0));
+				
+				//TODO Rebalance tweaking for shields
+				//Shields aren't so fun when they can't block most of the damage
+				if(entity instanceof EntityPlayer && ConfigGaia.ShieldsBlockPiercing){
+					EntityPlayer player = (EntityPlayer) entity;
+					ItemStack itemstack = player.isHandActive() ? player.getActiveItemStack() : null;
+					if(itemstack != null && itemstack.getItem() == Items.SHIELD){ 
+						return true;
+					}
+				}
+				
+				((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 2, 0));
 			}
 			return true;
 		} else {
@@ -36,7 +50,7 @@ public abstract class EntityMobAssistBase extends EntityMobAssist {
 	/**
 	 * Used to adjust the motionY when a mob is hit.
 	 */
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5, double par6) {
+	public void knockBack(Entity entity, float par2, double par3, double par5, double par6) {
 		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			this.isAirBorne = true;
 			float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);

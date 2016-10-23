@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import net.minecraft.block.Block;
@@ -72,7 +72,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	}
 	/**TODO Arrow attacks may need to be completely redone **/
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		ArrowGen.RangedAttack(target, this, par2);
+		Archers.RangedAttack(target, this, par2);
 	}
 	
 	@Override

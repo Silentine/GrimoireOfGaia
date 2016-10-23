@@ -174,6 +174,10 @@ configgui.GrimoireOfGaia.category.attributes.tooltip=Attributes based on percent
 
 configgui.GrimoireOfGaia.category.damage.BaseDamage=Base Damage
 configgui.GrimoireOfGaia.category.damage.BaseDamage.tooltip=Damage: 2 (1 Heart)
+configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing=Shields Block Piercing Damage
+configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing.tooltip=Base Damage won't penetrate Shields
+configgui.GrimoireOfGaia.category.damage.HardmodeArchers=Hardmode Archers
+configgui.GrimoireOfGaia.category.damage.HardmodeArchers.tooltip=While in Hardmode, Archers gain piercing and slowing attacks
 
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Tier 1 Health
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth.tooltip=Health: 40 (20 Hearts)

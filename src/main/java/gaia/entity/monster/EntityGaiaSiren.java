@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -61,7 +61,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		ArrowGen.RangedAttack(target, this, par2);
+		Archers.RangedAttack(target, this, par2);
 	}
 	
 	@Override

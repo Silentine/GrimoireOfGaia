@@ -69,7 +69,9 @@ public class GaiaConfigGeneration {
 
 		//Base Damage
 		ConfigGaia.BaseDamage = config.get("base damage", "configgui.GrimoireOfGaia.category.damage.BaseDamage", true).getBoolean(true);
-
+		ConfigGaia.ShieldsBlockPiercing = config.get("base damage", "configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing", true).getBoolean(true);
+		ConfigGaia.HardmodeArchers = config.get("base damage", "configgui.GrimoireOfGaia.category.damage.HardmodeArchers", true).getBoolean(true);
+		
 		//Attributes
 		ConfigGaia.Tier1maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth", ConfigGaia.Tier1maxHealth).getInt();
 		ConfigGaia.Tier1attackDamage = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage", ConfigGaia.Tier1attackDamage).getInt();
