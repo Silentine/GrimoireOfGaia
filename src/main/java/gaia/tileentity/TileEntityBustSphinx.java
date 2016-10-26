@@ -1,11 +1,14 @@
 package gaia.tileentity;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.datafix.DataFixer;
 
 public class TileEntityBustSphinx extends TileEntity {
 
@@ -14,11 +17,11 @@ public class TileEntityBustSphinx extends TileEntity {
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
-
+	
 	public boolean canUpdate() {
 		return true;
 	}
-
+	
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		this.readFromNBT(pkt.getNbtCompound());
 	}
@@ -38,18 +41,25 @@ public class TileEntityBustSphinx extends TileEntity {
 		super.readFromNBT(nbt);
 		this.direction = nbt.getInteger("direction");
 	}
-	/** TODO TE NBT fix
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		new NBTTagList();
-		nbt.setInteger("direction", this.direction);
-	}
-	 * @return 
-	**/
+	
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		new NBTTagList();
 		nbt.setInteger("direction", this.direction);
 		return nbt;
 	}
+	
+	@Nullable
+    public SPacketUpdateTileEntity getUpdatePacket()
+    {
+        return new SPacketUpdateTileEntity(this.pos, 5, this.getUpdateTag());
+    }
+
+    public NBTTagCompound getUpdateTag()
+    {
+        return this.writeToNBT(new NBTTagCompound());
+    }
+    
+	
+	
 }
