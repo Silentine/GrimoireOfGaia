@@ -1,5 +1,6 @@
 package gaia.entity.monster;
 
+import gaia.ConfigGaia;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.EntityMobDay;
@@ -20,6 +21,8 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
@@ -95,39 +98,21 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 		return this.holdRoseTick;
 	}
 
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float damage) {
-		//TODO Re-look golem pickaxe bonus damage
-		Entity entity = par1DamageSource.getEntity();
+	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
+		float input = inputDamage;
+		Entity entity = DamageSource.getEntity();
+		
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getActiveItemStack();
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 			if (itemstack != null) {
-				Item item = itemstack.getItem();
-				if (item != null) {
-					if (item == Items.WOODEN_PICKAXE) {
-						damage = 6.0F;
-					}
-
-					if (item == Items.STONE_PICKAXE) {
-						damage = 7.0F;
-					}
-
-					if (item == Items.IRON_PICKAXE) {
-						damage = 8.0F;
-					}
-
-					if (item == Items.GOLDEN_PICKAXE) {
-						damage = 6.0F;
-					}
-
-					if (item == Items.DIAMOND_PICKAXE) {
-						damage = 9.0F;
-					}
+				
+				if (itemstack.getItem() instanceof ItemPickaxe) {
+					inputDamage = input+5;
 				}
 			}
 		}
-
-		return super.attackEntityFrom(par1DamageSource, damage);
+		return super.attackEntityFrom(DamageSource, (float) inputDamage);
 	}
 
 	public boolean isAIEnabled() {

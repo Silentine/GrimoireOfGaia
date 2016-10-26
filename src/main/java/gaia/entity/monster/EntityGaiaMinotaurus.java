@@ -133,14 +133,14 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
         }
     }
-	/** TODO check setcurrentItemorArmor Lines
-	public void setCurrentItemOrArmor(int par1, ItemStack stack) {
-		super.setCurrentItemOrArmor(par1, stack);
-		if (!this.worldObj.isRemote && par1 == 0) {
+	
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 			this.setCombatTask();
 		}
 	}
-	**/
+	
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);
 		this.tasks.removeTask(this.aiArrowAttack);

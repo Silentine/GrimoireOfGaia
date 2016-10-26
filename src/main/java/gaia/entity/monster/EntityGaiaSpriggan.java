@@ -1,5 +1,6 @@
 package gaia.entity.monster;
 
+import gaia.ConfigGaia;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
@@ -18,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -52,37 +54,22 @@ public class EntityGaiaSpriggan extends EntityMobBase {
 	public int getTotalArmorValue() {
 		return EntityAttributes.rateArmor2;
 	}
-
-	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-		Entity entity = par1DamageSource.getEntity();
+	
+	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
+		float input = inputDamage;
+		Entity entity = DamageSource.getEntity();
+		
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
-			ItemStack itemstack = player.getActiveItemStack();
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 			if (itemstack != null) {
-				if (itemstack.getItem() == Items.WOODEN_AXE) {
-					par2 = 7;
-				}
-
-				if (itemstack.getItem() == Items.STONE_AXE) {
-					par2 = 8;
-				}
-
-				if (itemstack.getItem() == Items.IRON_AXE) {
-					par2 = 9;
-				}
-
-				if (itemstack.getItem() == Items.GOLDEN_AXE) {
-					par2 = 7;
-				}
-
-				if (itemstack.getItem() == Items.DIAMOND_AXE) {
-					par2 = 10;
+				
+				if (itemstack.getItem() instanceof ItemAxe) {
+					inputDamage = input*1.5F;
 				}
 			}
 		}
-
-		return super.attackEntityFrom(par1DamageSource, (float) par2);
+		return super.attackEntityFrom(DamageSource, (float) inputDamage);
 	}
 
 	public boolean isAIEnabled() {

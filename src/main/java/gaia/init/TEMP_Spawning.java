@@ -64,6 +64,7 @@ public class TEMP_Spawning {
 	}
 	public static void addspawn(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, subbiome subtype){
 		addspawn(groupmax, entityclassIn, groupmax, groupmax, forest, false, subtype);
+		//uh.. will need a look over before being production ready
 	}
 	
 	/** Iterates through the chosen biome to spawn and add mob to that spawning list **/
@@ -185,8 +186,9 @@ public class TEMP_Spawning {
 	}
 	
 	public static void addtoentry(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, int subbiome){	
-		
+		if(configuration >0 ){
 		SpawnEntry = new SpawnListEntry(entityclassIn, configuration, groupmin, groupmax);
 		biome[subbiome].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
+			}
 	}
 }

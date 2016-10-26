@@ -166,14 +166,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }
-	/** TODO check setcurrentItemorArmor Lines
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
-			this.setCombatTask();
-		}
-	}
-	**/
+	
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
 		if (!this.worldObj.isRemote && par1.getIndex() == 0) {

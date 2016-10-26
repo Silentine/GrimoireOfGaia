@@ -215,8 +215,7 @@ public class EntityGaiaAnubis extends EntityMobBase implements IRangedAttackMob 
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }
-	
-	//TODO check itemstackslot
+		
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
 			if (!this.worldObj.isRemote && par1.getIndex() == 0) {

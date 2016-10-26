@@ -170,9 +170,8 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return livingdata;		
     }
 	
-	//TODO check itemstackslot
-		public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
-			super.setItemStackToSlot(par1, par2ItemStack);
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
 			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 				this.setCombatTask();
 			}
