@@ -171,6 +171,9 @@ configgui.GrimoireOfGaia.category.damage=Base Damage
 configgui.GrimoireOfGaia.category.damage.tooltip=If set to true, all mobs will deal additional magical damage (bypasses armor)
 configgui.GrimoireOfGaia.category.attributes=Attributes
 configgui.GrimoireOfGaia.category.attributes.tooltip=Attributes based on percentage. WARNING: Do not set below 50
+configgui.GrimoireOfGaia.category.debug=Debugging
+configgui.GrimoireOfGaia.category.debug.tooltip=Debug tools for developers
+
 
 configgui.GrimoireOfGaia.category.damage.BaseDamage=Base Damage
 configgui.GrimoireOfGaia.category.damage.BaseDamage.tooltip=Damage: 2 (1 Heart)
@@ -178,6 +181,13 @@ configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing=Shields Block Pier
 configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing.tooltip=Base Damage won't penetrate Shields
 configgui.GrimoireOfGaia.category.damage.HardmodeArchers=Hardmode Archers
 configgui.GrimoireOfGaia.category.damage.HardmodeArchers.tooltip=While in Hardmode, Archers gain piercing and slowing attacks
+
+configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode=Gaia Spawning Debug Mode
+configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode.tooltip=Disables all non-gaia mobs from spawning
+configgui.GrimoireOfGaia.category.debug.Debug_Commands=Debug Commands
+configgui.GrimoireOfGaia.category.debug.Debug_Commands.tooltip=Enables developer commands
+
+
 
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Tier 1 Health
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth.tooltip=Health: 40 (20 Hearts)

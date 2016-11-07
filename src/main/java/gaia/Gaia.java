@@ -1,8 +1,7 @@
 package gaia;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import gaia.entity.EntityMobAssist;
+import gaia.entity.EntityMobBase;
 import gaia.init.Aspects_Entity;
 import gaia.init.Aspects_Items;
 import gaia.init.GaiaBlock;
@@ -12,19 +11,14 @@ import gaia.init.GaiaItem;
 import gaia.init.GaiaSpawning;
 import gaia.init.Sounds;
 import gaia.items.GaiaItemHandlerFuel;
-import gaia.items.ItemGaiaSpawnEgg;
-import gaia.proxy.ClientProxy;
 import gaia.proxy.CommonProxy;
 import gaia.util.Gaia_Commands;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -33,8 +27,13 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(
 		modid = GaiaReference.MOD_ID, 
@@ -125,7 +124,19 @@ public class Gaia {
 		if (eventArgs.getModID().equals(GaiaReference.MOD_ID))
 			GaiaConfigGeneration.syncConfig();
 	}
-
+	@SubscribeEvent
+	public void Gaia_Spawn_Debug(CheckSpawn e){
+		if(ConfigGaia.Spawn_Debug_Mode){
+			if(e.getEntity() instanceof EntityMobAssist ||
+					e.getEntity() instanceof EntityMobBase){
+				e.setResult(Event.Result.ALLOW);
+			}
+			else{
+				e.setResult(Event.Result.DENY);
+			}
+		}
+	}
+	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {}
 }

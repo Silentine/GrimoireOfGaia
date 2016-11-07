@@ -73,4 +73,7 @@ public class ConfigGaia {
 	public static boolean BaseDamage = true;
 	public static boolean ShieldsBlockPiercing = true;
 	public static boolean HardmodeArchers = true;
+	
+	public static boolean Spawn_Debug_Mode = false;
+	public static boolean Debug_Commands = true;
 }

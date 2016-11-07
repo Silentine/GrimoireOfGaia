@@ -16,6 +16,7 @@ public class GaiaConfigGeneration {
 
 	public static String DAMAGE = "base damage";
 	public static String ATTRIBUTES = "attributes";
+	public static String DEBUG = "debug";
 
 	public static void syncConfig(){
 		//Spawn Rate
@@ -80,6 +81,11 @@ public class GaiaConfigGeneration {
 		ConfigGaia.Tier3maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth", ConfigGaia.Tier3maxHealth).getInt();
 		ConfigGaia.Tier3attackDamage = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage", ConfigGaia.Tier3attackDamage).getInt();
 
+		//Debugging
+		ConfigGaia.Spawn_Debug_Mode = config.get("debug", "configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode", false).getBoolean(false);
+		ConfigGaia.Debug_Commands = config.get("debug", "configgui.GrimoireOfGaia.category.debug.Debug_Commands", false).getBoolean(false);
+		
+		
 		//Descriptions
 		// Disabled due to it messing up the ConfigGui by including an extra input box
 		/*
