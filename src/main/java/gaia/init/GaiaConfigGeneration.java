@@ -84,6 +84,7 @@ public class GaiaConfigGeneration {
 		//Debugging
 		ConfigGaia.Spawn_Debug_Mode = config.get("debug", "configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode", false).getBoolean(false);
 		ConfigGaia.Debug_Commands = config.get("debug", "configgui.GrimoireOfGaia.category.debug.Debug_Commands", false).getBoolean(false);
+		ConfigGaia.Biome_Tweaks = config.get("debug", "configgui.GrimoireOfGaia.category.debug.Biome_Tweaks", true).getBoolean(true);
 		
 		
 		//Descriptions

@@ -76,4 +76,5 @@ public class ConfigGaia {
 	
 	public static boolean Spawn_Debug_Mode = false;
 	public static boolean Debug_Commands = true;
+	public static boolean Biome_Tweaks = true;
 }

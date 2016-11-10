@@ -95,7 +95,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return true;
 	}
 
-	public void onLivingUpdate() {
+	public void onLivingUpdate() {		
 		if (this.isInWater()) {
 			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
 		}

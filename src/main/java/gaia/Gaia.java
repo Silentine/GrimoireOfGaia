@@ -27,7 +27,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -98,8 +97,6 @@ public class Gaia {
 		
 		logger.info("Registering Entities");
 		GaiaEntity.register();
-		GaiaSpawning.register();
-		//TEMP_Spawning.register_spawn();
 		
 		if(isThaumcraftEnabled){
 			logger.info("Registering Aspects");	
@@ -111,6 +108,9 @@ public class Gaia {
 		proxy.registerRenders();    	
 		
 		MinecraftForge.EVENT_BUS.register(this);
+		
+		if(ConfigGaia.Biome_Tweaks)GaiaSpawning.Biome_Tweaks();
+		
 	}
 	
 	@EventHandler
@@ -124,6 +124,7 @@ public class Gaia {
 		if (eventArgs.getModID().equals(GaiaReference.MOD_ID))
 			GaiaConfigGeneration.syncConfig();
 	}
+	/** Prevents vanilla mobs from spawning for testing **/
 	@SubscribeEvent
 	public void Gaia_Spawn_Debug(CheckSpawn e){
 		if(ConfigGaia.Spawn_Debug_Mode){
@@ -138,5 +139,8 @@ public class Gaia {
 	}
 	
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void postInit(FMLPostInitializationEvent event) {
+		//Moved Spawning registry to last since forge doesn't auto-generate sub "M' biomes until late
+		GaiaSpawning.register();
+	}
 }

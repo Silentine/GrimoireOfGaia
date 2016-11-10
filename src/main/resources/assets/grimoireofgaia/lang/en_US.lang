@@ -186,6 +186,8 @@ configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode=Gaia Spawning Debug Mod
 configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode.tooltip=Disables all non-gaia mobs from spawning
 configgui.GrimoireOfGaia.category.debug.Debug_Commands=Debug Commands
 configgui.GrimoireOfGaia.category.debug.Debug_Commands.tooltip=Enables developer commands
+configgui.GrimoireOfGaia.category.debug.Biome_Tweaks=Biome Tweaks
+configgui.GrimoireOfGaia.category.debug.Biome_Tweaks.tooltip=Tweaks the default dictionary for some "M" biomes, disable if you encounter Issues
 
 
 

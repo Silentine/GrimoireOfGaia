@@ -20,6 +20,7 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +29,10 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 
 /**http://jabelarminecraft.blogspot.com/p/minecraft-forge-172.html
@@ -70,7 +74,8 @@ public class Gaia_Commands implements ICommand{
 		
 		return this.aliases;
 	}
-	//Master Command Delegator 
+	
+	/** Initial Text Hanlder for commands **/
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException 
 	{
@@ -83,7 +88,7 @@ public class Gaia_Commands implements ICommand{
             System.out.println("Not processing on Client side"); 
             	}
 		else{
-			 //sender.addChatMessage(new TextComponentTranslation(args[0]));
+			
 			if(args.length == 0){ failed(sender); return;}
 			if((args[0].equalsIgnoreCase("spawn")||(args[0].equalsIgnoreCase("summon")))){
 				if(spawn_Command(server, sender, world, player, args))return;
@@ -95,7 +100,7 @@ public class Gaia_Commands implements ICommand{
 			}		
 	}
 	
-	//Spawn commmand delegator
+	/** Text Handling for Spawn Commands **/
 	public boolean spawn_Command(MinecraftServer server, ICommandSender sender, World world, EntityPlayer player, String[] args) throws CommandException{
 		
 		if((args[1].equalsIgnoreCase("npcs"))||
@@ -115,39 +120,42 @@ public class Gaia_Commands implements ICommand{
 		}
 		else{return false;}
 	}
-	//Biome command delegator
+	
+	
+	/** Text Handling for Biome Debugger Commands **/
 	private boolean biome_Command(MinecraftServer server, ICommandSender sender,
 			World world, EntityPlayer player, String[] args) throws CommandException{
 		if((args[1].equalsIgnoreCase("listing")) ||
 				(args[1].equalsIgnoreCase("list")))
 		{
 			biome_List(server, sender, world, player, args);
-			//sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Debugging"));
 			return true;
 		}
-		
-		if((args[1].equalsIgnoreCase("debug")))
+		if(isInteger(args[1]))
 		{
 			biome_Debug(server, sender, world, player, args);
-			//sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Debugging"));
 			return true;
 		}
 		else{return false;}
 		
 	}
-	//Prints registered Biomes
+	
+	/** Prints biome Dictionary Information and What Biomes are assigned to them **/
 	private void biome_List(MinecraftServer server, ICommandSender sender,
 			World world, EntityPlayer player, String[] args) throws CommandException{
+		
+		show_dictionaries();
 		
         for (Biome biome : getBiomes()) {
         	String name = biome.getBiomeName();
         	int id = biome.getIdForBiome(biome);
             Gaia.logger.info(id+ ": "+ name);
+            Biome_types(biome);
         }
         sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Biome Listings Printed to Console"));
 		
 	}
-	//Command check
+	/** Number Check **/
 	public static boolean isInteger(String s) {
 	    try { 
 	        Integer.parseInt(s); 
@@ -161,12 +169,11 @@ public class Gaia_Commands implements ICommand{
 	
 	//debug result
 	//Adapted from evilcraft code
+	/**Transforming nearby chunks for spawning debugging **/
 	public void biome_Debug(MinecraftServer server, ICommandSender sender,
 			World world, EntityPlayer player, String[] args) throws CommandException{
 		
-		String commandy = args[2].toString();
-		if(isInteger(commandy)){
-			
+		String commandy = args[1].toString();
 		int BIOME_ID = Integer.parseInt(commandy);
 			if(BIOME_ID <= -1 ||
 					Biome.getBiomeForId(BIOME_ID) == null){
@@ -175,13 +182,14 @@ public class Gaia_Commands implements ICommand{
 			Biome biome = Biome.getBiomeForId(BIOME_ID);
 			String biomeName = biome.getBiomeName();
 			sender.addChatMessage(new TextComponentTranslation(TextFormatting.GREEN +"Transforming Local Biomes to ID of :  "+BIOME_ID+" : "+biomeName));
-			sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"You may have to reload your client"));
-		
-		
+			sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"You may have to reload your client"));			
+			
+			Biome_types(biome);
+			
 		BlockPos posp = player.getPosition();	
 		
 		BlockPos pos = new BlockPos (posp.getX(), posp.getY(), posp.getZ());
-		int max = 64;
+		int max = 32;
 		
 		
 		int start = -(max/2);
@@ -209,31 +217,110 @@ public class Gaia_Commands implements ICommand{
            
         			}
 				}
-			}        
-		}
-		else{failed(sender);}return;
-        
+			}               
 	}
 	
+	public void Biome_types(Biome biome){
+		Type[] map = BiomeDictionary.getTypesForBiome(biome);		
+		String messege = "Types: ";
+		
+		int size = map.length;		
+		int iterate = 0;
+		for(iterate = 0; iterate < size; ++iterate){	
+			messege = messege + (map[iterate]).toString()+", ";
+			
+		}		
+		Gaia.logger.info(messege);
+		Gaia.logger.info(" ");
+	}
 	
+
+    public static void get_types(Biome[] biome){
+    	int i ;  
+    	for (i = 0; i < biome.length; ++i) 
+		{
+    		Gaia.logger.info(biome[i].getBiomeName());
+		}
+    }
+	
+    /** Sloppy code but it works **/
+	public void show_dictionaries(){
+		Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
+		Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
+		Biome[] mesa = BiomeDictionary.getBiomesForType(Type.MESA);
+		Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
+		Biome[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
+		Biome[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
+		Biome[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
+		Biome[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
+		Biome[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
+		Biome[] hill = BiomeDictionary.getBiomesForType(Type.HILLS);
+
+		Biome[] water = BiomeDictionary.getBiomesForType(Type.WATER);
+		
+		Biome[] ocean = BiomeDictionary.getBiomesForType(Type.OCEAN);
+		Biome[] river = BiomeDictionary.getBiomesForType(Type.RIVER);
+		
+		Biome[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
+
+		Biome[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
+		Biome[] sky = BiomeDictionary.getBiomesForType(Type.END);
+
+		 String s = " type biomes include:";
+		 Gaia.logger.info("Forest"+s);
+		 get_types(forest);
+		 Gaia.logger.info("");		 
+		 Gaia.logger.info("Sandy"+s);
+		 get_types(sandy);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Mesa"+s);
+		 get_types(mesa);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Plains"+s);
+		 get_types(plains);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Swamp"+s);
+		 get_types(swamp);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Spooky"+s);
+		 get_types(spooky);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Jungle"+s);
+		 get_types(jungle);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Snowy"+s);
+		 get_types(snowy);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Mountain"+s);
+		 get_types(mountain);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Hills"+s);
+		 get_types(hill);
+		 Gaia.logger.info("");
+		 
+		 Gaia.logger.info("Ocean"+s);
+		 get_types(ocean);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("River"+s);
+		 get_types(river);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Beach"+s);
+		 get_types(beach);
+		 Gaia.logger.info("");
+		 
+		 Gaia.logger.info("Hell"+s);
+		 get_types(hell);
+		 Gaia.logger.info("");
+		 Gaia.logger.info("Sky"+s);
+		 get_types(sky);
+		 Gaia.logger.info("");
+		 
+	}
+	
+	//Evilcraft shortcuts
 	 public Iterable<Biome> getBiomes() {
 	        return Biome.REGISTRY;
-	    }
-	 
-	 //TODO clean up here
-	 /**
-	 public Biome getBiome(int id) {
-		 		Biome biome = Biome.getBiomeForId(id);
-		 		System.out.println(biome);
-	            String biomeName = biome.getBiomeName();
-	            System.out.println(biomeName);
-	            if(Biome.REGISTRY.containsKey(new ResourceLocation(biomeName))) {
-	                return Biome.REGISTRY.getObject(new ResourceLocation(biomeName));
-	            }
-	            System.out.println("FAILED");
-	            return null;
-	    }
-	**/
+	    }	 
 	public static final int CHUNK_SIZE = 16;
 	
 	public static BlockPos getChunkLocationFromWorldLocation(int x, int y, int z) {
@@ -294,7 +381,7 @@ public class Gaia_Commands implements ICommand{
 		return;
 	}
 	
-	//Required stuff
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~Required stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
 		EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
