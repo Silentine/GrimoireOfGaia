@@ -21,6 +21,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -77,42 +78,30 @@ public class EntityGaiaDullahan extends EntityMobBase {
 		}
 	}
 
-	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-		Entity entity = par1DamageSource.getEntity();
+	public boolean attackEntityFrom(DamageSource DamageSource, int inputDamage) {
+		Entity entity = DamageSource.getEntity();
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)entity;
-			//ItemStack itemstack = player.getCurrentEquippedItem();
-			//TODO lookover bonus damage
-			ItemStack itemstack = player.getActiveItemStack();
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
+			
 			if (itemstack != null) {
 				Item item = itemstack.getItem();
 				if (item != null) {
-					if (item == Items.GOLDEN_SWORD) {
-						par2 = 14;
-						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
-					}
-					if (item == Items.GOLDEN_AXE) {
-						par2 = 14;
-						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
-					}
-					if (item == Items.GOLDEN_SHOVEL) {
-						par2 = 14;
-						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
-					}
-					if (item == Items.GOLDEN_HOE) {
-						par2 = 14;
-						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
-					}
-					if (item == Items.GOLDEN_PICKAXE) {
-						par2 = 14;
-						par2 = (int)((float)par2 + Item.ToolMaterial.GOLD.getDamageVsEntity());
+					if (item == Items.GOLDEN_SWORD 	||
+						item == Items.GOLDEN_AXE 	||
+						item == Items.GOLDEN_SHOVEL ||
+						item == Items.GOLDEN_HOE	||
+						item == Items.GOLDEN_PICKAXE  ){
+						inputDamage = 14;
+						inputDamage = (int)((float)inputDamage + Item.ToolMaterial.GOLD.getDamageVsEntity());
 					}
 				}
 			}
 		}
 
-		return super.attackEntityFrom(par1DamageSource, (float)par2);
+		return super.attackEntityFrom(DamageSource, (float)inputDamage);
 	}
+	
 
 	public boolean isAIEnabled() {
 		return true;

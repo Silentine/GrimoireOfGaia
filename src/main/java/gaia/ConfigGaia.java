@@ -69,5 +69,12 @@ public class ConfigGaia {
 	public static int Tier2attackDamage = 100;
 	public static int Tier3maxHealth = 100;
 	public static int Tier3attackDamage = 100;
+	
 	public static boolean BaseDamage = true;
+	public static boolean ShieldsBlockPiercing = true;
+	public static boolean HardmodeArchers = true;
+	
+	public static boolean Spawn_Debug_Mode = false;
+	public static boolean Debug_Commands = true;
+	public static boolean Biome_Tweaks = true;
 }

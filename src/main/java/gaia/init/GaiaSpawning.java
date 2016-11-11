@@ -1,6 +1,9 @@
 package gaia.init;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import gaia.ConfigGaia;
+import gaia.Gaia;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
@@ -48,18 +51,53 @@ import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.entity.monster.EntityGaiaYukiOnna;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class GaiaSpawning {
-
+/** Streamlined Spawning Registry, 
+ * Tried to keep structure as similiar,
+ * But cleaned up methods and repetitive code to save time and fingers**/
+public class GaiaSpawning extends ConfigGaia{
+	
+	static int i;
+	static SpawnListEntry SpawnEntry;
+	
+	/**Bridge Method for simpler spawning registry**/
+	public static void add(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, int subbiome){	
+		
+		if(configuration >0 ){
+			SpawnEntry = new SpawnListEntry(entityclassIn, configuration, groupmin, groupmax);
+			biome[subbiome].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
+			}
+	}
+	
+	/** Underground Creature Roster **/
+	public static void underground(Biome[] biome, int subbiome)
+	{		
+		add(SpawnCreep, EntityGaiaCreep.class, 2, 4, biome, subbiome);
+		add(SpawnEnderEye, EntityGaiaEnderEye.class, 2, 4, biome, subbiome);	
+		add(SpawnJorogumo, EntityGaiaJorogumo.class, 1, 2, biome, subbiome);	
+		add(SpawnMimic, EntityGaiaMimic.class, 1, 2, biome, subbiome);		
+		add(SpawnBoneKnight, EntityGaiaBoneKnight.class, 1, 2, biome, subbiome);	
+		add(SpawnFleshLich, EntityGaiaFleshLich.class, 1, 2, biome, subbiome);
+		
+	}
+	//Water bassed mobs
+	public static void aquatic(Biome[] biome, int subbiome)
+	{
+		add(SpawnSahuagin, EntityGaiaSahuagin.class, 4, 6, biome, subbiome);		
+		add(SpawnMermaid, EntityGaiaMermaid.class, 2, 4, biome, subbiome);		
+		add(SpawnSharko, EntityGaiaSharko.class, 2, 4, biome, subbiome);	
+	}
+	
+	/** Register Mobs based on Biome sub Types **/
 	public static void register(){
 
-		//TODO Woah... this need's to be redone badly
-		
 		Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
 		Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
 		Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
@@ -68,18 +106,20 @@ public class GaiaSpawning {
 		Biome[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
 		Biome[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
 		Biome[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
-
-		Biome[] water = BiomeDictionary.getBiomesForType(Type.WATER);
+		Biome[] hills = BiomeDictionary.getBiomesForType(Type.HILLS);
+		
+		  Biome[] ocean = BiomeDictionary.getBiomesForType(Type.OCEAN);
+		  Biome[] river = BiomeDictionary.getBiomesForType(Type.RIVER);
+		Biome[] water = (Biome[])ArrayUtils.addAll(ocean, river);
 		Biome[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
 
 		Biome[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
 		Biome[] sky = BiomeDictionary.getBiomesForType(Type.END);
-
-		int i;
-		SpawnListEntry SpawnEntry;
-
+		
+		
 		for (i = 0; i < forest.length; ++i) 
 		{
+			
 			// forest, forestHills, birchForest, birchForestHills
 			if (!BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
 					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY)  
@@ -87,501 +127,110 @@ public class GaiaSpawning {
 					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY) 
 					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.MAGICAL))  	 
 			{
-				if (ConfigGaia.SpawnMandragora > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaPropFlowerCyan.class, ConfigGaia.SpawnMandragora, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnDryad > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaDryad.class, ConfigGaia.SpawnDryad, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnWerecat > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaWerecat.class, ConfigGaia.SpawnWerecat, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnSpriggan > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaSpriggan.class, ConfigGaia.SpawnSpriggan, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				
+				add(SpawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, forest, i);	
+				
+				add(SpawnDryad, EntityGaiaDryad.class, 4, 6, forest, i);
+				
+				add(SpawnWerecat, EntityGaiaWerecat.class, 4, 6, forest, i);	
+				
+				add(SpawnSpriggan, EntityGaiaSpriggan.class, 2, 4, forest, i);	
+				
+				underground(forest, i);
+				
 			}
 
 			//taiga, taigaHills, megaTaiga, megaTaigaHills
 			if (BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
 					&& (!BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
 			{
-				if (ConfigGaia.SpawnCyclops > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCyclops.class, ConfigGaia.SpawnCyclops, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnYukiOnna > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaYukiOnna.class, ConfigGaia.SpawnYukiOnna, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFutakuchiOnna > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFutakuchiOnna.class, ConfigGaia.SpawnFutakuchiOnna, 4, 6);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnNineTails > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaNineTails.class, ConfigGaia.SpawnNineTails, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				add(SpawnCyclops, EntityGaiaCyclops.class, 4, 6, forest, i);
+				
+				add(SpawnYukiOnna, EntityGaiaYukiOnna.class, 2, 4, forest, i);
+				
+				add(SpawnFutakuchiOnna, EntityGaiaFutakuchiOnna.class, 4, 6, forest, i);
+				
+				add(SpawnNineTails, EntityGaiaNineTails.class, 2, 4, forest, i);
+				
+				underground(forest, i);
 			} 
 
 			// coldTaiga, coldTaigaHills
 			if (BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS)
 					&& (BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
 			{		
-				if (ConfigGaia.SpawnDhampir > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaDhampir.class, ConfigGaia.SpawnDhampir, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				add(SpawnDhampir, EntityGaiaDhampir.class, 2, 4, forest, i);
+				
+				add(SpawnVampire, EntityGaiaVampire.class, 1, 2, forest, i);
 
-				if (ConfigGaia.SpawnVampire > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaVampire.class, ConfigGaia.SpawnVampire, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				underground(forest, i);
 			}
 
 			// roofedForest
 			if (BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY)) 
 			{		
-				if (ConfigGaia.SpawnMatango > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMatango.class, ConfigGaia.SpawnMatango, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				add(SpawnMatango, EntityGaiaMatango.class, 2, 4, forest, i);
+				
+				add(SpawnWitch, EntityGaiaWitch.class, 2, 4, forest, i);
 
-				if (ConfigGaia.SpawnWitch > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaWitch.class, ConfigGaia.SpawnWitch, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					forest[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				underground(forest, i);
 			}
 		}
 
 		// desert, desertHills, mesa, mesaPlateau, mesaPlateau_F 
 		for (i = 0; i < sandy.length; ++i) 
 		{
-			if (ConfigGaia.SpawnCockatrice > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCockatrice.class, ConfigGaia.SpawnCockatrice, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			add(SpawnCockatrice, EntityGaiaCockatrice.class, 2, 4, sandy, i);
+			
+			add(SpawnHarpy, EntityGaiaHarpy.class, 2, 4, sandy, i);
+			
+			add(SpawnAnubis, EntityGaiaAnubis.class, 2, 4, sandy, i);
+			
+			add(SpawnSphinx, EntityGaiaSphinx.class, 1, 2, sandy, i);
 
-			if (ConfigGaia.SpawnHarpy > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaHarpy.class, ConfigGaia.SpawnHarpy, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnAnubis > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaAnubis.class, ConfigGaia.SpawnAnubis, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnSphinx > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSphinx.class, ConfigGaia.SpawnSphinx, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			// underground
-			if (ConfigGaia.SpawnCreep > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnEnderEye > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnJorogumo > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMimic > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnBoneKnight > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnFleshLich > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				sandy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			underground(sandy, i);
 		}
 
 		// plains, savanna, savannaPlateau 
 		for (i = 0; i < plains.length; ++i) 
 		{
-			if (ConfigGaia.SpawnSatyr > 0) 
-			{
-
-				SpawnEntry = new SpawnListEntry(EntityGaiaSatyr.class, ConfigGaia.SpawnSatyr, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnCentaur > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCentaur.class, ConfigGaia.SpawnCentaur, 4, 6);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMinotaurus > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMinotaurus.class, ConfigGaia.SpawnMinotaurus, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMinotaur > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMinotaur.class, ConfigGaia.SpawnMinotaur, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			// underground
-			if (ConfigGaia.SpawnCreep > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnEnderEye > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnJorogumo > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMimic > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnBoneKnight > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnFleshLich > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				plains[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			add(SpawnSatyr, EntityGaiaSatyr.class, 2, 4, plains, i);
+			
+			add(SpawnCentaur, EntityGaiaCentaur.class, 4, 6, plains, i);
+			
+			add(SpawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, plains, i);
+			
+			add(SpawnMinotaur, EntityGaiaMinotaur.class, 1, 2, plains, i);
+			
+			underground(plains, i);
 		}
 
 		// swamp
 		for (i = 0; i < swamp.length; ++i) 
 		{
-			if (ConfigGaia.SpawnSiren > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSiren.class, ConfigGaia.SpawnSiren, 4, 6);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnNaga > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaNaga.class, ConfigGaia.SpawnNaga, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnSludgeGirl > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSludgeGirl.class, ConfigGaia.SpawnSludgeGirl, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnSwamper > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSwamper.class, ConfigGaia.SpawnSwamper, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			// underground
-			if (ConfigGaia.SpawnCreep > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnEnderEye > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnJorogumo > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMimic > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnBoneKnight > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnFleshLich > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				swamp[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			add(SpawnSiren, EntityGaiaSiren.class, 4, 6, swamp, i);
+			
+			add(SpawnNaga, EntityGaiaNaga.class, 1, 2, swamp, i);
+			
+			add(SpawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, swamp, i);
+			
+			add(SpawnSwamper, EntityGaiaSwamper.class, 1, 2, swamp, i);
+			
+			underground(swamp, i);
 		}
 
 		// jungle
 		for (i = 0; i < jungle.length; ++i) 
 		{
-			if (ConfigGaia.SpawnCobbleGolem > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCobbleGolem.class, ConfigGaia.SpawnCobbleGolem, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnHunter > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaHunter.class, ConfigGaia.SpawnHunter, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnShaman > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaShaman.class, ConfigGaia.SpawnShaman, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnCobblestoneGolem > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCobblestoneGolem.class, ConfigGaia.SpawnCobblestoneGolem, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			// underground
-			if (ConfigGaia.SpawnCreep > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnEnderEye > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnJorogumo > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMimic > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnBoneKnight > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnFleshLich > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-				jungle[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			add(SpawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, jungle, i);
+			
+			add(SpawnHunter, EntityGaiaHunter.class, 2, 4, jungle, i);
+			
+			add(SpawnShaman, EntityGaiaShaman.class, 2, 4, jungle, i);
+			
+			add(SpawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, jungle, i);
+			
+			underground(jungle, i);
 		}
 
 		// icePlains, iceMountains
@@ -591,54 +240,12 @@ public class GaiaSpawning {
 					|| !BiomeDictionary.isBiomeOfType(snowy[i], Type.OCEAN) 
 					|| !BiomeDictionary.isBiomeOfType(snowy[i], Type.RIVER)) 
 			{
-				if (ConfigGaia.SpawnYeti > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaYeti.class, ConfigGaia.SpawnYeti, 4, 6);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				
+				add(SpawnYeti, EntityGaiaYeti.class, 4, 6, snowy, i);
+				
+				add(SpawnSelkie, EntityGaiaSelkie.class, 2, 4, snowy, i);
 
-				if (ConfigGaia.SpawnSelkie > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaSelkie.class, ConfigGaia.SpawnSelkie, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					snowy[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				underground(snowy, i);
 			}
 		}
 
@@ -647,132 +254,37 @@ public class GaiaSpawning {
 		{
 			if (!BiomeDictionary.isBiomeOfType(mountain[i], Type.SNOWY)) 
 			{
-				if (ConfigGaia.SpawnGryphon > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaGryphon.class, ConfigGaia.SpawnGryphon, 4, 6);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				add(SpawnGryphon, EntityGaiaGryphon.class, 4, 6, mountain, i);
+				
+				add(SpawnValkyrie, EntityGaiaValkyrie.class, 1, 2, mountain, i);
+				
+				add(SpawnDullahan, EntityGaiaDullahan.class, 4, 6, mountain, i);
+				
+				add(SpawnBanshee, EntityGaiaBanshee.class, 2, 4, mountain, i);
 
-				if (ConfigGaia.SpawnValkyrie > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaValkyrie.class, ConfigGaia.SpawnValkyrie, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnDullahan > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaDullahan.class, ConfigGaia.SpawnDullahan, 4, 6);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBanshee > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBanshee.class, ConfigGaia.SpawnBanshee, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				// underground
-				if (ConfigGaia.SpawnCreep > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaCreep.class, ConfigGaia.SpawnCreep, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnEnderEye > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderEye.class, ConfigGaia.SpawnEnderEye, 2, 4);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnJorogumo > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaJorogumo.class, ConfigGaia.SpawnJorogumo, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnMimic > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaMimic.class, ConfigGaia.SpawnMimic, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnBoneKnight > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaBoneKnight.class, ConfigGaia.SpawnBoneKnight, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
-
-				if (ConfigGaia.SpawnFleshLich > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaFleshLich.class, ConfigGaia.SpawnFleshLich, 1, 2);
-					mountain[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				underground(mountain, i);
 			}
 		}
-
+		
 		// frozenRiver, coldBeach, stoneBeach, river, beach, ocean, deepOcean
 		for (i = 0; i < water.length; ++i) 
 		{
-			if (ConfigGaia.SpawnSahuagin > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSahuagin.class, ConfigGaia.SpawnSahuagin, 4, 6);
-				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMermaid > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMermaid.class, ConfigGaia.SpawnMermaid, 2, 4);
-				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnSharko > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSharko.class, ConfigGaia.SpawnSharko, 2, 4);
-				water[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			aquatic( water, i);
 		}
 
 		for (i = 0; i < beach.length; ++i) 
 		{
-			if (ConfigGaia.SpawnSahuagin > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSahuagin.class, ConfigGaia.SpawnSahuagin, 4, 6);
-				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnMermaid > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaMermaid.class, ConfigGaia.SpawnMermaid, 2, 4);
-				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnSharko > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSharko.class, ConfigGaia.SpawnSharko, 2, 4);
-				beach[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			aquatic( beach, i);
 		}
 
 		//hell
 		for (i = 0; i < hell.length; ++i) 
 		{
-			if (ConfigGaia.SpawnSuccubus > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaSuccubus.class, ConfigGaia.SpawnSuccubus, 2, 4);
-				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnWitherCow > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaWitherCow.class, ConfigGaia.SpawnWitherCow, 1, 2);
-				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
-
-			if (ConfigGaia.SpawnBaphomet > 0) 
-			{
-				SpawnEntry = new SpawnListEntry(EntityGaiaBaphomet.class, ConfigGaia.SpawnBaphomet, 1, 2);
-				hell[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-			}
+			add(SpawnSuccubus, EntityGaiaSuccubus.class, 2, 4, hell, i);
+			
+			add(SpawnWitherCow, EntityGaiaWitherCow.class, 1, 2, hell, i);
+			
+			add(SpawnBaphomet, EntityGaiaBaphomet.class, 1, 2, hell, i);
 		}
 
 		//sky
@@ -781,12 +293,29 @@ public class GaiaSpawning {
 			if (BiomeDictionary.isBiomeOfType(sky[i], Type.COLD) 
 					&& (BiomeDictionary.isBiomeOfType(sky[i], Type.DRY))) 
 			{
-				if (ConfigGaia.SpawnEnderDragonGirl > 0) 
-				{
-					SpawnEntry = new SpawnListEntry(EntityGaiaEnderDragonGirl.class, ConfigGaia.SpawnEnderDragonGirl, 1, 2);
-					sky[i].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-				}
+				add(SpawnEnderDragonGirl, EntityGaiaEnderDragonGirl.class, 1, 2, sky, i);
 			}
 		}
+		
+		
 	}
+	
+	/** "Mutated" biomes don't have type dictionaries by default. 
+	 * This addition compensates for specific sub biomes having gaps in creature spawning.
+	 */
+	public static void Biome_Tweaks(){
+		Gaia.logger.info("Sub Biome Tweaks Enabled");
+		
+		BiomeDictionary.registerBiomeType(Biomes.MUTATED_ROOFED_FOREST,
+				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.FOREST);
+		
+		BiomeDictionary.registerBiomeType(Biomes.MUTATED_EXTREME_HILLS,
+				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
+		
+		BiomeDictionary.registerBiomeType(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES,
+				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
+	}
+	
+	
+
 }

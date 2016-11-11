@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -65,7 +65,7 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		ArrowGen.RangedAttack(target, this, par2);
+		Archers.RangedAttack(target, this, par2);
 	}
 	
 	@Override
@@ -174,7 +174,6 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 		return livingdata;		
     }
 
-	//TODO check itemstackslot
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
 		if (!this.worldObj.isRemote && par1.getIndex() == 0) {

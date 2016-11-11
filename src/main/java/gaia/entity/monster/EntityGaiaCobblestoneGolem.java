@@ -20,6 +20,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
@@ -101,39 +102,21 @@ public class EntityGaiaCobblestoneGolem extends EntityMobBase {
 		return true;
 	}
 
-	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-		//TODO Re-look golem pickaxe bonus damage
-		Entity entity = par1DamageSource.getEntity();
+	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
+		float input = inputDamage;
+		Entity entity = DamageSource.getEntity();
+		
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getActiveItemStack();
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 			if (itemstack != null) {
-				Item item = itemstack.getItem();
-				if (item != null) {
-					if (item == Items.WOODEN_PICKAXE) {
-						par2 = 6;
-					}
-
-					if (item == Items.STONE_PICKAXE) {
-						par2 = 7;
-					}
-
-					if (item == Items.IRON_PICKAXE) {
-						par2 = 8;
-					}
-
-					if (item == Items.GOLDEN_PICKAXE) {
-						par2 = 6;
-					}
-
-					if (item == Items.DIAMOND_PICKAXE) {
-						par2 = 9;
-					}
+				
+				if (itemstack.getItem() instanceof ItemPickaxe) {
+					inputDamage = input+5;
 				}
 			}
 		}
-
-		return super.attackEntityFrom(par1DamageSource, (float) par2);
+		return super.attackEntityFrom(DamageSource, (float) inputDamage);
 	}
 
 	public void onLivingUpdate() {

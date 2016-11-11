@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -61,7 +61,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		ArrowGen.RangedAttack(target, this, par2);
+		Archers.RangedAttack(target, this, par2);
 	}
 	
 	@Override
@@ -95,7 +95,7 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return true;
 	}
 
-	public void onLivingUpdate() {
+	public void onLivingUpdate() {		
 		if (this.isInWater()) {
 			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0));
 		}
@@ -170,9 +170,8 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		return livingdata;		
     }
 	
-	//TODO check itemstackslot
-		public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
-			super.setItemStackToSlot(par1, par2ItemStack);
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
 			if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 				this.setCombatTask();
 			}

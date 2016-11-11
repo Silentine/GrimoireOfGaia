@@ -18,6 +18,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
@@ -82,37 +84,21 @@ public class EntityGaiaMandragora extends EntityMobDay {
 		}
 	}
 
-	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-		Entity entity = par1DamageSource.getEntity();
+	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
+		float input = inputDamage;
+		Entity entity = DamageSource.getEntity();
+		
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
-			ItemStack itemstack = player.getActiveItemStack();
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 			if (itemstack != null) {
-
-				if (itemstack.getItem() == Items.WOODEN_SHOVEL) {
-					par2 = 7;
-				}
-
-				if (itemstack.getItem() == Items.STONE_SHOVEL) {
-					par2 = 8;
-				}
-
-				if (itemstack.getItem() == Items.IRON_SHOVEL) {
-					par2 = 9;
-				}
-
-				if (itemstack.getItem() == Items.GOLDEN_SHOVEL) {
-					par2 = 7;
-				}
-
-				if (itemstack.getItem() == Items.DIAMOND_SHOVEL) {
-					par2 = 10;
+				
+				if (itemstack.getItem() instanceof ItemSpade) {
+					inputDamage = input+5F;
 				}
 			}
 		}
-
-		return super.attackEntityFrom(par1DamageSource, (float) par2);
+		return super.attackEntityFrom(DamageSource, (float) inputDamage);
 	}
 
 	public boolean isAIEnabled() {

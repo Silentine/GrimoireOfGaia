@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -71,7 +71,7 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 	}
 	
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {		
-		ArrowGen.fireball(target, this, par2);
+		Archers.fireball(target, this, par2);
 	}
 
 	public boolean attackEntityAsMob(Entity par1Entity) {

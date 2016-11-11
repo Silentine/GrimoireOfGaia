@@ -1,5 +1,7 @@
 package gaia.tileentity;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -46,4 +48,15 @@ public class TileEntityBustValkyrie extends TileEntity {
 		nbt.setInteger("direction", this.direction);
 		return nbt;
 	}
+	
+	@Nullable
+    public SPacketUpdateTileEntity getUpdatePacket()
+    {
+        return new SPacketUpdateTileEntity(this.pos, 5, this.getUpdateTag());
+    }
+
+    public NBTTagCompound getUpdateTag()
+    {
+        return this.writeToNBT(new NBTTagCompound());
+    }
 }

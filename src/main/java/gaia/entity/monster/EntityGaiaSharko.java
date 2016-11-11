@@ -92,7 +92,6 @@ public class EntityGaiaSharko extends EntityMobBase {
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
-		/** TODO *temp
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
@@ -109,7 +108,6 @@ public class EntityGaiaSharko extends EntityMobBase {
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
             this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
-		**/
 	}
 
 	protected void addRandomDrop() {
@@ -139,7 +137,7 @@ public class EntityGaiaSharko extends EntityMobBase {
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		//TODO *TEMP this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeaponInvisible));
 		this.setEnchantmentBasedOnDifficulty(difficulty);
 		return livingdata;		
     }

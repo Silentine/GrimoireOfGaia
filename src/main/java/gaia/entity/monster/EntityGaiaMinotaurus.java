@@ -2,7 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
-import gaia.entity.ai.ArrowGen;
+import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
@@ -133,14 +133,14 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
         }
     }
-	/** TODO check setcurrentItemorArmor Lines
-	public void setCurrentItemOrArmor(int par1, ItemStack stack) {
-		super.setCurrentItemOrArmor(par1, stack);
-		if (!this.worldObj.isRemote && par1 == 0) {
+	
+	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
+		super.setItemStackToSlot(par1, par2ItemStack);
+		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
 			this.setCombatTask();
 		}
 	}
-	**/
+	
 	public void setCombatTask() {
 		this.tasks.removeTask(this.aiAttackOnCollide);
 		this.tasks.removeTask(this.aiArrowAttack);
@@ -153,7 +153,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		ArrowGen.RangedAttack(target, this, par2);
+		Archers.RangedAttack(target, this, par2);
 	}
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
 	

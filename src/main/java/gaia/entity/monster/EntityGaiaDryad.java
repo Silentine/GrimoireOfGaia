@@ -20,6 +20,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -82,39 +83,21 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 		}
 	}
 
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float damage) {
-		Entity entity = par1DamageSource.getEntity();
+	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
+		float input = inputDamage;
+		Entity entity = DamageSource.getEntity();
+		
 		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer)entity;
-			//TODO Check ItemStack itemstack = player.getCurrentEquippedItem();
-			ItemStack itemstack = player.getActiveItemStack();
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 			if (itemstack != null) {
-				Item item = itemstack.getItem();
-				if (item != null) {
-					if (item == Items.WOODEN_AXE) {
-						damage = 7.0F;
-					}
-
-					if (item == Items.STONE_AXE) {
-						damage = 8.0F;
-					}
-
-					if (item == Items.IRON_AXE) {
-						damage = 9.0F;
-					}
-
-					if (item == Items.GOLDEN_AXE) {
-						damage = 7.0F;
-					}
-
-					if (item == Items.DIAMOND_AXE) {
-						damage = 10.0F;
-					}
+				
+				if (itemstack.getItem() instanceof ItemAxe) {
+					inputDamage = input*1.5F;
 				}
 			}
 		}
-
-		return super.attackEntityFrom(par1DamageSource, damage);
+		return super.attackEntityFrom(DamageSource, (float) inputDamage);
 	}
 
 	public boolean isAIEnabled() {
@@ -186,7 +169,6 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 	
 	protected void entityInit() {
 		super.entityInit();
-		//TODO Temp* this.dataWatcher.addObject(19, new Byte((byte)0));
 		this.dataManager.register(SKIN, Integer.valueOf(0));
 	}
 	
