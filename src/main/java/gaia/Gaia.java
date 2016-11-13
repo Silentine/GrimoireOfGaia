@@ -94,6 +94,7 @@ public class Gaia {
 	public void load(FMLInitializationEvent event) {
 		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
 		GaiaItem.addRecipes();
+		GaiaItem.addBrews();
 		
 		logger.info("Registering Entities");
 		GaiaEntity.register();

@@ -64,9 +64,13 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -136,7 +140,7 @@ public class GaiaItem {
 		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
 		FoodIce = (new ItemFoodIce(4, 0.0F, true, "FoodIce")).setAlwaysEdible();
 		FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "FoodCoalfish");
-		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart"));//TODO.setPotionEffect("+4");
+		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart"));
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
 		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
 		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
@@ -252,7 +256,7 @@ public class GaiaItem {
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(SpawnEgg, new GaiaDispenserBehaviorMobEgg());
 	}
-
+	/** Register Crafting Recipes **/
 	public static void addRecipes() {
 //		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
 //		GameRegistry.addShapelessRecipe(new ItemStack(Items.gold_ingot, 1), new Object[]{new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1)});
@@ -273,7 +277,17 @@ public class GaiaItem {
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingHaste, 1), new Object[]{new ItemStack(MiscRing, 1, 1), Blocks.BEACON});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingJump, 1), new Object[]{new ItemStack(MiscRing, 1, 2), Blocks.BEACON});
 		GameRegistry.addShapelessRecipe(new ItemStack(AccessoryRingNight, 1), new Object[]{new ItemStack(MiscRing, 1, 3), Blocks.BEACON});
+		
 	}
+	/** Registers Brewing ingredient recipes **/
+	public static void addBrews(){
+		BrewingRecipeRegistry.addRecipe(get_Type(PotionTypes.WATER), new ItemStack(FoodNetherWart,1,0), get_Type(PotionTypes.AWKWARD ));
+	
+	}
+	public static ItemStack get_Type(PotionType type){
+		return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), type);
+	}
+	
 
 	public static void oreRegistration() {
 		OreDictionary.registerOre("nuggetIron", new ItemStack(Shard, 1, 0));
