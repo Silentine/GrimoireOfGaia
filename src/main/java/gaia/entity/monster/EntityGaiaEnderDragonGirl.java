@@ -112,11 +112,15 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound tagCompound) {
-		super.writeEntityToNBT(tagCompound);
-		IBlockState iblockstate = this.getHeldBlockState();
-		tagCompound.setShort("carried", (short)Block.getIdFromBlock(iblockstate.getBlock()));
-		tagCompound.setShort("carriedData", (short)iblockstate.getBlock().getMetaFromState(iblockstate));
+	public void writeEntityToNBT(NBTTagCompound tag) {
+		super.writeEntityToNBT(tag);
+        IBlockState iblockstate = this.getHeldBlockState();
+
+        if (iblockstate != null)
+        {
+        	tag.setShort("carried", (short)Block.getIdFromBlock(iblockstate.getBlock()));
+        	tag.setShort("carriedData", (short)iblockstate.getBlock().getMetaFromState(iblockstate));
+        }
 	}
 
 	/**
@@ -540,7 +544,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 		 */
 		public boolean shouldExecute()
         {
-            return this.enderman.getHeldBlockState() != null ? false : (!this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : this.enderman.getRNG().nextInt(4000) == 0);
+            return this.enderman.getHeldBlockState() != null ? false : (!this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : this.enderman.getRNG().nextInt(200) == 0);
         }
 
         /**
