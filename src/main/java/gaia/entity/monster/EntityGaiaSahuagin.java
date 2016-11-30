@@ -6,6 +6,7 @@ import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -142,7 +143,8 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+            //ItemShard.Drop_Nugget(this,0);
+            ItemShard.Drop_Nugget(this,0);
 		}
 	}
 

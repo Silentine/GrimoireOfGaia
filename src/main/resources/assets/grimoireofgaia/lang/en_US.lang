@@ -4,8 +4,8 @@ item.GrimoireOfGaia.Shard_0.name=Iron Nugget
 item.GrimoireOfGaia.Shard_1.name=Gold Nugget
 item.GrimoireOfGaia.Shard_2.name=Diamond Fragment
 item.GrimoireOfGaia.Shard_3.name=Emerald Fragment
-item.GrimoireOfGaia.ShardMisc_0.name=Copper Nugget
-item.GrimoireOfGaia.ShardMisc_1.name=Silver Nugget
+item.GrimoireOfGaia.Shard_4.name=Copper Nugget
+item.GrimoireOfGaia.Shard_5.name=Silver Nugget
 item.GrimoireOfGaia.FoodMeat.name=Meat
 item.GrimoireOfGaia.FoodRottenHeart.name=Rotten Heart
 item.GrimoireOfGaia.FoodRoot.name=Taproot
@@ -171,8 +171,8 @@ configgui.GrimoireOfGaia.category.damage=Base Damage
 configgui.GrimoireOfGaia.category.damage.tooltip=If set to true, all mobs will deal additional magical damage (bypasses armor)
 configgui.GrimoireOfGaia.category.attributes=Attributes
 configgui.GrimoireOfGaia.category.attributes.tooltip=Attributes based on percentage. WARNING: Do not set below 50
-configgui.GrimoireOfGaia.category.debug=Debugging
-configgui.GrimoireOfGaia.category.debug.tooltip=Debug tools for developers
+configgui.GrimoireOfGaia.category.debug=Options
+configgui.GrimoireOfGaia.category.debug.tooltip=Compatibility and Debugging options
 
 
 configgui.GrimoireOfGaia.category.damage.BaseDamage=Base Damage
@@ -188,7 +188,8 @@ configgui.GrimoireOfGaia.category.debug.Debug_Commands=Debug Commands
 configgui.GrimoireOfGaia.category.debug.Debug_Commands.tooltip=Enables developer commands
 configgui.GrimoireOfGaia.category.debug.Biome_Tweaks=Biome Tweaks
 configgui.GrimoireOfGaia.category.debug.Biome_Tweaks.tooltip=Tweaks the default dictionary for some "M" biomes, disable if you encounter Issues
-
+configgui.GrimoireOfGaia.category.debug.Ore_Unity=Unify Shard Drops
+configgui.GrimoireOfGaia.category.debug.Ore_Unity.tooltip=Mobs will drop shards from other mods (if available) instead of their own - disable if you encounter issues
 
 
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Tier 1 Health

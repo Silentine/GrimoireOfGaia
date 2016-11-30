@@ -6,6 +6,7 @@ import gaia.entity.ai.Archers;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -150,7 +151,8 @@ public class EntityGaiaBaphomet extends EntityMobBase implements IRangedAttackMo
 		int var11 = this.rand.nextInt(3) + 1 ;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
+            //ItemShard.Drop_Nugget(this,1);
+            ItemShard.Drop_Nugget(this,1);
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {

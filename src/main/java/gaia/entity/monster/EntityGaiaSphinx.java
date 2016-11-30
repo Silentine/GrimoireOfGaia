@@ -6,6 +6,7 @@ import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -136,13 +136,13 @@ public class EntityGaiaSphinx extends EntityMobBase {
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 2), 0.0F);
+            ItemShard.Drop_Nugget(this,2);
 		}
 		
 		int var13 = this.rand.nextInt(3) + 1;
 
 		for (int var14 = 0; var14 < var13; ++var14) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+            ItemShard.Drop_Nugget(this,3);
 		}
 	}
 

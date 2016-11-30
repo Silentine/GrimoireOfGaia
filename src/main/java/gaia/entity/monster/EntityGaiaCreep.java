@@ -6,6 +6,7 @@ import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
+import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -224,7 +225,8 @@ public class EntityGaiaCreep extends EntityMobBase {
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+            ItemShard.Drop_Nugget(this,0);
+            ItemShard.Drop_Nugget(this,0);
 		}
 		
 		//Very Rare

@@ -2,10 +2,10 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
-import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,11 +21,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -131,11 +130,11 @@ public class EntityGaiaYukiOnna extends EntityMobAssistDay {
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
+            ItemShard.Drop_Nugget(this,1);
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+            ItemShard.Drop_Nugget(this,3);
 		}
 	}
 

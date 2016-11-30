@@ -58,6 +58,7 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropInvisible;
 
+import java.util.List;
 import java.util.Locale;
 
 import net.minecraft.block.BlockDispenser;
@@ -67,9 +68,11 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -77,7 +80,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class GaiaItem {
 	public static Item Shard;
-	public static Item ShardMisc;
+	//TODO public static Item ShardMisc;
 	public static Item FoodMeat;
 	public static Item FoodRottenHeart;
 	public static Item FoodRoot;
@@ -134,7 +137,7 @@ public class GaiaItem {
 
 	public static void init() {
 		Shard = new ItemShard("Shard");		
-		ShardMisc = new ItemShardMisc("ShardMisc");
+		//TODO ShardMisc = new ItemShardMisc("ShardMisc");
 		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");		
 		FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "FoodRottenHeart").setAlwaysEdible();
 		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
@@ -194,7 +197,7 @@ public class GaiaItem {
 	public static void register() {
 		Item[] items = new Item[] { 
 				Shard,
-				ShardMisc, 
+				//TODO ShardMisc, 
 				FoodMeat, 				
 				FoodRottenHeart, 
 				FoodRoot, 
@@ -293,14 +296,20 @@ public class GaiaItem {
 		OreDictionary.registerOre("nuggetIron", new ItemStack(Shard, 1, 0));
 		OreDictionary.registerOre("nuggetGold", new ItemStack(Shard, 1, 1));
 		OreDictionary.registerOre("nuggetDiamond", new ItemStack(Shard, 1, 2));
-		OreDictionary.registerOre("nuggetEmerald", new ItemStack(Shard, 1, 3));
-		OreDictionary.registerOre("nuggetCopper", new ItemStack(ShardMisc, 1, 0));
-		OreDictionary.registerOre("nuggetSilver", new ItemStack(ShardMisc, 1, 1));
+		OreDictionary.registerOre("nuggetEmerald", new ItemStack(Shard, 1, 3));		
+		OreDictionary.registerOre("nuggetCopper", new ItemStack(Shard, 1, 4));
+		OreDictionary.registerOre("nuggetSilver", new ItemStack(Shard, 1, 5));
+		//TODO
+		//OreDictionary.registerOre("nuggetCopper", new ItemStack(ShardMisc, 1, 0));
+		//OreDictionary.registerOre("nuggetSilver", new ItemStack(ShardMisc, 1, 1));
+		OreDictionary.registerOre("cropNetherWart", FoodNetherWart);
+		
+		
 	}
-
+	
 	public static void registerRenders() {
 		registerRender(Shard);		
-		registerRender(ShardMisc);
+		//TODO registerRender(ShardMisc);
 		registerRender(FoodMeat);
 		registerRender(FoodRottenHeart);
 		registerRender(FoodRoot);

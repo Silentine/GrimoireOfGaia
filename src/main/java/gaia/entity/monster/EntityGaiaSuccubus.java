@@ -5,6 +5,7 @@ import gaia.entity.EntityMobBase;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,17 +23,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGaiaSuccubus extends EntityMobBase {
 	
@@ -123,7 +119,7 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+			ItemShard.Drop_Nugget(this,0);
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
