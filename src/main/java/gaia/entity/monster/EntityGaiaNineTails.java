@@ -5,6 +5,7 @@ import gaia.entity.EntityMobBase;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -105,11 +106,13 @@ public class EntityGaiaNineTails extends EntityMobBase implements IRangedAttackM
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
+            //ItemShard.Drop_Nugget(this,1);
+            ItemShard.Drop_Nugget(this,1);
 		}
 		
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+            //ItemShard.Drop_Nugget(this,3);
+            ItemShard.Drop_Nugget(this,3);
 		}
 	}
 

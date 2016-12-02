@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.init.GaiaItem;
+import gaia.items.ItemShard;
 
 import java.util.Collections;
 import java.util.List;
@@ -112,11 +113,15 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound tagCompound) {
-		super.writeEntityToNBT(tagCompound);
-		IBlockState iblockstate = this.getHeldBlockState();
-		tagCompound.setShort("carried", (short)Block.getIdFromBlock(iblockstate.getBlock()));
-		tagCompound.setShort("carriedData", (short)iblockstate.getBlock().getMetaFromState(iblockstate));
+	public void writeEntityToNBT(NBTTagCompound tag) {
+		super.writeEntityToNBT(tag);
+        IBlockState iblockstate = this.getHeldBlockState();
+
+        if (iblockstate != null)
+        {
+        	tag.setShort("carried", (short)Block.getIdFromBlock(iblockstate.getBlock()));
+        	tag.setShort("carriedData", (short)iblockstate.getBlock().getMetaFromState(iblockstate));
+        }
 	}
 
 	/**
@@ -270,11 +275,13 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
+			//ItemShard.Drop_Nugget(this,1);
+			ItemShard.Drop_Nugget(this,1);
 		}
 
 		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+			//ItemShard.Drop_Nugget(this,3);
+			ItemShard.Drop_Nugget(this,3);
 		}
 
 		//Very Rare
@@ -540,7 +547,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobBase {
 		 */
 		public boolean shouldExecute()
         {
-            return this.enderman.getHeldBlockState() != null ? false : (!this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : this.enderman.getRNG().nextInt(4000) == 0);
+            return this.enderman.getHeldBlockState() != null ? false : (!this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : this.enderman.getRNG().nextInt(200) == 0);
         }
 
         /**

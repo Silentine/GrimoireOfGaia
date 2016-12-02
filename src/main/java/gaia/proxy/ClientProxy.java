@@ -258,9 +258,12 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 2, new ModelResourceLocation("grimoireofgaia:ShardDiamond".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 3, new ModelResourceLocation("grimoireofgaia:ShardEmerald".toLowerCase(), "inventory"));
         
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 4, new ModelResourceLocation("grimoireofgaia:ShardCopper".toLowerCase(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(GaiaItem.Shard, 5, new ModelResourceLocation("grimoireofgaia:ShardSilver".toLowerCase(), "inventory"));
+        /** TODO
         ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 0, new ModelResourceLocation("grimoireofgaia:ShardCopper".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.ShardMisc, 1, new ModelResourceLocation("grimoireofgaia:ShardSilver".toLowerCase(), "inventory"));
-        
+        */
         // Misc Ring
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 0, new ModelResourceLocation("grimoireofgaia:MiscRingSpeed".toLowerCase(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(GaiaItem.MiscRing, 1, new ModelResourceLocation("grimoireofgaia:MiscRingHaste".toLowerCase(), "inventory"));

@@ -11,7 +11,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
@@ -31,7 +33,8 @@ public class ItemMiscSoulFire extends Item {
 		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.MiscSoulFire.desc"));
 	}
 
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	{
 		IBlockState iblockstate = world.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 
@@ -42,16 +45,15 @@ public class ItemMiscSoulFire extends Item {
 		pos = pos.offset(side);
 
 		if (!player.canPlayerEdit(pos, side, stack)) {
-			return false;
+			return EnumActionResult.FAIL;
 		} else {
 			if(world.isAirBlock(pos)) {
-				//world.playSoundEffect((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), "mob.ghast.scream", 0.4F, 0.8F);
 				world.playSound(player, player.getPosition(), SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.PLAYERS, 0.4F, 0.8F);
 				world.setBlockState(pos, Blocks.FIRE.getDefaultState());
 			}
 
 			stack.damageItem(1, player);
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 	}
 }

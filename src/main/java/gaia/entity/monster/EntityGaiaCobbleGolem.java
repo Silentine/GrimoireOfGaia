@@ -7,6 +7,7 @@ import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
+import gaia.items.ItemShard;
 import gaia.util.BlockStateHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -169,14 +170,16 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+			//ItemShard.Drop_Nugget(this,0);
+			ItemShard.Drop_Nugget(this,0);
 		}
 
 		//Shards
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
+            //ItemShard.Drop_Nugget(this,0);
+            ItemShard.Drop_Nugget(this,0);
 		}
 	}
 
