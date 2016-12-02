@@ -80,7 +80,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class GaiaItem {
 	public static Item Shard;
-	//TODO public static Item ShardMisc;
 	public static Item FoodMeat;
 	public static Item FoodRottenHeart;
 	public static Item FoodRoot;
@@ -137,7 +136,6 @@ public class GaiaItem {
 
 	public static void init() {
 		Shard = new ItemShard("Shard");		
-		//TODO ShardMisc = new ItemShardMisc("ShardMisc");
 		FoodMeat = new ItemFoodMeat(6, 0.6F, true, "FoodMeat");		
 		FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "FoodRottenHeart").setAlwaysEdible();
 		FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "FoodRoot")).setAlwaysEdible();
@@ -197,7 +195,6 @@ public class GaiaItem {
 	public static void register() {
 		Item[] items = new Item[] { 
 				Shard,
-				//TODO ShardMisc, 
 				FoodMeat, 				
 				FoodRottenHeart, 
 				FoodRoot, 
@@ -261,10 +258,7 @@ public class GaiaItem {
 	}
 	/** Register Crafting Recipes **/
 	public static void addRecipes() {
-//		GameRegistry.addShapelessRecipe(new ItemStack(Items.iron_ingot, 1), new Object[]{new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0), new ItemStack(Shard, 1, 0)});
-//		GameRegistry.addShapelessRecipe(new ItemStack(Items.gold_ingot, 1), new Object[]{new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1), new ItemStack(Shard, 1, 1)});
-//		GameRegistry.addShapelessRecipe(new ItemStack(Items.diamond, 1), new Object[]{new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2), new ItemStack(Shard, 1, 2)});
-//		GameRegistry.addShapelessRecipe(new ItemStack(Items.emerald, 1), new Object[]{new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3), new ItemStack(Shard, 1, 3)});
+
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.IRON_INGOT, "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron", "nuggetIron"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.GOLD_INGOT, "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold", "nuggetGold"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.DIAMOND, "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond"));
@@ -285,12 +279,12 @@ public class GaiaItem {
 	/** Registers Brewing ingredient recipes **/
 	public static void addBrews(){
 		BrewingRecipeRegistry.addRecipe(get_Type(PotionTypes.WATER), new ItemStack(FoodNetherWart,1,0), get_Type(PotionTypes.AWKWARD ));
-	
+		
 	}
+	
 	public static ItemStack get_Type(PotionType type){
 		return PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), type);
 	}
-	
 
 	public static void oreRegistration() {
 		OreDictionary.registerOre("nuggetIron", new ItemStack(Shard, 1, 0));
@@ -299,17 +293,12 @@ public class GaiaItem {
 		OreDictionary.registerOre("nuggetEmerald", new ItemStack(Shard, 1, 3));		
 		OreDictionary.registerOre("nuggetCopper", new ItemStack(Shard, 1, 4));
 		OreDictionary.registerOre("nuggetSilver", new ItemStack(Shard, 1, 5));
-		//TODO
-		//OreDictionary.registerOre("nuggetCopper", new ItemStack(ShardMisc, 1, 0));
-		//OreDictionary.registerOre("nuggetSilver", new ItemStack(ShardMisc, 1, 1));
 		OreDictionary.registerOre("cropNetherWart", FoodNetherWart);
-		
 		
 	}
 	
 	public static void registerRenders() {
 		registerRender(Shard);		
-		//TODO registerRender(ShardMisc);
 		registerRender(FoodMeat);
 		registerRender(FoodRottenHeart);
 		registerRender(FoodRoot);
