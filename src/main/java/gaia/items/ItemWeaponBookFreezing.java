@@ -23,15 +23,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemWeaponBookFreezing extends ItemSword {
 	private float weaponDamage;
 	private final Item.ToolMaterial toolMaterial;
-	String texture;
 
-	public ItemWeaponBookFreezing(String texture) {
+	public ItemWeaponBookFreezing(String name) {
 		super(Item.ToolMaterial.IRON);
 		this.toolMaterial = Item.ToolMaterial.IRON;
 		this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses()*3.48F));
 		this.weaponDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookFreezing");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

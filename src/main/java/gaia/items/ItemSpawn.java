@@ -20,12 +20,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawn extends Gaia_Lootable {
-	String texture;
 
-	public ItemSpawn(String texture) {
-		this.texture = texture;
+	public ItemSpawn(String name) {
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.Spawn");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

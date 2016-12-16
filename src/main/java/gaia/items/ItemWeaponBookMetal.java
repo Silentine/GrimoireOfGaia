@@ -20,15 +20,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemWeaponBookMetal extends ItemSword {
 	private float weaponDamage;
 	private final Item.ToolMaterial toolMaterial;
-	String texture;
 
-	public ItemWeaponBookMetal(String texture) {
+	public ItemWeaponBookMetal(String name) {
 		super(Item.ToolMaterial.IRON);
 		this.toolMaterial = Item.ToolMaterial.IRON;
 		this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses()*3.48F));
 		this.weaponDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookMetal");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

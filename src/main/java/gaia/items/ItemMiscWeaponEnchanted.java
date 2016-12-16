@@ -14,12 +14,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscWeaponEnchanted extends Item {
-	String texture;
 
-	public ItemMiscWeaponEnchanted(String texture) {
-		this.texture = texture;
+	public ItemMiscWeaponEnchanted(String name) {
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscWeaponEnchanted");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

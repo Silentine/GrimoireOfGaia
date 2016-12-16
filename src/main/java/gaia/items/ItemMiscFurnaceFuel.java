@@ -10,11 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
 public class ItemMiscFurnaceFuel extends Item {
-	String texture;
 
-	public ItemMiscFurnaceFuel(String texture) {
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.MiscFurnaceFuel");
+	public ItemMiscFurnaceFuel(String name) {
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -30,14 +30,12 @@ import com.google.common.collect.Multimap;
 
 public class ItemWeaponFanIce extends Item {
 	private int weaponDamage;
-	String texture;
 
-	public ItemWeaponFanIce(String texture) {
+	public ItemWeaponFanIce(String name) {
 		this.setMaxDamage(780);
 		this.weaponDamage = 0;
 		this.maxStackSize = 1;
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponFanIce");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

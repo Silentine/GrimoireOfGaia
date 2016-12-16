@@ -32,15 +32,13 @@ import com.google.common.collect.Multimap;
 public class ItemWeaponBookWither extends ItemSword {
 	private float weaponDamage;
 	private final Item.ToolMaterial toolMaterial;
-	String texture;
 
-	public ItemWeaponBookWither(String texture) {
+	public ItemWeaponBookWither(String name) {
 		super(Item.ToolMaterial.IRON);
 		this.toolMaterial = Item.ToolMaterial.IRON;
 		this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses()*3.48F));
 		this.weaponDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookWither");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -21,12 +21,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBoxGold extends Gaia_Lootable {
-	String texture;
 
-	public ItemBoxGold(String texture) {
-		this.texture = texture;
+	public ItemBoxGold(String name) {
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BoxGold");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

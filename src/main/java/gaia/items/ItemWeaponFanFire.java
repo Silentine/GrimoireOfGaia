@@ -26,14 +26,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponFanFire extends Item {
 	private int weaponDamage;
-	String texture;
 
-	public ItemWeaponFanFire(String texture) {
+	public ItemWeaponFanFire(String name) {
 		this.setMaxDamage(780);
 		this.weaponDamage = 8;
 		this.maxStackSize = 1;
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponFanFire");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

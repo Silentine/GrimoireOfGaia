@@ -14,12 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemShard extends Item {
-	String texture;
 
-	public ItemShard(String texture) {
-		this.texture = texture;
+	public ItemShard(String name) {
         this.setHasSubtypes(true);
-        this.setUnlocalizedName("GrimoireOfGaia.Shard");
+        this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -12,9 +12,9 @@ import net.minecraft.util.text.translation.I18n;
 
 public class ItemFoodNetherWart extends Gaia_FoodItem {
 
-	public ItemFoodNetherWart(int par2, float par3, boolean par4, String unlocal) {
+	public ItemFoodNetherWart(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
-		this.setUnlocalizedName("GrimoireOfGaia.FoodNetherWart");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 		
 		this.setPotionEffect(new PotionEffect(MobEffects.SPEED, 30, 0), 0.4F);

@@ -24,12 +24,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryRingNight extends Item //implements IBauble
 {
-	String texture;
 
-	public ItemAccessoryRingNight(String texture) {
-		this.texture = texture;
+	public ItemAccessoryRingNight(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingNight");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

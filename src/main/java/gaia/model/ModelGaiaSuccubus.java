@@ -303,6 +303,9 @@ public class ModelGaiaSuccubus extends ModelBase {
 		++this.leftwing.rotateAngleY;
 		this.tail.rotateAngleY = MathHelper.cos(par1 * 0.6662F) * 0.5F * par2;
 		
+		this.rightchest.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 0.8F * par2) + 0.7853982F;
+		this.leftchest.rotateAngleX = this.rightchest.rotateAngleX;
+		
 		//legs
 		this.rightleg.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2;
 		this.leftleg.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.8F * par2;

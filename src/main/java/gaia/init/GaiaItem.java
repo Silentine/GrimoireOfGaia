@@ -144,7 +144,7 @@ public class GaiaItem {
 		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart"));
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
 		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
-		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWitherMeat");
+		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWither");
 		FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "FoodPieMandrake"));
 		FoodPieMeat = (new ItemFoodPieMeat(12, 0.8F, true, "FoodPieMeat"));
 		FoodPieAppleGold = (new ItemFoodPieAppleGold(12, 0.8F, true, "FoodPieAppleGold"));
@@ -189,7 +189,7 @@ public class GaiaItem {
 		AccessoryRingNight = new ItemAccessoryRingNight("AccessoryRingNight");		
 		AccessoryCursed = new ItemAccessoryCursed("AccessoryCursed");
 		
-		SpawnEgg = new ItemGaiaSpawnEgg();
+		SpawnEgg = new ItemGaiaSpawnEgg("SpawnEgg");
 	}
 	
 	public static void register() {
@@ -297,64 +297,5 @@ public class GaiaItem {
 		
 	}
 	
-	public static void registerRenders() {
-		registerRender(Shard);		
-		registerRender(FoodMeat);
-		registerRender(FoodRottenHeart);
-		registerRender(FoodRoot);
-		registerRender(FoodIce);
-		registerRender(FoodCoalfish);
-		registerRender(FoodNetherWart);
-		registerRender(FoodSmallAppleGold);
-		registerRender(FoodMandrake);
-		registerRender(FoodWither);
-		registerRender(FoodPieMandrake);
-		registerRender(FoodPieMeat);
-		registerRender(FoodPieAppleGold);
-		registerRender(MiscSoulFire);
-		registerRender(MiscSoulFiery);
-		registerRender(MiscGigaGear);
-		registerRender(MiscBook);
-		registerRender(MiscRing);
-		registerRender(MiscFurnaceFuel);
-		registerRender(MiscCurrency);
-		registerRender(MiscWeaponEnchanted);
-		registerRender(Spawn);
-		registerRender(SpawnCreeperGirl);
-		registerRender(SpawnSlimeGirl);
-		registerRender(SpawnEnderGirl);
-		registerRender(SpawnTrader);
-		registerRender(SpawnHolstaurus);
-		registerRender(SpawnWeresheep);
-		registerRender(BoxIron);
-		registerRender(BoxGold);
-		registerRender(BoxDiamond);
-		registerRender(BagOre);
-		registerRender(BagBook);
-		registerRender(BagRecord);
-		registerRender(BoxOld);
-		registerRender(PropWeapon);
-		registerRender(PropWeaponInvisible);
-		registerRender(FanIce);
-		registerRender(FanFire);
-		registerRender(BookFreezing);
-		registerRender(BookNightmare);
-		registerRender(BookMetal);
-		registerRender(BookEnder);
-		registerRender(BookHunger);
-		registerRender(BookBattle);
-		registerRender(BookNature);
-		registerRender(BookWither);
-		registerRender(BookBuff);
-		registerRender(AccessoryRingSpeed);
-		registerRender(AccessoryRingHaste);
-		registerRender(AccessoryRingJump);
-		registerRender(AccessoryRingNight);		
-		registerRender(AccessoryCursed);
- 		registerRender(SpawnEgg);
-	}
 	
-	public static void registerRender(Item item) {
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
-	}
 }

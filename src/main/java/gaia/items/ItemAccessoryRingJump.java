@@ -24,12 +24,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryRingJump extends Item //implements IBauble
 {
-	String texture;
-
-	public ItemAccessoryRingJump(String texture) {
-		this.texture = texture;
+	public ItemAccessoryRingJump(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingJump");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

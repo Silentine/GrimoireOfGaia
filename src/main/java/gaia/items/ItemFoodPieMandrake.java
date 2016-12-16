@@ -17,10 +17,10 @@ import net.minecraft.world.World;
 
 public class ItemFoodPieMandrake extends Gaia_FoodItem {
 	
-	public ItemFoodPieMandrake(int par2, float par3, boolean par4, String unlocal) {
+	public ItemFoodPieMandrake(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMandrake");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

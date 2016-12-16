@@ -12,8 +12,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodRoot extends ItemFood {
-	String texture;
-
 	public void clearNegativePotions(EntityPlayer entityplayer) {
 		entityplayer.removePotionEffect(MobEffects.SLOWNESS);
 		entityplayer.removePotionEffect(MobEffects.MINING_FATIGUE);
@@ -25,11 +23,10 @@ public class ItemFoodRoot extends ItemFood {
 		entityplayer.removePotionEffect(MobEffects.WITHER);
 	}
 
-	public ItemFoodRoot(int par2, float par3, boolean par4, String texture) {
+	public ItemFoodRoot(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
-		this.texture = texture;
 		this.setMaxStackSize(16);
-		this.setUnlocalizedName("GrimoireOfGaia.FoodRoot");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

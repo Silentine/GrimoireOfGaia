@@ -14,10 +14,9 @@ import net.minecraft.util.text.translation.I18n;
 public class ItemFoodWither extends ItemFood {
 	String texture;
 
-	public ItemFoodWither(int par2, float par3, boolean par4, String texture) {
+	public ItemFoodWither(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodWither");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 		
 		this.setPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 0), 0.6F);

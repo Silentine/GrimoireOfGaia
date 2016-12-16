@@ -24,12 +24,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnEnderGirl extends Item {
-	String texture;
 
-	public ItemSpawnEnderGirl(String texture) {
-		this.texture = texture;
+	public ItemSpawnEnderGirl(String name) {
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnEnderGirl");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

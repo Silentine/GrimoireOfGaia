@@ -237,6 +237,10 @@ public class ModelGaiaFutakuchiOnna extends ModelBase {
         this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.025F;
         this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
         this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.025F;
+        
+        //body
+        this.rightchest.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 0.8F * par2) + 0.7853982F;
+		this.leftchest.rotateAngleX = this.rightchest.rotateAngleX;
 		
 		//legs
 		this.rightleg.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2;

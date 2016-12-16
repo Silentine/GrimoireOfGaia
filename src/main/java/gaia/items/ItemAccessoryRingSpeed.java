@@ -26,12 +26,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryRingSpeed extends Item //implements IBauble
 {
-	String texture;
-
-	public ItemAccessoryRingSpeed(String texture) {
-		this.texture = texture;
+	public ItemAccessoryRingSpeed(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingSpeed");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -243,7 +243,7 @@ public class ModelGaiaNineTails extends ModelBase {
 		this.leftarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2 * 0.5F;
 		
 		this.rightarm.rotateAngleZ = 0.0F;
-		this.leftarm.rotateAngleZ = 0.0F;
+		this.leftarm.rotateAngleZ = 0.0F;		
 		
         float f6;
         float f7;
@@ -270,6 +270,9 @@ public class ModelGaiaNineTails extends ModelBase {
 		//body
 		this.tail1.rotateAngleY = MathHelper.cos(par1 * 0.6662F) * 0.5F * par2;
 		this.tail2.rotateAngleY = this.tail1.rotateAngleY;
+		
+		this.rightchest.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 0.8F * par2) + 0.7853982F;
+		this.leftchest.rotateAngleX = this.rightchest.rotateAngleX;
 		
 		//legs
 		this.rightleg.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.1F * par2;

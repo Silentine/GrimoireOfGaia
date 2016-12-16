@@ -28,14 +28,12 @@ import com.google.common.collect.Multimap;
 
 public class ItemWeaponBookBuff extends Item {
 	private float weaponDamage;
-	String texture;
 
-	public ItemWeaponBookBuff(String texture) {
+	public ItemWeaponBookBuff(String name) {
 		this.setMaxDamage(64);
 		this.weaponDamage = 0;
 		this.maxStackSize = 1;
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponBookBuff");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

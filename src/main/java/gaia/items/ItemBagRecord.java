@@ -20,12 +20,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBagRecord extends Gaia_Lootable {
-	String texture;
 
-	public ItemBagRecord(String texture) {
-		this.texture = texture;
+	public ItemBagRecord(String name) {
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.BagRecord");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

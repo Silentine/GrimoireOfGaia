@@ -18,12 +18,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryCursed extends Item {
-	String texture;
-
-	public ItemAccessoryCursed(String texture) {
-		this.texture = texture;
+	
+	public ItemAccessoryCursed(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryCursed");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

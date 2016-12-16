@@ -14,12 +14,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponProp extends Item {
-	String texture;
 
-	public ItemWeaponProp(String texture) {
-		this.texture = texture;
+	public ItemWeaponProp(String name) {
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponProp");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

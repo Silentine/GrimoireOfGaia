@@ -24,12 +24,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnTrader extends Item {
-	String texture;
 
-	public ItemSpawnTrader(String texture) {
-		this.texture = texture;
+	public ItemSpawnTrader(String name) {
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnTrader");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

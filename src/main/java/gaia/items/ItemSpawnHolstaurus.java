@@ -25,12 +25,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnHolstaurus extends Item {
-	String texture;
 
-	public ItemSpawnHolstaurus(String texture) {
-		this.texture = texture;
+	public ItemSpawnHolstaurus(String name) {
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnHolstaurus");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

@@ -17,10 +17,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFoodSmallAppleGold extends ItemFood {
 
-	public ItemFoodSmallAppleGold(int par2, float par3, boolean par4, String unlocal) {
+	public ItemFoodSmallAppleGold(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
 		this.maxStackSize = 64;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodSmallAppleGold");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

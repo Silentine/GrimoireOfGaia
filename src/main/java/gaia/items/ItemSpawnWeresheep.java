@@ -24,11 +24,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnWeresheep extends Item {
-	String texture;
 
-	public ItemSpawnWeresheep(String texture) {
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnWeresheep");
+	public ItemSpawnWeresheep(String name) {
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

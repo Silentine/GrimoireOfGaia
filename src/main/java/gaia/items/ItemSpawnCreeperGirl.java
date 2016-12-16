@@ -24,12 +24,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnCreeperGirl extends Item {
-	String texture;
 
-	public ItemSpawnCreeperGirl(String texture) {
-		this.texture = texture;
+	public ItemSpawnCreeperGirl(String name) {
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnCreeperGirl");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

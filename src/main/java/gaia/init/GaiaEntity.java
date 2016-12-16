@@ -76,20 +76,20 @@ public class GaiaEntity {
 		Register(EntityGaiaAnubis.class, "Anubis", 1, 0x353535, 0xb19534);
 		Register(EntityGaiaBanshee.class, "Banshee", 2, 0xeed2e8, 0xc6b0ed);
 		Register(EntityGaiaBaphomet.class, "Baphomet", 3, 3559756, 14197864);
-		Register(EntityGaiaBoneKnight.class, "Bone Knight", 4, 4602533, 13619151);
+		Register(EntityGaiaBoneKnight.class, "BoneKnight", 4, 4602533, 13619151);
 		Register(EntityGaiaCentaur.class, "Centaur", 5, 0x8d4f41, 0x353535);		
-		Register(EntityGaiaCobbleGolem.class, "Cobble Golem", 6, 11513775, 11513775);
-		Register(EntityGaiaCobblestoneGolem.class, "Cobblestone Golem", 7, 11513775, 11513775);
+		Register(EntityGaiaCobbleGolem.class, "CobbleGolem", 6, 11513775, 11513775);
+		Register(EntityGaiaCobblestoneGolem.class, "CobblestoneGolem", 7, 11513775, 11513775);
 		Register(EntityGaiaCockatrice.class, "Cockatrice", 8, 0xc9b161, 0xe2e2e2);
 		Register(EntityGaiaCreep.class, "Creep", 9, 7917159, 2053400);
 		Register(EntityGaiaCyclops.class, "Cyclops", 10, 4936602, 3487029);				
-		Register(EntityGaiaPropFlowerCyan.class, "Cyan Flower", 11, 1073920, 4045287);
+		Register(EntityGaiaPropFlowerCyan.class, "CyanFlower", 11, 1073920, 4045287);
 		Register(EntityGaiaDhampir.class, "Dhampir", 12, 0x9c1c2b, 0xc9b161);
 		Register(EntityGaiaDryad.class, "Dryad", 13,10255437, 5681460);
 		Register(EntityGaiaDullahan.class, "Dullahan", 14, 0x824fab, 0xa4452d);
-		Register(EntityGaiaEnderDragonGirl.class, "Ender Dragon Girl", 15, 3158064, 14711290);
-		Register(EntityGaiaEnderEye.class, "Ender Eye", 16, 2039583, 3158064);
-		Register(EntityGaiaFleshLich.class, "Flesh Lich", 17, 0x00cccc, 0x799c65);		
+		Register(EntityGaiaEnderDragonGirl.class, "EnderDragonGirl", 15, 3158064, 14711290);
+		Register(EntityGaiaEnderEye.class, "EnderEye", 16, 2039583, 3158064);
+		Register(EntityGaiaFleshLich.class, "FleshLich", 17, 0x00cccc, 0x799c65);		
 		Register(EntityGaiaFutakuchiOnna.class, "FutakuchiOnna", 18, 0x4e3738, 0xb43434);
 		Register(EntityGaiaGryphon.class, "Gryphon", 19, 0xf09942, 0xe2e2e2);
 		Register(EntityGaiaHarpy.class, "Harpy", 20, 0xc9b161, 0xa5884e);
@@ -108,7 +108,7 @@ public class GaiaEntity {
 		Register(EntityGaiaShaman.class, "Shaman", 33, 0xae6b3c, 0x56b134);
 		Register(EntityGaiaSharko.class, "Sharko", 34, 0x84a498, 0x5c70b1);		
 		Register(EntityGaiaSiren.class, "Siren", 35, 0x29bc55, 0x48a0de);
-		Register(EntityGaiaSludgeGirl.class, "Sludge Girl", 36, 6595667, 7715172);
+		Register(EntityGaiaSludgeGirl.class, "SludgeGirl", 36, 6595667, 7715172);
 		Register(EntityGaiaSphinx.class, "Sphinx", 37, 0xf09942, 0x353535);
 		Register(EntityGaiaSpriggan.class, "Spriggan", 38, 4010013, 8151614);
 		Register(EntityGaiaSuccubus.class, "Succubus", 39, 4079166, 13218145);
@@ -117,20 +117,20 @@ public class GaiaEntity {
 		Register(EntityGaiaVampire.class, "Vampire", 42, 0xc23021, 0xc9b161);		
 		Register(EntityGaiaWerecat.class, "Werecat", 43, 0x7a7e8a, 0xdddadb);		
 		Register(EntityGaiaWitch.class, "Witch", 44, 0x303030, 0x943dbb);
-		Register(EntityGaiaWitherCow.class, "Wither Cow", 45, 5791069, 16777215);
+		Register(EntityGaiaWitherCow.class, "WitherCow", 45, 5791069, 16777215);
 		Register(EntityGaiaYeti.class, "Yeti", 46, 16448250, 7895160);
 		Register(EntityGaiaYukiOnna.class, "Yuki-Onna", 47, 6781114, 13817330);
 
 		//NPC
-		Register(EntityGaiaNPCCreeperGirl.class, "Creeper Girl", 61 );
-		Register(EntityGaiaNPCSlimeGirl.class, "Slime Girl", 62 );
-		Register(EntityGaiaNPCEnderGirl.class, "Ender Girl", 63 );
+		Register(EntityGaiaNPCCreeperGirl.class, "CreeperGirl", 61 );
+		Register(EntityGaiaNPCSlimeGirl.class, "SlimeGirl", 62 );
+		Register(EntityGaiaNPCEnderGirl.class, "EnderGirl", 63 );
 		Register(EntityGaiaNPCTrader.class, "Trader", 64 );
 		Register(EntityGaiaNPCHolstaurus.class, "Holstaurus", 65 );
 		Register(EntityGaiaNPCWeresheep.class, "Weresheep", 66 );
 	
 		//Projectiles
-		Register(EntityGaiaProjectileSmallFireball.class, "Small Fireball", 101 );
+		Register(EntityGaiaProjectileSmallFireball.class, "SmallFireball", 101 );
 		Register(EntityGaiaProjectileMagic.class, "Magic", 102 );
 
 		//Spawn

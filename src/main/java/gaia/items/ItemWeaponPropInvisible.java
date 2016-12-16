@@ -1,8 +1,10 @@
 package gaia.items;
 
 import gaia.Gaia;
+import gaia.GaiaReference;
 
 import java.util.List;
+import java.util.Locale;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -13,11 +15,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponPropInvisible extends Item {
-	String texture;
 
-	public ItemWeaponPropInvisible(String texture) {
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponPropInvisible");
+	public ItemWeaponPropInvisible(String name) {
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -28,7 +28,7 @@ public class ItemWeaponPropInvisible extends Item {
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.WeaponProp.desc"));
-		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.WeaponPropInvisible.desc"));
+		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.WeaponPropInvisible.desc"));	
 	}
 
 	public boolean isFull3D() {

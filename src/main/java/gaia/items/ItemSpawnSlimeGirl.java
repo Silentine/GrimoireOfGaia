@@ -24,12 +24,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnSlimeGirl extends Item {
-	String texture;
 
-	public ItemSpawnSlimeGirl(String texture) {
-		this.texture = texture;
+	public ItemSpawnSlimeGirl(String name) {
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.SpawnSlimeGirl");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
