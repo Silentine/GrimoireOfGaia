@@ -1,5 +1,6 @@
 package gaia.entity.ai;
 
+import gaia.ConfigGaia;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -144,8 +145,11 @@ public class EntityAIGaiaArcher extends EntityAIBase
                 {
                     this.strafingBackwards = true;
                 }
-
-                this.entity.getMoveHelper().strafe(this.strafingBackwards ? -0.4F : 0.4F, this.strafingClockwise ? 0.4F : -0.4F);
+                
+                if(ConfigGaia.StrafingArchers){
+                	this.entity.getMoveHelper().strafe(this.strafingBackwards ? -0.4F : 0.4F, this.strafingClockwise ? 0.4F : -0.4F);
+                }
+                else {this.entity.getMoveHelper().strafe( 0.01F,  0.01F);}
                 this.entity.faceEntity(entitylivingbase, 10.0F, 10.0F);
             }
             else

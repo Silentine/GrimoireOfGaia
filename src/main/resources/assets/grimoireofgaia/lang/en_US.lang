@@ -181,6 +181,8 @@ configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing=Shields Block Pier
 configgui.GrimoireOfGaia.category.damage.ShieldsBlockPiercing.tooltip=Base Damage won't penetrate Shields
 configgui.GrimoireOfGaia.category.damage.HardmodeArchers=Hardmode Archers
 configgui.GrimoireOfGaia.category.damage.HardmodeArchers.tooltip=While in Hardmode, Archers gain piercing and slowing attacks
+configgui.GrimoireOfGaia.category.damage.StrafingArchers=Strafing Archers
+configgui.GrimoireOfGaia.category.damage.StrafingArchers.tooltip=Archers will strafe and avoid attacks, like skeletons
 
 configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode=Gaia Spawning Debug Mode
 configgui.GrimoireOfGaia.category.debug.Spawn_Debug_Mode.tooltip=Disables all non-gaia mobs from spawning
