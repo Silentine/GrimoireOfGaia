@@ -3,6 +3,8 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.ai.Archers;
+import gaia.entity.ai.EntityAIGaiaArcher;
+import gaia.entity.ai.IGaiaArcher;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -31,6 +33,9 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.SoundEvent;
@@ -38,10 +43,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAttackMob {
-	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);	
+public class EntityGaiaCentaur extends EntityMobAssistDay implements IGaiaArcher {
+	//private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);	
+	private EntityAIGaiaArcher aiArrowAttack = new EntityAIGaiaArcher(this, 1.0D, 20, 15.0F);
 	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, 1.0D, 1.4D);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
 	
 	private int fullHealth;
 	private int regenerateHealth;
@@ -74,6 +83,11 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 	/**TODO Arrow attacks may need to be completely redone **/
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
 		Archers.RangedAttack(target, this, par2);
+	}
+	
+	protected void entityInit() {
+		super.entityInit();
+		 this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
 	}
 	
 	@Override
@@ -114,6 +128,14 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 
 		super.onLivingUpdate();
 	}
+	
+	 @SideOnly(Side.CLIENT)
+	public boolean isHoldingBow(){
+		 return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();}
+
+	public void setHoldingBow(boolean swingingArms){
+		this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));}
+
 
 	protected SoundEvent getAmbientSound(){
 		return Sounds.assist_say;

@@ -3,6 +3,8 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.ai.Archers;
+import gaia.entity.ai.EntityAIGaiaArcher;
+import gaia.entity.ai.IGaiaArcher;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -26,21 +28,26 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttackMob {
-	private float field_70926_e;
-	private float field_70924_f;
-
+public class EntityGaiaHunter extends EntityMobAssistDay implements IGaiaArcher {
+	private EntityAIGaiaArcher aiArrowAttack = new EntityAIGaiaArcher(this, 1.0D, 20, 15.0F);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaHunter.class, DataSerializers.BOOLEAN);
+	
 	public EntityGaiaHunter(World par1World) {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityPlayer.class, 2.0F, 1.0D, 1.4D));
-		this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F));
+		this.tasks.addTask(2, this.aiArrowAttack);
 		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
@@ -67,7 +74,18 @@ public class EntityGaiaHunter extends EntityMobAssistDay implements IRangedAttac
     public boolean canAttackClass(Class par1Class) {
         return super.canAttackClass(par1Class) && par1Class != EntityGaiaHunter.class;
     }
+	
+	protected void entityInit() {
+		super.entityInit();
+		 this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
+	}
+	 @SideOnly(Side.CLIENT)
+		public boolean isHoldingBow(){
+			return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();}
 
+		public void setHoldingBow(boolean swingingArms){
+			this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));}
+	
 	public boolean isAIEnabled() {
 		return true;
 	}	

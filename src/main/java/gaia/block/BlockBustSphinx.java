@@ -63,9 +63,7 @@ public class BlockBustSphinx extends BlockContainer {
 			TileEntityBustSphinx tile = (TileEntityBustSphinx)world.getTileEntity(pos);
 			tile.direction = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		}
-		int thing = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		String thingy = "" + thing;
-		entity.addChatMessage(new TextComponentTranslation(TextFormatting.RED + thingy));
+		
 	}
 
 	public Block setBlockTextureName(String string) {

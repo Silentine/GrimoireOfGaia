@@ -1,8 +1,12 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaSelkie;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -186,7 +190,7 @@ public class ModelGaiaSelkie extends ModelBase {
 
 	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
 		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
+		this.setRotationAngles(par2, par3, par4, par5, par6, par7, entity);
 		this.head.render(par7);
 		this.headaccessory.render(par7);
 		this.neck.render(par7);
@@ -225,7 +229,7 @@ public class ModelGaiaSelkie extends ModelBase {
 		model.rotateAngleZ = z;
 	}
 
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entityIn) {
 		//head
 		this.head.rotateAngleY = par4 / 57.295776F;
 		this.head.rotateAngleX = par5 / 57.295776F;
@@ -247,7 +251,14 @@ public class ModelGaiaSelkie extends ModelBase {
 		
         float f6;
         float f7;
-
+        
+        ItemStack itemstack = ((EntityLivingBase)entityIn).getHeldItemMainhand();
+        EntityGaiaSelkie entity = (EntityGaiaSelkie)entityIn;
+		 
+		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)){
+			holdingbow(par1, par2, par3, par4, par5,par6, entityIn );
+		}
+		 else{
         if (this.swingProgress > -9990.0F) {
             f6 = this.swingProgress;
             f6 = 1.0F - this.swingProgress;
@@ -266,6 +277,7 @@ public class ModelGaiaSelkie extends ModelBase {
         this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.025F;
         this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
         this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.025F;
+		 }
         
 		//legs
 		this.waist.rotateAngleZ = MathHelper.cos(par1 * 0.6162F) * 0.05F * par2;
@@ -276,7 +288,23 @@ public class ModelGaiaSelkie extends ModelBase {
 		this.fin4.rotateAngleZ = MathHelper.cos(par1 * 0.6462F) * 0.05F * par2;
 		this.fintail.rotateAngleZ = MathHelper.cos(par1 * 0.6562F) * 0.05F * par2;
 	}
-	
+	public void holdingbow(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn){
+		
+        float f = MathHelper.sin(this.swingProgress * (float)Math.PI);
+        float f1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
+        this.rightarm.rotateAngleZ = -0.3F;
+        this.leftarm.rotateAngleZ = 0.3F;
+        this.rightarm.rotateAngleY = -(0.1F - f * 0.6F);
+        this.leftarm.rotateAngleY = 0.3F - f * 0.6F;
+        this.rightarm.rotateAngleX = -((float)Math.PI / 2F);
+        this.leftarm.rotateAngleX = -((float)Math.PI / 2F);
+        this.rightarm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+        this.leftarm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+        this.rightarm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+        this.leftarm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        }
 	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
 		parChild.rotationPointX -= parParent.rotationPointX;
 		parChild.rotationPointY -= parParent.rotationPointY;

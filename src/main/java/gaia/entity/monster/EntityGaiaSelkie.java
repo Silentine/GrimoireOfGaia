@@ -3,7 +3,9 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.Archers;
+import gaia.entity.ai.EntityAIGaiaArcher;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.entity.ai.IGaiaArcher;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -36,9 +38,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
-	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
+public class EntityGaiaSelkie extends EntityMobDay implements IGaiaArcher {
+	private EntityAIGaiaArcher aiArrowAttack = new EntityAIGaiaArcher(this, 1.0D, 20, 15.0F);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaSelkie.class, DataSerializers.BOOLEAN);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 
 	public EntityGaiaSelkie(World par1World) {
@@ -142,8 +147,15 @@ public class EntityGaiaSelkie extends EntityMobDay implements IRangedAttackMob {
 	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(SKIN, Integer.valueOf(0));
+		this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
 	}
+	 @SideOnly(Side.CLIENT)
+		public boolean isHoldingBow(){
+			return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();}
 
+		public void setHoldingBow(boolean swingingArms){
+			this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));}
+		
 	public int getTextureType() {
 		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}

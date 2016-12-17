@@ -3,7 +3,9 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.Archers;
+import gaia.entity.ai.EntityAIGaiaArcher;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.entity.ai.IGaiaArcher;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -27,15 +29,22 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMob {
-	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
+public class EntityGaiaSahuagin extends EntityMobBase implements IGaiaArcher {
+	//private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIGaiaArcher aiArrowAttack = new EntityAIGaiaArcher(this, 1.0D, 20, 15.0F);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaSahuagin.class, DataSerializers.BOOLEAN);
 	
 	private int switchHealth;
 
@@ -73,6 +82,10 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
     public boolean canAttackClass(Class par1Class) {
         return super.canAttackClass(par1Class) && par1Class != EntityGaiaSahuagin.class;
     }
+	protected void entityInit() {
+		super.entityInit();
+		 this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
+	}
 	
 	public boolean attackEntityAsMob(Entity par1Entity) {
 		if (super.attackEntityAsMob(par1Entity)) {
@@ -121,7 +134,14 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 
 		super.onLivingUpdate();
 	}
+	 @SideOnly(Side.CLIENT)
+	public boolean isHoldingBow(){
+		return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();}
 
+	public void setHoldingBow(boolean swingingArms){
+		this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));}
+
+		
 	protected SoundEvent getAmbientSound(){
 		return Sounds.aggressive_say;
 	}

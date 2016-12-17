@@ -3,7 +3,9 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobBase;
 import gaia.entity.ai.Archers;
+import gaia.entity.ai.EntityAIGaiaArcher;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.entity.ai.IGaiaArcher;
 import gaia.init.GaiaItem;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -11,15 +13,14 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -36,11 +37,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttackMob {
-	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
+public class EntityGaiaMinotaurus extends EntityMobBase implements IGaiaArcher {
+	
+	//TODO private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIGaiaArcher aiArrowAttack = new EntityAIGaiaArcher(this, 1.0D, 20, 15.0F);
 	private EntityAIGaiaAttackOnCollide aiAttackOnCollide = new EntityAIGaiaAttackOnCollide(this, 1.0D, true);
 
+	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaMinotaurus.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaMinotaurus.class, DataSerializers.BOOLEAN);
+	
 	public EntityGaiaMinotaurus(World world) {
 		super(world);
 		this.experienceValue = EntityAttributes.experienceValue2;
@@ -80,6 +88,7 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(SKIN, Integer.valueOf(0));
+		 this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
 	}
 
 	public boolean attackEntityAsMob(Entity entity) {
@@ -156,8 +165,6 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
 		Archers.RangedAttack(target, this, par2);
 	}
-	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
-	
 	public int getTextureType() {
 		return ((Integer)this.dataManager.get(SKIN)).intValue();
 	}
@@ -173,6 +180,13 @@ public class EntityGaiaMinotaurus extends EntityMobBase implements IRangedAttack
 	public void setMobType(int par1) {
 		this.dataManager.set(SKIN, Integer.valueOf(par1));
 	}
+	
+	 @SideOnly(Side.CLIENT)
+	public boolean isHoldingBow(){
+		 return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();}
+
+	public void setHoldingBow(boolean swingingArms){
+		this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));}
 
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readEntityFromNBT(par1NBTTagCompound);
