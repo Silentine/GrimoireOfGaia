@@ -61,8 +61,6 @@ import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.items.ItemGaiaSpawnEgg;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class GaiaEntity {

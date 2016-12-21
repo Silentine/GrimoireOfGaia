@@ -1,15 +1,14 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobBase;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.renderer.particle.ExampleParticle;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -33,12 +32,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityExampleMob extends EntityMobDay{
@@ -54,7 +51,7 @@ public class EntityExampleMob extends EntityMobDay{
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-		this.timer = 20;
+		this.timer = 20; //timer 
 	}
 	
 	//==================== Example Implementations ===================//
@@ -71,6 +68,14 @@ public class EntityExampleMob extends EntityMobDay{
 		
 		//Example of monster creating lingering effects		
 		if (this.clock()) this.lingeringEffect(this, MobEffects.JUMP_BOOST, PotionTypes.LEAPING, 50, 0, this.getPosition());
+	
+		//Example of generating a custom particle
+		if(this.worldObj.isRemote && rand.nextInt(200) == 0){
+			BlockPos pos = this.getPosition();
+			ExampleParticle newEffect = new ExampleParticle(this.worldObj, pos.getX()+0.5, pos.getY()+2.2, pos.getZ()+0.5, 0, 0.001, 0);
+			Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
+	      }
+	
 	}
 		
 	//=================== Example Methods ============================//

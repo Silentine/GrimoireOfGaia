@@ -87,6 +87,7 @@ public class Gaia {
 		Sounds.Sounds_Init();
 		proxy.registerItemsRender();
 		proxy.registerBlocksRender();
+		proxy.registerHandlers();
 		
 	}
 
@@ -120,24 +121,6 @@ public class Gaia {
 		event.registerServerCommand(new Gaia_Commands());
 	}
 
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-		if (eventArgs.getModID().equals(GaiaReference.MOD_ID))
-			GaiaConfigGeneration.syncConfig();
-	}
-	/** Prevents vanilla mobs from spawning for testing **/
-	@SubscribeEvent
-	public void Gaia_Spawn_Debug(CheckSpawn e){
-		if(ConfigGaia.Spawn_Debug_Mode){
-			if(e.getEntity() instanceof EntityMobAssist ||
-					e.getEntity() instanceof EntityMobBase){
-				e.setResult(Event.Result.ALLOW);
-			}
-			else{
-				e.setResult(Event.Result.DENY);
-			}
-		}
-	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {

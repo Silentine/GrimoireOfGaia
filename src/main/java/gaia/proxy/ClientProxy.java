@@ -120,6 +120,7 @@ import gaia.renderer.RenderGaiaWitch;
 import gaia.renderer.RenderGaiaWitherCow;
 import gaia.renderer.RenderGaiaYeti;
 import gaia.renderer.RenderGaiaYukiOnna;
+import gaia.renderer.particle.ParticleHandler;
 import gaia.renderer.tileentity.TileRenderBustSphinx;
 import gaia.renderer.tileentity.TileRenderBustValkyrie;
 import gaia.renderer.tileentity.TileRenderBustVampire;
@@ -145,6 +146,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
@@ -167,6 +169,13 @@ public class ClientProxy extends CommonProxy {
 		
 		register_entityRenders();
 		item_reg.colorEggs();
+	}
+	
+	@Override
+	public void registerHandlers(){
+		super.registerHandlers();
+		
+		MinecraftForge.EVENT_BUS.register(new ParticleHandler());
 	}
 	
 	
@@ -238,7 +247,7 @@ public class ClientProxy extends CommonProxy {
 		reg_Mob(EntityGaiaYukiOnna.class, new RenderGaiaYukiOnna(small));
 
 		reg_Mob(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(Randy, GaiaItem.PropWeapon, Item));
-		
+				
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustSphinx.class, new TileRenderBustSphinx());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustValkyrie.class, new TileRenderBustValkyrie());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustVampire.class, new TileRenderBustVampire());
