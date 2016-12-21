@@ -1,6 +1,7 @@
 package gaia.init;
 
 import gaia.Gaia;
+import gaia.entity.monster.EntityExampleMob;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
@@ -120,6 +121,8 @@ public class GaiaEntity {
 		Register(EntityGaiaWitherCow.class, "WitherCow", 45, 5791069, 16777215);
 		Register(EntityGaiaYeti.class, "Yeti", 46, 16448250, 7895160);
 		Register(EntityGaiaYukiOnna.class, "Yuki-Onna", 47, 6781114, 13817330);
+		
+		Register(EntityExampleMob.class, "ExampleMob", 200, 6781114, 0x303030);
 
 		//NPC
 		Register(EntityGaiaNPCCreeperGirl.class, "CreeperGirl", 61 );

@@ -1,8 +1,7 @@
 package gaia.proxy;
 
-import java.util.Locale;
-
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityExampleMob;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
@@ -63,6 +62,7 @@ import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlock;
 import gaia.init.GaiaItem;
 import gaia.items.ItemGaiaSpawnEgg;
+import gaia.renderer.RenderExampleMob;
 import gaia.renderer.RenderGaiaAnubis;
 import gaia.renderer.RenderGaiaBanshee;
 import gaia.renderer.RenderGaiaBaphomet;
@@ -134,6 +134,9 @@ import gaia.tileentity.TileEntityDollCreeperGirl;
 import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
+
+import java.util.Locale;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -203,6 +206,8 @@ public class ClientProxy extends CommonProxy {
 		reg_Mob(EntityGaiaMinotaurus.class, new RenderGaiaMinotaurus(small));
 		reg_Mob(EntityGaiaNaga.class, new RenderGaiaNaga(med));
 		reg_Mob(EntityGaiaNineTails.class, new RenderGaiaNineTails(small));
+		
+		reg_Mob(EntityExampleMob.class, new RenderExampleMob(small));
 		
 		reg_Mob(EntityGaiaNPCCreeperGirl.class, new RenderGaiaNPCCreeperGirl(small));
 		reg_Mob(EntityGaiaNPCSlimeGirl.class, new RenderGaiaNPCSlimeGirl(small));	
@@ -378,7 +383,8 @@ public class ClientProxy extends CommonProxy {
         // Should get it's list count to iterate through dynamically in the future
         for (int i = 0; i < 52; ++i) {
         	ModelLoader.setCustomModelResourceLocation(SpawnEgg, i, new ModelResourceLocation("minecraft:spawn_egg", "inventory"));
-        	}
+        }
+        ModelLoader.setCustomModelResourceLocation(SpawnEgg, 200, new ModelResourceLocation("minecraft:spawn_egg", "inventory"));
         
 		}
       

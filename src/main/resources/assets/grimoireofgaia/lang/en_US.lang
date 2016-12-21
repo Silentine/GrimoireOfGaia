@@ -87,7 +87,7 @@ entity.grimoireofgaia.BoneKnight.name=Bone Knight
 entity.grimoireofgaia.Butler.name=Butler
 entity.grimoireofgaia.Centaur.name=Centaur
 entity.grimoireofgaia.CobbleGolem.name=Cobble Golem
-entity.grimoireofgaia.Cobblestone Golem.name=Cobblestone Golem
+entity.grimoireofgaia.CobblestoneGolem.name=Cobblestone Golem
 entity.grimoireofgaia.Cockatrice.name=Cockatrice
 entity.grimoireofgaia.Cyclops.name=Cyclops
 entity.grimoireofgaia.CyanFlower.name=Cyan Flower
@@ -128,6 +128,8 @@ entity.grimoireofgaia.Witch.name=Witch
 entity.grimoireofgaia.WitherCow.name=Wither Cow
 entity.grimoireofgaia.Yeti.name=Yeti
 entity.grimoireofgaia.Yuki-Onna.name=Yuki-Onna
+
+entity.grimoireofgaia.ExampleMob.name=Example Mob
 
 entity.grimoireofgaia.CreeperGirl.name=Creeper Girl
 entity.grimoireofgaia.SlimeGirl.name=Slime Girl
