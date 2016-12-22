@@ -3,12 +3,15 @@ package gaia.entity.monster;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobDay;
 import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import gaia.renderer.particle.ExampleParticle;
 
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -27,6 +30,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -75,9 +79,30 @@ public class EntityExampleMob extends EntityMobDay{
 			ExampleParticle newEffect = new ExampleParticle(this.worldObj, pos.getX()+0.5, pos.getY()+2.2, pos.getZ()+0.5, 0, 0.001, 0);
 			Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
 	      }
-	
-	}
 		
+	}
+	
+	protected void dropFewItems(boolean flag, int par) {
+		
+		ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+		//Ids found at @Enchantment.registerEnchantments();
+		//Special method that gives books a unique nbt they need
+		Items.ENCHANTED_BOOK.addEnchantment(book, new EnchantmentData(Enchantment.getEnchantmentByID(35), 2));
+		Items.ENCHANTED_BOOK.addEnchantment(book, new EnchantmentData(Enchantment.getEnchantmentByID(70), 1));		
+		book.setStackDisplayName("Mysterious Tome");
+		
+		this.entityDropItem(book, 2);
+		
+		ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
+		//Stack version is usable for other things
+		shirt.addEnchantment(Enchantment.getEnchantmentByID(0), 2);
+		ItemArmor itemarmor = (ItemArmor)shirt.getItem();
+		itemarmor.setColor(shirt, 5681460);
+		shirt.setStackDisplayName("Dusty Shirt");
+		
+		this.entityDropItem(shirt, 1);		
+	}
+	
 	//=================== Example Methods ============================//
 	
 	/** Adapted from @EntityPotion.class
@@ -169,7 +194,7 @@ public class EntityExampleMob extends EntityMobDay{
 		}
 		return false;
 	};
-	
+		
 	short timer;
 	
 	/** Data for Clock **/
@@ -186,6 +211,7 @@ public class EntityExampleMob extends EntityMobDay{
 	}	
 	
 	
+
 	//================== Bunch of mundane things below ========================//
 	
 	protected SoundEvent getAmbientSound(){return SoundEvents.ENTITY_CHICKEN_AMBIENT;}

@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -72,9 +73,23 @@ public class CommonProxy {
 			//note, appears a fair amount of mobs(including vanilla) are immune to poison
 			//don't be a dork like me and trouble-shoot something that works perfectly well :^)
 			((EntityLivingBase) mob).addPotionEffect(new PotionEffect(MobEffects.POISON, 80, 0));
+			damageBook(player, offhand);
 		}
 		
 	}
 	
+	//Method of handling book damage
+	public void damageBook(EntityPlayer player, ItemStack stack){
+		//Creative check
+		if(player.capabilities.isCreativeMode){return;}		
+		stack.damageItem(200, player);
+		
+		//Manually send an update to destroy the item
+		//otherwise client doesn't sync correctly here
+		if(stack.getItemDamage() <= 0){
+			player.inventory.setInventorySlotContents(40, null);
+		}
+		
+	}
 	
 }

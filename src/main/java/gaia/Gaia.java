@@ -1,7 +1,5 @@
 package gaia;
 
-import gaia.entity.EntityMobAssist;
-import gaia.entity.EntityMobBase;
 import gaia.init.Aspects_Entity;
 import gaia.init.Aspects_Items;
 import gaia.init.GaiaBlock;
@@ -16,8 +14,6 @@ import gaia.util.Gaia_Commands;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -27,8 +23,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import org.apache.logging.log4j.LogManager;
@@ -88,6 +82,7 @@ public class Gaia {
 		proxy.registerItemsRender();
 		proxy.registerBlocksRender();
 		proxy.registerHandlers();
+		 
 		
 	}
 
