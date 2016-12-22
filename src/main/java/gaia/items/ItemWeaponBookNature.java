@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,6 +38,15 @@ public class ItemWeaponBookNature extends ItemSword {
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
 		par3List.add(I18n.translateToLocal("effect.poison") + " (0:04)");
+		
+		if(player.getHeldItemOffhand() == stack){
+			par3List.add(TextFormatting.GREEN + (I18n.translateToLocal("Blessing mainhand with ")
+					+(I18n.translateToLocal("effect.poison") + " (0:04)")));
+		}
+		else{
+			par3List.add(TextFormatting.RED + (I18n.translateToLocal("Will bless mainhand while in offhand")));
+		}
+		
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {

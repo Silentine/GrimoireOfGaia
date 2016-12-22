@@ -23,7 +23,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -60,6 +65,10 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
 		if (super.attackEntityAsMob(par1Entity)) {
+			
+			//If the attack is successful - activate a client watchable cooldown
+			this.setCooldown(12);	
+			
 			if (par1Entity instanceof EntityLivingBase) {
 				((EntityLivingBase)par1Entity).setFire(8);
                 byte byte0 = 0;
@@ -87,12 +96,63 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 	}
 
 	public void onLivingUpdate() {
+
+		//Example of using client watchable data to imitate effects		
+		if(cooldown()){
+			this.worldObj.spawnParticle(EnumParticleTypes.HEART, 
+					this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, 
+					this.posY + this.rand.nextDouble() * (double)this.height, 
+					this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+		}
+
 		if (!this.onGround && this.motionY < 0.0D) {
 			this.motionY *= 0.8D;
 		}
 
 		super.onLivingUpdate();
 	}
+//========================= Client watchable Nbt data setup ============================//
+
+	private static final DataParameter<Integer> Cooldown = EntityDataManager.<Integer>createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
+
+	public boolean cooldown(){
+		int cooldown = getCooldown();
+		if(cooldown > 0){
+			setCooldown(cooldown - 1);
+			return true;
+		}
+		else return false;
+	}
+
+	Integer cooldown;
+	
+	/** Data for  Particle Cooldowns**/
+	public void readEntityFromNBT(NBTTagCompound tag) {
+		super.readEntityFromNBT(tag);
+		if (tag.hasKey("cooldown")) {
+			Integer b0 = tag.getInteger("cooldown");
+			this.setCooldown(b0);
+		}
+	}
+	
+	public void writeEntityToNBT(NBTTagCompound tag) {
+		super.writeEntityToNBT(tag);
+		tag.setInteger("MobType", (byte)this.getCooldown());
+	}	
+
+	protected void entityInit() {
+		super.entityInit();		
+		this.dataManager.register(Cooldown, Integer.valueOf(0));
+	}
+
+	public int getCooldown() {		
+		return ((Integer)this.dataManager.get(Cooldown)).intValue();
+	}
+
+	public void setCooldown(int par1) {
+		this.dataManager.set(Cooldown, Integer.valueOf(par1));
+	}
+//===================================================================================//
 
 	protected SoundEvent getAmbientSound(){
 		return Sounds.aggressive_say;
@@ -136,6 +196,8 @@ public class EntityGaiaSuccubus extends EntityMobBase {
 			this.experienceValue = EntityAttributes.experienceValue1 * 5;
 		}
 	}
+	
+	
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);

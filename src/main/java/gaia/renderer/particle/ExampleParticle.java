@@ -89,13 +89,7 @@ public class ExampleParticle extends Particle
 	 */
 	@Override
 	public void onUpdate()
-	{
-		//setParticleTextureIndex(1);
-		System.out.println("X axis = "+this.particleTextureIndexX);
-		System.out.println("Y axis = "+this.particleTextureIndexY);
-		//this.nextTextureIndexX();
-		
-		
+	{		
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
