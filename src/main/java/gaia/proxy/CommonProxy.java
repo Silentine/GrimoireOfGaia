@@ -4,20 +4,17 @@ import gaia.ConfigGaia;
 import gaia.GaiaReference;
 import gaia.entity.EntityMobAssist;
 import gaia.entity.EntityMobBase;
-import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.init.GaiaConfigGeneration;
 import gaia.items.ItemWeaponBookNature;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -50,14 +47,18 @@ public class CommonProxy {
 		if(ConfigGaia.Spawn_Debug_Mode){
 			if(e.getEntity() instanceof EntityMobAssist ||
 					e.getEntity() instanceof EntityMobBase){
-				e.setResult(Event.Result.ALLOW);
+				
+				//derp - apparently it didn't also do the default checks
+				EntityLiving living = (EntityLiving)e.getEntity();
+				if(living.getCanSpawnHere())e.setResult(Event.Result.ALLOW);
+				else e.setResult(Event.Result.DENY);
 			}
 			else{
 				e.setResult(Event.Result.DENY);
 			}
 		}
 	}
-	
+		
 	/**http://jabelarminecraft.blogspot.com/p/minecraft-forge-172-event-handling.html**/
 	@SubscribeEvent
 	public void Gaia_Weapon_Books(AttackEntityEvent e){

@@ -23,6 +23,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -33,6 +34,11 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -57,6 +63,7 @@ public class EntityExampleMob extends EntityMobDay{
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 		this.timer = 20; //timer 
 	}
+		
 	
 	//==================== Example Implementations ===================//
 	
@@ -79,6 +86,16 @@ public class EntityExampleMob extends EntityMobDay{
 			ExampleParticle newEffect = new ExampleParticle(this.worldObj, pos.getX()+0.5, pos.getY()+2.2, pos.getZ()+0.5, 0, 0.001, 0);
 			Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
 	      }
+		
+		//Player detection
+		if(Player_Detection(8)){this.setCustomNameTag("I found you");}
+		else{this.setCustomNameTag("I didn't notice");}		
+		
+		/**Climber activation **/
+		if (!this.worldObj.isRemote)
+        {
+            this.setBesideClimbableBlock(this.isCollidedHorizontally);
+        }
 		
 	}
 	
@@ -183,6 +200,65 @@ public class EntityExampleMob extends EntityMobDay{
             }
         }
 	}
+	
+	
+	/** Basically we're launching our Bounding Boxs again to scan for local entities 
+	 * What this does is if the bounding box contains any entries that would mean it detected a player
+	 */
+	public boolean Player_Detection(int range){	
+		
+            double d0 = (double)(range);          
+            
+            int k = (int) this.posX;
+            int l = (int) this.posY;
+            int i1 = (int) this.posZ;
+            //Size and location of square to draw
+            AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double)k, (double)l, (double)i1, (double)(k + 1), (double)(l + 1), (double)(i1 + 1))).expandXyz(d0).addCoord(0.0D, (double)this.worldObj.getHeight(), 0.0D);
+            //Targets to collect in square
+            List<EntityPlayer> list = this.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+            
+            if(!list.isEmpty())return true;            
+        
+		return false;
+	}
+	//================= Climber data =============================//
+	protected void entityInit()
+    {
+        super.entityInit();
+        this.setAlwaysRenderNameTag(true);
+        this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
+    }	
+	protected PathNavigate getNewNavigator(World worldIn)
+    {
+        return new PathNavigateClimber(this, worldIn);
+    }
+	
+	/**This is one of the more important parts
+	 * So normally an entity will only act if it's climbing if it's touching a ladder block
+	 * with all this extra data mumbo-jumbo we're actually telling it -
+	 * - when it collides with any block it's allowed to climb it
+	 * our update method starts this whole chain
+	 */	
+	public boolean isOnLadder()
+    {
+        return this.isBesideClimbableBlock();
+    }
+	
+	public boolean isBesideClimbableBlock()
+    {
+        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
+    }
+	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityExampleMob.class, DataSerializers.BYTE);
+	
+	public void setBesideClimbableBlock(boolean climbing)
+    {
+        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
+
+        if(climbing){ b0 = (byte)(b0 | 1); }
+        else{ b0 = (byte)(b0 & -2); }
+
+        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
+    }
 	
 	//================ Clock to prevent effect being spammed ===============//
 	
