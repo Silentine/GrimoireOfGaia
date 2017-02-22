@@ -1,6 +1,6 @@
 package gaia.items;
 
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 
@@ -8,23 +8,23 @@ public class GaiaItemHandlerFuel implements IFuelHandler {
 
 	//20 = 1 second
 	public int getBurnTime(ItemStack fuel) {
-		if (fuel.getItem() == GaiaItem.FoodCoalfish) {
+		if (fuel.getItem() == GaiaItems.FoodCoalfish) {
 			return 3600;
 		}
 		
-		if (fuel.getItem() == GaiaItem.MiscFurnaceFuel) {
+		if (fuel.getItem() == GaiaItems.MiscFurnaceFuel) {
 			return 3600;
 		}
 		
-		if (fuel.getItem() == GaiaItem.MiscSoulFire) {
+		if (fuel.getItem() == GaiaItems.MiscSoulFire) {
 			return 11600;
 		}
 		
-		if (fuel.getItem() == GaiaItem.MiscSoulFiery) {
+		if (fuel.getItem() == GaiaItems.MiscSoulFiery) {
 			return 20000;
 		}
 		
-		if (fuel.getItem() == GaiaItem.MiscGigaGear) {
+		if (fuel.getItem() == GaiaItems.MiscGigaGear) {
 			return 1240000;
 		}
 		return 0;

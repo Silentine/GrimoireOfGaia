@@ -1,52 +1,143 @@
 package gaia.entity.passive;
 
+import gaia.entity.EntityAttributes;
 import gaia.entity.monster.EntityGaiaMandragora;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityShulker;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Sets;
 
+/** 
+ * @see EntityShulker
+ */
 public class EntityGaiaPropFlowerCyan extends EntityAgeable {
+	
+	private int shovelAttack;
 
-	public EntityGaiaPropFlowerCyan(World par1World) {
-		super(par1World);
-		this.setSize(0.6F, 1.8F);
+	public EntityGaiaPropFlowerCyan(World worldIn) {
+		super(worldIn);
+		this.setSize(0.8F, 0.8F);
 		this.experienceValue = 0;
+		this.prevRenderYawOffset = 180.0F;
+		this.renderYawOffset = 180.0F;
+		
+		this.shovelAttack = 0;
+	}
+
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		this.renderYawOffset = 180.0F;
+		this.prevRenderYawOffset = 180.0F;
+		this.rotationYaw = 180.0F;
+		this.prevRotationYaw = 180.0F;
+		this.rotationYawHead = 180.0F;
+		this.prevRotationYawHead = 180.0F;
+		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(1.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
 	}
+	
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		float input = damage;
+		Entity entity = source.getEntity();
+		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
+			if (itemstack != null) {
+				
+				if (itemstack.getItem() instanceof ItemSpade) {
+					damage = input*1.5F;
+					this.shovelAttack += 1;
+				}
+			}
+		}
+		
+		return super.attackEntityFrom(source, damage);
+	}
+
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {}
 
 	public boolean isAIEnabled() {
 		return true;
 	}
 
-	protected String getDeathSound() {
-		return "dig.grass";
+	public void onLivingUpdate() {
+		if (this.getHealth() <= 0.0F) {
+			for (int i = 0; i < 2; ++i) {
+				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+			}
+		} else {
+			super.onLivingUpdate();
+		}
+	}
+
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_GRASS_BREAK;		
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-				this.dropItem(Item.getItemFromBlock(Blocks.yellow_flower), 1);
-			} else {
-				this.dropItem(Item.getItemFromBlock(Blocks.red_flower), 1);
+			switch(this.rand.nextInt(10)) {
+			case 0:
+				this.dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
+				break;
+			case 1:
+				this.dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
+				break;
+			case 2:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
+				break;
+			case 3:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
+				break;
+			case 4:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
+				break;
+			case 5:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
+				break;
+			case 6:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
+				break;
+			case 7:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
+				break;
+			case 8:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
+				break;
+			case 9:
+				this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
+				break;
 			}
 		} else {
 			EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(this.worldObj);
@@ -54,13 +145,11 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 			spawnMob.onSpawnWithEgg((IEntityLivingData)null);
 			this.worldObj.spawnEntityInWorld(spawnMob);
 		}
-	}
 
-	protected void dropRareDrop(int par1) {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItem.FoodMandrake,1);
-		default:
+		if 	(this.shovelAttack >= 1) {
+			if (par1 && (this.rand.nextInt(16) == 0)) {
+				this.dropItem(GaiaItems.FoodMandrake, 1);
+			}
 		}
 	}
 
@@ -68,16 +157,11 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		this.setDead();
 	}
 
-	
-	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return false;
 	}
 
-	public void knockBack(Entity par1Entity, int par2, double par3, double par5) {}
-
-	public void applyEntityCollision(Entity par1Entity) {}
-
-	protected void collideWithEntity(Entity par1Entity) {}
+	protected void collideWithEntity(Entity entityIn) {}
 
 	public boolean canBeCollidedWith() {
 		return true;
@@ -92,28 +176,34 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-			Blocks.grass, 
-			Blocks.dirt
+			Blocks.GRASS, 
+			Blocks.DIRT
 	});
-		
+
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
+
 	public boolean getCanSpawnHere() {
-		
 		if (this.worldObj.isDaytime()) {
 			float f = this.getBrightness(1.0F);
 			if (f > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
 				int i = MathHelper.floor_double(this.posX);
-		        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
-		        int k = MathHelper.floor_double(this.posZ);
+				int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+				int k = MathHelper.floor_double(this.posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);			
 				Block var1 = this.worldObj.getBlockState(blockpos.down()).getBlock();
-				
-				return spawnBlocks.contains(var1)&& !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
-			}}
-		
-		return false;
+
+				return 	this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && this.spawnBlocks.contains(var1) && !this.worldObj.containsAnyLiquid(this.getEntityBoundingBox());
+			}
 		}
+
+		return false;
+	}
 
 	public EntityAgeable createChild(EntityAgeable entityageable) {
 		return null;
 	}
+
+	public void applyEntityCollision(Entity entityIn) {}
 }

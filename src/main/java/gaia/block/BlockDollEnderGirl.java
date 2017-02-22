@@ -2,22 +2,27 @@ package gaia.block;
 
 import gaia.Gaia;
 import gaia.tileentity.TileEntityDollEnderGirl;
-import net.minecraft.block.Block;
+
+import java.util.List;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDollEnderGirl extends BlockContainer {
 
-	public BlockDollEnderGirl(Material par2Material) {
-		super(par2Material);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+	public BlockDollEnderGirl() {
+		super(Material.CLOTH);
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
@@ -25,34 +30,37 @@ public class BlockDollEnderGirl extends BlockContainer {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
-	public int getRenderType() {
-		return -1;
-	}
-
-	public TileEntity createNewTileEntity(World par1World, int i) {
-		return new TileEntityDollEnderGirl();
-	}
-
-	public boolean isOpaqueCube() {
-		return false;
-	}
-
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
+	protected static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
 	
-	public boolean isFullCube() {
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+    
+	public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.INVISIBLE;
+    }
+    
+	public TileEntity createNewTileEntity(World par1World, int i) {
+		return new TileEntityDollEnderGirl();
+	}
+	
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		if (entity != null) {
 			TileEntityDollEnderGirl tile = (TileEntityDollEnderGirl)world.getTileEntity(pos);
 			tile.direction = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		}
 	}
+	
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return BOUNDING_BOX;
+    }
 
-	public Block setBlockTextureName(String string) {
-		return null;
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldln, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityln ) {
+		super.addCollisionBoxToList(pos, entityBox, collidingBoxes, BOUNDING_BOX);
 	}
 }

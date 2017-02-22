@@ -4,6 +4,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.village.MerchantRecipeList;
 
 public class TradeList extends MerchantRecipeList {
+	
 	public TradeList() {}
 
 	public TradeList(NBTTagCompound tag) {

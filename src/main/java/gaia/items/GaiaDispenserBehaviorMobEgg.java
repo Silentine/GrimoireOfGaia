@@ -10,11 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 public class GaiaDispenserBehaviorMobEgg extends BehaviorDefaultDispenseItem  {
+	
 	public ItemStack dispenseStack(IBlockSource BlockSource, ItemStack stack) {
-		EnumFacing enumfacing = BlockDispenser.getFacing(BlockSource.getBlockMetadata());
+		//EnumFacing enumfacing = BlockDispenser.getFacing(BlockSource.getBlockMetadata());
+		EnumFacing enumfacing = (EnumFacing)BlockSource.getBlockState().getValue(BlockDispenser.FACING);
 		double d0 = BlockSource.getX() + (double)enumfacing.getFrontOffsetX();
 		double d1 = BlockSource.getY() +(double)enumfacing.getFrontOffsetY();
 		double d2 = BlockSource.getZ() + (double)enumfacing.getFrontOffsetZ();
+		
 		Entity entity = ItemGaiaSpawnEgg.spawnCreature(BlockSource.getWorld(), stack.getItemDamage(), d0, d1, d2);
 
 		if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
