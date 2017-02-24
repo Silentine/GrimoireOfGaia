@@ -14,7 +14,7 @@ import gaia.items.ItemBoxGold;
 import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
 import gaia.items.ItemFoodCoalfish;
-import gaia.items.ItemFoodIce;
+import gaia.items.ItemFoodExperience;
 import gaia.items.ItemFoodMandrake;
 import gaia.items.ItemFoodMeat;
 import gaia.items.ItemFoodNetherWart;
@@ -83,6 +83,7 @@ public class GaiaItems {
 	public static Item FoodCoalfish;
 	public static Item FoodNetherWart;
 	public static Item FoodSmallAppleGold;
+	public static Item FoodExperience;
 	public static Item FoodMandrake;
 	public static Item FoodWither;
 	public static Item FoodPieMandrake;
@@ -142,6 +143,7 @@ public class GaiaItems {
 		FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "FoodCoalfish");
 		FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "FoodNetherWart"));
 		FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "FoodSmallAppleGold")).setAlwaysEdible();
+		FoodExperience = (new ItemFoodExperience(0, 0.0F, false, "FoodExperience")).setAlwaysEdible();
 		FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "FoodMandrake")).setAlwaysEdible();
 		FoodWither = new ItemFoodWither(8, 0.8F, true, "FoodWither");
 		FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "FoodPieMandrake"));
@@ -204,6 +206,7 @@ public class GaiaItems {
 				FoodCoalfish,
 				FoodNetherWart,
 				FoodSmallAppleGold,
+				FoodExperience,
 				FoodMandrake,
 				FoodWither,
 				FoodPieMandrake,
@@ -273,6 +276,9 @@ public class GaiaItems {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.DIAMOND, "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond", "nuggetDiamond"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(Items.EMERALD, "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald"));
 
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodExperience, 1), new Object[]{BoxIron});
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodExperience, 2), new Object[]{BoxGold});
+		GameRegistry.addShapelessRecipe(new ItemStack(FoodExperience, 4), new Object[]{BoxDiamond});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMandrake, 1), new Object[]{FoodMandrake, Items.SUGAR, Items.EGG});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{new ItemStack(Items.FISH, 1, 0), Items.SUGAR, Items.EGG});
 		GameRegistry.addShapelessRecipe(new ItemStack(FoodPieMeat, 1), new Object[]{new ItemStack(Items.FISH, 1, 1), Items.SUGAR, Items.EGG});

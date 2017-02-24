@@ -134,7 +134,8 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		if (this.getHealth() > EntityAttributes.maxHealth3 * 0.25F && this.buffEffect == 1) {
 			this.buffEffect = 0;
 		} else if (this.getHealth() <= EntityAttributes.maxHealth3 * 0.25F && this.getHealth() > 0.0F && this.buffEffect == 0) {
-			handleStatusUpdate((byte)10);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)10);
+			
 			this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
 			this.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 100, 0));
 			

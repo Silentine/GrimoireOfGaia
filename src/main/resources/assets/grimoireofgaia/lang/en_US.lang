@@ -12,6 +12,7 @@ item.FoodRoot.name=Taproot
 item.FoodCoalfish.name=Coalfish
 item.FoodNetherWart.name=Mature Nether Wart
 item.FoodSmallAppleGold.name=Golden Apple Pie Slice
+item.FoodExperience.name=Candy of Experience
 item.FoodMandrake.name=Mandrake
 item.FoodWither.name=Withered Brain
 item.FoodPieMandrake.name=Mandrake Pie
@@ -188,9 +189,9 @@ configgui.GrimoireOfGaia.category.general.tooltip=\nSet to 0 to disable the mob 
 configgui.GrimoireOfGaia.category.damage=Base Damage
 configgui.GrimoireOfGaia.category.damage.tooltip=(REQUIRES RESTART)\nAll mobs deal additional magical damage that bypasses armor.
 configgui.GrimoireOfGaia.category.defense=Base Defense
-configgui.GrimoireOfGaia.category.defense.tooltip=(REQUIRES RESTART)\nMaximum amount of damage received based on percentage.
+configgui.GrimoireOfGaia.category.defense.tooltip=(REQUIRES RESTART)\nMaximum amount of damage received based on percentage.\n(WARNING: Do NOT set at 0)
 configgui.GrimoireOfGaia.category.attributes=Attributes
-configgui.GrimoireOfGaia.category.attributes.tooltip=(REQUIRES RESTART)\nAttributes based on percentage.\n(WARNING: Do NOT set <50)
+configgui.GrimoireOfGaia.category.attributes.tooltip=(REQUIRES RESTART)\nAttributes based on percentage.\n(WARNING: Do NOT set below 50)
 configgui.GrimoireOfGaia.category.options=Options
 configgui.GrimoireOfGaia.category.options.tooltip=\nEnable/disable features.
 configgui.GrimoireOfGaia.category.debug=Debug
@@ -209,7 +210,7 @@ configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing=Shields Bloc
 configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\nBase Damage (melee) won't penetrate Shields.
 
 configgui.GrimoireOfGaia.category.defense.BaseDefense=Base Defense
-configgui.GrimoireOfGaia.category.defense.BaseDefense.tooltip=\nBased on maximum health.\n(0 = disable, >100 = invincible)
+configgui.GrimoireOfGaia.category.defense.BaseDefense.tooltip=\nMaximum amount of damage received based on percentage.\n(100 = disable, 0 = invincible)
 
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Tier 1 Health
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth.tooltip=\nHealth: 40 (20 Hearts).\n(50 = half, 200 = double)
@@ -225,9 +226,9 @@ configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage=Tier 3 Damage
 configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage.tooltip=\nDamage: 8 (4 Hearts).\n(50 = half, 200 = double)
 
 configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn=Enable Spawns
-configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn.tooltip=(REQUIRES RESTART)\nEnable all Gaia mobs to spawn.
+configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn.tooltip=(REQUIRES RESTART)\nEnable Gaia mobs to spawn.
 configgui.GrimoireOfGaia.category.options.Menu1.AdditionalOre=Additional Nuggets
-configgui.GrimoireOfGaia.category.options.Menu1.AdditionalOre.tooltip=\nGaia mobs can now drop copper and silver nuggets.
+configgui.GrimoireOfGaia.category.options.Menu1.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
 configgui.GrimoireOfGaia.category.options.Menu2.StrafingArchers=Strafing Archers
 configgui.GrimoireOfGaia.category.options.Menu2.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
 

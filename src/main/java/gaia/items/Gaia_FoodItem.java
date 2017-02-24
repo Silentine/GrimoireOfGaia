@@ -45,5 +45,4 @@ public class Gaia_FoodItem extends ItemFood {
 		this.second_Chance = chance;
 		return this;
 	}
-
 }

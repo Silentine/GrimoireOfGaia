@@ -126,6 +126,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		
 		if (spawnLevel3 == 1) {
 			if (this.worldObj.isRemote)handleStatusUpdate((byte)13);
+			
 			this.attackEntityFrom(DamageSource.generic, EntityAttributes.maxHealth2 * 0.01F);
 		}
 

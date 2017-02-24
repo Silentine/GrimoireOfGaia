@@ -54,7 +54,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		this.tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		this.tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(1, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
@@ -66,7 +66,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
         
@@ -159,7 +159,8 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			if ((this.spawnTime > 0) && (this.spawnTime <= 140)) {
 				++this.spawnTime;
 			} else {
-				if (this.worldObj.isRemote) handleStatusUpdate((byte)12);
+				if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
+				
 				if (!this.worldObj.isRemote) {
 					spawnMob = new EntityGaiaSummonSporeling(this.worldObj);
 					spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -167,7 +168,8 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 					this.worldObj.spawnEntityInWorld(spawnMob);
 				}
 
-				if (this.worldObj.isRemote) handleStatusUpdate((byte)9);
+				if (this.worldObj.isRemote)handleStatusUpdate((byte)9);
+				
 				this.heal(EntityAttributes.maxHealth1 * 0.20F);
 
 				this.spawnTime = 1;

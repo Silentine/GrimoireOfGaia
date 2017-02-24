@@ -312,6 +312,7 @@ public class ClientProxy extends CommonProxy {
 			registerRender(FoodCoalfish);
 			registerRender(FoodNetherWart);
 			registerRender(FoodSmallAppleGold);
+			registerRender(FoodExperience);
 			registerRender(FoodMandrake);
 			registerRender(FoodWither);
 			registerRender(FoodPieMandrake);
