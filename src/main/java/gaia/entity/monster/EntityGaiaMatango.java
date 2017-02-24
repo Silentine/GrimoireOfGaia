@@ -159,7 +159,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			if ((this.spawnTime > 0) && (this.spawnTime <= 140)) {
 				++this.spawnTime;
 			} else {
-				handleStatusUpdate((byte)12);
+				if (this.worldObj.isRemote) handleStatusUpdate((byte)12);
 				if (!this.worldObj.isRemote) {
 					spawnMob = new EntityGaiaSummonSporeling(this.worldObj);
 					spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -167,7 +167,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 					this.worldObj.spawnEntityInWorld(spawnMob);
 				}
 
-				handleStatusUpdate((byte)9);
+				if (this.worldObj.isRemote) handleStatusUpdate((byte)9);
 				this.heal(EntityAttributes.maxHealth1 * 0.20F);
 
 				this.spawnTime = 1;

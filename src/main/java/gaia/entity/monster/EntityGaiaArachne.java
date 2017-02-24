@@ -131,7 +131,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		
 		EntityCaveSpider spawnMob;
 		if (this.getHealth() < EntityAttributes.maxHealth1 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0) {
-			handleStatusUpdate((byte)12);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntityCaveSpider(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -142,7 +142,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		}
 
 		if (this.getHealth() < EntityAttributes.maxHealth1 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1) {
-			handleStatusUpdate((byte)12);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntityCaveSpider(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);

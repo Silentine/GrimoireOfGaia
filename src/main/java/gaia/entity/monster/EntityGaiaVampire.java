@@ -104,7 +104,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
     			if (byte0 > 0 && this.getHealth() < EntityAttributes.maxHealth3 * 0.75F) {
     				((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
 
-    				handleStatusUpdate((byte)9);
+    				if (this.worldObj.isRemote)handleStatusUpdate((byte)9);
     				this.heal(EntityAttributes.maxHealth3 * 0.10F);
     			}
     		}
@@ -137,7 +137,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			if ((this.spawnTime > 0) && (this.spawnTime <= 200)) {
 				++this.spawnTime;
 			} else {
-				handleStatusUpdate((byte)12);
+				if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
 				if (!this.worldObj.isRemote) {
 					spawnMob = new EntityGaiaSummonButler(this.worldObj);
 					spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -145,7 +145,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 					this.worldObj.spawnEntityInWorld(spawnMob);
 				}
 
-				handleStatusUpdate((byte)9);
+				if (this.worldObj.isRemote)handleStatusUpdate((byte)9);
 				this.heal(EntityAttributes.maxHealth3 * 0.10F);
 				
 				this.spawnTime = 1;
