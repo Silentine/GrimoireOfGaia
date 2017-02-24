@@ -165,7 +165,7 @@ public class Gaia_Commands implements ICommand{
 	public static boolean isInteger(String s) {
 		try { 
 			Integer.parseInt(s); 
-		} catch(NumberFormatException e) { 
+		} catch(NumberFormatException e) {
 			return false; 
 		} catch(NullPointerException e) {
 			return false;
@@ -382,7 +382,7 @@ public class Gaia_Commands implements ICommand{
 		sender.addChatMessage(new TextComponentTranslation(TextFormatting.RED +"Invalid argument try...")); 
 		sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"/gaia spawn <npc, mob>")); 
 		sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"/gaia biome list")); 
-		sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"/gaia biome debug <Biome ID>")); 
+		sender.addChatMessage(new TextComponentTranslation(TextFormatting.GRAY +"/gaia biome <Biome ID>")); 
 		return;
 	}
 	

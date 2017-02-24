@@ -155,7 +155,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		EntitySkeleton spawnMob;
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0) {
-			handleStatusUpdate((byte)12);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntitySkeleton(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -168,7 +168,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1) {
-			handleStatusUpdate((byte)12);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntitySkeleton(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -191,7 +191,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 		
 		if (spawnLevel3 == 1) {
-			handleStatusUpdate((byte)13);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)13);
+
 			this.attackEntityFrom(DamageSource.generic, EntityAttributes.maxHealth2 * 0.01F);
 		}
 
