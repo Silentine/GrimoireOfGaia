@@ -36,7 +36,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
@@ -47,7 +47,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
         

@@ -42,7 +42,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		this.setSize(0.5F, 1.5F);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
 		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(2, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
@@ -54,7 +54,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
         
@@ -92,17 +92,20 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
                 byte byte0 = 0;
+                byte byte1 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 7;
+                	byte0 = 20;
+                	byte1 = 10;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 15;
+                	byte0 = 20;
+                	byte1 = 10;
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 40, 3));
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, byte0 * 60, 0));
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 60, 0));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 3));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, byte0 * 20, 0));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte1 * 20, 0));
 				}
 			}
 

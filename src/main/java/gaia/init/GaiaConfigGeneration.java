@@ -4,7 +4,7 @@ import gaia.GaiaConfig;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class GaiaConfigGeneration extends GaiaConfig{
+public class GaiaConfigGeneration extends GaiaConfig {
 
 	public static Configuration config;
 
@@ -15,7 +15,7 @@ public class GaiaConfigGeneration extends GaiaConfig{
 
 	//When adding new categories, update Config_Gui as well
 	public static String DAMAGE = "base damage";
-//	public static String DEFENSE = "defense";
+	public static String DEFENSE = "defense";
 	public static String ATTRIBUTES = "attributes";
 	public static String OPTIONS = "options";
 	public static String DEBUG = "debug";
@@ -81,7 +81,7 @@ public class GaiaConfigGeneration extends GaiaConfig{
 		ShieldsBlockPiercing = config.get("base damage", "configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing", true).getBoolean(true);
 
 		//Base Defense
-//		BaseDefense = config.get("defense", "configgui.GrimoireOfGaia.category.defense.BaseDefense", BaseDefense).getInt();
+		BaseDefense = config.get("defense", "configgui.GrimoireOfGaia.category.defense.BaseDefense", BaseDefense).getInt();
 		
 		//Attributes
 		Tier1maxHealth = config.get("attributes", "configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth", Tier1maxHealth).getInt();

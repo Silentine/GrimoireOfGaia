@@ -41,7 +41,7 @@ public class Config_Gui extends GuiConfig {
 		//Add categories to config GUI
 		list.add(categoryElement(GaiaConfigGeneration.config.CATEGORY_GENERAL, "configgui.GrimoireOfGaia.category.general.tooltip", "configgui.GrimoireOfGaia.category.general"));
 		list.add(categoryElement(GaiaConfigGeneration.DAMAGE, "configgui.GrimoireOfGaia.category.damage.tooltip", "configgui.GrimoireOfGaia.category.damage"));
-//		list.add(categoryElement(GaiaConfigGeneration.DEFENSE, "configgui.GrimoireOfGaia.category.defense.tooltip", "configgui.GrimoireOfGaia.category.defense"));
+		list.add(categoryElement(GaiaConfigGeneration.DEFENSE, "configgui.GrimoireOfGaia.category.defense.tooltip", "configgui.GrimoireOfGaia.category.defense"));
 		list.add(categoryElement(GaiaConfigGeneration.ATTRIBUTES, "configgui.GrimoireOfGaia.category.attributes.tooltip", "configgui.GrimoireOfGaia.category.attributes"));
 		list.add(categoryElement(GaiaConfigGeneration.OPTIONS, "configgui.GrimoireOfGaia.category.options.tooltip", "configgui.GrimoireOfGaia.category.options"));
 		list.add(categoryElement(GaiaConfigGeneration.DEBUG, "configgui.GrimoireOfGaia.category.debug.tooltip", "configgui.GrimoireOfGaia.category.debug"));

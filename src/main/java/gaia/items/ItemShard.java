@@ -1,7 +1,7 @@
 package gaia.items;
 
-import gaia.GaiaConfig;
 import gaia.Gaia;
+import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 
 import java.util.List;
@@ -23,9 +23,7 @@ public class ItemShard extends Item {
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 6; i ++) {
-			//if (i != 1 && i != 2){
 			list.add(new ItemStack(item, 1, i));
-			//}
 		}
 	}
 
@@ -35,8 +33,8 @@ public class ItemShard extends Item {
 	}
 
 	/**
-	 * Drop a nugget in the world
-	 * Will drop Gaia nuggets if no other nuggets are present
+	 * Drops a nugget in the world.
+	 * Will drop Gaia nuggets if no other nuggets are present.
 	 */
 	public static void Drop_Nugget(Entity ent, int i){
 		ItemStack stack = new ItemStack(GaiaItems.Shard, 1, i);
@@ -66,7 +64,7 @@ public class ItemShard extends Item {
 	}
 
 	/**
-	 * Checks ore dictionary if there is already a registered nugget
+	 * Checks ore dictionary if there is already a registered nugget.
 	 * Then attempts to use that instead 
 	 */
 	public static ItemStack OreCheck(ItemStack stack, String s){		

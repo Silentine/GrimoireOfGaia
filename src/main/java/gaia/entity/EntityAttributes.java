@@ -4,6 +4,7 @@ import gaia.GaiaConfig;
 
 public class EntityAttributes {
 	
+	public static double attackSpeed0 = 1.0D;
 	public static double attackSpeed1 = 1.25D;
 	public static double attackSpeed2 = 1.275D;
 	public static double attackSpeed3 = 1.30D;
@@ -13,6 +14,7 @@ public class EntityAttributes {
 	public static float maxHealth1 = 40.0F * (float)GaiaConfig.Tier1maxHealth / 100.0F;
 	public static float maxHealth2 = 80.0F * (float)GaiaConfig.Tier2maxHealth / 100.0F;
 	public static float maxHealth3 = 160.0F * (float)GaiaConfig.Tier3maxHealth / 100.0F;
+	public static double moveSpeed0 = 0.20D;
 	public static double moveSpeed1 = 0.25D;
 	public static double moveSpeed2 = 0.275D;
 	public static double moveSpeed3 = 0.30D;

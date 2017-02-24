@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -101,14 +102,14 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte par1) {
-		if (par1 == 4) {
+	public void handleStatusUpdate(byte id) {
+		if (id == 4) {
 			this.attackTimer = 10;
 			this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);			 
-		} else if (par1 == 11) {
+		} else if (id == 11) {
 			this.holdRoseTick = 400;
 		} else {
-			super.handleStatusUpdate(par1);
+			super.handleStatusUpdate(id);
 		}
 	}
 	
