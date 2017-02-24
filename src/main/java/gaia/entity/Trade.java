@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.village.MerchantRecipe;
 
 public class Trade extends MerchantRecipe {
+	
 	public Trade(NBTTagCompound tag) {
 		super(tag);
 	}

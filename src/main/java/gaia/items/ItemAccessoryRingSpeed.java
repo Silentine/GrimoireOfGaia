@@ -60,9 +60,10 @@ public class ItemAccessoryRingSpeed extends Item //implements IBauble
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
 		if (!player.isPotionActive(MobEffects.SPEED)) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 0, true, false));		
+			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 4, true, false));		
 			}
 	}
+	
 	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {

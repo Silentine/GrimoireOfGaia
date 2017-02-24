@@ -1,7 +1,7 @@
 package gaia.items;
 
 import gaia.Gaia;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -37,16 +36,15 @@ public class ItemBoxOld extends Gaia_Lootable {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
-	{
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.playSound(Sounds.box_open2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		Random random = new Random();
 		int i = random.nextInt(6);
 		switch(i) {
 		case 0:
-			return loot(GaiaItem.MiscGigaGear);
+			return loot(GaiaItems.MiscGigaGear);
 		case 1:
-			return loot(GaiaItem.Spawn);
+			return loot(GaiaItems.Spawn);
 		case 2:
 			return loot(Items.SADDLE);
 		case 3:

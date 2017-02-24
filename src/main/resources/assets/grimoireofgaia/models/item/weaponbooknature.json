@@ -1,7 +1,6 @@
 {
-    "parent": "item/handheld",
+    "parent": "grimoireofgaia:item/weapondebug",
     "textures": {
-        "layer0": "grimoireofgaia:items/WeaponBookNature"
-        }
-    
+        "0": "grimoireofgaia:items/models/WeaponBookNature"
+    }
 }

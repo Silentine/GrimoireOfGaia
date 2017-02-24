@@ -1,7 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:blocks/Icon_Doll"
-        }
-    
+        "layer0": "grimoireofgaia:blocks/IconDoll"
+    } 
 }

@@ -6,6 +6,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+//Same as EntitySmallFireball, except it does not spawn a fire block on impact
 public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
 	public EntityGaiaProjectileSmallFireball(World par1World) {

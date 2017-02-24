@@ -1,9 +1,10 @@
 package gaia.entity.monster;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobBase;
-import gaia.entity.ai.Archers;
-import gaia.init.GaiaItem;
+import gaia.entity.EntityMobHostileBase;
+import gaia.entity.ai.Ranged;
+import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -15,7 +16,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -32,37 +32,44 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackMob{
+public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRangedAttackMob{
 
 	public EntityGaiaFleshLich(World par1World) {
 		super(par1World);
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire	 = true;
-		//TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.0D, 20, 60, 15.0F));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, EntityAttributes.attackSpeed2, 20, 60, 15.0F));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
 	}
 
-	public int getTotalArmorValue() {
-		return EntityAttributes.rateArmor2;
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (damage > EntityAttributes.baseDefense2) {
+			damage = EntityAttributes.baseDefense2;
+		}
+		
+		return super.attackEntityFrom(source, damage);
+	}
+	
+    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-		Archers.fireball(target, this, par2);
+		Ranged.fireball(target, this, par2);
 	}
 	
 	public boolean isAIEnabled() {
@@ -71,8 +78,9 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 
 	public void onLivingUpdate() {
 		if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
-			float f = this.getBrightness(1.0F);
-			if (f > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
+			float f = this.getBrightness(1.0F);			
+			if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())) {
+				this.setFire(8);
 				this.attackEntityFrom(DamageSource.outOfWorld, EntityAttributes.maxHealth2 * 0.25F);
 			}
 		}
@@ -80,20 +88,19 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 		super.onLivingUpdate();
 	}
 
-	protected SoundEvent getAmbientSound(){
+	protected SoundEvent getAmbientSound() {
 		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
 	}
 
-	protected SoundEvent getHurtSound(){
+	protected SoundEvent getHurtSound() {
 		return SoundEvents.ENTITY_ZOMBIE_HURT;
 	}
 
-	protected SoundEvent getDeathSound(){
+	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_ZOMBIE_DEATH;
-		
 	}
 
-	protected void playStepSound(BlockPos pos, Block blockIn){	
+	protected void playStepSound(BlockPos pos, Block blockIn) {	
 		this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
 	}
 
@@ -104,23 +111,27 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
             this.entityDropItem(new ItemStack(Items.DYE, 1, 4), 0.0F);
 		}
 		
+		//Nuggets/Fragments
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            //ItemShard.Drop_Nugget(this,1);
             ItemShard.Drop_Nugget(this,1);
 		}
 		
-		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-            //ItemShard.Drop_Nugget(this,3);
-            ItemShard.Drop_Nugget(this,3);
+		if (GaiaConfig.AdditionalOre == true) {
+			int var13 = this.rand.nextInt(3) + 1;
+
+			for (int var14 = 0; var14 < var13; ++var14) {
+				ItemShard.Drop_Nugget(this,5);
+			}
 		}
 	}
 
+	//Rare
 	protected void addRandomDrop() {
 		switch(this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BagOre, 1);
+			this.dropItem(GaiaItems.BagOre, 1);
 			break;
 		case 1:
 			this.dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
@@ -131,21 +142,16 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	}
 	
 	@Override
-    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {}
+    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItem.PropWeapon, 1, 0));		
-		this.setEnchantmentBasedOnDifficulty(difficulty);
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 0));		
 		return livingdata;		
     }
 	
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
-	}
-	
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockbackbase);
 	}
 
 	public boolean getCanSpawnHere() {

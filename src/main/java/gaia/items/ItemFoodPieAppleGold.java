@@ -47,9 +47,7 @@ public class ItemFoodPieAppleGold extends Gaia_FoodItem {
 	//Gained experience is 100% more
 	@Override
 	public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
-		rewardEXP(player, itemRand.nextInt(28) + 12);
-		
-		
+		rewardEXP(player, itemRand.nextInt(32) + 16);
 		player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 0));
 		player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 600, 4));
 		player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 6000, 0));

@@ -1,6 +1,5 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -8,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaCreep extends ModelBase {
+public class ModelGaiaCreep extends ModelGaia {
 	ModelRenderer head1;
 	ModelRenderer head2;
 	ModelRenderer head3;
@@ -28,7 +27,7 @@ public class ModelGaiaCreep extends ModelBase {
 		this(0.0F);
 	}
 
-	public ModelGaiaCreep(float par1) {
+	public ModelGaiaCreep(float limbSwing) {
 		this.textureWidth = 64;
 		this.textureHeight = 32;
 
@@ -102,70 +101,59 @@ public class ModelGaiaCreep extends ModelBase {
 		this.leg6.setRotationPoint(-5.0F, 18.0F, 0.0F);
 		this.leg6.setTextureSize(64, 32);
 		this.setRotation(this.leg6, 0.0F, 1.570796F, 0.0F);
+		
+		this.convertToChild(leg1, leg3);
+		this.convertToChild(leg1, leg5);
+		this.convertToChild(leg2, leg4);
+		this.convertToChild(leg2, leg6);
 	}
 
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
-		this.head1.render(par7);
-		this.head2.render(par7);
-		this.head3.render(par7);
-		this.smallhead1.render(par7);
-		this.smallhead2.render(par7);
-		this.smallhead3.render(par7);
-		this.body1.render(par7);
-		this.body2.render(par7);
-		this.leg1.render(par7);
-		this.leg2.render(par7);
-		this.leg3.render(par7);
-		this.leg4.render(par7);
-		this.leg5.render(par7);
-		this.leg6.render(par7);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		this.head1.render(scale);
+		this.head2.render(scale);
+		this.head3.render(scale);
+		this.smallhead1.render(scale);
+		this.smallhead2.render(scale);
+		this.smallhead3.render(scale);
+		this.body1.render(scale);
+		this.body2.render(scale);
+		this.leg1.render(scale);
+		this.leg2.render(scale);
+//		this.leg3.render(scale);
+//		this.leg4.render(scale);
+//		this.leg5.render(scale);
+//		this.leg6.render(scale);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//head
-		this.head1.rotateAngleX = MathHelper.cos(par3 * 0.8F + (float)Math.PI) * 0.4F * par2 * 0.5F;
+		this.head1.rotateAngleX = MathHelper.cos(ageInTicks * 0.8F + (float)Math.PI) * 0.4F * limbSwingAmount * 0.5F;
 		this.head2.rotateAngleX = this.head1.rotateAngleX - 0.2617994F;
 		this.head3.rotateAngleX = this.head1.rotateAngleX - 0.4363323F;
 		this.head1.rotateAngleX -= 0.6108652F;
-		this.smallhead1.rotateAngleX = MathHelper.cos(par3 * 1.2F + (float)Math.PI) * 0.6F * par2 * 0.5F;
+		this.smallhead1.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float)Math.PI) * 0.6F * limbSwingAmount * 0.5F;
 		this.smallhead2.rotateAngleX = this.smallhead1.rotateAngleX - 0.1745329F;
 		this.smallhead3.rotateAngleX = this.smallhead1.rotateAngleX + 0.0872665F;
 		this.smallhead1.rotateAngleX -= 0.2617994F;
 		
 		//body
-		this.body1.rotateAngleY = par4 / 57.295776F;
-		this.body1.rotateAngleX = par5 / 57.295776F;
+		this.body1.rotateAngleY = netHeadYaw / 57.295776F;
+		this.body1.rotateAngleX = headPitch / 57.295776F;
 		this.body2.rotateAngleY = this.body1.rotateAngleY;
 		this.body2.rotateAngleX = this.body1.rotateAngleX;
 		this.body1.rotateAngleY = this.body1.rotateAngleY + 0.3490659F;
 		this.body1.rotateAngleX = this.body1.rotateAngleX + 1.570796F;
 		
 		//legs
-		this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
-		this.leg3.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.leg4.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
-		this.leg5.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.leg6.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
+		this.leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.leg5.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg6.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 	}
 
 	public void renderAll() {}
-	
-	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
-		parChild.rotationPointX -= parParent.rotationPointX;
-		parChild.rotationPointY -= parParent.rotationPointY;
-		parChild.rotationPointZ -= parParent.rotationPointZ;
-		parChild.rotateAngleX -= parParent.rotateAngleX;
-		parChild.rotateAngleY -= parParent.rotateAngleY;
-		parChild.rotateAngleZ -= parParent.rotateAngleZ;
-		parParent.addChild(parChild);
-	}
 }

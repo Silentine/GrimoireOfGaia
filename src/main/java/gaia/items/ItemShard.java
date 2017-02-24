@@ -1,14 +1,13 @@
 package gaia.items;
 
-import gaia.ConfigGaia;
+import gaia.GaiaConfig;
 import gaia.Gaia;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -16,8 +15,8 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ItemShard extends Item {
 
 	public ItemShard(String name) {
-        this.setHasSubtypes(true);
-        this.setUnlocalizedName(name);
+		this.setHasSubtypes(true);
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -25,9 +24,8 @@ public class ItemShard extends Item {
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < 6; i ++) {
 			//if (i != 1 && i != 2){
-				list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(item, 1, i));
 			//}
-			
 		}
 	}
 
@@ -35,18 +33,18 @@ public class ItemShard extends Item {
 	public String getUnlocalizedName(ItemStack stack) {
 		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
 	}
-	
-		
-	/**Drop a nugget in the world
+
+	/**
+	 * Drop a nugget in the world
 	 * Will drop Gaia nuggets if no other nuggets are present
 	 */
 	public static void Drop_Nugget(Entity ent, int i){
-		ItemStack stack = new ItemStack(GaiaItem.Shard, 1, i);
-		
-		if(ConfigGaia.OreUnity){
+		ItemStack stack = new ItemStack(GaiaItems.Shard, 1, i);
+
+		if(GaiaConfig.OreUnity){
 			if(i == 0){
 				stack = OreCheck(stack,"nuggetIron" );
-				}
+			}
 			if(i == 1){
 				stack = OreCheck(stack,"nuggetGold" );
 			}
@@ -63,34 +61,36 @@ public class ItemShard extends Item {
 				stack = OreCheck(stack,"nuggetSilver" );
 			}
 		}
-		
+
 		ent.entityDropItem(stack, 0.0F);
 	}
-	
-	/**Checks ore dictionary if there is already a registered nugget
-	 * Then attempts to use that instead **/
+
+	/**
+	 * Checks ore dictionary if there is already a registered nugget
+	 * Then attempts to use that instead 
+	 */
 	public static ItemStack OreCheck(ItemStack stack, String s){		
 		List<ItemStack>Ores = OreDictionary.getOres(s);
 		int size = Ores.size();
-		
+
 		if(s != null){
 			if(Ores.get(0)!= null){
 				ItemStack unity = Ores.get(0);
 				Item item = unity.getItem();
 				int meta = unity.getItemDamage();
-				
+
 				//if it grabbed a gaia ore try the next in the list
-				if(item == GaiaItem.Shard && size >1){
+				if(item == GaiaItems.Shard && size >1){
 					if(Ores.get(1)!= null){
 						unity = Ores.get(1);
 						item = unity.getItem();
 						meta = unity.getItemDamage();
 					}
 				}
-				
+
 				stack = new ItemStack(item, 1, meta);
-				}
 			}
+		}
 		return stack;
 	}
 }

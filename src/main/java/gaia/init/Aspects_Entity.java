@@ -30,6 +30,9 @@ public class Aspects_Entity extends GaiaEntity{
 		/*
 		ThaumcraftApi.registerEntityTag(ref+"Anubis",
 				(new AspectList()).add(Aspect.BEAST, 3).add(Aspect.DARKNESS, 3));
+				
+		ThaumcraftApi.registerEntityTag(ref+"Arachne",
+				(new AspectList()).add(Aspect.ENTROPY, 2));
 		
 		ThaumcraftApi.registerEntityTag(ref+"Banshee",
 				(new AspectList()).add(Aspect.SOUL, 2).add(Aspect.ENTROPY, 2).add(Aspect.FIRE, 2));
@@ -69,6 +72,9 @@ public class Aspects_Entity extends GaiaEntity{
 		
 		ThaumcraftApi.registerEntityTag(ref+"Dullahan",
 				(new AspectList()).add(Aspect.SOUL, 2));
+				
+		ThaumcraftApi.registerEntityTag(ref+"Dwarf",
+				(new AspectList()).add(Aspect.MAN, 1)).add(Aspect.EARTH, 1));
 		
 		ThaumcraftApi.registerEntityTag(ref+"Ender Dragon Girl",
 				(new AspectList()).add(Aspect.ELDRITCH, 4).add(Aspect.DARKNESS, 2));
@@ -82,17 +88,11 @@ public class Aspects_Entity extends GaiaEntity{
 		ThaumcraftApi.registerEntityTag(ref+"FutakuchiOnna",
 				(new AspectList()).add(Aspect.MAN, 1).add(Aspect.ENTROPY, 1));
 		
-		ThaumcraftApi.registerEntityTag(ref+"Gryphon",
-				(new AspectList()).add(Aspect.AIR, 2));
-		
 		ThaumcraftApi.registerEntityTag(ref+"Harpy",
 				(new AspectList()).add(Aspect.AIR, 2));
 		
 		ThaumcraftApi.registerEntityTag(ref+"Hunter",
 				(new AspectList()).add(Aspect.MAN, 1).add(Aspect.EARTH, 1));
-		
-		ThaumcraftApi.registerEntityTag(ref+"Jorogumo",
-				(new AspectList()).add(Aspect.ENTROPY, 2));
 		
 		ThaumcraftApi.registerEntityTag(ref+"Matango",
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.DARKNESS, 1));
@@ -145,7 +145,7 @@ public class Aspects_Entity extends GaiaEntity{
 		ThaumcraftApi.registerEntityTag(ref+"Succubus",
 				(new AspectList()).add(Aspect.FIRE, 2));
 		
-		ThaumcraftApi.registerEntityTag(ref+"Swamper",
+		ThaumcraftApi.registerEntityTag(ref+"Toad",
 				(new AspectList()).add(Aspect.LIFE, 3).add(Aspect.WATER, 3));
 		
 		ThaumcraftApi.registerEntityTag(ref+"Valkyrie",

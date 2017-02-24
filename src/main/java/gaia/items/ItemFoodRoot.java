@@ -12,6 +12,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodRoot extends ItemFood {
+	
 	public void clearNegativePotions(EntityPlayer entityplayer) {
 		entityplayer.removePotionEffect(MobEffects.SLOWNESS);
 		entityplayer.removePotionEffect(MobEffects.MINING_FATIGUE);

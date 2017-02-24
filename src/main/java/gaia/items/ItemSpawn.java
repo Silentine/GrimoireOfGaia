@@ -1,7 +1,7 @@
 package gaia.items;
 
 import gaia.Gaia;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 
 import java.util.List;
@@ -36,23 +36,22 @@ public class ItemSpawn extends Gaia_Lootable {
 		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
-	{
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.playSound(Sounds.box_open2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(5);
 		switch(i) {
 		case 0:
-			return loot(GaiaItem.SpawnCreeperGirl);
+			return loot(GaiaItems.SpawnCreeperGirl);
 		case 1:
-			return loot(GaiaItem.SpawnEnderGirl);
+			return loot(GaiaItems.SpawnEnderGirl);
 		case 2:
-			return loot(GaiaItem.SpawnHolstaurus);
+			return loot(GaiaItems.SpawnHolstaurus);
 		case 3:
-			return loot(GaiaItem.SpawnSlimeGirl);
+			return loot(GaiaItems.SpawnSlimeGirl);
 		case 4:
-			return loot(GaiaItem.SpawnTrader);
+			return loot(GaiaItems.SpawnTrader);
 		default:
 			return new ActionResult(EnumActionResult.SUCCESS, stack);
 		}

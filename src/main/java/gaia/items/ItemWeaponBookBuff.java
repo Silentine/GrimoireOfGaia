@@ -1,38 +1,38 @@
 package gaia.items;
 
 import gaia.Gaia;
+import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 
 import java.util.List;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.google.common.collect.Multimap;
-
+/** 
+ * @see ItemSword
+ */
 public class ItemWeaponBookBuff extends Item {
-	private float weaponDamage;
+	
+	private float attackDamage;
 
 	public ItemWeaponBookBuff(String name) {
-		this.setMaxDamage(64);
-		this.weaponDamage = 0;
+		this.attackDamage = 0;
 		this.maxStackSize = 1;
+		this.setMaxDamage(64);
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
@@ -41,59 +41,43 @@ public class ItemWeaponBookBuff extends Item {
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.EPIC;
 	}
-	/**TODO check
-	public Multimap getItemAttributeModifiers() {
-		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double)this.weaponDamage, 0));
-		return multimap;
-	}
-	**/
-	public Multimap getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-		Multimap multimap = super.getAttributeModifiers(slot, stack);
-		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier( "Tool modifier", (double)this.weaponDamage, 0));
-		return multimap;
-	}
-	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("effect.damageBoost") + " (1:00)");
-		par3List.add(I18n.translateToLocal("effect.resistance") + " (1:00)");
-		par3List.add(I18n.translateToLocal("effect.regeneration") + " (IV)" + " (0:04)");
-	}
-
+	
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
 		stack.damageItem(1, host);
+		EntityPlayer player = host instanceof EntityPlayer ? (EntityPlayer)host : null;
+        player.playSound(Sounds.book_hit, 1.0F, 1.0F);
 		target.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 600, 0));
 		target.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0));
 		target.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));
 		return true;
 	}
-
-	public boolean isFull3D() {
-		return true;
+	
+	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
+		if (player.getHeldItemOffhand() == stack) {
+			par3List.add(TextFormatting.GREEN + (I18n.translateToLocal("text.GrimoireOfGaia.BlessOffhand")));
+		} else {
+			par3List.add(TextFormatting.RED + (I18n.translateToLocal("text.GrimoireOfGaia.BlessMainhand")));
+		}
+		
+		par3List.add(I18n.translateToLocal("effect.damageBoost") + " (1:00)");
+		par3List.add(I18n.translateToLocal("effect.resistance") + " (1:00)");
+		par3List.add(I18n.translateToLocal("effect.regeneration") + " (IV)" + " (0:04)");
 	}
 
-	public EnumAction getItemUseAction(ItemStack stack) {
-		//return EnumAction.BLOCK;
-		return EnumAction.BOW;
-	}
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        if ((double)state.getBlockHardness(worldIn, pos) != 0.0D) {
+            stack.damageItem(2, entityLiving);
+        }
 
-	public int getMaxItemUseDuration(ItemStack stack) {
-		//TODO that doesn't seem right return 72000;
-		return 72;
-	}
-
-	/*
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		return stack;
-	}
-	*/
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public boolean isFull3D() {
+        return true;
     }
 
-	public boolean getIsRepairable(ItemStack stack, ItemStack par2ItemStack) {
-		return Items.BOOK == par2ItemStack.getItem()?true:super.getIsRepairable(stack, par2ItemStack);
-	}
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        return repair.getItem() == GaiaItems.MiscQuill;
+    }
 }

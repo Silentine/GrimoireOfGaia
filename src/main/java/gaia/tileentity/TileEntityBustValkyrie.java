@@ -21,7 +21,6 @@ public class TileEntityBustValkyrie extends TileEntity {
 		return true;
 	}
 
-	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		this.readFromNBT(pkt.getNbtCompound());
 	}
@@ -50,13 +49,11 @@ public class TileEntityBustValkyrie extends TileEntity {
 	}
 	
 	@Nullable
-    public SPacketUpdateTileEntity getUpdatePacket()
-    {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         return new SPacketUpdateTileEntity(this.pos, 5, this.getUpdateTag());
     }
 
-    public NBTTagCompound getUpdateTag()
-    {
+    public NBTTagCompound getUpdateTag() {
         return this.writeToNBT(new NBTTagCompound());
     }
 }
