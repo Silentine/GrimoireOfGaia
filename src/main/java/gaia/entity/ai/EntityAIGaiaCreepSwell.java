@@ -4,7 +4,11 @@ import gaia.entity.monster.EntityGaiaCreep;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 
+/**
+ * @see EntityAICreeperSwell
+ */
 public class EntityAIGaiaCreepSwell extends EntityAIBase {
+	
    EntityGaiaCreep swellingCreep;
    EntityLivingBase CreepAttackTarget;
 
@@ -17,8 +21,6 @@ public class EntityAIGaiaCreepSwell extends EntityAIBase {
       EntityLivingBase entitylivingbase = this.swellingCreep.getAttackTarget();
       return this.swellingCreep.getCreeperState() > 0 || entitylivingbase != null && this.swellingCreep.getDistanceSqToEntity(entitylivingbase) < 9.0D;
    }
-   
-   
 
    public void startExecuting() {
       this.swellingCreep.getNavigator().clearPathEntity();

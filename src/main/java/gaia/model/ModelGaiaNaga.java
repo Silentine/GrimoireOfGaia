@@ -1,6 +1,5 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -8,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaNaga extends ModelBase {
+public class ModelGaiaNaga extends ModelGaia {
 	ModelRenderer head;
 	ModelRenderer headnose1;
 	ModelRenderer headnose2;
@@ -23,11 +22,9 @@ public class ModelGaiaNaga extends ModelBase {
 	ModelRenderer fin2;
 	public static ModelRenderer rightarm;
 	ModelRenderer rightarmlower;
-	ModelRenderer leftarm;
+	public static ModelRenderer leftarm;
 	ModelRenderer leftarmlower;
 	ModelRenderer waist;
-    ModelRenderer shieldbracelet;
-    ModelRenderer shield;
 	ModelRenderer tail1;
 	ModelRenderer tail2;
 	ModelRenderer tail3;
@@ -35,6 +32,19 @@ public class ModelGaiaNaga extends ModelBase {
 	ModelRenderer tail5;
 	ModelRenderer tail6;
 	ModelRenderer tail7;
+	
+    protected double distanceMovedTotal = 0.0D;
+    protected static final double CYCLES_PER_BLOCK = 1.0D; 
+    protected int cycleIndex = 0;
+    protected float[][] undulationCycle = new float[][]
+    {
+    	    {  10F, -10F, -10F,   0F,  10F,  10F,   0F, -10F },
+    	    {   5F,  10F, -10F, -10F,   0F,  10F,  10F,   0F },
+    	    {   0F,  25F,   0F, -10F, -10F,   0F,  10F,  10F },
+    	    { -10F,  10F,  10F,   0F, -10F, -10F,   0F,  10F },
+    	    {  -5F, -10F,  10F,  10F,   0F, -10F, -10F,   0F },
+    	    {   0F, -25F,   0F,  10F,  10F,   0F, -10F, -10F },
+    };
 
 	public ModelGaiaNaga() {
 		this.textureWidth = 128;
@@ -65,16 +75,16 @@ public class ModelGaiaNaga extends ModelBase {
 		this.headtendrils.setRotationPoint(0F, -6F, -3F);
 		this.headtendrils.setTextureSize(128, 64);
 		this.setRotation(headtendrils, 0F, 0F, 0F);
-		this.rightfin = new ModelRenderer(this, 19, -3);
-		this.rightfin.addBox(-3F, -5F, 0F, 0, 5, 3);
+		this.rightfin = new ModelRenderer(this, 19, -5);
+		this.rightfin.addBox(-3F, -5F, 0F, 0, 5, 5);
 		this.rightfin.setRotationPoint(0F, -6F, -3F);
 		this.rightfin.setTextureSize(128, 64);
 		this.setRotation(rightfin, 0F, -0.5235988F, 0F);
-		this.leftfin = new ModelRenderer(this, 19, -3);
-		this.leftfin.addBox(3F, -5F, 0F, 0, 5, 3);
+		this.leftfin = new ModelRenderer(this, 19, -5);
+		this.leftfin.addBox(3F, -5F, 0F, 0, 5, 5);
 		this.leftfin.setRotationPoint(0F, -6F, -3F);
 		this.leftfin.setTextureSize(128, 64);
-		this.setRotation(leftfin, 0F, 0.5235988F, 0F);
+		setRotation(leftfin, 0F, 0.5235988F, 0F);
 		this.pauldron = new ModelRenderer(this, 34, 0);
 		this.pauldron.addBox(-9F, -0.5F, -3F, 18, 7, 7);
 		this.pauldron.setRotationPoint(0F, -7F, 0F);
@@ -124,52 +134,42 @@ public class ModelGaiaNaga extends ModelBase {
 		this.waist.addBox(-4.5F, 9F, -2.5F, 9, 5, 5);
 		this.waist.setRotationPoint(0F, -7F, 0F);
 		this.waist.setTextureSize(128, 64);
-		this.setRotation(waist, -0.1308997F, 0F, 0F);
-		this.shieldbracelet = new ModelRenderer(this, 84, 24);
-		this.shieldbracelet.addBox(1F, 12.5F, -0.5F, 3, 1, 3);
-		this.shieldbracelet.setRotationPoint(5.5F, -4F, 0F);
-		this.shieldbracelet.setTextureSize(128, 64);
-		this.setRotation(shieldbracelet, -0.1745329F, 0F, -0.0872665F);
-		this.shield = new ModelRenderer(this, 84, 24);
-		this.shield.addBox(3.5F, 2.5F, -5F, 1, 22, 12);
-		this.shield.setRotationPoint(5.5F, -4F, 0F);
-		this.shield.setTextureSize(128, 64);
-		this.setRotation(shield, -0.1745329F, 0F, -0.0872665F);
+		this.setRotation(waist, -0.1308997F, undulationCycle[0][0], 0F);
 		this.tail1 = new ModelRenderer(this, 84, 10);
 		this.tail1.addBox(-4F, 14F, -2.5F, 8, 3, 4);
 		this.tail1.setRotationPoint(0F, -7F, 0F);
 		this.tail1.setTextureSize(128, 64);
-		this.setRotation(tail1, -0.0436332F, 0F, 0F);
+		this.setRotation(tail1, -0.0436332F, undulationCycle[0][1], 0F);
 		this.tail2 = new ModelRenderer(this, 84, 17);
 		this.tail2.addBox(-3.5F, 17F, -2.5F, 7, 3, 4);
 		this.tail2.setRotationPoint(0F, -7F, 0F);
 		this.tail2.setTextureSize(128, 64);
-		this.setRotation(tail2, 0F, 0F, 0F);
+		this.setRotation(tail2, 0F, undulationCycle[0][2], 0F);
 		this.tail3 = new ModelRenderer(this, 108, 10);
 		this.tail3.addBox(-3F, 20F, -2.5F, 6, 3, 4);
 		this.tail3.setRotationPoint(0F, -7F, 0F);
 		this.tail3.setTextureSize(128, 64);
-		this.setRotation(tail3, 0.0436332F, 0F, 0F);
+		this.setRotation(tail3, 0.0436332F, undulationCycle[0][3], 0F);
 		this.tail4 = new ModelRenderer(this, 108, 10);
 		this.tail4.addBox(-3F, 23F, -3.5F, 6, 3, 4);
 		this.tail4.setRotationPoint(0F, -7F, 0F);
 		this.tail4.setTextureSize(128, 64);
-		this.setRotation(tail4, 0.1308997F, 0F, 0F);
+		this.setRotation(tail4, 0.1308997F, undulationCycle[0][4], 0F);
 		this.tail5 = new ModelRenderer(this, 108, 10);
 		this.tail5.addBox(-3F, 26F, -3.5F, 6, 3, 4);
 		this.tail5.setRotationPoint(0F, -7F, 0F);
 		this.tail5.setTextureSize(128, 64);
-		this.setRotation(tail5, 0.1745329F, 0F, 0F);
+		this.setRotation(tail5, 0.1745329F, undulationCycle[0][5], 0F);
 		this.tail6 = new ModelRenderer(this, 108, 17);
 		this.tail6.addBox(-2.5F, 28F, -1.5F, 5, 3, 4);
 		this.tail6.setRotationPoint(0F, -7F, 0F);
 		this.tail6.setTextureSize(128, 64);
-		this.setRotation(tail6, 0.1745329F, 0F, 0F);
+		this.setRotation(tail6, 0.1745329F, undulationCycle[0][6], 0F);
 		this.tail7 = new ModelRenderer(this, 108, 17);
 		this.tail7.addBox(-2.5F, 29F, 1.5F, 5, 3, 4);
 		this.tail7.setRotationPoint(0F, -7F, 0F);
 		this.tail7.setTextureSize(128, 64);
-		this.setRotation(tail7, 0.1745329F, 0F, 0F);
+		this.setRotation(tail7, 0.1745329F, undulationCycle[0][7], 0F);
 		
 		this.convertToChild(head, headnose1);
 		this.convertToChild(head, headnose2);
@@ -179,100 +179,97 @@ public class ModelGaiaNaga extends ModelBase {
 		this.convertToChild(head, leftfin);
 		this.convertToChild(rightarm, rightarmlower);
 		this.convertToChild(leftarm, leftarmlower);
-		this.convertToChild(leftarm, shieldbracelet);
-		this.convertToChild(leftarm, shield);
+		this.convertToChild(waist, tail1);
+		this.convertToChild(waist, tail2);
+		this.convertToChild(waist, tail3);
+		this.convertToChild(waist, tail4);
+		this.convertToChild(waist, tail5);
+		this.convertToChild(waist, tail6);
+		this.convertToChild(waist, tail7);
 	}
 
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
-		this.head.render(par7);
-//		this.headnose1.render(par7);
-//		this.headnose2.render(par7);
-//		this.headjaw.render(par7);
-//		this.headtendrils.render(par7);
-//		this.rightfin.render(par7);
-//		this.leftfin.render(par7);
-		this.pauldron.render(par7);
-		this.body.render(par7);
-		this.body2.render(par7);
-		this.fin1.render(par7);
-		this.fin2.render(par7);
-		this.rightarm.render(par7);
-//		this.rightarmlower.render(par7);
-		this.leftarm.render(par7);
-//		this.leftarmlower.render(par7);
-		this.waist.render(par7);
-//		this.shieldbracelet.render(par7);
-//		this.shield.render(par7);
-		this.tail1.render(par7);
-		this.tail2.render(par7);
-		this.tail3.render(par7);
-		this.tail4.render(par7);
-		this.tail5.render(par7);
-		this.tail6.render(par7);
-		this.tail7.render(par7);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		this.head.render(scale);
+//		this.headnose1.render(scale);
+//		this.headnose2.render(scale);
+//		this.headjaw.render(scale);
+//		this.headtendrils.render(scale);
+//		this.rightfin.render(scale);
+//		this.leftfin.render(scale);
+		this.pauldron.render(scale);
+		this.body.render(scale);
+		this.body2.render(scale);
+		this.fin1.render(scale);
+		this.fin2.render(scale);
+		this.rightarm.render(scale);
+//		this.rightarmlower.render(scale);
+		this.leftarm.render(scale);
+//		this.leftarmlower.render(scale);
+		this.waist.render(scale);
+//		this.tail1.render(scale);
+//		this.tail2.render(scale);
+//		this.tail3.render(scale);
+//		this.tail4.render(scale);
+//		this.tail5.render(scale);
+//		this.tail6.render(scale);
+//		this.tail7.render(scale);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//head
-		this.head.rotateAngleY = par4 / 57.295776F;
-		this.head.rotateAngleX = par5 / 57.295776F;
+		this.head.rotateAngleY = netHeadYaw / 57.295776F;
+		this.head.rotateAngleX = headPitch / 57.295776F;
 		
 		//arms
-		this.rightarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.8F * par2 * 0.5F;
-		this.leftarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2 * 0.5F;
+		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 		
 		this.rightarm.rotateAngleZ = 0.0F;
 		this.leftarm.rotateAngleZ = 0.0F;
 		
-        float f6;
-        float f7;
-
         if (this.swingProgress > -9990.0F) {
-            f6 = this.swingProgress;
-            f6 = 1.0F - this.swingProgress;
-            f6 *= f6;
-            f6 *= f6;
-            f6 = 1.0F - f6;
-            f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
-            
-            this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
-            this.rightarm.rotateAngleX += (this.body.rotateAngleY * 2.0F);
-            this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
+			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
         }
         
-        this.rightarm.rotateAngleZ += (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
-        this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.05F;
-        this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.05F;
+        this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		
 		//body
 		this.fin2.rotateAngleY = this.head.rotateAngleY;
 		this.fin2.rotateAngleX = this.head.rotateAngleX;
-		this.tail1.rotateAngleZ = MathHelper.cos(par1 * 0.6162F) * 0.05F * par2;
-		this.tail2.rotateAngleZ = MathHelper.cos(par1 * 0.6262F) * 0.05F * par2;
-		this.tail3.rotateAngleZ = MathHelper.cos(par1 * 0.6362F) * 0.05F * par2;
-		this.tail4.rotateAngleZ = MathHelper.cos(par1 * 0.6462F) * 0.05F * par2;
-		this.tail5.rotateAngleZ = MathHelper.cos(par1 * 0.6562F) * 0.05F * par2;
-		this.tail6.rotateAngleZ = MathHelper.cos(par1 * 0.6662F) * 0.05F * par2;
-		this.tail7.rotateAngleZ = MathHelper.cos(par1 * 0.6762F) * 0.05F * par2;
+		
+        //legs      
+		updateDistanceMovedTotal(entityIn);
+		cycleIndex = (int) ((getDistanceMovedTotal(entityIn)*CYCLES_PER_BLOCK)%undulationCycle.length);
+		
+		waist.rotateAngleY = degToRad(undulationCycle[cycleIndex][0]) ;
+		tail1.rotateAngleY = degToRad(undulationCycle[cycleIndex][1]) ;
+		tail2.rotateAngleY = degToRad(undulationCycle[cycleIndex][2]) ;
+		tail3.rotateAngleY = degToRad(undulationCycle[cycleIndex][3]) ;
+		tail4.rotateAngleY = degToRad(undulationCycle[cycleIndex][4]) ;
+		tail5.rotateAngleY = degToRad(undulationCycle[cycleIndex][5]) ;
+		tail6.rotateAngleY = degToRad(undulationCycle[cycleIndex][6]) ;
+		tail7.rotateAngleY = degToRad(undulationCycle[cycleIndex][7]) ;
 	}
 	
-	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
-		parChild.rotationPointX -= parParent.rotationPointX;
-		parChild.rotationPointY -= parParent.rotationPointY;
-		parChild.rotationPointZ -= parParent.rotationPointZ;
-		parChild.rotateAngleX -= parParent.rotateAngleX;
-		parChild.rotateAngleY -= parParent.rotateAngleY;
-		parChild.rotateAngleZ -= parParent.rotateAngleZ;
-		parParent.addChild(parChild);
+	public void holdingMelee(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		float f6;
+		float f7;
+		
+		f6 = this.swingProgress;
+        f6 = 1.0F - this.swingProgress;
+        f6 *= f6;
+        f6 *= f6;
+        f6 = 1.0F - f6;
+        f7 = MathHelper.sin(f6 * (float)Math.PI);
+        float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+        
+        this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
+        this.rightarm.rotateAngleX += (this.body.rotateAngleY * 2.0F);
+        this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
 	}
 }

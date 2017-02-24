@@ -1,43 +1,41 @@
 package gaia.entity.monster;
 
-import gaia.ConfigGaia;
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobAssistDay;
-import gaia.entity.EntityMobDay;
-import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
-import gaia.init.GaiaItem;
+import gaia.entity.EntityMobPassiveDay;
+import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import gaia.util.BlockStateHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
+/** 
+ * @see EntityIronGolem
+ */
+public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
+	
 	private int attackTimer;
 	private int holdRoseTick;
 
@@ -46,32 +44,56 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
-		//TODO *Temp Avoid Water? ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
-		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
-		this.tasks.addTask(2, new EntityAIWander(this, 0.5D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
+		this.tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		this.tasks.addTask(1, new EntityAIWander(this, 0.5D));
+		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(2, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+        
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+	}
+	
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (damage > EntityAttributes.baseDefense1) {
+			damage = EntityAttributes.baseDefense1;
+		}
+		
+		float input = damage;
+		Entity entity = source.getEntity();
+		
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
+			if (itemstack != null) {
+				
+				if (itemstack.getItem() instanceof ItemPickaxe) {
+					damage = input+5;
+				}
+			}
+		}
+		
+		return super.attackEntityFrom(source, damage);
+	}
+	
+    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
 	}
 
-	public int getTotalArmorValue() {
-		return EntityAttributes.rateArmor1;
-	}
-
-	public boolean attackEntityAsMob(Entity par1Entity) {
+	public boolean attackEntityAsMob(Entity entityIn) {
 		this.attackTimer = 10;
 		this.worldObj.setEntityState(this, (byte)4);
-		boolean var2 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(7 + this.rand.nextInt(15)));
+		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(7 + this.rand.nextInt(15)));
 		if (var2) {
-			par1Entity.motionY += 0.2000000059604645D;
+			entityIn.motionY += 0.2000000059604645D;
 		}
 
 		this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
@@ -99,27 +121,9 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 		return this.holdRoseTick;
 	}
 
-	public boolean attackEntityFrom(DamageSource DamageSource, float inputDamage) {	
-		float input = inputDamage;
-		Entity entity = DamageSource.getEntity();
-		
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getHeldItem(getActiveHand());
-			if (itemstack != null) {
-				
-				if (itemstack.getItem() instanceof ItemPickaxe) {
-					inputDamage = input+5;
-				}
-			}
-		}
-		return super.attackEntityFrom(DamageSource, (float) inputDamage);
-	}
-
 	public boolean isAIEnabled() {
 		return true;
 	}
-	
 	
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
@@ -152,53 +156,53 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 		}
 	}
 
-	protected SoundEvent getAmbientSound(){
+	protected SoundEvent getAmbientSound() {
 		return Sounds.none;	
 	}
 
-	protected SoundEvent getHurtSound(){
+	protected SoundEvent getHurtSound() {
 		return SoundEvents.BLOCK_STONE_BREAK;
 	}
 
-	protected SoundEvent getDeathSound(){
+	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_IRONGOLEM_DEATH;
 	}
 
-	protected void playStepSound(BlockPos pos, Block blockIn){	
+	protected void playStepSound(BlockPos pos, Block blockIn) {	
 		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
 		}
 
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			//ItemShard.Drop_Nugget(this,0);
 			ItemShard.Drop_Nugget(this,0);
 		}
 
-		//Shards
+		//Nuggets/Fragments
 		int var11 = this.rand.nextInt(3) + 1;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-            //ItemShard.Drop_Nugget(this,0);
-            ItemShard.Drop_Nugget(this,0);
+			ItemShard.Drop_Nugget(this,0);
+		}
+		
+		if (GaiaConfig.AdditionalOre == true) {
+			int var13 = this.rand.nextInt(3) + 1;
+
+			for (int var14 = 0; var14 < var13; ++var14) {
+				ItemShard.Drop_Nugget(this,4);
+			}
 		}
 	}
 
+	//Rare
 	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
+		switch(this.rand.nextInt(1)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron, 1);
-			break;
-		case 1:
-			this.experienceValue = EntityAttributes.experienceValue1 * 5;
+			this.dropItem(GaiaItems.BoxIron, 1);
 		}
 	}
 
-	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotion() == MobEffects.POISON?false:super.isPotionApplicable(par1PotionEffect);
-	}
-
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback1);
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false:super.isPotionApplicable(potioneffectIn);
 	}
 	
 	public boolean getCanSpawnHere() {

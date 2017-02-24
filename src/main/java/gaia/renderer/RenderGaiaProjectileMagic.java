@@ -16,19 +16,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaProjectileMagic extends Render {
+	
+    private final float scale;
 	protected final Item T_item;
     private final RenderItem render= Minecraft.getMinecraft().getRenderItem();
     
     public RenderGaiaProjectileMagic(RenderManager rend, Item itemin, RenderItem rendin) {
         super(Minecraft.getMinecraft().getRenderManager());
         this.T_item = itemin;
+        this.scale = 2.0F;
     }
 
     public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(0.5F, 0.5F, 0.5F);
+        GlStateManager.scale(scale, scale, scale);
         GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -39,7 +42,7 @@ public class RenderGaiaProjectileMagic extends Render {
     }
 
     public ItemStack get_itemStack(Entity entity) {
-        return new ItemStack(this.T_item, 1, 4);
+        return new ItemStack(this.T_item, 1, 0);
     }
 
     protected ResourceLocation getEntityTexture(Entity entity) {

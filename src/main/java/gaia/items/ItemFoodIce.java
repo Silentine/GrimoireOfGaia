@@ -13,12 +13,10 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodIce extends ItemFood {
-	String texture;
 
-	public ItemFoodIce(int par2, float par3, boolean par4, String texture) {
+	public ItemFoodIce(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodIce");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 	

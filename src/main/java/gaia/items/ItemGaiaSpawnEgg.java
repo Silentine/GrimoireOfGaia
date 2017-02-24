@@ -2,14 +2,12 @@ package gaia.items;
 
 import gaia.Gaia;
 import gaia.entity.EntityGaiaEggInfo;
-import gaia.util.BlockStateHelper;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,7 +21,6 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
@@ -41,6 +38,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class ItemGaiaSpawnEgg extends Item {
+	
 	private static Map<Integer, String> idToName = new HashMap();
 	public static Map<Integer, EntityGaiaEggInfo> idToEgg = new HashMap();
 	private static Map<Integer, Class<? extends EntityLiving>> idToClass = new HashMap();
@@ -97,10 +95,10 @@ public final class ItemGaiaSpawnEgg extends Item {
 		return null == result ? -1 : result.intValue();
 	}
 
-	public ItemGaiaSpawnEgg() {
+	public ItemGaiaSpawnEgg(String name) {
 		this.setHasSubtypes(true);
 		this.setCreativeTab(Gaia.tabGaia);
-		this.setUnlocalizedName("GrimoireOfGaia.MonsterPlacer");
+		this.setUnlocalizedName(name);
 	}
 		
 	public String getItemStackDisplayName(ItemStack istack) {
@@ -148,9 +146,6 @@ public final class ItemGaiaSpawnEgg extends Item {
 	            }
 	        };
 	    }
-	 
-	 
-	 
 
 	//public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)

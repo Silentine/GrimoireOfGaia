@@ -2,7 +2,7 @@ package gaia.entity.passive;
 
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.Trade;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -17,35 +17,37 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 	public EntityGaiaNPCSlimeGirl(World var1) {
 		super(var1);
 	}
+
 	public ITextComponent getDisplayName() {
-		 String s = "Slime Girl";
-		 TextComponentTranslation text = new TextComponentTranslation(s);
-		 return text;
+		String s = "entity.grimoireofgaia.SlimeGirl.name";
+		TextComponentTranslation text = new TextComponentTranslation(s);
+		return text;
 	}
+
 	@Override
-	protected SoundEvent getAmbientSound(){
+	protected SoundEvent getAmbientSound() {
 		return Sounds.passive_say;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(){
+	protected SoundEvent getHurtSound() {
 		return Sounds.passive_hurt;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound(){
+	protected SoundEvent getDeathSound() {
 		return Sounds.passive_death;
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnSlimeGirl, 1, 0), 0.0F);
+            this.entityDropItem(new ItemStack(GaiaItems.SpawnSlimeGirl, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new Trade(new ItemStack(GaiaItems.MiscCurrency, 1, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
 		
 		//Buy List
 		recipes.add(new Trade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.BONE, 2, 0)));

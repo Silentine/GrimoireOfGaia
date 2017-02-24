@@ -26,12 +26,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccessoryRingSpeed extends Item //implements IBauble
 {
-	String texture;
-
-	public ItemAccessoryRingSpeed(String texture) {
-		this.texture = texture;
+	public ItemAccessoryRingSpeed(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.AccessoryRingSpeed");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
@@ -63,9 +60,10 @@ public class ItemAccessoryRingSpeed extends Item //implements IBauble
 
 	public void doEffect(EntityPlayer player, ItemStack item) {	
 		if (!player.isPotionActive(MobEffects.SPEED)) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 0, true, false));		
+			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 4, true, false));		
 			}
 	}
+	
 	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {

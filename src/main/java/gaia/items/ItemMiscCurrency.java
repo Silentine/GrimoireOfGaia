@@ -14,12 +14,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscCurrency extends Item {
-	String texture;
 
-	public ItemMiscCurrency(String texture) {
-		this.texture = texture;
+	public ItemMiscCurrency(String name) {
         this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscCurrency");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

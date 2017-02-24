@@ -13,13 +13,11 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemFoodMandrake extends ItemFood {
-	String texture;
 
-	public ItemFoodMandrake(int par2, float par3, boolean par4, String texture) {
+	public ItemFoodMandrake(int par2, float par3, boolean par4, String name) {
 		super(par2, par3, par4);
-		this.texture = texture;
 		this.maxStackSize = 16;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodMandrake");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 		
 		this.setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.8F);

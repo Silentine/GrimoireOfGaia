@@ -20,11 +20,9 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemMiscSoulFire extends Item {
-	String texture;
 
-	public ItemMiscSoulFire(String texture) {
-		this.texture = texture;
-		this.setUnlocalizedName("GrimoireOfGaia.MiscSoulFire");
+	public ItemMiscSoulFire(String name) {
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

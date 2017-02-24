@@ -1,6 +1,5 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -8,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaMermaid extends ModelBase {
+public class ModelGaiaMermaid extends ModelGaia {
 	ModelRenderer head;
     ModelRenderer headeyes;
 	ModelRenderer headaccessory;
@@ -20,7 +19,7 @@ public class ModelGaiaMermaid extends ModelBase {
 	ModelRenderer rightchest;
 	ModelRenderer leftchest;
 	public static ModelRenderer rightarm;
-	ModelRenderer leftarm;
+	public static ModelRenderer leftarm;
 	ModelRenderer hair1;
 	ModelRenderer hair2;
 	ModelRenderer finright;
@@ -29,8 +28,6 @@ public class ModelGaiaMermaid extends ModelBase {
 	ModelRenderer rightpauldron;
 	ModelRenderer headhelmet;
 	ModelRenderer leftpauldron;
-	ModelRenderer shieldbracelet;
-	ModelRenderer shield;
 	ModelRenderer waist;
 	ModelRenderer fin1;
 	ModelRenderer fin2;
@@ -39,11 +36,24 @@ public class ModelGaiaMermaid extends ModelBase {
 	ModelRenderer fin5;
 	ModelRenderer fin6;
 	ModelRenderer fintail;
-
+	
+    protected double distanceMovedTotal = 0.0D;
+    protected static final double CYCLES_PER_BLOCK = 1.0D; 
+    protected int cycleIndex = 0;
+    protected float[][] undulationCycle = new float[][]
+    {
+    	    {-2.5F,  -5F, -10F, -15F, -20F, -25F, -30F },
+    	    {-2.5F,  -5F,  -7F,  -9F, -11F, -13F, -15F },
+    	    {   0F,   0F,   0F,   0F,   0F,   0F,   0F },
+    	    { 2.5F,   5F,  10F,  15F,  20F,  25F,  30F },
+    	    { 2.5F,   5F,   7F,   9F,  11F,  13F,  15F },
+    	    {   0F,   0F,   0F,   0F,   0F,   0F,   0F },
+    };
+    
 	public ModelGaiaMermaid() {
 		this.textureWidth = 128;
 		this.textureHeight = 64;
-		  
+
 		this.head = new ModelRenderer(this, 0, 0);
 		this.head.addBox(-3F, -6F, -3F, 6, 6, 6);
 		this.head.setRotationPoint(0F, 1F, 1F);
@@ -101,6 +111,7 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.rightarm.setTextureSize(128, 64);
 		this.setRotation(rightarm, -0.0872665F, 0F, 0.1745329F);
 		this.leftarm = new ModelRenderer(this, 16, 12);
+		this.leftarm.mirror = true;
 		this.leftarm.addBox(0F, -1F, -1F, 2, 12, 2);
 		this.leftarm.setRotationPoint(2.5F, 2.5F, 1F);
 		this.leftarm.setTextureSize(128, 64);
@@ -115,13 +126,13 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.hair2.setRotationPoint(0F, 1F, 1F);
 		this.hair2.setTextureSize(128, 64);
 		this.setRotation(hair2, 0F, 0F, 0F);
-		this.finright = new ModelRenderer(this, 36, 38);
-		this.finright.addBox(-4F, -6F, -1F, 0, 5, 3);
+		this.finright = new ModelRenderer(this, 36, 36);
+		this.finright.addBox(-4F, -6F, -1F, 0, 5, 5);
 		this.finright.setRotationPoint(0F, 1F, 1F);
 		this.finright.setTextureSize(128, 64);
 		this.setRotation(finright, 0F, -0.5235988F, 0F);
-		this.finleft = new ModelRenderer(this, 36, 38);
-		this.finleft.addBox(4F, -6F, -1F, 0, 5, 3);
+		this.finleft = new ModelRenderer(this, 36, 36);
+		this.finleft.addBox(4F, -6F, -1F, 0, 5, 5);
 		this.finleft.setRotationPoint(0F, 1F, 1F);
 		this.finleft.setTextureSize(128, 64);
 		this.setRotation(finleft, 0F, 0.5235988F, 0F);
@@ -130,32 +141,22 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.hairclip.setRotationPoint(0F, 1F, 1F);
 		this.hairclip.setTextureSize(128, 64);
 		this.setRotation(hairclip, 0F, 0F, 0F);
-		this.headhelmet = new ModelRenderer(this, 36, 46);
-		this.headhelmet.addBox(-4F, -8.5F, -6.5F, 8, 8, 8);
-		this.headhelmet.setRotationPoint(0F, 1F, 1F);
-		this.headhelmet.setTextureSize(128, 64);
-		this.setRotation(headhelmet, -0.5235988F, 0F, 0F);
 		this.rightpauldron = new ModelRenderer(this, 68, 0);
 		this.rightpauldron.addBox(-3F, -2F, -2F, 4, 3, 4);
 		this.rightpauldron.setRotationPoint(-2.5F, 2.5F, 1F);
 		this.rightpauldron.setTextureSize(128, 64);
 		this.setRotation(rightpauldron, -0.0872665F, 0F, -0.3490659F);
+		this.headhelmet = new ModelRenderer(this, 36, 46);
+		this.headhelmet.addBox(-4F, -8.5F, -6.5F, 8, 8, 8);
+		this.headhelmet.setRotationPoint(0F, 1F, 1F);
+		this.headhelmet.setTextureSize(128, 64);
+		this.setRotation(headhelmet, -0.5235988F, 0F, 0F);
 		this.leftpauldron = new ModelRenderer(this, 84, 0);
 		this.leftpauldron.addBox(-1F, -2F, -2F, 4, 3, 4);
 		this.leftpauldron.setRotationPoint(2.5F, 2.5F, 1F);
 		this.leftpauldron.setTextureSize(128, 64);
 		this.setRotation(leftpauldron, -0.0872665F, 0F, 0.3490659F);
-		this.shieldbracelet = new ModelRenderer(this, 68, 7);
-		this.shieldbracelet.addBox(-0.5F, 8F, -1.5F, 3, 1, 3);
-		this.shieldbracelet.setRotationPoint(2.5F, 2.5F, 1F);
-		this.shieldbracelet.setTextureSize(128, 64);
-		this.setRotation(shieldbracelet, -0.0872665F, 0F, -0.1745329F);
-		this.shield = new ModelRenderer(this, 68, 7);
-		this.shield.addBox(2.5F, -2F, -6F, 1, 22, 12);
-		this.shield.setRotationPoint(2.5F, 2.5F, 1F);
-		this.shield.setTextureSize(128, 64);
-		this.setRotation(shield, -0.0872665F, 0F, -0.1745329F);
-		this.waist = new ModelRenderer(this, 68, 41);
+		this.waist = new ModelRenderer(this, 68, 7);
 		this.waist.addBox(-4F, 8F, -3F, 8, 8, 5);
 		this.waist.setRotationPoint(0F, 1F, 1F);
 		this.waist.setTextureSize(128, 64);
@@ -164,37 +165,37 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.fin1.addBox(-3.5F, -1F, -2F, 7, 4, 4);
 		this.fin1.setRotationPoint(0F, 11F, 0.5F);
 		this.fin1.setTextureSize(128, 64);
-		this.setRotation(fin1, 0F, 0F, 0F);
+		this.setRotation(fin1, 0F, undulationCycle[0][0], 0F);
 		this.fin2 = new ModelRenderer(this, 100, 8);
 		this.fin2.addBox(-2.5F, 2F, -2.5F, 5, 4, 3);
 		this.fin2.setRotationPoint(0F, 11F, 1F);
 		this.fin2.setTextureSize(128, 64);
-		this.setRotation(fin2, 0.0872665F, 0F, 0F);
+		this.setRotation(fin2, 0.0872665F, undulationCycle[0][1], 0F);
 		this.fin3 = new ModelRenderer(this, 100, 15);
 		this.fin3.addBox(-2F, 5F, -2F, 4, 4, 3);
 		this.fin3.setRotationPoint(0F, 11F, 1F);
 		this.fin3.setTextureSize(128, 64);
-		this.setRotation(fin3, 0.1308997F, 0F, 0F);
+		this.setRotation(fin3, 0.1308997F, undulationCycle[0][2], 0F);
 		this.fin4 = new ModelRenderer(this, 100, 22);
 		this.fin4.addBox(-2F, 7F, -1F, 4, 4, 3);
 		this.fin4.setRotationPoint(0F, 11F, 1F);
 		this.fin4.setTextureSize(128, 64);
-		this.setRotation(fin4, 0.1308997F, 0F, 0F);
+		this.setRotation(fin4, 0.1308997F, undulationCycle[0][3], 0F);
 		this.fin5 = new ModelRenderer(this, 100, 29);
 		this.fin5.addBox(-1.5F, 9F, 0F, 3, 3, 3);
 		this.fin5.setRotationPoint(0F, 11F, 1F);
 		this.fin5.setTextureSize(128, 64);
-		this.setRotation(fin5, 0.1745329F, 0F, 0F);
+		this.setRotation(fin5, 0.1745329F, undulationCycle[0][4], 0F);
 		this.fin6 = new ModelRenderer(this, 100, 36);
 		this.fin6.addBox(-0.5F, 11F, 1F, 1, 2, 3);
 		this.fin6.setRotationPoint(0F, 11F, 1F);
 		this.fin6.setTextureSize(128, 64);
-		this.setRotation(fin6, 0.1745329F, 0F, 0F);
+		this.setRotation(fin6, 0.1745329F, undulationCycle[0][5], 0F);
 		this.fintail = new ModelRenderer(this, 100, 41);
 		this.fintail.addBox(-3F, 5F, -12F, 7, 7, 0);
 		this.fintail.setRotationPoint(-0.5F, 11F, 1F);
 		this.fintail.setTextureSize(128, 64);
-		this.setRotation(fintail, 1.570796F, 0F, 0F);
+		this.setRotation(fintail, 1.570796F, undulationCycle[0][6], 0F);
 		
 		this.convertToChild(head, finright);
 		this.convertToChild(head, finleft);
@@ -202,13 +203,17 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.convertToChild(head, headhelmet);
 		this.convertToChild(rightarm, rightpauldron);
 		this.convertToChild(leftarm, leftpauldron);
-		this.convertToChild(leftarm, shieldbracelet);
-		this.convertToChild(leftarm, shield);
+		this.convertToChild(fin1, fin2);
+		this.convertToChild(fin1, fin3);
+		this.convertToChild(fin1, fin4);
+		this.convertToChild(fin1, fin5);
+		this.convertToChild(fin1, fin6);
+		this.convertToChild(fin1, fintail);
 	}
 
 	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
 		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
+		this.setRotationAngles(par2, par3, par4, par5, par6, par7, entity);
 		this.head.render(par7);
 		this.headaccessory.render(par7);
 		this.neck.render(par7);
@@ -228,32 +233,24 @@ public class ModelGaiaMermaid extends ModelBase {
 //		this.headhelmet.render(par7);
 //		this.rightpauldron.render(par7);
 //		this.leftpauldron.render(par7);
-//		this.shieldbracelet.render(par7);
-//		this.shield.render(par7);
 		this.waist.render(par7);
 		this.fin1.render(par7);
-		this.fin2.render(par7);
-		this.fin3.render(par7);
-		this.fin4.render(par7);
-		this.fin5.render(par7);
-		this.fin6.render(par7);
-		this.fintail.render(par7);
+//		this.fin2.render(par7);
+//		this.fin3.render(par7);
+//		this.fin4.render(par7);
+//		this.fin5.render(par7);
+//		this.fin6.render(par7);
+//		this.fintail.render(par7);
 
 		if (entity.ticksExisted % 60 == 0 && par3 <= 0.1F) {
 			this.headeyes.render(par7);
 		} 
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
-		//head
-		this.head.rotateAngleY = par4 / 57.295776F;
-		this.head.rotateAngleX = par5 / 57.295776F;
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {		
+    	//head
+		this.head.rotateAngleY = netHeadYaw / 57.295776F;
+		this.head.rotateAngleX = headPitch / 57.295776F;
 		this.headeyes.rotateAngleY = this.head.rotateAngleY;
 		this.headeyes.rotateAngleX = this.head.rotateAngleX;
 		this.headaccessory.rotateAngleY = this.head.rotateAngleY;
@@ -262,49 +259,48 @@ public class ModelGaiaMermaid extends ModelBase {
 		this.hair2.rotateAngleY = this.head.rotateAngleY;
 		
 		//arms
-		this.rightarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.8F * par2 * 0.5F;
-		this.leftarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2 * 0.5F;
+		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 		
 		this.rightarm.rotateAngleZ = 0.0F;
 		this.leftarm.rotateAngleZ = 0.0F;
 		
-        float f6;
-        float f7;
-
         if (this.swingProgress > -9990.0F) {
-            f6 = this.swingProgress;
-            f6 = 1.0F - this.swingProgress;
-            f6 *= f6;
-            f6 *= f6;
-            f6 = 1.0F - f6;
-            f7 = MathHelper.sin(f6 * (float)Math.PI);
-            float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
-            
-            this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));   
-            this.rightarm.rotateAngleY += (this.bodytop.rotateAngleY * 2.0F);   
-            this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
+			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
         }
-        
-        this.rightarm.rotateAngleZ += (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.025F;
-        this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.025F;
+
+        this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+        this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+
+        //legs      
+		updateDistanceMovedTotal(entityIn);
+		cycleIndex = (int) ((getDistanceMovedTotal(entityIn)*CYCLES_PER_BLOCK)%undulationCycle.length);
 		
-		//legs
-		this.fin1.rotateAngleY = MathHelper.cos(par1 * 0.6162F) * 0.1F * par2;
-		this.fin2.rotateAngleY = MathHelper.cos(par1 * 0.6262F) * 0.1F * par2;
-		this.fin3.rotateAngleY = MathHelper.cos(par1 * 0.6362F) * 0.1F * par2;
-		this.fin4.rotateAngleY = MathHelper.cos(par1 * 0.6362F) * 0.1F * par2;
-		this.fintail.rotateAngleY = this.fin4.rotateAngleY;
-	}
-	
-	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
-		parChild.rotationPointX -= parParent.rotationPointX;
-		parChild.rotationPointY -= parParent.rotationPointY;
-		parChild.rotationPointZ -= parParent.rotationPointZ;
-		parChild.rotateAngleX -= parParent.rotateAngleX;
-		parChild.rotateAngleY -= parParent.rotateAngleY;
-		parChild.rotateAngleZ -= parParent.rotateAngleZ;
-		parParent.addChild(parChild);
+		fin1.rotateAngleY = degToRad(undulationCycle[cycleIndex][0]) ;
+		fin2.rotateAngleY = degToRad(undulationCycle[cycleIndex][1]) ;
+		fin3.rotateAngleY = degToRad(undulationCycle[cycleIndex][2]) ;
+		fin4.rotateAngleY = degToRad(undulationCycle[cycleIndex][3]) ;
+		fin5.rotateAngleY = degToRad(undulationCycle[cycleIndex][4]) ;
+		fin6.rotateAngleY = degToRad(undulationCycle[cycleIndex][5]) ;
+		fintail.rotateAngleY = degToRad(undulationCycle[cycleIndex][6]) ;
+    }
+    
+	public void holdingMelee(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		float f6;
+		float f7;
+		
+		f6 = this.swingProgress;
+        f6 = 1.0F - this.swingProgress;
+        f6 *= f6;
+        f6 *= f6;
+        f6 = 1.0F - f6;
+        f7 = MathHelper.sin(f6 * (float)Math.PI);
+        float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+        
+        this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
+        this.rightarm.rotateAngleX += (this.bodytop.rotateAngleY * 2.0F);
+        this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
 	}
 }

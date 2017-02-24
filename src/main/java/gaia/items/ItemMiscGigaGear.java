@@ -14,12 +14,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscGigaGear extends Item {
-	String texture;
 
-	public ItemMiscGigaGear(String texture) {
-		this.texture = texture;
+	public ItemMiscGigaGear(String name) {
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("GrimoireOfGaia.MiscGigaGear");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

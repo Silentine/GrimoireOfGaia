@@ -16,7 +16,7 @@ import gaia.GaiaReference;
 	@Interface(iface="thaumcraft.api.ThaumcraftApi", modid="Thaumcraft", striprefs=true),
 	@Interface(iface="thaumcraft.api.aspects.Aspect", modid="Thaumcraft", striprefs=true),
 	@Interface(iface="thaumcraft.api.aspects.AspectList", modid="Thaumcraft", striprefs=true)})
-public class Aspects_Items extends GaiaItem{
+public class Aspects_Items extends GaiaItems{
 	
 	/**Primary method to register aspects**/
 	public static void Item_Aspects() {

@@ -2,10 +2,13 @@ package gaia.block;
 
 import gaia.Gaia;
 import gaia.tileentity.TileEntityDollCreeperGirl;
-import net.minecraft.block.Block;
+
+import java.util.List;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -18,9 +21,8 @@ import net.minecraft.world.World;
 
 public class BlockDollCreeperGirl extends BlockContainer {
 
-	public BlockDollCreeperGirl(Material par2Material) {
-		super(par2Material);
-		//this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+	public BlockDollCreeperGirl() {
+		super(Material.CLOTH);
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
@@ -28,26 +30,17 @@ public class BlockDollCreeperGirl extends BlockContainer {
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
-	/** TODO BOUNDS**/
-	protected static final AxisAlignedBB BOUNDS = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+	protected static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
 	
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return BOUNDS;
+    public boolean isFullCube(IBlockState state) {
+        return false;
     }
-	
-	public boolean isOpaqueCube(IBlockState state)
-    {
+    
+	public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
-
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
@@ -62,7 +55,12 @@ public class BlockDollCreeperGirl extends BlockContainer {
 		}
 	}
 	
-	public Block setBlockTextureName(String string) {
-		return null;
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return BOUNDING_BOX;
+    }
+
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldln, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityln ) {
+		super.addCollisionBoxToList(pos, entityBox, collidingBoxes, BOUNDING_BOX);
 	}
 }

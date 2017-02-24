@@ -1,7 +1,6 @@
 {
-    "parent": "item/handheld",
+    "parent": "grimoireofgaia:item/weapondebug",
     "textures": {
-        "layer0": "grimoireofgaia:items/WeaponBookEnder"
-        }
-    
+        "0": "grimoireofgaia:items/models/WeaponBookEnder"
+    }
 }
