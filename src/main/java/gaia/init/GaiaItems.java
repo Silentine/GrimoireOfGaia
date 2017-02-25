@@ -76,64 +76,66 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class GaiaItems {
-	public static Item Shard;
-	public static Item FoodMeat;
-	public static Item FoodRottenHeart;
-	public static Item FoodRoot;
-	public static Item FoodCoalfish;
-	public static Item FoodNetherWart;
-	public static Item FoodSmallAppleGold;
-	public static Item FoodExperience;
-	public static Item FoodMandrake;
-	public static Item FoodWither;
-	public static Item FoodPieMandrake;
-	public static Item FoodPieMeat;
-	public static Item FoodPieAppleGold;
-	public static Item MiscSoulFire;
-	public static Item MiscSoulFiery;
-	public static Item MiscGigaGear;
-	public static Item MiscFur;
-	public static Item MiscBook;
-	public static Item MiscQuill;
-	public static Item MiscRing;
-	public static Item MiscFurnaceFuel;
-	public static Item MiscCurrency;
-	public static Item Spawn;
-	public static Item SpawnCreeperGirl;
-	public static Item SpawnSlimeGirl;
-	public static Item SpawnEnderGirl;
-	public static Item SpawnTrader;
-	public static Item SpawnHolstaurus;
-	public static Item SpawnWeresheep;
-	public static Item SpawnTame;
-	public static Item BoxIron;
-	public static Item BoxGold;
-	public static Item BoxDiamond;
-	public static Item BagOre;
-	public static Item BagBook;
-	public static Item BagRecord;
-	public static Item BoxOld;
-	public static Item PropWeapon;
-	public static Item PropWeaponProjectile;
-	public static Item PropWeaponEnchanted;
-	public static Item FanIce;
-	public static Item FanFire;
-	public static Item BookFreezing;
-	public static Item BookNightmare;
-	public static Item BookMetal;
-	public static Item BookEnder;
-	public static Item BookHunger;
-	public static Item BookBattle;
-	public static Item BookNature;
-	public static Item BookWither;
-	public static Item BookBuff;
-	public static Item Debug;
-	public static Item AccessoryRingSpeed;
-	public static Item AccessoryRingHaste;
-	public static Item AccessoryRingJump;
-	public static Item AccessoryRingNight;
-	public static Item AccessoryCursed;
-	public static Item SpawnEgg;
+	
+	  public static Item
+	  Shard,
+	  FoodMeat,
+	  FoodRottenHeart,
+	  FoodRoot,
+	  FoodCoalfish,
+	  FoodNetherWart,
+	  FoodSmallAppleGold,
+	  FoodExperience,
+	  FoodMandrake,
+	  FoodWither,
+	  FoodPieMandrake,
+	  FoodPieMeat,
+	  FoodPieAppleGold,
+	  MiscSoulFire,
+	  MiscSoulFiery,
+	  MiscGigaGear,
+	  MiscFur,
+	  MiscBook,
+	  MiscQuill,
+	  MiscRing,
+	  MiscFurnaceFuel,
+	  MiscCurrency,
+	  Spawn,
+	  SpawnCreeperGirl,
+	  SpawnSlimeGirl,
+	  SpawnEnderGirl,
+	  SpawnTrader,
+	  SpawnHolstaurus,
+	  SpawnWeresheep,
+	  SpawnTame,
+	  BoxIron,
+	  BoxGold,
+	  BoxDiamond,
+	  BagOre,
+	  BagBook,
+	  BagRecord,
+	  BoxOld,
+	  PropWeapon,
+	  PropWeaponProjectile,
+	  PropWeaponEnchanted,
+	  FanIce,
+	  FanFire,
+	  BookFreezing,
+	  BookNightmare,
+	  BookMetal,
+	  BookEnder,
+	  BookHunger,
+	  BookBattle,
+	  BookNature,
+	  BookWither,
+	  BookBuff,
+	  Debug,
+	  AccessoryRingSpeed,
+	  AccessoryRingHaste,
+	  AccessoryRingJump,
+	  AccessoryRingNight,
+	  AccessoryCursed,
+	  SpawnEgg;
 
 	public static void init() {
 		Shard = new ItemShard("Shard");		
