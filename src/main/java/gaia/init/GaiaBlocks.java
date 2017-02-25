@@ -30,14 +30,15 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GaiaBlocks {
-	public static Block BustSphinx;
-	public static Block BustValkyrie;
-	public static Block BustVampire;
-	public static Block DollCreeperGirl;
-	public static Block DollEnderGirl;
-	public static Block DollSlimeGirl;
-	public static Block DollMaid;
-	public static Block SpawnGuard;
+	public static Block 
+	BustSphinx,
+	BustValkyrie,
+	BustVampire,
+	DollCreeperGirl,
+	DollEnderGirl,
+	DollSlimeGirl,
+	DollMaid,
+	SpawnGuard;
 	
 	public static void init() {
 		BustSphinx = new BlockBustSphinx();

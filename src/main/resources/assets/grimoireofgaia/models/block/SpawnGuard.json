@@ -1,7 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "grimoireofgaia:blocks/models/SpawnGuard"
+		 "particle": "grimoireofgaia:blocks/models/SpawnGuard",
+            "0": "grimoireofgaia:blocks/models/SpawnGuard"
     },
     "display": {
         "gui": {
