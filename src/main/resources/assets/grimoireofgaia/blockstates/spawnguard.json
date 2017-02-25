@@ -1,5 +1,18 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:spawnguard" }
+        "type=north":   { "model": "grimoireofgaia:spawnguard", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:spawnguard", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:spawnguard"                     },
+        "type=east":    { "model": "grimoireofgaia:spawnguard", "y": 90            },
+        
+        "type=u_north": { "model": "grimoireofgaia:spawnguard", "x": 180, "y": 180 },
+        "type=u_south": { "model": "grimoireofgaia:spawnguard", "x": 180, "y": 270 },
+        "type=u_west":  { "model": "grimoireofgaia:spawnguard", "x": 180           },
+        "type=u_east":  { "model": "grimoireofgaia:spawnguard", "x": 180, "y": 90  },
+        
+        "type=v_north": { "model": "grimoireofgaia:spawnguard", "x": 270, "y": 180 },
+        "type=v_south": { "model": "grimoireofgaia:spawnguard", "x": 270           },
+        "type=v_west":  { "model": "grimoireofgaia:spawnguard", "x": 270, "y": 90  },
+        "type=v_east":  { "model": "grimoireofgaia:spawnguard", "x": 270, "y": 270 }
     }
 }

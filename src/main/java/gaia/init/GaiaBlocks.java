@@ -16,7 +16,6 @@ import gaia.tileentity.TileEntityDollCreeperGirl;
 import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
-import gaia.tileentity.TileEntitySpawnGuard;
 
 import java.util.Locale;
 
@@ -76,7 +75,7 @@ public class GaiaBlocks {
 		GameRegistry.registerTileEntity(TileEntityDollEnderGirl.class, "DollEnderGirl");
 		GameRegistry.registerTileEntity(TileEntityDollSlimeGirl.class, "DollSlimeGirl");
 		GameRegistry.registerTileEntity(TileEntityDollMaid.class, "DollMaid");
-		GameRegistry.registerTileEntity(TileEntitySpawnGuard.class, "SpawnGuard");
+		//GameRegistry.registerTileEntity(TileEntitySpawnGuard.class, "SpawnGuard");
 	}
 
 	public static void registerRenders() {
@@ -92,8 +91,9 @@ public class GaiaBlocks {
 
 	public static void registerRender(Block block) {
 		Item item = Item.getItemFromBlock(block);
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));		
 	}
+	
 
 	/**
 	 * Registers crafting recipes
