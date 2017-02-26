@@ -193,7 +193,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	
 	public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack) {
 		if (stack != null && stack.getItem() == GaiaItems.SpawnTame) {
-			handleStatusUpdate((byte)11);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)11);
 
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;

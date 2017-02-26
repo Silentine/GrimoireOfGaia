@@ -134,7 +134,6 @@ import gaia.renderer.tileentity.TileRenderDollCreeperGirl;
 import gaia.renderer.tileentity.TileRenderDollEnderGirl;
 import gaia.renderer.tileentity.TileRenderDollMaid;
 import gaia.renderer.tileentity.TileRenderDollSlimeGirl;
-import gaia.renderer.tileentity.TileRenderSpawnGuard;
 import gaia.tileentity.TileEntityBustSphinx;
 import gaia.tileentity.TileEntityBustValkyrie;
 import gaia.tileentity.TileEntityBustVampire;
@@ -142,7 +141,6 @@ import gaia.tileentity.TileEntityDollCreeperGirl;
 import gaia.tileentity.TileEntityDollEnderGirl;
 import gaia.tileentity.TileEntityDollMaid;
 import gaia.tileentity.TileEntityDollSlimeGirl;
-import gaia.tileentity.TileEntitySpawnGuard;
 
 import java.util.Locale;
 
@@ -269,7 +267,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollEnderGirl.class, new TileRenderDollEnderGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollSlimeGirl.class, new TileRenderDollSlimeGirl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpawnGuard.class, new TileRenderSpawnGuard());
+		//ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpawnGuard.class, new TileRenderSpawnGuard());
 	}
 
 	@Override
@@ -312,6 +310,7 @@ public class ClientProxy extends CommonProxy {
 			registerRender(FoodCoalfish);
 			registerRender(FoodNetherWart);
 			registerRender(FoodSmallAppleGold);
+			registerRender(FoodExperience);
 			registerRender(FoodMandrake);
 			registerRender(FoodWither);
 			registerRender(FoodPieMandrake);

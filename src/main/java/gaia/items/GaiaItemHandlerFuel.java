@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.IFuelHandler;
 
 public class GaiaItemHandlerFuel implements IFuelHandler {
 
-	//20 = 1 second
+	//20 ticks = 1 second
 	public int getBurnTime(ItemStack fuel) {
 		if (fuel.getItem() == GaiaItems.FoodCoalfish) {
 			return 3600;

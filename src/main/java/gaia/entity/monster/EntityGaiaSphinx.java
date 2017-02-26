@@ -113,7 +113,8 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 			if ((this.spawnTime > 0) && (this.spawnTime <= 200)) {
 				++this.spawnTime;
 			} else {
-				handleStatusUpdate((byte)9);
+				if (this.worldObj.isRemote)handleStatusUpdate((byte)9);
+				
 				this.heal(EntityAttributes.maxHealth3 * 0.10F);
 				this.spawnTime = 1;
 			}

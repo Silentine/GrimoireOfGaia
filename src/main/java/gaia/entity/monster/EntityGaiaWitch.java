@@ -142,6 +142,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		EntitySpider spawnMob;
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0) {
 			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
+			
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntitySpider(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -153,6 +154,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1) {
 			if (this.worldObj.isRemote)handleStatusUpdate((byte)12);
+			
 			if (!this.worldObj.isRemote) {
 				spawnMob = new EntitySpider(this.worldObj);
 				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);

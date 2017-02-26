@@ -105,14 +105,14 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte par1) {
-		if (par1 == 4) {
+	public void handleStatusUpdate(byte id) {
+		if (id == 4) {
 			this.attackTimer = 10;
 			this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
-		} else if (par1 == 11) {
+		} else if (id == 11) {
 			this.holdRoseTick = 400;
 		} else {
-			super.handleStatusUpdate(par1);
+			super.handleStatusUpdate(id);
 		}
 	}
 

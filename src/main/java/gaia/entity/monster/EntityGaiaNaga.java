@@ -112,7 +112,8 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		if (this.getHealth() > EntityAttributes.maxHealth2 * 0.25F && this.buffEffect == 1) {
 			this.buffEffect = 0;
 		} else if (this.getHealth() <= EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.buffEffect == 0) {
-			handleStatusUpdate((byte)10);
+			if (this.worldObj.isRemote)handleStatusUpdate((byte)10);
+			
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 			
 			this.buffEffect = 1;
