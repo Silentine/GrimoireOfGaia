@@ -1,71 +1,69 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.init.Sounds;
-
 import java.util.List;
 import java.util.Random;
 
+import gaia.Gaia;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBoxGold extends Gaia_Lootable {
+public class ItemBoxGold extends Item {
+	String texture;
 
-	public ItemBoxGold(String name) {
+	public ItemBoxGold(String texture) {
+		this.texture = texture;
 		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("GrimoireOfGaia.BoxGold");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
+	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.RARE;
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add(StatCollector.translateToLocal("text.GrimoireOfGaia.RightClickUse.desc"));
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		world.playSoundAtEntity(entityplayer, "grimoireofgaia:bag_open", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		
 		Random random = new Random();
 		int i = random.nextInt(11);
 		switch(i) {
 		case 0:
-			return loot(Items.GOLD_INGOT);
+			return new ItemStack(Items.gold_ingot);
 		case 1:
-			return loot(Items.GOLDEN_AXE);
+			return new ItemStack(Items.golden_axe);
 		case 2:
-			return loot(Items.GOLDEN_PICKAXE);
+			return new ItemStack(Items.golden_pickaxe);
 		case 3:
-			return loot(Items.GOLDEN_SHOVEL);
+			return new ItemStack(Items.golden_shovel);
 		case 4:
-			return loot(Items.GOLDEN_SWORD);
+			return new ItemStack(Items.golden_sword);
 		case 5:
-			return loot(Items.GOLDEN_HELMET);
+			return new ItemStack(Items.golden_helmet);
 		case 6:
-			return loot(Items.GOLDEN_CHESTPLATE);
+			return new ItemStack(Items.golden_chestplate);
 		case 7:
-			return loot(Items.GOLDEN_LEGGINGS);
+			return new ItemStack(Items.golden_leggings);
 		case 8:
-			return loot(Items.GOLDEN_BOOTS);
+			return new ItemStack(Items.golden_boots);
 		case 9:
-			return loot(Blocks.GOLD_BLOCK);
+			return new ItemStack(Blocks.gold_block);
 		case 10:
-			return loot(Items.GOLDEN_HORSE_ARMOR);
+			return new ItemStack(Items.golden_horse_armor);
 		default:
-			return new ActionResult(EnumActionResult.SUCCESS, stack);
+			return itemstack;
 		}
 	}
 }

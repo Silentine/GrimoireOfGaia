@@ -4,10 +4,12 @@ import gaia.Gaia;
 import net.minecraft.item.ItemFood;
 
 public class ItemFoodMeat extends ItemFood {
+	String texture;
 
-	public ItemFoodMeat(int par2, float par3, boolean par4, String name) {
+	public ItemFoodMeat(int par2, float par3, boolean par4, String texture) {
 		super(par2, par3, par4);
-		this.setUnlocalizedName(name);
+		this.texture = texture;
+		this.setUnlocalizedName("GrimoireOfGaia.FoodMeat");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 }

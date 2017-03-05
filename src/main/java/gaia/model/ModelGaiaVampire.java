@@ -1,13 +1,14 @@
 package gaia.model;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaVampire extends ModelGaia {
+public class ModelGaiaVampire extends ModelBase {
     ModelRenderer anchor;
 	ModelRenderer head;
 	ModelRenderer headeyes;
@@ -205,29 +206,29 @@ public class ModelGaiaVampire extends ModelGaia {
 		this.anchor.addChild(waist4);
 	}
 
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		this.anchor.render(scale);
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+		super.render(entity, par2, par3, par4, par5, par6, par7);
+		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
+		this.anchor.render(par7);
 	}
 
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
+		model.rotateAngleX = x;
+		model.rotateAngleY = y;
+		model.rotateAngleZ = z;
+	}
+
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
 		//anchor
-        this.anchor.rotationPointY = (MathHelper.cos(((float)1.5F + ageInTicks) * 0.5F)) * 0.5F;
+        this.anchor.rotationPointY = MathHelper.cos(((float)1.5F + par3) * 0.5F);
         
 		//head
-		this.head.rotateAngleY = netHeadYaw / 57.295776F;
-		this.head.rotateAngleX = headPitch / 57.295776F;
+		this.head.rotateAngleY = par4 / 57.295776F;
+		this.head.rotateAngleX = par5 / 57.295776F;
 		this.headeyes.rotateAngleY = this.head.rotateAngleY;
 		this.headeyes.rotateAngleX = this.head.rotateAngleX;
 		this.headaccessory.rotateAngleY = this.head.rotateAngleY;
 		this.headaccessory.rotateAngleX = this.head.rotateAngleX;
-		
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			this.headeyes.showModel = true;
-		} else {
-			this.headeyes.showModel = false;
-		}
 		
 		//arms
         this.rightarm.rotateAngleZ = 0.0F;
@@ -235,41 +236,25 @@ public class ModelGaiaVampire extends ModelGaia {
         this.rightarm.rotateAngleX = 0.0F;
         this.leftarm.rotateAngleX = 0.0F;
         
-        if (this.swingProgress > -9990.0F) {
-			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
-        }
-        
-        this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
-        this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
-        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        this.rightarm.rotateAngleZ += (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
+        this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
+        this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.05F;
+        this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.05F;
 		
 		//body
-		this.cloak1.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(1);
-		this.cloak2.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(2);
-		this.cloak3.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(3);
-		this.cloak4.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(4);
-		
-		this.waist1.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(1);
-		this.waist2.rotateAngleZ = this.waist1.rotateAngleZ;
-		this.waist3.rotateAngleZ = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(2);
-		this.waist4.rotateAngleZ = this.waist3.rotateAngleZ;
+		this.cloak1.rotateAngleZ = MathHelper.cos(par1 * 0.6162F) * 0.1F * par2;
+		this.cloak2.rotateAngleZ = MathHelper.cos(par1 * 0.6262F) * 0.1F * par2;
+		this.cloak3.rotateAngleZ = MathHelper.cos(par1 * 0.6362F) * 0.1F * par2;
+		this.cloak4.rotateAngleZ = MathHelper.cos(par1 * 0.6462F) * 0.1F * par2;
 	}
 	
-	public void holdingMelee(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		float f6;
-		float f7;
-		
-		f6 = this.swingProgress;
-        f6 = 1.0F - this.swingProgress;
-        f6 *= f6;
-        f6 *= f6;
-        f6 = 1.0F - f6;
-        f7 = MathHelper.sin(f6 * (float)Math.PI);
-        float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
-        
-        this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
-        this.rightarm.rotateAngleX += (this.bodytop.rotateAngleY * 2.0F);
-        this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
+	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
+		parChild.rotationPointX -= parParent.rotationPointX;
+		parChild.rotationPointY -= parParent.rotationPointY;
+		parChild.rotationPointZ -= parParent.rotationPointZ;
+		parChild.rotateAngleX -= parParent.rotateAngleX;
+		parChild.rotateAngleY -= parParent.rotateAngleY;
+		parChild.rotateAngleZ -= parParent.rotateAngleZ;
+		parParent.addChild(parChild);
 	}
 }

@@ -108,24 +108,24 @@ public class TileModelBustValkyrie extends ModelBase {
 		this.setRotation(stand3, 0F, 0F, 0F);
 	}
 
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.helmet.render(scale);
-		this.featherright.render(scale);
-		this.featherleft.render(scale);
-		this.hair.render(scale);
-		this.body.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightpauldron.render(scale);
-		this.rightarm.render(scale);
-		this.leftpauldron.render(scale);
-		this.leftarm.render(scale);
-		this.stand1.render(scale);
-		this.stand2.render(scale);
-		this.stand3.render(scale);
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+		super.render(entity, par2, par3, par4, par5, par6, par7);
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.helmet.render(par7);
+		this.featherright.render(par7);
+		this.featherleft.render(par7);
+		this.hair.render(par7);
+		this.body.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.rightpauldron.render(par7);
+		this.rightarm.render(par7);
+		this.leftpauldron.render(par7);
+		this.leftarm.render(par7);
+		this.stand1.render(par7);
+		this.stand2.render(par7);
+		this.stand3.render(par7);
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
@@ -134,22 +134,22 @@ public class TileModelBustValkyrie extends ModelBase {
 		model.rotateAngleZ = z;
 	}
 
-	public void renderModel(float scale) {
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.helmet.render(scale);
-		this.featherright.render(scale);
-		this.featherleft.render(scale);
-		this.hair.render(scale);
-		this.body.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightpauldron.render(scale);
-		this.rightarm.render(scale);
-		this.leftpauldron.render(scale);
-		this.leftarm.render(scale);
-		this.stand1.render(scale);
-		this.stand2.render(scale);
-		this.stand3.render(scale);
+	public void renderModel(float par7) {
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.helmet.render(par7);
+		this.featherright.render(par7);
+		this.featherleft.render(par7);
+		this.hair.render(par7);
+		this.body.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.rightpauldron.render(par7);
+		this.rightarm.render(par7);
+		this.leftpauldron.render(par7);
+		this.leftarm.render(par7);
+		this.stand1.render(par7);
+		this.stand2.render(par7);
+		this.stand3.render(par7);
 	}
 }

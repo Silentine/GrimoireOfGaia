@@ -11,15 +11,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscRing extends Item {
+	String texture;
 
-	public ItemMiscRing(String name) {
+	public ItemMiscRing(String texture) {
+		this.texture = texture;
         this.setHasSubtypes(true);
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscRing");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
+	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.RARE;
 	}
 	

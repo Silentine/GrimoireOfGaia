@@ -1,34 +1,35 @@
 package gaia.items;
 
-import gaia.Gaia;
-
 import java.util.List;
 
+import gaia.Gaia;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscCurrency extends Item {
+	String texture;
 
-	public ItemMiscCurrency(String name) {
+	public ItemMiscCurrency(String texture) {
+		this.texture = texture;
         this.setHasSubtypes(true);
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("GrimoireOfGaia.MiscCurrency");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
+	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.UNCOMMON;
 	}
 	
-	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		if (stack.getItemDamage() == 3) {
-			par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.MiscCurrency.desc"));
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if (par1ItemStack.getItemDamage() == 3) {
+			par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.MiscCurrency.desc"));
 		}
 	}
 	

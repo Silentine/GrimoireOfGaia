@@ -84,20 +84,20 @@ public class TileModelDoll extends ModelBase {
 		this.setRotation(leftleg, -1.570796F, -0.1745329F, 0F);
 	}
 
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.hair.render(scale);
-		this.upperbody.render(scale);
-		this.lowerbody.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightarm.render(scale);
-		this.leftarm.render(scale);
-		this.waist.render(scale);
-		this.rightleg.render(scale);
-		this.leftleg.render(scale);
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+		super.render(entity, par2, par3, par4, par5, par6, par7);
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.hair.render(par7);
+		this.upperbody.render(par7);
+		this.lowerbody.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.rightarm.render(par7);
+		this.leftarm.render(par7);
+		this.waist.render(par7);
+		this.rightleg.render(par7);
+		this.leftleg.render(par7);
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
@@ -106,18 +106,18 @@ public class TileModelDoll extends ModelBase {
 		model.rotateAngleZ = z;
 	}
 
-	public void renderModel(float scale) {
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.hair.render(scale);
-		this.upperbody.render(scale);
-		this.lowerbody.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightarm.render(scale);
-		this.leftarm.render(scale);
-		this.waist.render(scale);
-		this.rightleg.render(scale);
-		this.leftleg.render(scale);
+	public void renderModel(float par7) {
+		this.head.render(par7);
+		this.headaccessory.render(par7);
+		this.hair.render(par7);
+		this.upperbody.render(par7);
+		this.lowerbody.render(par7);
+		this.rightchest.render(par7);
+		this.leftchest.render(par7);
+		this.rightarm.render(par7);
+		this.leftarm.render(par7);
+		this.waist.render(par7);
+		this.rightleg.render(par7);
+		this.leftleg.render(par7);
 	}
 }

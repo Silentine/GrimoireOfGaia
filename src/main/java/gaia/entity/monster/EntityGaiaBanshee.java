@@ -1,30 +1,26 @@
 package gaia.entity.monster;
 
-import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobHostileBase;
-import gaia.init.GaiaItems;
-import gaia.init.Sounds;
-import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import gaia.entity.EntityMobBase;
+import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
+import gaia.init.GaiaItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityGaiaBanshee extends EntityMobHostileBase {
+public class EntityGaiaBanshee extends EntityMobBase {
 
 	public EntityGaiaBanshee(World par1World) {
 		super(par1World);
@@ -32,37 +28,29 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true));
+		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense2) {
-			damage = EntityAttributes.baseDefense2;
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
+		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
 	}
 
-	public boolean attackEntityAsMob(Entity entityIn) {
-		if (super.attackEntityAsMob(entityIn)) {
-			((EntityLivingBase)entityIn).setFire(6);
+	public int getTotalArmorValue() {
+		return EntityAttributes.rateArmor2;
+	}
+
+	public boolean attackEntityAsMob(Entity par1Entity) {
+		if (super.attackEntityAsMob(par1Entity)) {
+			((EntityLivingBase)par1Entity).setFire(6);
 		}
 		return true;
 	}
@@ -77,9 +65,9 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		}
 
 		if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
-			float f = this.getBrightness(1.0F);
-			if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())) {
-				this.setFire(8);
+			float i = this.getBrightness(1.0F);
+			if (i > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
+
 				this.attackEntityFrom(DamageSource.outOfWorld, EntityAttributes.maxHealth2 * 0.25F);
 			}
 		}
@@ -91,56 +79,51 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		super.onLivingUpdate();
 	}
 
-	protected SoundEvent getAmbientSound() {
-		return Sounds.aggressive_say;
+	protected String getLivingSound() {
+		return "grimoireofgaia:aggressive_say";
 	}
 
-	protected SoundEvent getHurtSound() {
-		return Sounds.aggressive_hurt;
+	protected String getHurtSound() {
+		return "grimoireofgaia:aggressive_hurt";
 	}
 
-	protected SoundEvent getDeathSound() {
-		return Sounds.aggressive_death;
+	protected String getDeathSound() {
+		return "grimoireofgaia:aggressive_death";
 	}
 
-	protected void playStepSound(BlockPos pos, Block blockIn) {	
-		this.playSound(Sounds.none, 1.0F, 1.0F);
+	protected void playStepSound(int par1, int par2, int par3, int par4) {
+		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
 	}
 
 	protected void dropFewItems(boolean par1, int par2) {
 		int var3 = this.rand.nextInt(3 + par2);
 
 		for (int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItems.MiscSoulFire, 1);
+			this.dropItem(GaiaItem.MiscSoulFire, 1);
 		}
 
-		//Nuggets/Fragments
+		//Shards
 		int var11 = this.rand.nextInt(3) + 1 ;
 
 		for (int var12 = 0; var12 < var11; ++var12) {
-			ItemShard.Drop_Nugget(this,1);
+            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
 		}
 		
-		if (GaiaConfig.AdditionalOre == true) {
-			int var13 = this.rand.nextInt(3) + 1;
-
-			for (int var14 = 0; var14 < var13; ++var14) {
-				ItemShard.Drop_Nugget(this,5);
-			}
+		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
+            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
 		}
 	}
 	
-	//Rare
 	protected void addRandomDrop() {
 		switch (this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
+			this.dropItem(GaiaItem.BoxGold, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
+			this.dropItem(GaiaItem.BagBook, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItems.BookNightmare, 1);
+			this.dropItem(GaiaItem.BookNightmare, 1);
 		}
 	}
 
@@ -150,6 +133,10 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
+	}
+
+	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
+		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback2);
 	}
 
 	public boolean getCanSpawnHere() {

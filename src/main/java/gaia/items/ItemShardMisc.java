@@ -9,10 +9,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemShardMisc extends Item {
+	String texture;
 
-	public ItemShardMisc(String name) {
+	public ItemShardMisc(String texture) {
+		this.texture = texture;
         this.setHasSubtypes(true);
-        this.setUnlocalizedName(name);
+        this.setUnlocalizedName("GrimoireOfGaia.ShardMisc");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 

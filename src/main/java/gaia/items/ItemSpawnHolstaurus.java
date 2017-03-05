@@ -6,54 +6,59 @@ import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpawnHolstaurus extends Item {
+	String texture;
 
-	public ItemSpawnHolstaurus(String name) {
+	public ItemSpawnHolstaurus(String texture) {
+		this.texture = texture;
 		this.maxStackSize = 16;
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("GrimoireOfGaia.SpawnHolstaurus");
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
+	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.RARE;
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("item.GrimoireOfGaia.SpawnHolstaurus.desc"));
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.SpawnHolstaurus.desc"));
 	}
-	
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		pos = pos.offset(facing);
 
-		if (!playerIn.canPlayerEdit(pos, facing, stack)) {
-			return EnumActionResult.FAIL;
-		} else {
-			if (!playerIn.capabilities.isCreativeMode) {
-				--stack.stackSize;
-			}
-			
-			if (worldIn.isAirBlock(pos)) {
-				if (!worldIn.isRemote) {
-					EntityGaiaNPCHolstaurus spawnEntity = new EntityGaiaNPCHolstaurus(worldIn);
-					spawnEntity.setLocationAndAngles(playerIn.posX + 0.5, playerIn.posY, playerIn.posZ + 0.5, 0,0); 
-					worldIn.spawnEntityInWorld(spawnEntity);
-				}
-			}
-
-			return EnumActionResult.SUCCESS;
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World world, EntityPlayer entityplayer) {
+		if (!entityplayer.capabilities.isCreativeMode) {
+			--par1ItemStack.stackSize;
 		}
+
+		world.playSoundAtEntity(entityplayer, "grimoireofgaia:book_hit", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		if (!world.isRemote) {
+			EntityGaiaNPCHolstaurus entityspawning = new EntityGaiaNPCHolstaurus(world);
+			entityspawning.setLocationAndAngles(entityplayer.posX + 0.5, entityplayer.posY, entityplayer.posZ + 0.5, 0,0); 
+			world.spawnEntityInWorld(entityspawning);
+		}
+
+		return par1ItemStack;
+	}
+
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 16;
+	}
+
+	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+		return EnumAction.BOW;
+	}
+
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+		return par1ItemStack;
 	}
 }

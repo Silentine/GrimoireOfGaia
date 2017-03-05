@@ -3,10 +3,9 @@ package gaia.entity.projectile;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-//Same as EntitySmallFireball, except it does not spawn a fire block on impact
 public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
 	public EntityGaiaProjectileSmallFireball(World par1World) {
@@ -24,7 +23,7 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
         this.setSize(0.3125F, 0.3125F);
     }
 
-	protected void onImpact(RayTraceResult par1MovingObjectPosition) {
+	protected void onImpact(MovingObjectPosition par1MovingObjectPosition) {
 		if (!this.worldObj.isRemote) {
 			if (par1MovingObjectPosition.entityHit != null) {
 				if (!par1MovingObjectPosition.entityHit.isImmuneToFire() && par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
