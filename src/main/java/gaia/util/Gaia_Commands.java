@@ -42,6 +42,8 @@ public class Gaia_Commands implements ICommand{
 
 	private final List aliases;
 
+    private static final int PERMISSION_LEVEL = 4;
+
 	public Gaia_Commands() 
 	{ 
 		aliases = new ArrayList(); 
@@ -394,9 +396,7 @@ public class Gaia_Commands implements ICommand{
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~Required stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
-
-		return player.isCreative();
+		return sender.canCommandSenderUseCommand(PERMISSION_LEVEL, this.getCommandName());
 	}
 
 	@Override
