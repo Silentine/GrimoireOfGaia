@@ -1,0 +1,242 @@
+itemGroup.tabGaia=Grimoire of Gaia 3
+
+item.Shard_0.name=Pepita de Ferro
+item.Shard_1.name=Pepita de Ouro
+item.Shard_2.name=Fragmento de Diamante
+item.Shard_3.name=Fragmento de Esmeralda
+item.Shard_4.name=Pepita de Cobre
+item.Shard_5.name=Pepita de Prata
+item.FoodMeat.name=Carne
+item.FoodRottenHeart.name=Coração Apodrecido
+item.FoodRoot.name=Raiz Principal
+item.FoodCoalfish.name=Escamudo-Negro
+item.FoodNetherWart.name=Fungo do Nether Maduro
+item.FoodSmallAppleGold.name=Fatia de Torta de Maçã Dourada
+item.FoodExperience.name=Doce de Experiência
+item.FoodMandrake.name=Mandrágora
+item.FoodWither.name=Cérebro Apodrecido
+item.FoodPieMandrake.name=Torta de Mandrágora
+item.FoodPieMeat.name=Torta de Peixe
+item.FoodPieAppleGold.name=Torta de Maça Dourada
+item.MiscSoulFire.name=Alma de Fogo
+item.MiscSoulFiery.name=Fragmento de Fogo
+item.MiscGigaGear.name=Coração do Cavaleiro Giga
+item.MiscFur.name=Pele
+item.MiscBook.name=Livro da Memória
+item.MiscQuill.name=Pena com Ponta de Diamante
+item.MiscRing_0.name=Anel de Velocidade Inerte
+item.MiscRing_1.name=Anel de Pressa Inerte
+item.MiscRing_2.name=Anel de Pulo Inerte
+item.MiscRing_3.name=Anel de Visão Noturna Inerte
+item.MiscFurnaceFuel.name=Antracita
+item.MiscCurrency_0.name=Vender
+item.MiscCurrency_1.name=Símbolo de Comerciante
+item.MiscCurrency_2.name=Símbolo de Holstaurus
+item.MiscCurrency_3.name=Símbolo de Weresheep
+item.Spawn.name=Caixa de Ovo
+item.SpawnCreeperGirl.name=Ovo de Menina Creeper
+item.SpawnSlimeGirl.name=Ovo de Menina Slime
+item.SpawnEnderGirl.name=Ovo de Menina do Fim
+item.SpawnTrader.name=Ovo de Comerciante
+item.SpawnHolstaurus.name=Ovo de Holstaurus
+item.SpawnWeresheep.name=Ovo de Weresheep
+item.SpawnTame.name=Obento
+item.BoxIron.name=Bolsa de Ferro
+item.BoxGold.name=Bolsa de Ouro
+item.BoxDiamond.name=Bolsa de Diamante
+item.BagOre.name=Bolsa de Minérios
+item.BagPotion.name=Bolsa de Poções
+item.BagBook.name=Bolsa de Livros
+item.BagRecord.name=Caixa de Discos
+item.BoxOld.name=Bagagem Velha
+item.WeaponProp_0.name=Bastão do Fim
+item.WeaponProp_1.name=Bastão da Chama
+item.WeaponProp_2.name=Lança Decorativa
+item.WeaponProp_3.name=Adaga Decorativa
+item.WeaponProp_4.name=Leque Decorativo
+item.WeaponPropProjectile_0.name=Projétil Mágico
+item.WeaponPropEnchanted_0.name=Portador de Ecantamento
+item.WeaponFanIce.name=Leque de Gelo Ornamentado
+item.WeaponFanFire.name=Leque de Fogo Ornamentado
+item.WeaponBookFreezing.name=Livro Congelante
+item.WeaponBookNightmare.name=Livro do Pesadelo
+item.WeaponBookMetal.name=Livro de Metal
+item.WeaponBookEnder.name=Livro do Fim
+item.WeaponBookHunger.name=Livro da Fome
+item.WeaponBookBattle.name=Livro de Combate
+item.WeaponBookNature.name=Livro da Natureza
+item.WeaponBookWither.name=Livro do Apodrecimento
+item.WeaponBookBuff.name=Combate Manual
+item.WeaponBattleAxe.name=Machado de Batalha de Ferro
+item.WeaponDebug.name=Arma de Depuração
+item.AccessoryRingSpeed.name=Anel de Velocidade
+item.AccessoryRingHaste.name=Anel de Pressa
+item.AccessoryRingJump.name=Anel de Pulo
+item.AccessoryRingNight.name=Anel de Visão Noturna
+item.AccessoryCursed.name=Halter Pesado
+item.SpawnEgg.name=Invocar
+
+tile.GrimoireOfGaia.BustValkyrie.name=A Valquíria
+tile.GrimoireOfGaia.BustVampire.name=A Vampira
+tile.GrimoireOfGaia.BustSphinx.name=A Esfinge
+tile.GrimoireOfGaia.DollCreeperGirl.name=Boneca de Menina Creeper
+tile.GrimoireOfGaia.DollEnderGirl.name=Boneca de Menina do Fim
+tile.GrimoireOfGaia.DollSlimeGirl.name=Boneca de Menina Slime
+tile.GrimoireOfGaia.DollMaid.name=Boneca de Empregada
+tile.GrimoireOfGaia.SpawnGuard.name=Talismã de Proteção
+
+entity.grimoireofgaia.Ant.name=Formiga Operária
+entity.grimoireofgaia.Anubis.name=Anubis
+entity.grimoireofgaia.Arachne.name=Aracne
+entity.grimoireofgaia.Banshee.name=Banshee
+entity.grimoireofgaia.Baphomet.name=Baphomet
+entity.grimoireofgaia.BoneKnight.name=Cavaleiro dos Ossos
+entity.grimoireofgaia.Butler.name=Mordomo
+entity.grimoireofgaia.Centaur.name=Centauro
+entity.grimoireofgaia.CobbleGolem.name=Golem de Pedra
+entity.grimoireofgaia.CobblestoneGolem.name=Golem de Paralelepípedo
+entity.grimoireofgaia.Creep.name=Creep
+entity.grimoireofgaia.Cyclops.name=Ciclope
+entity.grimoireofgaia.Chest.name=Baú
+entity.grimoireofgaia.CyanFlower.name=Flor Ciano
+entity.grimoireofgaia.Dhampir.name=Dampiro
+entity.grimoireofgaia.Dryad.name=Dríade
+entity.grimoireofgaia.Dullahan.name=Durahan
+entity.grimoireofgaia.Dwarf.name=Anão
+entity.grimoireofgaia.EnderDragonGirl.name=Menina Dragão do Fim
+entity.grimoireofgaia.EnderEye.name=Olho do Fim
+entity.grimoireofgaia.FleshLich.name=Lich de Carne
+entity.grimoireofgaia.FutakuchiOnna.name=Futakuchi-Onna
+entity.grimoireofgaia.Harpy.name=Harpia
+entity.grimoireofgaia.Hunter.name=Caçador
+entity.grimoireofgaia.Kobold.name=Kobold
+entity.grimoireofgaia.Mandragora.name=Mandragora
+entity.grimoireofgaia.Matango.name=Matango
+entity.grimoireofgaia.Mermaid.name=Sereia
+entity.grimoireofgaia.Mimic.name=Mímico
+entity.grimoireofgaia.Minotaur.name=Minotauro
+entity.grimoireofgaia.Minotaurus.name=Minotaurus
+entity.grimoireofgaia.Mummy.name=Múmia
+entity.grimoireofgaia.Naga.name=Naga
+entity.grimoireofgaia.NineTails.name=Nove Caudas
+entity.grimoireofgaia.Sahuagin.name=Sahuagin
+entity.grimoireofgaia.Satyress.name=Sátiras
+entity.grimoireofgaia.Selkie.name=Selkie
+entity.grimoireofgaia.Shaman.name=Xamã
+entity.grimoireofgaia.Sharko.name=Sharko
+entity.grimoireofgaia.Siren.name=Serena
+entity.grimoireofgaia.SludgeGirl.name=Menina de Lodo
+entity.grimoireofgaia.Sphinx.name=Esfinge
+entity.grimoireofgaia.Spriggan.name=Spriggan
+entity.grimoireofgaia.Succubus.name=Súcubo
+entity.grimoireofgaia.Toad.name=Sapo
+entity.grimoireofgaia.Valkyrie.name=Valquíria
+entity.grimoireofgaia.Vampire.name=Vampira
+entity.grimoireofgaia.Werecat.name=Werecat
+entity.grimoireofgaia.Witch.name=Bruxa
+entity.grimoireofgaia.WitherCow.name=Vaca Witer
+entity.grimoireofgaia.Yeti.name=Ieti
+entity.grimoireofgaia.Yuki-Onna.name=Yuki-Onna
+
+entity.grimoireofgaia.CreeperGirl.name=Menina Creeper
+entity.grimoireofgaia.EnderGirl.name=Menina do Fim
+entity.grimoireofgaia.Holstaurus.name=Holstaurus
+entity.grimoireofgaia.SlimeGirl.name=Menina Slime
+entity.grimoireofgaia.Trader.name=Comerciante
+entity.grimoireofgaia.Weresheep.name=Weresheep
+
+entity.grimoireofgaia.Butler.name=Mordomo
+entity.grimoireofgaia.Sporeling.name=Sporeling
+
+entity.grimoireofgaia.DebugMob.name=Mob de Depuração
+ 
+item.GrimoireOfGaia.NegativeStatus.desc=Remove efeitos de status negativos
+text.GrimoireOfGaia.RecoverHearts=Recupera %d corações
+text.GrimoireOfGaia.LoseHunger=Perde %d de fome
+text.GrimoireOfGaia.GainExperience=Granho de experiência
+text.GrimoireOfGaia.RightClickUse=Ganho de experiência
+text.GrimoireOfGaia.GainLevels=Ganho de %d níveis
+text.GrimoireOfGaia.FuelForSeconds=Combustível para %d segundos
+text.GrimoireOfGaia.RightClickUse.desc=Clique com o direito para usar
+text.GrimoireOfGaia.BlessMainhand=Quando na mão principal:
+text.GrimoireOfGaia.BlessOffhand=Quando na mão secundária, mão principal:
+text.GrimoireOfGaia.CurseInventory=Quando no inventário:
+text.GrimoireOfGaia.WIP=WIP
+text.GrimoireOfGaia.Debug=Depurador
+
+item.GrimoireOfGaia.MiscSoulFire.desc=Clique com o direito para invocar Fogo
+item.GrimoireOfGaia.MiscSoulFiery.desc=Clique com o direito para invocar Lava
+item.GrimoireOfGaia.MiscGigaGear.desc=Tudo que resta do Cavaleiro Giga
+item.GrimoireOfGaia.MiscCurrency.desc=Venda itens nesse slot
+item.GrimoireOfGaia.MiscWeaponEnchanted.desc=Encantado quando criado
+item.GrimoireOfGaia.SpawnCreeperGirl.desc=Invoca uma Menina Creeper
+item.GrimoireOfGaia.SpawnSlimeGirl.desc=Invoca uma Menina Slime
+item.GrimoireOfGaia.SpawnEnderGirl.desc=Invoca uma Menina do Fim
+item.GrimoireOfGaia.SpawnTrader.desc=Invoca uma Comerciante
+item.GrimoireOfGaia.SpawnHolstaurus.desc=Invocar uma Holstaurus
+item.GrimoireOfGaia.SpawnWeresheep.desc=Invocar uma Weresheep
+item.GrimoireOfGaia.SpawnTame.desc=Remove hostilidade inicial
+item.GrimoireOfGaia.SpawnTame2.desc=Não afeta mobs danificados
+item.GrimoireOfGaia.WeaponProp.desc=Item de Suporte
+item.GrimoireOfGaia.WeaponPropInvisible.desc=É um mistério
+item.GrimoireOfGaia.WeaponBookEnder.desc=Clique com o direito para lançar uma Pérola do Fim
+item.GrimoireOfGaia.WeaponDebug.desc=Usada para testes
+
+block.GrimoireOfGaia.SpawnGuard.desc=Previne mobs diurnos de spawnar dentro de %d blocos
+
+configgui.GrimoireOfGaia.category.general=Taxas de Spawn
+configgui.GrimoireOfGaia.category.general.tooltip=\nDefina 0 para desabilitar o mob de spawnar.\nDia: (<30 Raro, >60 Comum)\nNoite: (<60 Raro, >100 Comum)
+configgui.GrimoireOfGaia.category.damage=Dano Base
+configgui.GrimoireOfGaia.category.damage.tooltip=(EXIGE REINICIAR)\nTodos o mobs causam dano mágico adicional que ignora a armadura.
+configgui.GrimoireOfGaia.category.defense=Defesa Base
+configgui.GrimoireOfGaia.category.defense.tooltip=(EXIGE REINICIAR)\nQuantidade máxima de dano recebido baseada na porcentagem.\n(AVISO: NÃO defina 0)
+configgui.GrimoireOfGaia.category.attributes=Atributos
+configgui.GrimoireOfGaia.category.attributes.tooltip=(EXIGE REINICIAR)\nAtributos baseados na porcentagem.\n(AVISO: NÃO defina abaixo de 50)
+configgui.GrimoireOfGaia.category.options=Opções
+configgui.GrimoireOfGaia.category.options.tooltip=\nHabilita/Desabilita funcionalidades.
+configgui.GrimoireOfGaia.category.debug=Depurar
+configgui.GrimoireOfGaia.category.debug.tooltip=\nOpções de compatibilidade e depuração.
+
+configgui.GrimoireOfGaia.category.general.SpawnLevel3=Desabilitar spawn natural de nível 3
+configgui.GrimoireOfGaia.category.general.SpawnLevel3.tooltip=\nMobs nível 3 não spawnam naturalmente, mas spawnam de mobs específicos.
+configgui.GrimoireOfGaia.category.general.SpawnLevel3Chance=Probabilidade de spawnar mob nível 3
+configgui.GrimoireOfGaia.category.general.SpawnLevel3Chance.tooltip=\nProbabilidade que mobs nível 3 spawnam de mobs específicos.\n((1/valor)*100)
+
+configgui.GrimoireOfGaia.category.damage.Menu0.BaseDamage=Dano Base
+configgui.GrimoireOfGaia.category.damage.Menu0.BaseDamage.tooltip=\nAtaques melee causam um dano adicional de 2.0 (1 coração).
+configgui.GrimoireOfGaia.category.damage.Menu1.BaseDamageArchers=Dano Base (Arqueiros)
+configgui.GrimoireOfGaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nFlechas de arqueiros causam um dano adicional 1 (0.5 coração).
+configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing=Escudos bloqueiam dano penetrante.
+configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\nDano base (melee) não penetra escudos.
+
+configgui.GrimoireOfGaia.category.defense.BaseDefense=Defesa Base
+configgui.GrimoireOfGaia.category.defense.BaseDefense.tooltip=\nQuantidade máxima de dano recebido baseada na porcentagem.\n(100 = desabilitado, 0 = invencível)
+
+configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Saúde do nível 1
+configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth.tooltip=\nSaúde: 40 (20 corações).\n(50 = metade, 200 = dobro)
+configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage=Dano do nível 1
+configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage.tooltip=\nDano: 4 (2 corações).\n(50 = metade, 200 = dobro)
+configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth=Saúde do nível 2
+configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth.tooltip=\nSaúde: 80 (40 corações).\n(50 = metade, 200 = dobro)
+configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage=Dano do nível 2
+configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage.tooltip=\nDano: 6 (3 corações).\n(50 = metade, 200 = dobro)
+configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth=Saúde do nível 3
+configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth.tooltip=\nSaúde: 160 (80 corações).\n(50 = metade, 200 = dobro)
+configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage=Dano do nível 3
+configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage.tooltip=\nDano: 8 (4 corações).\n(50 = metade, 200 = dobro)
+
+configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn=Habilitar Spawns
+configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn.tooltip=(EXIGE REINICIAR)\nHabilitar mobs de Gaia spawnar.
+configgui.GrimoireOfGaia.category.options.Menu1.AdditionalOre=Pepitas adcionais
+configgui.GrimoireOfGaia.category.options.Menu1.AdditionalOre.tooltip=\nMobs de Gaia podem agora largar Pepitas de Cobre e Prata.
+configgui.GrimoireOfGaia.category.options.Menu2.StrafingArchers=Zigue-zague dos Archeiros
+configgui.GrimoireOfGaia.category.options.Menu2.StrafingArchers.tooltip=\nArqueiros irão zigue-zaguear e evitar ataques (como Esqueletos).
+
+configgui.GrimoireOfGaia.category.debug.Menu1.Biome_Tweaks=Ajustes de Biomas
+configgui.GrimoireOfGaia.category.debug.Menu1.Biome_Tweaks.tooltip=(EXIGE REINICIAR)\nAjusta o dicionário padrão para alguns biomas "M".\n(Desabilite se você encontrar algum problema)
+configgui.GrimoireOfGaia.category.debug.Menu2.Ore_Unity=Unifica drops de fragmentos
+configgui.GrimoireOfGaia.category.debug.Menu2.Ore_Unity.tooltip=\nMobs podem largar pepitas/fragmentos de outros mods.\n(Desabilite se você encontrar algum problema)
+configgui.GrimoireOfGaia.category.debug.Menu3.Debug_Spawn=Spawns de Depuração
+configgui.GrimoireOfGaia.category.debug.Menu3.Debug_Spawn.tooltip=(EXIGE REINICIAR)\nDisabilita todos os mobs não-Gaia de spawnar.
+configgui.GrimoireOfGaia.category.debug.Menu4.Debug_Commands=Comandos de Depuração
+configgui.GrimoireOfGaia.category.debug.Menu4.Debug_Commands.tooltip=(EXIGE REINICIAR)\nHabilita comandos de desenvolvimento.
