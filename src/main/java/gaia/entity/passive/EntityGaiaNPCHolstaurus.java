@@ -1,13 +1,15 @@
 package gaia.entity.passive;
 
 import gaia.entity.EntityMobMerchant;
-import gaia.entity.Trade;
-import gaia.init.GaiaItem;
+import gaia.entity.GaiaTrade;
+import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
@@ -16,50 +18,50 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 	public EntityGaiaNPCHolstaurus(World var1) {
 		super(var1);
 	}
-	
-	public IChatComponent getDisplayName() {
-		 String s = "Holstaurus";
-		 ChatComponentText chatcomponenttext = new ChatComponentText(s);
-		 return chatcomponenttext;
-    }
-	
-	@Override
-	protected String getLivingSound() {
-		return "grimoireofgaia:passive_say";
+
+	public ITextComponent getDisplayName() {
+		String s = "entity.grimoireofgaia.Holstaurus.name";
+		TextComponentTranslation text = new TextComponentTranslation(s);
+		return text;
 	}
 
 	@Override
-	protected String getHurtSound() {
-		return "grimoireofgaia:passive_hurt";
+	protected SoundEvent getAmbientSound() {
+		return Sounds.passive_say;
 	}
 
 	@Override
-	protected String getDeathSound() {
-		return "grimoireofgaia:passive_death";
+	protected SoundEvent getHurtSound() {
+		return Sounds.passive_hurt;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.passive_death;
 	}
 	
 	protected void dropFewItems(boolean par1, int par2) {
 		if (par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.SpawnHolstaurus, 1, 0), 0.0F);
+            this.entityDropItem(new ItemStack(GaiaItems.SpawnHolstaurus, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));	
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 2)));	
 		
 		//Buy List
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 2), new ItemStack(Items.wheat_seeds, 8, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 1, 2), new ItemStack(Items.pumpkin_seeds, 16, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 2, 2), new ItemStack(Items.melon_seeds, 16, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 16, 2), new ItemStack(Items.cake, 1, 0)));
-		recipes.add(new Trade(new ItemStack(GaiaItem.MiscCurrency, 8, 2), new ItemStack(Items.pumpkin_pie, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 2), new ItemStack(Items.WHEAT_SEEDS, 8, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 2), new ItemStack(Items.PUMPKIN_SEEDS, 16, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 2), new ItemStack(Items.MELON_SEEDS, 16, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 16, 2), new ItemStack(Items.CAKE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 8, 2), new ItemStack(Items.PUMPKIN_PIE, 1, 0)));
 		
 		//Sell List
-		recipes.add(new Trade(new ItemStack(Items.wheat, 8, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
-		recipes.add(new Trade(new ItemStack(Blocks.pumpkin, 2, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
-		recipes.add(new Trade(new ItemStack(Blocks.melon_block, 1, 0), new ItemStack(GaiaItem.MiscCurrency, 2, 2)));
-		recipes.add(new Trade(new ItemStack(Items.egg, 8, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
-		recipes.add(new Trade(new ItemStack(Items.sugar, 16, 0), new ItemStack(GaiaItem.MiscCurrency, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.WHEAT, 8, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Blocks.PUMPKIN, 2, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Blocks.MELON_BLOCK, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.EGG, 8, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SUGAR, 16, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 2)));
 	}
 }

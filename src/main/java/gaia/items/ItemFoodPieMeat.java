@@ -4,61 +4,35 @@ import gaia.Gaia;
 
 import java.util.List;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFoodPieMeat extends ItemFood {
-	String texture;
+public class ItemFoodPieMeat extends GaiaItemFood {
 	
-	private int SecondPotionID;
-	private int SecondPotionDuration;
-	private int SecondPotionAmplifier;
-	private float SecondPotionEffectPropability;
-
-	public ItemFoodPieMeat(int par2, float par3, boolean par4, String texture) {
-		super(par2, par3, par4);
-		this.texture = texture;
+	public ItemFoodPieMeat(int amount, float saturation, boolean isWolfFood, String name) {
+		super(amount, saturation, isWolfFood);
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMeat");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 		
-		this.setPotionEffect(Potion.moveSlowdown.id, 30, 0, 1.0F);
-		this.setSecondPotionEffect(Potion.hunger.id, 30, 0, 0.4F);
+		this.setPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30, 0), 1.0F);
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		par3List.add(StatCollector.translateToLocal("potion.moveSlowdown") + " (0:30)");
-		par3List.add("(80%) " + StatCollector.translateToLocal("potion.hunger") + " (0:30)");
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
+		tooltip.add(I18n.translateToLocal("effect.moveSlowdown") + " (0:30)");
 	}
 
-	protected void onFoodEaten(ItemStack par1ItemStack, World par2world, EntityPlayer par3EntityPlayer) {
-		EntityXPOrb entity = new EntityXPOrb(par2world, par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, itemRand.nextInt(14) + 6);
-		spawnEntity(par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, entity, par2world, par3EntityPlayer);
-
-		if (!par2world.isRemote && this.SecondPotionID > 0 && par2world.rand.nextFloat() < this.SecondPotionDuration * 20) {
-			par3EntityPlayer.addPotionEffect(new PotionEffect (this.SecondPotionID, this.SecondPotionDuration * 20, this.SecondPotionAmplifier));
-		}
-	}
-
-	public static void spawnEntity (double x, double y, double z, Entity par1entity, World par2world, EntityPlayer par3EntityPlayer) {
-		if (!par2world.isRemote) {
-			par2world.spawnEntityInWorld(par1entity);
-		}
-	}
-	
-	public ItemFood setSecondPotionEffect(int par1, int par2, int par3,float par4) {
-		this.SecondPotionID = par1;
-		this.SecondPotionDuration = par2;
-		this.SecondPotionAmplifier = par3;
-		this.SecondPotionEffectPropability = par4;
-		return this;
-	}
+	@Override
+	public void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+		super.onFoodEaten(stack, worldIn, player);
+		rewardEXP(player, itemRand.nextInt(8) + 4);
+    }
 }

@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
+    "parent": "grimoireofgaia:item/chest",
     "textures": {
-        "layer0": "grimoireofgaia:items/BoxIron"
-    } 
+        "0": "grimoireofgaia:items/models/chest/BoxIron"
+    }
 }

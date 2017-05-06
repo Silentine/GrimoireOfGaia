@@ -1,14 +1,13 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaEnderEye extends ModelBase {
+public class ModelGaiaEnderEye extends ModelGaia {
 	ModelRenderer anchor;
 	ModelRenderer body;
 	ModelRenderer eyelid1;
@@ -79,37 +78,31 @@ public class ModelGaiaEnderEye extends ModelBase {
 		this.anchor.addChild(tail3);
 	}
 
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
-		this.anchor.render(par7);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		this.anchor.render(scale);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//anchor
-        this.anchor.rotationPointY = MathHelper.cos(((float)1.5F + par3) * 0.5F);
+        this.anchor.rotationPointY = MathHelper.cos(((float)1.5F + ageInTicks) * 0.5F);
         
 		//body
-		this.body.rotateAngleY = par4 / 57.295776F;
-		this.eyelid1.rotateAngleX = MathHelper.cos(par3 * 0.4F + (float)Math.PI) * 0.2F * 0.5F;
+		this.body.rotateAngleY = netHeadYaw / 57.295776F;
+		this.eyelid1.rotateAngleX = MathHelper.cos(ageInTicks * 0.4F + (float)Math.PI) * 0.2F * 0.5F;
 		this.eyelid1.rotateAngleX += 0.0349066F;
-		this.eyelid2.rotateAngleX = MathHelper.cos(par3 * 0.4F) * 0.08F * 0.5F;
+		this.eyelid2.rotateAngleX = MathHelper.cos(ageInTicks * 0.4F) * 0.08F * 0.5F;
 		this.eyelid2.rotateAngleX += 0.3490659F;
-		this.rightwing.rotateAngleZ = MathHelper.cos(par3 * 0.6F + (float)Math.PI) * 1.6F * 0.5F;
+		this.rightwing.rotateAngleZ = MathHelper.cos(ageInTicks * 0.6F + (float)Math.PI) * 1.6F * 0.5F;
 		this.rightwing.rotateAngleZ = this.rightwing.rotateAngleZ + 1.570796F;
-		this.leftwing.rotateAngleZ = MathHelper.cos(par3 * 0.6F) * 1.6F * 0.5F;
+		this.leftwing.rotateAngleZ = MathHelper.cos(ageInTicks * 0.6F) * 1.6F * 0.5F;
 		this.leftwing.rotateAngleZ = this.leftwing.rotateAngleZ - 1.570796F;
-		this.tail1.rotateAngleX = MathHelper.cos(par3 * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
+		this.tail1.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
 		this.tail1.rotateAngleX += 0.7853982F;
-		this.tail2.rotateAngleX = MathHelper.cos(par3 * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
+		this.tail2.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
 		this.tail2.rotateAngleX += 0.6108652F;
-		this.tail3.rotateAngleX = MathHelper.cos(par3 * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
+		this.tail3.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float)Math.PI) * 0.2F * 0.5F;
 		this.tail3.rotateAngleX += 0.4363323F;
 	}
 }

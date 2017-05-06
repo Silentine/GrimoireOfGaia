@@ -1,14 +1,13 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaNPCTrader extends ModelBase {
+public class ModelGaiaNPCTrader extends ModelGaia {
 	ModelRenderer head;
     ModelRenderer headeyes;
 	ModelRenderer headaccessory;
@@ -19,16 +18,18 @@ public class ModelGaiaNPCTrader extends ModelBase {
 	ModelRenderer bodybottom;
 	ModelRenderer rightchest;
 	ModelRenderer leftchest;
-	ModelRenderer rightarm;
-	ModelRenderer leftarm;
+	public static ModelRenderer rightarm;
+	public static ModelRenderer leftarm;
 	ModelRenderer rightleg;
 	ModelRenderer leftleg;
 	ModelRenderer righthair;
 	ModelRenderer lefthair;
 	ModelRenderer righthairpin;
-	ModelRenderer leftthairpin;
+	ModelRenderer lefthairpin;
 	ModelRenderer rightear;
 	ModelRenderer leftear;
+    ModelRenderer headnose;
+    ModelRenderer headnoseshadow;
 	ModelRenderer rightpauldron;
 	ModelRenderer leftpauldron;
 	ModelRenderer watch;
@@ -131,11 +132,11 @@ public class ModelGaiaNPCTrader extends ModelBase {
 		this.righthairpin.setRotationPoint(0F, 1F, 0F);
 		this.righthairpin.setTextureSize(64, 32);
 		this.setRotation(righthairpin, 0F, 0F, 0.1745329F);
-		this.leftthairpin = new ModelRenderer(this, 52, 26);
-		this.leftthairpin.addBox(2F, -8F, 1F, 4, 4, 4);
-		this.leftthairpin.setRotationPoint(0F, 1F, 0F);
-		this.leftthairpin.setTextureSize(64, 32);
-		this.setRotation(leftthairpin, 0F, 0F, -0.1745329F);
+		this.lefthairpin = new ModelRenderer(this, 52, 26);
+		this.lefthairpin.addBox(2F, -8F, 1F, 4, 4, 4);
+		this.lefthairpin.setRotationPoint(0F, 1F, 0F);
+		this.lefthairpin.setTextureSize(64, 32);
+		this.setRotation(lefthairpin, 0F, 0F, -0.1745329F);
 		this.rightear = new ModelRenderer(this, 36, 34);
 		this.rightear.addBox(-3F, -8.5F, -6F, 2, 8, 6);
 		this.rightear.setRotationPoint(0F, 1F, 0F);
@@ -146,18 +147,27 @@ public class ModelGaiaNPCTrader extends ModelBase {
 		this.leftear.setRotationPoint(0F, 1F, 0F);
 		this.leftear.setTextureSize(64, 32);
 		this.setRotation(leftear, 0F, -0.2617994F, 0F);
-		this.rightpauldron = new ModelRenderer(this, 36, 48);
+		this.headnose = new ModelRenderer(this, 36, 48);
+		this.headnose.addBox(-0.5F, -2.5F, -3.1F, 1, 1, 1);
+		this.headnose.setRotationPoint(0F, 1F, 0F);
+		this.headnose.setTextureSize(64, 32);
+		this.setRotation(headnose, 0F, 0F, 0F);
+		this.headnoseshadow = new ModelRenderer(this, 36, 50);
+		this.headnoseshadow.addBox(-0.5F, -4F, -3.2F, 1, 2, 1);
+		this.headnoseshadow.setRotationPoint(0F, 1F, 0F);
+		this.headnoseshadow.setTextureSize(64, 32);
+		this.setRotation(headnoseshadow, 0F, 0F, 0F);
+		this.rightpauldron = new ModelRenderer(this, 36, 53);
 		this.rightpauldron.addBox(-2.5F, -1.5F, -1.5F, 3, 3, 3);
 		this.rightpauldron.setRotationPoint(-2.5F, 2.5F, 0F);
 		this.rightpauldron.setTextureSize(64, 32);
 		this.setRotation(rightpauldron, 0F, 0F, 0.1745329F);
-		convertToChild(rightarm, rightpauldron);
-		this.leftpauldron = new ModelRenderer(this, 48, 48);
+		this.leftpauldron = new ModelRenderer(this, 36, 53);
+		this.leftpauldron.mirror = true;
 		this.leftpauldron.addBox(-0.5F, -1.5F, -1.5F, 3, 3, 3);
 		this.leftpauldron.setRotationPoint(2.5F, 2.5F, 0F);
 		this.leftpauldron.setTextureSize(64, 32);
 		this.setRotation(leftpauldron, 0F, 0F, -0.1745329F);
-		convertToChild(leftarm, leftpauldron);
 		this.watch = new ModelRenderer(this, 68, 0);
 		this.watch.addBox(-3F, 8F, -2.5F, 1, 5, 5);
 		this.watch.setRotationPoint(0F, 1F, 0F);
@@ -169,36 +179,36 @@ public class ModelGaiaNPCTrader extends ModelBase {
 		this.tail.setTextureSize(64, 32);
 		this.setRotation(tail, 0.7853982F, 0F, 0F);
 		this.waist1 = new ModelRenderer(this, 68, 16);
-		this.waist1.addBox(-3.5F, 7.5F, -3F, 7, 3, 6);
+		this.waist1.addBox(-3.5F, 8.5F, -3.5F, 7, 2, 7);
 		this.waist1.setRotationPoint(0F, 1F, 0F);
 		this.waist1.setTextureSize(64, 32);
 		this.setRotation(waist1, 0F, 0F, 0F);
 		this.waist2 = new ModelRenderer(this, 68, 25);
-		this.waist2.addBox(-4F, 9.5F, -3.5F, 8, 4, 7);
+		this.waist2.addBox(-4F, 10.5F, -4F, 8, 3, 8);
 		this.waist2.setRotationPoint(0F, 1F, 0F);
 		this.waist2.setTextureSize(64, 32);
 		this.setRotation(waist2, 0F, 0F, 0F);
 		this.waist3 = new ModelRenderer(this, 68, 36);
-		this.waist3.addBox(-4.5F, 13.5F, -4F, 9, 5, 8);
+		this.waist3.addBox(-4.5F, 13.5F, -4.5F, 9, 5, 9);
 		this.waist3.setRotationPoint(0F, 1F, 0F);
 		this.waist3.setTextureSize(64, 32);
 		this.setRotation(waist3, 0F, 0F, 0F);
-		this.rightleglower = new ModelRenderer(this, 68, 49);
+		this.rightleglower = new ModelRenderer(this, 68, 50);
 		this.rightleglower.addBox(-1.5F, 4.5F, 1.5F, 3, 8, 2);
 		this.rightleglower.setRotationPoint(-2F, 11F, 0F);
 		this.rightleglower.setTextureSize(64, 32);
 		this.setRotation(rightleglower, -0.3490659F, -0.0872665F, -0.0349066F);
-		this.leftleglower = new ModelRenderer(this, 68, 49);
+		this.leftleglower = new ModelRenderer(this, 68, 50);
 		this.leftleglower.addBox(-1.5F, 4.5F, 1.5F, 3, 8, 2);
 		this.leftleglower.setRotationPoint(2F, 11F, 0F);
 		this.leftleglower.setTextureSize(64, 32);
 		this.setRotation(leftleglower, -0.3490659F, 0.0872665F, 0.0349066F);
-		this.rightfootlower = new ModelRenderer(this, 68, 59);
+		this.rightfootlower = new ModelRenderer(this, 68, 60);
 		this.rightfootlower.addBox(-1.5F, 11.5F, -5F, 3, 1, 3);
 		this.rightfootlower.setRotationPoint(-2F, 11F, 0F);
 		this.rightfootlower.setTextureSize(64, 32);
 		this.setRotation(rightfootlower, 0.0872665F, -0.0872665F, -0.0349066F);
-		this.leftfootlower = new ModelRenderer(this, 68, 59);
+		this.leftfootlower = new ModelRenderer(this, 68, 60);
 		this.leftfootlower.addBox(-1.5F, 11.5F, -5F, 3, 1, 3);
 		this.leftfootlower.setRotationPoint(2F, 11F, 0F);
 		this.leftfootlower.setTextureSize(64, 32);
@@ -206,99 +216,93 @@ public class ModelGaiaNPCTrader extends ModelBase {
 		
 		this.convertToChild(head, rightear);
 		this.convertToChild(head, leftear);
+		this.convertToChild(head, righthair);
+		this.convertToChild(head, lefthair);
+		this.convertToChild(head, headnose);
+		this.convertToChild(head, headnoseshadow);
+		this.convertToChild(head, righthairpin);
+		this.convertToChild(head, lefthairpin);
+		this.convertToChild(rightarm, rightpauldron);
+		this.convertToChild(leftarm, leftpauldron);
+		this.convertToChild(rightleg, rightleglower);
+		this.convertToChild(rightleg, rightfootlower);
+		this.convertToChild(leftleg, leftleglower);
+		this.convertToChild(leftleg, leftfootlower);
 	}
 
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
-		this.head.render(par7);
-		this.headaccessory.render(par7);
-		this.neck.render(par7);
-		this.bodytop.render(par7);
-		this.bodymiddle.render(par7);
-		this.bodymiddlebutton.render(par7);
-		this.bodybottom.render(par7);
-		this.rightchest.render(par7);
-		this.leftchest.render(par7);
-		this.rightarm.render(par7);
-		this.leftarm.render(par7);
-		this.rightleg.render(par7);
-		this.leftleg.render(par7);
-		this.righthair.render(par7);
-		this.lefthair.render(par7);
-		this.righthairpin.render(par7);
-		this.leftthairpin.render(par7);
-//		this.rightear.render(par7);
-//		this.leftear.render(par7);
-//		this.rightpauldron.render(par7);
-//		this.leftpauldron.render(par7);
-		this.watch.render(par7);
-		this.tail.render(par7);
-		this.waist1.render(par7);
-		this.waist2.render(par7);
-		this.waist3.render(par7);
-		this.rightleglower.render(par7);
-		this.leftleglower.render(par7);
-		this.rightfootlower.render(par7);
-		this.leftfootlower.render(par7);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		this.head.render(scale);
+		this.headaccessory.render(scale);
+		this.neck.render(scale);
+		this.bodytop.render(scale);
+		this.bodymiddle.render(scale);
+		this.bodymiddlebutton.render(scale);
+		this.bodybottom.render(scale);
+		this.rightchest.render(scale);
+		this.leftchest.render(scale);
+		this.rightarm.render(scale);
+		this.leftarm.render(scale);
+		this.rightleg.render(scale);
+		this.leftleg.render(scale);
+//		this.righthair.render(scale);
+//		this.lefthair.render(scale);
+//		this.righthairpin.render(scale);
+//		this.lefthairpin.render(scale);
+//		this.rightear.render(scale);
+//		this.leftear.render(scale);
+//      this.headnose.render(scale);
+//      this.headnoseshadow.render(scale);
+//		this.rightpauldron.render(scale);
+//		this.leftpauldron.render(scale);
+		this.watch.render(scale);
+		this.tail.render(scale);
+		this.waist1.render(scale);
+		this.waist2.render(scale);
+		this.waist3.render(scale);
+//		this.rightleglower.render(scale);
+//		this.leftleglower.render(scale);
+//		this.rightfootlower.render(scale);
+//		this.leftfootlower.render(scale);
 
-		if (entity.ticksExisted % 60 == 0 && par3 <= 0.1F) {
-			this.headeyes.render(par7);
-		} 
+		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+			this.headeyes.render(scale);
+		}
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//head
-		this.head.rotateAngleY = par4 / 57.295776F;
-		this.head.rotateAngleX = par5 / 57.295776F;
+		this.head.rotateAngleY = netHeadYaw / 57.295776F;
+		this.head.rotateAngleX = headPitch / 57.295776F;
 		this.headeyes.rotateAngleY = this.head.rotateAngleY;
 		this.headeyes.rotateAngleX = this.head.rotateAngleX;
 		this.headaccessory.rotateAngleY = this.head.rotateAngleY;
 		this.headaccessory.rotateAngleX = this.head.rotateAngleX;
-		this.righthair.rotateAngleY = this.head.rotateAngleY + 0.0872665F;
-		this.lefthair.rotateAngleY = this.head.rotateAngleY - 0.0872665F;
-		this.righthairpin.rotateAngleY = this.head.rotateAngleY;
-		this.leftthairpin.rotateAngleY = this.head.rotateAngleY;
+//		this.righthair.rotateAngleY = this.head.rotateAngleY + 0.0872665F;
+//		this.lefthair.rotateAngleY = this.head.rotateAngleY - 0.0872665F;
+//		this.righthairpin.rotateAngleY = this.head.rotateAngleY + 0.0872665F;
+//		this.lefthairpin.rotateAngleY = this.head.rotateAngleY - 0.0872665F;
 		
 		//arms
-		this.rightarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.8F * par2 * 0.5F;
-		this.leftarm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2 * 0.5F;
+		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 		
 		this.rightarm.rotateAngleZ = 0.0F;
 		this.leftarm.rotateAngleZ = 0.0F;
 
-        this.rightarm.rotateAngleZ += (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.rightarm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.025F;
-        this.leftarm.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.025F;
+        this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+        this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 		
 		//body
-		this.tail.rotateAngleY = MathHelper.cos(par1 * 0.6662F) * 0.5F * par2;
+		this.tail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 		
 		//legs
-		this.rightleg.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 0.5F * par2) * 0.5F;
-		this.rightleglower.rotateAngleX = this.rightleg.rotateAngleX - 0.3490659F;
-		this.rightfootlower.rotateAngleX = this.rightleg.rotateAngleX + 0.0872665F;
-		this.rightleg.rotateAngleX = this.rightleg.rotateAngleX - 0.3490659F;
-		this.leftleg.rotateAngleX = (MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.5F * par2) * 0.5F;
-		this.leftleglower.rotateAngleX = this.leftleg.rotateAngleX - 0.3490659F;
-		this.leftfootlower.rotateAngleX = this.leftleg.rotateAngleX + 0.0872665F;
-		this.leftleg.rotateAngleX = this.leftleg.rotateAngleX - 0.3490659F;
-	}
-	
-	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
-		parChild.rotationPointX -= parParent.rotationPointX;
-		parChild.rotationPointY -= parParent.rotationPointY;
-		parChild.rotationPointZ -= parParent.rotationPointZ;
-		parChild.rotateAngleX -= parParent.rotateAngleX;
-		parChild.rotateAngleY -= parParent.rotateAngleY;
-		parChild.rotateAngleZ -= parParent.rotateAngleZ;
-		parParent.addChild(parChild);
+		this.rightleg.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 0.5F;
+		this.rightleg.rotateAngleX -= 0.3490659F;
+		this.leftleg.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.5F * limbSwingAmount) * 0.5F;
+		this.leftleg.rotateAngleX -= 0.3490659F;
 	}
 }

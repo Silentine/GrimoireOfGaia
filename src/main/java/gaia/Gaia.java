@@ -1,23 +1,20 @@
 package gaia;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import gaia.init.Aspects_Entity;
 import gaia.init.Aspects_Items;
-import gaia.init.GaiaBlock;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaEntity;
-import gaia.init.GaiaItem;
+import gaia.init.GaiaItems;
 import gaia.init.GaiaSpawning;
-import gaia.items.GaiaItemHandlerFuel;
+import gaia.init.Sounds;
+import gaia.items.GaiaIFuelHandler;
 import gaia.proxy.CommonProxy;
+import gaia.util.GaiaICommand;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -25,10 +22,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@Mod 	(
 		modid = GaiaReference.MOD_ID, 
 		name = GaiaReference.MOD_NAME, 
 		version = GaiaReference.VERSION,
@@ -53,7 +53,7 @@ public class Gaia {
 	public static CreativeTabs tabGaia = new CreativeTabs("tabGaia") {
 		@Override
 		public Item getTabIconItem() {
-			return GaiaItem.MiscBook;
+			return GaiaItems.MiscBook;			
 		}
 	};
 
@@ -67,26 +67,34 @@ public class Gaia {
 		if(isThaumcraftEnabled)logger.info("Loading With Thaumcraft");
 		else{logger.info("Loading Without Thaumcraft");}
 
-		GaiaConfigGeneration.configOptions(event);
+		GaiaConfigGeneration.configOptions(event);	
+		logger.info("Registering Items");
+		GaiaBlocks.init();
+		GaiaBlocks.register();
+		GaiaItems.init();
+		GaiaItems.register();
+		logger.info("Items Registered");
+		GaiaItems.oreRegistration();
 
-		GaiaBlock.init();
-		GaiaBlock.register();
-		GaiaItem.init();
-		GaiaItem.register();
-		GaiaItem.oreRegistration();
-
+		Sounds.Sounds_Init();
 		proxy.registerItemsRender();
 		proxy.registerBlocksRender();
+		proxy.registerHandlers();
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		GameRegistry.registerFuelHandler(new GaiaItemHandlerFuel());
-		GaiaItem.addRecipes();
+		GameRegistry.registerFuelHandler(new GaiaIFuelHandler());
+		GaiaBlocks.addRecipes();
+
+		GaiaItems.addRecipes();
+		GaiaItems.addFurnaceRecipes();
+		GaiaItems.addBrews();
+
+		logger.info("Registering Entities");
 		GaiaEntity.register();
-		GaiaSpawning.register();
-		//TEMP_Spawning.register_spawn();
-		
+		logger.info("Entities Registered");
+
 		if(isThaumcraftEnabled){
 			logger.info("Registering Aspects");	
 			Aspects_Entity.Entity_Aspects();
@@ -96,15 +104,21 @@ public class Gaia {
 
 		proxy.registerRenders();    	
 
-		MinecraftForge.EVENT_BUS.register(this);	
-	}
+		MinecraftForge.EVENT_BUS.register(this);
 
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-		if (eventArgs.modID.equals(GaiaReference.MOD_ID))
-			GaiaConfigGeneration.syncConfig();
+		if(GaiaConfig.Biome_Tweaks)
+			GaiaSpawning.Biome_Tweaks();
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void serverLoad(FMLServerStartingEvent event) {
+		event.registerServerCommand(new GaiaICommand());
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		//Moved Spawning registry to last since forge doesn't auto-generate sub "M' biomes until late
+		if(GaiaConfig.Enable_Spawn)
+			GaiaSpawning.register();
+	}
 }

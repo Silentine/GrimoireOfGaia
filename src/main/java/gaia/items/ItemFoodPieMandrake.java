@@ -4,46 +4,36 @@ import gaia.Gaia;
 
 import java.util.List;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFoodPieMandrake extends ItemFood {
-
-	String texture;
-
-	public ItemFoodPieMandrake(int par2, float par3, boolean par4, String texture) {
-		super(par2, par3, par4);
-		this.texture = texture;
+public class ItemFoodPieMandrake extends GaiaItemFood {
+	
+	public ItemFoodPieMandrake(int amount, float saturation, boolean isWolfFood, String name) {
+		super(amount, saturation, isWolfFood);
 		this.maxStackSize = 1;
-		this.setUnlocalizedName("GrimoireOfGaia.FoodPieMandrake");
+		this.setUnlocalizedName(name);
 		this.setCreativeTab(Gaia.tabGaia);
 	}
 
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
-		par3List.add(StatCollector.translateToLocal("potion.nightVision") + " (3:00)");
-		par3List.add(StatCollector.translateToLocal("potion.waterBreathing") + " (3:00)");
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainExperience"));
+		tooltip.add(I18n.translateToLocal("effect.nightVision") + " (3:00)");
+		tooltip.add(I18n.translateToLocal("effect.waterBreathing") + " (3:00)");
 	}
 	
-	protected void onFoodEaten(ItemStack par1ItemStack, World par2world, EntityPlayer par3EntityPlayer) {
-		EntityXPOrb entity = new EntityXPOrb(par2world, par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, itemRand.nextInt(14) + 6);
-		spawnEntity(par3EntityPlayer.posX, par3EntityPlayer.posY + 1, par3EntityPlayer.posZ, entity, par2world, par3EntityPlayer);
-        
-		par3EntityPlayer.heal(4.0F);
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 3600, 0));
-		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 3600, 0));
+	@Override
+	public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+		rewardEXP(player,itemRand.nextInt(16) + 8);        
+		player.heal(4.0F);
+		player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 3600, 0));
+		player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 3600, 0));
 	}
-	
-    public static void spawnEntity (double x, double y, double z, Entity entity, World world, EntityPlayer player) {
-        if (!world.isRemote) {
-            world.spawnEntityInWorld(entity);
-        }
-    }
 }

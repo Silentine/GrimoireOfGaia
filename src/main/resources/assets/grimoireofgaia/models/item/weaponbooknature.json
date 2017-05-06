@@ -1,6 +1,6 @@
 {
-    "parent": "grimoireofgaia:item/weapondebug",
+    "parent": "grimoireofgaia:item/weaponbook",
     "textures": {
-        "0": "grimoireofgaia:items/models/WeaponBookNature"
+        "0": "grimoireofgaia:items/models/book/WeaponBookNature"
     }
 }

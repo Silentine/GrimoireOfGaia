@@ -1,7 +1,5 @@
 package gaia.renderer.tileentity;
 
-import org.lwjgl.opengl.GL11;
-
 import gaia.GaiaReference;
 import gaia.model.tileentity.TileModelDoll;
 import gaia.tileentity.TileEntityDollMaid;
@@ -9,14 +7,18 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.GL11;
+
 public class TileRenderDollMaid extends TileEntitySpecialRenderer {
 	public ResourceLocation texture;
 	private TileModelDoll model = new TileModelDoll();
 
 	public void renderModel(TileEntityDollMaid te, double d, double d1, double d2, float f) {
-		this.texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/Doll_Maid.png");
+		this.texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/DollMaid.png");
+
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d + 0.5F, (float)d1 + 1.5F, (float)d2 + 0.5F);
+		
 		if (te.direction == 0) {
 			GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
 		}

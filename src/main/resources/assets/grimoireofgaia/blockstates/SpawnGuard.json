@@ -1,6 +1,5 @@
 {
-    "variants": 
-    {
+    "variants": {
         "type=north":   { "model": "grimoireofgaia:spawnguard", "y": 180           },
         "type=south":   { "model": "grimoireofgaia:spawnguard", "y": 270           },
         "type=west":    { "model": "grimoireofgaia:spawnguard"                     },

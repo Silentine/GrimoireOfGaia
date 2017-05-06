@@ -1,34 +1,47 @@
 package gaia.items;
 
+import gaia.Gaia;
+
 import java.util.List;
 
-import gaia.Gaia;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponProp extends Item {
-	String texture;
 
-	public ItemWeaponProp(String texture) {
-		this.texture = texture;
+	public ItemWeaponProp(String name) {
+		this.maxStackSize = 1;
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("GrimoireOfGaia.WeaponProp");
 		this.setCreativeTab(Gaia.tabGaia);
+		this.setUnlocalizedName(name);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
-
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("item.GrimoireOfGaia.WeaponProp.desc"));
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.Prop.tag")));
+	}
+	
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
+		EntityPlayer player = host instanceof EntityPlayer ? (EntityPlayer)host : null;
+		
+		if (!player.capabilities.isCreativeMode) {
+			--stack.stackSize;
+		}
+		
+		return true;
 	}
 
 	public boolean isFull3D() {
@@ -37,7 +50,7 @@ public class ItemWeaponProp extends Item {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 5; i ++) {
+		for (int i = 0; i < 6; i ++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

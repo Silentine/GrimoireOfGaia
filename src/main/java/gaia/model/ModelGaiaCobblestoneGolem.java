@@ -1,16 +1,19 @@
 package gaia.model;
 
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/** 
+ * @see ModelIronGolem
+ */
 @SideOnly(Side.CLIENT)
-public class ModelGaiaCobblestoneGolem extends ModelBase {
+public class ModelGaiaCobblestoneGolem extends ModelGaia {
 	ModelRenderer crown;
 	ModelRenderer head;
 	ModelRenderer nose;
@@ -154,62 +157,45 @@ public class ModelGaiaCobblestoneGolem extends ModelBase {
 		this.convertToChild(leftshoulder, leftarmupper);
 		this.convertToChild(leftshoulder, leftarmlower);
 		this.convertToChild(leftshoulder, lefthand);
+		this.convertToChild(rightlegupper, rightleglower);
+		this.convertToChild(leftlegupper, leftleglower);
 	}
 
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		super.render(entity, par2, par3, par4, par5, par6, par7);
-		this.setRotationAngles(par2, par3, par4, par5, par6, par7);
-		this.head.render(par7);
-//		this.crown.render(par7);
-//		this.nose.render(par7);
-//		this.mouth.render(par7);
-		this.back.render(par7);
-		this.rightshoulder.render(par7);
-//		this.rightarmupper.render(par7);
-//		this.rightarmlower.render(par7);
-//		this.righthand.render(par7);
-		this.leftshoulder.render(par7);
-//		this.leftarmupper.render(par7);
-//		this.leftarmlower.render(par7);
-//		this.lefthand.render(par7);
-		this.body.render(par7);
-		this.bodymid.render(par7);
-		this.bodylower.render(par7);
-		this.rightlegupper.render(par7);
-		this.rightleglower.render(par7);
-		this.leftlegupper.render(par7);
-		this.leftleglower.render(par7);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		this.head.render(scale);
+		this.back.render(scale);
+		this.rightshoulder.render(scale);
+		this.leftshoulder.render(scale);
+		this.body.render(scale);
+		this.bodymid.render(scale);
+		this.bodylower.render(scale);
+		this.rightlegupper.render(scale);
+		this.leftlegupper.render(scale);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
-
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//head
-		this.head.rotateAngleY = par4 / 57.295776F;
-		this.head.rotateAngleX = (par5 / 57.295776F) + 0.2617994F;
+		this.head.rotateAngleY = netHeadYaw / 57.295776F;
+		this.head.rotateAngleX = (headPitch / 57.295776F) + 0.2617994F;
 		
 		//arms
-		this.rightshoulder.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.8F * par2 * 0.5F;
-		this.leftshoulder.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.8F * par2 * 0.5F;
+		this.rightshoulder.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+		this.leftshoulder.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 		
 		this.rightshoulder.rotateAngleZ = 0.0F;
 		this.leftshoulder.rotateAngleZ = 0.0F;
         
-        this.rightshoulder.rotateAngleZ += (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-        this.rightshoulder.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.05F;
-        this.leftshoulder.rotateAngleZ -= (MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-        this.leftshoulder.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.05F;
+        this.rightshoulder.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+        this.rightshoulder.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        this.leftshoulder.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+        this.leftshoulder.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		
 		//legs
-		this.rightlegupper.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 0.5F * par2;
-		this.leftlegupper.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 0.5F * par2;
-		this.rightleglower.rotateAngleX = this.rightlegupper.rotateAngleX - 0.2617994F;
-		this.leftleglower.rotateAngleX = this.leftlegupper.rotateAngleX - 0.2617994F;
+		this.rightlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 		this.rightlegupper.rotateAngleX -= 0.2617994F;
+		this.leftlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.5F * limbSwingAmount;
 		this.leftlegupper.rotateAngleX -= 0.2617994F;
 	}
 	
@@ -220,30 +206,10 @@ public class ModelGaiaCobblestoneGolem extends ModelBase {
 		if (i > 0) {
 			this.rightshoulder.rotateAngleX = -2.0F + 1.5F * this.func_78172_a((float)i - partialTickTime, 10.0F);
 			this.leftshoulder.rotateAngleX = -2.0F + 1.5F * this.func_78172_a((float)i - partialTickTime, 10.0F);
-		} else {
-			int j = entitygaiacobblestonegolem.getHoldRoseTick();
-
-			if (j > 0) {
-				this.rightshoulder.rotateAngleX = -0.8F + 0.025F * this.func_78172_a((float)j, 70.0F);
-				this.leftshoulder.rotateAngleX = 0.0F;
-			} else {
-				this.rightshoulder.rotateAngleX = (-0.2F + 1.5F * this.func_78172_a(p_78086_2_, 13.0F)) * p_78086_3_;
-				this.leftshoulder.rotateAngleX = (-0.2F - 1.5F * this.func_78172_a(p_78086_2_, 13.0F)) * p_78086_3_;
-			}
 		}
 	}
 	
     private float func_78172_a(float p_78172_1_, float p_78172_2_) {
         return (Math.abs(p_78172_1_ % p_78172_2_ - p_78172_2_ * 0.5F) - p_78172_2_ * 0.25F) / (p_78172_2_ * 0.25F);
     }
-    
-	protected void convertToChild(ModelRenderer parParent, ModelRenderer parChild) {
-		parChild.rotationPointX -= parParent.rotationPointX;
-		parChild.rotationPointY -= parParent.rotationPointY;
-		parChild.rotationPointZ -= parParent.rotationPointZ;
-		parChild.rotateAngleX -= parParent.rotateAngleX;
-		parChild.rotateAngleY -= parParent.rotateAngleY;
-		parChild.rotateAngleZ -= parParent.rotateAngleZ;
-		parParent.addChild(parChild);
-	}
 }

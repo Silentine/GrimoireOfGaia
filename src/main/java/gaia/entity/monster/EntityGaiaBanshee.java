@@ -1,56 +1,73 @@
 package gaia.entity.monster;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobBase;
-import gaia.entity.ai.EntityAIGaiaAttackOnCollide;
-import gaia.init.GaiaItem;
+import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaItems;
+import gaia.init.Sounds;
+import gaia.items.ItemShard;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaBanshee extends EntityMobBase {
+public class EntityGaiaBanshee extends EntityMobHostileBase {
 
-	public EntityGaiaBanshee(World par1World) {
-		super(par1World);
+	public EntityGaiaBanshee(World worldIn) {
+		super(worldIn);
 		this.experienceValue = EntityAttributes.experienceValue2;
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
+	}
+	
+    protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-	}
+    }
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage2);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
+	}
+	
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (damage > EntityAttributes.baseDefense2) {
+			damage = EntityAttributes.baseDefense2;
+		}
+		
+		return super.attackEntityFrom(source, damage);
+	}
+	
+    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
 	}
 
-	public int getTotalArmorValue() {
-		return EntityAttributes.rateArmor2;
-	}
-
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		if (super.attackEntityAsMob(par1Entity)) {
-			((EntityLivingBase)par1Entity).setFire(6);
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			((EntityLivingBase)entityIn).setFire(6);
 		}
 		return true;
 	}
@@ -65,9 +82,10 @@ public class EntityGaiaBanshee extends EntityMobBase {
 		}
 
 		if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
-			float i = this.getBrightness(1.0F);
-			if (i > 0.5F && this.worldObj.canSeeSky(this.getPosition())) {
-
+			float f = this.getBrightness(1.0F);
+			
+			if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(this.getPosition())) {
+		        this.worldObj.setEntityState(this, (byte)13);
 				this.attackEntityFrom(DamageSource.outOfWorld, EntityAttributes.maxHealth2 * 0.25F);
 			}
 		}
@@ -78,66 +96,90 @@ public class EntityGaiaBanshee extends EntityMobBase {
 
 		super.onLivingUpdate();
 	}
+	
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+    	if (id == 13)
+    		this.spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
+    	else
+    		super.handleStatusUpdate(id);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private void spawnParticles(EnumParticleTypes particleType) {
+        for (int i = 0; i < 5; ++i) {
+            double d0 = this.rand.nextGaussian() * 0.02D;
+            double d1 = this.rand.nextGaussian() * 0.02D;
+            double d2 = this.rand.nextGaussian() * 0.02D;
+            this.worldObj.spawnParticle(particleType, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2, new int[0]);
+        }
+    }
 
-	protected String getLivingSound() {
-		return "grimoireofgaia:aggressive_say";
+	protected SoundEvent getAmbientSound() {
+		return Sounds.aggressive_say;
 	}
 
-	protected String getHurtSound() {
-		return "grimoireofgaia:aggressive_hurt";
+	protected SoundEvent getHurtSound() {
+		return Sounds.aggressive_hurt;
 	}
 
-	protected String getDeathSound() {
-		return "grimoireofgaia:aggressive_death";
+	protected SoundEvent getDeathSound() {
+		return Sounds.aggressive_death;
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.worldObj.playSoundAtEntity(this, "grimoireofgaia:none", 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, Block blockIn) {	
+		this.playSound(Sounds.none, 1.0F, 1.0F);
 	}
 
-	protected void dropFewItems(boolean par1, int par2) {
-		int var3 = this.rand.nextInt(3 + par2);
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			int var3 = this.rand.nextInt(3 + lootingModifier);
 
-		for (int var4 = 0; var4 < var3; ++var4) {
-			this.dropItem(GaiaItem.MiscSoulFire, 1);
-		}
+			for (int var4 = 0; var4 < var3; ++var4) {
+				this.dropItem(GaiaItems.MiscSoulFire, 1);
+			}
 
-		//Shards
-		int var11 = this.rand.nextInt(3) + 1 ;
+			//Nuggets/Fragments
+			int var11 = this.rand.nextInt(3) + 1 ;
 
-		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 1), 0.0F);
-		}
-		
-		if (par1 && (this.rand.nextInt(4) == 0 || this.rand.nextInt(1) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 3), 0.0F);
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this,1);
+			}
+
+			if (GaiaConfig.AdditionalOre == true) {
+				int var13 = this.rand.nextInt(3) + 1;
+
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this,5);
+				}
+			}
 		}
 	}
 	
+	//Rare
 	protected void addRandomDrop() {
 		switch (this.rand.nextInt(3)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxGold, 1);
+			this.dropItem(GaiaItems.BoxGold, 1);
 			break;
 		case 1:
-			this.dropItem(GaiaItem.BagBook, 1);
+			this.dropItem(GaiaItems.BagBook, 1);
 			break;
 		case 2:
-			this.dropItem(GaiaItem.BookNightmare, 1);
+			this.dropItem(GaiaItems.BookNightmare, 1);
 		}
 	}
-
-	public void fall(float distance, float damageMultiplier) {}
-
-	public void setInWeb() {}
-
+	
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockback2);
-	}
+
+	//================= Immunities =================//
+	public void fall(float distance, float damageMultiplier) {}
+
+	public void setInWeb() {}
+	//==============================================//
 
 	public boolean getCanSpawnHere() {
 		return this.posY > 60.0D && super.getCanSpawnHere();

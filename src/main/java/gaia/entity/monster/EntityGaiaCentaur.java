@@ -1,17 +1,19 @@
 package gaia.entity.monster;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobAssistDay;
-import gaia.entity.EntityMobDay;
-import gaia.init.GaiaItem;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
+import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
+import gaia.entity.ai.GaiaIRangedAttackMob;
+import gaia.entity.ai.Ranged;
+import gaia.init.GaiaItems;
+import gaia.init.Sounds;
+import gaia.items.ItemShard;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -19,111 +21,106 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAttackMob {
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
-	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, 1.0D, 1.4D);
+public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+	
+	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.attackSpeed1, 20, 15.0F);
+	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 4.0F, EntityAttributes.attackSpeed1, EntityAttributes.attackSpeed3);
+	
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
+	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
+	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 	
 	private int fullHealth;
 	private int regenerateHealth;
 
-	public EntityGaiaCentaur(World par1World) {
-		super(par1World);
+	public EntityGaiaCentaur(World worldIn) {
+		super(worldIn);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
+
+		this.fullHealth = 0;
+		this.regenerateHealth = 0;
+	}
+	
+    protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
-//NULL	this.tasks.addTask(1, new EntityAIGaiaAttackOnCollide(this, 1.0D, true));
+//		this.tasks.addTask(1, new RESERVED);
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		this.fullHealth = 0;
-		this.regenerateHealth = 0;
-	}
+    }
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)EntityAttributes.attackDamage1);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(EntityAttributes.followrange);
-	}
-
-	public int getTotalArmorValue() {
-		return EntityAttributes.rateArmor1;
-	}
-
-	public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, par1EntityLivingBase, 1.6F, (float)(14 - this.worldObj.getDifficulty().ordinal() * 4));
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(par2 * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.getDifficulty().ordinal() * 0.11F));
-		if (i > 0) {
-			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
-		}
-
-		if (j > 0) {
-			entityarrow.setKnockbackStrength(j);
-		}
-
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0) {
-			entityarrow.setFire(100);
-		}
-
-		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(entityarrow);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
 	}
 	
-	@Override
-    public boolean canAttackClass(Class par1Class) {
-        return super.canAttackClass(par1Class) && par1Class != EntityGaiaCentaur.class;
-    }
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (damage > EntityAttributes.baseDefense1) {
+			damage = EntityAttributes.baseDefense1;
+		}
+		
+		return super.attackEntityFrom(source, damage);
+	}
+	
+    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	}
 
 	public boolean isAIEnabled() {
 		return true;
 	}
-	
-	//TODO Millinaire/MCA support
-	/*
-	public void setTarget(Entity par1Entity) {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-		if(elements.length > 2) {
-			StackTraceElement previousMethod = elements[2];
-			if(previousMethod.getClassName().startsWith("org.millenaire.") && previousMethod.getMethodName().equals("triggerMobAttacks")) {
-				return;
-			}
-		}
 		
-		super.setTarget(par1Entity);
-	}
-	*/
-	
 	public void onLivingUpdate() {
 		if ((this.getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (this.fullHealth == 0)) {
-            this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, 16341));
+            ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionTypes.REGENERATION);
+            this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stacky);
 			this.tasks.removeTask(this.aiArrowAttack);
 			this.tasks.addTask(1, this.aiAvoid);
 			this.fullHealth = 1;
+		}
+		
+		if (this.fullHealth == 1) {
+			if (this.ticksExisted % 10 == 0) {
+				this.worldObj.setEntityState(this, (byte)8);
+			}
 		}
 
 		if ((this.getHealth() < EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
 			if (this.regenerateHealth <= 100) {
 				++this.regenerateHealth;
 			} else {
-				this.playSound("random.drink", 0.15F, 1.0F);
-				this.addPotionEffect(new PotionEffect(Potion.regeneration.id, 360, 3));
+				this.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.15F, 1.0F);
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 360, 3));
 				this.regenerateHealth = 0;
 			}
 		} else if ((this.getHealth() >= EntityAttributes.maxHealth1) && (this.fullHealth == 1)) {
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-			this.removePotionEffect(Potion.regeneration.id);
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+			this.removePotionEffect(MobEffects.REGENERATION);
 			this.tasks.removeTask(this.aiAvoid);
 			this.tasks.addTask(1, this.aiArrowAttack);
 			this.fullHealth = 0;
@@ -132,72 +129,105 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements IRangedAtta
 
 		super.onLivingUpdate();
 	}
-
-	protected String getLivingSound() {
-		return "grimoireofgaia:assist_say";
+	
+	//================= Archer data =================//
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		Ranged.RangedAttack(target, this, distanceFactor);
 	}
 
-	protected String getHurtSound() {
-		return "grimoireofgaia:assist_hurt";
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
 	}
 
-	protected String getDeathSound() {
-		return "grimoireofgaia:assist_death";
+	@Override
+    public boolean canAttackClass(Class par1Class) {
+        return super.canAttackClass(par1Class) && par1Class != EntityGaiaCentaur.class;
+    }
+
+	@SideOnly(Side.CLIENT)
+	public boolean isHoldingBow() {
+		return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();
 	}
 
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
-		this.playSound("mob.pig.step", 0.15F, 1.0F);
+	public void setHoldingBow(boolean swingingArms) {
+		this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));
+	}
+	//==================================//
+
+	protected SoundEvent getAmbientSound() {
+		return Sounds.assist_say;
 	}
 
-	protected void dropFewItems(boolean par1, int par2) {		
-		if (par1 && (this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-			this.dropItem(Items.leather, 1);
+	protected SoundEvent getHurtSound() {
+		return Sounds.assist_hurt;
+	}
+
+	protected SoundEvent getDeathSound() {
+		return Sounds.assist_death;
+	}
+
+	protected void playStepSound(BlockPos pos, Block blockIn) {		
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
+	
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+				this.dropItem(Items.LEATHER, 1);
+			}
+
+			//Nuggets/Fragments
+			int var11 = this.rand.nextInt(3) + 1;
+
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this,0);
+			}
+
+			if (GaiaConfig.AdditionalOre == true) {
+				int var13 = this.rand.nextInt(3) + 1;
+
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this,4);
+				}
+			}
 		}
-		
-		//Shards
-		int var11 = this.rand.nextInt(3) + 1;
-
-		for (int var12 = 0; var12 < var11; ++var12) {
-            this.entityDropItem(new ItemStack(GaiaItem.Shard, 1, 0), 0.0F);
-		}
 	}
 
+	//Rare
 	protected void addRandomDrop() {
 		switch(this.rand.nextInt(2)) {
 		case 0:
-			this.dropItem(GaiaItem.BoxIron, 1);
+			this.dropItem(GaiaItems.BoxIron, 1);
 			break;
 		case 1:
-			this.experienceValue = EntityAttributes.experienceValue1 * 5;
+			this.dropItem(GaiaItems.BagArrow, 1);
 		}
 	}
 	
 	@Override
-    protected void dropEquipment(boolean p_82160_1_, int p_82160_2_) {}
+    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-		this.setEnchantmentBasedOnDifficulty(difficulty);
-		return livingdata;		
-    }
-	
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
-		if (!this.worldObj.isRemote && par1 == 0) {
-			this.setCombatTask();
-		}
-	}
-	
-	public void setCombatTask() {
+		
 		this.tasks.removeTask(this.aiAvoid);
 		this.tasks.addTask(1, this.aiArrowAttack);
-	}
-	
-	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {
-		super.knockBack(par1Entity, par2, par3, par5, EntityAttributes.knockbackbase);
-	}
-	
+		
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+		this.setEnchantmentBasedOnDifficulty(difficulty);
+		
+		if (this.worldObj.rand.nextInt(2) == 0) {
+			if (this.worldObj.rand.nextInt(2) == 0) {
+				this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
+			} else {
+				this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM_2);
+			}
+		}
+		
+		return livingdata;		
+    }
+
 	public boolean getCanSpawnHere() {
 		return this.posY > 60.0D && super.getCanSpawnHere();
 	}
