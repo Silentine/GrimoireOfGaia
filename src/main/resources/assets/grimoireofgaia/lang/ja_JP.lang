@@ -12,7 +12,6 @@ item.FoodRoot.name=太い根っこ
 item.FoodCoalfish.name=炭魚
 item.FoodNetherWart.name=成熟したネザーウォート
 item.FoodSmallAppleGold.name=金のアップルパイのスライス
-item.FoodExperience.name=経験値の飴
 item.FoodMandrake.name=マンドレイク
 item.FoodWither.name=しなびた脳みそ
 item.FoodPieMandrake.name=マンドレイクのパイ
@@ -22,6 +21,9 @@ item.MiscSoulFire.name=ソウルファイア
 item.MiscSoulFiery.name=火炎の欠片
 item.MiscGigaGear.name=ギガナイトの心臓
 item.MiscFur.name=毛皮
+item.MiscExperience_0.name=結晶化した経験値(小)
+item.MiscExperience_1.name=結晶化した経験値(中)
+item.MiscExperience_2.name=結晶化した経験値(大)
 item.MiscBook.name=記憶の本
 item.MiscQuill.name=ダイヤの魔法の羽ペン
 item.MiscRing_0.name=非活性な迅速の指輪
@@ -41,23 +43,33 @@ item.SpawnTrader.name=トレーダーの卵
 item.SpawnHolstaurus.name=ホルスタウルスの卵
 item.SpawnWeresheep.name=ワーシープの卵
 item.SpawnTame.name=お弁当
-item.BoxIron.name=鉄のバッグ
-item.BoxGold.name=金のバッグ
-item.BoxDiamond.name=ダイヤモンドのバッグ
-item.BagOre.name=鉱石の鞄
-item.BagPotion.name=ポーションの鞄
-item.BagBook.name=本の鞄
+item.BoxIron.name=鉄の箱
+item.BoxGold.name=金の箱
+item.BoxDiamond.name=ダイヤモンドの箱
+item.Box_0.name=鉱石の箱
+item.Box_1.name=ネザーの箱
+item.Box_2.name=エンドの箱
+item.BagOre.name=鉱石かばん
+item.BagBook.name=本のかばん
 item.BagRecord.name=レコードボックス
+item.BagArrow.name=封された矢筒
 item.BoxOld.name=古びたラゲッジ
-item.WeaponProp_0.name=エンドの杖(小道具)
-item.WeaponProp_1.name=火炎の杖(小道具)
-item.WeaponProp_2.name=槍(小道具)
-item.WeaponProp_3.name=短剣(小道具)
-item.WeaponProp_4.name=扇(小道具)
-item.WeaponPropProjectile_0.name=魔法(小道具)
-item.WeaponPropEnchanted_0.name=球(小道具)
+item.Chest_0.name=ダンジョンチェスト
+item.Chest_1.name=ジャングルチェスト
+item.Chest_2.name=砂漠チェスト
+item.WeaponProp_0.name=エンドの杖
+item.WeaponProp_1.name=火炎の杖
+item.WeaponProp_2.name=金属の槍
+item.WeaponProp_3.name=金属の短剣
+item.WeaponProp_4.name=金属の扇
+item.WeaponProp_5.name=大きな金属の戦斧
+item.WeaponPropProjectile_0.name=魔法
+item.WeaponPropEnchanted_0.name=見えない武器
+item.ShieldProp_0.name=鉄の盾
+item.ShieldProp_1.name=金の盾
 item.WeaponFanIce.name=豪奢な氷の扇
 item.WeaponFanFire.name=豪奢な炎の扇
+item.WeaponBook.name=本
 item.WeaponBookFreezing.name=氷結の本
 item.WeaponBookNightmare.name=悪夢の本
 item.WeaponBookMetal.name=金属の本
@@ -73,7 +85,13 @@ item.AccessoryRingSpeed.name=迅速の指輪
 item.AccessoryRingHaste.name=性急の指輪
 item.AccessoryRingJump.name=跳躍の指輪
 item.AccessoryRingNight.name=暗視の指輪
+item.AccessoryTrinketPoison.name=蝦蟇石
+item.AccessoryTrinketWither.name=しなびた心臓
+item.AccessoryTrinketLevitation.name=鎖付き鉄球
 item.AccessoryCursed.name=重いバーベル
+item.AccessoryBauble_0.nameドリヤードの頭
+item.Card_0.name=ドリヤードのカード
+
 item.SpawnEgg.name=スポーン
 
 tile.GrimoireOfGaia.BustValkyrie.name=ヴァルキリーの胸像
@@ -107,6 +125,7 @@ entity.grimoireofgaia.EnderDragonGirl.name=エンダードラゴンガール
 entity.grimoireofgaia.EnderEye.name=エンダーアイ
 entity.grimoireofgaia.FleshLich.name=フレッシュリッチ
 entity.grimoireofgaia.FutakuchiOnna.name=二口女
+entity.grimoireofgaia.Gryphon.name=グリフォン
 entity.grimoireofgaia.Harpy.name=ハーピー
 entity.grimoireofgaia.Hunter.name=狩人
 entity.grimoireofgaia.Kobold.name=コボルド
@@ -149,21 +168,32 @@ entity.grimoireofgaia.Butler.name=執事
 entity.grimoireofgaia.Sporeling.name=胞子の小人
 
 entity.grimoireofgaia.DebugMob.name=デバッグ
- 
-item.GrimoireOfGaia.NegativeStatus.desc=悪いステータスエフェクトを取り除きます
-text.GrimoireOfGaia.RecoverHearts=%d ハート分の体力を回復します
-text.GrimoireOfGaia.LoseHunger=%d 分腹が減ります
+
+text.GrimoireOfGaia.grimoireofgaia.desc=Grimoire of Gaiaのモブにのみ効果があります。
+text.GrimoireOfGaia.NegativeStatus.desc=悪いステータスエフェクトを取り除きます
+text.GrimoireOfGaia.HeartsGain=%d ハート分の体力を回復します
+text.GrimoireOfGaia.HungerLose=%d 分腹が減ります
 text.GrimoireOfGaia.GainExperience=経験値を得ます
-text.GrimoireOfGaia.RightClickUse=経験値を得ます
 text.GrimoireOfGaia.GainLevels=%d レベルを得ます
+text.GrimoireOfGaia.RightClickUse=右クリックで使用
+text.GrimoireOfGaia.RightClickEquip=右クリックで着用
 text.GrimoireOfGaia.FuelForSeconds=%d 秒燃焼します
-text.GrimoireOfGaia.RightClickUse.desc=右クリックで使用します
 text.GrimoireOfGaia.BlessMainhand=利き手では:
 text.GrimoireOfGaia.BlessOffhand=オフハンドに持ったとき、利き手では:
 text.GrimoireOfGaia.CurseInventory=インベントリ内にあるとき:
-text.GrimoireOfGaia.WIP=開発版
-text.GrimoireOfGaia.Debug=デバッグ
+text.GrimoireOfGaia.InventoryAccessory=ホットバーの1･2番目のスロットにある時:
+text.GrimoireOfGaia.InventoryTrinket=ホットバーの一番最後のスロットにある時
+text.GrimoireOfGaia.InventoryImmunity=抵抗性:  
 
+text.GrimoireOfGaia.Accessory.tag=装飾品
+text.GrimoireOfGaia.Trinket.tag=装身具
+text.GrimoireOfGaia.Prop.tag=モブ用小道具
+text.GrimoireOfGaia.WIP.tag=開発中
+text.GrimoireOfGaia.Debug.tag=デバッグ
+
+text.GrimoireOfGaia.HoldShift=Shiftキーを押すと詳細を表示します
+
+item.GrimoireOfGaia.FoodExperienceIron.desc=1 レベルを得ます   
 item.GrimoireOfGaia.MiscSoulFire.desc=右クリックで炎を設置します
 item.GrimoireOfGaia.MiscSoulFiery.desc=右クリックで溶岩を設置します
 item.GrimoireOfGaia.MiscGigaGear.desc=ギガナイトに残された全てです
@@ -209,20 +239,24 @@ configgui.GrimoireOfGaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nモ�
 configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing=盾による貫通ダメージ防御
 configgui.GrimoireOfGaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\n近接ダメージは盾を貫通しなくなります
 
-configgui.GrimoireOfGaia.category.defense.BaseDefense=基底守備力
-configgui.GrimoireOfGaia.category.defense.BaseDefense.tooltip=\n100分率に基づいた受けるダメージ量を設定します\n(100 = 無効, 0 = 無敵)
+configgui.GrimoireOfGaia.category.defense.Tier1baseDefense=Tier 1 ダメージ上限
+configgui.GrimoireOfGaia.category.defense.Tier1baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
+configgui.GrimoireOfGaia.category.defense.Tier2baseDefense=Tier 2 ダメージ上限
+configgui.GrimoireOfGaia.category.defense.Tier2baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
+configgui.GrimoireOfGaia.category.defense.Tier3baseDefense=Tier 3 ダメージ上限
+configgui.GrimoireOfGaia.category.defense.Tier3baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
 
-configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Level1モブの体力
+configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth=Tier 1 モブの体力
 configgui.GrimoireOfGaia.category.attributes.Tier1maxHealth.tooltip=\n体力:40 (20ハート分).\n(50 = 半分, 200 = 2倍)
-configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage=Level1モブの攻撃力
+configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage=Tier 1 モブの攻撃力
 configgui.GrimoireOfGaia.category.attributes.Tier1attackDamage.tooltip=\nダメージ: 4 (2ハート分).\n(50 = 半分, 200 = 2倍)
-configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth=Level2モブの体力
+configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth=Tier 2 モブの体力
 configgui.GrimoireOfGaia.category.attributes.Tier2maxHealth.tooltip=\n体力:80 (40ハート分).\n(50 = 半分, 200 = 2倍)
-configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage=Level2モブの攻撃力
+configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage=Tier 2 モブの攻撃力
 configgui.GrimoireOfGaia.category.attributes.Tier2attackDamage.tooltip=\nダメージ: 6 (3ハート分).\n(50 = 半分, 200 = 2倍)
-configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth=Level3モブの体力
+configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth=Tier 3 モブの体力
 configgui.GrimoireOfGaia.category.attributes.Tier3maxHealth.tooltip=\n体力:160 (80ハート分).\n(50 = 半分, 200 = 2倍)
-configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage=Level3モブの攻撃力
+configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage=Tier 3 モブの攻撃力
 configgui.GrimoireOfGaia.category.attributes.Tier3attackDamage.tooltip=\nダメージ: 8 (4ハート分).\n(50 = 半分, 200 = 2倍)
 
 configgui.GrimoireOfGaia.category.options.Menu0.Enable_Spawn=スポーン有効
