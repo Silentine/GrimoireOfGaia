@@ -150,12 +150,12 @@ entity.grimoireofgaia.Sporeling.name=胞子の小人
 
 entity.grimoireofgaia.DebugMob.name=デバッグ
  
-item.GrimoireOfGaia.NegativeStatus.desc=悪いステータスエフェクトを消去しました
-text.GrimoireOfGaia.RecoverHearts=%d ハート分の体力を回復しました
-text.GrimoireOfGaia.LoseHunger=%d hunger失いました
-text.GrimoireOfGaia.GainExperience=経験値を得ました
-text.GrimoireOfGaia.RightClickUse=経験値を得ました
-text.GrimoireOfGaia.GainLevels=%d レベルを得ました
+item.GrimoireOfGaia.NegativeStatus.desc=悪いステータスエフェクトを取り除きます
+text.GrimoireOfGaia.RecoverHearts=%d ハート分の体力を回復します
+text.GrimoireOfGaia.LoseHunger=%d 分腹が減ります
+text.GrimoireOfGaia.GainExperience=経験値を得ます
+text.GrimoireOfGaia.RightClickUse=経験値を得ます
+text.GrimoireOfGaia.GainLevels=%d レベルを得ます
 text.GrimoireOfGaia.FuelForSeconds=%d 秒燃焼します
 text.GrimoireOfGaia.RightClickUse.desc=右クリックで使用します
 text.GrimoireOfGaia.BlessMainhand=利き手では:
