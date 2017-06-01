@@ -89,7 +89,7 @@ item.AccessoryTrinketPoison.name=蝦蟇石
 item.AccessoryTrinketWither.name=しなびた心臓
 item.AccessoryTrinketLevitation.name=鎖付き鉄球
 item.AccessoryCursed.name=重いバーベル
-item.AccessoryBauble_0.nameドリヤードの頭
+item.AccessoryBauble_0.name=ドリヤードの頭
 item.Card_0.name=ドリヤードのカード
 
 item.SpawnEgg.name=スポーン
@@ -207,7 +207,6 @@ item.GrimoireOfGaia.SpawnHolstaurus.desc=ホルスタウルスを召喚します
 item.GrimoireOfGaia.SpawnWeresheep.desc=ワーシープを召喚します
 item.GrimoireOfGaia.SpawnTame.desc=モンスターの闘争心を落ち着かせます
 item.GrimoireOfGaia.SpawnTame2.desc=ダメージを受けたモブには効果がありません
-item.GrimoireOfGaia.WeaponProp.desc=小道具
 item.GrimoireOfGaia.WeaponPropInvisible.desc=なんだろうな
 item.GrimoireOfGaia.WeaponBookEnder.desc=右クリックでエンダーパールを射出します
 item.GrimoireOfGaia.WeaponDebug.desc=テスト用
@@ -273,4 +272,4 @@ configgui.GrimoireOfGaia.category.debug.Menu2.Ore_Unity.tooltip=\nモブは他�
 configgui.GrimoireOfGaia.category.debug.Menu3.Debug_Spawn=デバッグスポーン
 configgui.GrimoireOfGaia.category.debug.Menu3.Debug_Spawn.tooltip=(要再起動)\n当Mod以外のモブがスポーンしなくなります。
 configgui.GrimoireOfGaia.category.debug.Menu4.Debug_Commands=デバッグコマンド
-configgui.GrimoireOfGaia.category.debug.Menu4.Debug_Commands.tooltip=(要再起動)\n開発者向けコマンドを有効にします・
+configgui.GrimoireOfGaia.category.debug.Menu4.Debug_Commands.tooltip=(要再起動)\n開発者向けコマンドを有効にします。
