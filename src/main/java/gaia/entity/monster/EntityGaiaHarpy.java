@@ -23,6 +23,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -88,9 +90,9 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
                 byte byte0 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 7;
+                	byte0 = 5;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 15;
+                	byte0 = 10;
                 }
 
 				if (byte0 > 0) {
@@ -176,16 +178,19 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    			}
+    		}
 		}
 	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
-		}
-	}
+	
+	@Override
+    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
 	
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
@@ -196,8 +201,27 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			this.setTextureType(1);
 		}
 		
+		//TEMP Method used instead of isChild
+		if (this.worldObj.rand.nextInt(10) == 0) {
+			this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
+		
 		return livingdata;		
 	}
+	
+    public float getEyeHeight() {
+        float f;
+
+        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+            f = 1.74F;
+        } else {
+            f = (float)((double)1.74F - 0.81D);
+        }
+
+        return f;
+    }
 
 	static class AILeapAttack extends EntityAIAttackMelee {
 		public AILeapAttack(EntityGaiaHarpy entity) {

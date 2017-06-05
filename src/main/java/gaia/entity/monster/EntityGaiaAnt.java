@@ -244,24 +244,24 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
 
-	//Rare
-	protected void addRandomDrop() {
-		if (mobClass == 1) {
-			switch(this.rand.nextInt(2)) {
-			case 0:
-				this.dropItem(GaiaItems.BoxIron, 1);
-				break;
-			case 1:
-				this.dropItem(GaiaItems.BagArrow, 1);
-			}
-		} else {
-			switch(this.rand.nextInt(1)) {
-			case 0:
-				this.dropItem(GaiaItems.BoxIron, 1);
-				break;
+			//Rare
+			if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+				if (mobClass == 1) {
+					switch(this.rand.nextInt(2)) {
+					case 0:
+						this.dropItem(GaiaItems.BoxIron, 1);
+						break;
+					case 1:
+						this.dropItem(GaiaItems.BagArrow, 1);
+					}
+				} else {
+					switch(this.rand.nextInt(1)) {
+					case 0:
+						this.dropItem(GaiaItems.BoxIron, 1);
+						break;
+					}
+				}
 			}
 		}
 	}

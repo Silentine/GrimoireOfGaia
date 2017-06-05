@@ -148,16 +148,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
             super.handleStatusUpdate(id);
     }
 
-    @SideOnly(Side.CLIENT)
-    private void spawnParticles(EnumParticleTypes particleType) {
-        for (int i = 0; i < 5; ++i) {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2, new int[0]);
-        }
-    }
-
 	protected SoundEvent getAmbientSound() {
 		return Sounds.aggressive_say;
 	}
@@ -192,25 +182,25 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollMaid), 1);
+    			}
+    		}
 		}
 		
 		//Boss
 		if (spawnLevel3 == 1) {
 			spawnLevel3();
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-			this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollMaid), 1);
 		}
 	}
 	

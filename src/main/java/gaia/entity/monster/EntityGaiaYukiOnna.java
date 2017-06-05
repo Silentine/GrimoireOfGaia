@@ -178,22 +178,22 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:       
-    		ItemStack FanIce = new ItemStack(GaiaItems.FanIce);
-    		FanIce.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 4);
-    		this.entityDropItem(FanIce, 1);	
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:       
+    	    		ItemStack FanIce = new ItemStack(GaiaItems.FanIce);
+    	    		FanIce.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 4);
+    	    		this.entityDropItem(FanIce, 1);	
+    			}
+    		}
 		}
 	}
 	

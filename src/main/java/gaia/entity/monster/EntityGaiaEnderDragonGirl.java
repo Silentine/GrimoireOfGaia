@@ -320,6 +320,20 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 2), 0.0F);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    				this.dropItem(GaiaItems.BookEnder, 1);
+    			}
+    		}
 
 			//Very Rare
 			if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
@@ -329,20 +343,6 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
 				this.dropItem(Items.ELYTRA,1);
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 2), 0.0F);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-			this.dropItem(GaiaItems.BookEnder, 1);
 		}
 	}
 	

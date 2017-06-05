@@ -19,7 +19,9 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -199,14 +201,14 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    			}
+    		}
 		}
 	}
 	
@@ -221,8 +223,27 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			this.setTextureType(1);
 		}
 		
+		//TEMP Method used instead of isChild
+		if (this.worldObj.rand.nextInt(10) == 0) {
+			this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
+		
 		return livingdata;		
 	}
+	
+    public float getEyeHeight() {
+        float f;
+
+        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+            f = 1.74F;
+        } else {
+            f = (float)((double)1.74F - 0.81D);
+        }
+
+        return f;
+    }
 	
 	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 	

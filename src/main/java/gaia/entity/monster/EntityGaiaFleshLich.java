@@ -151,20 +151,20 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-			break;
-		case 1:
-			this.dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
-			break;
-		case 2:
-			this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+    				break;
+    			case 1:
+    				this.dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
+    				break;
+    			case 2:
+    				this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
+    			}
+    		}
 		}
 	}
 	

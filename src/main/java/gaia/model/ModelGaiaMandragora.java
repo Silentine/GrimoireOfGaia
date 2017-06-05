@@ -36,8 +36,10 @@ public class ModelGaiaMandragora extends ModelGaia {
 	ModelRenderer headleafs3;
 	ModelRenderer headleafs4;
 	
-    protected float scaleAmount = 0.75F;
-    protected float YOffset = 5.2F;
+    protected float scaleAmountHead = 0.75F;
+    protected float scaleAmountBody = 0.5F;
+    protected float YOffsetHead = 15.5F;
+    protected float YOffsetBody = 23.5F;
 
 	public ModelGaiaMandragora() {
 		this.textureWidth = 128;
@@ -192,8 +194,12 @@ public class ModelGaiaMandragora extends ModelGaia {
 
 		if (!this.isChild) {
 			float f = 2.0F;
+			//GlStateManager.translate(x, y * scale, z);
+			
+			//================= Scaling =================//
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, this.YOffset * scale, 0.0F);
+			GlStateManager.scale(scaleAmountHead, scaleAmountHead, scaleAmountHead);
+			GlStateManager.translate(0.0F, this.YOffsetHead * scale, 0.0F);
 			this.head.render(scale);
 			
 			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
@@ -202,10 +208,10 @@ public class ModelGaiaMandragora extends ModelGaia {
 			
 			this.headaccessory.render(scale);
 			GlStateManager.popMatrix();
+			//===========================================//
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(scaleAmount, scaleAmount, scaleAmount);
-			//GlStateManager.translate(x, y * scale, z);
-			GlStateManager.translate(0.0F, 7.5F * scale, 0.0F);
+			GlStateManager.scale(scaleAmountBody, scaleAmountBody, scaleAmountBody);
+			GlStateManager.translate(0.0F, this.YOffsetBody * scale, 0.0F);
 			this.neck.render(scale);
 			this.bodytop.render(scale);
 			this.bodymiddle.render(scale);
@@ -217,6 +223,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 			this.leftleg.render(scale);
 			this.waist.render(scale);
 			GlStateManager.popMatrix();
+			//===========================================//
 		}
 	}
 

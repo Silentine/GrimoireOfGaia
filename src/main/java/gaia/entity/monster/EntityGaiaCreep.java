@@ -45,8 +45,8 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
     private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
 
-	public EntityGaiaCreep(World par1World) {
-		super(par1World);
+	public EntityGaiaCreep(World worldIn) {
+		super(worldIn);
 		this.setSize(0.75F, 0.75F);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
@@ -230,6 +230,17 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
     				ItemShard.Drop_Nugget(this,4);
     			}
     		}
+    		
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(2)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+    				break;
+    			case 1:
+    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollCreeperGirl), 1);
+    			}
+    		}
 
     		//Very Rare
     		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
@@ -237,18 +248,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
     		}
     	}
     }
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-			break;
-		case 1:
-			this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollCreeperGirl), 1);
-		}
-	}
-
+    
 	public boolean attackEntityAsMob(Entity entityIn) {
 		return true;
 	}

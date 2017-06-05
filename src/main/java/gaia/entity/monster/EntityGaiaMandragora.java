@@ -6,8 +6,9 @@ import gaia.entity.EntityMobHostileDay;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import gaia.util.BlockStateHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,7 +19,6 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSpade;
@@ -39,7 +39,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	
 	public EntityGaiaMandragora(World worldIn) {
 		super(worldIn);
-		this.setSize(0.5F, 1.5F);
+		this.setSize(0.5F, 1.0F);
 		this.experienceValue = EntityAttributes.experienceValue1;
 		this.stepHeight = 1.0F;
 
@@ -132,21 +132,14 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		}
 		
 		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
-			int var1 = MathHelper.floor_double(this.posX);
-			int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D);// - (double)this.yOffset);
-			int var3 = MathHelper.floor_double(this.posZ);
-			World world = this.worldObj;
-			BlockPos pos = new BlockPos(var1, var2, var3);
-			int crackid = BlockStateHelper.getblock_ID(world, pos);
-			int crackmeta = BlockStateHelper.getMetafromState(world, pos);
-			
-			Block b = BlockStateHelper.getBlockfromState(this.worldObj, pos);
-			if (b != Blocks.AIR) {
-				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
-						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D,
-						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D,
-						((double)this.rand.nextFloat() - 0.5D) * 4.0D,
-						crackid,crackmeta);
+			int i = MathHelper.floor_double(this.posX);
+			int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
+			int k = MathHelper.floor_double(this.posZ);
+			IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
+
+			if (iblockstate.getMaterial() != Material.AIR)
+			{
+				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(iblockstate)});
 			}
 		}
 		
@@ -200,14 +193,14 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    			}
+    		}
 		}
 	}
 	

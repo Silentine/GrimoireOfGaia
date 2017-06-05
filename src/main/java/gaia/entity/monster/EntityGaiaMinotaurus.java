@@ -176,16 +176,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
             super.handleStatusUpdate(id);
     }
 
-    @SideOnly(Side.CLIENT)
-    private void spawnParticles(EnumParticleTypes particleType) {
-        for (int i = 0; i < 5; ++i) {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2, new int[0]);
-        }
-    }
-	
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
 		if (!this.worldObj.isRemote && par1.getIndex() == 0) {
@@ -305,6 +295,33 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			if (mobClass == 1) {
+    				switch(this.rand.nextInt(3)) {
+    				case 0:
+    					this.dropItem(GaiaItems.BoxGold, 1);
+    					break;
+    				case 1:
+    					this.dropItem(GaiaItems.BagBook, 1);
+    					break;
+    				case 2:
+    					this.dropItem(GaiaItems.BagArrow, 1);
+    				}
+    			} else {
+    				switch(this.rand.nextInt(3)) {
+    				case 0:
+    					this.dropItem(GaiaItems.BoxGold, 1);
+    					break;
+    				case 1:
+    					this.dropItem(GaiaItems.BagBook, 1);
+    					break;
+    				case 2:
+    					this.dropItem(GaiaItems.BookBattle, 1);
+    				}
+    			}
+    		}
 
 			//Very Rare
 			if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
@@ -318,33 +335,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		}
 	}
 
-	//Rare
-	protected void addRandomDrop() {
-		if (mobClass == 1) {
-			switch(this.rand.nextInt(3)) {
-			case 0:
-				this.dropItem(GaiaItems.BoxGold, 1);
-				break;
-			case 1:
-				this.dropItem(GaiaItems.BagBook, 1);
-				break;
-			case 2:
-				this.dropItem(GaiaItems.BagArrow, 1);
-			}
-		} else {
-			switch(this.rand.nextInt(3)) {
-			case 0:
-				this.dropItem(GaiaItems.BoxGold, 1);
-				break;
-			case 1:
-				this.dropItem(GaiaItems.BagBook, 1);
-				break;
-			case 2:
-				this.dropItem(GaiaItems.BookBattle, 1);
-			}
-		}
-	}
-	
 	protected void spawnLevel3() {
 		EntityGaiaMinotaur spawnLevel3;
 		spawnLevel3 = new EntityGaiaMinotaur(this.worldObj);

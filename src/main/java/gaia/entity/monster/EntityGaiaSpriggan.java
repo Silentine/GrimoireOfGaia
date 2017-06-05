@@ -143,20 +143,20 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-			this.dropItem(GaiaItems.BookNature, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    				this.dropItem(GaiaItems.BookNature, 1);
+    			}
+    		}
 		}
 	}
 

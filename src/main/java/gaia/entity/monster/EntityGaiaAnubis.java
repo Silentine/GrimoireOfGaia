@@ -115,11 +115,11 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 				byte byte1 = 0;
 
 				if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 10;
-					byte1 = 20;
-				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 5;
 					byte1 = 10;
+				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 10;
+					byte1 = 20;
 				}
 
 				if (byte0 > 0) {
@@ -284,25 +284,25 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 					ItemShard.Drop_Nugget(this, 5);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch (this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    				this.dropItem(GaiaItems.MiscBook, 1);
+    			}
+    		}
 		}
 		
 		//Boss
 		if (spawnLevel3 == 1) {
 			spawnLevel3();
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch (this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-			this.dropItem(GaiaItems.MiscBook, 1);
 		}
 	}
 	

@@ -101,13 +101,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
                 byte byte0 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 7;
+                	byte0 = 5;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 15;
+                	byte0 = 5;
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 60, 0));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
 					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 20, 0));
 				}
 			}
@@ -284,17 +284,17 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this, 4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.MiscBook, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(2)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.MiscBook, 1);
+    			}
+    		}
 		}
 	}
 	

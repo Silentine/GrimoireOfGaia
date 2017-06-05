@@ -124,6 +124,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	
 	public void onDeath(DamageSource cause) {
 		this.lingeringEffect(this, MobEffects.WITHER, PotionTypes.EMPTY, 200, 0, this.getPosition());
+		super.onDeath(cause);
 	}
 
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -154,14 +155,14 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
+    			}
+    		}
 		}
 	}
 

@@ -178,21 +178,21 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 				}
 			}
 			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(2)) {
+    			case 0:
+    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    			}
+    		}
+			
     		//Very Rare
     		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
     			this.dropItem(GaiaItems.AccessoryTrinketWither, 1);
     		}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
-		case 0:
-			this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
 		}
 	}
 

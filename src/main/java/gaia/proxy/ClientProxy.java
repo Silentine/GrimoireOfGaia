@@ -428,7 +428,7 @@ public class ClientProxy extends CommonProxy {
 			reg_Meta(PropShield, 1, "ShieldPropGold");
 			
 			// AccessoryBauble
-			reg_Meta(AccessoryBauble, 0, "BaubleSkull");
+			reg_Meta(AccessoryBauble, 0, "BaubleAccessory");
 			
 			// Card
 			reg_Meta(Card, 0, "Card");

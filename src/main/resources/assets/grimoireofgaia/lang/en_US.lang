@@ -64,7 +64,7 @@ item.WeaponProp_3.name=Metal Dagger
 item.WeaponProp_4.name=Metal Fan
 item.WeaponProp_5.name=Large Metal Battle Axe
 item.WeaponPropProjectile_0.name=Magic Projectile
-item.WeaponPropEnchanted_0.name=Invisible Weapon
+item.WeaponPropEnchanted_0.name=Enchanted Bearing
 item.ShieldProp_0.name=Iron Shield
 item.ShieldProp_1.name=Gold Shield
 item.WeaponFanIce.name=Ornate Ice Fan
@@ -214,7 +214,7 @@ item.GrimoireOfGaia.WeaponDebug.desc=Used for testing
 block.GrimoireOfGaia.SpawnGuard.desc=Prevents day mobs from spawning within %d blocks
 
 configgui.GrimoireOfGaia.category.general=Spawn Rates
-configgui.GrimoireOfGaia.category.general.tooltip=\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)
+configgui.GrimoireOfGaia.category.general.tooltip=(REQUIRES RESTART)\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)
 configgui.GrimoireOfGaia.category.damage=Base Damage
 configgui.GrimoireOfGaia.category.damage.tooltip=(REQUIRES RESTART)\nAll mobs deal additional magical damage that bypasses armor.
 configgui.GrimoireOfGaia.category.defense=Base Damage Cap

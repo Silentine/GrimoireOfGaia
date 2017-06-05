@@ -118,16 +118,17 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    			}
+    		}
 		}
 	}
 
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
-		}
-	}
 	public float GryphonScaleAmount() {
 		return 1.25F;
 	}

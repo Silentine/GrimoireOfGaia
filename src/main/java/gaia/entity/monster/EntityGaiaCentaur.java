@@ -6,6 +6,7 @@ import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -26,6 +27,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -191,17 +193,17 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagArrow, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(2)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagArrow, 1);
+    			}
+    		}
 		}
 	}
 	
