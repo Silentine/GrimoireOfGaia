@@ -125,12 +125,14 @@ public class ModelGaiaNineTails extends ModelGaia {
 		this.rightear.addBox(-4.5F, -10F, -1.5F, 3, 4, 3);
 		this.rightear.setRotationPoint(0F, 1F, 0F);
 		this.rightear.setTextureSize(64, 32);
-		this.setRotation(rightear, 0F, 0F, 0F);
-		this.leftear = new ModelRenderer(this, 48, 37);
+		this.rightear.mirror = true;
+		this.setRotation(rightear, 0F, 0F, 0.0872665F);
+		this.leftear = new ModelRenderer(this, 36, 37);
+		this.leftear.mirror = true;
 		this.leftear.addBox(1.5F, -10F, -1.5F, 3, 4, 3);
 		this.leftear.setRotationPoint(0F, 1F, 0F);
 		this.leftear.setTextureSize(64, 32);
-		this.setRotation(leftear, 0F, 0F, 0F);
+		this.setRotation(leftear, 0F, 0F, -0.0872665F);
 		this.tie = new ModelRenderer(this, 64, 0);
 		this.tie.addBox(-1.5F, 3F, -2.5F, 3, 2, 1);
 		this.tie.setRotationPoint(0F, 1F, 0F);

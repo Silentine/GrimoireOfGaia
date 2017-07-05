@@ -269,8 +269,9 @@ public class ModelGaiaHarpy extends ModelGaia {
         	this.leftleg.render(scale);
         	this.tail.render(scale);
 
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) 
-			this.headeyes.render(scale);
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
         } else {
         	float f = 2.0F;
         	//================= Scaling =================//

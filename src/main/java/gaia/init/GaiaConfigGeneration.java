@@ -41,7 +41,7 @@ public class GaiaConfigGeneration extends GaiaConfig {
 		SpawnEnderEye = config.get("general", "entity.grimoireofgaia.EnderEye.name", SpawnEnderEye).getInt();
 		SpawnFleshLich = config.get("general", "entity.grimoireofgaia.FleshLich.name", SpawnFleshLich).getInt();
 		SpawnFutakuchiOnna = config.get("general", "entity.grimoireofgaia.FutakuchiOnna.name", SpawnFutakuchiOnna).getInt();
-		SpawnGryphon = config.get("general", "entity.grimoireofgaia.SpawnGryphon.name", SpawnGryphon).getInt();
+		SpawnGryphon = config.get("general", "entity.grimoireofgaia.Gryphon.name", SpawnGryphon).getInt();
 		SpawnHarpy = config.get("general", "entity.grimoireofgaia.Harpy.name", SpawnHarpy).getInt();
 		SpawnHunter = config.get("general", "entity.grimoireofgaia.Hunter.name", SpawnHunter).getInt();
 		SpawnKobold = config.get("general", "entity.grimoireofgaia.Kobold.name", SpawnKobold).getInt();

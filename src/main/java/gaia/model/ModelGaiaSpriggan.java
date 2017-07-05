@@ -25,6 +25,8 @@ public class ModelGaiaSpriggan extends ModelGaia {
 	ModelRenderer headhorns;
 	ModelRenderer headhornslong1;
 	ModelRenderer headhornslong2;
+	ModelRenderer rightear;
+	ModelRenderer leftear;
 	ModelRenderer mantle;
 	ModelRenderer rightarmlower;
 	ModelRenderer leftarmlower;
@@ -123,6 +125,17 @@ public class ModelGaiaSpriggan extends ModelGaia {
 		this.headhornslong2.setRotationPoint(0F, 1F, 0F);
 		this.headhornslong2.setTextureSize(64, 32);
 		this.setRotation(headhornslong2, 0F, 0F, 0F);
+		this.rightear = new ModelRenderer(this, 36, 46);
+		this.rightear.addBox(-4F, -4F, -1F, 0, 2, 4);
+		this.rightear.setRotationPoint(0F, 1F, 0F);
+		this.rightear.setTextureSize(64, 32);
+		this.setRotation(rightear, 0F, -0.5235988F, 0F);
+		this.leftear = new ModelRenderer(this, 36, 46);
+		this.leftear.mirror = true;
+		this.leftear.addBox(4F, -4F, -1F, 0, 2, 4);
+		this.leftear.setRotationPoint(0F, 1F, 0F);
+		this.leftear.setTextureSize(64, 32);
+		this.setRotation(leftear, 0F, 0.5235988F, 0F);
 		this.mantle = new ModelRenderer(this, 82, 0);
 		this.mantle.addBox(-5F, -1.5F, -2F, 10, 4, 4);
 		this.mantle.setRotationPoint(0F, 1F, 0F);
@@ -161,6 +174,8 @@ public class ModelGaiaSpriggan extends ModelGaia {
 		this.convertToChild(head, headhorns);
 		this.convertToChild(head, headhornslong1);
 		this.convertToChild(head, headhornslong2);
+		this.convertToChild(head, rightear);
+		this.convertToChild(head, leftear);
 		this.convertToChild(rightleg, rightleglower);
 		this.convertToChild(leftleg, leftleglower);
 	}

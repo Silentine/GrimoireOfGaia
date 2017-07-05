@@ -431,7 +431,9 @@ public class ClientProxy extends CommonProxy {
 			reg_Meta(AccessoryBauble, 0, "BaubleAccessory");
 			
 			// Card
-			reg_Meta(Card, 0, "Card");
+			reg_Meta(Card, 0, "CardNull");
+			reg_Meta(Card, 1, "CardChild");
+			reg_Meta(Card, 2, "CardAttack");
 
 			// Should get it's list count to iterate through dynamically in the future
 			for (int i = 0; i < 52; ++i) {

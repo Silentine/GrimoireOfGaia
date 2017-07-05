@@ -29,12 +29,13 @@ public class ModelGaiaDryad extends ModelGaia {
 	ModelRenderer leftleg;
 	ModelRenderer hair1;
 	ModelRenderer hair2;
+    ModelRenderer rightear;
+    ModelRenderer leftear;
 	ModelRenderer waist1;
 	ModelRenderer waist2;
 	
     protected float scaleAmountHead = 0.75F;
     protected float scaleAmountBody = 0.5F;
-    //Increasing the value moves it closer to the ground
     protected float YOffsetHead = 15.5F;
     protected float YOffsetBody = 23.5F;
 
@@ -123,6 +124,18 @@ public class ModelGaiaDryad extends ModelGaia {
 		this.hair2.setRotationPoint(0F, 1F, 0F);
 		this.hair2.setTextureSize(64, 32);
 		this.setRotation(hair2, 0F, 0F, 0F);
+		this.rightear = new ModelRenderer(this, 36, 33);
+		this.rightear.addBox(-4F, -4F, -1F, 0, 2, 4);
+		this.rightear.setRotationPoint(0F, 1F, 0F);
+		this.rightear.setTextureSize(128, 64);
+		this.rightear.mirror = true;
+		this.setRotation(rightear, 0F, -0.5235988F, 0F);
+		this.leftear = new ModelRenderer(this, 36, 33);
+		this.leftear.mirror = true;
+		this.leftear.addBox(4F, -4F, -1F, 0, 2, 4);
+		this.leftear.setRotationPoint(0F, 1F, 0F);
+		this.leftear.setTextureSize(128, 64);
+		this.setRotation(leftear, 0F, 0.5235988F, 0F);
 		this.waist1 = new ModelRenderer(this, 64, 0);
 		this.waist1.addBox(-3.466667F, 7.5F, -3F, 7, 6, 4);
 		this.waist1.setRotationPoint(0F, 1F, 0F);
@@ -133,6 +146,9 @@ public class ModelGaiaDryad extends ModelGaia {
 		this.waist2.setRotationPoint(0F, 1F, 0F);
 		this.waist2.setTextureSize(64, 32);
 		this.setRotation(waist2, 0.1745329F, 0F, 0F);
+		
+		this.convertToChild(head, rightear);
+		this.convertToChild(head, leftear);
 	}
 
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
@@ -160,9 +176,9 @@ public class ModelGaiaDryad extends ModelGaia {
         	this.waist1.render(scale);
         	this.waist2.render(scale);
 
-        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F)
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
         		this.headeyes.render(scale);
-
+        	}
         } else {
         	float f = 2.0F;
         	//================= Scaling =================//

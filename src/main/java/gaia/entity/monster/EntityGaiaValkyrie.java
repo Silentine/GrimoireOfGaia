@@ -142,7 +142,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
         ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 		
 		if ((this.equipItems == 0) && (itemstack == null)) {
-			if (this.aggressive <= 5) {
+			if (this.aggressive <= 3) {
 				if (this.playerDetection(6)) {
 					if (this.aggression <= 60) {
 						this.aggression += 1;

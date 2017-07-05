@@ -10,7 +10,7 @@ item.FoodMeat.name=Meat
 item.FoodRottenHeart.name=Rotten Heart
 item.FoodRoot.name=Taproot
 item.FoodCoalfish.name=Coalfish
-item.FoodNetherWart.name=Mature Nether Wart
+item.FoodNetherWart.name=Nether Wart Jam
 item.FoodSmallAppleGold.name=Golden Apple Pie Slice
 item.FoodMandrake.name=Mandrake
 item.FoodWither.name=Withered Brain
@@ -90,7 +90,9 @@ item.AccessoryTrinketWither.name=Withered Heart
 item.AccessoryTrinketLevitation.name=Ball and Chain
 item.AccessoryCursed.name=Heavy Barbell
 item.AccessoryBauble_0.name=Dryad Skull
-item.Card_0.name=Dryad Card
+item.Card_0.name=NULL Card
+item.Card_1.name=Child Card
+item.Card_2.name=Attack Card
 
 item.SpawnEgg.name=Spawn
 
@@ -188,6 +190,7 @@ text.GrimoireOfGaia.InventoryImmunity=Immunity to
 text.GrimoireOfGaia.Accessory.tag=Accessory
 text.GrimoireOfGaia.Trinket.tag=Trinket
 text.GrimoireOfGaia.Prop.tag=Prop
+text.GrimoireOfGaia.Card.tag=Action Card
 text.GrimoireOfGaia.WIP.tag=WIP
 text.GrimoireOfGaia.Debug.tag=Debug
 

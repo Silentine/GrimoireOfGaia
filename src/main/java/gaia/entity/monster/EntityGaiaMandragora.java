@@ -19,6 +19,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSpade;
@@ -210,12 +211,25 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		
-		ItemStack WEAPON_CUSTOM = new ItemStack(GaiaItems.PropWeaponEnchanted, 1);
-		WEAPON_CUSTOM.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, WEAPON_CUSTOM);
+		//TEMP Method used instead of isChild
+		this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 		
 		return livingdata;		
 	}
+	
+    public float getEyeHeight() {
+        float f;
+
+        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+            f = 1.74F;
+        } else {
+            f = (float)((double)1.74F - 0.81D);
+        }
+
+        return f;
+    }
 
 	//================= Immunities =================//
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {

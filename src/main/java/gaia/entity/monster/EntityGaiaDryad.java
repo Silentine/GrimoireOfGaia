@@ -1,11 +1,17 @@
 package gaia.entity.monster;
 
+import java.util.UUID;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -17,10 +23,13 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
@@ -31,18 +40,27 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityGaiaDryad extends EntityMobPassiveDay {
 	
-	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true);
-	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 20.0F, EntityAttributes.attackSpeed1, EntityAttributes.attackSpeed3);
+    private static final UUID MODIFIER_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
+    private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Attacking speed penalty", -0.05D, 0)).setSaved(false);
+	
+	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true);
+	private EntityAIAvoidEntity aiAvoid = new EntityAIAvoidEntity(this, EntityPlayer.class, 20.0F, EntityAttributes.attackSpeed2, EntityAttributes.attackSpeed3);
 	
 	private int switchHealth;
 	private int axeAttack;
+	
+	private byte stamina;
+	private byte staminaTimer;
 
 	public EntityGaiaDryad(World worldIn) {
 		super(worldIn);
@@ -51,6 +69,9 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 		this.switchHealth = 0;
 		this.axeAttack = 0;
+		
+		this.stamina = (30 * 4);
+		this.staminaTimer = 0;
 	}
 	
     protected void initEntityAI() {
@@ -160,6 +181,32 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			this.switchHealth = 0;
 		}
 		
+		//Rough stamina system
+		IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
+			if (this.staminaTimer > 0) {
+				this.staminaTimer = 0;
+			}
+
+			if (this.stamina > 0) {
+				this.stamina -= 1;
+			}
+			
+			if ((this.stamina <= 0) && (!iattributeinstance.hasModifier(MODIFIER))) {
+				iattributeinstance.applyModifier(MODIFIER);
+			}
+		} else if (this.stamina < (30 * 4)) {
+			if (this.staminaTimer < (10 * 4)) {
+				this.staminaTimer += 1;
+			} else {
+				this.stamina = (30 * 4);
+				
+				if (iattributeinstance.hasModifier(MODIFIER)) {
+					iattributeinstance.removeModifier(MODIFIER);
+				}
+			}
+		}
+
         super.onLivingUpdate();
 	}
 

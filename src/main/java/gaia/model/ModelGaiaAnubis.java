@@ -2,6 +2,10 @@ package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -145,7 +149,7 @@ public class ModelGaiaAnubis extends ModelGaia {
 		this.mantle.setTextureSize(64, 32);
 		this.setRotation(mantle, 0F, 0F, 0F);
 		this.rightarmlower = new ModelRenderer(this, 64, 0);
-		this.rightarmlower.addBox(-2.5F, 2.2F, -1.5F, 2, 8, 3);
+		this.rightarmlower.addBox(-2.5F, 2.5F, -1.5F, 2, 8, 3);
 		this.rightarmlower.setRotationPoint(-2.5F, 2.5F, 0F);
 		this.rightarmlower.setTextureSize(64, 32);
 		this.setRotation(rightarmlower, 0F, 0F, 0.1745329F);
@@ -155,7 +159,7 @@ public class ModelGaiaAnubis extends ModelGaia {
 		this.leftarmlower.setTextureSize(64, 32);
 		this.setRotation(leftarmlower, 0F, 0F, -0.1745329F);
 		this.rightarmhand = new ModelRenderer(this, 64, 11);
-		this.rightarmhand.addBox(-1.5F, 8.2F, -2F, 2, 4, 4);
+		this.rightarmhand.addBox(-1.5F, 7.5F, -2F, 2, 4, 4);
 		this.rightarmhand.setRotationPoint(-2.5F, 2.5F, 0F);
 		this.rightarmhand.setTextureSize(64, 32);
 		this.setRotation(rightarmhand, 0F, 0F, 0.1745329F);
@@ -258,20 +262,26 @@ public class ModelGaiaAnubis extends ModelGaia {
 		this.hair2.rotateAngleY = (this.head.rotateAngleY) * 0.75F;
 		
 		//arms
-		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
-		
-		this.rightarm.rotateAngleZ = 0.0F;
-		this.leftarm.rotateAngleZ = 0.0F;
+        ItemStack itemstack = ((EntityLivingBase)entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-        if (this.swingProgress > -9990.0F) {
-			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
+        if (itemstack == null || itemstack.getItem() != Items.STICK) {
+    		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+    		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+    		
+    		this.rightarm.rotateAngleZ = 0.0F;
+    		this.leftarm.rotateAngleZ = 0.0F;
+
+            if (this.swingProgress > -9990.0F) {
+    			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
+            }
+            
+            this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+            this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+            this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+            this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+        } else if (itemstack.getItem() == Items.STICK) {
+        	spawnAnimation(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
         }
-        
-        this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
-        this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
         
         //body
 		this.tail.rotateAngleY = MathHelper.cos(degToRad(entityIn.ticksExisted*7)) * degToRad(5);
@@ -296,5 +306,15 @@ public class ModelGaiaAnubis extends ModelGaia {
         this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
         this.rightarm.rotateAngleX += (this.bodytop.rotateAngleY * 2.0F);
         this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
+	}
+	
+	public void spawnAnimation(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+        this.rightarm.rotateAngleX = -1.047198F;
+        this.leftarm.rotateAngleX = -1.047198F;
+        
+        if ((this.rightarm.rotateAngleX == -1.047198F) && (this.leftarm.rotateAngleX == -1.047198F)) {
+        	this.rightarm.rotateAngleY = -0.2617994F;
+        	this.leftarm.rotateAngleY = 0.2617994F;
+        }
 	}
 }
