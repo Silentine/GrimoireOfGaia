@@ -1,61 +1,74 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-
-import net.minecraft.entity.Entity;
+import baubles.api.BaubleType;
+import gaia.CreativeTabGaia;
+import gaia.GaiaReference;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Keyboard;
 
-import baubles.api.BaubleType;
+import java.util.List;
 
-public class ItemAccessoryTrinketWither extends ItemAccessoryTrinket {
-	
-	public ItemAccessoryTrinketWither(String name) {
-		this.setUnlocalizedName(name);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
-	}
+public class ItemAccessoryTrinketWither extends ItemAccessoryBauble {
 
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.Trinket.tag")));
-		
-		if (shiftPressed) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.InventoryTrinket")));
-			tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.InventoryImmunity") + " " + I18n.translateToLocal("effect.wither"));
-			tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.InventoryImmunity") + " " + I18n.translateToLocal("effect.regeneration"));
-		} else {
-			tooltip.add(TextFormatting.ITALIC + (I18n.translateToLocal("text.GrimoireOfGaia.HoldShift")));
-		}
-	}
+    public ItemAccessoryTrinketWither(String name) {
+        setMaxStackSize(1);
+        setRegistryName(GaiaReference.MOD_ID, name);
+        setUnlocalizedName(name);
+        setCreativeTab(CreativeTabGaia.INSTANCE);
+    }
 
-	@Override
-	public void doEffect(EntityPlayer player, ItemStack item) {
-		if (player.isPotionActive(MobEffects.WITHER))
-			player.removePotionEffect(MobEffects.WITHER);
-		
-		if (player.isPotionActive(MobEffects.REGENERATION))
-			player.removePotionEffect(MobEffects.REGENERATION);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.RARE;
+    }
+
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return BaubleType.CHARM;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+        tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Trinket.tag")));
+
+        if (shiftPressed) {
+            tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.InventoryTrinket")));
+            tooltip.add(I18n.format("text.grimoireofgaia.InventoryImmunity") + " " + I18n.format("effect.wither"));
+            tooltip.add(I18n.format("text.grimoireofgaia.InventoryImmunity") + " " + I18n.format("effect.regeneration"));
+        } else {
+            tooltip.add(TextFormatting.ITALIC + (I18n.format("text.grimoireofgaia.HoldShift")));
+        }
+    }
+
+    @Override
+    public void doEffect(EntityLivingBase player, ItemStack item) {
+        if (player.getActivePotionEffect(MobEffects.WITHER) != null) {
+            player.removePotionEffect(MobEffects.WITHER);
+        }
+
+        if (player.getActivePotionEffect(MobEffects.REGENERATION) != null) {
+            player.removePotionEffect(MobEffects.REGENERATION);
+        }
+    }
 }

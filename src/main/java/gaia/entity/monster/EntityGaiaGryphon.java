@@ -25,129 +25,137 @@ import net.minecraft.world.World;
 
 public class EntityGaiaGryphon extends EntityMobPassiveDay {
 
-	public EntityGaiaGryphon(World worldIn) {
-		super(worldIn);
-		this.setSize(1.2F, 1.8F);
-		this.experienceValue = EntityAttributes.experienceValue1;
-		this.stepHeight = 1.0F;
-	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
-		this.tasks.addTask(2, new EntityGaiaGryphon.AILeapAttack(this));
-		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(4, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+    public EntityGaiaGryphon(World worldIn) {
+        super(worldIn);
+
+        this.setSize(1.2F, 1.8F);
+        this.experienceValue = EntityAttributes.experienceValue1;
+        this.stepHeight = 1.0F;
     }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense1) {
-			damage = EntityAttributes.baseDefense1;
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-	}
+    protected void initEntityAI() {
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
+        this.tasks.addTask(2, new EntityGaiaGryphon.AILeapAttack(this));
+        this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(4, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+    }
 
-	public boolean attackEntityAsMob(Entity entity) {
-		if(super.attackEntityAsMob(entity)) {
-			if(entity instanceof EntityLivingBase) {
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+                .setBaseValue((double) EntityAttributes.maxHealth1);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
+                .setBaseValue(EntityAttributes.followrange);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+                .setBaseValue(EntityAttributes.moveSpeed1);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+                .setBaseValue((double) EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
+                .setBaseValue(EntityAttributes.rateArmor1);
+    }
+
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        if (damage > EntityAttributes.baseDefense1) {
+            damage = EntityAttributes.baseDefense1;
+        }
+
+        return super.attackEntityFrom(source, damage);
+    }
+
+    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+    }
+
+    public boolean attackEntityAsMob(Entity entity) {
+        if (super.attackEntityAsMob(entity)) {
+            if (entity instanceof EntityLivingBase) {
                 byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL){
-                	byte0 = 5;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 10;
+                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
+                    byte0 = 5;
+                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
+                    byte0 = 10;
                 }
 
-				if(byte0 > 0) {
-					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
-					((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 20, 0));
-				}
-			}
+                if (byte0 > 0) {
+                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
+                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 20, 0));
+                }
+            }
 
-			return true;
-		} else {
-			return false;
-		}
-	}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public boolean isAIEnabled() {
-		return true;
-	}
+    public boolean isAIDisabled() {
+        return false;
+    }
 
-	public void onLivingUpdate() {
-		if(!this.onGround && this.motionY < 0.0D) {
-			this.motionY *= 0.8D;
-		}
+    public void onLivingUpdate() {
+        if (!this.onGround && this.motionY < 0.0D) {
+            this.motionY *= 0.8D;
+        }
 
-		super.onLivingUpdate();
-	}
-	
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit) {
-			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				this.dropItem(Items.FEATHER, 1);
-			}
+        super.onLivingUpdate();
+    }
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        if (wasRecentlyHit) {
+            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                this.dropItem(Items.FEATHER, 1);
+            }
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,0);
-			}
+            // Nuggets/Fragments
+            int var11 = this.rand.nextInt(3) + 1;
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+            for (int var12 = 0; var12 < var11; ++var12) {
+                ItemShard.Drop_Nugget(this, 0);
+            }
 
-				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,4);
-				}
-			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(1)) {
-    			case 0:
-    				this.dropItem(GaiaItems.BoxIron, 1);
-    			}
-    		}
-		}
-	}
+            if (GaiaConfig.AdditionalOre) {
+                int var13 = this.rand.nextInt(3) + 1;
 
-	public float GryphonScaleAmount() {
-		return 1.25F;
-	}
-	
-	static class AILeapAttack extends EntityAIAttackMelee {
-		public AILeapAttack(EntityGaiaGryphon entity) {
-			super(entity, EntityAttributes.attackSpeed1, true);
-		}
+                for (int var14 = 0; var14 < var13; ++var14) {
+                    ItemShard.Drop_Nugget(this, 4);
+                }
+            }
 
-		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-			return (double)(4.0F + attackTarget.width);
-		}
-	}
-	
-	//================= Immunities =================//
-	public void fall(float distance, float damageMultiplier) {}
-	//==============================================//
+            // Rare
+            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                switch (this.rand.nextInt(1)) {
+                    case 0:
+                        this.dropItem(GaiaItems.BoxIron, 1);
+                }
+            }
+        }
+    }
 
-	public boolean getCanSpawnHere() {
-		return this.posY > 80.0D && super.getCanSpawnHere();
-	}
+    public float GryphonScaleAmount() {
+        return 1.25F;
+    }
+
+    static class AILeapAttack extends EntityAIAttackMelee {
+
+        public AILeapAttack(EntityGaiaGryphon entity) {
+            super(entity, EntityAttributes.attackSpeed1, true);
+        }
+
+        protected double getAttackReachSqr(EntityLivingBase attackTarget) {
+            return (double) (4.0F + attackTarget.width);
+        }
+    }
+
+    // ================= Immunities =================//
+    public void fall(float distance, float damageMultiplier) {
+    }
+    // ==============================================//
+
+    public boolean getCanSpawnHere() {
+        return this.posY > 80.0D && super.getCanSpawnHere();
+    }
 }

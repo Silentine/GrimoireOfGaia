@@ -1,120 +1,121 @@
 package gaia.items;
 
-import gaia.init.GaiaItems;
-
-import java.util.List;
-
+import baubles.api.BaublesApi;
+import baubles.api.IBauble;
+import gaia.helpers.ItemNBTHelper;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
-//TODO Make item appear in 3rd person when placed into Baubles slot
+import javax.annotation.Nonnull;
 
-@InterfaceList({
-	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
-	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
+public abstract class ItemAccessoryBauble extends Item implements IBauble {
 
-public class ItemAccessoryBauble extends Item implements IBauble {
+    private static final String TAG_HASHCODE = "playerHashcode";
 
-	private ItemStack renderStack;
+    @Override
+    @SideOnly(Side.CLIENT)
+    public @Nonnull
+            EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.RARE;
+    }
 
-	public ItemAccessoryBauble(String name) {
-		this.setHasSubtypes(true);
-		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
-//		this.setCreativeTab(Gaia.tabGaia);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (!this.isInCreativeTab(tab)) {
+            return;
+        }
 
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.WIP.tag")));
-		tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickEquip"));
-	}
+        for (int i = 0; i < 1; i++) {
+            items.add(new ItemStack(this, 1, i));
+        }
+    }
 
-	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 1; i ++) {
-			list.add(new ItemStack(item, 1, i));
-		}
-	}
+    @Nonnull
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
-	
-	/**
-	 * @see EntityLiving
-	 */
-	public static EntityEquipmentSlot getSlotForItemStack(ItemStack stack) {
-		return 
-				stack.getItem() != GaiaItems.AccessoryBauble ? 
-				EntityEquipmentSlot.MAINHAND 
-				: 
-				EntityEquipmentSlot.HEAD;
-	}
+        ItemStack toEquip = stack.splitStack(1);
 
-	/**
-	 * @see ItemArmor
-	 */
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		EntityEquipmentSlot entityequipmentslot = getSlotForItemStack(itemStackIn);
-		ItemStack itemstack = playerIn.getItemStackFromSlot(entityequipmentslot);
+        if (canEquip(toEquip, player)) {
+            IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
+            for (int i = 0; i < baubles.getSlots(); i++) {
+                ItemStack simulate = baubles.insertItem(i, toEquip, true);
+                if (simulate.isEmpty()) {
+                    ItemStack stackInSlot = baubles.getStackInSlot(i);
+                    if (stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+                        if (!world.isRemote) {
+                            baubles.setStackInSlot(i, toEquip);
+                        }
 
-		if (itemstack == null) {
-			playerIn.setItemStackToSlot(entityequipmentslot, itemStackIn.copy());
-			itemStackIn.stackSize = 0;
-			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
-		} else {
-			return new ActionResult(EnumActionResult.FAIL, itemStackIn);
-		}
-	}
+                        if (!stackInSlot.isEmpty()) {
+                            ((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
+                            return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
+                        }
+                        break;
+                    }
+                }
+            }
+        }
 
-	//==================== Bauble ===================//
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.HEAD;
-	}
+        return ActionResult.newResult(EnumActionResult.PASS, stack);
+    }
 
-	@Override
-	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {}
+    // ==================== Bauble ===================//
+    @Override
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        if (getLastPlayerHashcode(itemstack) != player.hashCode()) {
+            setLastPlayerHashcode(itemstack, player.hashCode());
+        }
 
-	@Override
-	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {}
+        if (player instanceof EntityPlayer && !player.world.isRemote) {
+            doEffect(player, itemstack);
+        }
+    }
 
-	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {}
+    @Override
+    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+        if (player != null) {
+            setLastPlayerHashcode(itemstack, player.hashCode());
+        }
+    }
 
-	@Override
-	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
-		return true;
-	}
+    @Override
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+    }
 
-	@Override
-	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
-		return true;
-	}
+    @Override
+    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
+
+    @Override
+    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
+    // =======================================//
+
+    public void doEffect(EntityLivingBase player, ItemStack item) {
+    }
+
+    public static int getLastPlayerHashcode(ItemStack stack) {
+        return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
+    }
+
+    public static void setLastPlayerHashcode(ItemStack stack, int hash) {
+        ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
+    }
 }

@@ -8,43 +8,44 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaValkyrie extends ModelGaia {
-	ModelRenderer head;
+
+    ModelRenderer head;
     ModelRenderer headeyes;
-	ModelRenderer headaccessory;
-	ModelRenderer neck;
-	ModelRenderer bodytop;
-	ModelRenderer bodymiddle;
-	ModelRenderer bodymiddlebutton;
-	ModelRenderer bodybottom;
-	ModelRenderer rightchest;
-	ModelRenderer leftchest;
-	public static ModelRenderer rightarm;
-	public static ModelRenderer leftarm;
-	ModelRenderer rightleg;
-	ModelRenderer leftleg;
-	ModelRenderer hair1;
-	ModelRenderer hair2;
-	ModelRenderer rightfeather;
-	ModelRenderer leftfeather;
-	ModelRenderer headhelmet;
-	ModelRenderer cape1;
-	ModelRenderer cape2;
-	ModelRenderer cape3;
-	ModelRenderer rightpauldron;
-	ModelRenderer leftpauldron;
-	ModelRenderer rightgauntlet;
-	ModelRenderer skirtmantle;
-	ModelRenderer skirt1;
-	ModelRenderer skirt2;
-	ModelRenderer skirt3;
-	ModelRenderer rightwing;
-	ModelRenderer leftwing;
+    ModelRenderer headaccessory;
+    ModelRenderer neck;
+    ModelRenderer bodytop;
+    ModelRenderer bodymiddle;
+    ModelRenderer bodymiddlebutton;
+    ModelRenderer bodybottom;
+    ModelRenderer rightchest;
+    ModelRenderer leftchest;
+    public static ModelRenderer rightarm;
+    public static ModelRenderer leftarm;
+    ModelRenderer rightleg;
+    ModelRenderer leftleg;
+    ModelRenderer hair1;
+    ModelRenderer hair2;
+    ModelRenderer rightfeather;
+    ModelRenderer leftfeather;
+    ModelRenderer headhelmet;
+    ModelRenderer cape1;
+    ModelRenderer cape2;
+    ModelRenderer cape3;
+    ModelRenderer rightpauldron;
+    ModelRenderer leftpauldron;
+    ModelRenderer rightgauntlet;
+    ModelRenderer skirtmantle;
+    ModelRenderer skirt1;
+    ModelRenderer skirt2;
+    ModelRenderer skirt3;
+    ModelRenderer rightwing;
+    ModelRenderer leftwing;
     ModelRenderer rightfoot;
     ModelRenderer leftfoot;
 
-	public ModelGaiaValkyrie() {
-		this.textureWidth = 128;
-		this.textureHeight = 64;
+    public ModelGaiaValkyrie() {
+        this.textureWidth = 128;
+        this.textureHeight = 64;
 
         this.head = new ModelRenderer(this, 0, 0);
         this.head.addBox(-3F, -6F, -3F, 6, 6, 6);
@@ -213,107 +214,109 @@ public class ModelGaiaValkyrie extends ModelGaia {
         this.leftfoot.setTextureSize(128, 64);
         this.setRotation(leftfoot, 0F, 0F, 0F);
 
-		this.convertToChild(head, rightfeather);
-		this.convertToChild(head, leftfeather);
-		this.convertToChild(head, headhelmet);
-		this.convertToChild(rightarm, rightpauldron);
-		this.convertToChild(rightarm, rightgauntlet);
-		this.convertToChild(leftarm, leftpauldron);
-		this.convertToChild(rightleg, rightfoot);
-		this.convertToChild(leftleg, leftfoot);
-	}
+        this.convertToChild(head, rightfeather);
+        this.convertToChild(head, leftfeather);
+        this.convertToChild(head, headhelmet);
+        this.convertToChild(rightarm, rightpauldron);
+        this.convertToChild(rightarm, rightgauntlet);
+        this.convertToChild(leftarm, leftpauldron);
+        this.convertToChild(rightleg, rightfoot);
+        this.convertToChild(leftleg, leftfoot);
+    }
 
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.neck.render(scale);
-		this.bodytop.render(scale);
-		this.bodymiddle.render(scale);
-		this.bodymiddlebutton.render(scale);
-		this.bodybottom.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightarm.render(scale);
-		this.leftarm.render(scale);
-		this.rightleg.render(scale);
-		this.leftleg.render(scale);
-		this.hair1.render(scale);
-		this.hair2.render(scale);
-//		this.rightfeather.render(scale);
-//		this.leftfeather.render(scale);
-//		this.headhelmet.render(scale);
-		this.cape1.render(scale);
-		this.cape2.render(scale);
-		this.cape3.render(scale);
-//      this.rightpauldron.render(scale);
-//      this.leftpauldron.render(scale);
-//      this.rightgauntlet.render(scale);
-		this.skirtmantle.render(scale);
-		this.skirt1.render(scale);
-		this.skirt2.render(scale);
-		this.skirt3.render(scale);
-		this.rightwing.render(scale);
-		this.leftwing.render(scale);
-		
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			this.headeyes.render(scale);
-		}
-	}
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        this.head.render(scale);
+        this.headaccessory.render(scale);
+        this.neck.render(scale);
+        this.bodytop.render(scale);
+        this.bodymiddle.render(scale);
+        this.bodymiddlebutton.render(scale);
+        this.bodybottom.render(scale);
+        this.rightchest.render(scale);
+        this.leftchest.render(scale);
+        this.rightarm.render(scale);
+        this.leftarm.render(scale);
+        this.rightleg.render(scale);
+        this.leftleg.render(scale);
+        this.hair1.render(scale);
+        this.hair2.render(scale);
+        // this.rightfeather.render(scale);
+        // this.leftfeather.render(scale);
+        // this.headhelmet.render(scale);
+        this.cape1.render(scale);
+        this.cape2.render(scale);
+        this.cape3.render(scale);
+        // this.rightpauldron.render(scale);
+        // this.leftpauldron.render(scale);
+        // this.rightgauntlet.render(scale);
+        this.skirtmantle.render(scale);
+        this.skirt1.render(scale);
+        this.skirt2.render(scale);
+        this.skirt3.render(scale);
+        this.rightwing.render(scale);
+        this.leftwing.render(scale);
 
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		//head
-		this.head.rotateAngleY = netHeadYaw / 57.295776F;
-		this.head.rotateAngleX = headPitch / 57.295776F;
-		this.headeyes.rotateAngleY = this.head.rotateAngleY;
-		this.headeyes.rotateAngleX = this.head.rotateAngleX;
-		this.headaccessory.rotateAngleY = this.head.rotateAngleY;
-		this.headaccessory.rotateAngleX = this.head.rotateAngleX;
-		this.hair1.rotateAngleY = this.head.rotateAngleY;
-		this.hair2.rotateAngleY = (this.head.rotateAngleY) * 0.75F;
-		
-		//arms
-		this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
-		
-		this.rightarm.rotateAngleZ = 0.0F;
-		this.leftarm.rotateAngleZ = 0.0F;
-		
-        if (this.swingProgress > -9990.0F) {
-			holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,scaleFactor, entityIn);
+        if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+            this.headeyes.render(scale);
         }
-        
+    }
+
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
+            Entity entityIn) {
+        // head
+        this.head.rotateAngleY = netHeadYaw / 57.295776F;
+        this.head.rotateAngleX = headPitch / 57.295776F;
+        this.headeyes.rotateAngleY = this.head.rotateAngleY;
+        this.headeyes.rotateAngleX = this.head.rotateAngleX;
+        this.headaccessory.rotateAngleY = this.head.rotateAngleY;
+        this.headaccessory.rotateAngleX = this.head.rotateAngleX;
+        this.hair1.rotateAngleY = this.head.rotateAngleY;
+        this.hair2.rotateAngleY = (this.head.rotateAngleY) * 0.75F;
+
+        // arms
+        this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+        this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+
+        this.rightarm.rotateAngleZ = 0.0F;
+        this.leftarm.rotateAngleZ = 0.0F;
+
+        if (this.swingProgress > -9990.0F) {
+            holdingMelee(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+        }
+
         this.rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
         this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         this.leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
         this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-		
-		//body
-		this.rightwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F + (float)Math.PI) * 1.0F * limbSwingAmount * 0.5F;
-		this.leftwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
-		this.rightwing.rotateAngleY -= 0.5235988F;
-		this.leftwing.rotateAngleY += 0.5235988F;
-		
-		//legs
-		this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.35F * limbSwingAmount;
-		this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 0.35F * limbSwingAmount;
-	}
-	
-	public void holdingMelee(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		float f6;
-		float f7;
-		
-		f6 = this.swingProgress;
+
+        // body
+        this.rightwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
+        this.leftwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
+        this.rightwing.rotateAngleY -= 0.5235988F;
+        this.leftwing.rotateAngleY += 0.5235988F;
+
+        // legs
+        this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.35F * limbSwingAmount;
+        this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.35F * limbSwingAmount;
+    }
+
+    public void holdingMelee(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
+            Entity entityIn) {
+        float f6;
+        float f7;
+
+        f6 = this.swingProgress;
         f6 = 1.0F - this.swingProgress;
         f6 *= f6;
         f6 *= f6;
         f6 = 1.0F - f6;
-        f7 = MathHelper.sin(f6 * (float)Math.PI);
-        float f8 = MathHelper.sin(this.swingProgress * (float)Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
-        
-        this.rightarm.rotateAngleX = (float)((double)this.rightarm.rotateAngleX - ((double)f7 * 1.2D + (double)f8));
+        f7 = MathHelper.sin(f6 * (float) Math.PI);
+        float f8 = MathHelper.sin(this.swingProgress * (float) Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+
+        this.rightarm.rotateAngleX = (float) ((double) this.rightarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
         this.rightarm.rotateAngleX += (this.bodytop.rotateAngleY * 2.0F);
-        this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F);
-	}
+        this.rightarm.rotateAngleZ = (MathHelper.sin(this.swingProgress * (float) Math.PI) * -0.4F);
+    }
 }

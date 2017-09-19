@@ -9,10 +9,10 @@ import net.minecraft.world.World;
 //Same as EntitySmallFireball, except it does not spawn a fire block on impact
 public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
-	public EntityGaiaProjectileSmallFireball(World par1World) {
-		super(par1World);
-		this.setSize(0.3125F, 0.3125F);
-	}
+    public EntityGaiaProjectileSmallFireball(World par1World) {
+        super(par1World);
+        this.setSize(0.3125F, 0.3125F);
+    }
 
     public EntityGaiaProjectileSmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
         super(worldIn, shooter, accelX, accelY, accelZ);
@@ -24,23 +24,24 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
         this.setSize(0.3125F, 0.3125F);
     }
 
-	protected void onImpact(RayTraceResult par1MovingObjectPosition) {
-		if (!this.worldObj.isRemote) {
-			if (par1MovingObjectPosition.entityHit != null) {
-				if (!par1MovingObjectPosition.entityHit.isImmuneToFire() && par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
-					par1MovingObjectPosition.entityHit.setFire(4);
-				}
-			}
+    protected void onImpact(RayTraceResult par1MovingObjectPosition) {
+        if (!this.world.isRemote) {
+            if (par1MovingObjectPosition.entityHit != null) {
+                if (!par1MovingObjectPosition.entityHit.isImmuneToFire() &&
+                        par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
+                    par1MovingObjectPosition.entityHit.setFire(4);
+                }
+            }
 
-			this.setDead();
-		}
-	}
+            this.setDead();
+        }
+    }
 
-	public boolean canBeCollidedWith() {
-		return false;
-	}
+    public boolean canBeCollidedWith() {
+        return false;
+    }
 
-	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
-		return false;
-	}
+    public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
+        return false;
+    }
 }

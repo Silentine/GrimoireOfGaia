@@ -30,138 +30,145 @@ import net.minecraft.world.World;
 
 public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
-	public EntityGaiaSuccubus(World worldIn) {
-		super(worldIn);
-		this.experienceValue = EntityAttributes.experienceValue1;
-		this.stepHeight = 1.0F;
-		this.isImmuneToFire = true;
-	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
-		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+    public EntityGaiaSuccubus(World worldIn) {
+        super(worldIn);
+
+        this.experienceValue = EntityAttributes.experienceValue1;
+        this.stepHeight = 1.0F;
+        this.isImmuneToFire = true;
     }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense1) {
-			damage = EntityAttributes.baseDefense1;
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
+    protected void initEntityAI() {
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(3, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+    }
+
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+                .setBaseValue((double) EntityAttributes.maxHealth1);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
+                .setBaseValue(EntityAttributes.followrange);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+                .setBaseValue(EntityAttributes.moveSpeed1);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+                .setBaseValue((double) EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
+                .setBaseValue(EntityAttributes.rateArmor1);
+    }
+
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        if (damage > EntityAttributes.baseDefense1) {
+            damage = EntityAttributes.baseDefense1;
+        }
+
+        return super.attackEntityFrom(source, damage);
+    }
+
     public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-	}
-	
-	public boolean attackEntityAsMob(Entity entityIn) {
-		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase)entityIn).setFire(8);
+        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn) {
+        if (super.attackEntityAsMob(entityIn)) {
+            if (entityIn instanceof EntityLivingBase) {
+                ((EntityLivingBase) entityIn).setFire(8);
                 byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 5;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 10;
+                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
+                    byte0 = 5;
+                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
+                    byte0 = 10;
                 }
 
                 if (byte0 > 0) {
-                	((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
+                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
 
-        	        this.worldObj.setEntityState(this, (byte)9);
-    				
-    				this.heal(EntityAttributes.maxHealth1 * 0.10F);
-    			}
-			}
+                    this.world.setEntityState(this, (byte) 9);
 
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public boolean isAIEnabled() {
-		return true;
-	}
+                    this.heal(EntityAttributes.maxHealth1 * 0.10F);
+                }
+            }
 
-	public void onLivingUpdate() {
-		if (!this.onGround && this.motionY < 0.0D) {
-			this.motionY *= 0.8D;
-		}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		super.onLivingUpdate();
-	}
+    public boolean isAIDisabled() {
+        return false;
+    }
 
-	protected SoundEvent getAmbientSound() {
-		return Sounds.aggressive_say;
-	}
+    public void onLivingUpdate() {
+        if (!this.onGround && this.motionY < 0.0D) {
+            this.motionY *= 0.8D;
+        }
 
-	protected SoundEvent getHurtSound() {
-		return Sounds.aggressive_hurt;
-	}
+        super.onLivingUpdate();
+    }
 
-	protected SoundEvent getDeathSound() {
-		return Sounds.aggressive_death;
-	}
+    protected SoundEvent getAmbientSound() {
+        return Sounds.aggressive_say;
+    }
 
-	protected void playStepSound(BlockPos pos, Block blockIn) {	
-		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
-	}
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return Sounds.aggressive_hurt;
+    }
 
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit) {
-			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				this.dropItem(GaiaItems.MiscSoulFiery, 1);
-			}
+    protected SoundEvent getDeathSound() {
+        return Sounds.aggressive_death;
+    }
 
-			if ((this.rand.nextInt(8) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				if ((this.rand.nextInt(2) == 0 )) {
-					this.dropItem(Items.QUARTZ, 1);
-				} else {
-					this.dropItem(Items.GLOWSTONE_DUST, 1);
-				}
-			}
+    protected void playStepSound(BlockPos pos, Block blockIn) {
+        this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+    }
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        if (wasRecentlyHit) {
+            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                this.dropItem(GaiaItems.MiscSoulFiery, 1);
+            }
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,0);
-			}
+            if ((this.rand.nextInt(8) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                if ((this.rand.nextInt(2) == 0)) {
+                    this.dropItem(Items.QUARTZ, 1);
+                } else {
+                    this.dropItem(Items.GLOWSTONE_DUST, 1);
+                }
+            }
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+            // Nuggets/Fragments
+            int var11 = this.rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,4);
-				}
-			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(1)) {
-    			case 0:
-    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
-    			}
-    		}
-		}
-	}
+            for (int var12 = 0; var12 < var11; ++var12) {
+                ItemShard.Drop_Nugget(this, 0);
+            }
 
-	//================= Immunities =================//
-	public void fall(float distance, float damageMultiplier) {}
-	//==============================================//
+            if (GaiaConfig.AdditionalOre) {
+                int var13 = this.rand.nextInt(3) + 1;
+
+                for (int var14 = 0; var14 < var13; ++var14) {
+                    ItemShard.Drop_Nugget(this, 4);
+                }
+            }
+
+            // Rare
+            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                switch (this.rand.nextInt(1)) {
+                    case 0:
+                        this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
+                }
+            }
+        }
+    }
+
+    // ================= Immunities =================//
+    public void fall(float distance, float damageMultiplier) {
+    }
+    // ==============================================//
 }

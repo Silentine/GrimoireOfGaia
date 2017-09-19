@@ -32,170 +32,183 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/** 
+/**
  * @see EntityIronGolem
  */
 public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
-	
-	private int attackTimer;
 
-	public EntityGaiaCobbleGolem(World worldIn) {
-		super(worldIn);
-		this.experienceValue = EntityAttributes.experienceValue1;
-		this.stepHeight = 1.0F;
-		this.isImmuneToFire = true;
-	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
-		this.tasks.addTask(1, new EntityAIWander(this, 0.5D));
-		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(2, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+    private int attackTimer;
+
+    public EntityGaiaCobbleGolem(World worldIn) {
+        super(worldIn);
+
+        this.experienceValue = EntityAttributes.experienceValue1;
+        this.stepHeight = 1.0F;
+        this.isImmuneToFire = true;
     }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
-        
-		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense1) {
-			damage = EntityAttributes.baseDefense1;
-		}
-		
-		float input = damage;
-		Entity entity = source.getEntity();
-		
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack itemstack = player.getHeldItem(getActiveHand());
-			if (itemstack != null) {
-				
-				if (itemstack.getItem() instanceof ItemPickaxe) {
-					damage = input+5;
-				}
-			}
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
+    protected void initEntityAI() {
+        this.tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
+        this.tasks.addTask(1, new EntityAIWander(this, 0.5D));
+        this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(2, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+    }
+
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+                .setBaseValue((double) EntityAttributes.maxHealth1);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
+                .setBaseValue(EntityAttributes.followrange);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+                .setBaseValue(EntityAttributes.moveSpeed0);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+                .setBaseValue((double) EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
+                .setBaseValue(EntityAttributes.rateArmor1);
+
+        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE)
+                .setBaseValue(1.00D);
+    }
+
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        if (damage > EntityAttributes.baseDefense1) {
+            damage = EntityAttributes.baseDefense1;
+        }
+
+        float input = damage;
+        Entity entity = source.getTrueSource();
+
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            ItemStack itemstack = player.getHeldItem(getActiveHand());
+            if (itemstack != null) {
+
+                if (itemstack.getItem() instanceof ItemPickaxe) {
+                    damage = input + 5;
+                }
+            }
+        }
+
+        return super.attackEntityFrom(source, damage);
+    }
+
     public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-	}
+        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+    }
 
-	public boolean attackEntityAsMob(Entity entityIn) {
-		this.attackTimer = 10;
-		this.worldObj.setEntityState(this, (byte)4);
-		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(7 + this.rand.nextInt(15)));
-		if (var2) {
-			entityIn.motionY += 0.2000000059604645D;
-		}
+    public boolean attackEntityAsMob(Entity entityIn) {
+        this.attackTimer = 10;
+        this.world.setEntityState(this, (byte) 4);
+        boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (7 + this.rand.nextInt(15)));
+        if (var2) {
+            entityIn.motionY += 0.2000000059604645D;
+        }
 
-		this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
-		return var2;
-	}
+        this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+        return var2;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 4) {
-			this.attackTimer = 10;
-			this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);			 
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public int getAttackTimer() {
-		return this.attackTimer;
-	}
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 4) {
+            this.attackTimer = 10;
+            this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+        } else {
+            super.handleStatusUpdate(id);
+        }
+    }
 
-	public boolean isAIEnabled() {
-		return true;
-	}
-	
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
+    @SideOnly(Side.CLIENT)
+    public int getAttackTimer() {
+        return this.attackTimer;
+    }
 
-		if (this.attackTimer > 0) {
-			--this.attackTimer;
-		}
+    public boolean isAIDisabled() {
+        return false;
+    }
 
-		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
-			int i = MathHelper.floor_double(this.posX);
-			int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-			int k = MathHelper.floor_double(this.posZ);
-			IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
 
-			if (iblockstate.getMaterial() != Material.AIR)
-			{
-				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(iblockstate)});
-			}
-		}
-	}
+        if (this.attackTimer > 0) {
+            --this.attackTimer;
+        }
 
-	protected SoundEvent getAmbientSound() {
-		return Sounds.none;	
-	}
+        if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
+            int i = MathHelper.floor(this.posX);
+            int j = MathHelper.floor(this.posY - 0.20000000298023224D);
+            int k = MathHelper.floor(this.posZ);
+            IBlockState iblockstate = this.world.getBlockState(new BlockPos(i, j, k));
 
-	protected SoundEvent getHurtSound() {
-		return SoundEvents.BLOCK_STONE_BREAK;
-	}
+            if (iblockstate.getMaterial() != Material.AIR) {
+                this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
+                        this.posX + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
+                        this.getEntityBoundingBox().minY + 0.1D,
+                        this.posZ + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
+                        4.0D * ((double) this.rand.nextFloat() - 0.5D), 0.5D,
+                        ((double) this.rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(iblockstate)});
+            }
+        }
+    }
 
-	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_IRONGOLEM_DEATH;
-	}
+    protected SoundEvent getAmbientSound() {
+        return Sounds.none;
+    }
 
-	protected void playStepSound(BlockPos pos, Block blockIn) {	
-		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
-	}
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.BLOCK_STONE_BREAK;
+    }
 
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit) {
-			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				ItemShard.Drop_Nugget(this,0);
-			}
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_IRONGOLEM_DEATH;
+    }
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+    protected void playStepSound(BlockPos pos, Block blockIn) {
+        this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+    }
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,0);
-			}
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        if (wasRecentlyHit) {
+            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                ItemShard.Drop_Nugget(this, 0);
+            }
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+            // Nuggets/Fragments
+            int var11 = this.rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,4);
-				}
-			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(1)) {
-    			case 0:
-    				this.dropItem(GaiaItems.BoxIron, 1);
-    			}
-    		}
-		}
-	}
+            for (int var12 = 0; var12 < var11; ++var12) {
+                ItemShard.Drop_Nugget(this, 0);
+            }
 
-	//================= Immunities =================//
-	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() == MobEffects.POISON ? false:super.isPotionApplicable(potioneffectIn);
-	}
-	//=============================================//
-	
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+            if (GaiaConfig.AdditionalOre) {
+                int var13 = this.rand.nextInt(3) + 1;
+
+                for (int var14 = 0; var14 < var13; ++var14) {
+                    ItemShard.Drop_Nugget(this, 4);
+                }
+            }
+
+            // Rare
+            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                switch (this.rand.nextInt(1)) {
+                    case 0:
+                        this.dropItem(GaiaItems.BoxIron, 1);
+                }
+            }
+        }
+    }
+
+    // ================= Immunities =================//
+    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+        return potioneffectIn.getPotion() == MobEffects.POISON
+                ? false
+                : super.isPotionApplicable(potioneffectIn);
+    }
+    // =============================================//
+
+    public boolean getCanSpawnHere() {
+        return this.posY > 60.0D && super.getCanSpawnHere();
+    }
 }

@@ -60,280 +60,244 @@ import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-/** 
- * Streamlined Spawning Registry, 
- * Tried to keep structure as similar,
- * but cleaned up methods and repetitive code to save time and fingers.
+/**
+ * Streamlined Spawning Registry, Tried to keep structure as similar, but
+ * cleaned up methods and repetitive code to save time and fingers.
  */
 public class GaiaSpawning extends GaiaConfig {
 
-	static int i;
-	static SpawnListEntry SpawnEntry;
+    /**
+     * Bridge Method for simpler spawning registry
+     */
+    public static void add(int weight, Class<? extends EntityLiving> entityclassIn, int groupCountMin, int groupCountMax, Biome biome) {
+        if (weight > 0) {
+            biome.getSpawnableList(EnumCreatureType.MONSTER).add(new SpawnListEntry(entityclassIn, weight, groupCountMin, groupCountMax));
+        }
+    }
 
-	/**
-	 * Bridge Method for simpler spawning registry
-	 */
-	public static void add(int configuration, Class <? extends EntityLiving > entityclassIn, int groupmin, int groupmax, Biome[] biome, int subbiome) {	
-		if (configuration > 0 ) {
-			SpawnEntry = new SpawnListEntry(entityclassIn, configuration, groupmin, groupmax);
-			biome[subbiome].getSpawnableList(EnumCreatureType.MONSTER).add(SpawnEntry);
-		}
-	}
+    /**
+     * Underground Creature Roster
+     */
+    public static void underground(Biome biome) {
+        add(SpawnCreep, EntityGaiaCreep.class, 2, 4, biome);
+        add(SpawnEnderEye, EntityGaiaEnderEye.class, 2, 4, biome);
+        add(SpawnArachne, EntityGaiaArachne.class, 1, 2, biome);
+        add(SpawnMimic, EntityGaiaPropChestMimic.class, 1, 2, biome);
+        add(SpawnBoneKnight, EntityGaiaBoneKnight.class, 1, 2, biome);
+        add(SpawnFleshLich, EntityGaiaFleshLich.class, 1, 2, biome);
+    }
 
-	/** 
-	 * Underground Creature Roster 
-	 */
-	public static void underground(Biome[] biome, int subbiome) {		
-		add(SpawnCreep, EntityGaiaCreep.class, 2, 4, biome, subbiome);
-		add(SpawnEnderEye, EntityGaiaEnderEye.class, 2, 4, biome, subbiome);	
-		add(SpawnArachne, EntityGaiaArachne.class, 1, 2, biome, subbiome);	
-		add(SpawnMimic, EntityGaiaPropChestMimic.class, 1, 2, biome, subbiome);		
-		add(SpawnBoneKnight, EntityGaiaBoneKnight.class, 1, 2, biome, subbiome);	
-		add(SpawnFleshLich, EntityGaiaFleshLich.class, 1, 2, biome, subbiome);
-	}
-	
-	//Water based mobs
-	public static void aquatic(Biome[] biome, int subbiome) {
-		add(SpawnSahuagin, EntityGaiaSahuagin.class, 4, 6, biome, subbiome);		
-		add(SpawnMermaid, EntityGaiaMermaid.class, 2, 4, biome, subbiome);		
-		add(SpawnSharko, EntityGaiaSharko.class, 2, 4, biome, subbiome);	
-	}
+    // Water based mobs
+    public static void aquatic(Biome biome) {
+        add(SpawnSahuagin, EntityGaiaSahuagin.class, 4, 6, biome);
+        add(SpawnMermaid, EntityGaiaMermaid.class, 2, 4, biome);
+        add(SpawnSharko, EntityGaiaSharko.class, 2, 4, biome);
+    }
 
-	/** 
-	 * Register Mobs based on Biome sub Types 
-	 */
-	public static void register() {
+    /**
+     * Register Mobs based on Biome sub Types
+     */
+    public static void register() {
+        Map<Type, Set<Biome>> biomeMap = buildBiomeListByType();
 
-		Biome[] forest = BiomeDictionary.getBiomesForType(Type.FOREST);
-		Biome[] sandy = BiomeDictionary.getBiomesForType(Type.SANDY);
-		Biome[] plains = BiomeDictionary.getBiomesForType(Type.PLAINS);
-		Biome[] swamp = BiomeDictionary.getBiomesForType(Type.SWAMP);
-		Biome[] spooky = BiomeDictionary.getBiomesForType(Type.SPOOKY);
-		Biome[] jungle = BiomeDictionary.getBiomesForType(Type.JUNGLE);
-		Biome[] snowy = BiomeDictionary.getBiomesForType(Type.SNOWY);
-		Biome[] mountain = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
-		Biome[] hills = BiomeDictionary.getBiomesForType(Type.HILLS);
+        Set<Biome> forest = biomeMap.get(Type.FOREST);
+        Set<Biome> sandy = biomeMap.get(Type.SANDY);
+        Set<Biome> plains = biomeMap.get(Type.PLAINS);
+        Set<Biome> swamp = biomeMap.get(Type.SWAMP);
+        Set<Biome> spooky = biomeMap.get(Type.SPOOKY);
+        Set<Biome> jungle = biomeMap.get(Type.JUNGLE);
+        Set<Biome> snowy = biomeMap.get(Type.SNOWY);
+        Set<Biome> mountain = biomeMap.get(Type.MOUNTAIN);
+        Set<Biome> hills = biomeMap.get(Type.HILLS);
 
-		Biome[] ocean = BiomeDictionary.getBiomesForType(Type.OCEAN);
-		Biome[] river = BiomeDictionary.getBiomesForType(Type.RIVER);
-		Biome[] water = (Biome[])ArrayUtils.addAll(ocean, river);
-		Biome[] beach = BiomeDictionary.getBiomesForType(Type.BEACH);
+        Set<Biome> ocean = biomeMap.get(Type.OCEAN);
+        Set<Biome> river = biomeMap.get(Type.RIVER);
 
-		Biome[] hell = BiomeDictionary.getBiomesForType(Type.NETHER);
-		Biome[] sky = BiomeDictionary.getBiomesForType(Type.END);
+        Set<Biome> water = new HashSet<>(ocean);
+        water.addAll(river);
 
-		for (i = 0; i < forest.length; ++i) 
-		{
-			//forest, forestHills, birchForest, birchForestHills
-			if (!BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
-					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY)  
-					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.MOUNTAIN) 
-					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY) 
-					&& !BiomeDictionary.isBiomeOfType(forest[i], Type.MAGICAL))  	 
-			{
+        Set<Biome> beach = biomeMap.get(Type.BEACH);
 
-				add(SpawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, forest, i);	
+        Set<Biome> hell = biomeMap.get(Type.NETHER);
+        Set<Biome> sky = biomeMap.get(Type.END);
 
-				add(SpawnDryad, EntityGaiaDryad.class, 4, 6, forest, i);
+        for (Biome biome : forest) {
+            // forest, forestHills, birchForest, birchForestHills
+            if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) && !BiomeDictionary.hasType(biome, Type.SNOWY) &&
+                    !BiomeDictionary.hasType(biome, Type.MOUNTAIN) && !BiomeDictionary.hasType(biome, Type.SPOOKY) &&
+                    !BiomeDictionary.hasType(biome, Type.MAGICAL)) {
+                add(SpawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
+                add(SpawnDryad, EntityGaiaDryad.class, 4, 6, biome);
+                add(SpawnWerecat, EntityGaiaWerecat.class, 4, 6, biome);
+                add(SpawnSpriggan, EntityGaiaSpriggan.class, 2, 4, biome);
 
-				add(SpawnWerecat, EntityGaiaWerecat.class, 4, 6, forest, i);	
+                underground(biome);
+            }
 
-				add(SpawnSpriggan, EntityGaiaSpriggan.class, 2, 4, forest, i);	
+            // taiga, taigaHills, megaTaiga, megaTaigaHills
+            if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && (!BiomeDictionary.hasType(biome, Type.SNOWY))) {
+                add(SpawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
+                add(SpawnCyclops, EntityGaiaCyclops.class, 4, 6, biome);
+                add(SpawnYukiOnna, EntityGaiaYukiOnna.class, 2, 4, biome);
+                add(SpawnFutakuchiOnna, EntityGaiaFutakuchiOnna.class, 4, 6, biome);
+                add(SpawnNineTails, EntityGaiaNineTails.class, 2, 4, biome);
 
-				underground(forest, i);
-			}
+                underground(biome);
+            }
 
-			//taiga, taigaHills, megaTaiga, megaTaigaHills
-			if (BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS) 
-					&& (!BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
-			{
-				add(SpawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, forest, i);	
-				
-				add(SpawnCyclops, EntityGaiaCyclops.class, 4, 6, forest, i);
+            // coldTaiga, coldTaigaHills
+            if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && (BiomeDictionary.hasType(biome, Type.SNOWY))) {
+                add(SpawnDhampir, EntityGaiaDhampir.class, 2, 4, biome);
 
-				add(SpawnYukiOnna, EntityGaiaYukiOnna.class, 2, 4, forest, i);
+                if (!GaiaConfig.SpawnLevel3) {
+                    add(SpawnVampire, EntityGaiaVampire.class, 1, 2, biome);
+                }
 
-				add(SpawnFutakuchiOnna, EntityGaiaFutakuchiOnna.class, 4, 6, forest, i);
+                underground(biome);
+            }
 
-				add(SpawnNineTails, EntityGaiaNineTails.class, 2, 4, forest, i);
+            // roofedForest
+            if (BiomeDictionary.hasType(biome, Type.SPOOKY)) {
+                add(SpawnMatango, EntityGaiaMatango.class, 2, 4, biome);
+                add(SpawnToad, EntityGaiaToad.class, 2, 4, biome);
+                add(SpawnWitch, EntityGaiaWitch.class, 2, 4, biome);
 
-				underground(forest, i);
-			} 
+                underground(biome);
+            }
+        }
 
-			//coldTaiga, coldTaigaHills
-			if (BiomeDictionary.isBiomeOfType(forest[i], Type.CONIFEROUS)
-					&& (BiomeDictionary.isBiomeOfType(forest[i], Type.SNOWY))) 
-			{		
-				add(SpawnDhampir, EntityGaiaDhampir.class, 2, 4, forest, i);
+        // desert, desertHills, mesa, mesaPlateau, mesaPlateau_F
+        for (Biome biome : sandy) {
+            add(SpawnAnt, EntityGaiaAnt.class, 2, 4, biome);
+            add(SpawnMummy, EntityGaiaMummy.class, 2, 4, biome);
+            add(SpawnAnubis, EntityGaiaAnubis.class, 2, 4, biome);
 
-				if (GaiaConfig.SpawnLevel3 != true) {
-					add(SpawnVampire, EntityGaiaVampire.class, 1, 2, forest, i);
-				}
+            if (!GaiaConfig.SpawnLevel3) {
+                add(SpawnSphinx, EntityGaiaSphinx.class, 1, 2, biome);
+            }
 
-				underground(forest, i);
-			}
+            underground(biome);
+        }
 
-			//roofedForest
-			if (BiomeDictionary.isBiomeOfType(forest[i], Type.SPOOKY)) 
-			{		
-				add(SpawnMatango, EntityGaiaMatango.class, 2, 4, forest, i);
-				
-				add(SpawnToad, EntityGaiaToad.class, 2, 4, forest, i);
+        // plains, savanna, savannaPlateau
+        for (Biome biome : plains) {
+            add(SpawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
+            add(SpawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
+            add(SpawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
+            add(SpawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
 
-				add(SpawnWitch, EntityGaiaWitch.class, 2, 4, forest, i);
-				
-				underground(forest, i);
-			}
-		}
+            if (!GaiaConfig.SpawnLevel3) {
+                add(SpawnMinotaur, EntityGaiaMinotaur.class, 1, 2, biome);
+            }
 
-		//desert, desertHills, mesa, mesaPlateau, mesaPlateau_F 
-		for (i = 0; i < sandy.length; ++i) 
-		{
-			add(SpawnAnt, EntityGaiaAnt.class, 2, 4, sandy, i);
-			
-			add(SpawnMummy, EntityGaiaMummy.class, 2, 4, sandy, i);
+            underground(biome);
+        }
 
-			add(SpawnAnubis, EntityGaiaAnubis.class, 2, 4, sandy, i);
+        // swamp
+        for (Biome biome : swamp) {
+            add(SpawnSiren, EntityGaiaSiren.class, 4, 6, biome);
+            add(SpawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, biome);
+            add(SpawnNaga, EntityGaiaNaga.class, 1, 2, biome);
 
-			if (GaiaConfig.SpawnLevel3 != true) {
-				add(SpawnSphinx, EntityGaiaSphinx.class, 1, 2, sandy, i);
-			}
+            underground(biome);
+        }
 
-			underground(sandy, i);
-		}
+        // jungle
+        for (Biome biome : jungle) {
+            add(SpawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, biome);
+            add(SpawnHunter, EntityGaiaHunter.class, 2, 4, biome);
+            add(SpawnShaman, EntityGaiaShaman.class, 2, 4, biome);
+            add(SpawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, biome);
 
-		//plains, savanna, savannaPlateau 
-		for (i = 0; i < plains.length; ++i) 
-		{
-			add(SpawnSatyress, EntityGaiaSatyress.class, 2, 4, plains, i);
+            underground(biome);
+        }
 
-			add(SpawnCentaur, EntityGaiaCentaur.class, 4, 6, plains, i);
-			
-			add(SpawnHarpy, EntityGaiaHarpy.class, 2, 4, plains, i);
+        // icePlains, iceMountains
+        for (Biome biome : snowy) {
+            if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) && !BiomeDictionary.hasType(biome, Type.FOREST) &&
+                    !BiomeDictionary.hasType(biome, Type.OCEAN) && !BiomeDictionary.hasType(biome, Type.RIVER) &&
+                    !BiomeDictionary.hasType(biome, Type.BEACH)) {
+                add(SpawnSelkie, EntityGaiaSelkie.class, 2, 4, biome);
+                add(SpawnKobold, EntityGaiaKobold.class, 4, 6, biome);
+                add(SpawnYeti, EntityGaiaYeti.class, 2, 4, biome);
 
-			add(SpawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, plains, i);
+                underground(biome);
+            }
+        }
 
-			if (GaiaConfig.SpawnLevel3 != true) {
-				add(SpawnMinotaur, EntityGaiaMinotaur.class, 1, 2, plains, i);
-			}
+        // extremeHills, extremeHillsPlus
+        for (Biome biome : mountain) {
+            if (!BiomeDictionary.hasType(biome, Type.SNOWY)) {
+                add(SpawnGryphon, EntityGaiaGryphon.class, 1, 2, biome);
+                add(SpawnDwarf, EntityGaiaDwarf.class, 4, 6, biome);
 
-			underground(plains, i);
-		}
+                if (!GaiaConfig.SpawnLevel3) {
+                    add(SpawnValkyrie, EntityGaiaValkyrie.class, 1, 2, biome);
+                }
 
-		//swamp
-		for (i = 0; i < swamp.length; ++i) 
-		{
-			add(SpawnSiren, EntityGaiaSiren.class, 4, 6, swamp, i);
+                add(SpawnDullahan, EntityGaiaDullahan.class, 4, 6, biome);
+                add(SpawnBanshee, EntityGaiaBanshee.class, 2, 4, biome);
 
-			add(SpawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, swamp, i);
-			
-			add(SpawnNaga, EntityGaiaNaga.class, 1, 2, swamp, i);
+                underground(biome);
+            }
+        }
 
-			underground(swamp, i);
-		}
+        // frozenRiver, coldBeach, stoneBeach, river, beach, ocean, deepOcean
+        for (Biome biome : water) {
+            aquatic(biome);
+        }
 
-		//jungle
-		for (i = 0; i < jungle.length; ++i) 
-		{
-			add(SpawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, jungle, i);
+        for (Biome biome : beach) {
+            aquatic(biome);
+        }
 
-			add(SpawnHunter, EntityGaiaHunter.class, 2, 4, jungle, i);
+        // hell
+        for (Biome biome : hell) {
+            add(SpawnSuccubus, EntityGaiaSuccubus.class, 2, 4, biome);
+            add(SpawnWitherCow, EntityGaiaWitherCow.class, 1, 2, biome);
+            add(SpawnBaphomet, EntityGaiaBaphomet.class, 1, 2, biome);
+        }
 
-			add(SpawnShaman, EntityGaiaShaman.class, 2, 4, jungle, i);
+        // sky
+        for (Biome biome : sky) {
+            if (BiomeDictionary.hasType(biome, Type.COLD) && (BiomeDictionary.hasType(biome, Type.DRY))) {
+                add(SpawnEnderDragonGirl, EntityGaiaEnderDragonGirl.class, 1, 2, biome);
+            }
+        }
+    }
 
-			add(SpawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, jungle, i);
+    /**
+     * "Mutated" biomes don't have type dictionaries by default. This addition
+     * compensates for specific sub biomes having gaps in creature spawning.
+     */
+    public static void Biome_Tweaks() {
+        Gaia.LOGGER.info("Sub Biome Tweaks Enabled");
 
-			underground(jungle, i);
-		}
+        BiomeDictionary.addTypes(Biomes.MUTATED_ROOFED_FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.DENSE,
+                BiomeDictionary.Type.FOREST);
+        BiomeDictionary.addTypes(Biomes.MUTATED_EXTREME_HILLS, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
+        BiomeDictionary.addTypes(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
+    }
 
-		//icePlains, iceMountains
-		for (i = 0; i < snowy.length; ++i) 
-		{
-			if (!BiomeDictionary.isBiomeOfType(snowy[i], Type.CONIFEROUS) 
-					&& !BiomeDictionary.isBiomeOfType(snowy[i], Type.FOREST)
-					&& !BiomeDictionary.isBiomeOfType(snowy[i], Type.OCEAN) 
-					&& !BiomeDictionary.isBiomeOfType(snowy[i], Type.RIVER)
-					&& !BiomeDictionary.isBiomeOfType(snowy[i], Type.BEACH)) 
-			{
-				add(SpawnSelkie, EntityGaiaSelkie.class, 2, 4, snowy, i);
-				
-				add(SpawnKobold, EntityGaiaKobold.class, 4, 6, snowy, i);
-				
-				add(SpawnYeti, EntityGaiaYeti.class, 2, 4, snowy, i);
+    private static Map<Type, Set<Biome>> buildBiomeListByType() {
+        Map<Type, Set<Biome>> biomesAndTypes = new HashMap<>();
 
-				underground(snowy, i);
-			}
-		}
+        for (Biome biome : Biome.REGISTRY) {
+            Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
+            for (BiomeDictionary.Type type : types) {
+                if (!biomesAndTypes.containsKey(type)) {
+                    biomesAndTypes.put(type, new HashSet<>());
+                }
 
-		//extremeHills, extremeHillsPlus
-		for (i = 0; i < mountain.length; ++i) 
-		{
-			if (!BiomeDictionary.isBiomeOfType(mountain[i], Type.SNOWY)) 
-			{
-				add(SpawnGryphon, EntityGaiaGryphon.class, 1, 2, mountain, i);
-				
-				add(SpawnDwarf, EntityGaiaDwarf.class, 4, 6, mountain, i);
+                biomesAndTypes.get(type).add(biome);
+            }
+        }
 
-				if (GaiaConfig.SpawnLevel3 != true) {
-					add(SpawnValkyrie, EntityGaiaValkyrie.class, 1, 2, mountain, i);
-				}
-
-				add(SpawnDullahan, EntityGaiaDullahan.class, 4, 6, mountain, i);
-
-				add(SpawnBanshee, EntityGaiaBanshee.class, 2, 4, mountain, i);
-
-				underground(mountain, i);
-			}
-		}
-
-		//frozenRiver, coldBeach, stoneBeach, river, beach, ocean, deepOcean
-		for (i = 0; i < water.length; ++i) 
-		{
-			aquatic( water, i);
-		}
-
-		for (i = 0; i < beach.length; ++i) 
-		{
-			aquatic( beach, i);
-		}
-
-		//hell
-		for (i = 0; i < hell.length; ++i) 
-		{
-			add(SpawnSuccubus, EntityGaiaSuccubus.class, 2, 4, hell, i);
-
-			add(SpawnWitherCow, EntityGaiaWitherCow.class, 1, 2, hell, i);
-
-			add(SpawnBaphomet, EntityGaiaBaphomet.class, 1, 2, hell, i);
-		}
-
-		//sky
-		for (i = 0; i < sky.length; ++i) 
-		{
-			if (BiomeDictionary.isBiomeOfType(sky[i], Type.COLD) 
-					&& (BiomeDictionary.isBiomeOfType(sky[i], Type.DRY))) 
-			{
-				add(SpawnEnderDragonGirl, EntityGaiaEnderDragonGirl.class, 1, 2, sky, i);
-			}
-		}
-	}
-
-	/** 
-	 * "Mutated" biomes don't have type dictionaries by default. 
-	 * This addition compensates for specific sub biomes having gaps in creature spawning.
-	 */
-	public static void Biome_Tweaks() {
-		Gaia.logger.info("Sub Biome Tweaks Enabled");
-
-		BiomeDictionary.registerBiomeType(Biomes.MUTATED_ROOFED_FOREST,
-				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.FOREST);
-
-		BiomeDictionary.registerBiomeType(Biomes.MUTATED_EXTREME_HILLS,
-				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
-
-		BiomeDictionary.registerBiomeType(Biomes.MUTATED_EXTREME_HILLS_WITH_TREES,
-				BiomeDictionary.Type.HILLS, BiomeDictionary.Type.MOUNTAIN);
-	}
+        return biomesAndTypes;
+    }
 }
