@@ -2,15 +2,12 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.recipe.FuelHandler;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
@@ -29,22 +26,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class GaiaRecipes {
 
     private static final ResourceLocation GAIA_RESOURCE_GROUP = new ResourceLocation(GaiaReference.MOD_ID);
-
-    private static void addShapedRecipe(ResourceLocation resource, ItemStack output, Object... params) {
-        GameRegistry.addShapedRecipe(resource, GAIA_RESOURCE_GROUP, output, params);
-    }
-
-    private static void addShapedRecipe(ItemStack output, Object... params) {
-        GameRegistry.addShapedRecipe(output.getItem().getRegistryName(), GAIA_RESOURCE_GROUP, output, params);
-    }
-
-    private static void addShapelessRecipe(ResourceLocation resource, ItemStack output, Ingredient ingredient) {
-        GameRegistry.addShapelessRecipe(resource, GAIA_RESOURCE_GROUP, output, ingredient);
-    }
-
-    private static void addShapelessRecipe(ItemStack output, Ingredient ingredient) {
-        GameRegistry.addShapelessRecipe(output.getItem().getRegistryName(), GAIA_RESOURCE_GROUP, output, ingredient);
-    }
 
     @Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
     public static class RegistrationHandler {
@@ -75,66 +56,6 @@ public class GaiaRecipes {
                     .register(new ShapelessOreRecipe(GAIA_RESOURCE_GROUP, Items.EMERALD, "nuggetEmerald", "nuggetEmerald", "nuggetEmerald",
                             "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald", "nuggetEmerald")
                                     .setRegistryName("nugget_emerald"));
-
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieMandrake, 1),
-                    Ingredient.fromItems(GaiaItems.FoodMandrake, Items.SUGAR, Items.EGG));
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieMeat, 1),
-                    Ingredient.fromItems(Items.FISH, Items.SUGAR, Items.EGG));
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieMeat, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(Items.FISH, 1, 1),
-                            new ItemStack(Items.SUGAR),
-                            new ItemStack(Items.EGG)));
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieMeat, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(Items.FISH, 1, 2),
-                            new ItemStack(Items.SUGAR),
-                            new ItemStack(Items.EGG)));
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieMeat, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(Items.FISH, 1, 3),
-                            new ItemStack(Items.SUGAR),
-                            new ItemStack(Items.EGG)));
-            addShapelessRecipe(new ItemStack(GaiaItems.FoodPieAppleGold, 1),
-                    Ingredient.fromItems(
-                            GaiaItems.FoodSmallAppleGold,
-                            GaiaItems.FoodSmallAppleGold,
-                            GaiaItems.FoodSmallAppleGold,
-                            GaiaItems.FoodSmallAppleGold,
-                            GaiaItems.FoodSmallAppleGold,
-                            GaiaItems.FoodSmallAppleGold));
-            addShapelessRecipe(new ResourceLocation(GaiaReference.MOD_PREFIX + Blocks.COAL_BLOCK.getUnlocalizedName()), new ItemStack(Blocks.COAL_BLOCK, 1),
-                    Ingredient.fromItems(
-                            GaiaItems.MiscFurnaceFuel,
-                            GaiaItems.MiscFurnaceFuel,
-                            GaiaItems.MiscFurnaceFuel,
-                            GaiaItems.MiscFurnaceFuel));
-            addShapelessRecipe(new ResourceLocation(GaiaReference.MOD_PREFIX + Blocks.WOOL.getUnlocalizedName()), new ItemStack(Blocks.WOOL, 1),
-                    Ingredient.fromItems(GaiaItems.MiscFur));
-            addShapelessRecipe(new ItemStack(GaiaItems.MiscQuill, 1),
-                    Ingredient.fromItems(
-                            Items.DIAMOND,
-                            Items.FEATHER));
-            addShapelessRecipe(new ItemStack(GaiaItems.AccessoryRingSpeed, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(GaiaItems.MiscRing, 1, 0),
-                            new ItemStack(Blocks.BEACON)));
-            addShapelessRecipe(new ItemStack(GaiaItems.AccessoryRingHaste, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(GaiaItems.MiscRing, 1, 1),
-                            new ItemStack(Blocks.BEACON)));
-            addShapelessRecipe(new ItemStack(GaiaItems.AccessoryRingJump, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(GaiaItems.MiscRing, 1, 2),
-                            new ItemStack(Blocks.BEACON)));
-            addShapelessRecipe(new ItemStack(GaiaItems.AccessoryRingNight, 1),
-                    Ingredient.fromStacks(
-                            new ItemStack(GaiaItems.MiscRing, 1, 3),
-                            new ItemStack(Blocks.BEACON)));
-            addShapelessRecipe(new ItemStack(GaiaItems.AccessoryTrinketLevitation, 1),
-                    Ingredient.fromItems(
-                            GaiaItems.AccessoryCursed,
-                            Items.IRON_INGOT));
             addFurnaceRecipes();
             addBrews();
             Gaia.LOGGER.info("Recipe registration complete.");
