@@ -1,12 +1,9 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
+import gaia.CreativeTabGaia;
+import gaia.GaiaReference;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,86 +16,107 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @see ItemAppleGold
  */
 public class ItemMiscExperience extends Item {
 
-	public ItemMiscExperience(String name) {
+    public ItemMiscExperience(String name) {
         this.setHasSubtypes(true);
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
-	}
+        this.setRegistryName(GaiaReference.MOD_ID, name);
+        this.setUnlocalizedName(name);
+        this.setCreativeTab(CreativeTabGaia.INSTANCE);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
-	}
-	
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.RARE;
+    }
+
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
         return true;
     }
 
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		if (stack.getItemDamage() == 0) 
-			tooltip.add(I18n.translateToLocalFormatted("item.GrimoireOfGaia.FoodExperienceIron.desc"));
-		else if (stack.getMetadata() == 1) 
-			tooltip.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainLevels", new Object[]{Integer.valueOf(2)}));
-		else if (stack.getMetadata() == 2) 
-			tooltip.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.GainLevels", new Object[]{Integer.valueOf(4)}));
-	}
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (stack.getItemDamage() == 0) {
+            tooltip.add(I18n.format("item.grimoireofgaia.FoodExperienceIron.desc"));
+        } else if (stack.getMetadata() == 1) {
+            tooltip.add(I18n.format("text.grimoireofgaia.GainLevels", 2));
+        } else if (stack.getMetadata() == 2) {
+            tooltip.add(I18n.format("text.grimoireofgaia.GainLevels", 4));
+        }
+    }
 
-	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 3; i ++) {
-			list.add(new ItemStack(item, 1, i));
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (!this.isInCreativeTab(tab)) {
+            return;
+        }
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
-	
-	@Nullable
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase living) {
-		EntityPlayer player = living instanceof EntityPlayer ? (EntityPlayer)living : null;
-		player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-		
-		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
-		}
+        for (int i = 0; i < 3; i++) {
+            items.add(new ItemStack(this, 1, i));
+        }
+    }
 
-		if (!world.isRemote) {
-			if (stack.getMetadata() == 0) 
-				player.addExperienceLevel(itemRand.nextInt(2) + 1);
-			else if (stack.getMetadata() == 1) 
-				player.addExperienceLevel(itemRand.nextInt(3) + 2);
-			else if (stack.getMetadata() == 2)
-				player.addExperienceLevel(itemRand.nextInt(5) + 4);
-		}
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return this.getUnlocalizedName() + "_" + stack.getItemDamage();
+    }
 
-		return stack;
-	}
+    @Override
+    public @Nonnull
+            ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
+        EntityPlayer player = living instanceof EntityPlayer
+                ? (EntityPlayer) living
+                : null;
+        player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-	public int getMaxItemUseDuration(ItemStack stack) {
-		return 16;
-	}
+        if (!player.capabilities.isCreativeMode) {
+            stack.shrink(1);
+        }
 
-	public EnumAction getItemUseAction(ItemStack stack) {
-		return EnumAction.BOW;
-	}
+        if (!world.isRemote) {
+            if (stack.getMetadata() == 0) {
+                player.addExperienceLevel(itemRand.nextInt(2) + 1);
+            } else if (stack.getMetadata() == 1) {
+                player.addExperienceLevel(itemRand.nextInt(3) + 2);
+            } else if (stack.getMetadata() == 2) {
+                player.addExperienceLevel(itemRand.nextInt(5) + 4);
+            }
+        }
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return stack;
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack) {
+        return 16;
+    }
+
+    @Override
+    public @Nonnull
+            EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
+
+    @Override
+    public @Nonnull
+            ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+        final ItemStack stack = player.getHeldItem(handIn);
+        player.setActiveHand(handIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 }

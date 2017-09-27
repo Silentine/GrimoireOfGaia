@@ -6,30 +6,30 @@ import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RenderGaiaMermaid extends RenderLiving {
+public class RenderGaiaMermaid extends RenderLiving<EntityLiving> {
 
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/Mermaid.png");
-	static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
-	
-	public RenderGaiaMermaid( float shadowSize) {
+    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/mermaid.png");
+    static RenderManager rend = Minecraft.getMinecraft()
+            .getRenderManager();
+
+    public RenderGaiaMermaid(float shadowSize) {
         super(rend, new ModelGaiaMermaid(), shadowSize);
         this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaMermaid.rightarm));
         this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaMermaid.leftarm));
-	}
+    }
 
-	public void transformHeldFull3DItemLayer() {
-		GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
-	}
+    public void transformHeldFull3DItemLayer() {
+        GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
+    }
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return texture;
-	}
+    protected ResourceLocation getEntityTexture(EntityLiving entity) {
+        return texture;
+    }
 }

@@ -9,9 +9,6 @@ import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -42,232 +39,248 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
-	
-	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.attackSpeed1, 20, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true);
-	
-	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaHunter.class, DataSerializers.BOOLEAN);
-	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.POISON);
-	
-	private int timer;
-	private int switchDetect;
-	private int switchEquip;
-	
-	public EntityGaiaHunter(World worldIn) {
-		super(worldIn);
-		this.experienceValue = EntityAttributes.experienceValue1;
-		this.stepHeight = 1.0F;
-		
-		this.timer = 0;
-		this.switchDetect = 0;
-		this.switchEquip = 0;
-	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-//		this.tasks.addTask(1, new RESERVED);
-		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+
+    private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.attackSpeed1, 20, 15.0F);
+    private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true);
+
+    private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.<Boolean>createKey(EntityGaiaHunter.class, DataSerializers.BOOLEAN);
+    private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.POISON);
+
+    private int timer;
+    private int switchDetect;
+    private int switchEquip;
+
+    public EntityGaiaHunter(World worldIn) {
+        super(worldIn);
+
+        this.experienceValue = EntityAttributes.experienceValue1;
+        this.stepHeight = 1.0F;
+
+        this.timer = 0;
+        this.switchDetect = 0;
+        this.switchEquip = 0;
     }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense1) {
-			damage = EntityAttributes.baseDefense1;
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
+    protected void initEntityAI() {
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        // this.tasks.addTask(1, new RESERVED);
+        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(3, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+    }
+
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+                .setBaseValue((double) EntityAttributes.maxHealth1);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
+                .setBaseValue(EntityAttributes.followrange);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+                .setBaseValue(EntityAttributes.moveSpeed1);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+                .setBaseValue((double) EntityAttributes.attackDamage1);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
+                .setBaseValue(EntityAttributes.rateArmor1);
+    }
+
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        if (damage > EntityAttributes.baseDefense1) {
+            damage = EntityAttributes.baseDefense1;
+        }
+
+        return super.attackEntityFrom(source, damage);
+    }
+
     public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-	}
-	
-	public boolean attackEntityAsMob(Entity entityIn) {
-		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLivingBase) {
-				byte byte0 = 0;
+        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+    }
 
-				if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 5;
-				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-					byte0 = 10;
-				}
+    public boolean attackEntityAsMob(Entity entityIn) {
+        if (super.attackEntityAsMob(entityIn)) {
+            if (entityIn instanceof EntityLivingBase) {
+                byte byte0 = 0;
 
-				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
-				}
-			}
+                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
+                    byte0 = 5;
+                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
+                    byte0 = 10;
+                }
 
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public boolean isAIEnabled() {
-		return true;
-	}
-	
-	public void onLivingUpdate() {
-		if (playerDetection(3)) {
-			if (this.switchDetect == 0)
-				this.switchDetect = 1;
-		} else {
-			if (this.switchDetect == 1)
-				this.switchDetect = 0;
-		}
+                if (byte0 > 0) {
+                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
+                }
+            }
 
-		if (this.switchDetect == 1 && this.switchEquip == 0) {
-			if (timer <= 20) {
-				++timer;
-			} else {
-				if (!this.isPotionActive(MobEffects.SPEED))
-					this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
-				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 3));
-				this.tasks.removeTask(this.aiArrowAttack);
-				this.tasks.addTask(1, this.aiAttackOnCollide);
-				this.timer = 0;
-				this.switchEquip = 1;
-			}
-		}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		if (this.switchDetect == 0 && this.switchEquip == 1) {
-			if (timer <= 20) {
-				++timer;
-			} else {
-				if (this.isPotionActive(MobEffects.SPEED))
-					this.removePotionEffect(MobEffects.SPEED);
-				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				this.tasks.removeTask(this.aiAttackOnCollide);
-				this.tasks.addTask(1, this.aiArrowAttack);
-				this.timer = 0;
-				this.switchEquip = 0;
-			}
-		}
+    public boolean isAIDisabled() {
+        return false;
+    }
 
-		super.onLivingUpdate();
-	}
-	
-	/** 
-	 * Detects if there are any EntityPlayer nearby
-	 */
-	public boolean playerDetection(int range) {	
-		double d0 = (double)(range);          
+    public void onLivingUpdate() {
+        if (playerDetection(3)) {
+            if (this.switchDetect == 0) {
+                this.switchDetect = 1;
+            }
+        } else {
+            if (this.switchDetect == 1) {
+                this.switchDetect = 0;
+            }
+        }
 
-		int k = (int) this.posX;
-		int l = (int) this.posY;
-		int i1 = (int) this.posZ;
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double)k, (double)l, (double)i1, (double)(k + 1), (double)(l + 1), (double)(i1 + 1))).expandXyz(d0);
-		List<EntityPlayer> list = this.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+        if (this.switchDetect == 1 && this.switchEquip == 0) {
+            if (timer <= 20) {
+                ++timer;
+            } else {
+                if (!this.isPotionActive(MobEffects.SPEED)) {
+                    this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+                }
+                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 3));
+                this.tasks.removeTask(this.aiArrowAttack);
+                this.tasks.addTask(1, this.aiAttackOnCollide);
+                this.timer = 0;
+                this.switchEquip = 1;
+            }
+        }
 
-		if (!list.isEmpty()) return true;            
+        if (this.switchDetect == 0 && this.switchEquip == 1) {
+            if (timer <= 20) {
+                ++timer;
+            } else {
+                if (this.isPotionActive(MobEffects.SPEED)) {
+                    this.removePotionEffect(MobEffects.SPEED);
+                }
+                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+                this.tasks.removeTask(this.aiAttackOnCollide);
+                this.tasks.addTask(1, this.aiArrowAttack);
+                this.timer = 0;
+                this.switchEquip = 0;
+            }
+        }
 
-		return false;
-	}
-	
-	//================= Archer data =================//
-	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.RangedAttack(target, this, distanceFactor);
-	}
+        super.onLivingUpdate();
+    }
 
-	protected void entityInit() {
-		super.entityInit();
-		this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
-	}
+    /**
+     * Detects if there are any EntityPlayer nearby
+     */
+    public boolean playerDetection(int range) {
+        double d0 = (double) (range);
 
-	@Override
-	public boolean canAttackClass(Class par1Class) {
-		return super.canAttackClass(par1Class) && par1Class != EntityGaiaHunter.class;
-	}
+        int k = (int) this.posX;
+        int l = (int) this.posY;
+        int i1 = (int) this.posZ;
+        AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double) k, (double) l, (double) i1, (double) (k + 1), (double) (l + 1), (double) (i1 +
+                1))).grow(d0);
+        List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
-	@SideOnly(Side.CLIENT)
-	public boolean isHoldingBow(){
-		return ((Boolean)this.dataManager.get(HOLDING_BOW)).booleanValue();
-	}
+        if (!list.isEmpty()) {
+            return true;
+        }
 
-	public void setHoldingBow(boolean swingingArms){
-		this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));
-	}
-	//==================================//
+        return false;
+    }
 
-	protected SoundEvent getAmbientSound() {
-		return Sounds.assist_say;
-	}
+    // ================= Archer data =================//
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+        Ranged.RangedAttack(target, this, distanceFactor);
+    }
 
-	protected SoundEvent getHurtSound() {
-		return Sounds.assist_hurt;
-	}
+    protected void entityInit() {
+        super.entityInit();
+        this.dataManager.register(HOLDING_BOW, Boolean.valueOf(false));
+    }
 
-	protected SoundEvent getDeathSound() {
-		return Sounds.assist_death;
-	}
+    @Override
+    public boolean canAttackClass(Class <? extends EntityLivingBase > cls) {
+        return super.canAttackClass(cls) && cls != EntityGaiaHunter.class;
+    }
 
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit) {
-			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				this.dropItem(GaiaItems.FoodRottenHeart, 1);
-			}
+    @SideOnly(Side.CLIENT)
+    public boolean isHoldingBow() {
+        return ((Boolean) this.dataManager.get(HOLDING_BOW)).booleanValue();
+    }
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+    public void setHoldingBow(boolean swingingArms) {
+        this.dataManager.set(HOLDING_BOW, Boolean.valueOf(swingingArms));
+    }
+    // ==================================//
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,0);
-			}
+    protected SoundEvent getAmbientSound() {
+        return Sounds.assist_say;
+    }
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return Sounds.assist_hurt;
+    }
 
-				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,4);
-				}
-			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(2)) {
-    			case 0:
-    				this.dropItem(GaiaItems.BoxIron, 1);
-    				break;
-    			case 1:
-    				this.dropItem(GaiaItems.BagArrow, 1);
-    			}
-    		}
-		}
-	}
-	
-	@Override
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
-	
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
-		this.tasks.removeTask(this.aiAttackOnCollide);
-		this.tasks.addTask(1, this.aiArrowAttack);
-		
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-		this.setEnchantmentBasedOnDifficulty(difficulty);
-		
-		if (this.worldObj.rand.nextInt(2) == 0) {
-			this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
-		}
-		
-		return livingdata;		
-	}
+    protected SoundEvent getDeathSound() {
+        return Sounds.assist_death;
+    }
 
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        if (wasRecentlyHit) {
+            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                this.dropItem(GaiaItems.FoodRottenHeart, 1);
+            }
+
+            // Nuggets/Fragments
+            int var11 = this.rand.nextInt(3) + 1;
+
+            for (int var12 = 0; var12 < var11; ++var12) {
+                ItemShard.Drop_Nugget(this, 0);
+            }
+
+            if (GaiaConfig.AdditionalOre) {
+                int var13 = this.rand.nextInt(3) + 1;
+
+                for (int var14 = 0; var14 < var13; ++var14) {
+                    ItemShard.Drop_Nugget(this, 4);
+                }
+            }
+
+            // Rare
+            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+                switch (this.rand.nextInt(2)) {
+                    case 0:
+                        this.dropItem(GaiaItems.BoxIron, 1);
+                        break;
+                    case 1:
+                        this.dropItem(GaiaItems.BagArrow, 1);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+    }
+
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+
+        this.tasks.removeTask(this.aiAttackOnCollide);
+        this.tasks.addTask(1, this.aiArrowAttack);
+
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        this.setEnchantmentBasedOnDifficulty(difficulty);
+
+        if (this.world.rand.nextInt(2) == 0) {
+            this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
+        }
+
+        return livingdata;
+    }
+
+    public boolean getCanSpawnHere() {
+        return this.posY > 60.0D && super.getCanSpawnHere();
+    }
 }

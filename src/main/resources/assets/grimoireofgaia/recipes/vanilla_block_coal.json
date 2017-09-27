@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:miscfurnacefuel"
+    },
+    {
+      "item": "grimoireofgaia:miscfurnacefuel"
+    },
+    {
+      "item": "grimoireofgaia:miscfurnacefuel"
+    },
+    {
+      "item": "grimoireofgaia:miscfurnacefuel"
+    }
+  ],
+  "result": {
+    "item": "minecraft:coal",
+    "data": 0
+  }
+}

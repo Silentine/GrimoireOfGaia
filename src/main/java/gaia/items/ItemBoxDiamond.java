@@ -1,53 +1,63 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.entity.item.EntityGaiaBoxDiamond;
+import gaia.CreativeTabGaia;
+import gaia.GaiaReference;
+import gaia.entity.GaiaLootTableList;
+import gaia.entity.item.EntityGaiaAgeable;
 import gaia.init.Sounds;
-
-import java.util.List;
-
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class ItemBoxDiamond extends GaiaLootable {
 
-	public ItemBoxDiamond(String name) {
-		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
-	}
+    public ItemBoxDiamond(String name) {
+        this.maxStackSize = 1;
+        this.setRegistryName(GaiaReference.MOD_ID, name);
+        this.setUnlocalizedName(name);
+        this.setCreativeTab(CreativeTabGaia.INSTANCE);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.RARE;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse"));
-	}
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
+    }
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+    @Override
+    public @Nonnull
+            ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+        final ItemStack stack = player.getHeldItem(handIn);
 
-		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
-		}
+        player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-		if (!world.isRemote) {
-			EntityGaiaBoxDiamond spawnEntity = new EntityGaiaBoxDiamond(world);
-			spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0,0); 
-			world.spawnEntityInWorld(spawnEntity);
-		}
+        if (!player.capabilities.isCreativeMode) {
+            stack.shrink(1);
+        }
 
-		return new ActionResult(EnumActionResult.SUCCESS, stack);
-	}
+        if (!world.isRemote) {
+            EntityGaiaAgeable spawnEntity = new EntityGaiaAgeable(world, GaiaLootTableList.BOXES_DIAMOND);
+            spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0, 0);
+            world.spawnEntity(spawnEntity);
+        }
+
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    }
 }

@@ -1,72 +1,48 @@
 package gaia.items;
 
-import gaia.Gaia;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import gaia.CreativeTabGaia;
+import gaia.GaiaReference;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.fml.common.Optional.InterfaceList;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
 
-@InterfaceList({
-	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
-	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
+import javax.annotation.Nonnull;
 
-public class ItemAccessoryRing extends Item implements IBauble {
-	
-	public ItemAccessoryRing() {
-		this.setMaxStackSize(1);
-		this.setCreativeTab(Gaia.tabGaia);
-	}
+public class ItemAccessoryRing extends Item {
 
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
-		EntityPlayer player = (EntityPlayer)entityIn;
-		
-		if (!(entityIn instanceof EntityPlayer))
-			return;
+    public ItemAccessoryRing(String name) {
+        setHasSubtypes(true);
+        setRegistryName(GaiaReference.MOD_ID, name);
+        setUnlocalizedName(name);
+        setCreativeTab(CreativeTabGaia.INSTANCE);
+    }
 
-		for (int i = 0; i < 2; ++i) {
-			if (player.inventory.getStackInSlot(i) == stack) {
-				this.doEffect(player, stack);
-				break;
-			}
-		}
-	}
+    @Nonnull
+    @Override
+    @SideOnly(Side.CLIENT)
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.RARE;
+    }
 
-	public void doEffect(EntityPlayer player, ItemStack item) {}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (!this.isInCreativeTab(tab)) {
+            return;
+        }
 
-	//==================== Bauble ===================//
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.RING;
-	}
+        for (int i = 0; i < 4; i++) {
+            items.add(new ItemStack(this, 1, i));
+        }
+    }
 
-	@Override
-	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-		this.doEffect((EntityPlayer)player, itemstack);	
-	}
-
-	@Override
-	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {}
-
-	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {}
-
-	@Override
-	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
-		return true;
-	}
-
-	@Override
-	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
-		return true;
-	}
+    @Nonnull
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return getUnlocalizedName() + "_" + stack.getItemDamage();
+    }
 }

@@ -1,0 +1,274 @@
+itemGroup.grimoireofgaia=Grimoire of Gaia 3
+
+item.shard_0.name=Iron Nugget
+item.shard_1.name=Gold Nugget
+item.shard_2.name=Diamond Fragment
+item.shard_3.name=Emerald Fragment
+item.shard_4.name=Copper Nugget
+item.shard_5.name=Silver Nugget
+item.foodmeat.name=Meat
+item.foodrottenHeart.name=Rotten Heart
+item.foodroot.name=Taproot
+item.foodcoalfish.name=Coalfish
+item.foodnetherwart.name=Nether Wart Jam
+item.foodsmallapplegold.name=Golden Apple Pie Slice
+item.foodmandrake.name=Mandrake
+item.foodwither.name=Withered Brain
+item.foodpiemandrake.name=Mandrake Pie
+item.foodpiemeat.name=Fish Pie
+item.foodpieapplegold.name=Golden Apple Pie
+item.miscsoulfire.name=Soulfire
+item.miscsoulfiery.name=Fireshard
+item.miscgigagear.name=Heart of Giga Knight
+item.miscfur.name=Fur
+item.miscexperience_0.name=Crystallized Experience (Small)
+item.miscexperience_1.name=Crystallized Experience (Medium)
+item.miscexperience_2.name=Crystallized Experience (Large)
+item.miscbook.name=Book of Memory
+item.miscquill.name=Diamond Tipped Quill
+item.miscring_0.name=Inert Ring of Speed
+item.miscring_1.name=Inert Ring of Haste
+item.miscring_2.name=Inert Ring of Jump
+item.miscring_3.name=Inert Ring of Night Vision
+item.miscfurnacefuel.name=Stone Coal
+item.misccurrency_0.name=Sell
+item.misccurrency_1.name=Trader Token
+item.misccurrency_2.name=Holstaurus Token
+item.misccurrency_3.name=Weresheep Token
+item.spawn.name=Egg Box
+item.spawncreepergirl.name=Creeper Girl Egg
+item.spawnslimegirl.name=Slime Girl Egg
+item.spawnendergirl.name=Ender Girl Egg
+item.spawntrader.name=Trader Egg
+item.spawnholstaurus.name=Holstaurus Egg
+item.spawnweresheep.name=Weresheep Egg
+item.spawntame.name=Boxed Lunch
+item.boxiron.name=Iron Box
+item.boxgold.name=Gold Box
+item.boxdiamond.name=Diamond Box
+item.box_0.name=Ore Box
+item.box_1.name=Nether Box
+item.box_2.name=End Box
+item.bagore.name=Ore Satchel
+item.bagbook.name=Book Satchel
+item.bagrecord.name=Record Box
+item.bagarrow.name=Sealed Quiver
+item.boxold.name=Old Luggage
+item.chest_0.name=Dungeon Chest
+item.chest_1.name=Jungle Chest
+item.chest_2.name=Desert Chest
+item.weaponprop_0.name=Ender Stave
+item.weaponprop_1.name=Blaze Stave
+item.weaponprop_2.name=Metal Spear
+item.weaponprop_3.name=Metal Dagger
+item.weaponprop_4.name=Metal Fan
+item.weaponprop_5.name=Large Metal Battle Axe
+item.weaponpropprojectile_0.name=Magic Projectile
+item.weaponpropenchanted_0.name=Enchanted Bearing
+item.shieldprop_0.name=Iron Shield
+item.shieldprop_1.name=Gold Shield
+item.weaponfanice.name=Ornate Ice Fan
+item.weaponfanfire.name=Ornate Fire Fan
+item.weaponbook.name=Book
+item.weaponbookfreezing.name=Freezing Book
+item.weaponbooknightmare.name=Nightmare Book
+item.weaponbookmetal.name=Metal Book
+item.weaponbookender.name=Ender Book
+item.weaponbookhunger.name=Book of Hunger
+item.weaponbookbattle.name=Book of Combat
+item.weaponbooknature.name=Book of Nature
+item.weaponbookwither.name=Book of Withering
+item.weaponbookbuff.name=Combat Manual
+item.weaponbattleaxe.name=Iron Battle Axe
+item.weapondebug.name=Debug Weapon
+
+item.accessoryringspeed.name=Ring of Speed
+item.accessoryringhaste.name=Ring of Haste
+item.accessoryringjump.name=Ring of Jump
+item.accessoryringnight.name=Ring of Night Vision
+item.accessorytrinketpoison.name=Toadstone
+item.accessorytrinketwither.name=Withered Heart
+item.accessorytrinketlevitation.name=Ball and Chain
+item.accessorycursed.name=Heavy Barbell
+
+item.card_0.name=NULL Card
+item.card_1.name=Child Card
+item.card_2.name=Attack Card
+
+item.spawnegg.name=Spawn
+
+tile.bustValkyrie.name=The Valkyrie
+tile.bustVampire.name=The Vampire
+tile.bustSphinx.name=The Sphinx
+tile.dollCreeperGirl.name=Creeper Girl Doll
+tile.dollEnderGirl.name=Ender Girl Doll
+tile.dollSlimeGirl.name=Slime Girl Doll
+tile.dollMaid.name=Maid Doll
+
+entity.grimoireofgaia:ant.name=Ant Worker
+entity.grimoireofgaia:anubis.name=Anubis
+entity.grimoireofgaia:arachne.name=Arachne
+entity.grimoireofgaia:banshee.name=Banshee
+entity.grimoireofgaia:baphomet.name=Baphomet
+entity.grimoireofgaia:boneknight.name=Bone Knight
+entity.grimoireofgaia:butler.name=Butler
+entity.grimoireofgaia:centaur.name=Centaur
+entity.grimoireofgaia:cobblegolem.name=Cobble Golem
+entity.grimoireofgaia:cobblestonegolem.name=Cobblestone Golem
+entity.grimoireofgaia:creep.name=Creep
+entity.grimoireofgaia:cyclops.name=Cyclops
+entity.grimoireofgaia:chest.name=Chest
+entity.grimoireofgaia:cyanflower.name=Cyan Flower
+entity.grimoireofgaia:dhampir.name=Dhampir
+entity.grimoireofgaia:dryad.name=Dryad
+entity.grimoireofgaia:dullahan.name=Dullahan
+entity.grimoireofgaia:dwarf.name=Dwarf
+entity.grimoireofgaia:enderdragongirl.name=Ender Dragon Girl
+entity.grimoireofgaia:endereye.name=Ender Eye
+entity.grimoireofgaia:fleshlich.name=Flesh Lich
+entity.grimoireofgaia:futakuchionna.name=Futakuchi-Onna
+entity.grimoireofgaia:gryphon.name=Gryphon
+entity.grimoireofgaia:harpy.name=Harpy
+entity.grimoireofgaia:hunter.name=Hunter
+entity.grimoireofgaia:kobold.name=Kobold
+entity.grimoireofgaia:mandragora.name=Mandragora
+entity.grimoireofgaia:matango.name=Matango
+entity.grimoireofgaia:mermaid.name=Mermaid
+entity.grimoireofgaia:mimic.name=Mimic
+entity.grimoireofgaia:minotaur.name=Minotaur
+entity.grimoireofgaia:minotaurus.name=Minotaurus
+entity.grimoireofgaia:mummy.name=Mummy
+entity.grimoireofgaia:naga.name=Naga
+entity.grimoireofgaia:ninetails.name=Nine Tails
+entity.grimoireofgaia:sahuagin.name=Sahuagin
+entity.grimoireofgaia:satyress.name=Satyress
+entity.grimoireofgaia:selkie.name=Selkie
+entity.grimoireofgaia:shaman.name=Shaman
+entity.grimoireofgaia:sharko.name=Sharko
+entity.grimoireofgaia:siren.name=Siren
+entity.grimoireofgaia:sludgegirl.name=Sludge Girl
+entity.grimoireofgaia:sphinx.name=Sphinx
+entity.grimoireofgaia:spriggan.name=Spriggan
+entity.grimoireofgaia:succubus.name=Succubus
+entity.grimoireofgaia:toad.name=Toad
+entity.grimoireofgaia:valkyrie.name=Valkyrie
+entity.grimoireofgaia:vampire.name=Vampire
+entity.grimoireofgaia:werecat.name=Werecat
+entity.grimoireofgaia:witch.name=Witch
+entity.grimoireofgaia:withercow.name=Wither Cow
+entity.grimoireofgaia:yeti.name=Yeti
+entity.grimoireofgaia:yuki-onna.name=Yuki-Onna
+entity.grimoireofgaia:creepergirl.name=Creeper Girl
+entity.grimoireofgaia:endergirl.name=Ender Girl
+entity.grimoireofgaia:holstaurus.name=Holstaurus
+entity.grimoireofgaia:slimegirl.name=Slime Girl
+entity.grimoireofgaia:trader.name=Trader
+entity.grimoireofgaia:weresheep.name=Weresheep
+entity.grimoireofgaia:butler.name=Butler
+entity.grimoireofgaia:sporeling.name=Sporeling
+entity.grimoireofgaia:debugmob.name=Debug Mob
+ 
+text.grimoireofgaia.grimoireofgaia.desc=Solely effects Grimoire of Gaia mobs
+text.grimoireofgaia.NegativeStatus.desc=Removes negative status effects
+text.grimoireofgaia.HeartsGain=Recover %d hearts
+text.grimoireofgaia.HungerLose=Lose %d hunger
+text.grimoireofgaia.GainExperience=Gain experience
+text.grimoireofgaia.GainLevels=Gain %d levels
+text.grimoireofgaia.RightClickUse=Right-click to use
+text.grimoireofgaia.RightClickEquip=Right-click to equip
+text.grimoireofgaia.FuelForSeconds=Fuel for %d seconds
+text.grimoireofgaia.BlessMainhand=When in main hand:
+text.grimoireofgaia.BlessOffhand=When in off-hand, main hand:
+text.grimoireofgaia.InventoryCurse=When in inventory:
+text.grimoireofgaia.InventoryAccessory=When in the 1st and 2nd slots of the hotbar:
+text.grimoireofgaia.InventoryTrinket=When in the last slot of the hotbar:
+text.grimoireofgaia.InventoryImmunity=Immunity to
+
+text.grimoireofgaia.Accessory.tag=Accessory
+text.grimoireofgaia.Trinket.tag=Trinket
+text.grimoireofgaia.Prop.tag=Prop
+text.grimoireofgaia.WIP.tag=WIP
+text.grimoireofgaia.Debug.tag=Debug
+
+text.grimoireofgaia.HoldShift=<Hold Shift>
+
+item.grimoireofgaia.FoodExperienceIron.desc=Gain a level
+item.grimoireofgaia.MiscSoulFire.desc=Right-click to spawn Fire
+item.grimoireofgaia.MiscSoulFiery.desc=Right-click to spawn Lava
+item.grimoireofgaia.MiscGigaGear.desc=All that remains of Giga Knight
+item.grimoireofgaia.MiscCurrency.desc=Sell items in this slot
+item.grimoireofgaia.MiscWeaponEnchanted.desc=Enchanted when crafted
+item.grimoireofgaia.SpawnCreeperGirl.desc=Spawns a Creeper Girl
+item.grimoireofgaia.SpawnSlimeGirl.desc=Spawns a Slime Girl
+item.grimoireofgaia.SpawnEnderGirl.desc=Spawns a Ender Girl
+item.grimoireofgaia.SpawnTrader.desc=Spawns a Trader
+item.grimoireofgaia.SpawnHolstaurus.desc=Spawns a Holstaurus
+item.grimoireofgaia.SpawnWeresheep.desc=Spawns a Weresheep
+item.grimoireofgaia.SpawnTame.desc=Removes initial hostility
+item.grimoireofgaia.SpawnTame2.desc=Does not affect damaged mobs
+item.grimoireofgaia.WeaponPropInvisible.desc=It is a mystery
+item.grimoireofgaia.WeaponBookEnder.desc=Right-click to launch a Ender Pearl
+item.grimoireofgaia.WeaponDebug.desc=Used for testing
+
+block.grimoireofgaia.SpawnGuard.desc=Prevents day mobs from spawning within %d blocks
+
+configgui.grimoireofgaia.category.general=Spawn Rates
+configgui.grimoireofgaia.category.general.tooltip=(REQUIRES RESTART)\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)
+configgui.grimoireofgaia.category.damage=Base Damage
+configgui.grimoireofgaia.category.damage.tooltip=(REQUIRES RESTART)\nAll mobs deal additional magical damage that bypasses armor.
+configgui.grimoireofgaia.category.defense=Base Damage Cap
+configgui.grimoireofgaia.category.defense.tooltip=(REQUIRES RESTART)\nMaximum amount of damage mobs receive before they are defeated.
+configgui.grimoireofgaia.category.attributes=Attributes
+configgui.grimoireofgaia.category.attributes.tooltip=(REQUIRES RESTART)\nAttributes based on percentage.\n(WARNING: Do NOT set below 50)
+configgui.grimoireofgaia.category.options=Options
+configgui.grimoireofgaia.category.options.tooltip=\nEnable/disable features.
+configgui.grimoireofgaia.category.debug=Debug
+configgui.grimoireofgaia.category.debug.tooltip=\nCompatibility and debugging options.
+
+configgui.grimoireofgaia.category.general.SpawnLevel3=Disable Level 3 natural spawning
+configgui.grimoireofgaia.category.general.SpawnLevel3.tooltip=\nLevel 3 mobs do not spawn naturally but instead spawn from specific mobs.
+configgui.grimoireofgaia.category.general.SpawnLevel3Chance=Chance of Level 3 mobs spawning
+configgui.grimoireofgaia.category.general.SpawnLevel3Chance.tooltip=\nChance that Level 3 mobs spawn from specific mobs.\n((1/value)*100)
+
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Base Damage
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nMelee attacks deal an additional 2.0 (1 heart) of damage.
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers=Base Damage (Archers)
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nArchers arrows deal an additional 1 (0.5 heart) of damage.
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing=Shields Block Piercing Damage
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\nBase Damage (melee) won't penetrate Shields.
+
+configgui.grimoireofgaia.category.defense.Tier1baseDefense=Tier 1 Damage Cap
+configgui.grimoireofgaia.category.defense.Tier1baseDefense.tooltip=\nMaximum amount of hits required.\n(0 = disable)
+configgui.grimoireofgaia.category.defense.Tier2baseDefense=Tier 2 Damage Cap
+configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\nMaximum amount of hits required.\n(0 = disable)
+configgui.grimoireofgaia.category.defense.Tier3baseDefense=Tier 3 Damage Cap
+configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\nMaximum amount of hits required.\n(0 = disable)
+
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Tier 1 Health
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\nHealth: 40 (20 Hearts).\n(50 = half, 200 = double)
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage=Tier 1 Damage
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage.tooltip=\nDamage: 4 (2 Hearts).\n(50 = half, 200 = double)
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth=Tier 2 Health
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth.tooltip=\nHealth: 80 (40 Hearts).\n(50 = half, 200 = double)
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage=Tier 2 Damage
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage.tooltip=\nDamage: 6 (3 Hearts).\n(50 = half, 200 = double)
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Tier 3 Health
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\nHealth: 160 (80 Hearts).\n(50 = half, 200 = double)
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Tier 3 Damage
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nDamage: 8 (4 Hearts).\n(50 = half, 200 = double)
+
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Enable Spawns
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=(REQUIRES RESTART)\nEnable Gaia mobs to spawn.
+configgui.grimoireofgaia.category.options.Menu1.AdditionalOre=Additional Nuggets
+configgui.grimoireofgaia.category.options.Menu1.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
+configgui.grimoireofgaia.category.options.Menu2.StrafingArchers=Strafing Archers
+configgui.grimoireofgaia.category.options.Menu2.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
+
+configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=Biome Tweaks
+configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=(REQUIRES RESTART)\nTweaks the default dictionary for some "M" biomes.\n(Disable if you encounter issues)
+configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=Unify Shard Drops
+configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nMobs can drop nuggets/shards from other mods.\n(Disable if you encounter issues)
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=(REQUIRES RESTART)\nDisables all non-Gaia mobs from spawning.
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=(REQUIRES RESTART)\nEnables developer commands.
