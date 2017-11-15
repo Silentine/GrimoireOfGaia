@@ -41,6 +41,8 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class GaiaICommand implements ICommand{
 
 	private final List aliases;
+	
+	private static final int PERMISSION_LEVEL = 4;
 
 	public GaiaICommand() 
 	{ 
@@ -394,9 +396,9 @@ public class GaiaICommand implements ICommand{
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~Required stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
-
-		return player.isCreative();
+	//EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
+	//return player.isCreative();
+		return sender.canCommandSenderUseCommand(PERMISSION_LEVEL, this.getCommandName());
 	}
 
 	@Override

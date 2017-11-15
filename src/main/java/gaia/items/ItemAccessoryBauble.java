@@ -1,6 +1,5 @@
 package gaia.items;
 
-import gaia.Gaia;
 import gaia.init.GaiaItems;
 
 import java.util.List;
@@ -12,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -117,49 +117,4 @@ public class ItemAccessoryBauble extends Item implements IBauble {
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
-	//=======================================//
-
-	/*
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-		renderStack = stack;
-
-		int variant = stack.getItemDamage();
-
-		if (type == RenderType.HEAD) {
-			Helper.translateToHeadLevel(player);
-			Helper.translateToFace();
-			Helper.defaultTransforms();
-			switch (variant) {
-			case 0:
-				GlStateManager.scale(1.25, 1.25, 1.25);
-				GlStateManager.translate(0F, -0.085F, 0.045F);
-				renderItem();
-				break;
-			case 1:
-				GlStateManager.scale(1.25, 1.25, 1.25);
-				GlStateManager.translate(0F, -0.085F, 0.045F);
-				renderItem();
-				break;
-			case 2:
-				scale(0.55F);
-				GlStateManager.translate(-0.45F, -0.25F, 0F);
-				renderItem();
-				break;
-			default: break;
-			}
-		}
-	}
-
-	public void scale(float f) {
-		GlStateManager.scale(f, f, f);
-	}
-
-	public void renderItem() {
-		GlStateManager.pushMatrix();
-		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.NONE);
-		GlStateManager.popMatrix();
-	}
-	*/
 }

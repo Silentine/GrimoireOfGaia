@@ -75,13 +75,13 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
                 byte byte0 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 7;
+                	byte0 = 5;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 15;
+                	byte0 = 10;
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 30, 0));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
 				}
 			}
 
@@ -117,8 +117,9 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	public void onDeath(DamageSource cause) {
 		this.lingeringEffect(this, MobEffects.POISON, PotionTypes.EMPTY, 200, 0, this.getPosition());
+		super.onDeath(cause);
 	}
-
+	
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
@@ -139,20 +140,20 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(2)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    				break;
+    			case 1:
+    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollSlimeGirl), 1);
+    			}
+    		}
 		}
 	}
 
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(2)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
-			break;
-		case 1:
-			this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollSlimeGirl), 1);
-		}
-	}
-	
 	//================= Immunities =================//
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);

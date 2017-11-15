@@ -30,6 +30,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -55,6 +56,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 	private int switchHealth;
 	private int spawn;
+	private int spawnTimer;
 	private int spawnLevel3;
 	private int spawnLevel3Chance;
 
@@ -66,6 +68,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		
 		this.switchHealth = 0;
 		this.spawn = 0;
+		this.spawnTimer = 0;
+		
 		this.spawnLevel3 = 0;
 		this.spawnLevel3Chance = 0;
 	}
@@ -115,11 +119,11 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 				byte byte1 = 0;
 
 				if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 10;
-					byte1 = 20;
-				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 5;
 					byte1 = 10;
+				} else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 10;
+					byte1 = 20;
 				}
 
 				if (byte0 > 0) {
@@ -155,41 +159,63 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		EntitySkeleton spawnMob;
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.75F && this.getHealth() > 0.0F && this.spawn == 0) {
-	        this.worldObj.setEntityState(this, (byte)12);
-			
-			if (!this.worldObj.isRemote) {
-				spawnMob = new EntitySkeleton(this.worldObj);
-				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);	
-				spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));	
-				this.worldObj.spawnEntityInWorld(spawnMob);
+
+			this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
+
+			if (this.spawnTimer != 30) {
+				this.spawnTimer += 1;
+			} 
+
+			if (this.spawnTimer == 30) {
+				this.worldObj.setEntityState(this, (byte)12);
+				this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+
+				if (!this.worldObj.isRemote) {
+					spawnMob = new EntitySkeleton(this.worldObj);
+					spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+					spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);	
+					spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));	
+					this.worldObj.spawnEntityInWorld(spawnMob);
+				}
+
+				this.spawnTimer = 0;
+				this.spawn = 1;
 			}
-			
-			this.spawn = 1;
 		}
 
 		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1) {
-	        this.worldObj.setEntityState(this, (byte)12);
 			
-			if (!this.worldObj.isRemote) {
-				spawnMob = new EntitySkeleton(this.worldObj);
-				spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-				spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
-				this.worldObj.spawnEntityInWorld(spawnMob);
-			}
+			this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
 
-			if (GaiaConfig.SpawnLevel3 == true) {
-				if (spawnLevel3Chance > (int) (GaiaConfig.SpawnLevel3Chance * 0.5)) {
-					this.spawnLevel3Chance = (int) (GaiaConfig.SpawnLevel3Chance * 0.5);
+			if (this.spawnTimer != 30) {
+				this.spawnTimer += 1;
+			} 
+
+			if (this.spawnTimer == 30) {
+				this.worldObj.setEntityState(this, (byte)12);
+				this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+
+				if (!this.worldObj.isRemote) {
+					spawnMob = new EntitySkeleton(this.worldObj);
+					spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+					spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);	
+					spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));	
+					this.worldObj.spawnEntityInWorld(spawnMob);
 				}
 				
-				if ((this.rand.nextInt(GaiaConfig.SpawnLevel3Chance - this.spawnLevel3Chance) == 0 || this.rand.nextInt(1) > 0)) {
-					this.spawnLevel3 = 1;
+				if (GaiaConfig.SpawnLevel3 == true) {
+					if (spawnLevel3Chance > (int) (GaiaConfig.SpawnLevel3Chance * 0.5)) {
+						this.spawnLevel3Chance = (int) (GaiaConfig.SpawnLevel3Chance * 0.5);
+					}
+					
+					if ((this.rand.nextInt(GaiaConfig.SpawnLevel3Chance - this.spawnLevel3Chance) == 0 || this.rand.nextInt(1) > 0)) {
+						this.spawnLevel3 = 1;
+					}
 				}
-			}
 
-			this.spawn = 2;
+				this.spawnTimer = 0;
+				this.spawn = 2;
+			}
 		}
 		
 		if (spawnLevel3 == 1) {
@@ -284,25 +310,25 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 					ItemShard.Drop_Nugget(this, 5);
 				}
 			}
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch (this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    				this.dropItem(GaiaItems.MiscBook, 1);
+    			}
+    		}
 		}
 		
 		//Boss
 		if (spawnLevel3 == 1) {
 			spawnLevel3();
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch (this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-			this.dropItem(GaiaItems.MiscBook, 1);
 		}
 	}
 	

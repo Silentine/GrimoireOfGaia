@@ -274,20 +274,20 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			for (int var14 = 0; var14 < var13; ++var14) {
 				ItemShard.Drop_Nugget(this,3);
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxDiamond, 1);
-			break;
-		case 1:
-			this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustVampire), 1);
-			break;
-		case 2:
-            this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 3), 0.0F);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxDiamond, 1);
+    				break;
+    			case 1:
+    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustVampire), 1);
+    				break;
+    			case 2:
+    	            this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 3), 0.0F);
+    			}
+    		}
 		}
 	}
 	

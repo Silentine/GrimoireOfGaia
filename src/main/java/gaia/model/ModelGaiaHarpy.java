@@ -1,7 +1,12 @@
 package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,6 +46,11 @@ public class ModelGaiaHarpy extends ModelGaia {
 	ModelRenderer lefttalon;
 	ModelRenderer righttalonlower;
 	ModelRenderer lefttalonlower;
+	
+    protected float scaleAmountHead = 0.75F;
+    protected float scaleAmountBody = 0.5F;
+    protected float YOffsetHead = 15.0F;
+    protected float YOffsetBody = 23.5F;
 
 	//x and y coordinate of hairahoge must be manually adjusted by a 0.5 difference
 	public ModelGaiaHarpy() {
@@ -240,42 +250,61 @@ public class ModelGaiaHarpy extends ModelGaia {
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.neck.render(scale);
-		this.bodytop.render(scale);
-		this.bodymiddle.render(scale);
-		this.bodymiddlebutton.render(scale);
-		this.bodybottom.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightarm.render(scale);
-		this.leftarm.render(scale);
-		this.rightleg.render(scale);
-		this.leftleg.render(scale);
-//		this.hair.render(scale);
-//		this.hairahoge.render(scale);
-//		this.rightfeather.render(scale);
-//		this.leftfeather.render(scale);
-//		this.rightarmlower.render(scale);
-//		this.leftarmlower.render(scale);
-//		this.rightwing.render(scale);
-//		this.leftwing.render(scale);
-//		this.rightwinglower.render(scale);
-//		this.leftwinglower.render(scale);
-		this.tail.render(scale);
-//		this.rightleglower.render(scale);
-//		this.leftleglower.render(scale);
-//		this.righttalonupper.render(scale);
-//		this.lefttalonupper.render(scale);
-//		this.righttalon.render(scale);
-//		this.lefttalon.render(scale);
-//		this.righttalonlower.render(scale);
-//		this.lefttalonlower.render(scale);
+        
+        ItemStack itemstack = ((EntityLivingBase)entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			this.headeyes.render(scale);
-		}
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+        	this.head.render(scale);
+        	this.headaccessory.render(scale);
+        	this.neck.render(scale);
+        	this.bodytop.render(scale);
+        	this.bodymiddle.render(scale);
+        	this.bodymiddlebutton.render(scale);
+        	this.bodybottom.render(scale);
+        	this.rightchest.render(scale);
+        	this.leftchest.render(scale);
+        	this.rightarm.render(scale);
+        	this.leftarm.render(scale);
+        	this.rightleg.render(scale);
+        	this.leftleg.render(scale);
+        	this.tail.render(scale);
+
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
+        } else {
+        	float f = 2.0F;
+        	//================= Scaling =================//
+        	GlStateManager.pushMatrix();
+        	GlStateManager.scale(scaleAmountHead, scaleAmountHead, scaleAmountHead);
+        	GlStateManager.translate(0.0F, this.YOffsetHead * scale, 0.0F);
+        	this.head.render(scale);
+
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
+
+        	this.headaccessory.render(scale);
+        	GlStateManager.popMatrix();
+        	//===========================================//
+        	GlStateManager.pushMatrix();
+        	GlStateManager.scale(scaleAmountBody, scaleAmountBody, scaleAmountBody);
+        	GlStateManager.translate(0.0F, this.YOffsetBody * scale, 0.0F);
+        	this.neck.render(scale);
+        	this.bodytop.render(scale);
+        	this.bodymiddle.render(scale);
+        	this.bodymiddlebutton.render(scale);
+        	this.bodybottom.render(scale);
+        	//this.rightchest.render(scale);
+        	//this.leftchest.render(scale);
+        	this.rightarm.render(scale);
+        	this.leftarm.render(scale);
+        	this.rightleg.render(scale);
+        	this.leftleg.render(scale);
+        	this.tail.render(scale);
+        	GlStateManager.popMatrix();
+        	//===========================================//
+        }
 	}
 
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {

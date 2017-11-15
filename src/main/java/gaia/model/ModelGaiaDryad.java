@@ -1,7 +1,12 @@
 package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,8 +29,15 @@ public class ModelGaiaDryad extends ModelGaia {
 	ModelRenderer leftleg;
 	ModelRenderer hair1;
 	ModelRenderer hair2;
+    ModelRenderer rightear;
+    ModelRenderer leftear;
 	ModelRenderer waist1;
 	ModelRenderer waist2;
+	
+    protected float scaleAmountHead = 0.75F;
+    protected float scaleAmountBody = 0.5F;
+    protected float YOffsetHead = 15.5F;
+    protected float YOffsetBody = 23.5F;
 
 	public ModelGaiaDryad() {
 		this.textureWidth = 128;
@@ -112,6 +124,18 @@ public class ModelGaiaDryad extends ModelGaia {
 		this.hair2.setRotationPoint(0F, 1F, 0F);
 		this.hair2.setTextureSize(64, 32);
 		this.setRotation(hair2, 0F, 0F, 0F);
+		this.rightear = new ModelRenderer(this, 36, 33);
+		this.rightear.addBox(-4F, -4F, -1F, 0, 2, 4);
+		this.rightear.setRotationPoint(0F, 1F, 0F);
+		this.rightear.setTextureSize(128, 64);
+		this.rightear.mirror = true;
+		this.setRotation(rightear, 0F, -0.5235988F, 0F);
+		this.leftear = new ModelRenderer(this, 36, 33);
+		this.leftear.mirror = true;
+		this.leftear.addBox(4F, -4F, -1F, 0, 2, 4);
+		this.leftear.setRotationPoint(0F, 1F, 0F);
+		this.leftear.setTextureSize(128, 64);
+		this.setRotation(leftear, 0F, 0.5235988F, 0F);
 		this.waist1 = new ModelRenderer(this, 64, 0);
 		this.waist1.addBox(-3.466667F, 7.5F, -3F, 7, 6, 4);
 		this.waist1.setRotationPoint(0F, 1F, 0F);
@@ -122,33 +146,76 @@ public class ModelGaiaDryad extends ModelGaia {
 		this.waist2.setRotationPoint(0F, 1F, 0F);
 		this.waist2.setTextureSize(64, 32);
 		this.setRotation(waist2, 0.1745329F, 0F, 0F);
+		
+		this.convertToChild(head, rightear);
+		this.convertToChild(head, leftear);
 	}
 
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		this.head.render(scale);
-		this.headaccessory.render(scale);
-		this.neck.render(scale);
-		this.bodytop.render(scale);
-		this.bodymid.render(scale);
-		this.bodymidbutton.render(scale);
-		this.bodybottom.render(scale);
-		this.rightchest.render(scale);
-		this.leftchest.render(scale);
-		this.rightarm.render(scale);
-		this.leftarm.render(scale);
-		this.rightleg.render(scale);
-		this.leftleg.render(scale);
-		this.hair1.render(scale);
-		this.hair2.render(scale);
-		this.waist1.render(scale);
-		this.waist2.render(scale);
+        
+        ItemStack itemstack = ((EntityLivingBase)entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			this.headeyes.render(scale);
-		}
-	}
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+        	this.head.render(scale);
+        	this.headaccessory.render(scale);
+        	this.neck.render(scale);
+        	this.bodytop.render(scale);
+        	this.bodymid.render(scale);
+        	this.bodymidbutton.render(scale);
+        	this.bodybottom.render(scale);
+        	this.rightchest.render(scale);
+        	this.leftchest.render(scale);
+        	this.rightarm.render(scale);
+        	this.leftarm.render(scale);
+        	this.rightleg.render(scale);
+        	this.leftleg.render(scale);
+        	this.hair1.render(scale);
+        	this.hair2.render(scale);
+        	this.waist1.render(scale);
+        	this.waist2.render(scale);
+
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
+        } else {
+        	float f = 2.0F;
+        	//================= Scaling =================//
+        	GlStateManager.pushMatrix();
+        	GlStateManager.scale(scaleAmountHead, scaleAmountHead, scaleAmountHead);
+        	GlStateManager.translate(0.0F, this.YOffsetHead * scale, 0.0F);
+        	this.head.render(scale);
+
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
+
+        	this.headaccessory.render(scale);
+        	this.hair1.render(scale);
+        	this.hair2.render(scale);
+        	GlStateManager.popMatrix();
+        	//===========================================//
+        	GlStateManager.pushMatrix();
+        	GlStateManager.scale(scaleAmountBody, scaleAmountBody, scaleAmountBody);
+        	GlStateManager.translate(0.0F, this.YOffsetBody * scale, 0.0F);
+        	this.neck.render(scale);
+        	this.bodytop.render(scale);
+        	this.bodymid.render(scale);
+        	this.bodymidbutton.render(scale);
+        	this.bodybottom.render(scale);
+        	//this.rightchest.render(scale);
+        	//this.leftchest.render(scale);
+        	this.rightarm.render(scale);
+        	this.leftarm.render(scale);
+        	this.rightleg.render(scale);
+        	this.leftleg.render(scale);
+        	this.waist1.render(scale);
+        	this.waist2.render(scale);
+        	GlStateManager.popMatrix();
+        	//===========================================//
+        }
+    }
 
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		//head

@@ -87,13 +87,13 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
                 byte byte0 = 0;
 
                 if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 7;
+                	byte0 = 5;
                 } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 15;
+                	byte0 = 10;
                 }
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 30, 0));
+					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
 				}
 			}
 
@@ -178,14 +178,14 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 					ItemShard.Drop_Nugget(this,4);
 				}
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(1)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxIron, 1);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(1)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxIron, 1);
+    			}
+    		}
 		}
 	}
 	

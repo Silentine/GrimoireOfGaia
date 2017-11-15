@@ -1,11 +1,16 @@
 package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobHostileDay;
+import gaia.entity.EntityMobPassiveDay;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
+import gaia.renderer.particle.ParticleWarning;
+
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,6 +19,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -33,13 +39,21 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaValkyrie extends EntityMobHostileDay {
+public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	
+	private EntityAINearestAttackableTarget aiNearestAttackableTarget = new EntityAINearestAttackableTarget(this, EntityPlayer.class, true);
+	
+	private int equipItems;
 	private int buffEffect;
+	private int aggression;
+	private int aggressive;
 
 	public EntityGaiaValkyrie(World worldIn) {
 		super(worldIn);
@@ -48,7 +62,10 @@ public class EntityGaiaValkyrie extends EntityMobHostileDay {
 		this.stepHeight = 1.0F;
 		this.isImmuneToFire = true;
 
+		this.equipItems = 0;
 		this.buffEffect = 0;
+		this.aggression = 0;
+		this.aggressive = 0;
 	}
 	
     protected void initEntityAI() {
@@ -122,6 +139,43 @@ public class EntityGaiaValkyrie extends EntityMobHostileDay {
 			this.motionY *= 0.8D;
 		}
 		
+        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+		
+		if ((this.equipItems == 0) && (itemstack == null)) {
+			if (this.aggressive <= 3) {
+				if (this.playerDetection(6)) {
+					if (this.aggression <= 60) {
+						this.aggression += 1;
+					} else {
+						this.aggression = 0;
+						this.aggressive += 1;
+					}
+
+					if (this.aggression >= 50) {
+						this.worldObj.setEntityState(this, (byte)13);
+					}
+				}
+			} else {
+				this.targetTasks.addTask(2, this.aiNearestAttackableTarget);
+
+				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
+				ItemStack SHIELD = new ItemStack(GaiaItems.PropShield, 1, 0);
+				this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, SHIELD);
+
+				this.equipItems = 1;
+			}
+		}
+
+		if (this.getHealth() < EntityAttributes.maxHealth3 * 1.00F && this.equipItems == 0) {
+			this.targetTasks.addTask(2, this.aiNearestAttackableTarget);
+			
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
+			ItemStack SHIELD = new ItemStack(GaiaItems.PropShield, 1, 0);
+			this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, SHIELD);
+			
+			this.equipItems = 1;
+		}
+		
 		if (this.getHealth() > EntityAttributes.maxHealth3 * 0.25F && this.buffEffect == 1) {
 			this.buffEffect = 0;
 		} else if (this.getHealth() <= EntityAttributes.maxHealth3 * 0.25F && this.getHealth() > 0.0F && this.buffEffect == 0) {
@@ -144,6 +198,34 @@ public class EntityGaiaValkyrie extends EntityMobHostileDay {
 		} else {
 			super.onLivingUpdate();
 		}
+	}
+	
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+    	if (id == 13)
+    		for (int i = 0; i < 1; ++i) {
+    			ParticleWarning particleCustom = new ParticleWarning(this.worldObj, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, 0.0D, 0.0D, 0.0D);
+    			Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);			
+    		}
+    	else
+    		super.handleStatusUpdate(id);
+    }
+    
+	/** 
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	public boolean playerDetection(int range) {	
+		double d0 = (double)(range);          
+
+		int k = (int) this.posX;
+		int l = (int) this.posY;
+		int i1 = (int) this.posZ;
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double)k, (double)l, (double)i1, (double)(k + 1), (double)(l + 1), (double)(i1 + 1))).expandXyz(d0);
+		List<EntityPlayer> list = this.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+
+		if (!list.isEmpty()) return true;            
+
+		return false;
 	}
 	
 	//================= Climber data =================//
@@ -208,20 +290,20 @@ public class EntityGaiaValkyrie extends EntityMobHostileDay {
 			for (int var14 = 0; var14 < var13; ++var14) {
 				ItemShard.Drop_Nugget(this,3);
 			}
-		}
-	}
-
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxDiamond, 1);
-			break;
-		case 1:
-			this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustValkyrie), 1);
-			break;
-		case 2:
-            this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 0), 0.0F);
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxDiamond, 1);
+    				break;
+    			case 1:
+    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustValkyrie), 1);
+    				break;
+    			case 2:
+    	            this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 0), 0.0F);
+    			}
+    		}
 		}
 	}
 
@@ -230,11 +312,7 @@ public class EntityGaiaValkyrie extends EntityMobHostileDay {
 
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
-		ItemStack SHIELD = new ItemStack(GaiaItems.PropShield, 1, 0);
-		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, SHIELD);
-		
+
 		ItemStack BOOTS_SWIMMING = new ItemStack(Items.LEATHER_BOOTS);
 		this.setItemStackToSlot(EntityEquipmentSlot.FEET, BOOTS_SWIMMING);
 		BOOTS_SWIMMING.addEnchantment(Enchantment.getEnchantmentByLocation("depth_strider"), 2);

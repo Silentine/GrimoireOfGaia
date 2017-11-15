@@ -125,23 +125,23 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 					ItemShard.Drop_Nugget(this,5);
 				}
 			}
-		}
-	}
-	
-	//Rare
-	protected void addRandomDrop() {
-		switch(this.rand.nextInt(3)) {
-		case 0:
-			this.dropItem(GaiaItems.BoxGold, 1);
-			break;
-		case 1:
-			this.dropItem(GaiaItems.BagBook, 1);
-			break;
-		case 2:
-    		ItemStack FanFire = new ItemStack(GaiaItems.FanFire);
-    		FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("fire_aspect"), 2);
-    		FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
-    		this.entityDropItem(FanFire, 1);		
+			
+    		//Rare
+    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
+    			switch(this.rand.nextInt(3)) {
+    			case 0:
+    				this.dropItem(GaiaItems.BoxGold, 1);
+    				break;
+    			case 1:
+    				this.dropItem(GaiaItems.BagBook, 1);
+    				break;
+    			case 2:
+    	    		ItemStack FanFire = new ItemStack(GaiaItems.FanFire);
+    	    		FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("fire_aspect"), 2);
+    	    		FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
+    	    		this.entityDropItem(FanFire, 1);		
+    			}
+    		}
 		}
 	}
 	

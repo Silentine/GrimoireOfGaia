@@ -1,9 +1,12 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,22 +25,27 @@ public class ModelGaiaMandragora extends ModelGaia {
 	public static ModelRenderer leftarm;
 	ModelRenderer rightleg;
 	ModelRenderer leftleg;
-	ModelRenderer headflower1;
-	ModelRenderer headflower2;
-	ModelRenderer headhairright;
-	ModelRenderer headhairleft;
-	ModelRenderer waist;
-	ModelRenderer headleaf1;
-	ModelRenderer headleaf2;
-	ModelRenderer headleaf3;
-	ModelRenderer headleaf4;
-	ModelRenderer headleafs1;
-	ModelRenderer headleafs2;
-	ModelRenderer headleafs3;
-	ModelRenderer headleafs4;
+    ModelRenderer headleaf1;
+    ModelRenderer headleaf2;
+    ModelRenderer headleaf3;
+    ModelRenderer headleaf4;
+    ModelRenderer headleafs1;
+    ModelRenderer headleafs2;
+    ModelRenderer headleafs3;
+    ModelRenderer headleafs4;
+    ModelRenderer headflower1;
+    ModelRenderer headflower2;
+    ModelRenderer headhairright;
+    ModelRenderer headhairleft;
+    ModelRenderer rightear;
+    ModelRenderer leftear;
+    ModelRenderer waist;
 	
-    protected float scaleAmount = 0.75F;
-    protected float YOffset = 5.2F;
+    protected float scaleAmountHead = 0.75F;
+    protected float scaleAmountBody = 0.5F;
+    //Increasing the value moves it closer to the ground
+    protected float YOffsetHead = 15.5F;
+    protected float YOffsetBody = 23.5F;
 
 	public ModelGaiaMandragora() {
 		this.textureWidth = 128;
@@ -168,11 +176,49 @@ public class ModelGaiaMandragora extends ModelGaia {
 		this.headleafs4.setRotationPoint(0F, 1F, 0F);
 		this.headleafs4.setTextureSize(64, 32);
 		this.setRotation(headleafs4, -1.047198F, -1.570796F, 0F);
+		this.headflower1 = new ModelRenderer(this, 36, 28);
+		this.headflower1.addBox(-3F, -12.5F, 0F, 6, 6, 0);
+		this.headflower1.setRotationPoint(0F, 1F, 0F);
+		this.headflower1.setTextureSize(64, 32);
+		this.setRotation(headflower1, 0F, -0.7853982F, 0F);
+		this.headflower2 = new ModelRenderer(this, 36, 28);
+		this.headflower2.addBox(-3F, -12.5F, 0F, 6, 6, 0);
+		this.headflower2.setRotationPoint(0F, 1F, 0F);
+		this.headflower2.setTextureSize(64, 32);
+		this.setRotation(headflower2, 0F, 0.7853982F, 0F);
+		this.headhairright = new ModelRenderer(this, 36, 34);
+		this.headhairright.addBox(-4.5F, -2F, 0.5F, 4, 14, 4);
+		this.headhairright.setRotationPoint(0F, 1F, 0F);
+		this.headhairright.setTextureSize(64, 32);
+		this.setRotation(headhairright, 0.0436332F, 0F, 0.0436332F);
+		this.headhairleft = new ModelRenderer(this, 36, 34);
+		this.headhairleft.addBox(0.5F, -2F, 0.5F, 4, 14, 4);
+		this.headhairleft.setRotationPoint(0F, 1F, 0F);
+		this.headhairleft.setTextureSize(64, 32);
+		this.setRotation(headhairleft, 0.0436332F, 0F, -0.0436332F);
+		this.rightear = new ModelRenderer(this, 36, 48);
+		this.rightear.addBox(-4F, -4F, -1F, 0, 2, 4);
+		this.rightear.setRotationPoint(0F, 1F, 0F);
+		this.rightear.setTextureSize(64, 32);
+		this.setRotation(rightear, 0F, -0.5235988F, 0F);
+		this.leftear = new ModelRenderer(this, 36, 48);
+		this.leftear.mirror = true;
+		this.leftear.addBox(4F, -4F, -1F, 0, 2, 4);
+		this.leftear.setRotationPoint(0F, 1F, 0F);
+		this.leftear.setTextureSize(64, 32);
+		this.setRotation(leftear, 0F, 0.5235988F, 0F);
+		this.waist = new ModelRenderer(this, 64, 0);
+		this.waist.addBox(-3.5F, 8.5F, -3F, 7, 5, 4);
+		this.waist.setRotationPoint(0F, 1F, 0F);
+		this.waist.setTextureSize(64, 32);
+		this.setRotation(waist, 0.0872665F, 0F, 0F);
 		
 		this.convertToChild(head, headflower1);
 		this.convertToChild(head, headflower2);
 		this.convertToChild(head, headhairright);
 		this.convertToChild(head, headhairleft);
+		this.convertToChild(head, rightear);
+		this.convertToChild(head, leftear);
 		this.convertToChild(head, headleaf1);
 		this.convertToChild(head, headleaf2);
 		this.convertToChild(head, headleaf3);
@@ -183,17 +229,35 @@ public class ModelGaiaMandragora extends ModelGaia {
 		this.convertToChild(head, headleafs4);
 	}
 
-	/**
-	 * @see ModelQuadruped
-	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-		if (!this.isChild) {
+        ItemStack itemstack = ((EntityLivingBase)entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+        if (itemstack == null || itemstack.getItem() != Items.EGG) {
+        	this.head.render(scale);
+        	this.headaccessory.render(scale);
+        	this.neck.render(scale);
+        	this.bodytop.render(scale);
+        	this.bodymiddle.render(scale);
+        	this.bodymiddlebutton.render(scale);
+        	this.bodybottom.render(scale);
+        	this.rightarm.render(scale);
+        	this.leftarm.render(scale);
+        	this.rightleg.render(scale);
+        	this.leftleg.render(scale);
+        	this.waist.render(scale);
+
+        	if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+        		this.headeyes.render(scale);
+        	}
+        } else {
 			float f = 2.0F;
+			//================= Scaling =================//
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, this.YOffset * scale, 0.0F);
+			GlStateManager.scale(scaleAmountHead, scaleAmountHead, scaleAmountHead);
+			GlStateManager.translate(0.0F, this.YOffsetHead * scale, 0.0F);
 			this.head.render(scale);
 			
 			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
@@ -202,10 +266,10 @@ public class ModelGaiaMandragora extends ModelGaia {
 			
 			this.headaccessory.render(scale);
 			GlStateManager.popMatrix();
+			//===========================================//
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(scaleAmount, scaleAmount, scaleAmount);
-			//GlStateManager.translate(x, y * scale, z);
-			GlStateManager.translate(0.0F, 7.5F * scale, 0.0F);
+			GlStateManager.scale(scaleAmountBody, scaleAmountBody, scaleAmountBody);
+			GlStateManager.translate(0.0F, this.YOffsetBody * scale, 0.0F);
 			this.neck.render(scale);
 			this.bodytop.render(scale);
 			this.bodymiddle.render(scale);
@@ -217,7 +281,8 @@ public class ModelGaiaMandragora extends ModelGaia {
 			this.leftleg.render(scale);
 			this.waist.render(scale);
 			GlStateManager.popMatrix();
-		}
+			//===========================================//
+        }
 	}
 
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
