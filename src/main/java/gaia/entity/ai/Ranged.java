@@ -37,7 +37,7 @@ public class Ranged {
         double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3.0F) - entitytippedarrow.posY;
         double d2 = target.posZ - host.posZ;
         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-        entitytippedarrow.setThrowableHeading(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - host.world.getDifficulty()
+        entitytippedarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - host.world.getDifficulty()
                 .getDifficultyId() * 4));
         int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, host);
         int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, host);

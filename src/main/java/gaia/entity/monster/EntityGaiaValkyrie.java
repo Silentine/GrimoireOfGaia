@@ -194,7 +194,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
         }
 
         if (!this.world.isRemote) {
-            this.setBesideClimbableBlock(this.isCollidedHorizontally);
+            this.setBesideClimbableBlock(this.collidedHorizontally);
         }
 
         if (this.getHealth() <= 0.0F) {

@@ -114,7 +114,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
         }
 
         if (!this.world.isRemote) {
-            this.setBesideClimbableBlock(this.isCollidedHorizontally);
+            this.setBesideClimbableBlock(this.collidedHorizontally);
         }
 
         super.onLivingUpdate();

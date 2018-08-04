@@ -107,7 +107,7 @@ public class EntityGaiaDullahan extends EntityMobHostileBase {
                     if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE || item == Items.GOLDEN_SHOVEL || item == Items.GOLDEN_HOE ||
                             item == Items.GOLDEN_PICKAXE) {
                         inputDamage = 14;
-                        inputDamage = (int) ((float) inputDamage + Item.ToolMaterial.GOLD.getDamageVsEntity());
+                        inputDamage = (int) ((float) inputDamage + Item.ToolMaterial.GOLD.getAttackDamage());
                     }
                 }
             }

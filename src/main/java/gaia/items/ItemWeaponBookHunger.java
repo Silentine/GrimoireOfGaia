@@ -34,7 +34,7 @@ public class ItemWeaponBookHunger extends ItemSword {
         this.material = Item.ToolMaterial.IRON;
         this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
         this.setCreativeTab(CreativeTabGaia.INSTANCE);
-        this.attackDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
+        this.attackDamage = Item.ToolMaterial.IRON.getAttackDamage();
         this.setRegistryName(GaiaReference.MOD_ID, name);
         this.setUnlocalizedName(name);
     }

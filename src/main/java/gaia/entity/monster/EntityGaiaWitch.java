@@ -200,8 +200,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
                 } else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
                     potiontype = PotionTypes.HEALING;
                 } else if (this.rand.nextFloat() < 0.5F && this.getAttackTarget() != null && !this.isPotionActive(MobEffects.SPEED) &&
-                        this.getAttackTarget()
-                                .getDistanceSqToEntity(this) > 121.0D) {
+                        this.getAttackTarget().getDistanceSq(this) > 121.0D) {
                     potiontype = PotionTypes.SWIFTNESS;
                 }
 
@@ -309,7 +308,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
             EntityPotion entitypotion =
                     new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
             entitypotion.rotationPitch -= -20.0F;
-            entitypotion.setThrowableHeading(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
+            entitypotion.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
             this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_WITCH_THROW, this.getSoundCategory(), 1.0F,
                     0.8F + this.rand.nextFloat() * 0.4F);
             this.world.spawnEntity(entitypotion);

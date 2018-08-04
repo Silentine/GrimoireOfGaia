@@ -28,7 +28,7 @@ public class EntityAIGaiaLeapAtTarget extends EntityAIBase {
         if (this.leapTarget == null) {
             return false;
         } else {
-            double d0 = this.leaper.getDistanceSqToEntity(this.leapTarget);
+            double d0 = this.leaper.getDistanceSq(this.leapTarget);
             return d0 >= 4.0D && d0 <= 16.0D
                     ? (!this.leaper.onGround
                             ? false

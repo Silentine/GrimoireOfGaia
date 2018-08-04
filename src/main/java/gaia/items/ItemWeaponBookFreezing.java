@@ -79,7 +79,7 @@ public class ItemWeaponBookFreezing extends ItemSword {
 
         if (!worldIn.isRemote) {
             EntitySnowball snowball = new EntitySnowball(worldIn, playerIn);
-            snowball.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            snowball.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(snowball);
         }
 

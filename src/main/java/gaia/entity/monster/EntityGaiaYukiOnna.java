@@ -140,8 +140,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
         int j = MathHelper.floor(this.posZ);
         int k = MathHelper.floor(this.posY);
         BlockPos pos = new BlockPos(i, j, k);
-        if (this.world.getBiome(new BlockPos(i, j, k))
-                .getFloatTemperature(pos) > 1.0F) {
+        if (this.world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
             this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
         }

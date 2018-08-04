@@ -42,7 +42,7 @@ public class ItemWeaponBookEnder extends ItemSword {
         this.material = Item.ToolMaterial.IRON;
         this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
         this.setCreativeTab(CreativeTabGaia.INSTANCE);
-        this.attackDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
+        this.attackDamage = Item.ToolMaterial.IRON.getAttackDamage();
         this.setRegistryName(GaiaReference.MOD_ID, name);
         this.setUnlocalizedName(name);
     }
@@ -82,7 +82,7 @@ public class ItemWeaponBookEnder extends ItemSword {
 
         if (!worldIn.isRemote) {
             EntityEnderPearl entitysnowball = new EntityEnderPearl(worldIn, playerIn);
-            entitysnowball.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            entitysnowball.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(entitysnowball);
         }
 
