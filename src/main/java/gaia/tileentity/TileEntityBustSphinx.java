@@ -2,67 +2,59 @@ package gaia.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileEntityBustSphinx extends TileEntity {
+	private EnumFacing direction;
 
-    public int direction;
+	public void setDirection(EnumFacing direction) {
+		this.direction = direction;
+	}
 
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.getNbtCompound());
+	}
 
-    public boolean canUpdate() {
-        return true;
-    }
+	@Override
+	public void handleUpdateTag(NBTTagCompound tag) {
+		super.handleUpdateTag(tag);
+		readFromNBT(tag);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.getNbtCompound());
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
 
-    public Packet<?> getDescriptionPacket() {
-        NBTTagCompound blockinfo = new NBTTagCompound();
-        if (!blockinfo.toString()
-                .isEmpty()) {
-            writeToNBT(blockinfo);
-        }
+		direction = EnumFacing.getHorizontal(nbt.getInteger("direction"));
+	}
 
-        return new SPacketUpdateTileEntity(getPos(), 5, blockinfo);
-    }
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setInteger("direction", direction.getHorizontalIndex());
+		return nbt;
+	}
 
-    @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
+	}
 
-        direction = nbt.getInteger("direction");
-    }
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
 
-    @Override
-    public @Nonnull
-            NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        nbt.setInteger("direction", direction);
-        return nbt;
-    }
-
-    @Nullable
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
-    }
-
-    @Override
-    public @Nonnull
-            NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
-    }
+	public EnumFacing getDirection() {
+		return direction;
+	}
 }

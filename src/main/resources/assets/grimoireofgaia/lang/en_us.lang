@@ -97,13 +97,13 @@ item.card_2.name=Attack Card
 
 item.spawnegg.name=Spawn
 
-tile.bustValkyrie.name=The Valkyrie
-tile.bustVampire.name=The Vampire
-tile.bustSphinx.name=The Sphinx
-tile.dollCreeperGirl.name=Creeper Girl Doll
-tile.dollEnderGirl.name=Ender Girl Doll
-tile.dollSlimeGirl.name=Slime Girl Doll
-tile.dollMaid.name=Maid Doll
+tile.grimoireofgaia.bustValkyrie.name=The Valkyrie
+tile.grimoireofgaia.bustVampire.name=The Vampire
+tile.grimoireofgaia.bustSphinx.name=The Sphinx
+tile.grimoireofgaia.dollCreeperGirl.name=Creeper Girl Doll
+tile.grimoireofgaia.dollEnderGirl.name=Ender Girl Doll
+tile.grimoireofgaia.dollSlimeGirl.name=Slime Girl Doll
+tile.grimoireofgaia.dollMaid.name=Maid Doll
 
 entity.grimoireofgaia:ant.name=Ant Worker
 entity.grimoireofgaia:anubis.name=Anubis
