@@ -1,9 +1,7 @@
 package gaia.items;
 
-import gaia.CreativeTabGaia;
-import gaia.GaiaReference;
 import gaia.entity.GaiaLootTableList;
-import gaia.entity.item.EntityGaiaAgeable;
+import gaia.helpers.LootHelper;
 import gaia.init.Sounds;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -17,46 +15,43 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class ItemBagArrow extends GaiaLootable {
+public class ItemBagArrow extends ItemBase {
+	public ItemBagArrow(String name) {
+		super(name);
+		setMaxStackSize(1);
+	}
 
-    public ItemBagArrow(String name) {
-        this.maxStackSize = 1;
-        this.setRegistryName(GaiaReference.MOD_ID, name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(CreativeTabGaia.INSTANCE);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public EnumRarity getRarity(ItemStack stack) {
+		return EnumRarity.RARE;
+	}
 
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.RARE;
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
-    }
+	@Override
+	public @Nonnull
+	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+		final ItemStack stack = player.getHeldItem(handIn);
 
-    @Override
-    public @Nonnull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
-        final ItemStack stack = player.getHeldItem(handIn);
+		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-        player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		if (!player.capabilities.isCreativeMode) {
+			stack.shrink(1);
+		}
 
-        if (!player.capabilities.isCreativeMode) {
-            stack.shrink(1);
-        }
+		if (!world.isRemote) {
+			LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BAG_ARROW);
+		}
 
-        if (!world.isRemote) {
-            EntityGaiaAgeable spawnEntity = new EntityGaiaAgeable(world, GaiaLootTableList.BAG_ARROW);
-            spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0, 0);
-            world.spawnEntity(spawnEntity);
-        }
-
-        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-    }
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
 }

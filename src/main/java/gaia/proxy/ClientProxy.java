@@ -244,9 +244,7 @@ public class ClientProxy extends CommonProxy {
      * Register default Item Models
      */
     public static void registerRender(Item item) {
-        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_PREFIX + item.getUnlocalizedName()
-                .substring(5)
-                .toLowerCase(Locale.US), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
 
     /**
