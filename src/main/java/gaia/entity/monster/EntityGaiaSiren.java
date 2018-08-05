@@ -204,7 +204,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
     // ================= Archer data =================//
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-        Ranged.RangedAttack(target, this, distanceFactor);
+        Ranged.rangedAttack(target, this, distanceFactor);
     }
 
     protected void entityInit() {

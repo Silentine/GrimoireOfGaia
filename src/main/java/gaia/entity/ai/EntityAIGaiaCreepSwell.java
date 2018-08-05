@@ -4,44 +4,43 @@ import gaia.entity.monster.EntityGaiaCreep;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 
-/**
- * @see EntityAIGaiaCreepSwell
- */
 public class EntityAIGaiaCreepSwell extends EntityAIBase {
 
-    EntityGaiaCreep swellingCreep;
-    EntityLivingBase CreepAttackTarget;
+	private EntityGaiaCreep swellingCreep;
+	private EntityLivingBase creepAttackTarget;
 
-    public EntityAIGaiaCreepSwell(EntityGaiaCreep par1EntityGaiaCreep) {
-        this.swellingCreep = par1EntityGaiaCreep;
-        this.setMutexBits(1);
-    }
+	public EntityAIGaiaCreepSwell(EntityGaiaCreep swellingCreep) {
+		this.swellingCreep = swellingCreep;
+		this.setMutexBits(1);
+	}
 
-    public boolean shouldExecute() {
-        EntityLivingBase entitylivingbase = this.swellingCreep.getAttackTarget();
-        return this.swellingCreep.getCreeperState() > 0 ||
-                entitylivingbase != null && this.swellingCreep.getDistanceSq(entitylivingbase) < 9.0D;
-    }
+	@Override
+	public boolean shouldExecute() {
+		EntityLivingBase entitylivingbase = swellingCreep.getAttackTarget();
+		return swellingCreep.getCreeperState() > 0 || entitylivingbase != null && swellingCreep.getDistanceSq(entitylivingbase) < 9.0D;
+	}
 
-    public void startExecuting() {
-        this.swellingCreep.getNavigator().clearPath();
-        this.CreepAttackTarget = this.swellingCreep.getAttackTarget();
-    }
+	@Override
+	public void startExecuting() {
+		swellingCreep.getNavigator().clearPath();
+		creepAttackTarget = swellingCreep.getAttackTarget();
+	}
 
-    public void resetTask() {
-        this.CreepAttackTarget = null;
-    }
+	@Override
+	public void resetTask() {
+		creepAttackTarget = null;
+	}
 
-    public void updateTask() {
-        if (this.CreepAttackTarget == null) {
-            this.swellingCreep.setCreeperState(-1);
-        } else if (this.swellingCreep.getDistanceSq(this.CreepAttackTarget) > 49.0D) {
-            this.swellingCreep.setCreeperState(-1);
-        } else if (!this.swellingCreep.getEntitySenses()
-                .canSee(this.CreepAttackTarget)) {
-            this.swellingCreep.setCreeperState(-1);
-        } else {
-            this.swellingCreep.setCreeperState(1);
-        }
-    }
+	@Override
+	public void updateTask() {
+		if (creepAttackTarget == null) {
+			swellingCreep.setCreeperState(-1);
+		} else if (swellingCreep.getDistanceSq(creepAttackTarget) > 49.0D) {
+			swellingCreep.setCreeperState(-1);
+		} else if (!swellingCreep.getEntitySenses().canSee(creepAttackTarget)) {
+			swellingCreep.setCreeperState(-1);
+		} else {
+			swellingCreep.setCreeperState(1);
+		}
+	}
 }

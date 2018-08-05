@@ -7,5 +7,5 @@ public interface GaiaIRangedAttackMob extends IRangedAttackMob {
     /**
      * Better interface for bow animations
      */
-    public void setHoldingBow(boolean holdingBow);
+    void setHoldingBow(boolean holdingBow);
 }
