@@ -202,7 +202,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
                         this.dropItem(GaiaItems.BagBook, 1);
                         break;
                     case 2:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollMaid), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
                 }
             }
         }

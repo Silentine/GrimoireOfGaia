@@ -221,7 +221,7 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
                         this.dropItem(GaiaItems.BoxDiamond, 1);
                         break;
                     case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustSphinx), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_SPHINX), 1);
                         break;
                     case 2:
                         this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 2), 0.0F);

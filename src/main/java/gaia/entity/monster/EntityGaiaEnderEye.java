@@ -311,7 +311,7 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
                         this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
                         break;
                     case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollEnderGirl), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_ENDER_GIRL), 1);
                 }
             }
         }

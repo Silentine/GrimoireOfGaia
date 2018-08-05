@@ -156,7 +156,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
                         this.dropItem(GaiaItems.BoxIron, 1);
                         break;
                     case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollSlimeGirl), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_SLIME_GIRL), 1);
                 }
             }
         }

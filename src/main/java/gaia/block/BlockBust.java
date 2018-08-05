@@ -1,8 +1,7 @@
 package gaia.block;
 
 import gaia.helpers.WorldHelper;
-import gaia.init.GaiaBlocks;
-import gaia.tileentity.TileEntityBustSphinx;
+import gaia.tileentity.TileEntityBust;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,9 +15,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BlockBustSphinx extends BlockBase {
-	public BlockBustSphinx() {
-		super(Material.ROCK, GaiaBlocks.BUST_SPHINX_NAME);
+public class BlockBust extends BlockBase {
+
+	public BlockBust(Material material, String blockName) {
+		super(material, blockName);
 		this.setLightOpacity(0);
 		this.setHardness(3.0F);
 		this.setResistance(6.0F);
@@ -34,7 +34,7 @@ public class BlockBustSphinx extends BlockBase {
 	@Nullable
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new TileEntityBustSphinx();
+		return new TileEntityBust();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class BlockBustSphinx extends BlockBase {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-		WorldHelper.getTile(world, pos, TileEntityBustSphinx.class).ifPresent(t -> t.setDirection(entity.getHorizontalFacing().getOpposite()));
+		WorldHelper.getTile(world, pos, TileEntityBust.class).ifPresent(t -> t.setDirection(entity.getHorizontalFacing().getOpposite()));
 	}
 
 	@Override

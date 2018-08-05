@@ -315,7 +315,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
                         this.dropItem(GaiaItems.BoxDiamond, 1);
                         break;
                     case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.BustValkyrie), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
                         break;
                     case 2:
                         this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 0), 0.0F);

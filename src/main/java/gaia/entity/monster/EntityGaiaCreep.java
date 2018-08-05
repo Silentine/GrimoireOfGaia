@@ -247,7 +247,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
                         this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
                         break;
                     case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollCreeperGirl), 1);
+                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
                 }
             }
 

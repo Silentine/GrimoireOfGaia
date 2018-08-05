@@ -128,20 +128,8 @@ import gaia.renderer.entity.RenderGaiaWitherCow;
 import gaia.renderer.entity.RenderGaiaYeti;
 import gaia.renderer.entity.RenderGaiaYukiOnna;
 import gaia.renderer.particle.ParticleHandler;
-import gaia.renderer.tileentity.TileRenderBustSphinx;
-import gaia.renderer.tileentity.TileRenderBustValkyrie;
-import gaia.renderer.tileentity.TileRenderBustVampire;
-import gaia.renderer.tileentity.TileRenderDollCreeperGirl;
-import gaia.renderer.tileentity.TileRenderDollEnderGirl;
-import gaia.renderer.tileentity.TileRenderDollMaid;
-import gaia.renderer.tileentity.TileRenderDollSlimeGirl;
-import gaia.tileentity.TileEntityBustSphinx;
-import gaia.tileentity.TileEntityBustValkyrie;
-import gaia.tileentity.TileEntityBustVampire;
-import gaia.tileentity.TileEntityDollCreeperGirl;
-import gaia.tileentity.TileEntityDollEnderGirl;
-import gaia.tileentity.TileEntityDollMaid;
-import gaia.tileentity.TileEntityDollSlimeGirl;
+import gaia.renderer.tileentity.TileRenderBust;
+import gaia.tileentity.TileEntityBust;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -238,13 +226,7 @@ public class ClientProxy extends CommonProxy {
         // Projectile
         RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(GaiaItems.PropWeaponProjectile));
         // Block
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustSphinx.class, new TileRenderBustSphinx());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustValkyrie.class, new TileRenderBustValkyrie());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBustVampire.class, new TileRenderBustVampire());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollCreeperGirl.class, new TileRenderDollCreeperGirl());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollEnderGirl.class, new TileRenderDollEnderGirl());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollSlimeGirl.class, new TileRenderDollSlimeGirl());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDollMaid.class, new TileRenderDollMaid());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
     }
 
     @Override

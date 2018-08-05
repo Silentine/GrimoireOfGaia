@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class TileEntityBustSphinx extends TileEntity {
+public class TileEntityBust extends TileEntity {
 	private EnumFacing direction;
 
 	public void setDirection(EnumFacing direction) {
