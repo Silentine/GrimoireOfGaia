@@ -39,10 +39,6 @@ public class TileRenderBust extends TileEntitySpecialRenderer<TileEntityBust> {
 
 	@Override
 	public void render(TileEntityBust te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		this.renderModel(te, x, y, z);
-	}
-
-	public void renderModel(TileEntityBust te, double x, double y, double z) {
 		Block block = te.getWorld().getBlockState(te.getPos()).getBlock();
 		if (models.containsKey(block)) {
 			GlStateManager.pushMatrix();
