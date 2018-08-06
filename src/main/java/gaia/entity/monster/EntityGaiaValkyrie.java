@@ -49,6 +49,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	private static final double DETECTION_RANGE = 6D;
@@ -59,6 +60,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	private int aggression;
 	private int aggressive;
 
+	@SuppressWarnings("WeakerAccess") //used in reflection
 	public EntityGaiaValkyrie(World worldIn) {
 		super(worldIn);
 
@@ -254,7 +256,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		return (dataManager.get(CLIMBING) & 1) != 0;
 	}
 
-	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityDebugMob.class, DataSerializers.BYTE);
+	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaValkyrie.class, DataSerializers.BYTE);
 
 	private void setBesideClimbableBlock(boolean climbing) {
 		byte b0 = dataManager.get(CLIMBING);

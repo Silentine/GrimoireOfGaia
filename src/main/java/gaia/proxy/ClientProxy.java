@@ -1,7 +1,6 @@
 package gaia.proxy;
 
 import gaia.GaiaReference;
-import gaia.entity.monster.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -66,7 +65,6 @@ import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.renderer.RenderGaiaProjectileMagic;
-import gaia.renderer.entity.RenderDebugMob;
 import gaia.renderer.entity.RenderGaiaAnt;
 import gaia.renderer.entity.RenderGaiaAnubis;
 import gaia.renderer.entity.RenderGaiaArachne;
@@ -139,8 +137,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Locale;
-
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
@@ -157,8 +153,6 @@ public class ClientProxy extends CommonProxy {
         float med = 0.5F;
         float large = 0.7F;
 
-        // Debug
-        RenderingRegistry.registerEntityRenderingHandler(EntityDebugMob.class, new RenderDebugMob(small));
         // Mob
         RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnt.class, new RenderGaiaAnt(small));
         RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, new RenderGaiaAnubis(small));

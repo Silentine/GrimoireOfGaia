@@ -33,217 +33,223 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMimic extends EntityMobHostileBase {
 
-    public EntityGaiaMimic(World worldIn) {
-        super(worldIn);
+	public EntityGaiaMimic(World worldIn) {
+		super(worldIn);
 
-        this.experienceValue = EntityAttributes.experienceValue1;
-        this.stepHeight = 6.0F;
-    }
+		experienceValue = EntityAttributes.experienceValue1;
+		stepHeight = 6.0F;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
-        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth1);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor1);
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
 
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE)
-                .setBaseValue(1.00D);
-    }
+		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense1) {
-            damage = EntityAttributes.baseDefense1;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense1));
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-    }
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			if (entityIn instanceof EntityLivingBase) {
+				byte byte0 = 0;
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        if (super.attackEntityAsMob(entityIn)) {
-            if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 30;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 60;
+				}
 
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
-                    byte0 = 30;
-                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
-                    byte0 = 60;
-                }
+				if (byte0 > 0) {
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 20, 0));
+				}
+			}
 
-                if (byte0 > 0) {
-                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 20, 0));
-                }
-            }
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	public void onLivingUpdate() {
+		beaconDebuff(MobEffects.HUNGER, 100, 0, 2);
 
-    public void onLivingUpdate() {
-        this.beaconDebuff(MobEffects.HUNGER, 100, 0, 2);
+		if (!onGround && motionY < 0.0D) {
+			motionY *= 0.8D;
+		}
 
-        if (!this.onGround && this.motionY < 0.0D) {
-            this.motionY *= 0.8D;
-        }
+		if (!world.isRemote) {
+			setBesideClimbableBlock(collidedHorizontally);
+		}
 
-        if (!this.world.isRemote) {
-            this.setBesideClimbableBlock(this.collidedHorizontally);
-        }
+		super.onLivingUpdate();
+	}
 
-        super.onLivingUpdate();
-    }
+	// ================= Climber data =================//
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(CLIMBING, (byte) 0);
+	}
 
-    // ================= Climber data =================//
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
-    }
+	protected PathNavigate getNewNavigator(World worldIn) {
+		return new PathNavigateClimber(this, worldIn);
+	}
 
-    protected PathNavigate getNewNavigator(World worldIn) {
-        return new PathNavigateClimber(this, worldIn);
-    }
+	@Override
+	public boolean isOnLadder() {
+		return isBesideClimbableBlock();
+	}
 
-    public boolean isOnLadder() {
-        return this.isBesideClimbableBlock();
-    }
+	private boolean isBesideClimbableBlock() {
+		return (dataManager.get(CLIMBING) & 1) != 0;
+	}
 
-    public boolean isBesideClimbableBlock() {
-        return (((Byte) this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
-    }
+	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaMimic.class, DataSerializers.BYTE);
 
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityDebugMob.class, DataSerializers.BYTE);
+	private void setBesideClimbableBlock(boolean climbing) {
+		byte b0 = dataManager.get(CLIMBING);
 
-    public void setBesideClimbableBlock(boolean climbing) {
-        byte b0 = ((Byte) this.dataManager.get(CLIMBING)).byteValue();
+		if (climbing) {
+			b0 = (byte) (b0 | 1);
+		} else {
+			b0 = (byte) (b0 & -2);
+		}
 
-        if (climbing) {
-            b0 = (byte) (b0 | 1);
-        } else {
-            b0 = (byte) (b0 & -2);
-        }
+		dataManager.set(CLIMBING, b0);
+	}
+	// ==================================//
 
-        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
-    }
-    // ==================================//
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return SoundEvents.BLOCK_CHEST_OPEN;
+	}
 
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.BLOCK_CHEST_OPEN;
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.BLOCK_WOOD_STEP;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.BLOCK_WOOD_STEP;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_CHEST_OPEN;
+	}
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_CHEST_OPEN;
-    }
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
+		super.dropLoot(wasRecentlyHit, lootingModifier, source);
+		dropFewItems(wasRecentlyHit, lootingModifier);
+	}
 
-    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-        super.dropLoot(wasRecentlyHit, lootingModifier, source);
-        this.dropFewItems(wasRecentlyHit, lootingModifier);
-    }
+	@Override
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		switch (rand.nextInt(6)) {
+			case 0:
+				return LootTableList.ENTITIES_CREEPER;
+			case 1:
+				return LootTableList.ENTITIES_SPIDER;
+			case 2:
+				return LootTableList.ENTITIES_ENDERMAN;
+			case 3:
+				return LootTableList.ENTITIES_SLIME;
+			case 4:
+				return LootTableList.ENTITIES_ZOMBIE;
+			case 5:
+				return LootTableList.ENTITIES_SKELETON;
+			default:
+				return LootTableList.EMPTY;
+		}
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        switch (this.rand.nextInt(6)) {
-            case 0:
-                return LootTableList.ENTITIES_CREEPER;
-            case 1:
-                return LootTableList.ENTITIES_SPIDER;
-            case 2:
-                return LootTableList.ENTITIES_ENDERMAN;
-            case 3:
-                return LootTableList.ENTITIES_SLIME;
-            case 4:
-                return LootTableList.ENTITIES_ZOMBIE;
-            case 5:
-                return LootTableList.ENTITIES_SKELETON;
-            default:
-                return LootTableList.EMPTY;
-        }
-    }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this, 0);
+			}
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 0);
-            }
+			if (GaiaConfig.AdditionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
-            if (GaiaConfig.AdditionalOre) {
-                int var13 = this.rand.nextInt(3) + 1;
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this, 4);
+				}
+			}
 
-                for (int var14 = 0; var14 < var13; ++var14) {
-                    ItemShard.Drop_Nugget(this, 4);
-                }
-            }
+			// Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(3);
+				if (i == 0) {
+					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+				} else if (i == 1) {
+					dropItem(GaiaItems.SpawnTame, 1);
+				} else if (i == 2) {
+					dropItem(GaiaItems.BookHunger, 1);
+				}
+			}
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(3)) {
-                    case 0:
-                        this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-                        break;
-                    case 1:
-                        this.dropItem(GaiaItems.SpawnTame, 1);
-                        break;
-                    case 2:
-                        this.dropItem(GaiaItems.BookHunger, 1);
-                }
-            }
+			// Very Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1) > 0)) {
+				dropItem(GaiaItems.SpawnTrader, 1);
+			}
 
-            // Very Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
-                this.dropItem(GaiaItems.SpawnTrader, 1);
-            }
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1) > 0)) {
+				dropItem(GaiaItems.BagRecord, 1);
+			}
+		}
+	}
 
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
-                this.dropItem(GaiaItems.BagRecord, 1);
-            }
-        }
-    }
+	// ================= Immunities =================//
+	@Override
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return potioneffectIn.getPotion() != MobEffects.HUNGER && super.isPotionApplicable(potioneffectIn);
+	}
 
-    // ================= Immunities =================//
-    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotion() == MobEffects.HUNGER
-                ? false
-                : super.isPotionApplicable(potioneffectIn);
-    }
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		//noop
+	}
+	// ==============================================//
 
-    public void fall(float distance, float damageMultiplier) {
-    }
-    // ==============================================//
-
-    public boolean getCanSpawnHere() {
-        return this.posY < 0.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 0.0D && super.getCanSpawnHere();
+	}
 }

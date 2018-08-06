@@ -7,7 +7,6 @@ import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -23,6 +22,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -45,305 +45,318 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaVampire extends EntityMobHostileBase {
 
-    private int spawnTime;
-    private int spawnTime2;
+	private int spawnTime;
+	private int spawnTime2;
 
-    public EntityGaiaVampire(World worldIn) {
-        super(worldIn);
+	@SuppressWarnings("WeakerAccess") //used in reflection
+	public EntityGaiaVampire(World worldIn) {
+		super(worldIn);
 
-        this.setSize(1.0F, 2.2F);
-        this.experienceValue = EntityAttributes.experienceValue3;
-        this.stepHeight = 1.0F;
-        this.isImmuneToFire = true;
+		setSize(1.0F, 2.2F);
+		experienceValue = EntityAttributes.experienceValue3;
+		stepHeight = 1.0F;
+		isImmuneToFire = true;
 
-        this.spawnTime = 0;
-        this.spawnTime2 = 0;
-    }
+		spawnTime = 0;
+		spawnTime2 = 0;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIRestrictSun(this));
-        this.tasks.addTask(2, new EntityAIFleeSun(this, EntityAttributes.attackSpeed3));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed3, true));
-        this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(5, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIRestrictSun(this));
+		tasks.addTask(2, new EntityAIFleeSun(this, EntityAttributes.attackSpeed3));
+		tasks.addTask(3, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed3, true));
+		tasks.addTask(4, new EntityAIWander(this, 1.0D));
+		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		tasks.addTask(5, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth3);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed3);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage3);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor3);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth3);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed3);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage3);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor3);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense3) {
-            damage = EntityAttributes.baseDefense3;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense3));
+	}
 
-        if (source instanceof EntityDamageSourceIndirect) {
-            return false;
-        }
+	@Override
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback3);
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			if (entityIn instanceof EntityLivingBase) {
+				byte byte0 = 0;
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback3);
-    }
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 20;
+				}
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        if (super.attackEntityAsMob(entityIn)) {
-            if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
+				if (byte0 > 0 && getHealth() < EntityAttributes.maxHealth3 * 0.75F) {
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
 
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
-                    byte0 = 10;
-                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
-                    byte0 = 20;
-                }
+					world.setEntityState(this, (byte) 9);
 
-                if (byte0 > 0 && this.getHealth() < EntityAttributes.maxHealth3 * 0.75F) {
-                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
+					heal(EntityAttributes.maxHealth3 * 0.10F);
+				}
+			}
 
-                    this.world.setEntityState(this, (byte) 9);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-                    this.heal(EntityAttributes.maxHealth3 * 0.10F);
-                }
-            }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public void onLivingUpdate() {
+		if (!onGround && motionY < 0.0D) {
+			motionY *= 0.8D;
+		}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+		if (world.isDaytime() && !world.isRemote) {
+			float f = getBrightness();
 
-    public void onLivingUpdate() {
-        if (!this.onGround && this.motionY < 0.0D) {
-            this.motionY *= 0.8D;
-        }
+			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(getPosition())) {
+				world.setEntityState(this, (byte) 13);
+				attackEntityFrom(DamageSource.GENERIC, EntityAttributes.maxHealth3 * 0.25F);
+			}
+		}
 
-        if (this.world.isDaytime() && !this.world.isRemote) {
-            float f = this.getBrightness();
+		if (getHealth() < EntityAttributes.maxHealth3 * 0.75F && getHealth() > EntityAttributes.maxHealth3 * 0.25F) {
+			if ((spawnTime > 0) && (spawnTime <= 200)) {
+				++spawnTime;
+			} else {
+				world.setEntityState(this, (byte) 12);
 
-            if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.canSeeSky(this.getPosition())) {
-                this.world.setEntityState(this, (byte) 13);
-                this.attackEntityFrom(DamageSource.GENERIC, EntityAttributes.maxHealth3 * 0.25F);
-            }
-        }
+				if (!world.isRemote) {
+					EntityGaiaSummonButler spawnMob = new EntityGaiaSummonButler(world);
+					spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+					spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
+					world.spawnEntity(spawnMob);
+				}
 
-        EntityGaiaSummonButler spawnMob = new EntityGaiaSummonButler(this.world);
-        if (this.getHealth() < EntityAttributes.maxHealth3 * 0.75F && this.getHealth() > EntityAttributes.maxHealth3 * 0.25F) {
-            if ((this.spawnTime > 0) && (this.spawnTime <= 200)) {
-                ++this.spawnTime;
-            } else {
-                this.world.setEntityState(this, (byte) 12);
+				world.setEntityState(this, (byte) 9);
 
-                if (!this.world.isRemote) {
-                    spawnMob = new EntityGaiaSummonButler(this.world);
-                    spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                    spawnMob.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData) null);
-                    this.world.spawnEntity(spawnMob);
-                }
+				heal(EntityAttributes.maxHealth3 * 0.10F);
 
-                this.world.setEntityState(this, (byte) 9);
+				spawnTime = 1;
+			}
+		}
 
-                this.heal(EntityAttributes.maxHealth3 * 0.10F);
+		if (!world.isRemote) {
+			setBesideClimbableBlock(collidedHorizontally);
+		}
 
-                this.spawnTime = 1;
-            }
-        }
+		if (getHealth() <= 0.0F) {
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
+						posX + (rand.nextDouble() - 0.5D) * width,
+						posY + rand.nextDouble() * height,
+						posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			}
 
-        if (!this.world.isRemote) {
-            this.setBesideClimbableBlock(this.collidedHorizontally);
-        }
+			EntityBat spawnMob2 = new EntityBat(world);
+			if (spawnTime2 == 0 && !world.isRemote) {
+				spawnTime2 = 1;
+			} else if (spawnTime2 == 1 && !world.isRemote) {
+				spawnMob2.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
+				spawnMob2.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob2)), null);
+				world.spawnEntity(spawnMob2);
+				spawnTime2 = 2;
+			}
+		} else {
+			super.onLivingUpdate();
+		}
+	}
 
-        if (this.getHealth() <= 0.0F) {
-            for (int i = 0; i < 2; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-                        this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                        this.posY + this.rand.nextDouble() * (double) this.height,
-                        this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
-            }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 12) {
+			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+		} else if (id == 13) {
+			spawnParticles(EnumParticleTypes.SMOKE_LARGE);
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
 
-            EntityBat spawnMob2 = new EntityBat(this.world);
-            if (this.spawnTime2 == 0 && !this.world.isRemote) {
-                this.spawnTime2 = 1;
-            } else if (this.spawnTime2 == 1 && !this.world.isRemote) {
-                spawnMob2.setLocationAndAngles(this.posX, this.posY + 1.0D, this.posZ, this.rotationYaw, 0.0F);
-                spawnMob2.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(spawnMob2)), (IEntityLivingData) null);
-                this.world.spawnEntity(spawnMob2);
-                this.spawnTime2 = 2;
-            }
-        } else {
-            super.onLivingUpdate();
-        }
-    }
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(particleType,
+					posX + (rand.nextDouble() * width * 2.0D) - width,
+					posY + 1.0D + (rand.nextDouble() * height),
+					posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
+		}
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 12) {
-            this.spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
-        } else if (id == 13) {
-            this.spawnParticles(EnumParticleTypes.SMOKE_LARGE);
-        } else if (id == 13) {
-            this.spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
-        } else {
-            super.handleStatusUpdate(id);
-        }
-    }
+	// ================= Climber data =================//
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(CLIMBING, (byte) 0);
+	}
 
-    @SideOnly(Side.CLIENT)
-    private void spawnParticles(EnumParticleTypes particleType) {
-        for (int i = 0; i < 5; ++i) {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.world.spawnParticle(particleType,
-                    this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-                    this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
-                    this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2, new int[0]);
-        }
-    }
+	protected PathNavigate getNewNavigator(World worldIn) {
+		return new PathNavigateClimber(this, worldIn);
+	}
 
-    // ================= Climber data =================//
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
-    }
+	@Override
+	public boolean isOnLadder() {
+		return isBesideClimbableBlock();
+	}
 
-    protected PathNavigate getNewNavigator(World worldIn) {
-        return new PathNavigateClimber(this, worldIn);
-    }
+	private boolean isBesideClimbableBlock() {
+		return (dataManager.get(CLIMBING) & 1) != 0;
+	}
 
-    public boolean isOnLadder() {
-        return this.isBesideClimbableBlock();
-    }
+	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaValkyrie.class, DataSerializers.BYTE);
 
-    public boolean isBesideClimbableBlock() {
-        return (((Byte) this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
-    }
+	private void setBesideClimbableBlock(boolean climbing) {
+		byte b0 = dataManager.get(CLIMBING);
 
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityDebugMob.class, DataSerializers.BYTE);
+		if (climbing) {
+			b0 = (byte) (b0 | 1);
+		} else {
+			b0 = (byte) (b0 & -2);
+		}
 
-    public void setBesideClimbableBlock(boolean climbing) {
-        byte b0 = ((Byte) this.dataManager.get(CLIMBING)).byteValue();
+		dataManager.set(CLIMBING, b0);
+	}
+	// ================================================//
 
-        if (climbing) {
-            b0 = (byte) (b0 | 1);
-        } else {
-            b0 = (byte) (b0 & -2);
-        }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.aggressive_say;
+	}
 
-        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
-    }
-    // ================================================//
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.aggressive_hurt;
+	}
 
-    protected SoundEvent getAmbientSound() {
-        return Sounds.aggressive_say;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.aggressive_death;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return Sounds.aggressive_hurt;
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		playSound(Sounds.none, 1.0F, 1.0F);
+	}
 
-    protected SoundEvent getDeathSound() {
-        return Sounds.aggressive_death;
-    }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(GaiaItems.FoodSmallAppleGold, 1);
+			}
 
-    protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(Sounds.none, 1.0F, 1.0F);
-    }
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            if ((this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                this.dropItem(GaiaItems.FoodSmallAppleGold, 1);
-            }
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this, 2);
+			}
 
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+			int var13 = rand.nextInt(3) + 1;
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 2);
-            }
+			for (int var14 = 0; var14 < var13; ++var14) {
+				ItemShard.Drop_Nugget(this, 3);
+			}
 
-            int var13 = this.rand.nextInt(3) + 1;
+			// Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(3);
+				if (i == 0) {
+					dropItem(GaiaItems.BoxDiamond, 1);
+				} else if (i == 1) {
+					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
 
-            for (int var14 = 0; var14 < var13; ++var14) {
-                ItemShard.Drop_Nugget(this, 3);
-            }
+				} else if (i == 2) {
+					entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 3), 0.0F);
+				}
+			}
+		}
+	}
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(3)) {
-                    case 0:
-                        this.dropItem(GaiaItems.BoxDiamond, 1);
-                        break;
-                    case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
-                        break;
-                    case 2:
-                        this.entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 3), 0.0F);
-                }
-            }
-        }
-    }
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+		//noop
+	}
 
-    @Override
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-    }
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
+		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
+		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
+		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
 
-        ItemStack BOOTS_SWIMMING = new ItemStack(Items.LEATHER_BOOTS);
-        this.setItemStackToSlot(EntityEquipmentSlot.FEET, BOOTS_SWIMMING);
-        BOOTS_SWIMMING.addEnchantment(Enchantment.getEnchantmentByLocation("depth_strider"), 2);
+		return ret;
+	}
 
-        return livingdata;
-    }
+	@Override
+	public EnumCreatureAttribute getCreatureAttribute() {
+		return EnumCreatureAttribute.UNDEAD;
+	}
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEAD;
-    }
+	// ================= Tier Immunities =================//
+	@Override
+	public boolean canBreatheUnderwater() {
+		return true;
+	}
 
-    // ================= Tier Immunities =================//
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+	@Override
+	public boolean isPushedByWater() {
+		return false;
+	}
 
-    public boolean isPushedByWater() {
-        return false;
-    }
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		//noop
+	}
 
-    public void fall(float distance, float damageMultiplier) {
-    }
+	@Override
+	public void setInWeb() {
+		//noop
+	}
+	// ===================================================//
 
-    public void setInWeb() {
-    }
-    // ===================================================//
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
 
-    public int getMaxSpawnedInChunk() {
-        return 1;
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY > 60.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY > 60.0D && super.getCanSpawnHere();
+	}
 }
