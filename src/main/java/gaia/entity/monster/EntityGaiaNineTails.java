@@ -7,7 +7,6 @@ import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -20,6 +19,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -29,158 +29,156 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNineTails extends EntityMobHostileBase implements IRangedAttackMob {
 
-    public EntityGaiaNineTails(World worldIn) {
-        super(worldIn);
+	public EntityGaiaNineTails(World worldIn) {
+		super(worldIn);
 
-        this.experienceValue = EntityAttributes.experienceValue2;
-        this.stepHeight = 1.0F;
-        this.isImmuneToFire = true;
-    }
+		experienceValue = EntityAttributes.experienceValue2;
+		stepHeight = 1.0F;
+		isImmuneToFire = true;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAttackRanged(this, EntityAttributes.attackSpeed2, 20, 60, 15.0F));
-        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackRanged(this, EntityAttributes.attackSpeed2, 20, 60, 15.0F));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth2);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed2);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage2);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor2);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth2);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage2);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense2) {
-            damage = EntityAttributes.baseDefense2;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense2));
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
-    }
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase living, float par2) {
+		playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		double d0 = living.posX - posX;
+		double d1 = living.getEntityBoundingBox().minY + living.height / 2.0D - (posY + height / 2.0D);
+		double d2 = living.posZ - posZ;
+		double f1 = MathHelper.sqrt(par2) * 0.5D;
 
-    public void attackEntityWithRangedAttack(EntityLivingBase living, float par2) {
-        // this.world.playAuxSFXAtEntity((EntityPlayer)null, 1009,
-        // this.getPosition(), 0);
-        this.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (this.getRNG()
-                .nextFloat() * 0.4F + 0.8F));
-        double d0 = living.posX - this.posX;
-        double d1 = living.getEntityBoundingBox().minY + (double) (living.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
-        double d2 = living.posZ - this.posZ;
-        float f1 = MathHelper.sqrt(par2) * 0.5F;
+		for (int var10 = 0; var10 < 3; ++var10) {
+			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(world, this,
+					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			var11.posY = posY + height / 2.0D + 0.5D;
+			world.spawnEntity(var11);
+		}
+	}
 
-        for (int var10 = 0; var10 < 3; ++var10) {
-            EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(this.world, this,
-                    d0 + this.rand.nextGaussian() * (double) f1, d1, d2 + this.rand.nextGaussian() * (double) f1);
-            var11.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
-            this.world.spawnEntity(var11);
-        }
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.aggressive_say;
+	}
 
-    public void onLivingUpdate() {
-        super.onLivingUpdate();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.aggressive_hurt;
+	}
 
-    protected SoundEvent getAmbientSound() {
-        return Sounds.aggressive_say;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.aggressive_death;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return Sounds.aggressive_hurt;
-    }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			int var3 = rand.nextInt(3 + lootingModifier);
 
-    protected SoundEvent getDeathSound() {
-        return Sounds.aggressive_death;
-    }
+			for (int var4 = 0; var4 < var3; ++var4) {
+				dropItem(GaiaItems.MiscSoulFire, 1);
+			}
 
-    @Override
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            int var3 = this.rand.nextInt(3 + lootingModifier);
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-            for (int var4 = 0; var4 < var3; ++var4) {
-                this.dropItem(GaiaItems.MiscSoulFire, 1);
-            }
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this, 1);
+			}
 
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.AdditionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 1);
-            }
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this, 5);
+				}
+			}
 
-            if (GaiaConfig.AdditionalOre) {
-                int var13 = this.rand.nextInt(3) + 1;
+			// Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(3);
+				if (i == 0) {
+					dropItem(GaiaItems.BoxGold, 1);
 
-                for (int var14 = 0; var14 < var13; ++var14) {
-                    ItemShard.Drop_Nugget(this, 5);
-                }
-            }
+				} else if (i == 1) {
+					dropItem(GaiaItems.BagBook, 1);
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(3)) {
-                    case 0:
-                        this.dropItem(GaiaItems.BoxGold, 1);
-                        break;
-                    case 1:
-                        this.dropItem(GaiaItems.BagBook, 1);
-                        break;
-                    case 2:
-                        ItemStack FanFire = new ItemStack(GaiaItems.FanFire);
-                        FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("fire_aspect"), 2);
-                        FanFire.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
-                        this.entityDropItem(FanFire, 1);
-                }
-            }
-        }
-    }
+				} else if (i == 2) {
+					ItemStack fanFire = new ItemStack(GaiaItems.FanFire);
+					fanFire.addEnchantment(Enchantments.FIRE_ASPECT, 2);
+					fanFire.addEnchantment(Enchantments.KNOCKBACK, 1);
+					entityDropItem(fanFire, 1);
+				}
+			}
+		}
+	}
 
-    @Override
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-    }
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+		//noop
+	}
 
-    @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-        setLeftHanded(false);
+		setLeftHanded(false);
 
-        ItemStack weapon;
+		ItemStack weapon;
 
-        if (rand.nextInt(4) == 0) {
-            weapon = new ItemStack(GaiaItems.PropWeapon, 1, 4);
-            weapon.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 2);
-        } else {
-            weapon = new ItemStack(GaiaItems.PropWeaponEnchanted, 1);
-            weapon.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
-        }
+		if (rand.nextInt(4) == 0) {
+			weapon = new ItemStack(GaiaItems.PropWeapon, 1, 4);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
+		} else {
+			weapon = new ItemStack(GaiaItems.PropWeaponEnchanted, 1);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 1);
+		}
 
-        setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
 
-        return livingdata;
-    }
+		return ret;
+	}
 
-    public boolean getCanSpawnHere() {
-        return this.posY > 60.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY > 60.0D && super.getCanSpawnHere();
+	}
 }

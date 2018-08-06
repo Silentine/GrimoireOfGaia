@@ -11,7 +11,6 @@ import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import gaia.renderer.particle.ParticleWarning;
 import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -45,8 +44,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.attackSpeed2, 20, 15.0F);
@@ -374,8 +373,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 			setMobType(1);
-			getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE)
-					.setBaseValue(0.25D);
+			getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 			setTextureType(0);
 			mobClass = 0;
 		}

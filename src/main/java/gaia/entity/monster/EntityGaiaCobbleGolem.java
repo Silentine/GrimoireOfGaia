@@ -17,7 +17,6 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -33,9 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * @see EntityIronGolem
- */
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 	private int attackTimer;
@@ -94,7 +91,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	public boolean attackEntityAsMob(Entity entityIn) {
 		attackTimer = 10;
 		world.setEntityState(this, (byte) 4);
-		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (7 + rand.nextInt(15)));
+		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 7 + rand.nextInt(15));
 		if (var2) {
 			entityIn.motionY += 0.2D;
 		}

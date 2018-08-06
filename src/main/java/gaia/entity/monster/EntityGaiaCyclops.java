@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	private int buffEffect;

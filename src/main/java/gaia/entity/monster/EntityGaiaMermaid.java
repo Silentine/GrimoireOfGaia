@@ -7,7 +7,6 @@ import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -34,8 +33,8 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 	public EntityGaiaMermaid(World worldIn) {

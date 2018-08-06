@@ -29,154 +29,150 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaDullahan extends EntityMobHostileBase {
 
-    public EntityGaiaDullahan(World worldIn) {
-        super(worldIn);
+	public EntityGaiaDullahan(World worldIn) {
+		super(worldIn);
 
-        this.experienceValue = EntityAttributes.experienceValue1;
-        this.stepHeight = 1.0F;
-    }
+		experienceValue = EntityAttributes.experienceValue1;
+		stepHeight = 1.0F;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
-        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth1);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed1);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor1);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense1) {
-            damage = EntityAttributes.baseDefense1;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense1));
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-    }
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			if (entityIn instanceof EntityLivingBase) {
+				byte byte0 = 0;
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        if (super.attackEntityAsMob(entityIn)) {
-            if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 5;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 10;
+				}
 
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
-                    byte0 = 5;
-                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
-                    byte0 = 10;
-                }
+				if (byte0 > 0) {
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
+				}
+			}
 
-                if (byte0 > 0) {
-                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
-                }
-            }
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public boolean attackEntityFrom(DamageSource damageSource, int inputDamage) {
+		Entity entity = damageSource.getTrueSource();
+		int damage = inputDamage;
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 
-    public boolean attackEntityFrom(DamageSource DamageSource, int inputDamage) {
-        Entity entity = DamageSource.getTrueSource();
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack itemstack = player.getHeldItem(getActiveHand());
+			Item item = itemstack.getItem();
+			if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE || item == Items.GOLDEN_SHOVEL || item == Items.GOLDEN_HOE ||
+					item == Items.GOLDEN_PICKAXE) {
+				damage = 14;
+				damage = (int) (damage + Item.ToolMaterial.GOLD.getAttackDamage());
+			}
+		}
 
-            if (itemstack != null) {
-                Item item = itemstack.getItem();
-                if (item != null) {
-                    if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE || item == Items.GOLDEN_SHOVEL || item == Items.GOLDEN_HOE ||
-                            item == Items.GOLDEN_PICKAXE) {
-                        inputDamage = 14;
-                        inputDamage = (int) ((float) inputDamage + Item.ToolMaterial.GOLD.getAttackDamage());
-                    }
-                }
-            }
-        }
+		return super.attackEntityFrom(damageSource, damage);
+	}
 
-        return super.attackEntityFrom(DamageSource, (float) inputDamage);
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.aggressive_say;
+	}
 
-    public void onLivingUpdate() {
-        super.onLivingUpdate();
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.aggressive_hurt;
+	}
 
-    protected SoundEvent getAmbientSound() {
-        return Sounds.aggressive_say;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.aggressive_death;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return Sounds.aggressive_hurt;
-    }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(GaiaItems.MiscSoulFire, 1);
+			}
 
-    protected SoundEvent getDeathSound() {
-        return Sounds.aggressive_death;
-    }
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                this.dropItem(GaiaItems.MiscSoulFire, 1);
-            }
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this, 0);
+			}
 
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.AdditionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 0);
-            }
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this, 4);
+				}
+			}
 
-            if (GaiaConfig.AdditionalOre) {
-                int var13 = this.rand.nextInt(3) + 1;
+			// Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+				dropItem(GaiaItems.BoxIron, 1);
+			}
+		}
+	}
 
-                for (int var14 = 0; var14 < var13; ++var14) {
-                    ItemShard.Drop_Nugget(this, 4);
-                }
-            }
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(1)) {
-                    case 0:
-                        this.dropItem(GaiaItems.BoxIron, 1);
-                }
-            }
-        }
-    }
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+		setEnchantmentBasedOnDifficulty(difficulty);
 
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
+		return ret;
+	}
 
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
-        this.setEnchantmentBasedOnDifficulty(difficulty);
-
-        return livingdata;
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY > 60.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY > 60.0D && super.getCanSpawnHere();
+	}
 }

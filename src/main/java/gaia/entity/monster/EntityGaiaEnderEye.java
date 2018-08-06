@@ -1,7 +1,5 @@
 package gaia.entity.monster;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -22,7 +20,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,7 +27,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -42,391 +38,382 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-/**
- * @see EntityEnderman
- */
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
-    private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
-    private static final AttributeModifier ATTACKING_SPEED_BOOST =
-            (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.attackSpeedBoost, 0)).setSaved(false);
-    private static final DataParameter<Boolean> SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaEnderEye.class, DataSerializers.BOOLEAN);
+	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
+	private static final AttributeModifier ATTACKING_SPEED_BOOST =
+			(new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.attackSpeedBoost, 0)).setSaved(false);
+	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.createKey(EntityGaiaEnderEye.class, DataSerializers.BOOLEAN);
 
-    private int lastCreepySound;
-    private int targetChangeTime;
+	private int targetChangeTime;
 
-    public EntityGaiaEnderEye(World worldIn) {
-        super(worldIn);
+	public EntityGaiaEnderEye(World worldIn) {
+		super(worldIn);
 
-        this.setSize(1.0F, 2.4F);
-        this.stepHeight = 1.0F;
-    }
+		setSize(1.0F, 2.4F);
+		stepHeight = 1.0F;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, false));
-        this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityGaiaEnderEye.AIFindPlayer(this));
-        this.targetTasks.addTask(3,
-                new EntityAINearestAttackableTarget<EntityEndermite>(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>() {
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, false));
+		tasks.addTask(7, new EntityAIWander(this, 1.0D));
+		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(8, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(2, new EntityGaiaEnderEye.AIFindPlayer(this));
+		targetTasks.addTask(3,
+				new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
+	}
 
-                    public boolean apply(EntityEndermite p_apply_1_) {
-                        return p_apply_1_.isSpawnedByPlayer();
-                    }
-                }));
-    }
+	@Override
+	public float getEyeHeight() {
+		return 2.05F;
+	}
 
-    public float getEyeHeight() {
-        return 2.05F;
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth1);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed1);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor1);
-    }
+	@Override
+	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+		super.setAttackTarget(entitylivingbaseIn);
+		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
-    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
-        super.setAttackTarget(entitylivingbaseIn);
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+		if (entitylivingbaseIn == null) {
+			targetChangeTime = 0;
+			dataManager.set(SCREAMING, false);
+			iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
+		} else {
+			targetChangeTime = ticksExisted;
+			dataManager.set(SCREAMING, true);
 
-        if (entitylivingbaseIn == null) {
-            this.targetChangeTime = 0;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(false));
-            iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
-        } else {
-            this.targetChangeTime = this.ticksExisted;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(true));
+			if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
+				iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
+			}
+		}
+	}
 
-            if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
-                iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
-            }
-        }
-    }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else if (source instanceof EntityDamageSourceIndirect) {
+			for (int i = 0; i < 64; ++i) {
+				if (teleportRandomly()) {
+					return true;
+				}
+			}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense1) {
-            damage = EntityAttributes.baseDefense1;
-        }
+			return false;
+		} else {
+			boolean flag = super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense1));
 
-        if (this.isEntityInvulnerable(source)) {
-            return false;
-        } else if (source instanceof EntityDamageSourceIndirect) {
-            for (int i = 0; i < 64; ++i) {
-                if (this.teleportRandomly()) {
-                    return true;
-                }
-            }
+			if (source.isUnblockable() && rand.nextInt(10) != 0) {
+				teleportRandomly();
+			}
 
-            return false;
-        } else {
-            boolean flag = super.attackEntityFrom(source, damage);
+			return flag;
+		}
+	}
 
-            if (source.isUnblockable() && this.rand.nextInt(10) != 0) {
-                this.teleportRandomly();
-            }
+	@Override
+	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
+		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	}
 
-            return flag;
-        }
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SCREAMING, false);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-    }
+	/**
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+	 * use this to react to sunlight and start to burn.
+	 */
+	@Override
+	public void onLivingUpdate() {
+		if (world.isRemote) {
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.PORTAL,
+						posX + (rand.nextDouble() - 0.5D) * width,
+						posY + rand.nextDouble() * height - 0.25D,
+						posZ + (rand.nextDouble() - 0.5D) * width,
+						(rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+			}
+		}
 
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(SCREAMING, Boolean.valueOf(false));
-    }
+		isJumping = false;
+		super.onLivingUpdate();
+	}
 
-    public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-    }
+	@Override
+	protected void updateAITasks() {
+		if (isWet()) {
+			attackEntityFrom(DamageSource.DROWN, 1.0F);
+		}
 
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-    }
+		if (world.isDaytime() && ticksExisted >= targetChangeTime + 600) {
+			float f = getBrightness();
 
-    /**
-     * Checks to see if this enderman should be attacking this player
-     */
-    private boolean shouldAttackPlayer(EntityPlayer player) {
-        ItemStack itemstack = player.inventory.armorInventory.get(0);
+			if (f > 0.5F && world.canSeeSky(new BlockPos(this)) && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+				setAttackTarget(null);
+				teleportRandomly();
+			}
+		}
 
-        if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-            return false;
-        } else {
-            Vec3d vec3d = player.getLook(1.0F)
-                    .normalize();
-            Vec3d vec3d1 = new Vec3d(
-                    this.posX - player.posX,
-                    this.getEntityBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()),
-                    this.posZ - player.posZ);
-            double d0 = vec3d1.lengthVector();
-            vec3d1 = vec3d1.normalize();
-            double d1 = vec3d.dotProduct(vec3d1);
-            return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(this);
-        }
-    }
+		super.updateAITasks();
+	}
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
-    public void onLivingUpdate() {
-        if (this.world.isRemote) {
-            for (int i = 0; i < 2; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.PORTAL,
-                        this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                        this.posY + this.rand.nextDouble() * (double) this.height - 0.25D,
-                        this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                        (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D, new int[0]);
-            }
-        }
+	/**
+	 * Teleport the enderman to a random nearby position
+	 */
+	boolean teleportRandomly() {
+		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
+		double d1 = posY + (rand.nextInt(64) - 32);
+		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
+		return teleportTo(d0, d1, d2);
+	}
 
-        this.isJumping = false;
-        super.onLivingUpdate();
-    }
+	/**
+	 * Teleport the enderman to another entity
+	 */
+	boolean teleportToEntity(Entity entity) {
+		Vec3d vec3d = new Vec3d(
+				posX - entity.posX,
+				getEntityBoundingBox().minY + height / 2.0D - entity.posY + entity.getEyeHeight(),
+				posZ - entity.posZ);
+		vec3d = vec3d.normalize();
+		double d1 = posX + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
+		double d2 = posY + (rand.nextInt(16) - 8) - vec3d.y * 16.0D;
+		double d3 = posZ + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
+		return teleportTo(d1, d2, d3);
+	}
 
-    protected void updateAITasks() {
-        if (this.isWet()) {
-            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
-        }
+	/**
+	 * Teleport the enderman
+	 */
+	private boolean teleportTo(double x, double y, double z) {
+		net.minecraftforge.event.entity.living.EnderTeleportEvent event =
+				new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
+		if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
+			return false;
+		}
+		boolean flag = attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 
-        if (this.world.isDaytime() && this.ticksExisted >= this.targetChangeTime + 600) {
-            float f = this.getBrightness();
+		if (flag) {
+			world.playSound(null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT,
+					getSoundCategory(), 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+		}
 
-            if (f > 0.5F && this.world.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.setAttackTarget((EntityLivingBase) null);
-                this.teleportRandomly();
-            }
-        }
+		return flag;
+	}
 
-        super.updateAITasks();
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return isScreaming()
+				? SoundEvents.ENTITY_ENDERMEN_SCREAM
+				: SoundEvents.ENTITY_ENDERMEN_AMBIENT;
+	}
 
-    /**
-     * Teleport the enderman to a random nearby position
-     */
-    protected boolean teleportRandomly() {
-        double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        double d1 = this.posY + (double) (this.rand.nextInt(64) - 32);
-        double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        return this.teleportTo(d0, d1, d2);
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.ENTITY_ENDERMEN_HURT;
+	}
 
-    /**
-     * Teleport the enderman to another entity
-     */
-    protected boolean teleportToEntity(Entity p_70816_1_) {
-        Vec3d vec3d = new Vec3d(
-                this.posX - p_70816_1_.posX,
-                this.getEntityBoundingBox().minY + (double) (this.height / 2.0F) - p_70816_1_.posY + (double) p_70816_1_.getEyeHeight(),
-                this.posZ - p_70816_1_.posZ);
-        vec3d = vec3d.normalize();
-        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
-        double d2 = this.posY + (double) (this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
-        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
-        return this.teleportTo(d1, d2, d3);
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.ENTITY_ENDERMEN_DEATH;
+	}
 
-    /**
-     * Teleport the enderman
-     */
-    private boolean teleportTo(double x, double y, double z) {
-        net.minecraftforge.event.entity.living.EnderTeleportEvent event =
-                new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
-        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
-            return false;
-        }
-        boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		playSound(Sounds.none, 1.0F, 1.0F);
+	}
 
-        if (flag) {
-            this.world.playSound((EntityPlayer) null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT,
-                    this.getSoundCategory(), 1.0F, 1.0F);
-            this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
-        }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(Items.ENDER_PEARL, 1);
+			}
 
-        return flag;
-    }
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-    protected SoundEvent getAmbientSound() {
-        return this.isScreaming()
-                ? SoundEvents.ENTITY_ENDERMEN_SCREAM
-                : SoundEvents.ENTITY_ENDERMEN_AMBIENT;
-    }
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.Drop_Nugget(this, 0);
+			}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_ENDERMEN_HURT;
-    }
+			if (GaiaConfig.AdditionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_ENDERMEN_DEATH;
-    }
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.Drop_Nugget(this, 4);
+				}
+			}
 
-    protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(Sounds.none, 1.0F, 1.0F);
-    }
+			// Rare
+			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(2);
+				if (i == 0) {
+					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+				} else if (i == 1) {
+					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_ENDER_GIRL), 1);
+				}
+			}
+		}
+	}
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                this.dropItem(Items.ENDER_PEARL, 1);
-            }
+	// ================= Immunities =================//
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		//noop
+	}
 
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+	@Override
+	public void setInWeb() {
+		//noop
+	}
+	// ==============================================//
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 0);
-            }
+	private boolean isScreaming() {
+		return dataManager.get(SCREAMING);
+	}
 
-            if (GaiaConfig.AdditionalOre) {
-                int var13 = this.rand.nextInt(3) + 1;
+	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 
-                for (int var14 = 0; var14 < var13; ++var14) {
-                    ItemShard.Drop_Nugget(this, 4);
-                }
-            }
+		private final EntityGaiaEnderEye enderman;
+		/**
+		 * The player
+		 */
+		private EntityPlayer player;
+		private int aggroTime;
+		private int teleportTime;
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(2)) {
-                    case 0:
-                        this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-                        break;
-                    case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_ENDER_GIRL), 1);
-                }
-            }
-        }
-    }
+		AIFindPlayer(EntityGaiaEnderEye enderEye) {
+			super(enderEye, EntityPlayer.class, false);
+			enderman = enderEye;
+		}
 
-    // ================= Immunities =================//
-    public void fall(float distance, float damageMultiplier) {
-    }
+		/**
+		 * Returns whether the EntityAIBase should begin execution.
+		 */
+		@Override
+		public boolean shouldExecute() {
+			double d0 = getTargetDistance();
+			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0,
+					null, p -> p != null && shouldAttackPlayer(p));
+			return player != null;
+		}
 
-    public void setInWeb() {
-    }
-    // ==============================================//
+		/**
+		 * Execute a one shot task or start executing a continuous task
+		 */
+		@Override
+		public void startExecuting() {
+			aggroTime = 5;
+			teleportTime = 0;
+		}
 
-    public boolean isScreaming() {
-        return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
-    }
+		/**
+		 * Resets the task
+		 */
+		@Override
+		public void resetTask() {
+			player = null;
+			super.resetTask();
+		}
 
-    static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
+		/**
+		 * Returns whether an in-progress EntityAIBase should continue executing
+		 */
+		@Override
+		public boolean shouldContinueExecuting() {
+			if (player != null) {
+				if (!shouldAttackPlayer(player)) {
+					return false;
+				} else {
+					enderman.faceEntity(player, 10.0F, 10.0F);
+					return true;
+				}
+			} else {
+				return targetEntity != null && targetEntity.isEntityAlive() || super.shouldContinueExecuting();
+			}
+		}
 
-        private final EntityGaiaEnderEye enderman;
-        /**
-         * The player
-         */
-        private EntityPlayer player;
-        private int aggroTime;
-        private int teleportTime;
+		/**
+		 * Updates the task
+		 */
+		@Override
+		public void updateTask() {
+			if (player != null) {
+				if (--aggroTime <= 0) {
+					targetEntity = player;
+					player = null;
+					super.startExecuting();
+				}
+			} else {
+				if (targetEntity != null) {
+					if (shouldAttackPlayer(targetEntity)) {
+						if (targetEntity.getDistanceSq(enderman) < 16.0D) {
+							enderman.teleportRandomly();
+						}
 
-        public AIFindPlayer(EntityGaiaEnderEye p_i45842_1_) {
-            super(p_i45842_1_, EntityPlayer.class, false);
-            this.enderman = p_i45842_1_;
-        }
+						teleportTime = 0;
+					} else if (targetEntity.getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 &&
+							enderman.teleportToEntity(targetEntity)) {
+						teleportTime = 0;
+					}
+				}
 
-        /**
-         * Returns whether the EntityAIBase should begin execution.
-         */
-        public boolean shouldExecute() {
-            double d0 = this.getTargetDistance();
-            this.player = this.enderman.world.getNearestAttackablePlayer(this.enderman.posX, this.enderman.posY, this.enderman.posZ, d0, d0,
-                    (Function<EntityPlayer, Double>) null, new Predicate<EntityPlayer>() {
+				super.updateTask();
+			}
+		}
 
-                        public boolean apply(@Nullable EntityPlayer p_apply_1_) {
-                            return p_apply_1_ != null && AIFindPlayer.this.enderman.shouldAttackPlayer(p_apply_1_);
-                        }
-                    });
-            return this.player != null;
-        }
+		/**
+		 * Checks to see if this enderman should be attacking this player
+		 */
+		private boolean shouldAttackPlayer(EntityPlayer player) {
+			ItemStack itemstack = player.inventory.armorInventory.get(0);
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void startExecuting() {
-            this.aggroTime = 5;
-            this.teleportTime = 0;
-        }
+			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+				return false;
+			} else {
+				Vec3d vec3d = player.getLook(1.0F)
+						.normalize();
+				Vec3d vec3d1 = new Vec3d(
+						enderman.posX - player.posX,
+						enderman.getEntityBoundingBox().minY + enderman.getEyeHeight() - (player.posY + player.getEyeHeight()),
+						enderman.posZ - player.posZ);
+				double d0 = vec3d1.lengthVector();
+				vec3d1 = vec3d1.normalize();
+				double d1 = vec3d.dotProduct(vec3d1);
+				return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(enderman);
+			}
+		}
+	}
 
-        /**
-         * Resets the task
-         */
-        public void resetTask() {
-            this.player = null;
-            super.resetTask();
-        }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
+	}
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean shouldContinueExecuting() {
-            if (this.player != null) {
-                if (!this.enderman.shouldAttackPlayer(this.player)) {
-                    return false;
-                } else {
-                    this.enderman.faceEntity(this.player, 10.0F, 10.0F);
-                    return true;
-                }
-            } else {
-                return this.targetEntity != null && ((EntityPlayer) this.targetEntity).isEntityAlive()
-                        ? true
-                        : super.shouldContinueExecuting();
-            }
-        }
-
-        /**
-         * Updates the task
-         */
-        public void updateTask() {
-            if (this.player != null) {
-                if (--this.aggroTime <= 0) {
-                    this.targetEntity = this.player;
-                    this.player = null;
-                    super.startExecuting();
-                }
-            } else {
-                if (this.targetEntity != null) {
-                    if (this.enderman.shouldAttackPlayer(this.targetEntity)) {
-                        if (this.targetEntity.getDistanceSq(this.enderman) < 16.0D) {
-                            this.enderman.teleportRandomly();
-                        }
-
-                        this.teleportTime = 0;
-                    } else if (this.targetEntity.getDistanceSq(this.enderman) > 256.0D && this.teleportTime++ >= 30 &&
-                            this.enderman.teleportToEntity(this.targetEntity)) {
-                        this.teleportTime = 0;
-                    }
-                }
-
-                super.updateTask();
-            }
-        }
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY < 60.0D && this.posY > 32.0D && super.getCanSpawnHere();
-    }
-
-    public int getMaxSpawnedInChunk() {
-        return 2;
-    }
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 2;
+	}
 }

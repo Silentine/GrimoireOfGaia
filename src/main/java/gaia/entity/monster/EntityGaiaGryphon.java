@@ -24,6 +24,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaGryphon extends EntityMobPassiveDay {
 
 	public EntityGaiaGryphon(World worldIn) {

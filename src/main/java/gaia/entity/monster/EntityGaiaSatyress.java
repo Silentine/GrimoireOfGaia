@@ -37,6 +37,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true);

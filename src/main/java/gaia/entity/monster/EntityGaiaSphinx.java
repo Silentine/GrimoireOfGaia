@@ -69,16 +69,11 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-				.setBaseValue((double) EntityAttributes.maxHealth3);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-				.setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-				.setBaseValue(EntityAttributes.moveSpeed3);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-				.setBaseValue((double) EntityAttributes.attackDamage3);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR)
-				.setBaseValue(EntityAttributes.rateArmor3);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth3);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed3);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage3);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor3);
 	}
 
 	@Override
@@ -144,9 +139,9 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-						posX + (rand.nextDouble() - 0.5D) * (double) width,
-						posY + rand.nextDouble() * (double) height,
-						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+						posX + (rand.nextDouble() - 0.5D) * width,
+						posY + rand.nextDouble() * height,
+						posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();

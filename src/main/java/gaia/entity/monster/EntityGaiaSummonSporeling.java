@@ -12,60 +12,49 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 
-    public EntityGaiaSummonSporeling(World worldIn) {
-        super(worldIn);
+	@SuppressWarnings("WeakerAccess") //used in reflection
+	public EntityGaiaSummonSporeling(World worldIn) {
+		super(worldIn);
 
-        this.setSize(0.25F, 0.50F);
-        this.experienceValue = 0;
-        this.stepHeight = 1.0F;
-    }
+		setSize(0.25F, 0.50F);
+		experienceValue = 0;
+		stepHeight = 1.0F;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
-        this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.tasks.addTask(2, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
+		tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		tasks.addTask(2, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue(((double) EntityAttributes.maxHealth1) * 0.50);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed1);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue(((double) EntityAttributes.attackDamage1) * 0.50);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor1);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((EntityAttributes.maxHealth1) * 0.50);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((EntityAttributes.attackDamage1) * 0.50);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense1) {
-            damage = EntityAttributes.baseDefense1;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense1));
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    @Override
-    public boolean isAIDisabled() {
-        return false;
-    }
-
-    public float SporelingScaleAmount() {
-        return 0.25F;
-    }
-
-    public void onLivingUpdate() {
-        super.onLivingUpdate();
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY < 0.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 0.0D && super.getCanSpawnHere();
+	}
 }

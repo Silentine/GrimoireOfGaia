@@ -42,6 +42,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	private static final UUID MODIFIER_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
@@ -291,7 +292,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		return f;
 	}
 
-	private static final DataParameter<Integer> SKIN = EntityDataManager.<Integer>createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 
 	@Override
 	protected void entityInit() {

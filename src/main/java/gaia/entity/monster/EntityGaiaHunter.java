@@ -43,6 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -175,7 +176,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	 * Detects if there are any EntityPlayer nearby
 	 */
 	private boolean playerDetection(int range) {
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow((double) range);
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
 		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 		return !list.isEmpty();

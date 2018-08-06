@@ -151,15 +151,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 	private void beaconMonster() {
 		if (!world.isRemote) {
-			double d0 = (double) (6);
-
-			int k = (int) posX;
-			int l = (int) posY;
-			int i1 = (int) posZ;
-
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, (k + 1), (l + 1), (i1 +
-					1))).grow(d0)
-					.expand(0.0D, 0.0D, 0.0D);
+			AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, (posX + 1), (posY + 1), (posZ + 1)).grow(6D);
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
