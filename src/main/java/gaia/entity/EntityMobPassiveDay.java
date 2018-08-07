@@ -1,7 +1,7 @@
 package gaia.entity;
 
 import com.google.common.collect.Sets;
-import gaia.helpers.PosHelper;
+import gaia.helpers.BlockPosHelper;
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -55,7 +55,7 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	 * map. Then returns depending if the match triggers.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
-		for (BlockPos location : PosHelper.sphereShape(pos, 8)) {
+		for (BlockPos location : BlockPosHelper.sphereShape(pos, 8)) {
 			if (blackList.contains(world.getBlockState(location)
 					.getBlock())) {
 				return true;

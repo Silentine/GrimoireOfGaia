@@ -5,8 +5,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PosHelper {
-	private PosHelper() {}
+public class BlockPosHelper {
+	private BlockPosHelper() {}
 
 	/**
 	 * Basic Sphere shape to create This is creating a map of coordinates to
