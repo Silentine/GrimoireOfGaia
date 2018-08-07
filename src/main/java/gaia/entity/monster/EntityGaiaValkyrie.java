@@ -9,7 +9,6 @@ import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import gaia.renderer.particle.ParticleWarning;
 import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -47,7 +46,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 @SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
@@ -65,7 +63,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		super(worldIn);
 
 		setSize(1.0F, 2.0F);
-		experienceValue = EntityAttributes.experienceValue3;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_3;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
 
@@ -78,7 +76,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed3, true));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true));
 		tasks.addTask(2, new EntityAIWander(this, 0.8D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -89,22 +87,22 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth3);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed3);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage3);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor3);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_3);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense3));
+		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback3);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_3);
 	}
 
 	@Override
@@ -172,7 +170,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			}
 		}
 
-		if (getHealth() < EntityAttributes.maxHealth3 * 1.00F && equipItems == 0) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && equipItems == 0) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
 
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
@@ -182,9 +180,9 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			equipItems = 1;
 		}
 
-		if (getHealth() > EntityAttributes.maxHealth3 * 0.25F && buffEffect == 1) {
+		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
 			buffEffect = 0;
-		} else if (getHealth() <= EntityAttributes.maxHealth3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
 			world.setEntityState(this, (byte) 10);
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -307,7 +305,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
 					dropItem(GaiaItems.BoxDiamond, 1);

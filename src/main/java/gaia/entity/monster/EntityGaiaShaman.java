@@ -46,8 +46,8 @@ import java.util.List;
 @SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAttackMob {
 
-	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.attackSpeed2, 20, 60, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int switchHealth;
 	private int spawn;
@@ -55,7 +55,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	public EntityGaiaShaman(World worldIn) {
 		super(worldIn);
 
-		experienceValue = EntityAttributes.experienceValue2;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 		switchHealth = 0;
 		spawn = 0;
@@ -74,21 +74,21 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense2));
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
 	}
 
 	@Override
@@ -136,20 +136,20 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
     public void onLivingUpdate() {
         this.beaconMonster();
 
-		if ((getHealth() < EntityAttributes.maxHealth2 * 0.75F) && (switchHealth == 0)) {
+		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
 			tasks.removeTask(aiArrowAttack);
 			tasks.addTask(1, aiAttackOnCollide);
 			switchHealth = 1;
 		}
 
-		if ((getHealth() > EntityAttributes.maxHealth2 * 0.75F) && (switchHealth == 1)) {
+		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
 			switchHealth = 0;
 		}
 
 		EntityZombie spawnMob;
-		if (getHealth() < EntityAttributes.maxHealth2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
@@ -162,7 +162,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			spawn = 1;
 		}
 
-		if (getHealth() < EntityAttributes.maxHealth2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
@@ -267,7 +267,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
 					dropItem(GaiaItems.BoxGold, 1);

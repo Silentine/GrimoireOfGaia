@@ -9,7 +9,6 @@ import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -26,7 +25,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -56,7 +54,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	public EntityGaiaMatango(World worldIn) {
 		super(worldIn);
 
-		experienceValue = EntityAttributes.experienceValue1;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
 		spawnTime = 0;
@@ -64,7 +62,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	@Override
 	protected void initEntityAI() {
-		tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
+		tasks.addTask(0, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_0, true));
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(1, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
@@ -73,18 +71,18 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		float input = Math.min(damage, EntityAttributes.baseDefense1);
+		float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
 		Entity entity = source.getTrueSource();
 
 		if (entity instanceof EntityPlayer) {
@@ -100,8 +98,8 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
 
 	@Override
@@ -161,7 +159,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		}
 
 		EntityGaiaSummonSporeling spawnMob;
-		if (getHealth() < EntityAttributes.maxHealth1 * 0.90F && getHealth() > EntityAttributes.maxHealth1 * 0.10F) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.90F && getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.10F) {
 			if ((spawnTime > 0) && (spawnTime <= 140)) {
 				++spawnTime;
 			} else {
@@ -176,7 +174,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 				world.setEntityState(this, (byte) 9);
 
-				heal(EntityAttributes.maxHealth1 * 0.20F);
+				heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
 
 				spawnTime = 1;
 			}
@@ -268,7 +266,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
 				dropItem(GaiaItems.BoxIron, 1);
 			}
 		}

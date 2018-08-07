@@ -49,8 +49,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Attacking speed penalty", -0.05D, 0)).setSaved(false);
 	private static final String MOB_TYPE_TAG = "MobType";
 
-	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.attackSpeed2, EntityAttributes.attackSpeed3);
+	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
 	private int axeAttack;
@@ -61,7 +61,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	public EntityGaiaDryad(World worldIn) {
 		super(worldIn);
 
-		experienceValue = EntityAttributes.experienceValue1;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
 		switchHealth = 0;
@@ -85,16 +85,16 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		float input = Math.min(damage, EntityAttributes.baseDefense1);
+		float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
 		Entity entity = source.getTrueSource();
 
 		if (entity instanceof EntityPlayer) {
@@ -111,8 +111,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
 
 	@Override
@@ -158,7 +158,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
-		if ((getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (switchHealth == 0)) {
+		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
 			if (rand.nextInt(4) == 0) {
 				tasks.removeTask(aiMeleeAttack);
 				tasks.addTask(1, aiAvoid);
@@ -172,7 +172,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			world.setEntityState(this, (byte) 8);
 		}
 
-		if ((getHealth() > EntityAttributes.maxHealth1 * 0.25F) && (switchHealth == 1)) {
+		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
 			tasks.addTask(1, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
 			switchHealth = 0;
@@ -249,7 +249,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
 				dropItem(GaiaItems.BoxIron, 1);
 			}
 		}

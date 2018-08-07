@@ -58,7 +58,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 		super(worldIn);
 
 		setSize(1.0F, 2.2F);
-		experienceValue = EntityAttributes.experienceValue3;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_3;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
 
@@ -70,8 +70,8 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIRestrictSun(this));
-		tasks.addTask(2, new EntityAIFleeSun(this, EntityAttributes.attackSpeed3));
-		tasks.addTask(3, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed3, true));
+		tasks.addTask(2, new EntityAIFleeSun(this, EntityAttributes.ATTACK_SPEED_3));
+		tasks.addTask(3, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true));
 		tasks.addTask(4, new EntityAIWander(this, 1.0D));
 		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
 		tasks.addTask(5, new EntityAILookIdle(this));
@@ -81,21 +81,21 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth3);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed3);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage3);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor3);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_3);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense3));
+		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback3);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_3);
 	}
 
 	@Override
@@ -110,12 +110,12 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 					byte0 = 20;
 				}
 
-				if (byte0 > 0 && getHealth() < EntityAttributes.maxHealth3 * 0.75F) {
+				if (byte0 > 0 && getHealth() < EntityAttributes.MAX_HEALTH_3 * 0.75F) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
 
 					world.setEntityState(this, (byte) 9);
 
-					heal(EntityAttributes.maxHealth3 * 0.10F);
+					heal(EntityAttributes.MAX_HEALTH_3 * 0.10F);
 				}
 			}
 
@@ -141,11 +141,11 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 
 			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(getPosition())) {
 				world.setEntityState(this, (byte) 13);
-				attackEntityFrom(DamageSource.GENERIC, EntityAttributes.maxHealth3 * 0.25F);
+				attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_3 * 0.25F);
 			}
 		}
 
-		if (getHealth() < EntityAttributes.maxHealth3 * 0.75F && getHealth() > EntityAttributes.maxHealth3 * 0.25F) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 0.75F && getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F) {
 			if ((spawnTime > 0) && (spawnTime <= 200)) {
 				++spawnTime;
 			} else {
@@ -160,7 +160,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 
 				world.setEntityState(this, (byte) 9);
 
-				heal(EntityAttributes.maxHealth3 * 0.10F);
+				heal(EntityAttributes.MAX_HEALTH_3 * 0.10F);
 
 				spawnTime = 1;
 			}
@@ -293,7 +293,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
 					dropItem(GaiaItems.BoxDiamond, 1);

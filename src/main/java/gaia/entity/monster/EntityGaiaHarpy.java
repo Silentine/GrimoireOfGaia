@@ -45,14 +45,14 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaHarpy.AILeapAttack(this);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid =
-			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.attackSpeed1, EntityAttributes.attackSpeed3);
+			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
 
 	public EntityGaiaHarpy(World worldIn) {
 		super(worldIn);
 
-		experienceValue = EntityAttributes.experienceValue1;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
 		switchHealth = 0;
@@ -71,21 +71,21 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.attackDamage1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.baseDefense1));
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 	}
 
 	@Override
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if ((getHealth() < EntityAttributes.maxHealth1 * 0.25F) && (switchHealth == 0)) {
+		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
 			if (rand.nextInt(4) == 0) {
 				tasks.removeTask(aiGaiaLeapAtTarget);
 				tasks.removeTask(aiMeleeAttack);
@@ -133,7 +133,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			world.setEntityState(this, (byte) 8);
 		}
 
-		if ((getHealth() > EntityAttributes.maxHealth1 * 0.25F) && (switchHealth == 1)) {
+		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
 			tasks.addTask(1, aiGaiaLeapAtTarget);
 			tasks.addTask(2, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
@@ -190,7 +190,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.rateraredrop) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
 				dropItem(GaiaItems.BoxIron, 1);
 			}
 		}
@@ -237,7 +237,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	static class AILeapAttack extends EntityAIAttackMelee {
 
 		AILeapAttack(EntityGaiaHarpy entity) {
-			super(entity, EntityAttributes.attackSpeed1, true);
+			super(entity, EntityAttributes.ATTACK_SPEED_1, true);
 		}
 
 		@Override
