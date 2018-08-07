@@ -13,7 +13,7 @@ public class GaiaConfigGeneration extends GaiaConfig {
         syncConfig();
     }
 
-    // When adding new categories, update Config_Gui as well
+    // When adding new categories, update GuiConfigGaia as well
     public static String DAMAGE = "base damage";
     public static String DEFENSE = "defense";
     public static String ATTRIBUTES = "attributes";
