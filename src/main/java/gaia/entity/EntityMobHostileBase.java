@@ -49,8 +49,8 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		if (super.attackEntityAsMob(entity)) {
 			// TODO Rebalance tweaking for shields
 			// Shields aren't so fun when they can't block most of the damage
-			if (GaiaConfig.baseDamage.baseDamage) {
-				if (entity instanceof EntityPlayer && GaiaConfig.baseDamage.shieldsBlockPiercing) {
+			if (GaiaConfig.DAMAGE.baseDamage) {
+				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
 					EntityPlayer player = (EntityPlayer) entity;
 					ItemStack itemstack = player.isHandActive()
 							? player.getActiveItemStack()

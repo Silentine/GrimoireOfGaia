@@ -43,7 +43,7 @@ public class CommonProxy {
 
 	@SubscribeEvent
 	public void Gaia_Spawn_Debug(CheckSpawn event) {
-		if (GaiaConfig.debug.debugSpawn) {
+		if (GaiaConfig.DEBUG.debugSpawn) {
 			if (event.getEntity() instanceof EntityMobPassiveBase || event.getEntity() instanceof EntityMobHostileBase) {
 				EntityLiving living = (EntityLiving) event.getEntity();
 				if (living.getCanSpawnHere()) {

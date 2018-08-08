@@ -45,7 +45,7 @@ public class Ranged {
 
 		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getDifficultyId() * 0.11D);
 
-		if (host.world.getDifficulty() == HARD && GaiaConfig.baseDamage.baseDamageArchers) {
+		if (host.world.getDifficulty() == HARD && GaiaConfig.DAMAGE.baseDamageArchers) {
 			entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));
 		}
 

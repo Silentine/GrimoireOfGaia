@@ -98,8 +98,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			if (GaiaConfig.general.spawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.general.spawnLevel3Chance * 0.05);
+			if (GaiaConfig.GENERAL.spawnLevel3) {
+				spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
 			}
 			return super.attackEntityFrom(source, EntityAttributes.BASE_DEFENSE_2);
 		}
@@ -211,12 +211,12 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 					world.spawnEntity(spawnMob);
 				}
 
-				if (GaiaConfig.general.spawnLevel3) {
-					if (spawnLevel3Chance > (int) (GaiaConfig.general.spawnLevel3Chance * 0.5)) {
-						spawnLevel3Chance = (int) (GaiaConfig.general.spawnLevel3Chance * 0.5);
+				if (GaiaConfig.GENERAL.spawnLevel3) {
+					if (spawnLevel3Chance > (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5)) {
+						spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
 					}
 
-					if ((rand.nextInt(GaiaConfig.general.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+					if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 						spawnLevel3 = 1;
 					}
 				}
@@ -318,7 +318,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 				ItemShard.Drop_Nugget(this, 1);
 			}
 
-			if (GaiaConfig.options.additionalOre) {
+			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {

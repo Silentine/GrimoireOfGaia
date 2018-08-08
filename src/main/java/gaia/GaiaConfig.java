@@ -6,6 +6,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@SuppressWarnings("WeakerAccess") //forge needs public access to fields here to write values from config
 @Config(modid = GaiaReference.MOD_ID, category = "")
 public class GaiaConfig {
 	private GaiaConfig() {}
@@ -24,7 +25,7 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("general")
-	public static General general = new General();
+	public static final General GENERAL = new General();
 
 	public static class General {
 		@Config.Name("configgui.grimoireofgaia.category.general.SpawnLevel3")
@@ -149,9 +150,9 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("base damage")
-	public static BaseDamage baseDamage = new BaseDamage();
+	public static final Damage DAMAGE = new Damage();
 
-	public static class BaseDamage {
+	public static class Damage {
 		@Config.Name("configgui.grimoireofgaia.category.damage.Menu0.BaseDamage")
 		public boolean baseDamage = true;
 		@Config.Name("configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing")
@@ -161,7 +162,7 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("defense")
-	public static Defense defense = new Defense();
+	public static final Defense DEFENSE = new Defense();
 
 	public static class Defense {
 		@Config.Name("configgui.grimoireofgaia.category.defense.Tier1baseDefense")
@@ -173,7 +174,7 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("attributes")
-	public static Attributes attributes = new Attributes();
+	public static final Attributes ATTRIBUTES = new Attributes();
 
 	public static class Attributes {
 		@Config.Name("configgui.grimoireofgaia.category.attributes.Tier1maxHealth")
@@ -191,7 +192,7 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("options")
-	public static Options options = new Options();
+	public static final Options OPTIONS = new Options();
 
 	public static class Options {
 		@Config.Name("configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn")
@@ -203,7 +204,7 @@ public class GaiaConfig {
 	}
 
 	@Config.Name("debug")
-	public static Debug debug = new Debug();
+	public static final Debug DEBUG = new Debug();
 
 	public static class Debug {
 		@Config.Name("configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks")

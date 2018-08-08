@@ -48,7 +48,7 @@ public class Gaia {
 
 		MinecraftForge.EVENT_BUS.register(this);
 
-		if (GaiaConfig.debug.biomeTweaks) {
+		if (GaiaConfig.DEBUG.biomeTweaks) {
 			GaiaSpawning.biomeTweaks();
 		}
 
@@ -58,7 +58,7 @@ public class Gaia {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		if (GaiaConfig.debug.debugCommands) {
+		if (GaiaConfig.DEBUG.debugCommands) {
 			event.registerServerCommand(new CommandBiome());
 			event.registerServerCommand(new CommandSpawn());
 		}
@@ -68,7 +68,7 @@ public class Gaia {
 	public void postInit(FMLPostInitializationEvent event) {
 		// Moved Spawning registry to last since forge doesn't auto-generate sub
 		// "M' biomes until late
-		if (GaiaConfig.options.enableSpawn) {
+		if (GaiaConfig.OPTIONS.enableSpawn) {
 			GaiaSpawning.register();
 		}
 	}

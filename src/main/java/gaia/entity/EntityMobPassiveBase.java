@@ -29,8 +29,8 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
-			if (GaiaConfig.baseDamage.baseDamage) {
-				if (entity instanceof EntityPlayer && GaiaConfig.baseDamage.shieldsBlockPiercing) {
+			if (GaiaConfig.DAMAGE.baseDamage) {
+				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
 					EntityPlayer player = (EntityPlayer) entity;
 					ItemStack itemstack = player.isHandActive() ? player.getActiveItemStack() : ItemStack.EMPTY;
 					if (itemstack.getItem() == Items.SHIELD) {

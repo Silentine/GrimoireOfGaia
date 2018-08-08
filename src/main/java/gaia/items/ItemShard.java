@@ -48,7 +48,7 @@ public class ItemShard extends Item {
     public static void Drop_Nugget(Entity ent, int i) {
         ItemStack stack = new ItemStack(GaiaItems.Shard, 1, i);
 
-        if (GaiaConfig.debug.oreUnity) {
+        if (GaiaConfig.DEBUG.oreUnity) {
             if (i == 0) {
                 stack = OreCheck(stack, "nuggetIron");
             }
