@@ -106,8 +106,8 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			return false;
 		}
 
-		if (damage > EntityAttributes.BASE_DEFENSE_2 && GaiaConfig.SpawnLevel3) {
-			spawnLevel3Chance += (int) (GaiaConfig.SpawnLevel3Chance * 0.05);
+		if (damage > EntityAttributes.BASE_DEFENSE_2 && GaiaConfig.general.spawnLevel3) {
+			spawnLevel3Chance += (int) (GaiaConfig.general.spawnLevel3Chance * 0.05);
 		}
 
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
@@ -150,12 +150,12 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	@Override
 	public void onLivingUpdate() {
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			if (GaiaConfig.SpawnLevel3) {
-				if (spawnLevel3Chance > (int) (GaiaConfig.SpawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.SpawnLevel3Chance * 0.5);
+			if (GaiaConfig.general.spawnLevel3) {
+				if (spawnLevel3Chance > (int) (GaiaConfig.general.spawnLevel3Chance * 0.5)) {
+					spawnLevel3Chance = (int) (GaiaConfig.general.spawnLevel3Chance * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.SpawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.general.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
 			}
@@ -311,7 +311,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 				ItemShard.Drop_Nugget(this, 1);
 			}
 
-			if (GaiaConfig.AdditionalOre) {
+			if (GaiaConfig.options.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {

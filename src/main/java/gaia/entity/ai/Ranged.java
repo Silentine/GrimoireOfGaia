@@ -14,9 +14,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.DifficultyInstance;
 
 import java.util.Random;
 
@@ -47,7 +45,7 @@ public class Ranged {
 
 		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getDifficultyId() * 0.11D);
 
-		if (host.world.getDifficulty() == HARD && GaiaConfig.BaseDamageArchers) {
+		if (host.world.getDifficulty() == HARD && GaiaConfig.baseDamage.baseDamageArchers) {
 			entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));
 		}
 

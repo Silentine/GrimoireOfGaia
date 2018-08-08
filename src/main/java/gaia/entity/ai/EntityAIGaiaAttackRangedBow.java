@@ -118,7 +118,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 					strafingBackwards = true;
 				}
 
-				if (GaiaConfig.StrafingArchers) {
+				if (GaiaConfig.options.strafingArchers) {
 					entity.getMoveHelper()
 							.strafe(strafingBackwards
 									? -0.4F

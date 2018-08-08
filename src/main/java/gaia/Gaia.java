@@ -3,7 +3,6 @@ package gaia;
 import gaia.command.CommandBiome;
 import gaia.command.CommandSpawn;
 import gaia.datafixes.BustTileIdFixer;
-import gaia.init.GaiaConfigGeneration;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.CommonProxy;
 import gaia.recipe.FuelHandler;
@@ -24,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import static gaia.GaiaReference.MOD_ID;
 
-@Mod(modid = MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, guiFactory = GaiaReference.GUI_FACTORY, dependencies = GaiaReference.DEPENDENCIES)
+@Mod(modid = MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, dependencies = GaiaReference.DEPENDENCIES)
 public class Gaia {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
@@ -39,7 +38,6 @@ public class Gaia {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		GaiaConfigGeneration.configOptions(event);
 		FuelHandler.init();
 		proxy.registerHandlers();
 	}
@@ -50,8 +48,8 @@ public class Gaia {
 
 		MinecraftForge.EVENT_BUS.register(this);
 
-		if (GaiaConfig.Biome_Tweaks) {
-			GaiaSpawning.Biome_Tweaks();
+		if (GaiaConfig.debug.biomeTweaks) {
+			GaiaSpawning.biomeTweaks();
 		}
 
 		ModFixs fixes = FMLCommonHandler.instance().getDataFixer().init(MOD_ID, DATA_FIXER_VERSION);
@@ -60,7 +58,7 @@ public class Gaia {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		if (GaiaConfig.Debug_Commands) {
+		if (GaiaConfig.debug.debugCommands) {
 			event.registerServerCommand(new CommandBiome());
 			event.registerServerCommand(new CommandSpawn());
 		}
@@ -70,7 +68,7 @@ public class Gaia {
 	public void postInit(FMLPostInitializationEvent event) {
 		// Moved Spawning registry to last since forge doesn't auto-generate sub
 		// "M' biomes until late
-		if (GaiaConfig.Enable_Spawn) {
+		if (GaiaConfig.options.enableSpawn) {
 			GaiaSpawning.register();
 		}
 	}

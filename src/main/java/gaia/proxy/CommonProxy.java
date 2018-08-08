@@ -1,10 +1,8 @@
 package gaia.proxy;
 
 import gaia.GaiaConfig;
-import gaia.GaiaReference;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.EntityMobPassiveBase;
-import gaia.init.GaiaConfigGeneration;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
@@ -24,7 +22,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -36,6 +33,7 @@ public class CommonProxy {
 	public void registerItemsRender() {
 	}
 
+	@SuppressWarnings("squid:S1186") //overriden in client proxy
 	public void addClientRegister(IClientRegister register) {
 	}
 
@@ -44,16 +42,8 @@ public class CommonProxy {
 	}
 
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-		if (eventArgs.getModID()
-				.equals(GaiaReference.MOD_ID)) {
-			GaiaConfigGeneration.syncConfig();
-		}
-	}
-
-	@SubscribeEvent
 	public void Gaia_Spawn_Debug(CheckSpawn event) {
-		if (GaiaConfig.Debug_Spawn) {
+		if (GaiaConfig.debug.debugSpawn) {
 			if (event.getEntity() instanceof EntityMobPassiveBase || event.getEntity() instanceof EntityMobHostileBase) {
 				EntityLiving living = (EntityLiving) event.getEntity();
 				if (living.getCanSpawnHere()) {

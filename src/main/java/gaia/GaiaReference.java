@@ -10,6 +10,5 @@ public class GaiaReference {
     public static final String CLIENT_PROXY_CLASS = "gaia.proxy.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "gaia.proxy.CommonProxy";
 
-    public static final String GUI_FACTORY = "gaia.init.GuiConfigGaia.Factory";
     public static final String DEPENDENCIES = "required-after:baubles@[1.4.2,]";
 }

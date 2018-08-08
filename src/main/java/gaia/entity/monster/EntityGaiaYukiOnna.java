@@ -185,7 +185,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 				ItemShard.Drop_Nugget(this, 1);
 			}
 
-			if (GaiaConfig.AdditionalOre) {
+			if (GaiaConfig.options.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
