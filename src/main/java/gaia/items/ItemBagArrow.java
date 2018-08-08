@@ -42,7 +42,7 @@ public class ItemBagArrow extends ItemBase {
 	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		if (!player.capabilities.isCreativeMode) {
 			stack.shrink(1);

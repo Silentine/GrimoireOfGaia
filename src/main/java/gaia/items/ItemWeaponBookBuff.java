@@ -69,7 +69,7 @@ public class ItemWeaponBookBuff extends Item {
         EntityPlayer player = host instanceof EntityPlayer
                 ? (EntityPlayer) host
                 : null;
-        player.playSound(Sounds.book_hit, 1.0F, 1.0F);
+        player.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
         target.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 600, 0));
         target.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0));
         target.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));

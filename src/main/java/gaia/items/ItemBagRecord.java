@@ -41,7 +41,7 @@ public class ItemBagRecord extends ItemGaiaLootable {
 	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		Random random = new Random();
 		int i = random.nextInt(12);

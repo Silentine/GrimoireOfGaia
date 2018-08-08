@@ -149,7 +149,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.none;
+		return Sounds.NONE;
 	}
 
 	@Override

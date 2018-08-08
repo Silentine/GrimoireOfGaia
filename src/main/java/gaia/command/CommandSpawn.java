@@ -90,7 +90,7 @@ public class CommandSpawn extends CommandBase {
 	 */
 	private int spawnMobs(World world, EntityPlayer player) {
 		int count = 0;
-		for (EntityEntry entry : GaiaEntities.SPAWN_ENTITIES) {
+		for (EntityEntry entry : GaiaEntities.SPAWN_EGG_ENTITIES) {
 			if (entry.getEgg() != null) {
 				count++;
 				spawnCreature(world, entry.getRegistryName(), player.posX, player.posY, player.posZ);

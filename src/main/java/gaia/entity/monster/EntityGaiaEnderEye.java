@@ -241,7 +241,7 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.none, 1.0F, 1.0F);
+		playSound(Sounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Override

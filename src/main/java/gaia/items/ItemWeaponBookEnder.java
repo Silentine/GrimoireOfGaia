@@ -97,7 +97,7 @@ public class ItemWeaponBookEnder extends ItemSword {
                 : null;
 
         stack.damageItem(1, host);
-        player.playSound(Sounds.book_hit, 1.0F, 1.0F);
+        player.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
         target.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80, 0));
         return true;
     }

@@ -41,7 +41,7 @@ public class ItemSpawn extends ItemGaiaLootable {
 	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.box_open2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(Sounds.BOX_OPEN_2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		Random random = new Random();
 		int i = random.nextInt(6);

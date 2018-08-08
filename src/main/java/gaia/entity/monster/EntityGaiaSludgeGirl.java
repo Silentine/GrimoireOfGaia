@@ -103,7 +103,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.aggressive_say;
+		return Sounds.AGGRESSIVE_SAY;
 	}
 
 	@Override

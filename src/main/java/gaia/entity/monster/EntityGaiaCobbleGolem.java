@@ -148,7 +148,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.none;
+		return Sounds.NONE;
 	}
 
 	@Override

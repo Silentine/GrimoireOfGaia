@@ -64,7 +64,7 @@ public class ItemWeaponBookHunger extends ItemSword {
         EntityPlayer player = host instanceof EntityPlayer
                 ? (EntityPlayer) host
                 : null;
-        player.playSound(Sounds.book_hit, 1.0F, 1.0F);
+        player.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
         target.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 80, 0));
         return true;
     }

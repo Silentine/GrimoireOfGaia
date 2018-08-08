@@ -49,7 +49,7 @@ public class ItemBagBook extends Item {
         // TODO remove testing line * world.addWeatherEffect(new
         // EntityLightningBolt(world, player.posX, player.posY, player.posZ,
         // false));
-        player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+        player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
         /**
          * TODO Check Enchantment enchantment =

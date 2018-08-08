@@ -9,12 +9,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
@@ -25,17 +21,17 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.passive_say;
+		return Sounds.PASSIVE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.passive_hurt;
+		return Sounds.PASSIVE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.passive_death;
+		return Sounds.PASSIVE_DEATH;
 	}
 
 	@Override
