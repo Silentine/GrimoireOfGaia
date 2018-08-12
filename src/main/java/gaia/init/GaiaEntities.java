@@ -80,62 +80,63 @@ public class GaiaEntities {
 	private GaiaEntities() {}
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
-			createEntityEntry("Ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
-			createEntityEntry("Anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
-			createEntityEntry("Arachne", EntityGaiaArachne.class, 3815994, 11013646),
-			createEntityEntry("Banshee", EntityGaiaBanshee.class, 0xeed2e8, 0xc6b0ed),
-			createEntityEntry("Baphomet", EntityGaiaBaphomet.class, 3559756, 14197864),
-			createEntityEntry("BoneKnight", EntityGaiaBoneKnight.class, 4602533, 13619151),
-			createEntityEntry("Centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535),
-			createEntityEntry("Chest", EntityGaiaPropChestMimic.class, 11237677, 4274991),
-			createEntityEntry("CobbleGolem", EntityGaiaCobbleGolem.class, 11513775, 11513775),
-			createEntityEntry("CobblestoneGolem", EntityGaiaCobblestoneGolem.class, 11513775, 11513775),
-			createEntityEntry("Creep", EntityGaiaCreep.class, 7917159, 2053400),
-			createEntityEntry("Cyclops", EntityGaiaCyclops.class, 4936602, 3487029),
-			createEntityEntry("CyanFlower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287),
-			createEntityEntry("Dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161),
-			createEntityEntry("Dryad", EntityGaiaDryad.class, 10255437, 5681460),
-			createEntityEntry("Dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d),
-			createEntityEntry("Dwarf", EntityGaiaDwarf.class, 0x969696, 0xf09942),
-			createEntityEntry("EnderDragonGirl", EntityGaiaEnderDragonGirl.class, 3158064, 14711290),
-			createEntityEntry("EnderEye", EntityGaiaEnderEye.class, 2039583, 3158064),
-			createEntityEntry("FleshLich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
-			createEntityEntry("FutakuchiOnna", EntityGaiaFutakuchiOnna.class, 0x4e3738, 0xb43434),
-			createEntityEntry("Gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
-			createEntityEntry("Harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
-			createEntityEntry("Hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),
-			createEntityEntry("Kobold", EntityGaiaKobold.class, 0x938dab, 0xafa7c1),
-			createEntityEntry("Matango", EntityGaiaMatango.class, 0xab1311, 0xd8d8d8),
-			createEntityEntry("Mermaid", EntityGaiaMermaid.class, 0x5c70b1, 0xa4452d),
-			createEntityEntry("Minotaur", EntityGaiaMinotaur.class, 0x8d4f41, 0xd54242),
-			createEntityEntry("Minotaurus", EntityGaiaMinotaurus.class, 0x8d4f41, 0xa9a9a9),
-			createEntityEntry("Mummy", EntityGaiaMummy.class, 0xdcd7c1, 0xc9b161),
-			createEntityEntry("Naga", EntityGaiaNaga.class, 0x29bc55, 0xccb63f),
-			createEntityEntry("NineTails", EntityGaiaNineTails.class, 11809844, 13218145),
-			createEntityEntry("Sahuagin", EntityGaiaSahuagin.class, 0x5c70b1, 0x84a498),
-			createEntityEntry("Satyress", EntityGaiaSatyress.class, 0x707b4f, 0xa4452d),
-			createEntityEntry("Selkie", EntityGaiaSelkie.class, 9082818, 13488612),
-			createEntityEntry("Shaman", EntityGaiaShaman.class, 0xae6b3c, 0x56b134),
-			createEntityEntry("Sharko", EntityGaiaSharko.class, 0x84a498, 0x5c70b1),
-			createEntityEntry("Siren", EntityGaiaSiren.class, 0x29bc55, 0x48a0de),
-			createEntityEntry("SludgeGirl", EntityGaiaSludgeGirl.class, 6595667, 7715172),
-			createEntityEntry("Sphinx", EntityGaiaSphinx.class, 0xf09942, 0x353535),
-			createEntityEntry("Spriggan", EntityGaiaSpriggan.class, 0x7c623e, 0xc2dda5),
-			createEntityEntry("Succubus", EntityGaiaSuccubus.class, 4079166, 13218145),
-			createEntityEntry("Toad", EntityGaiaToad.class, 0x355d2b, 0x779f5a),
-			createEntityEntry("Valkyrie", EntityGaiaValkyrie.class, 0xc9b161, 0xd54242),
-			createEntityEntry("Vampire", EntityGaiaVampire.class, 0xc23021, 0xc9b161),
-			createEntityEntry("Werecat", EntityGaiaWerecat.class, 0x7a7e8a, 0xdddadb),
-			createEntityEntry("Witch", EntityGaiaWitch.class, 0x303030, 0x943dbb),
-			createEntityEntry("WitherCow", EntityGaiaWitherCow.class, 5791069, 16777215),
-			createEntityEntry("Yeti", EntityGaiaYeti.class, 16448250, 7895160),
-			createEntityEntry("Yuki-Onna", EntityGaiaYukiOnna.class, 6781114, 13817330)
+			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
+			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
+			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646),
+			createEntityEntry("banshee", EntityGaiaBanshee.class, 0xeed2e8, 0xc6b0ed),
+			createEntityEntry("baphomet", EntityGaiaBaphomet.class, 3559756, 14197864),
+			createEntityEntry("bone_knight", EntityGaiaBoneKnight.class, 4602533, 13619151),
+			createEntityEntry("centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535),
+			createEntityEntry("chest", EntityGaiaPropChestMimic.class, 11237677, 4274991),
+			createEntityEntry("cobble_golem", EntityGaiaCobbleGolem.class, 11513775, 11513775),
+			createEntityEntry("cobblestone_golem", EntityGaiaCobblestoneGolem.class, 11513775, 11513775),
+			createEntityEntry("creep", EntityGaiaCreep.class, 7917159, 2053400),
+			createEntityEntry("cyclops", EntityGaiaCyclops.class, 4936602, 3487029),
+			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287),
+			createEntityEntry("dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161),
+			createEntityEntry("dryad", EntityGaiaDryad.class, 10255437, 5681460),
+			createEntityEntry("dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d),
+			createEntityEntry("dwarf", EntityGaiaDwarf.class, 0x969696, 0xf09942),
+			createEntityEntry("ender_dragon_girl", EntityGaiaEnderDragonGirl.class, 3158064, 14711290),
+			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 3158064),
+			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
+			createEntityEntry("futakuchi_onna", EntityGaiaFutakuchiOnna.class, 0x4e3738, 0xb43434),
+			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
+			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
+			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),
+			createEntityEntry("kobold", EntityGaiaKobold.class, 0x938dab, 0xafa7c1),
+			createEntityEntry("matango", EntityGaiaMatango.class, 0xab1311, 0xd8d8d8),
+			createEntityEntry("mermaid", EntityGaiaMermaid.class, 0x5c70b1, 0xa4452d),
+			createEntityEntry("minotaur", EntityGaiaMinotaur.class, 0x8d4f41, 0xd54242),
+			createEntityEntry("minotaurus", EntityGaiaMinotaurus.class, 0x8d4f41, 0xa9a9a9),
+			createEntityEntry("mummy", EntityGaiaMummy.class, 0xdcd7c1, 0xc9b161),
+			createEntityEntry("naga", EntityGaiaNaga.class, 0x29bc55, 0xccb63f),
+			createEntityEntry("nine_tails", EntityGaiaNineTails.class, 11809844, 13218145),
+			createEntityEntry("sahuagin", EntityGaiaSahuagin.class, 0x5c70b1, 0x84a498),
+			createEntityEntry("satyress", EntityGaiaSatyress.class, 0x707b4f, 0xa4452d),
+			createEntityEntry("selkie", EntityGaiaSelkie.class, 9082818, 13488612),
+			createEntityEntry("shaman", EntityGaiaShaman.class, 0xae6b3c, 0x56b134),
+			createEntityEntry("sharko", EntityGaiaSharko.class, 0x84a498, 0x5c70b1),
+			createEntityEntry("siren", EntityGaiaSiren.class, 0x29bc55, 0x48a0de),
+			createEntityEntry("sludge_girl", EntityGaiaSludgeGirl.class, 6595667, 7715172),
+			createEntityEntry("sphinx", EntityGaiaSphinx.class, 0xf09942, 0x353535),
+			createEntityEntry("spriggan", EntityGaiaSpriggan.class, 0x7c623e, 0xc2dda5),
+			createEntityEntry("succubus", EntityGaiaSuccubus.class, 4079166, 13218145),
+			createEntityEntry("toad", EntityGaiaToad.class, 0x355d2b, 0x779f5a),
+			createEntityEntry("valkyrie", EntityGaiaValkyrie.class, 0xc9b161, 0xd54242),
+			createEntityEntry("vampire", EntityGaiaVampire.class, 0xc23021, 0xc9b161),
+			createEntityEntry("werecat", EntityGaiaWerecat.class, 0x7a7e8a, 0xdddadb),
+			createEntityEntry("witch", EntityGaiaWitch.class, 0x303030, 0x943dbb),
+			createEntityEntry("wither_cow", EntityGaiaWitherCow.class, 5791069, 16777215),
+			createEntityEntry("yeti", EntityGaiaYeti.class, 16448250, 7895160),
+			createEntityEntry("yuki-onna", EntityGaiaYukiOnna.class, 6781114, 13817330)
 	);
 
 	private static EntityEntry createEntityEntry(String name, Class<? extends Entity> cls, int primaryColorIn, int secondaryColorIn) {
 		EntityEntry entityEntry = new EntityEntry(cls, GaiaReference.MOD_ID + "." + name);
 		entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
-		entityEntry.setEgg(new EntityEggInfo(new ResourceLocation(GaiaReference.MOD_ID, name.toLowerCase()), primaryColorIn, secondaryColorIn));
+		//noinspection ConstantConditions
+		entityEntry.setEgg(new EntityEggInfo(entityEntry.getRegistryName(), primaryColorIn, secondaryColorIn));
 		return entityEntry;
 	}
 
@@ -159,27 +160,27 @@ public class GaiaEntities {
 
 		private static void initNoSpawnEggEntities(IForgeRegistry<EntityEntry> registry) {
 			// NPC
-			createEntityEntry("CreeperGirl", EntityGaiaNPCCreeperGirl.class, registry);
-			createEntityEntry("SlimeGirl", EntityGaiaNPCSlimeGirl.class, registry);
-			createEntityEntry("EnderGirl", EntityGaiaNPCEnderGirl.class, registry);
-			createEntityEntry("Trader", EntityGaiaNPCTrader.class, registry);
-			createEntityEntry("Holstaurus", EntityGaiaNPCHolstaurus.class, registry);
-			createEntityEntry("Weresheep", EntityGaiaNPCWeresheep.class, registry);
+			createEntityEntry("creeper_girl", EntityGaiaNPCCreeperGirl.class, registry);
+			createEntityEntry("slime_girl", EntityGaiaNPCSlimeGirl.class, registry);
+			createEntityEntry("ender_girl", EntityGaiaNPCEnderGirl.class, registry);
+			createEntityEntry("trader", EntityGaiaNPCTrader.class, registry);
+			createEntityEntry("holstaurus", EntityGaiaNPCHolstaurus.class, registry);
+			createEntityEntry("weresheep", EntityGaiaNPCWeresheep.class, registry);
 
 			// Spawn
-			createEntityEntry("Mandragora", EntityGaiaMandragora.class, registry);
-			createEntityEntry("Mimic", EntityGaiaMimic.class, registry);
-			createEntityEntry("Butler", EntityGaiaSummonButler.class, registry);
-			createEntityEntry("Sporeling", EntityGaiaSummonSporeling.class, registry);
+			createEntityEntry("mandragora", EntityGaiaMandragora.class, registry);
+			createEntityEntry("mimic", EntityGaiaMimic.class, registry);
+			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
+			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
 
 			// Projectiles
-			createEntityEntry("SmallFireball", EntityGaiaProjectileSmallFireball.class, registry);
-			createEntityEntry("Magic", EntityGaiaProjectileMagic.class, registry);
+			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry);
+			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry);
 		}
 
 		private static void createEntityEntry(String name, Class<? extends Entity> cls, IForgeRegistry<EntityEntry> registry) {
-			EntityEntry entityEntry = new EntityEntry(cls, name);
-			entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_PREFIX + name.toLowerCase()));
+			EntityEntry entityEntry = new EntityEntry(cls, GaiaReference.MOD_ID + "." + name);
+			entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
 			registry.register(entityEntry);
 		}
 	}
