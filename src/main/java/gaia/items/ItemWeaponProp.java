@@ -51,7 +51,6 @@ public class ItemWeaponProp extends ItemBase {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
 			return;

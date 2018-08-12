@@ -31,7 +31,6 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
 			return;
