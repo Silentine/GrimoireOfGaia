@@ -168,27 +168,27 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FoodMeat, 1);
+				dropItem(GaiaItems.FOOD_MEAT, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
-				dropItem(GaiaItems.BoxIron, 1);
+				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}
@@ -208,7 +208,7 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 			setTextureType(1);
 		}
 
-		ItemStack weaponCustom = new ItemStack(GaiaItems.PropWeaponEnchanted, 1);
+		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 		return ret;

@@ -146,14 +146,14 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -161,11 +161,11 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.SpawnSlimeGirl, 1);
+					dropItem(GaiaItems.SPAWN_SLIME_GIRL, 1);
 				}
 			}
 		}
@@ -182,7 +182,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		setEnchantmentBasedOnDifficulty(difficulty);
-		ItemStack shield = new ItemStack(GaiaItems.PropShield, 1, 1);
+		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);

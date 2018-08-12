@@ -223,14 +223,14 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
@@ -238,7 +238,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(2);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
 				}
@@ -246,7 +246,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SpawnCreeperGirl, 1);
+				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
 			}
 		}
 	}

@@ -138,14 +138,14 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
@@ -153,7 +153,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(2);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxIron, 1);
+					dropItem(GaiaItems.BOX_IRON, 1);
 				} else if (i == 1) {
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_SLIME_GIRL), 1);
 				}

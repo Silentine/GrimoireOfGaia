@@ -44,7 +44,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
@@ -244,7 +243,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 				}
 			} else {
 				if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-					dropItem(GaiaItems.FoodMeat, 1);
+					dropItem(GaiaItems.FOOD_MEAT, 1);
 				}
 			}
 
@@ -252,14 +251,14 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
@@ -268,14 +267,14 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 				if (mobClass == 1) {
 					int i = rand.nextInt(2);
 					if (i == 0) {
-						dropItem(GaiaItems.BoxIron, 1);
+						dropItem(GaiaItems.BOX_IRON, 1);
 
 					} else if (i == 1) {
-						dropItem(GaiaItems.BagArrow, 1);
+						dropItem(GaiaItems.BAG_ARROW, 1);
 					}
 				} else {
 					if (rand.nextInt(1) == 0) {
-						dropItem(GaiaItems.BoxIron, 1);
+						dropItem(GaiaItems.BOX_IRON, 1);
 
 					}
 				}
@@ -332,14 +331,13 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	}
 
 	@Override
-	public @Nonnull
-	EnumCreatureAttribute getCreatureAttribute() {
+	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
 	// ================= Immunities =================//
 	@Override
-	public boolean isPotionApplicable(@Nonnull PotionEffect potioneffectIn) {
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
 	// ==============================================//

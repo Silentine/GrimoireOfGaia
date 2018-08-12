@@ -1,6 +1,0 @@
-{
-  "parent": "grimoireofgaia:item/shieldpropiron",
-  "textures": {
-    "0": "grimoireofgaia:items/models/shield/ShieldProp_plate_gold"
-  }
-}

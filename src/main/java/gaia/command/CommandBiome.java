@@ -16,7 +16,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.Optional;
 import java.util.Set;
@@ -24,19 +23,17 @@ import java.util.Set;
 public class CommandBiome extends CommandBase {
 
 	@Override
-	public @Nonnull
-	String getName() {
+	public String getName() {
 		return "gog-biome";
 	}
 
 	@Override
-	public @Nonnull
-	String getUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(ICommandSender sender) {
 		return "<list|biomeId>";
 	}
 
 	@Override
-	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		World world = sender.getEntityWorld();
 
 		if (world.isRemote) {
@@ -70,10 +67,11 @@ public class CommandBiome extends CommandBase {
 		}
 		return "";
 	}
+
 	/**
 	 * Transforming nearby chunks for spawning debugging
 	 */
-	private void biomeDebug(World world, @Nonnull ICommandSender sender, int biomeId) {
+	private void biomeDebug(World world, ICommandSender sender, int biomeId) {
 		if (biomeId <= -1 || Biome.getBiomeForId(biomeId) == null) {
 			sender.sendMessage(new TextComponentString(TextFormatting.RED + "Invalid Biome ID"));
 			return;
@@ -88,7 +86,7 @@ public class CommandBiome extends CommandBase {
 		Biome biome = Biome.getBiomeForId(biomeId);
 		String biomeName = getBiomeName(biome);
 		sender.sendMessage(new TextComponentString(
-						TextFormatting.GREEN + "Transforming Local Biomes to ID of :  " + biomeId + " : " + biomeName));
+				TextFormatting.GREEN + "Transforming Local Biomes to ID of :  " + biomeId + " : " + biomeName));
 		sender.sendMessage(new TextComponentString(TextFormatting.GRAY + "You may have to reload your client"));
 
 		biomeTypes(biome);

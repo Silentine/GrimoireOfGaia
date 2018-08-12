@@ -36,13 +36,13 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SpawnSlimeGirl, 1, 0), 0.0F);
+			entityDropItem(new ItemStack(GaiaItems.SPAWN_SLIME_GIRL, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
 
 		// Buy List
 		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.BONE, 2, 0)));

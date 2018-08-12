@@ -1,6 +1,7 @@
 package gaia.items;
 
 import gaia.helpers.LootHelper;
+import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,13 +18,12 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemChest extends ItemBase {
-	public ItemChest(String name) {
-		super(name);
+	public ItemChest() {
+		super("chest");
 		setHasSubtypes(true);
 	}
 
@@ -42,7 +42,7 @@ public class ItemChest extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!this.isInCreativeTab(tab)) {
+		if (!isInCreativeTab(tab)) {
 			return;
 		}
 
@@ -52,13 +52,7 @@ public class ItemChest extends ItemBase {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
-
-	@Override
-	public @Nonnull
-	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
 		player.playSound(SoundEvents.BLOCK_CHEST_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
@@ -78,5 +72,15 @@ public class ItemChest extends ItemBase {
 		}
 
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_dungeon"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_jungle"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_desert")
+		);
 	}
 }

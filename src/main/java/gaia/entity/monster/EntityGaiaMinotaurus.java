@@ -308,14 +308,14 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -323,18 +323,18 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 
 				} else if (i == 2) {
-					dropItem(mobClass == 1 ? GaiaItems.BagArrow : GaiaItems.BookBattle, 1);
+					dropItem(mobClass == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
 				}
 			}
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SpawnHolstaurus, 1);
+				dropItem(GaiaItems.SPAWN_HOLSTAURUS, 1);
 			}
 		}
 

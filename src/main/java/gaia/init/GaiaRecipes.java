@@ -30,17 +30,6 @@ public class GaiaRecipes {
     @Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
     public static class RegistrationHandler {
 
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void registerOreDictEntries(final RegistryEvent.Register<Item> event) {
-            OreDictionary.registerOre("nuggetIron", new ItemStack(GaiaItems.Shard, 1, 0));
-            OreDictionary.registerOre("nuggetGold", new ItemStack(GaiaItems.Shard, 1, 1));
-            OreDictionary.registerOre("nuggetDiamond", new ItemStack(GaiaItems.Shard, 1, 2));
-            OreDictionary.registerOre("nuggetEmerald", new ItemStack(GaiaItems.Shard, 1, 3));
-            OreDictionary.registerOre("nuggetCopper", new ItemStack(GaiaItems.Shard, 1, 4));
-            OreDictionary.registerOre("nuggetSilver", new ItemStack(GaiaItems.Shard, 1, 5));
-            OreDictionary.registerOre("cropNetherWart", GaiaItems.FoodNetherWart);
-        }
-
         @SubscribeEvent
         public static void registerRecipes(final RegistryEvent.Register<IRecipe> event) {
             Gaia.LOGGER.info("Registering recipes...");
@@ -68,10 +57,10 @@ public class GaiaRecipes {
      * @see FurnaceRecipes
      */
     public static void addFurnaceRecipes() {
-        GameRegistry.addSmelting(GaiaItems.BoxIron, new ItemStack(GaiaItems.MiscExperience, 1, 0), 0.1F);
-        GameRegistry.addSmelting(GaiaItems.BoxGold, new ItemStack(GaiaItems.MiscExperience, 1, 1), 0.1F);
-        GameRegistry.addSmelting(GaiaItems.BoxDiamond, new ItemStack(GaiaItems.MiscExperience, 1, 2), 0.1F);
-        GameRegistry.addSmelting(GaiaItems.MiscFur, new ItemStack(Items.LEATHER), 0.35F);
+        GameRegistry.addSmelting(GaiaItems.BOX_IRON, new ItemStack(GaiaItems.MISC_EXPERIENCE, 1, 0), 0.1F);
+        GameRegistry.addSmelting(GaiaItems.BOX_GOLD, new ItemStack(GaiaItems.MISC_EXPERIENCE, 1, 1), 0.1F);
+        GameRegistry.addSmelting(GaiaItems.BOX_DIAMOND, new ItemStack(GaiaItems.MISC_EXPERIENCE, 1, 2), 0.1F);
+        GameRegistry.addSmelting(GaiaItems.MISC_FUR, new ItemStack(Items.LEATHER), 0.35F);
     }
 
     public static ItemStack getType(PotionType type) {
@@ -84,6 +73,6 @@ public class GaiaRecipes {
      * @see PotionHelper
      */
     public static void addBrews() {
-        BrewingRecipeRegistry.addRecipe(getType(PotionTypes.WATER), new ItemStack(GaiaItems.FoodNetherWart, 1, 0), getType(PotionTypes.AWKWARD));
+        BrewingRecipeRegistry.addRecipe(getType(PotionTypes.WATER), new ItemStack(GaiaItems.FOOD_NETHER_WART, 1, 0), getType(PotionTypes.AWKWARD));
     }
 }

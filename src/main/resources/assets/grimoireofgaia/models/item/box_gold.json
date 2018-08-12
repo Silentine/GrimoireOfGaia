@@ -1,0 +1,6 @@
+{
+    "parent": "grimoireofgaia:item/chest",
+    "textures": {
+        "0": "grimoireofgaia:items/models/chest/box_gold"
+    }
+}

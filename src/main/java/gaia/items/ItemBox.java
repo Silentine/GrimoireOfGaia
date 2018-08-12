@@ -2,6 +2,7 @@ package gaia.items;
 
 import gaia.entity.GaiaLootTableList;
 import gaia.helpers.LootHelper;
+import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,13 +18,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBox extends ItemBase {
-	public ItemBox(String name) {
-		super(name);
+	public ItemBox() {
+		super("box");
 		setHasSubtypes(true);
 		setMaxStackSize(1);
 	}
@@ -53,14 +53,7 @@ public class ItemBox extends ItemBase {
 	}
 
 	@Override
-	public @Nonnull
-	String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
-
-	@Override
-	public @Nonnull
-	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
 		player.playSound(SoundEvents.BLOCK_CHEST_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
@@ -81,4 +74,14 @@ public class ItemBox extends ItemBase {
 
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_overworld"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_nether"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_end"));
+	}
+
 }

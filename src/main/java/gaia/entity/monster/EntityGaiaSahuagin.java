@@ -156,7 +156,7 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 				if (!isPotionActive(MobEffects.SPEED)) {
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 3));
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
 				tasks.removeTask(aiArrowAttack);
 				tasks.addTask(1, aiAttackOnCollide);
 				timer = 0;
@@ -239,7 +239,7 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FoodCoalfish, 1);
+				dropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -250,14 +250,14 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
@@ -265,9 +265,9 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(2);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagArrow, 1);
+					dropItem(GaiaItems.BAG_ARROW, 1);
 				}
 			}
 		}

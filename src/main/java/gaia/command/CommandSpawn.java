@@ -18,26 +18,22 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 
-import javax.annotation.Nonnull;
-
 import static net.minecraft.item.ItemMonsterPlacer.spawnCreature;
 
 public class CommandSpawn extends CommandBase {
 
 	@Override
-	public @Nonnull
-	String getName() {
+	public String getName() {
 		return "gog-spawn";
 	}
 
 	@Override
-	public @Nonnull
-	String getUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(ICommandSender sender) {
 		return "<npc|mob>";
 	}
 
 	@Override
-	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		World world = sender.getEntityWorld();
 
 		if (world.isRemote) {

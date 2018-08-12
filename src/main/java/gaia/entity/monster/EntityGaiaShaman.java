@@ -133,8 +133,8 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		return par1PotionEffect.getPotion() != MobEffects.POISON && super.isPotionApplicable(par1PotionEffect);
 	}
 
-    public void onLivingUpdate() {
-        this.beaconMonster();
+	public void onLivingUpdate() {
+		this.beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
 			tasks.removeTask(aiArrowAttack);
@@ -248,21 +248,21 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				dropItem(GaiaItems.FoodRottenHeart, 1);
+				dropItem(GaiaItems.FOOD_ROTTEN_HEART, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -270,11 +270,11 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.MiscBook, 1);
+					dropItem(GaiaItems.MISC_BOOK, 1);
 				}
 			}
 		}
@@ -292,7 +292,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.addTask(1, aiArrowAttack);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 0));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		return ret;

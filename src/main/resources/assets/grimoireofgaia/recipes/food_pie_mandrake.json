@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:foodmandrake"
+      "item": "grimoireofgaia:food_mandrake"
     },
     {
       "item": "minecraft:sugar"
@@ -12,6 +12,6 @@
     }
   ],
   "result": {
-    "item": "grimoireofgaia:foodpiemandrake"
+    "item": "grimoireofgaia:food_pie_mandrake"
   }
 }

@@ -157,7 +157,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 			}
 
 			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {
-				dropItem(GaiaItems.FoodMandrake, 1);
+				dropItem(GaiaItems.FOOD_MANDRAKE, 1);
 			}
 		}
 	}

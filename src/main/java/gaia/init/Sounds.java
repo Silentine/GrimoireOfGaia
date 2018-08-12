@@ -2,6 +2,7 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,27 +14,27 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class Sounds {
 	private Sounds() {}
 
-	public static final SoundEvent PASSIVE_SAY = null;
-	public static final SoundEvent PASSIVE_HURT = null;
-	public static final SoundEvent PASSIVE_DEATH = null;
+	public static final SoundEvent PASSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent PASSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent PASSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static final SoundEvent ASSIST_SAY = null;
-	public static final SoundEvent ASSIST_HURT = null;
-	public static final SoundEvent ASSIST_DEATH = null;
+	public static final SoundEvent ASSIST_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ASSIST_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ASSIST_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static final SoundEvent AGGRESSIVE_SAY = null;
-	public static final SoundEvent AGGRESSIVE_HURT = null;
-	public static final SoundEvent AGGRESSIVE_DEATH = null;
+	public static final SoundEvent AGGRESSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent AGGRESSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent AGGRESSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static final SoundEvent MINOTAUR_SAY = null;
-	public static final SoundEvent MINOTAUR_HURT = null;
+	public static final SoundEvent MINOTAUR_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent MINOTAUR_HURT = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static final SoundEvent BOX_OPEN_1 = null;
-	public static final SoundEvent BOX_OPEN_2 = null;
-	public static final SoundEvent BAG_OPEN = null;
-	public static final SoundEvent BOOK_HIT = null;
+	public static final SoundEvent BOX_OPEN_1 = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BOX_OPEN_2 = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BAG_OPEN = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BOOK_HIT = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static final SoundEvent NONE = null;
+	public static final SoundEvent NONE = SoundEvents.BLOCK_GRASS_STEP;
 
 	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)

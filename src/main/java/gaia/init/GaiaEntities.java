@@ -133,9 +133,9 @@ public class GaiaEntities {
 	);
 
 	private static EntityEntry createEntityEntry(String name, Class<? extends Entity> cls, int primaryColorIn, int secondaryColorIn) {
-		EntityEntry entityEntry = new EntityEntry(cls, name);
+		EntityEntry entityEntry = new EntityEntry(cls, GaiaReference.MOD_ID + "." + name);
 		entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
-		entityEntry.setEgg(new EntityEggInfo(new ResourceLocation(GaiaReference.MOD_PREFIX + name.toLowerCase()), primaryColorIn, secondaryColorIn));
+		entityEntry.setEgg(new EntityEggInfo(new ResourceLocation(GaiaReference.MOD_ID, name.toLowerCase()), primaryColorIn, secondaryColorIn));
 		return entityEntry;
 	}
 

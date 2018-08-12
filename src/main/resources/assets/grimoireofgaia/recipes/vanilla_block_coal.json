@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:miscfurnacefuel"
+      "item": "grimoireofgaia:misc_furnace_fuel"
     },
     {
-      "item": "grimoireofgaia:miscfurnacefuel"
+      "item": "grimoireofgaia:misc_furnace_fuel"
     },
     {
-      "item": "grimoireofgaia:miscfurnacefuel"
+      "item": "grimoireofgaia:misc_furnace_fuel"
     },
     {
-      "item": "grimoireofgaia:miscfurnacefuel"
+      "item": "grimoireofgaia:misc_furnace_fuel"
     }
   ],
   "result": {

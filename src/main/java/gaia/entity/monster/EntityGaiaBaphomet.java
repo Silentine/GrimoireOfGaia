@@ -159,7 +159,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1) > 0)) {
 				for (int var4 = 0; var4 < var3; ++var4) {
-					dropItem(GaiaItems.MiscSoulFiery, 1);
+					dropItem(GaiaItems.MISC_SOUL_FIERY, 1);
 				}
 			} else {
 				for (int var4 = 0; var4 < var3; ++var4) {
@@ -168,21 +168,21 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FoodNetherWart, 1);
+				dropItem(GaiaItems.FOOD_NETHER_WART, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -190,15 +190,15 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(2);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 1), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.AccessoryTrinketWither, 1);
+				dropItem(GaiaItems.ACCESSORY_TRINKET_WITHER, 1);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.addTask(1, aiArrowAttack);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 1));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
 
 		return ret;
 	}

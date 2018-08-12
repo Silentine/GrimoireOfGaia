@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:foodsmallapplegold"
+      "item": "grimoireofgaia:food_small_apple_gold"
     },
     {
-      "item": "grimoireofgaia:foodsmallapplegold"
+      "item": "grimoireofgaia:food_small_apple_gold"
     },
     {
-      "item": "grimoireofgaia:foodsmallapplegold"
+      "item": "grimoireofgaia:food_small_apple_gold"
     },
     {
-      "item": "grimoireofgaia:foodsmallapplegold"
+      "item": "grimoireofgaia:food_small_apple_gold"
     }
   ],
   "result": {
-    "item": "grimoireofgaia:foodpieapplegold"
+    "item": "grimoireofgaia:food_pie_apple_gold"
   }
 }

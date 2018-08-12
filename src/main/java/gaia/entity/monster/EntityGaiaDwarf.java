@@ -282,7 +282,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 				}
 			} else {
 				for (int var4 = 0; var4 < var3; ++var4) {
-					ItemShard.Drop_Nugget(this, 0);
+					ItemShard.dropNugget(this, 0);
 				}
 			}
 
@@ -290,14 +290,14 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -306,23 +306,23 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 				if (mobClass == 1) {
 					switch (rand.nextInt(3)) {
 						case 0:
-							dropItem(GaiaItems.BoxGold, 1);
+							dropItem(GaiaItems.BOX_GOLD, 1);
 							break;
 						case 1:
-							dropItem(GaiaItems.BagBook, 1);
+							dropItem(GaiaItems.BAG_BOOK, 1);
 							break;
 						case 2:
-							dropItem(GaiaItems.BagArrow, 1);
+							dropItem(GaiaItems.BAG_ARROW, 1);
 							break;
 						default:
 					}
 				} else {
 					switch (rand.nextInt(2)) {
 						case 0:
-							dropItem(GaiaItems.BoxGold, 1);
+							dropItem(GaiaItems.BOX_GOLD, 1);
 							break;
 						case 1:
-							dropItem(GaiaItems.BagBook, 1);
+							dropItem(GaiaItems.BAG_BOOK, 1);
 							break;
 						default:
 					}
@@ -374,7 +374,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
 			setEnchantmentBasedOnDifficulty(difficulty);
-			ItemStack shield = new ItemStack(GaiaItems.PropShield, 1, 0);
+			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 			setMobType(1);

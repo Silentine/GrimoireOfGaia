@@ -133,7 +133,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				dropItem(GaiaItems.FoodCoalfish, 1);
+				dropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -144,14 +144,14 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -159,11 +159,11 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.BookBuff, 1);
+					dropItem(GaiaItems.BOOK_BUFF, 1);
 				}
 			}
 		}

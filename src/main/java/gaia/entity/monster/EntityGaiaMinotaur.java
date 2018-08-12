@@ -228,31 +228,31 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FoodSmallAppleGold, 1);
+				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
 			// Nuggets/Shards
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 2);
+				ItemShard.dropNugget(this, 2);
 			}
 
 			int var13 = rand.nextInt(3) + 1;
 
 			for (int var14 = 0; var14 < var13; ++var14) {
-				ItemShard.Drop_Nugget(this, 3);
+				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxDiamond, 1);
+					dropItem(GaiaItems.BOX_DIAMOND, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.AccessoryCursed, 1);
+					dropItem(GaiaItems.ACCESSORY_CURSED, 1);
 				} else if (i == 2) {
-					entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 1), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 1), 0.0F);
 				}
 			}
 		}
@@ -267,7 +267,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 5));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 5));
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);

@@ -174,7 +174,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	@Override
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getItem() == GaiaItems.SpawnTame) {
+		if (stack.getItem() == GaiaItems.SPAWN_TAME) {
 			this.world.setEntityState(this, (byte) 11);
 
 			if (!player.capabilities.isCreativeMode) {

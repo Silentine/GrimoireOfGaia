@@ -21,11 +21,11 @@ public class FuelHandler implements IFuelHandler {
 
         GameRegistry.registerFuelHandler(new FuelHandler());
 
-        addFuel(GaiaItems.FoodCoalfish, 180);
-        addFuel(GaiaItems.MiscSoulFire, 580);
-        addFuel(GaiaItems.MiscSoulFiery, 1000);
-        addFuel(GaiaItems.MiscFurnaceFuel, 3600);
-        addFuel(GaiaItems.MiscGigaGear, 62000);
+        addFuel(GaiaItems.FOOD_COALFISH, 180);
+        addFuel(GaiaItems.MISC_SOUL_FIRE, 580);
+        addFuel(GaiaItems.MISC_SOUL_FIERY, 1000);
+        addFuel(GaiaItems.MISC_FURNACE_FUEL, 3600);
+        addFuel(GaiaItems.MISC_GIGA_GEAR, 62000);
     }
 
     private static void addFuel(Item item, int value) {

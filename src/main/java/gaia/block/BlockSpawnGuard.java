@@ -25,61 +25,59 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockSpawnGuard extends Block {
 
-    private static final PropertyEnum<BlockSpawnGuard.EnumType> TYPE = PropertyEnum.create("type", BlockSpawnGuard.EnumType.class);
+	private static final PropertyEnum<BlockSpawnGuard.EnumType> TYPE = PropertyEnum.create("type", BlockSpawnGuard.EnumType.class);
 
-    public BlockSpawnGuard() {
-        super(Material.CLOTH);
-        this.setLightOpacity(0);
-        this.setHardness(0.0F);
-        this.setResistance(6.0F);
-        this.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, "SpawnGuard"));
-        this.setUnlocalizedName("SpawnGuard");
-        this.setCreativeTab(CreativeTabGaia.INSTANCE);
+	public BlockSpawnGuard() {
+		super(Material.CLOTH);
+		this.setLightOpacity(0);
+		this.setHardness(0.0F);
+		this.setResistance(6.0F);
+		this.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, "SpawnGuard"));
+		this.setUnlocalizedName("SpawnGuard");
+		this.setCreativeTab(CreativeTabGaia.INSTANCE);
 
-        this.setDefaultState(this.blockState.getBaseState()
-                .withProperty(TYPE, EnumType.North));
-    }
+		this.setDefaultState(this.blockState.getBaseState()
+				.withProperty(TYPE, EnumType.North));
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.grimoireofgaia.desc")));
-        tooltip.add(I18n.format("block.grimoireofgaia.SpawnGuard.desc", 8));
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.grimoireofgaia.desc")));
+		tooltip.add(I18n.format("block.grimoireofgaia.SpawnGuard.desc", 8));
+	}
 
-    protected static final AxisAlignedBB Down_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.06F, 1.0F);
-    protected static final AxisAlignedBB Up_BOX = new AxisAlignedBB(0.0F, 0.94F, 0.0F, 1.0F, 1.0F, 1.0F);
-    protected static final AxisAlignedBB North_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.94F, 1.0F, 1.0F, 1.0F);
-    protected static final AxisAlignedBB South_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.06F);
-    protected static final AxisAlignedBB West_BOX = new AxisAlignedBB(0.94F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-    protected static final AxisAlignedBB East_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.06F, 1.0F, 1.0F);
+	protected static final AxisAlignedBB Down_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.06F, 1.0F);
+	protected static final AxisAlignedBB Up_BOX = new AxisAlignedBB(0.0F, 0.94F, 0.0F, 1.0F, 1.0F, 1.0F);
+	protected static final AxisAlignedBB North_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.94F, 1.0F, 1.0F, 1.0F);
+	protected static final AxisAlignedBB South_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.06F);
+	protected static final AxisAlignedBB West_BOX = new AxisAlignedBB(0.94F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+	protected static final AxisAlignedBB East_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.06F, 1.0F, 1.0F);
 
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return true;
-    }
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+		return true;
+	}
 
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public @Nonnull EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
 
     /* Legacy tile entity code
-    public TileEntity createNewTileEntity(World par1World, int i) {
+	public TileEntity createNewTileEntity(World par1World, int i) {
         return new TileEntitySpawnGuard();
     }
 
@@ -91,100 +89,100 @@ public class BlockSpawnGuard extends Block {
     }
      */
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        int meta = getMetaFromState(state);
-        if (meta < 4) {
-            return Down_BOX;
-        }
-        if (8 > meta && meta > 3) {
-            return Up_BOX;
-        }
-        switch (meta) {
-            case 8:
-                return North_BOX;
-            case 9:
-                return South_BOX;
-            case 10:
-                return West_BOX;
-            case 11:
-                return East_BOX;
-            default:
-                return Down_BOX;
-        }
-    }
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		int meta = getMetaFromState(state);
+		if (meta < 4) {
+			return Down_BOX;
+		}
+		if (8 > meta && meta > 3) {
+			return Up_BOX;
+		}
+		switch (meta) {
+			case 8:
+				return North_BOX;
+			case 9:
+				return South_BOX;
+			case 10:
+				return West_BOX;
+			case 11:
+				return East_BOX;
+			default:
+				return Down_BOX;
+		}
+	}
 
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        EnumType constant = EnumType.getConstant(meta);
-        return getDefaultState().withProperty(TYPE, constant);
-    }
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		EnumType constant = EnumType.getConstant(meta);
+		return getDefaultState().withProperty(TYPE, constant);
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        EnumType type = (EnumType) state.getValue(TYPE);
-        return type.getID();
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		EnumType type = (EnumType) state.getValue(TYPE);
+		return type.getID();
+	}
 
-    @Override
-    @MethodsReturnNonnullByDefault
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-            EntityLivingBase placer) {
-        int ID;
-        int face = facing.getIndex();
-        if (facing == EnumFacing.UP) {
-            ID = MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        } else if (facing == EnumFacing.DOWN) {
-            ID = (MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 4;
-        } else {
-            ID = face + 6;
-        }
+	@Override
+	@MethodsReturnNonnullByDefault
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
+			EntityLivingBase placer) {
+		int ID;
+		int face = facing.getIndex();
+		if (facing == EnumFacing.UP) {
+			ID = MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		} else if (facing == EnumFacing.DOWN) {
+			ID = (MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 4;
+		} else {
+			ID = face + 6;
+		}
 
-        return getStateFromMeta(ID);
-    }
+		return getStateFromMeta(ID);
+	}
 
-    @Override
-    protected @Nonnull BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE);
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, TYPE);
+	}
 
-    public enum EnumType implements IStringSerializable {
-        North(0, "north"),
-        South(1, "south"),
-        West(2, "west"),
-        East(3, "east"),
+	public enum EnumType implements IStringSerializable {
+		North(0, "north"),
+		South(1, "south"),
+		West(2, "west"),
+		East(3, "east"),
 
-        Up_North(4, "u_north"),
-        Up_South(5, "u_south"),
-        Up_West(6, "u_west"),
-        Up_East(7, "u_east"),
+		Up_North(4, "u_north"),
+		Up_South(5, "u_south"),
+		Up_West(6, "u_west"),
+		Up_East(7, "u_east"),
 
-        Vertical_North(8, "v_north"),
-        Vertical_South(9, "v_south"),
-        Vertical_West(10, "v_west"),
-        Vertical_East(11, "v_east");
+		Vertical_North(8, "v_north"),
+		Vertical_South(9, "v_south"),
+		Vertical_West(10, "v_west"),
+		Vertical_East(11, "v_east");
 
-        private int ID;
-        private String name;
+		private int ID;
+		private String name;
 
-        private EnumType(int ID, String name) {
-            this.ID = ID;
-            this.name = name;
-        }
+		private EnumType(int ID, String name) {
+			this.ID = ID;
+			this.name = name;
+		}
 
-        @Override
-        public String getName() {
-            return name;
-        }
+		@Override
+		public String getName() {
+			return name;
+		}
 
-        public int getID() {
-            return ID;
-        }
+		public int getID() {
+			return ID;
+		}
 
-        public static EnumType getConstant(int meta) {
-            if (0 > meta || meta > 11) {
-                meta = 0;
-            }
-            return EnumType.values()[meta];
-        }
-    }
+		public static EnumType getConstant(int meta) {
+			if (0 > meta || meta > 11) {
+				meta = 0;
+			}
+			return EnumType.values()[meta];
+		}
+	}
 }

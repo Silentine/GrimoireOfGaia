@@ -162,8 +162,8 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			} else {
 				targetTasks.addTask(2, aiNearestAttackableTarget);
 
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
-				ItemStack shield = new ItemStack(GaiaItems.PropShield, 1, 0);
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+				ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 				equipItems = 1;
@@ -173,8 +173,8 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && equipItems == 0) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
 
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 2));
-			ItemStack shield = new ItemStack(GaiaItems.PropShield, 1, 0);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 			equipItems = 1;
@@ -288,31 +288,31 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FoodSmallAppleGold, 1);
+				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 2);
+				ItemShard.dropNugget(this, 2);
 			}
 
 			int var13 = rand.nextInt(3) + 1;
 
 			for (int var14 = 0; var14 < var13; ++var14) {
-				ItemShard.Drop_Nugget(this, 3);
+				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxDiamond, 1);
+					dropItem(GaiaItems.BOX_DIAMOND, 1);
 				} else if (i == 1) {
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
 				} else if (i == 2) {
-					entityDropItem(new ItemStack(GaiaItems.MiscRing, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 0), 0.0F);
 				}
 			}
 		}

@@ -126,7 +126,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				dropItem(GaiaItems.FoodRoot, 1);
+				dropItem(GaiaItems.FOOD_ROOT, 1);
 			}
 
 			if (axeAttack >= 4 && (rand.nextInt(2) == 0)) {
@@ -137,14 +137,14 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -152,11 +152,11 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.BookNature, 1);
+					dropItem(GaiaItems.WEAPON_BOOK_NATURE, 1);
 				}
 			}
 		}

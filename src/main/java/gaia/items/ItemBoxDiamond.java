@@ -15,14 +15,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBoxDiamond extends ItemBase {
-
-	public ItemBoxDiamond(String name) {
-		super(name);
+	public ItemBoxDiamond() {
+		super("box_diamond");
 		setMaxStackSize(1);
 	}
 
@@ -39,8 +37,7 @@ public class ItemBoxDiamond extends ItemBase {
 	}
 
 	@Override
-	public @Nonnull
-	ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
 		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);

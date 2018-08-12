@@ -3,6 +3,8 @@ package gaia;
 import gaia.command.CommandBiome;
 import gaia.command.CommandSpawn;
 import gaia.datafixes.BustTileIdFixer;
+import gaia.datafixes.ItemIdFixer;
+import gaia.init.GaiaItems;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.CommonProxy;
 import gaia.recipe.FuelHandler;
@@ -46,14 +48,18 @@ public class Gaia {
 	public void load(FMLInitializationEvent event) {
 		proxy.registerRenders();
 
+		GaiaItems.RegistrationHandler.registerOres();
+
 		MinecraftForge.EVENT_BUS.register(this);
 
 		if (GaiaConfig.DEBUG.biomeTweaks) {
 			GaiaSpawning.biomeTweaks();
 		}
 
+
 		ModFixs fixes = FMLCommonHandler.instance().getDataFixer().init(MOD_ID, DATA_FIXER_VERSION);
 		fixes.registerFix(FixTypes.BLOCK_ENTITY, new BustTileIdFixer());
+		fixes.registerFix(FixTypes.ITEM_INSTANCE, new ItemIdFixer());
 	}
 
 	@EventHandler

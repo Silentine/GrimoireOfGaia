@@ -12,44 +12,42 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-
 @SideOnly(Side.CLIENT)
 public class RenderGaiaProjectileMagic extends Render<Entity> {
 
-    private final float scale;
-    protected final Item item;
+	private final float scale;
+	protected final Item item;
 
-    public RenderGaiaProjectileMagic(Item item) {
-        super(Minecraft.getMinecraft()
-                .getRenderManager());
+	public RenderGaiaProjectileMagic(Item item) {
+		super(Minecraft.getMinecraft()
+				.getRenderManager());
 
-        this.item = item;
-        this.scale = 2.0F;
-    }
+		this.item = item;
+		this.scale = 2.0F;
+	}
 
-    @Override
-    public void doRender(@Nonnull Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float) x, (float) y, (float) z);
-        GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(scale, scale, scale);
-        GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+	@Override
+	public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) x, (float) y, (float) z);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
-        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-        Minecraft.getMinecraft()
-                .getRenderItem().renderItem(new ItemStack(item), ItemCameraTransforms.TransformType.GROUND);
+		Minecraft.getMinecraft()
+				.getRenderItem().renderItem(new ItemStack(item), ItemCameraTransforms.TransformType.GROUND);
 
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.popMatrix();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
 
-        super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
-    }
+		super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
+	}
 
-    @Override
-    protected ResourceLocation getEntityTexture(@Nonnull Entity entity) {
-        return TextureMap.LOCATION_BLOCKS_TEXTURE;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+	}
 }

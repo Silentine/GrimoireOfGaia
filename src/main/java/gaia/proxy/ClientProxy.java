@@ -1,6 +1,5 @@
 package gaia.proxy;
 
-import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -62,7 +61,6 @@ import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.entity.passive.EntityGaiaPropChestMimic;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.renderer.RenderGaiaProjectileMagic;
 import gaia.renderer.entity.RenderGaiaAnt;
@@ -146,6 +144,7 @@ import java.util.Set;
 public class ClientProxy extends CommonProxy {
 	private final Set<IClientRegister> clientRegisters = new HashSet<>();
 
+	@Override
 	public void addClientRegister(IClientRegister register) {
 		clientRegisters.add(register);
 	}
@@ -239,166 +238,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYeti.class, new RenderGaiaYeti(large));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, new RenderGaiaYukiOnna(small));
 		// Projectile
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(GaiaItems.PropWeaponProjectile));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, new RenderGaiaProjectileMagic(GaiaItems.WEAPON_PROP_PROJECTILE));
 		// Block
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
-	}
-
-	@Override
-	public void registerItemsRender() {
-		item_reg.registerRenders();
-		item_reg.registerRenders_meta();
-	}
-
-	/**
-	 * Register default Item Models
-	 */
-	public static void registerRender(Item item) {
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-	}
-
-	/**
-	 * Register Item Model for meta data reliant objects <p>Shortcut method
-	 *
-	 * @param pathname item filename that is nested in
-	 *                 grimoireofgaia:textures/items/<pathname>
-	 */
-	public static void reg_Meta(Item item, int metadata, String pathname) {
-		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(
-				GaiaReference.MOD_PREFIX + pathname.toLowerCase(), "inventory"));
-	}
-
-	/**
-	 * Registry for item models
-	 */
-	public static class item_reg extends GaiaItems {
-
-		public static void registerRenders() {
-			registerRender(Shard);
-			registerRender(FoodMeat);
-			registerRender(FoodRottenHeart);
-			registerRender(FoodRoot);
-			registerRender(FoodCoalfish);
-			registerRender(FoodNetherWart);
-			registerRender(FoodSmallAppleGold);
-			registerRender(FoodMandrake);
-			registerRender(FoodWither);
-			registerRender(FoodPieMandrake);
-			registerRender(FoodPieMeat);
-			registerRender(FoodPieAppleGold);
-			registerRender(MiscSoulFire);
-			registerRender(MiscSoulFiery);
-			registerRender(MiscGigaGear);
-			registerRender(MiscFur);
-			registerRender(MiscExperience);
-			registerRender(MiscBook);
-			registerRender(MiscQuill);
-			registerRender(MiscRing);
-			registerRender(MiscFurnaceFuel);
-			registerRender(MiscCurrency);
-			registerRender(Spawn);
-			registerRender(SpawnCreeperGirl);
-			registerRender(SpawnSlimeGirl);
-			registerRender(SpawnEnderGirl);
-			registerRender(SpawnTrader);
-			registerRender(SpawnHolstaurus);
-			registerRender(SpawnWeresheep);
-			registerRender(SpawnTame);
-			registerRender(BoxIron);
-			registerRender(BoxGold);
-			registerRender(BoxDiamond);
-			registerRender(BagOre);
-			registerRender(BagBook);
-			registerRender(BagRecord);
-			registerRender(BagArrow);
-			registerRender(BoxOld);
-			registerRender(Chest);
-			registerRender(PropWeapon);
-			registerRender(PropWeaponProjectile);
-			registerRender(PropWeaponEnchanted);
-			registerRender(PropShield);
-			registerRender(FanIce);
-			registerRender(FanFire);
-			registerRender(BookBase);
-			registerRender(BookFreezing);
-			registerRender(BookNightmare);
-			registerRender(BookMetal);
-			registerRender(BookEnder);
-			registerRender(BookHunger);
-			registerRender(BookBattle);
-			registerRender(BookNature);
-			registerRender(BookWither);
-			registerRender(BookBuff);
-			registerRender(Debug);
-			registerRender(AccessoryRingSpeed);
-			registerRender(AccessoryRingHaste);
-			registerRender(AccessoryRingJump);
-			registerRender(AccessoryRingNight);
-			registerRender(AccessoryTrinketPoison);
-			registerRender(AccessoryTrinketWither);
-			registerRender(AccessoryTrinketLevitation);
-			registerRender(AccessoryCursed);
-			registerRender(Card);
-		}
-
-		public static void registerRenders_meta() {
-			// Shards
-			reg_Meta(Shard, 0, "shardiron");
-			reg_Meta(Shard, 1, "shardgold");
-			reg_Meta(Shard, 2, "sharddiamond");
-			reg_Meta(Shard, 3, "shardemerald");
-			reg_Meta(Shard, 4, "shardcopper");
-			reg_Meta(Shard, 5, "shardsilver");
-
-			// MiscExperience
-			reg_Meta(MiscExperience, 0, "miscexperienceiron");
-			reg_Meta(MiscExperience, 1, "miscexperiencegold");
-			reg_Meta(MiscExperience, 2, "miscexperiencediamond");
-
-			// MiscRing
-			reg_Meta(MiscRing, 0, "miscringspeed");
-			reg_Meta(MiscRing, 1, "miscringhaste");
-			reg_Meta(MiscRing, 2, "miscringjump");
-			reg_Meta(MiscRing, 3, "miscringnight");
-
-			// MiscCurrency
-			reg_Meta(MiscCurrency, 0, "misccurrency_0");
-			reg_Meta(MiscCurrency, 1, "misccurrency_1");
-			reg_Meta(MiscCurrency, 2, "misccurrency_2");
-			reg_Meta(MiscCurrency, 3, "misccurrency_3");
-
-			// Box
-			reg_Meta(Box, 0, "box");
-			reg_Meta(Box, 1, "boxnether");
-			reg_Meta(Box, 2, "boxend");
-
-			// Chest
-			reg_Meta(Chest, 0, "chest");
-			reg_Meta(Chest, 1, "chestjungle");
-			reg_Meta(Chest, 2, "chestdesert");
-
-			// PropWeapon
-			reg_Meta(PropWeapon, 0, "weaponpropender");
-			reg_Meta(PropWeapon, 1, "weaponpropblaze");
-			reg_Meta(PropWeapon, 2, "weaponpropspear");
-			reg_Meta(PropWeapon, 3, "weaponpropdagger");
-			reg_Meta(PropWeapon, 4, "weaponpropfan");
-			reg_Meta(PropWeapon, 5, "weaponpropaxe");
-
-			// PropWeaponProjectile
-			reg_Meta(PropWeaponProjectile, 0, "weaponpropprojectile");
-
-			// PropWeaponShield
-			reg_Meta(PropShield, 0, "shieldpropiron");
-			reg_Meta(PropShield, 1, "shieldpropgold");
-
-			// AccessoryBauble
-			//            reg_Meta(AccessoryBauble, 0, "BaubleAccessory");
-
-			// Card
-			reg_Meta(Card, 0, "CardNull");
-			reg_Meta(Card, 1, "CardChild");
-			reg_Meta(Card, 2, "CardAttack");
-		}
 	}
 }

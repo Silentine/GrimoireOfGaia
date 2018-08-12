@@ -25,8 +25,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBanshee extends EntityMobHostileBase {
 
@@ -60,7 +58,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource source, float damage) {
+	public boolean attackEntityFrom(DamageSource source, float damage) {
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
@@ -157,21 +155,21 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				dropItem(GaiaItems.MiscSoulFire, 1);
+				dropItem(GaiaItems.MISC_SOUL_FIRE, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -179,19 +177,18 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.BookNightmare, 1);
+					dropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1);
 				}
 			}
 		}
 	}
 
 	@Override
-	public @Nonnull
-	EnumCreatureAttribute getCreatureAttribute() {
+	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 

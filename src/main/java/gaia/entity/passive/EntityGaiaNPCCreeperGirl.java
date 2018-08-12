@@ -36,13 +36,13 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SpawnCreeperGirl, 1, 0), 0.0F);
+			entityDropItem(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 0), new ItemStack(Items.GUNPOWDER, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(Items.GUNPOWDER, 1, 0)));
 
 		// Buy List
 		recipes.add(new GaiaTrade(new ItemStack(Items.GUNPOWDER, 1, 0), new ItemStack(Items.BONE, 2, 0)));

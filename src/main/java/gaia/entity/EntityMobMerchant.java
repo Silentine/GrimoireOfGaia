@@ -19,8 +19,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-
 //Adapted from DivineRPG code
 @SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {
@@ -76,8 +74,8 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, @Nonnull EnumHand hand) {
-		final ItemStack stack = player.getHeldItem(hand);
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		final boolean flag = stack != ItemStack.EMPTY && stack.getItem() == Items.SPAWN_EGG;
 
 		if (!flag && isEntityAlive() && !isTrading() && !isChild() && !player.isSneaking()) {
@@ -119,7 +117,7 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
-	public void useRecipe(@Nonnull MerchantRecipe recipe) {
+	public void useRecipe(MerchantRecipe recipe) {
 		recipe.incrementToolUses();
 		livingSoundTime = -getTalkInterval();
 		int i = 3 + rand.nextInt(4);

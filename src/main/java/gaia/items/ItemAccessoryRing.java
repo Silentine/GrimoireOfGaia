@@ -1,48 +1,40 @@
 package gaia.items;
 
-import gaia.CreativeTabGaia;
-import gaia.GaiaReference;
+import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
+public class ItemAccessoryRing extends ItemBase {
+	public ItemAccessoryRing() {
+		super("misc_ring");
+		setHasSubtypes(true);
+	}
 
-public class ItemAccessoryRing extends Item {
+	@Override
+	@SideOnly(Side.CLIENT)
+	public EnumRarity getRarity(ItemStack stack) {
+		return EnumRarity.RARE;
+	}
 
-    public ItemAccessoryRing(String name) {
-        setHasSubtypes(true);
-        setRegistryName(GaiaReference.MOD_ID, name);
-        setUnlocalizedName(name);
-        setCreativeTab(CreativeTabGaia.INSTANCE);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
 
-    @Nonnull
-    @Override
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.RARE;
-    }
+		for (int i = 0; i < 4; i++) {
+			items.add(new ItemStack(this, 1, i));
+		}
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (!this.isInCreativeTab(tab)) {
-            return;
-        }
-
-        for (int i = 0; i < 4; i++) {
-            items.add(new ItemStack(this, 1, i));
-        }
-    }
-
-    @Nonnull
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return getUnlocalizedName() + "_" + stack.getItemDamage();
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this, "variant=speed", "variant=haste", "variant=jump", "variant=night");
+	}
 }

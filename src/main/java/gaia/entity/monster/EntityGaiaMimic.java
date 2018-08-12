@@ -202,14 +202,14 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 0);
+				ItemShard.dropNugget(this, 0);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
 
@@ -217,21 +217,21 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
-					dropItem(GaiaItems.SpawnTame, 1);
+					dropItem(GaiaItems.SPAWN_TAME, 1);
 				} else if (i == 2) {
-					dropItem(GaiaItems.BookHunger, 1);
+					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 				}
 			}
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SpawnTrader, 1);
+				dropItem(GaiaItems.SPAWN_TRADER, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.BagRecord, 1);
+				dropItem(GaiaItems.BAG_RECORD, 1);
 			}
 		}
 	}

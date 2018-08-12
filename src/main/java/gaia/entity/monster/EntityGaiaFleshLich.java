@@ -158,14 +158,14 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -173,7 +173,7 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
 					dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
 				} else if (i == 2) {
@@ -192,7 +192,7 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.PropWeapon, 1, 0));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 
 		return ret;
 	}

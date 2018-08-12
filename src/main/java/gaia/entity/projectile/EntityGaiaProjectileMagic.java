@@ -15,8 +15,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-
 public class EntityGaiaProjectileMagic extends EntityFireball {
 
 	@SuppressWarnings("unused") //used in reflection
@@ -49,7 +47,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 	 * @see EntityFireball
 	 */
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult movingObject) {
+	protected void onImpact(RayTraceResult movingObject) {
 		if (!world.isRemote) {
 			if (movingObject.entityHit != null) {
 				movingObject.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));

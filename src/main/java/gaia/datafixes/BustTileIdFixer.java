@@ -30,5 +30,6 @@ public class BustTileIdFixer implements IFixableData {
 		if (tileIds.contains(oldId)) {
 			compound.setString("id", GaiaReference.MOD_ID + ":" + "tile_bust");
 		}
-		return compound;	}
+		return compound;
+	}
 }

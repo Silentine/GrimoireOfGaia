@@ -175,21 +175,21 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				dropItem(GaiaItems.MiscFur, 1);
+				dropItem(GaiaItems.MISC_FUR, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this, 1);
+				ItemShard.dropNugget(this, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
 				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this, 5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
 
@@ -197,13 +197,13 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BoxGold, 1);
+					dropItem(GaiaItems.BOX_GOLD, 1);
 
 				} else if (i == 1) {
-					dropItem(GaiaItems.BagBook, 1);
+					dropItem(GaiaItems.BAG_BOOK, 1);
 
 				} else if (i == 2) {
-					ItemStack fanIce = new ItemStack(GaiaItems.FanIce);
+					ItemStack fanIce = new ItemStack(GaiaItems.WEAPON_FAN_ICE);
 					fanIce.addEnchantment(Enchantments.KNOCKBACK, 4);
 					entityDropItem(fanIce, 1);
 				}
@@ -227,10 +227,10 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		ItemStack weapon;
 
 		if (rand.nextInt(4) == 0) {
-			weapon = new ItemStack(GaiaItems.PropWeapon, 1, 4);
+			weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 4);
 			weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
 		} else {
-			weapon = new ItemStack(GaiaItems.PropWeaponEnchanted, 1);
+			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
 		}
 
