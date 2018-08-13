@@ -22,4 +22,9 @@ public class ItemMiscFurnaceFuel extends ItemBase {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", TileEntityFurnace.getItemBurnTime(stack)));
 	}
+
+	@Override
+	public int getItemBurnTime(ItemStack itemStack) {
+		return 3600;
+	}
 }

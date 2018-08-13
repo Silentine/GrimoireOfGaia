@@ -31,4 +31,9 @@ public class ItemMiscGigaGear extends ItemBase {
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.EPIC;
 	}
+
+	@Override
+	public int getItemBurnTime(ItemStack itemStack) {
+		return 62000;
+	}
 }

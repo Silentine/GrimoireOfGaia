@@ -8,7 +8,6 @@ import gaia.datafixes.ItemIdFixer;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.CommonProxy;
-import gaia.recipe.FuelHandler;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ModFixs;
@@ -41,8 +40,6 @@ public class Gaia {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		FuelHandler.init();
-
 		proxy.registerHandlers();
 
 		proxy.registerRenders();

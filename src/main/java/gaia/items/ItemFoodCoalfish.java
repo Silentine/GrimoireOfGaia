@@ -31,4 +31,9 @@ public class ItemFoodCoalfish extends ItemFoodBase {
 	public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
 		player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 2400, 0));
 	}
+
+	@Override
+	public int getItemBurnTime(ItemStack itemStack) {
+		return 180;
+	}
 }

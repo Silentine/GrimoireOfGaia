@@ -55,4 +55,9 @@ public class ItemMiscSoulFire extends ItemBase {
 			return EnumActionResult.SUCCESS;
 		}
 	}
+
+	@Override
+	public int getItemBurnTime(ItemStack itemStack) {
+		return 580;
+	}
 }
