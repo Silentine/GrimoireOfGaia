@@ -14,7 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerGaiaHeldBlock implements LayerRenderer<EntityGaiaEnderDragonGirl> {
-
 	private final RenderGaiaEnderDragonGirl endermanRenderer;
 
 	public LayerGaiaHeldBlock(RenderGaiaEnderDragonGirl renderGaiaEnderDragonGirl) {

@@ -3,7 +3,6 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaNPCCreeperGirl;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -13,18 +12,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCCreeperGirl extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/creeper_girl.png");
 
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/creeper_girl.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
+	public RenderGaiaNPCCreeperGirl(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaNPCCreeperGirl(), shadowSize);
+		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCCreeperGirl.rightarm));
+		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCCreeperGirl.leftarm));
+	}
 
-    public RenderGaiaNPCCreeperGirl(float shadowSize) {
-        super(rend, new ModelGaiaNPCCreeperGirl(), shadowSize);
-        this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaNPCCreeperGirl.rightarm));
-        this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaNPCCreeperGirl.leftarm));
-    }
-
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }

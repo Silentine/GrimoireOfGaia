@@ -42,13 +42,14 @@ public class Gaia {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		FuelHandler.init();
+
 		proxy.registerHandlers();
+
+		proxy.registerRenders();
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		proxy.registerRenders();
-
 		GaiaItems.RegistrationHandler.registerOres();
 
 		MinecraftForge.EVENT_BUS.register(this);

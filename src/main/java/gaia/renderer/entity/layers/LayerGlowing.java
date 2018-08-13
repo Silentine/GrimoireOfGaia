@@ -11,22 +11,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerGlowing implements LayerRenderer<EntityLiving> {
-
-	private final ResourceLocation glowing_texture;
+	private final ResourceLocation glowingTexture;
 	private final RenderLiving<EntityLiving> livingEntityRenderer;
 
 	public LayerGlowing(RenderLiving<EntityLiving> livingEntityRendererIn, ResourceLocation textureIn) {
-		this.livingEntityRenderer = livingEntityRendererIn;
-		this.glowing_texture = textureIn;
+		livingEntityRenderer = livingEntityRendererIn;
+		glowingTexture = textureIn;
 	}
 
 	@Override
 	public void doRenderLayer(EntityLiving entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
 			float netHeadYaw, float headPitch, float scale) {
-		livingEntityRenderer.bindTexture(glowing_texture);
+		livingEntityRenderer.bindTexture(glowingTexture);
 
 		GlStateManager.enableBlend();
-		// GlStateManager.disableAlpha();
 		GlStateManager.blendFunc(1, 1);
 		GlStateManager.disableLighting();
 		GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());

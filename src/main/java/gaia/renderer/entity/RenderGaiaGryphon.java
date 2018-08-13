@@ -2,7 +2,6 @@ package gaia.renderer.entity;
 
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaGryphon;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -10,13 +9,11 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaGryphon extends RenderLiving<EntityLiving> {
-
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/gryphon.png");
 	private static final float SCALE_AMOUNT = 1.25F;
-	private static RenderManager rend = Minecraft.getMinecraft().getRenderManager();
 
-	public RenderGaiaGryphon(float shadowSize) {
-		super(rend, new ModelGaiaGryphon(), shadowSize);
+	public RenderGaiaGryphon(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaGryphon(), shadowSize);
 	}
 
 	@Override

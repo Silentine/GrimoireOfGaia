@@ -1,7 +1,6 @@
 package gaia.renderer.entity;
 
 import gaia.GaiaReference;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderBiped;
@@ -13,13 +12,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSummonSporeling extends RenderBiped<EntityLiving> {
-
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/biped/summon_sporeling.png");
-	static RenderManager rend = Minecraft.getMinecraft()
-			.getRenderManager();
 
-	public RenderGaiaSummonSporeling(float shadowSize) {
-		super(rend, new ModelBiped(), shadowSize);
+	public RenderGaiaSummonSporeling(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelBiped(), shadowSize);
 	}
 
 	@Override

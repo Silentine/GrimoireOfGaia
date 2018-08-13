@@ -3,34 +3,31 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaCentaur;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCentaur extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/centaur.png");
 
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/centaur.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
+	public RenderGaiaCentaur(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaCentaur(), shadowSize);
+		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaCentaur.rightarm));
+		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaCentaur.leftarm));
+	}
 
-    public RenderGaiaCentaur(float shadowSize) {
-        super(rend, new ModelGaiaCentaur(), shadowSize);
-        this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaCentaur.rightarm));
-        this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaCentaur.leftarm));
-    }
+	@Override
+	public void transformHeldFull3DItemLayer() {
+		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+	}
 
-    public void transformHeldFull3DItemLayer() {
-        GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
-    }
-
-    @Override
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }

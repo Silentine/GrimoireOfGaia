@@ -2,7 +2,6 @@ package gaia.renderer.entity;
 
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaSphinx;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,13 +12,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSphinx extends RenderLiving<EntityLiving> {
-
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/sphinx.png");
-	static RenderManager rend = Minecraft.getMinecraft()
-			.getRenderManager();
 
-	public RenderGaiaSphinx(float shadowSize) {
-		super(rend, new ModelGaiaSphinx(), shadowSize);
+	public RenderGaiaSphinx(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaSphinx(), shadowSize);
 	}
 
 	@Override

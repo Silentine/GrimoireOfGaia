@@ -3,7 +3,6 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaNPCWeresheep;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -13,18 +12,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCWeresheep extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/weresheep.png");
 
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/weresheep.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
+	public RenderGaiaNPCWeresheep(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaNPCWeresheep(), shadowSize);
+		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCWeresheep.rightarm));
+		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCWeresheep.leftarm));
+	}
 
-    public RenderGaiaNPCWeresheep(float shadowSize) {
-        super(rend, new ModelGaiaNPCWeresheep(), shadowSize);
-        this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaNPCWeresheep.rightarm));
-        this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaNPCWeresheep.leftarm));
-    }
-
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }

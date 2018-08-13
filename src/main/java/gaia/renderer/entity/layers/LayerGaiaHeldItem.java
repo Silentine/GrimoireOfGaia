@@ -27,7 +27,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
-
 	private ModelRenderer limb;
 	private EntityEquipmentSlot slot;
 
@@ -41,22 +40,22 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 	 * @param slot                   The item to render, based on the equipmentslot
 	 */
 	public LayerGaiaHeldItem(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb, EntityEquipmentSlot slot) {
-		this.livingEntityRenderer = livingEntityRendererIn;
+		livingEntityRenderer = livingEntityRendererIn;
 		this.limb = limb;
-		this.slot = slot;
+		this.slot = slot == EntityEquipmentSlot.MAINHAND || slot == EntityEquipmentSlot.OFFHAND ? slot : EntityEquipmentSlot.MAINHAND;
 	}
 
 	/**
 	 * Shortcut for rendering items in a left arm, See parent for more options
 	 */
-	public static LayerGaiaHeldItem Left(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb) {
+	public static LayerGaiaHeldItem left(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb) {
 		return new LayerGaiaHeldItem(livingEntityRendererIn, limb, EntityEquipmentSlot.OFFHAND);
 	}
 
 	/**
 	 * Shortcut for rendering items in a Right arm, See parent for more options
 	 */
-	public static LayerGaiaHeldItem Right(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb) {
+	public static LayerGaiaHeldItem right(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb) {
 		return new LayerGaiaHeldItem(livingEntityRendererIn, limb, EntityEquipmentSlot.MAINHAND);
 	}
 
@@ -124,18 +123,15 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {
 			renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-		}
-		if (slot == EntityEquipmentSlot.OFFHAND) {
-			renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
 		} else {
-			renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+			renderHeldItem(living, stack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
 		}
 
 		GlStateManager.popMatrix();
 	}
 
 	private void renderHeldItem(EntityLivingBase living, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 
 			if (living.isSneaking()) {

@@ -10,18 +10,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerAlpha implements LayerRenderer<EntityLiving> {
-
-	private ResourceLocation alpha_texture;
+	private ResourceLocation alphaTexture;
 	private RenderLiving<EntityLiving> livingEntityRenderer;
 
 	public LayerAlpha(RenderLiving<EntityLiving> livingEntityRendererIn, ResourceLocation textureIn) {
-		this.livingEntityRenderer = livingEntityRendererIn;
-		this.alpha_texture = textureIn;
+		livingEntityRenderer = livingEntityRendererIn;
+		alphaTexture = textureIn;
 	}
 
 	@Override
 	public void doRenderLayer(EntityLiving entity, float f1, float f2, float partialTicks, float f4, float f5, float f6, float scale) {
-		livingEntityRenderer.bindTexture(alpha_texture);
+		livingEntityRenderer.bindTexture(alphaTexture);
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.enableNormalize();

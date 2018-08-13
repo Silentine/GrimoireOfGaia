@@ -2,7 +2,6 @@ package gaia.renderer.entity;
 
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaYeti;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,13 +12,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaYeti extends RenderLiving<EntityLiving> {
-
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/yeti.png");
-	static RenderManager rend = Minecraft.getMinecraft()
-			.getRenderManager();
 
-	public RenderGaiaYeti(float shadowSize) {
-		super(rend, new ModelGaiaYeti(), shadowSize);
+	public RenderGaiaYeti(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaYeti(), shadowSize);
 	}
 
 	@Override

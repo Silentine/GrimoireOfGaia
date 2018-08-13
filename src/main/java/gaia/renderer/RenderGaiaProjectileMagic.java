@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -14,20 +15,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaProjectileMagic extends Render<Entity> {
-
 	private final float scale;
 	protected final Item item;
 
-	public RenderGaiaProjectileMagic(Item item) {
-		super(Minecraft.getMinecraft()
-				.getRenderManager());
+	public RenderGaiaProjectileMagic(RenderManager renderManager, Item item) {
+		super(renderManager);
 
 		this.item = item;
 		this.scale = 2.0F;
 	}
 
 	@Override
-	public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
+	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y, (float) z);
 		GlStateManager.enableRescaleNormal();
@@ -43,7 +42,7 @@ public class RenderGaiaProjectileMagic extends Render<Entity> {
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();
 
-		super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	@Override

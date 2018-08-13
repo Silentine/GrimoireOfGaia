@@ -3,7 +3,6 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.model.ModelGaiaCobbleGolem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,13 +12,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
-
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/cobble_golem.png");
-	static RenderManager rend = Minecraft.getMinecraft()
-			.getRenderManager();
 
-	public RenderGaiaCobbleGolem(float shadowSize) {
-		super(rend, new ModelGaiaCobbleGolem(), shadowSize);
+	public RenderGaiaCobbleGolem(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaCobbleGolem(), shadowSize);
 	}
 
 	@Override
@@ -28,8 +24,8 @@ public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
 	}
 
 	@Override
-	protected void applyRotations(EntityGaiaCobbleGolem entityLiving, float p_77043_2_, float p_77043_3_, float partialTicks) {
-		super.applyRotations(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
+	protected void applyRotations(EntityGaiaCobbleGolem entityLiving, float rotationPitch, float rotationYaw, float partialTicks) {
+		super.applyRotations(entityLiving, rotationPitch, rotationYaw, partialTicks);
 
 		if ((double) entityLiving.limbSwingAmount >= 0.01D) {
 			float f = 13.0F;

@@ -3,7 +3,6 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaNPCTrader;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -13,18 +12,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCTrader extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/trader.png");
 
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/trader.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
+	public RenderGaiaNPCTrader(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaNPCTrader(), shadowSize);
+		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCTrader.rightarm));
+		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCTrader.leftarm));
+	}
 
-    public RenderGaiaNPCTrader(float shadowSize) {
-        super(rend, new ModelGaiaNPCTrader(), shadowSize);
-        this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaNPCTrader.rightarm));
-        this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaNPCTrader.leftarm));
-    }
-
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }
