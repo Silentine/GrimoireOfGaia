@@ -1,7 +1,6 @@
 package gaia.renderer.entity;
 
 import gaia.GaiaReference;
-import gaia.model.ModelGaiaSpriggan;
 import gaia.model.ModelGaiaSuccubus;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -17,8 +16,12 @@ public class RenderGaiaSuccubus extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSuccubus(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSuccubus(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSpriggan.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSpriggan.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSuccubus getModel() {
+		return (ModelGaiaSuccubus) getMainModel();
 	}
 
 	@Override

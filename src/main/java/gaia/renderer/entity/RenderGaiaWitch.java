@@ -24,7 +24,11 @@ public class RenderGaiaWitch extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaWitch(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaWitch(), shadowSize);
-		addLayer(LayerGaiaWitchHeldItem.right(this, ModelGaiaWitch.anchor));
+		addLayer(LayerGaiaWitchHeldItem.right(this, getModel().getAnchor()));
+	}
+
+	private ModelGaiaWitch getModel() {
+		return (ModelGaiaWitch) getMainModel();
 	}
 
 	@Override

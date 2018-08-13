@@ -19,8 +19,12 @@ public class RenderGaiaAnt extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaAnt(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaAnt(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaAnt.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaAnt.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightarm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftarm()));
+	}
+
+	private ModelGaiaAnt getModel() {
+		return (ModelGaiaAnt) getMainModel();
 	}
 
 	@Override

@@ -16,8 +16,12 @@ public class RenderGaiaNPCHolstaurus extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNPCHolstaurus(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCHolstaurus(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCHolstaurus.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCHolstaurus.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCHolstaurus getModel() {
+		return (ModelGaiaNPCHolstaurus) getMainModel();
 	}
 
 	@Override

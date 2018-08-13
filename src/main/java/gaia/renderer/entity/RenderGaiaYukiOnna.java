@@ -17,8 +17,12 @@ public class RenderGaiaYukiOnna extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaYukiOnna(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaYukiOnna(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaYukiOnna.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaYukiOnna.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaYukiOnna getModel() {
+		return (ModelGaiaYukiOnna) getMainModel();
 	}
 
 	@Override

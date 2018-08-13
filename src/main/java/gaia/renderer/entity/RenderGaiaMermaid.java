@@ -17,8 +17,12 @@ public class RenderGaiaMermaid extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaMermaid(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMermaid(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaMermaid.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaMermaid.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaMermaid getModel() {
+		return (ModelGaiaMermaid) getMainModel();
 	}
 
 	@Override

@@ -17,8 +17,12 @@ public class RenderGaiaKobold extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaKobold(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaKobold(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaKobold.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaKobold.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaKobold getModel() {
+		return (ModelGaiaKobold) getMainModel();
 	}
 
 	@Override

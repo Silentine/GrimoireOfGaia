@@ -17,8 +17,12 @@ public class RenderGaiaBaphomet extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaBaphomet(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaBaphomet(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaBaphomet.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaBaphomet.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaBaphomet getModel() {
+		return (ModelGaiaBaphomet) getMainModel();
 	}
 
 	@Override

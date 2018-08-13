@@ -17,8 +17,12 @@ public class RenderGaiaHunter extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaHunter(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaHunter(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaHunter.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaHunter.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaHunter getModel() {
+		return (ModelGaiaHunter) getMainModel();
 	}
 
 	@Override

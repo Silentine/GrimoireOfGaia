@@ -19,8 +19,12 @@ public class RenderGaiaNPCSlimeGirl extends RenderLiving<EntityLiving> {
 	public RenderGaiaNPCSlimeGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCSlimeGirl(), shadowSize);
 		addLayer(new LayerAlpha(this, hairSlimeGirl));
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCSlimeGirl.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCSlimeGirl.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCSlimeGirl getModel() {
+		return (ModelGaiaNPCSlimeGirl) getMainModel();
 	}
 
 	@Override

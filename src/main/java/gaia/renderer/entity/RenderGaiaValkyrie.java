@@ -17,8 +17,12 @@ public class RenderGaiaValkyrie extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaValkyrie(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaValkyrie(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaValkyrie.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaValkyrie.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaValkyrie getModel() {
+		return (ModelGaiaValkyrie) getMainModel();
 	}
 
 	@Override

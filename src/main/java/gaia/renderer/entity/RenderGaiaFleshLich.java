@@ -17,7 +17,11 @@ public class RenderGaiaFleshLich extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaFleshLich(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaFleshLich(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaFleshLich.rightarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+	}
+
+	private ModelGaiaFleshLich getModel() {
+		return (ModelGaiaFleshLich) getMainModel();
 	}
 
 	@Override

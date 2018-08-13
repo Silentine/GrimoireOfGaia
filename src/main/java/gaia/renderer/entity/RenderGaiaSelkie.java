@@ -17,8 +17,12 @@ public class RenderGaiaSelkie extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSelkie(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSelkie(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSelkie.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSelkie.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSelkie getModel() {
+		return (ModelGaiaSelkie) getMainModel();
 	}
 
 	@Override

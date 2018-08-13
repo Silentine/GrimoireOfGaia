@@ -17,7 +17,11 @@ public class RenderGaiaShaman extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaShaman(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaShaman(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaShaman.rightarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+	}
+
+	private ModelGaiaShaman getModel() {
+		return (ModelGaiaShaman) getMainModel();
 	}
 
 	@Override

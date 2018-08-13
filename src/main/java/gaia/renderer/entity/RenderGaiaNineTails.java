@@ -17,8 +17,12 @@ public class RenderGaiaNineTails extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNineTails(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNineTails(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNineTails.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNineTails.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNineTails getModel() {
+		return (ModelGaiaNineTails) getMainModel();
 	}
 
 	@Override

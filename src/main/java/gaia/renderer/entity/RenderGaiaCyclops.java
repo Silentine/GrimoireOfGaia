@@ -17,8 +17,12 @@ public class RenderGaiaCyclops extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaCyclops(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCyclops(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaCyclops.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaCyclops.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaCyclops getModel() {
+		return (ModelGaiaCyclops) getMainModel();
 	}
 
 	@Override

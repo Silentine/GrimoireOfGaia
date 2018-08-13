@@ -17,8 +17,12 @@ public class RenderGaiaSiren extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSiren(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSiren(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSiren.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSiren.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSiren getModel() {
+		return (ModelGaiaSiren) getMainModel();
 	}
 
 	@Override

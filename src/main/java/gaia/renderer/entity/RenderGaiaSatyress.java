@@ -17,8 +17,12 @@ public class RenderGaiaSatyress extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSatyress(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSatyress(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSatyress.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSatyress.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSatyress getModel() {
+		return (ModelGaiaSatyress) getMainModel();
 	}
 
 	@Override

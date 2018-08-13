@@ -17,8 +17,12 @@ public class RenderGaiaSharko extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSharko(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSharko(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSharko.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSharko.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSharko getModel() {
+		return (ModelGaiaSharko) getMainModel();
 	}
 
 	@Override

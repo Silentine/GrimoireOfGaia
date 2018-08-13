@@ -16,8 +16,12 @@ public class RenderGaiaNPCWeresheep extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNPCWeresheep(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCWeresheep(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCWeresheep.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCWeresheep.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCWeresheep getModel() {
+		return (ModelGaiaNPCWeresheep) getMainModel();
 	}
 
 	@Override

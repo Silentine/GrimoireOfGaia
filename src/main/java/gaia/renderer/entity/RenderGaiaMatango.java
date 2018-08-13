@@ -16,8 +16,12 @@ public class RenderGaiaMatango extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaMatango(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMatango(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaMatango.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaMatango.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaMatango getModel() {
+		return (ModelGaiaMatango) getMainModel();
 	}
 
 	@Override

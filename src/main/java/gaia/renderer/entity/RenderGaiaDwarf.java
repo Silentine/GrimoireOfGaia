@@ -19,8 +19,12 @@ public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaDwarf(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDwarf(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaDwarf.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaDwarf.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaDwarf getModel() {
+		return (ModelGaiaDwarf) getMainModel();
 	}
 
 	@Override

@@ -17,8 +17,12 @@ public class RenderGaiaCentaur extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaCentaur(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCentaur(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaCentaur.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaCentaur.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaCentaur getModel() {
+		return (ModelGaiaCentaur) getMainModel();
 	}
 
 	@Override

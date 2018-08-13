@@ -17,8 +17,12 @@ public class RenderGaiaSpriggan extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSpriggan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSpriggan(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSpriggan.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSpriggan.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSpriggan getModel() {
+		return (ModelGaiaSpriggan) getMainModel();
 	}
 
 	@Override

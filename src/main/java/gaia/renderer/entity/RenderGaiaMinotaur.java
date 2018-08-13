@@ -19,9 +19,13 @@ public class RenderGaiaMinotaur extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaMinotaur(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMinotaur(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaMinotaur.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaMinotaur.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
 		addLayer(new LayerGlowing(this, minotaurEyesTexture));
+	}
+
+	private ModelGaiaMinotaur getModel() {
+		return (ModelGaiaMinotaur) getMainModel();
 	}
 
 	@Override

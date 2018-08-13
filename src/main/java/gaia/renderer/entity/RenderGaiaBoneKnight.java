@@ -17,8 +17,12 @@ public class RenderGaiaBoneKnight extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaBoneKnight(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaBoneKnight(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaBoneKnight.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaBoneKnight.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaBoneKnight getModel() {
+		return (ModelGaiaBoneKnight) getMainModel();
 	}
 
 	@Override

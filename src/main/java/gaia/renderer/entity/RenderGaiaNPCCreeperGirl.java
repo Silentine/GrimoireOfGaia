@@ -16,8 +16,12 @@ public class RenderGaiaNPCCreeperGirl extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNPCCreeperGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCCreeperGirl(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCCreeperGirl.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCCreeperGirl.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCCreeperGirl getModel() {
+		return (ModelGaiaNPCCreeperGirl) getMainModel();
 	}
 
 	@Override

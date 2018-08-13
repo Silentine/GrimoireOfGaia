@@ -16,8 +16,12 @@ public class RenderGaiaNPCTrader extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNPCTrader(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCTrader(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCTrader.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCTrader.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCTrader getModel() {
+		return (ModelGaiaNPCTrader) getMainModel();
 	}
 
 	@Override

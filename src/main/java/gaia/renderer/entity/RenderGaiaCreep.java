@@ -81,7 +81,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 
 		private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
 		private final RenderGaiaCreep creeperRenderer;
-		private final ModelGaiaCreep creeperModel = new ModelGaiaCreep(2.0F);
+		private final ModelGaiaCreep creeperModel = new ModelGaiaCreep();
 
 		LayerCreepCharge(RenderGaiaCreep creeperRendererIn) {
 			creeperRenderer = creeperRendererIn;

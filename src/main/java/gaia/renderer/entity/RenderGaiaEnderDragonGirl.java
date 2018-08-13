@@ -35,8 +35,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
 	private void renderEnderDragonGirl(EntityGaiaEnderDragonGirl entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		IBlockState iblockstate = entity.getHeldBlockState();
 		ModelGaiaEnderDragonGirl model = getModel();
-		model.isCarrying = iblockstate != null;
-		model.isAttacking = entity.isScreaming();
+		model.setCarrying(iblockstate != null);
 
 		if (entity.isScreaming()) {
 			super.doRender(entity, x + rnd.nextGaussian() * 0.02D, y, z + rnd.nextGaussian() * 0.02D, entityYaw, partialTicks);

@@ -17,7 +17,11 @@ public class RenderGaiaDullahan extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaDullahan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDullahan(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaDullahan.rightarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+	}
+
+	private ModelGaiaDullahan getModel() {
+		return (ModelGaiaDullahan) getMainModel();
 	}
 
 	@Override

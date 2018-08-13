@@ -18,9 +18,13 @@ public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
     public RenderGaiaAnubis(RenderManager renderManager, float shadowSize) {
         super(renderManager, new ModelGaiaAnubis(), shadowSize);
 
-        addLayer(LayerGaiaHeldItem.right(this, ModelGaiaAnubis.rightarm));
-        addLayer(LayerGaiaHeldItem.left(this, ModelGaiaAnubis.leftarm));
-    }
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaAnubis getModel() {
+		return (ModelGaiaAnubis) getMainModel();
+	}
 
     @Override
     public void transformHeldFull3DItemLayer() {

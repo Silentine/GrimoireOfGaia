@@ -19,7 +19,11 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaDryad(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDryad(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaDryad.rightarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+	}
+
+	private ModelGaiaDryad getModel() {
+		return (ModelGaiaDryad) getMainModel();
 	}
 
 	@Override

@@ -19,9 +19,13 @@ public class RenderGaiaArachne extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaArachne(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaArachne(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaArachne.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaArachne.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
 		addLayer(new LayerGlowing(this, ArachneEyesTexture));
+	}
+
+	private ModelGaiaArachne getModel() {
+		return (ModelGaiaArachne) getMainModel();
 	}
 
 	@Override

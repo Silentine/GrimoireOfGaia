@@ -19,8 +19,12 @@ public class RenderGaiaDhampir extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaDhampir(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDhampir(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaDhampir.rightarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(new LayerGlowing(this, dhampirEyesTexture));
+	}
+
+	private ModelGaiaDhampir getModel() {
+		return (ModelGaiaDhampir) getMainModel();
 	}
 
 	@Override

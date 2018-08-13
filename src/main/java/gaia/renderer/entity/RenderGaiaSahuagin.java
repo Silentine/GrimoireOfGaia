@@ -17,8 +17,12 @@ public class RenderGaiaSahuagin extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaSahuagin(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSahuagin(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaSahuagin.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaSahuagin.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaSahuagin getModel() {
+		return (ModelGaiaSahuagin) getMainModel();
 	}
 
 	@Override

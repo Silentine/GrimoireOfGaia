@@ -19,8 +19,12 @@ public class RenderGaiaNPCEnderGirl extends RenderLiving<EntityLiving> {
 	public RenderGaiaNPCEnderGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCEnderGirl(), shadowSize);
 		addLayer(new LayerGlowing(this, endergirlEyesTexture));
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNPCEnderGirl.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNPCEnderGirl.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNPCEnderGirl getModel() {
+		return (ModelGaiaNPCEnderGirl) getMainModel();
 	}
 
 	@Override

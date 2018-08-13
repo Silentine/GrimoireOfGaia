@@ -17,8 +17,12 @@ public class RenderGaiaNaga extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaNaga(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNaga(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaNaga.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaNaga.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaNaga getModel() {
+		return (ModelGaiaNaga) getMainModel();
 	}
 
 	@Override

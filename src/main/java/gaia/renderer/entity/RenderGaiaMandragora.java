@@ -17,8 +17,12 @@ public class RenderGaiaMandragora extends RenderLiving<EntityLiving> {
 
 	public RenderGaiaMandragora(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMandragora(), shadowSize);
-		addLayer(LayerGaiaHeldItem.right(this, ModelGaiaMandragora.rightarm));
-		addLayer(LayerGaiaHeldItem.left(this, ModelGaiaMandragora.leftarm));
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+	}
+
+	private ModelGaiaMandragora getModel() {
+		return (ModelGaiaMandragora) getMainModel();
 	}
 
 	@Override
