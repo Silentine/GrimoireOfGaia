@@ -257,17 +257,17 @@ configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Tier 3 Damage
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nDamage: 8 (4 Hearts).\n(50 = half, 200 = double)
 
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Enable Spawns
-configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=(REQUIRES RESTART)\nEnable Gaia mobs to spawn.
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=Enable Gaia mobs to spawn.
 configgui.grimoireofgaia.category.options.Menu1.AdditionalOre=Additional Nuggets
 configgui.grimoireofgaia.category.options.Menu1.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
 configgui.grimoireofgaia.category.options.Menu2.StrafingArchers=Strafing Archers
 configgui.grimoireofgaia.category.options.Menu2.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
 
 configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=Biome Tweaks
-configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=(REQUIRES RESTART)\nTweaks the default dictionary for some "M" biomes.\n(Disable if you encounter issues)
+configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=Tweaks the default dictionary for some "M" biomes.\n(Disable if you encounter issues)
 configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=Unify Shard Drops
 configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nMobs can drop nuggets/shards from other mods.\n(Disable if you encounter issues)
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
-configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=(REQUIRES RESTART)\nDisables all non-Gaia mobs from spawning.
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
-configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=(REQUIRES RESTART)\nEnables developer commands.
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
