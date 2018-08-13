@@ -1,8 +1,8 @@
 package gaia.items;
 
-import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -16,23 +16,31 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Function;
 
-public class ItemSpawnEnderGirl extends ItemBase {
-	public ItemSpawnEnderGirl() {
-		super("spawn_ender_girl");
-		maxStackSize = 16;
+public class ItemSpawnNPC extends ItemBase {
+	private final String name;
+	private final EnumRarity rarity;
+	private final Function<World, Entity> createNPC;
+
+	public ItemSpawnNPC(String name, EnumRarity rarity, Function<World, Entity> createNPC) {
+		super(name);
+		this.name = name;
+		this.rarity = rarity;
+		this.createNPC = createNPC;
+		setMaxStackSize(16);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
+		return rarity;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("item.grimoireofgaia.spawn_ender_girl.desc"));
+		tooltip.add(I18n.format("item.grimoireofgaia." + name + ".desc"));
 	}
 
 	@Override
@@ -49,8 +57,8 @@ public class ItemSpawnEnderGirl extends ItemBase {
 			}
 
 			if (worldIn.isAirBlock(offsetPos) && !worldIn.isRemote) {
-				EntityGaiaNPCEnderGirl spawnEntity = new EntityGaiaNPCEnderGirl(worldIn);
-				spawnEntity.setLocationAndAngles(player.posX + 0.5, player.posY, player.posZ + 0.5, 0, 0);
+				Entity spawnEntity = createNPC.apply(worldIn);
+				spawnEntity.setLocationAndAngles(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5, 0, 0);
 				worldIn.spawnEntity(spawnEntity);
 			}
 
