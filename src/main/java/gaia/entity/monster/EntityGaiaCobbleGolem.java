@@ -91,7 +91,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	public boolean attackEntityAsMob(Entity entityIn) {
 		attackTimer = 10;
 		world.setEntityState(this, (byte) 4);
-		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 7 + rand.nextInt(15));
+		boolean var2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) 7 + rand.nextInt(15));
 		if (var2) {
 			entityIn.motionY += 0.2D;
 		}
