@@ -48,7 +48,7 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 		return false;
 	}
 
-	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SpawnGuard);
+	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);
 
 	/**
 	 * The actual check It inputs the radius and feeds it to the sphere shape

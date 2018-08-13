@@ -26,8 +26,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CommonProxy {
-
 	public void registerRenders() {
+		//noop
 	}
 
 	@SuppressWarnings("squid:S1186") //overriden in client proxy
@@ -39,7 +39,7 @@ public class CommonProxy {
 	}
 
 	@SubscribeEvent
-	public void Gaia_Spawn_Debug(CheckSpawn event) {
+	public void debugGaiaSpawn(CheckSpawn event) {
 		if (GaiaConfig.DEBUG.debugSpawn) {
 			if (event.getEntity() instanceof EntityMobPassiveBase || event.getEntity() instanceof EntityMobHostileBase) {
 				EntityLiving living = (EntityLiving) event.getEntity();
@@ -54,18 +54,14 @@ public class CommonProxy {
 		}
 	}
 
-	/**
-	 * Source
-	 * <li>http://jabelarminecraft.blogspot.com/p/minecraft-forge-172-event-handling.html
-	 */
 	@SubscribeEvent
-	public void Gaia_Weapon_Books(AttackEntityEvent event) {
+	public void onAttackWithWeaponBooks(AttackEntityEvent event) {
 		if (event.getTarget() == null || event.getEntityPlayer() == null) {
 			return;
 		}
 		EntityPlayer player = event.getEntityPlayer();
 		Entity mob = event.getTarget();
-		if (player.getHeldItemOffhand() == null) {
+		if (player.getHeldItemOffhand().isEmpty()) {
 			return;
 		}
 		ItemStack offHand = player.getHeldItemOffhand();
@@ -121,7 +117,7 @@ public class CommonProxy {
 	/**
 	 * Method used for handling book damage while in off-hand slot
 	 */
-	public void damageBook(EntityPlayer player, ItemStack stack) {
+	private void damageBook(EntityPlayer player, ItemStack stack) {
 		// Creative check
 		if (player.capabilities.isCreativeMode) {
 			return;
@@ -131,7 +127,11 @@ public class CommonProxy {
 		// Manually send an update to destroy the item
 		// otherwise client doesn't sync correctly here
 		if (stack.getItemDamage() <= 0) {
-			player.inventory.setInventorySlotContents(40, null);
+			player.inventory.setInventorySlotContents(40, ItemStack.EMPTY);
 		}
+	}
+
+	public void registerTileRenders() {
+		//noop
 	}
 }

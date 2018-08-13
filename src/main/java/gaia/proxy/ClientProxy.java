@@ -163,7 +163,6 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void registerRenders() {
 		float tiny = 0.25F;
 		float small = 0.4F;
@@ -236,7 +235,10 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, renderManager -> new RenderGaiaYukiOnna(renderManager, small));
 		// Projectile
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectileMagic(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE));
-		// Block
+	}
+
+	@Override
+	public void registerTileRenders() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
 	}
 }

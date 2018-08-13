@@ -2,6 +2,7 @@ package gaia;
 
 import gaia.command.CommandBiome;
 import gaia.command.CommandSpawn;
+import gaia.datafixes.BlockIdFixer;
 import gaia.datafixes.BustTileIdFixer;
 import gaia.datafixes.EntityIdFixer;
 import gaia.datafixes.ItemIdFixer;
@@ -36,7 +37,7 @@ public class Gaia {
 	@SidedProxy(clientSide = GaiaReference.CLIENT_PROXY_CLASS, serverSide = GaiaReference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-	private static final int DATA_FIXER_VERSION = 2;
+	private static final int DATA_FIXER_VERSION = 3;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -55,10 +56,13 @@ public class Gaia {
 			GaiaSpawning.biomeTweaks();
 		}
 
+		proxy.registerTileRenders();
+
 		ModFixs fixes = FMLCommonHandler.instance().getDataFixer().init(MOD_ID, DATA_FIXER_VERSION);
 		fixes.registerFix(FixTypes.BLOCK_ENTITY, new BustTileIdFixer());
 		fixes.registerFix(FixTypes.ITEM_INSTANCE, new ItemIdFixer());
 		fixes.registerFix(FixTypes.ENTITY, new EntityIdFixer());
+		fixes.registerFix(FixTypes.ITEM_INSTANCE, new BlockIdFixer());
 	}
 
 	@EventHandler

@@ -97,13 +97,14 @@ item.grimoireofgaia.card_2.name=Attack Card
 
 item.grimoireofgaia.spawnegg.name=Spawn
 
-tile.grimoireofgaia.bustValkyrie.name=The Valkyrie
-tile.grimoireofgaia.bustVampire.name=The Vampire
-tile.grimoireofgaia.bustSphinx.name=The Sphinx
-tile.grimoireofgaia.dollCreeperGirl.name=Creeper Girl Doll
-tile.grimoireofgaia.dollEnderGirl.name=Ender Girl Doll
-tile.grimoireofgaia.dollSlimeGirl.name=Slime Girl Doll
-tile.grimoireofgaia.dollMaid.name=Maid Doll
+tile.grimoireofgaia.bust_valkyrie.name=The Valkyrie
+tile.grimoireofgaia.bust_vampire.name=The Vampire
+tile.grimoireofgaia.bust_sphinx.name=The Sphinx
+tile.grimoireofgaia.doll_creeper_girl.name=Creeper Girl Doll
+tile.grimoireofgaia.doll_ender_girl.name=Ender Girl Doll
+tile.grimoireofgaia.doll_slime_girl.name=Slime Girl Doll
+tile.grimoireofgaia.doll_maid.name=Maid Doll
+tile.grimoireofgaia.spawn_guard.name=Protection Talisman
 
 entity.grimoireofgaia.ant.name=Ant Worker
 entity.grimoireofgaia.anubis.name=Anubis
@@ -208,7 +209,7 @@ item.grimoireofgaia.spawn_tame2.desc=Does not affect damaged mobs
 item.grimoireofgaia.WeaponBookEnder.desc=Right-click to launch a Ender Pearl
 item.grimoireofgaia.weapon_debug.desc=Used for testing
 
-block.grimoireofgaia.SpawnGuard.desc=Prevents day mobs from spawning within %d blocks
+block.grimoireofgaia.spawn_guard.desc=Prevents day mobs from spawning within %d blocks
 
 configgui.grimoireofgaia.category.general=Spawn Rates
 configgui.grimoireofgaia.category.general.tooltip=(REQUIRES RESTART)\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)
