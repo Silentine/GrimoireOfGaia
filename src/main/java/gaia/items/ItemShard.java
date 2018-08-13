@@ -71,13 +71,13 @@ public class ItemShard extends ItemBase {
 		List<ItemStack> oreEquivalents = OreDictionary.getOres(s);
 		int size = oreEquivalents.size();
 
-		if (oreEquivalents.get(0) != null) {
+		if (!oreEquivalents.get(0).isEmpty()) {
 			ItemStack unity = oreEquivalents.get(0);
 			Item item = unity.getItem();
 			int meta = unity.getItemDamage();
 
 			// if it grabbed a gaia ore try the next in the list
-			if (item == GaiaItems.SHARD && size > 1 && oreEquivalents.get(1) != null) {
+			if (item == GaiaItems.SHARD && size > 1 && !oreEquivalents.get(1).isEmpty()) {
 				unity = oreEquivalents.get(1);
 				item = unity.getItem();
 				meta = unity.getItemDamage();

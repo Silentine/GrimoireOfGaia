@@ -52,11 +52,9 @@ public abstract class EntityMobHostileBase extends EntityMob {
 			if (GaiaConfig.DAMAGE.baseDamage) {
 				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
 					EntityPlayer player = (EntityPlayer) entity;
-					ItemStack itemstack = player.isHandActive()
-							? player.getActiveItemStack()
-							: null;
+					ItemStack itemstack = player.getActiveItemStack();
 
-					if (itemstack != null && itemstack.getItem() == Items.SHIELD) {
+					if (itemstack.getItem() == Items.SHIELD) {
 						return true;
 					}
 				}
