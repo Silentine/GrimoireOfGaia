@@ -15,7 +15,6 @@ import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -31,10 +30,8 @@ public class Gaia {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-	@Instance(MOD_ID)
-	public static Gaia instance = new Gaia();
-
 	@SidedProxy(clientSide = GaiaReference.CLIENT_PROXY_CLASS, serverSide = GaiaReference.SERVER_PROXY_CLASS)
+	@SuppressWarnings("squid:S1444")
 	public static CommonProxy proxy;
 
 	private static final int DATA_FIXER_VERSION = 3;

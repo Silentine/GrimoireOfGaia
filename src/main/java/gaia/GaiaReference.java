@@ -1,14 +1,14 @@
 package gaia;
 
 public class GaiaReference {
+	private GaiaReference() {}
 
-    public static final String MOD_ID = "grimoireofgaia";
-    public static final String MOD_NAME = "Grimoire of Gaia 3";
-    public static final String MOD_PREFIX = MOD_ID + ":";
-    public static final String VERSION = "@VERSION@";
+	public static final String MOD_ID = "grimoireofgaia";
+	static final String MOD_NAME = "Grimoire of Gaia 3";
+	static final String VERSION = "@VERSION@";
 
-    public static final String CLIENT_PROXY_CLASS = "gaia.proxy.ClientProxy";
-    public static final String SERVER_PROXY_CLASS = "gaia.proxy.CommonProxy";
+	static final String CLIENT_PROXY_CLASS = "gaia.proxy.ClientProxy";
+	static final String SERVER_PROXY_CLASS = "gaia.proxy.CommonProxy";
 
-    public static final String DEPENDENCIES = "required-after:baubles@[1.4.2,]";
+	static final String DEPENDENCIES = "required-after:baubles@[1.4.2,]";
 }

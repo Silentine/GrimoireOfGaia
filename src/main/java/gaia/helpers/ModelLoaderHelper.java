@@ -1,7 +1,5 @@
 package gaia.helpers;
 
-import gaia.items.ItemBox;
-import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -44,13 +42,13 @@ public class ModelLoaderHelper {
 	}
 
 	public static void registerItem(Item item, String... variants) {
-		for (int meta=0; meta < variants.length; meta++) {
+		for (int meta = 0; meta < variants.length; meta++) {
 			registerItem(item, meta, variants[meta]);
 		}
 	}
 
 	public static void registerItem(Item item, ModelResourceLocation... modelLocations) {
-		for (int meta=0; meta < modelLocations.length; meta++) {
+		for (int meta = 0; meta < modelLocations.length; meta++) {
 			ModelLoader.setCustomModelResourceLocation(item, meta, modelLocations[meta]);
 		}
 	}

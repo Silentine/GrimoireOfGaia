@@ -4,12 +4,10 @@ import gaia.CreativeTabGaia;
 import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.helpers.ModelLoaderHelper;
-import gaia.proxy.ClientProxy;
 import gaia.proxy.IClientRegister;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

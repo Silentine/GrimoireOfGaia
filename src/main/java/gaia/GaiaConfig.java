@@ -16,6 +16,7 @@ public class GaiaConfig {
 	private static class EventHandler {
 
 		private EventHandler() {}
+
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
 			if (event.getModID().equals(GaiaReference.MOD_ID)) {

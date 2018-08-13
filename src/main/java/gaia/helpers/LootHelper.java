@@ -12,7 +12,6 @@ import net.minecraft.world.storage.loot.LootTable;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Function;
 
 public class LootHelper {
 	private LootHelper() {}
@@ -38,7 +37,8 @@ public class LootHelper {
 		dropRandomLootAtEntityPos(world, player, player, true, lootTableName, rolls);
 	}
 
-	public static void dropRandomLootAtEntityPos(World world, @Nullable EntityPlayer player, Entity entity, boolean entityWasRecentlyHit, ResourceLocation lootTableName,
+	public static void dropRandomLootAtEntityPos(World world,
+			@Nullable EntityPlayer player, Entity entity, boolean entityWasRecentlyHit, ResourceLocation lootTableName,
 			int rolls) {
 		List<ItemStack> loot = getLoot(world, player, entityWasRecentlyHit, lootTableName);
 		for (int i = 0; i < rolls; i++) {

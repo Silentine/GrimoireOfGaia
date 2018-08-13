@@ -4,8 +4,8 @@ import net.minecraft.entity.IRangedAttackMob;
 
 public interface GaiaIRangedAttackMob extends IRangedAttackMob {
 
-    /**
-     * Better interface for bow animations
-     */
-    void setHoldingBow(boolean holdingBow);
+	/**
+	 * Better interface for bow animations
+	 */
+	void setHoldingBow(boolean holdingBow);
 }

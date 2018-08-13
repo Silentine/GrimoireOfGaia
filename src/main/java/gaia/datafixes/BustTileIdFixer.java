@@ -18,7 +18,6 @@ public class BustTileIdFixer implements IFixableData {
 			"grimoireofgaia:dollMaid"
 	);
 
-
 	@Override
 	public int getFixVersion() {
 		return 1;

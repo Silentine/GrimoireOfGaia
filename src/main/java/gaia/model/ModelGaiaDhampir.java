@@ -28,7 +28,7 @@ public class ModelGaiaDhampir extends ModelGaia {
 	private ModelRenderer cape2;
 	private ModelRenderer waist;
 
-    public ModelGaiaDhampir() {
+	public ModelGaiaDhampir() {
 		textureWidth = 128;
 		textureHeight = 64;
 

@@ -8,7 +8,7 @@ public class CreativeTabGaia extends CreativeTabs {
 
 	public static final CreativeTabGaia INSTANCE = new CreativeTabGaia();
 
-	public CreativeTabGaia() {
+	private CreativeTabGaia() {
 		super(GaiaReference.MOD_ID);
 	}
 

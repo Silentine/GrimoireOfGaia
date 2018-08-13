@@ -34,8 +34,8 @@ public class ModelGaiaHarpy extends ModelGaia {
 	private static final float Y_OFFSET_HEAD = 15.0F;
 	private static final float Y_OFFSET_BODY = 23.5F;
 
-    //x and y coordinate of hairahoge must be manually adjusted by a 0.5 difference
-    public ModelGaiaHarpy() {
+	//x and y coordinate of hairahoge must be manually adjusted by a 0.5 difference
+	public ModelGaiaHarpy() {
 		textureWidth = 128;
 		textureHeight = 64;
 
@@ -334,12 +334,12 @@ public class ModelGaiaHarpy extends ModelGaia {
 		f7 = MathHelper.sin(f6 * (float) Math.PI);
 		float f8 = MathHelper.sin(swingProgress * (float) Math.PI) * -(head.rotateAngleX - 0.7F) * 0.75F;
 
-        // right arm
+		// right arm
 		rightarm.rotateAngleX -= (float) ((double) rightarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		rightarm.rotateAngleY += (bodytop.rotateAngleY * 2.0F);
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 
-        // left arm
+		// left arm
 		leftarm.rotateAngleX -= (float) ((double) leftarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		leftarm.rotateAngleY += (bodytop.rotateAngleY * 2.0F);
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);

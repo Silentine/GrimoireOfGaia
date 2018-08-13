@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 
 import java.util.Map;
 
-public class EntityIdFixer  implements IFixableData {
+public class EntityIdFixer implements IFixableData {
 	private final Map<String, String> mapping = new ImmutableMap.Builder<String, String>()
 			.put("grimoireofgaia:boneknight", "grimoireofgaia:bone_knight")
 			.put("grimoireofgaia:cobblegolem", "grimoireofgaia:cobble_golem")

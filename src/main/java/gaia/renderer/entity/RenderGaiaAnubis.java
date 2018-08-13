@@ -13,10 +13,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/anubis.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/anubis.png");
 
-    public RenderGaiaAnubis(RenderManager renderManager, float shadowSize) {
-        super(renderManager, new ModelGaiaAnubis(), shadowSize);
+	public RenderGaiaAnubis(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaAnubis(), shadowSize);
 
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
@@ -26,13 +26,13 @@ public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
 		return (ModelGaiaAnubis) getMainModel();
 	}
 
-    @Override
-    public void transformHeldFull3DItemLayer() {
-        GlStateManager.translate(0.0F, 0.1875F, 0.0F);
-    }
+	@Override
+	public void transformHeldFull3DItemLayer() {
+		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+	}
 
-    @Override
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }
