@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
@@ -38,7 +37,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 		f1 *= f1;
 		float f3 = (1.0F + f1 * 0.4F) * f2;
 		float f4 = (1.0F + f1 * 0.1F) / f2;
-		GL11.glScalef(f3, f4, f3);
+		GlStateManager.scale(f3, f4, f3);
 	}
 
 	private int updateCreepColorMultiplier(EntityGaiaCreep entity, float par3) {
