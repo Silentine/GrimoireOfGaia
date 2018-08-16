@@ -4,15 +4,14 @@ import baubles.api.BaubleType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.Range;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -22,18 +21,6 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 	public ItemAccessoryTrinketLevitation() {
 		super("accessory_trinket_levitation");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
 	}
 
 	@Override
@@ -57,6 +44,11 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 	}
 
 	@Override
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(8, 8);
+	}
+
+	@Override
 	public void doEffect(EntityLivingBase player, ItemStack item) {
 		if (player.getActivePotionEffect(MobEffects.LEVITATION) != null) {
 			player.removePotionEffect(MobEffects.LEVITATION);
@@ -66,14 +58,6 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.SLOWNESS);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, Integer.MAX_VALUE, 1, true, true));
-	}
-
-	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.SLOWNESS);
-		if (effect != null && player instanceof EntityPlayer && effect.getAmplifier() == 1) {
-			player.removePotionEffect(MobEffects.SLOWNESS);
-		}
+		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, true));
 	}
 }

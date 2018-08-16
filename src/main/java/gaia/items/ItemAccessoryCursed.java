@@ -4,14 +4,13 @@ import baubles.api.BaubleType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.Range;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -20,18 +19,6 @@ public class ItemAccessoryCursed extends ItemAccessoryBauble {
 	public ItemAccessoryCursed() {
 		super("accessory_cursed");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
 	}
 
 	@Override
@@ -47,16 +34,8 @@ public class ItemAccessoryCursed extends ItemAccessoryBauble {
 	}
 
 	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.SLOWNESS);
-		if (effect != null && player instanceof EntityPlayer && effect.getAmplifier() == 1) {
-			player.removePotionEffect(MobEffects.SLOWNESS);
-		}
-
-		effect = player.getActivePotionEffect(MobEffects.MINING_FATIGUE);
-		if (effect != null && player instanceof EntityPlayer && effect.getAmplifier() == 1) {
-			player.removePotionEffect(MobEffects.MINING_FATIGUE);
-		}
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(0, 34);
 	}
 
 	@Override
@@ -69,7 +48,7 @@ public class ItemAccessoryCursed extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.MINING_FATIGUE);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, Integer.MAX_VALUE, 1, true, true));
-		player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, Integer.MAX_VALUE, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 20 * 10, 1, true, true));
 	}
 }

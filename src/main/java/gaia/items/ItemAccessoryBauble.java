@@ -2,8 +2,8 @@ package gaia.items;
 
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
-import gaia.helpers.ItemNBTHelper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -13,15 +13,22 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import org.apache.commons.lang3.Range;
 
+@Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
-	private static final String TAG_HASHCODE = "playerHashcode";
-
 	ItemAccessoryBauble(String name) {
 		super(name);
+		setMaxStackSize(1);
+	}
+
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		return true;
 	}
 
 	@Override
@@ -71,13 +78,27 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+		if (!(entityIn instanceof EntityPlayer))
+			return;
+
+		EntityPlayer player = (EntityPlayer) entityIn;
+		Range<Integer> range = getActiveSlotRange();
+		for (int i = range.getMinimum(); i <= range.getMaximum(); ++i) {
+			if (player.inventory.getStackInSlot(i) == stack) {
+				doEffect(player, stack);
+				break;
+			}
+		}
+	}
+
+	protected abstract Range<Integer> getActiveSlotRange();
+
 	// ==================== Bauble ===================//
 	@Override
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-		if (getLastPlayerHashcode(itemstack) != player.hashCode()) {
-			setLastPlayerHashcode(itemstack, player.hashCode());
-		}
-
 		if (player instanceof EntityPlayer && !player.world.isRemote) {
 			doEffect(player, itemstack);
 		}
@@ -85,7 +106,6 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 
 	@Override
 	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-		setLastPlayerHashcode(itemstack, player.hashCode());
 	}
 
 	@Override
@@ -103,14 +123,5 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 	}
 	// =======================================//
 
-	public void doEffect(EntityLivingBase player, ItemStack item) {
-	}
-
-	private static int getLastPlayerHashcode(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
-	}
-
-	private static void setLastPlayerHashcode(ItemStack stack, int hash) {
-		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
-	}
+	public abstract void doEffect(EntityLivingBase player, ItemStack item);
 }

@@ -8,8 +8,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemAccessoryRing extends ItemBase {
-	public ItemAccessoryRing() {
+public class ItemMiscRing extends ItemBase {
+	public ItemMiscRing() {
 		super("misc_ring");
 		setHasSubtypes(true);
 	}

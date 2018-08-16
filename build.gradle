@@ -43,11 +43,11 @@ minecraft {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven { url "http://maven.thiakil.com" }
 }
 
 dependencies {
-    deobfCompile "com.github.Azanor:Baubles:${baubles_version}"
+    deobfCompile "com.azanor.baubles:Baubles:${baubles_version}"
 }
 
 processResources

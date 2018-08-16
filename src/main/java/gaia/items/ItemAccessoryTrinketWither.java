@@ -5,12 +5,12 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.Range;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -20,18 +20,6 @@ public class ItemAccessoryTrinketWither extends ItemAccessoryBauble {
 	public ItemAccessoryTrinketWither() {
 		super("accessory_trinket_wither");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
 	}
 
 	@Override
@@ -52,6 +40,11 @@ public class ItemAccessoryTrinketWither extends ItemAccessoryBauble {
 		} else {
 			tooltip.add(TextFormatting.ITALIC + (I18n.format("text.grimoireofgaia.HoldShift")));
 		}
+	}
+
+	@Override
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(8, 8);
 	}
 
 	@Override

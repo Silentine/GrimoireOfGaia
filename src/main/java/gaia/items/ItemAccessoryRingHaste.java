@@ -4,15 +4,14 @@ import baubles.api.BaubleType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.Range;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -25,15 +24,8 @@ public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(0, 1);
 	}
 
 	@Override
@@ -61,14 +53,6 @@ public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.HASTE);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, Integer.MAX_VALUE, 1, true, true));
-	}
-
-	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
-		if (effect != null && player instanceof EntityPlayer && effect.getAmplifier() == 1) {
-			player.removePotionEffect(MobEffects.HASTE);
-		}
+		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 20 * 10, 1, true, true));
 	}
 }
