@@ -32,7 +32,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
@@ -64,8 +63,6 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-
-		setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
 
 		mobClass = 0;
 
@@ -347,4 +344,8 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
 
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
 }

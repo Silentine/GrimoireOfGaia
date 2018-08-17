@@ -29,7 +29,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -64,8 +63,6 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-
-		setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
 
 		switchHealth = 0;
 		spawn = 0;
@@ -251,6 +248,11 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		} else {
 			super.handleStatusUpdate(id);
 		}
+	}
+
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
 	}
 
 	@SideOnly(Side.CLIENT)

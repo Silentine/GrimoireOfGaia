@@ -28,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
@@ -66,8 +65,11 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
+	}
 
-		setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
 	}
 
 	@Override
