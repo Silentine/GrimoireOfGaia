@@ -26,5 +26,12 @@
             "type": "forge:ore_dict",
             "ore": "nuggetEmerald"
         }
+    },
+    {
+        "name": "PAPER",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "paper"
+        }
     }
 ]
