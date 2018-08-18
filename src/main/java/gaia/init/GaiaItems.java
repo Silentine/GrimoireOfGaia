@@ -140,6 +140,13 @@ public class GaiaItems {
 	public static final Item WEAPON_BOOK = Items.AIR;
 	public static final Item WEAPON_BOOK_METAL = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
+	public static final Item FOOD_PIE_MANDRAKE = Items.AIR;
+	public static final Item FOOD_PIE_MEAT = Items.AIR;
+	public static final Item FOOD_PIE_APPLE_GOLD = Items.AIR;
+	public static final Item ACCESSORY_RING_SPEED = Items.AIR;
+	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
+	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
+	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
 
 	private GaiaItems() {}
 

@@ -2,6 +2,8 @@ package gaia;
 
 import gaia.command.CommandBiome;
 import gaia.command.CommandSpawn;
+import gaia.compat.thaumcraft.AspectsEntities;
+import gaia.compat.thaumcraft.AspectsItems;
 import gaia.datafixes.BlockIdFixer;
 import gaia.datafixes.BustTileIdFixer;
 import gaia.datafixes.EntityIdFixer;
@@ -13,6 +15,7 @@ import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -41,6 +44,11 @@ public class Gaia {
 		proxy.registerHandlers();
 
 		proxy.registerRenders();
+
+		if (Loader.isModLoaded("thaumcraft")) {
+			MinecraftForge.EVENT_BUS.register(AspectsItems.class);
+			MinecraftForge.EVENT_BUS.register(AspectsEntities.class);
+		}
 	}
 
 	@EventHandler

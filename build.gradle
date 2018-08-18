@@ -43,11 +43,15 @@ minecraft {
 }
 
 repositories {
-    maven { url "http://maven.thiakil.com" }
+    maven {
+        name 'Curseforge Maven' // Baubles + Thaumcraft
+        url 'http://minecraft.curseforge.com/api/maven/'
+    }
 }
 
 dependencies {
-    deobfCompile "com.azanor.baubles:Baubles:${baubles_version}"
+    deobfCompile "baubles:Baubles:${baubles_mc_version}:${baubles_version}"
+    deobfCompile "thaumcraft:Thaumcraft:${mc_version}:${thaumcraft_version}"
 }
 
 processResources
