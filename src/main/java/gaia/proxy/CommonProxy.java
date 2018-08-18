@@ -134,4 +134,8 @@ public class CommonProxy {
 	public void registerTileRenders() {
 		//noop
 	}
+
+	public void registerLayerRenders() {
+		//noop
+	}
 }

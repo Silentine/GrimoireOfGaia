@@ -123,18 +123,23 @@ import gaia.renderer.entity.RenderGaiaWitch;
 import gaia.renderer.entity.RenderGaiaWitherCow;
 import gaia.renderer.entity.RenderGaiaYeti;
 import gaia.renderer.entity.RenderGaiaYukiOnna;
+import gaia.renderer.entity.layers.LayerSkull;
 import gaia.renderer.particle.ParticleHandler;
 import gaia.renderer.tileentity.TileRenderBust;
 import gaia.tileentity.TileEntityBust;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @SideOnly(Side.CLIENT)
@@ -240,5 +245,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerTileRenders() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
+	}
+
+	@Override
+	public void registerLayerRenders() {
+		if (Loader.isModLoaded("baubles")) {
+			Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
+			RenderPlayer render = skinMap.get("default");
+			render.addLayer(new LayerSkull(render.getMainModel().bipedHead));
+		}
 	}
 }

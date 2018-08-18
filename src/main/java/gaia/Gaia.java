@@ -62,6 +62,7 @@ public class Gaia {
 		}
 
 		proxy.registerTileRenders();
+		proxy.registerLayerRenders();
 
 		ModFixs fixes = FMLCommonHandler.instance().getDataFixer().init(MOD_ID, DATA_FIXER_VERSION);
 		fixes.registerFix(FixTypes.BLOCK_ENTITY, new BustTileIdFixer());
