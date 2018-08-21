@@ -1,5 +1,9 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import net.minecraft.client.resources.I18n;
@@ -12,10 +16,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class ItemFoodMandrake extends ItemFood {
 

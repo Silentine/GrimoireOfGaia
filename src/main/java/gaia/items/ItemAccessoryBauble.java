@@ -1,5 +1,7 @@
 package gaia.items;
 
+import javax.annotation.Nonnull;
+
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import gaia.helpers.ItemNBTHelper;
@@ -14,11 +16,15 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-import javax.annotation.Nonnull;
+@InterfaceList({
+	@Interface(iface="baubles.api.IBauble", modid="Baubles", striprefs=true),
+	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
 public abstract class ItemAccessoryBauble extends Item implements IBauble {
 

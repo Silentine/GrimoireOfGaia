@@ -1,6 +1,9 @@
 package gaia.items;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.Multimap;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.init.GaiaItems;
@@ -21,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 /**
  * @see ItemSword

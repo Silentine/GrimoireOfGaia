@@ -1,15 +1,16 @@
 package gaia.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.common.collect.Sets;
+
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * This is a direct copy of EntityMobDay

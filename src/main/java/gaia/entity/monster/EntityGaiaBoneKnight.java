@@ -1,6 +1,7 @@
 package gaia.entity.monster;
 
 import com.jcraft.jorbis.Block;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;

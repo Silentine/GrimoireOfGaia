@@ -1,5 +1,9 @@
 package gaia.command;
 
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import gaia.Gaia;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -13,10 +17,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
-
-import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 public class CommandBiome extends CommandBase {
 

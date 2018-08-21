@@ -1,8 +1,17 @@
 package gaia.entity.monster;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -45,14 +54,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
 
 /**
  * @see EntityEnderman
@@ -500,12 +501,12 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
             } else {
                 if (this.targetEntity != null) {
                     if (this.enderman.shouldAttackPlayer((EntityPlayer) this.targetEntity)) {
-                        if (((EntityPlayer) this.targetEntity).getDistanceSqToEntity(this.enderman) < 16.0D) {
+                        if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) < 16.0D) {
                             this.enderman.teleportRandomly();
                         }
 
                         this.teleportTime = 0;
-                    } else if (((EntityPlayer) this.targetEntity).getDistanceSqToEntity(this.enderman) > 256.0D && this.teleportTime++ >= 30 &&
+                    } else if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) > 256.0D && this.teleportTime++ >= 30 &&
                             this.enderman.teleportToEntity(this.targetEntity)) {
                         this.teleportTime = 0;
                     }

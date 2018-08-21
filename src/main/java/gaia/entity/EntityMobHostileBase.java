@@ -1,5 +1,9 @@
 package gaia.entity;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import gaia.renderer.particle.ParticleBuff;
@@ -31,10 +35,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 //Apply most changes to EntityMobPassiveBase
 //Except for EntityAINearestAttackableTarget

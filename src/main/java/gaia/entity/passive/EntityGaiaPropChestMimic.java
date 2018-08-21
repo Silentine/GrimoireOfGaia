@@ -1,6 +1,13 @@
 package gaia.entity.passive;
 
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Sets;
+
 import gaia.entity.monster.EntityGaiaMimic;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -30,12 +37,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javax.annotation.Nullable;
 
 /**
  * @see EntityShulker

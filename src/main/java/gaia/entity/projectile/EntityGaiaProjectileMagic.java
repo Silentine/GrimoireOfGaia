@@ -1,5 +1,7 @@
 package gaia.entity.projectile;
 
+import javax.annotation.Nonnull;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.monster.EntityGaiaWerecat;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,8 +16,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class EntityGaiaProjectileMagic extends EntityFireball {
 

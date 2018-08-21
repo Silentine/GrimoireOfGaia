@@ -1,35 +1,35 @@
 package gaia.renderer.entity;
 
+import java.util.Random;
+
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.model.ModelGaiaEnderDragonGirl;
 import gaia.renderer.entity.layers.LayerGaiaHeldBlock;
 import gaia.renderer.entity.layers.LayerGlowing;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
-
 @SideOnly(Side.CLIENT)
 public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation enderdragongirlEyesTexture =
             new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_ender_dragon_girl.png");
     private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/ender_dragon_girl.png");
     private static ModelGaiaEnderDragonGirl EnderDragonGirlModel = new ModelGaiaEnderDragonGirl();
     private Random rnd = new Random();
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaEnderDragonGirl(float shadowSize) {
-        super(rend, EnderDragonGirlModel, shadowSize);
+    public RenderGaiaEnderDragonGirl(RenderManager renderManagerIn) {
+        super(renderManagerIn, EnderDragonGirlModel, GaiaReference.SMALL_SHADOW);
         this.addLayer(new LayerGlowing(this, enderdragongirlEyesTexture));
         this.addLayer(new LayerGaiaHeldBlock(this));
     }
@@ -58,5 +58,12 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
     @Override
     protected ResourceLocation getEntityTexture(EntityLiving entity) {
         return texture;
+    }
+    
+    public static class Factory implements IRenderFactory<EntityLiving> {
+	    @Override
+	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaEnderDragonGirl(manager);
+	    }
     }
 }

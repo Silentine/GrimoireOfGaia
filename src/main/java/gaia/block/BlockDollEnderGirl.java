@@ -1,5 +1,10 @@
 package gaia.block;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.init.GaiaBlocks;
@@ -17,11 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 public class BlockDollEnderGirl extends BlockContainer {
 

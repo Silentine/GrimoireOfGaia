@@ -1,5 +1,10 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.init.Sounds;
@@ -27,11 +32,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public class ItemWeaponBookEnder extends ItemSword {
 
     private float attackDamage;
@@ -42,7 +42,7 @@ public class ItemWeaponBookEnder extends ItemSword {
         this.material = Item.ToolMaterial.IRON;
         this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
         this.setCreativeTab(CreativeTabGaia.INSTANCE);
-        this.attackDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
+        this.attackDamage = Item.ToolMaterial.IRON.getAttackDamage();
         this.setRegistryName(GaiaReference.MOD_ID, name);
         this.setUnlocalizedName(name);
     }
@@ -81,9 +81,9 @@ public class ItemWeaponBookEnder extends ItemSword {
                 .setCooldown(this, 60);
 
         if (!worldIn.isRemote) {
-            EntityEnderPearl entitysnowball = new EntityEnderPearl(worldIn, playerIn);
-            entitysnowball.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntity(entitysnowball);
+            EntityEnderPearl entityPearl = new EntityEnderPearl(worldIn, playerIn);
+            entityPearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            worldIn.spawnEntity(entityPearl);
         }
 
         playerIn.addStat(StatList.getObjectUseStats(this));

@@ -1,9 +1,11 @@
 package gaia;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import gaia.command.CommandBiome;
 import gaia.command.CommandSpawn;
 import gaia.init.GaiaConfigGeneration;
-import gaia.init.GaiaItems;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.CommonProxy;
 import gaia.recipe.FuelHandler;
@@ -16,10 +18,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-@Mod(modid = GaiaReference.MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, guiFactory = GaiaReference.GUI_FACTORY, dependencies = GaiaReference.DEPENDENCIES)
+@Mod(modid = GaiaReference.MOD_ID, 
+	name = GaiaReference.MOD_NAME, 
+	version = GaiaReference.VERSION, 
+	guiFactory = GaiaReference.GUI_FACTORY, 
+	dependencies = GaiaReference.DEPENDENCIES)
 public class Gaia {
 
     public static final Logger LOGGER = LogManager.getLogger(GaiaReference.MOD_ID);

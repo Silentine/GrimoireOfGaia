@@ -1,5 +1,7 @@
 package gaia.items;
 
+import java.util.List;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaConfig;
 import gaia.GaiaReference;
@@ -12,8 +14,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class ItemShard extends Item {
 

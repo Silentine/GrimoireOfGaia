@@ -2,6 +2,8 @@ package gaia.command;
 
 import static net.minecraft.item.ItemMonsterPlacer.spawnCreature;
 
+import javax.annotation.Nonnull;
+
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
@@ -19,8 +21,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityEntry;
-
-import javax.annotation.Nonnull;
 
 public class CommandSpawn extends CommandBase {
 

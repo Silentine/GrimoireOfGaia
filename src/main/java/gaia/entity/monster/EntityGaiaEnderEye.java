@@ -1,7 +1,12 @@
 package gaia.entity.monster;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -41,10 +46,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.UUID;
-
-import javax.annotation.Nullable;
 
 /**
  * @see EntityEnderman
@@ -406,12 +407,12 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
             } else {
                 if (this.targetEntity != null) {
                     if (this.enderman.shouldAttackPlayer((EntityPlayer) this.targetEntity)) {
-                        if (((EntityPlayer) this.targetEntity).getDistanceSqToEntity(this.enderman) < 16.0D) {
+                        if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) < 16.0D) {
                             this.enderman.teleportRandomly();
                         }
 
                         this.teleportTime = 0;
-                    } else if (((EntityPlayer) this.targetEntity).getDistanceSqToEntity(this.enderman) > 256.0D && this.teleportTime++ >= 30 &&
+                    } else if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) > 256.0D && this.teleportTime++ >= 30 &&
                             this.enderman.teleportToEntity(this.targetEntity)) {
                         this.teleportTime = 0;
                     }

@@ -1,10 +1,10 @@
 package gaia;
 
+import javax.annotation.Nonnull;
+
 import gaia.init.GaiaItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 public class CreativeTabGaia extends CreativeTabs {
 

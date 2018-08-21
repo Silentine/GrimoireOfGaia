@@ -1,5 +1,7 @@
 package gaia.entity;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.renderer.particle.ParticleBuff;
 import gaia.renderer.particle.ParticleDrop;
@@ -28,8 +30,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 /**
  * This is a direct copy of EntityMobHostileBase

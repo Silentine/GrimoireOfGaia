@@ -1,5 +1,10 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.entity.GaiaLootTableList;
@@ -20,11 +25,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @see ItemAppleGold

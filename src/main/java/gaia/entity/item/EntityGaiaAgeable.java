@@ -1,12 +1,12 @@
 package gaia.entity.item;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class EntityGaiaAgeable extends EntityAgeable {
 

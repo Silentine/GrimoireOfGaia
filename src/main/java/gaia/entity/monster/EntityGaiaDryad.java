@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.UUID;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -37,8 +39,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import java.util.UUID;
 
 public class EntityGaiaDryad extends EntityMobPassiveDay {
 

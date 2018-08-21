@@ -1,5 +1,10 @@
 package gaia.init;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import gaia.Gaia;
 import gaia.GaiaConfig;
 import gaia.entity.monster.EntityGaiaAnt;
@@ -59,11 +64,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Streamlined Spawning Registry, Tried to keep structure as similar, but

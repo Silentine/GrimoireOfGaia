@@ -1,5 +1,8 @@
 package gaia.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaAnt;
@@ -73,9 +76,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GaiaEntities {
 

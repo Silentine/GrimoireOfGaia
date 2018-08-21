@@ -1,11 +1,14 @@
 package gaia.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaWitch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -15,19 +18,18 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaWitch extends RenderLiving<EntityLiving> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/witch.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaWitch(float shadowSize) {
-        super(rend, new ModelGaiaWitch(), shadowSize);
+    public RenderGaiaWitch(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelGaiaWitch(), GaiaReference.MEDIUM_SHADOW);
         this.addLayer(LayerGaiaWitchHeldItem.Right(this, ModelGaiaWitch.anchor));
     }
 
@@ -114,5 +116,12 @@ public class RenderGaiaWitch extends RenderLiving<EntityLiving> {
         public boolean shouldCombineTextures() {
             return false;
         }
+    }
+    
+    public static class Factory implements IRenderFactory<EntityLiving> {
+	    @Override
+	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaWitch(manager);
+	    }
     }
 }

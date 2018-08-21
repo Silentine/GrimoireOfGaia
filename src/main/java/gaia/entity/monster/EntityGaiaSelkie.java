@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
@@ -42,8 +44,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
@@ -179,7 +179,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
         int k = MathHelper.floor(this.posY);
         BlockPos pos = new BlockPos(i, j, k);
         if (this.world.getBiome(new BlockPos(i, j, k))
-                .getFloatTemperature(pos) > 1.0F) {
+                .getTemperature(pos) > 1.0F) {
             this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
         }

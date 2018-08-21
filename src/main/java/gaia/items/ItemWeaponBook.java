@@ -1,5 +1,7 @@
 package gaia.items;
 
+import javax.annotation.Nonnull;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.init.GaiaItems;
@@ -9,8 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 public class ItemWeaponBook extends ItemSword {
 
@@ -22,7 +22,7 @@ public class ItemWeaponBook extends ItemSword {
         this.material = Item.ToolMaterial.IRON;
         this.setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
         this.setCreativeTab(CreativeTabGaia.INSTANCE);
-        this.attackDamage = Item.ToolMaterial.IRON.getDamageVsEntity();
+        this.attackDamage = Item.ToolMaterial.IRON.getAttackDamage();
         this.setRegistryName(GaiaReference.MOD_ID, name);
         this.setUnlocalizedName(name);
     }

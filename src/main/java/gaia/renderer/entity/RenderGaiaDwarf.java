@@ -1,28 +1,29 @@
 package gaia.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaDwarf;
 import gaia.model.ModelGaiaDwarf;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/dwarf01.png");
     private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Dwarf02.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaDwarf(float shadowSize) {
-        super(rend, new ModelGaiaDwarf(), shadowSize);
+    public RenderGaiaDwarf(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelGaiaDwarf(), GaiaReference.LARGE_SHADOW);
         this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaDwarf.rightarm));
         this.addLayer(LayerGaiaHeldItem.Left(this, ModelGaiaDwarf.leftarm));
     }
@@ -44,5 +45,12 @@ public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
             default:
                 return texture01;
         }
+    }
+    
+    public static class Factory implements IRenderFactory<EntityLiving> {
+	    @Override
+	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaDwarf(manager);
+	    }
     }
 }

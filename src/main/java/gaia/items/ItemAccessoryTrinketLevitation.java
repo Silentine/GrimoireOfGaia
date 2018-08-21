@@ -1,5 +1,12 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.lwjgl.input.Keyboard;
+
 import baubles.api.BaubleType;
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
@@ -13,14 +20,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional.Interface;
+import net.minecraftforge.fml.common.Optional.InterfaceList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+@InterfaceList({
+	@Interface(iface="baubles.api.BaubleType", modid="Baubles", striprefs=true)})
 
 public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 

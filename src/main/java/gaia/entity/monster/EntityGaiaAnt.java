@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nonnull;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
@@ -43,8 +45,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 

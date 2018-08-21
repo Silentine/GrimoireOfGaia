@@ -1,5 +1,7 @@
 package gaia.entity.passive;
 
+import javax.annotation.Nonnull;
+
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
@@ -12,8 +14,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 

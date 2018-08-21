@@ -1,5 +1,10 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import gaia.init.GaiaItems;
@@ -27,11 +32,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemWeaponBookFreezing extends ItemSword {
 
@@ -79,7 +79,7 @@ public class ItemWeaponBookFreezing extends ItemSword {
 
         if (!worldIn.isRemote) {
             EntitySnowball snowball = new EntitySnowball(worldIn, playerIn);
-            snowball.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            snowball.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(snowball);
         }
 

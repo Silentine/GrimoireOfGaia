@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.Random;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.renderer.particle.ParticleExample;
@@ -29,8 +31,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import java.util.Random;
 
 //May as well keep this for future use. Model can be accessed and repurposed through mods.
 //Remove egg from GaiaEntity before release!

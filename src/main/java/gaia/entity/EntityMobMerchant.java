@@ -1,5 +1,7 @@
 package gaia.entity;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -18,8 +20,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 //Adapted from DivineRPG code
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {

@@ -13,13 +13,13 @@ version = "${mc_version}-${mod_version}"
 group= "${package_group}"
 archivesBaseName = "${mod_name}"
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12.1-14.22.1.2485"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
@@ -27,20 +27,35 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20170624"
+    mappings = "${mappings_version}"
 
     replace '@VERSION@', project.version
-    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+    // replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 repositories {
     maven { url 'https://jitpack.io' }
+	maven {
+		// location of the maven that hosts JEI files
+		name = "Progwml6 maven"
+		url = "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		// location of a maven mirror for JEI files, as a fallback
+		name = "ModMaven"
+		url = "modmaven.k-4u.nl"
+	}
+	maven {
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
+	}
 }
 
 dependencies {
-    deobfCompile "com.github.Azanor:Baubles:${baubles_version}"
+	deobfCompile "com.azanor.baubles:Baubles:1.12-${baubles_version}"
+	deobfCompile "mezz.jei:jei_1.12.2:${jei_version}"
 }
 
 processResources

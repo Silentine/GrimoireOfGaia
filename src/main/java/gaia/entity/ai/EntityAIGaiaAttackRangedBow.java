@@ -105,7 +105,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 
             if (d0 <= (double) this.maxAttackDistance && this.seeTime >= 20) {
                 this.entity.getNavigator()
-                        .clearPathEntity();
+                        .clearPath();
                 ++this.strafingTime;
             } else {
                 this.entity.getNavigator()

@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.init.GaiaBlocks;
@@ -42,8 +44,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
@@ -194,7 +194,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
         }
 
         if (!this.world.isRemote) {
-            this.setBesideClimbableBlock(this.isCollidedHorizontally);
+            this.setBesideClimbableBlock(this.collidedHorizontally);
         }
 
         if (this.getHealth() <= 0.0F) {

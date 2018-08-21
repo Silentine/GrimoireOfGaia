@@ -1,6 +1,10 @@
 package gaia.init;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.common.base.Preconditions;
+
 import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.block.BlockBustSphinx;
@@ -31,9 +35,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class GaiaBlocks {
 

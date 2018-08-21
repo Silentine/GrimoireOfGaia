@@ -1,5 +1,11 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.lwjgl.input.Keyboard;
+
 import gaia.GaiaReference;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -15,11 +21,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
 
 /**
  * Used for debugging health related coding

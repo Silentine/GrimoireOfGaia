@@ -1,5 +1,10 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
 import net.minecraft.client.resources.I18n;
@@ -12,11 +17,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemMiscGigaGear extends Item {
 
@@ -38,5 +38,10 @@ public class ItemMiscGigaGear extends Item {
     @SideOnly(Side.CLIENT)
     public @Nonnull EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.EPIC;
+    }
+    
+    @Override
+    public int getItemBurnTime(ItemStack itemStack) {
+    	return 62000;
     }
 }

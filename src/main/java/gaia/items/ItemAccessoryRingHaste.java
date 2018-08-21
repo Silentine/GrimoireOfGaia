@@ -1,5 +1,12 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.lwjgl.input.Keyboard;
+
 import baubles.api.BaubleType;
 import gaia.CreativeTabGaia;
 import gaia.GaiaReference;
@@ -15,12 +22,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
 

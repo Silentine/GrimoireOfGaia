@@ -1,29 +1,30 @@
 package gaia.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaWerecat;
 import gaia.model.ModelGaiaWerecat;
 import gaia.renderer.entity.layers.LayerGlowing;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaWerecat extends RenderLiving<EntityLiving> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation werecatEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_werecat.png");
     private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/werecat01.png");
     private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/werecat02.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaWerecat(float shadowSize) {
-        super(rend, new ModelGaiaWerecat(), shadowSize);
+    public RenderGaiaWerecat(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelGaiaWerecat(), GaiaReference.SMALL_SHADOW);
         this.addLayer(new LayerGlowing(this, werecatEyesTexture));
     }
 
@@ -45,5 +46,12 @@ public class RenderGaiaWerecat extends RenderLiving<EntityLiving> {
             default:
                 return texture01;
         }
+    }
+    
+    public static class Factory implements IRenderFactory<EntityLiving> {
+	    @Override
+	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaWerecat(manager);
+	    }
     }
 }

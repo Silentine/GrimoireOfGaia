@@ -1,27 +1,27 @@
 package gaia.renderer.entity;
 
+import javax.annotation.Nonnull;
+
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.model.ModelGaiaCobbleGolem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/cobble_golem.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaCobbleGolem(float shadowSize) {
-        super(rend, new ModelGaiaCobbleGolem(), shadowSize);
+    public RenderGaiaCobbleGolem(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelGaiaCobbleGolem(), GaiaReference.LARGE_SHADOW);
     }
 
     @Override
@@ -39,5 +39,12 @@ public class RenderGaiaCobbleGolem extends RenderLiving<EntityGaiaCobbleGolem> {
             float f2 = (Math.abs(f1 % f - f * 0.5F) - f * 0.25F) / (f * 0.25F);
             GlStateManager.rotate(6.5F * f2, 0.0F, 0.0F, 1.0F);
         }
+    }
+    
+    public static class Factory implements IRenderFactory<EntityGaiaCobbleGolem> {
+	    @Override
+	    public Render<? super EntityGaiaCobbleGolem> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaCobbleGolem(manager);
+	    }
     }
 }

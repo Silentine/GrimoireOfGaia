@@ -1,25 +1,26 @@
 package gaia.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaMummy;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaMummy extends RenderLiving<EntityLiving> {
+	public static final Factory FACTORY = new Factory();
 
     private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/mummy.png");
-    static RenderManager rend = Minecraft.getMinecraft()
-            .getRenderManager();
 
-    public RenderGaiaMummy(float shadowSize) {
-        super(rend, new ModelGaiaMummy(), shadowSize);
+    public RenderGaiaMummy(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelGaiaMummy(), GaiaReference.SMALL_SHADOW);
     }
 
     public void transformHeldFull3DItemLayer() {
@@ -28,5 +29,12 @@ public class RenderGaiaMummy extends RenderLiving<EntityLiving> {
 
     protected ResourceLocation getEntityTexture(EntityLiving entity) {
         return texture;
+    }
+    
+    public static class Factory implements IRenderFactory<EntityLiving> {
+	    @Override
+	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+	      return new RenderGaiaMummy(manager);
+	    }
     }
 }

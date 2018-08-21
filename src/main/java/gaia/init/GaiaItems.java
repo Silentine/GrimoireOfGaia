@@ -1,10 +1,16 @@
 package gaia.init;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.items.ItemAccessoryCursed;
 import gaia.items.ItemAccessoryRing;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
+import gaia.items.ItemAccessoryRingNight;
+import gaia.items.ItemAccessoryRingSpeed;
 import gaia.items.ItemAccessoryTrinketLevitation;
 import gaia.items.ItemAccessoryTrinketPoison;
 import gaia.items.ItemAccessoryTrinketWither;
@@ -30,7 +36,6 @@ import gaia.items.ItemFoodRoot;
 import gaia.items.ItemFoodRottenHeart;
 import gaia.items.ItemFoodSmallAppleGold;
 import gaia.items.ItemFoodWither;
-import gaia.items.ItemAccessoryCursed;
 import gaia.items.ItemMiscBook;
 import gaia.items.ItemMiscCurrency;
 import gaia.items.ItemMiscExperience;
@@ -66,16 +71,11 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropProjectile;
-import gaia.items.ItemAccessoryRingNight;
-import gaia.items.ItemAccessoryRingSpeed;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.HashSet;
-import java.util.Set;
 
 //Modify ClientProxy when adding metadata items
 public class GaiaItems {

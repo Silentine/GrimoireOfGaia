@@ -1,6 +1,11 @@
 package gaia.entity.passive;
 
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Sets;
+
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
@@ -24,10 +29,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import java.util.Set;
-
-import javax.annotation.Nullable;
 
 /**
  * @see EntityShulker

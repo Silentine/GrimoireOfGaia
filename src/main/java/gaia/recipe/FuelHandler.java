@@ -1,16 +1,15 @@
 package gaia.recipe;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import gaia.Gaia;
-import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class FuelHandler implements IFuelHandler {
 
@@ -21,11 +20,11 @@ public class FuelHandler implements IFuelHandler {
 
         GameRegistry.registerFuelHandler(new FuelHandler());
 
-        addFuel(GaiaItems.FoodCoalfish, 180);
-        addFuel(GaiaItems.MiscSoulFire, 580);
-        addFuel(GaiaItems.MiscSoulFiery, 1000);
-        addFuel(GaiaItems.MiscFurnaceFuel, 3600);
-        addFuel(GaiaItems.MiscGigaGear, 62000);
+        //addFuel(GaiaItems.FoodCoalfish, 180);
+        //addFuel(GaiaItems.MiscSoulFire, 580);
+        //addFuel(GaiaItems.MiscSoulFiery, 1000);
+        //addFuel(GaiaItems.MiscFurnaceFuel, 3600);
+        //addFuel(GaiaItems.MiscGigaGear, 62000);
     }
 
     private static void addFuel(Item item, int value) {
