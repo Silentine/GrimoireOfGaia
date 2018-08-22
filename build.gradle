@@ -37,12 +37,22 @@ minecraft {
     mappings = mappings_version
 
     replace '@VERSION@', project.version
-    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+    //replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here. 
+	// ^I believe this part was just copied from Botania
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 repositories {
+	maven {
+		// location of a maven mirror for JEI files, as a fallback
+		name = "ModMaven"
+		url = "modmaven.k-4u.nl"
+	}
+	maven {
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
+	}
     maven {
         name 'Curseforge Maven' // Baubles + Thaumcraft
         url 'http://minecraft.curseforge.com/api/maven/'
@@ -52,6 +62,7 @@ repositories {
 dependencies {
     deobfCompile "baubles:Baubles:${baubles_mc_version}:${baubles_version}"
     deobfCompile "thaumcraft:Thaumcraft:${mc_version}:${thaumcraft_version}"
+	deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
 }
 
 processResources

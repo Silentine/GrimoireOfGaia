@@ -272,3 +272,9 @@ configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
+
+#Jei
+gaia.box.loot=Box Loot
+gui.gaia.box.loot=Box Loot
+gaia.satchel.loot=Bag Loot
+gui.gaia.satchel.loot=Bag Loot
