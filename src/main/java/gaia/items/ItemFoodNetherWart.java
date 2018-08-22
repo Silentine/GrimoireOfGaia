@@ -1,11 +1,5 @@
 package gaia.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import gaia.CreativeTabGaia;
-import gaia.GaiaReference;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.MobEffects;
@@ -15,21 +9,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFoodNetherWart extends GaiaItemFood {
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public ItemFoodNetherWart(int amount, float saturation, boolean isWolfFood, String name) {
-        super(amount, saturation, isWolfFood);
-        this.setRegistryName(GaiaReference.MOD_ID, name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(CreativeTabGaia.INSTANCE);
+public class ItemFoodNetherWart extends ItemFoodGaia {
 
-        this.setPotionEffect(new PotionEffect(MobEffects.SPEED, 30, 0), 0.4F);
-        this.setSecondPotionEffect(new PotionEffect(MobEffects.HASTE, 30, 0), 0.4F);
-    }
+	public ItemFoodNetherWart() {
+		super("food_nether_wart", 4, 0.4F, false);
+		setPotionEffect(new PotionEffect(MobEffects.SPEED, 30, 0), 0.4F);
+		setSecondPotionEffect(new PotionEffect(MobEffects.HASTE, 30, 0), 0.4F);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add("(40%) " + I18n.format("effect.moveSpeed") + " (0:30)");
-        tooltip.add("(40%) " + I18n.format("effect.digSpeed") + " (0:30)");
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add("(40%) " + I18n.format("effect.moveSpeed") + " (0:30)");
+		tooltip.add("(40%) " + I18n.format("effect.digSpeed") + " (0:30)");
+	}
 }

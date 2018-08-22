@@ -1,16 +1,19 @@
 package gaia.init;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
+import gaia.entity.passive.EntityGaiaNPCEnderGirl;
+import gaia.entity.passive.EntityGaiaNPCHolstaurus;
+import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
+import gaia.entity.passive.EntityGaiaNPCTrader;
+import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.items.ItemAccessoryCursed;
-import gaia.items.ItemAccessoryRing;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
 import gaia.items.ItemAccessoryRingNight;
 import gaia.items.ItemAccessoryRingSpeed;
+import gaia.items.ItemAccessorySkull;
 import gaia.items.ItemAccessoryTrinketLevitation;
 import gaia.items.ItemAccessoryTrinketPoison;
 import gaia.items.ItemAccessoryTrinketWither;
@@ -18,6 +21,7 @@ import gaia.items.ItemBagArrow;
 import gaia.items.ItemBagBook;
 import gaia.items.ItemBagOre;
 import gaia.items.ItemBagRecord;
+import gaia.items.ItemBase;
 import gaia.items.ItemBox;
 import gaia.items.ItemBoxDiamond;
 import gaia.items.ItemBoxGold;
@@ -25,9 +29,9 @@ import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
 import gaia.items.ItemCard;
 import gaia.items.ItemChest;
+import gaia.items.ItemFoodBase;
 import gaia.items.ItemFoodCoalfish;
 import gaia.items.ItemFoodMandrake;
-import gaia.items.ItemFoodMeat;
 import gaia.items.ItemFoodNetherWart;
 import gaia.items.ItemFoodPieAppleGold;
 import gaia.items.ItemFoodPieMandrake;
@@ -39,22 +43,16 @@ import gaia.items.ItemFoodWither;
 import gaia.items.ItemMiscBook;
 import gaia.items.ItemMiscCurrency;
 import gaia.items.ItemMiscExperience;
-import gaia.items.ItemMiscFur;
 import gaia.items.ItemMiscFurnaceFuel;
 import gaia.items.ItemMiscGigaGear;
-import gaia.items.ItemMiscQuill;
+import gaia.items.ItemMiscRing;
 import gaia.items.ItemMiscSoulFiery;
 import gaia.items.ItemMiscSoulFire;
 import gaia.items.ItemShard;
 import gaia.items.ItemShieldProp;
 import gaia.items.ItemSpawn;
-import gaia.items.ItemSpawnCreeperGirl;
-import gaia.items.ItemSpawnEnderGirl;
-import gaia.items.ItemSpawnHolstaurus;
-import gaia.items.ItemSpawnSlimeGirl;
+import gaia.items.ItemSpawnNPC;
 import gaia.items.ItemSpawnTame;
-import gaia.items.ItemSpawnTrader;
-import gaia.items.ItemSpawnWeresheep;
 import gaia.items.ItemWeaponBook;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
@@ -71,244 +69,179 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropProjectile;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
 //Modify ClientProxy when adding metadata items
+@GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
+	public static final Item SHARD = Items.AIR;
+	public static final Item WEAPON_PROP_PROJECTILE = Items.AIR;
+	public static final Item MISC_BOOK = Items.AIR;
+	public static final Item BOX = Items.AIR;
+	public static final Item WEAPON_PROP = Items.AIR;
+	public static final Item BAG_BOOK = Items.AIR;
+	public static final Item WEAPON_BOOK_ENDER = Items.AIR;
+	public static final Item SPAWN_ENDER_GIRL = Items.AIR;
+	public static final Item FOOD_MEAT = Items.AIR;
+	public static final Item BOX_IRON = Items.AIR;
+	public static final Item BAG_ARROW = Items.AIR;
+	public static final Item BOX_GOLD = Items.AIR;
+	public static final Item MISC_SOUL_FIERY = Items.AIR;
+	public static final Item WEAPON_BOOK_NIGHTMARE = Items.AIR;
+	public static final Item SHIELD_PROP = Items.AIR;
+	public static final Item CHEST = Items.AIR;
+	public static final Item SPAWN_CREEPER_GIRL = Items.AIR;
+	public static final Item FOOD_ROOT = Items.AIR;
+	public static final Item MISC_FUR = Items.AIR;
+	public static final Item FOOD_COALFISH = Items.AIR;
+	public static final Item BOX_OLD = Items.AIR;
+	public static final Item SPAWN_TAME = Items.AIR;
+	public static final Item MISC_GIGA_GEAR = Items.AIR;
+	public static final Item WEAPON_BOOK_WITHER = Items.AIR;
+	public static final Item SPAWN = Items.AIR;
+	public static final Item SPAWN_HOLSTAURUS = Items.AIR;
+	public static final Item WEAPON_BOOK_HUNGER = Items.AIR;
+	public static final Item SPAWN_TRADER = Items.AIR;
+	public static final Item BAG_RECORD = Items.AIR;
+	public static final Item MISC_FURNACE_FUEL = Items.AIR;
+	public static final Item FOOD_NETHER_WART = Items.AIR;
+	public static final Item SPAWN_SLIME_GIRL = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_WITHER = Items.AIR;
+	public static final Item MISC_CURRENCY = Items.AIR;
+	public static final Item FOOD_ROTTEN_HEART = Items.AIR;
+	public static final Item FOOD_MANDRAKE = Items.AIR;
+	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
+	public static final Item FOOD_SMALL_APPLE_GOLD = Items.AIR;
+	public static final Item BOX_DIAMOND = Items.AIR;
+	public static final Item ACCESSORY_CURSED = Items.AIR;
+	public static final Item MISC_RING = Items.AIR;
+	public static final Item WEAPON_BOOK_BATTLE = Items.AIR;
+	public static final Item WEAPON_FAN_FIRE = Items.AIR;
+	public static final Item WEAPON_BOOK_NATURE = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_POISON = Items.AIR;
+	public static final Item FOOD_WITHER = Items.AIR;
+	public static final Item WEAPON_BOOK_FREEZING = Items.AIR;
+	public static final Item WEAPON_FAN_ICE = Items.AIR;
+	public static final Item SPAWN_WERESHEEP = Items.AIR;
+	@SuppressWarnings("WeakerAccess") //needs to be public static final for objectholder code to work
+	public static final Item MISC_EXPERIENCE = Items.AIR;
+	public static final Item MISC_QUILL = Items.AIR;
+	public static final Item MISC_SOUL_FIRE = Items.AIR;
+	public static final Item BOOK_BUFF = Items.AIR;
+	public static final Item BAG_ORE = Items.AIR;
+	public static final Item WEAPON_BOOK = Items.AIR;
+	public static final Item WEAPON_BOOK_METAL = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
+	public static final Item FOOD_PIE_MANDRAKE = Items.AIR;
+	public static final Item FOOD_PIE_MEAT = Items.AIR;
+	public static final Item FOOD_PIE_APPLE_GOLD = Items.AIR;
+	public static final Item ACCESSORY_RING_SPEED = Items.AIR;
+	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
+	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
+	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
+	public static final Item ACCESSORY_SKULL = Items.AIR;
 
-    public static Item Shard;
-    public static Item FoodMeat;
-    public static Item FoodRottenHeart;
-    public static Item FoodRoot;
-    public static Item FoodCoalfish;
-    public static Item FoodNetherWart;
-    public static Item FoodSmallAppleGold;
-    public static Item FoodMandrake;
-    public static Item FoodWither;
-    public static Item FoodPieMandrake;
-    public static Item FoodPieMeat;
-    public static Item FoodPieAppleGold;
-    public static Item MiscSoulFire;
-    public static Item MiscSoulFiery;
-    public static Item MiscGigaGear;
-    public static Item MiscFur;
-    public static Item MiscExperience;
-    public static Item MiscBook;
-    public static Item MiscQuill;
-    public static Item MiscRing;
-    public static Item MiscFurnaceFuel;
-    public static Item MiscCurrency;
-    public static Item Spawn;
-    public static Item SpawnCreeperGirl;
-    public static Item SpawnSlimeGirl;
-    public static Item SpawnEnderGirl;
-    public static Item SpawnTrader;
-    public static Item SpawnHolstaurus;
-    public static Item SpawnWeresheep;
-    public static Item SpawnTame;
-    public static Item BoxIron;
-    public static Item BoxGold;
-    public static Item BoxDiamond;
-    public static Item Box;
-    public static Item BagOre;
-    public static Item BagBook;
-    public static Item BagRecord;
-    public static Item BagArrow;
-    public static Item BoxOld;
-    public static Item Chest;
-    public static Item PropWeapon;
-    public static Item PropWeaponProjectile;
-    public static Item PropWeaponEnchanted;
-    public static Item PropShield;
-    public static Item FanIce;
-    public static Item FanFire;
-    public static Item BookBase;
-    public static Item BookFreezing;
-    public static Item BookNightmare;
-    public static Item BookMetal;
-    public static Item BookEnder;
-    public static Item BookHunger;
-    public static Item BookBattle;
-    public static Item BookNature;
-    public static Item BookWither;
-    public static Item BookBuff;
-    public static Item Debug;
-    public static Item AccessoryRingSpeed;
-    public static Item AccessoryRingHaste;
-    public static Item AccessoryRingJump;
-    public static Item AccessoryRingNight;
-    public static Item AccessoryTrinketPoison;
-    public static Item AccessoryTrinketWither;
-    public static Item AccessoryTrinketLevitation;
-    public static Item AccessoryCursed;
-    public static Item Card;
+	private GaiaItems() {}
 
-    public static void init() {
-        Shard = new ItemShard("shard");
-        FoodMeat = new ItemFoodMeat(6, 0.6F, true, "foodmeat");
-        FoodRottenHeart = new ItemFoodRottenHeart(4, 0.0F, true, "foodrottenheart").setAlwaysEdible();
-        FoodRoot = (new ItemFoodRoot(4, 0.0F, false, "foodroot")).setAlwaysEdible();
-        FoodCoalfish = new ItemFoodCoalfish(4, 0.4F, true, "foodcoalfish");
-        FoodNetherWart = (new ItemFoodNetherWart(4, 0.4F, false, "foodnetherwart"));
-        FoodSmallAppleGold = (new ItemFoodSmallAppleGold(1, 0.4F, false, "foodsmallapplegold")).setAlwaysEdible();
-        FoodMandrake = (new ItemFoodMandrake(0, 0.0F, false, "foodmandrake")).setAlwaysEdible();
-        FoodWither = new ItemFoodWither(8, 0.8F, true, "foodwither");
-        FoodPieMandrake = (new ItemFoodPieMandrake(8, 0.8F, false, "foodpiemandrake"));
-        FoodPieMeat = (new ItemFoodPieMeat(8, 0.8F, true, "foodpiemeat"));
-        FoodPieAppleGold = (new ItemFoodPieAppleGold(12, 0.8F, true, "foodpieapplegold"));
-        MiscSoulFire = new ItemMiscSoulFire("miscsoulfire");
-        MiscSoulFiery = new ItemMiscSoulFiery("miscsoulfiery");
-        MiscGigaGear = new ItemMiscGigaGear("miscgigagear");
-        MiscFur = new ItemMiscFur("miscfur");
-        MiscExperience = new ItemMiscExperience("miscexperience");
-        MiscBook = new ItemMiscBook("miscbook");
-        MiscQuill = new ItemMiscQuill("miscquill");
-        MiscRing = new ItemAccessoryRing("miscring");
-        MiscFurnaceFuel = new ItemMiscFurnaceFuel("miscfurnacefuel");
-        MiscCurrency = new ItemMiscCurrency("misccurrency");
-        Spawn = new ItemSpawn("spawn");
-        SpawnCreeperGirl = new ItemSpawnCreeperGirl("spawncreepergirl");
-        SpawnSlimeGirl = new ItemSpawnSlimeGirl("spawnslimegirl");
-        SpawnEnderGirl = new ItemSpawnEnderGirl("spawnendergirl");
-        SpawnTrader = new ItemSpawnTrader("spawntrader");
-        SpawnHolstaurus = new ItemSpawnHolstaurus("spawnholstaurus");
-        SpawnWeresheep = new ItemSpawnWeresheep("spawnweresheep");
-        SpawnTame = new ItemSpawnTame("spawntame");
-        BoxIron = new ItemBoxIron("boxiron");
-        BoxGold = new ItemBoxGold("boxgold");
-        BoxDiamond = new ItemBoxDiamond("boxdiamond");
-        Box = new ItemBox("box");
-        BagOre = new ItemBagOre("bagore");
-        BagBook = new ItemBagBook("bagbook");
-        BagRecord = new ItemBagRecord("bagrecord");
-        BagArrow = new ItemBagArrow("bagarrow");
-        BoxOld = new ItemBoxOld("boxold");
-        Chest = new ItemChest("chest");
-        PropWeapon = new ItemWeaponProp("weaponprop");
-        PropWeaponProjectile = new ItemWeaponPropProjectile("weaponpropprojectile");
-        PropWeaponEnchanted = new ItemWeaponPropEnchanted("weaponpropenchanted");
-        PropShield = new ItemShieldProp("shieldprop");
-        FanIce = new ItemWeaponFanIce("weaponfanice");
-        FanFire = new ItemWeaponFanFire("weaponfanfire");
-        BookBase = new ItemWeaponBook("weaponbook");
-        BookFreezing = new ItemWeaponBookFreezing("weaponbookfreezing");
-        BookNightmare = new ItemWeaponBookNightmare("weaponbooknightmare");
-        BookMetal = new ItemWeaponBookMetal("weaponbookmetal");
-        BookEnder = new ItemWeaponBookEnder("weaponbookender");
-        BookHunger = new ItemWeaponBookHunger("weaponbookhunger");
-        BookBattle = new ItemWeaponBookBattle("weaponbookbattle");
-        BookNature = new ItemWeaponBookNature("weaponbooknature");
-        BookWither = new ItemWeaponBookWither("weaponbookwither");
-        BookBuff = new ItemWeaponBookBuff("weaponbookbuff");
-        Debug = new ItemWeaponDebug("weapondebug");
+	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
+	@SuppressWarnings("unused")
+	public static class RegistrationHandler {
+		private RegistrationHandler() {}
 
-        AccessoryRingSpeed = new ItemAccessoryRingSpeed("accessoryringspeed");
-        AccessoryRingHaste = new ItemAccessoryRingHaste("accessoryringhaste");
-        AccessoryRingJump = new ItemAccessoryRingJump("accessoryringjump");
-        AccessoryRingNight = new ItemAccessoryRingNight("accessoryringnight");
-        AccessoryTrinketPoison = new ItemAccessoryTrinketPoison("accessorytrinketpoison");
-        AccessoryTrinketWither = new ItemAccessoryTrinketWither("accessorytrinketwither");
-        AccessoryTrinketLevitation = new ItemAccessoryTrinketLevitation("accessorytrinketlevitation");
-        AccessoryCursed = new ItemAccessoryCursed("accessorycursed");
+		@SubscribeEvent
+		public static void registerItems(final RegistryEvent.Register<Item> event) {
+			Gaia.LOGGER.info("Registering items...");
 
-        Card = new ItemCard("card");
-    }
+			final IForgeRegistry<Item> registry = event.getRegistry();
 
-    @Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
-    public static class RegistrationHandler {
+			registry.register(new ItemShard());
+			registry.register(new ItemFoodBase("food_meat", 6, 0.6F, true));
+			registry.register(new ItemFoodRottenHeart());
+			registry.register(new ItemFoodRoot());
+			registry.register(new ItemFoodCoalfish());
+			registry.register(new ItemFoodNetherWart());
+			registry.register(new ItemFoodSmallAppleGold());
+			registry.register(new ItemFoodMandrake());
+			registry.register(new ItemFoodWither());
+			registry.register(new ItemFoodPieMandrake());
+			registry.register(new ItemFoodPieMeat());
+			registry.register(new ItemFoodPieAppleGold());
+			registry.register(new ItemMiscSoulFire());
+			registry.register(new ItemMiscSoulFiery());
+			registry.register(new ItemMiscGigaGear());
+			registry.register(new ItemBase("misc_fur"));
+			registry.register(new ItemMiscExperience());
+			registry.register(new ItemMiscBook());
+			registry.register(new ItemBase("misc_quill"));
+			registry.register(new ItemMiscRing());
+			registry.register(new ItemMiscFurnaceFuel());
+			registry.register(new ItemMiscCurrency());
+			registry.register(new ItemSpawn());
+			registry.register(new ItemSpawnNPC("spawn_creeper_girl", EnumRarity.RARE, EntityGaiaNPCCreeperGirl::new));
+			registry.register(new ItemSpawnNPC("spawn_slime_girl", EnumRarity.RARE, EntityGaiaNPCSlimeGirl::new));
+			registry.register(new ItemSpawnNPC("spawn_ender_girl", EnumRarity.RARE, EntityGaiaNPCEnderGirl::new));
+			registry.register(new ItemSpawnNPC("spawn_trader", EnumRarity.RARE, EntityGaiaNPCTrader::new));
+			registry.register(new ItemSpawnNPC("spawn_holstaurus", EnumRarity.RARE, EntityGaiaNPCHolstaurus::new));
+			registry.register(new ItemSpawnNPC("spawn_weresheep", EnumRarity.EPIC, EntityGaiaNPCWeresheep::new));
+			registry.register(new ItemSpawnTame());
+			registry.register(new ItemBoxIron());
+			registry.register(new ItemBoxGold());
+			registry.register(new ItemBoxDiamond());
+			registry.register(new ItemBox());
+			registry.register(new ItemBagOre());
+			registry.register(new ItemBagBook());
+			registry.register(new ItemBagRecord());
+			registry.register(new ItemBagArrow());
+			registry.register(new ItemBoxOld());
+			registry.register(new ItemChest());
+			registry.register(new ItemWeaponProp());
+			registry.register(new ItemWeaponPropProjectile());
+			registry.register(new ItemWeaponPropEnchanted());
+			registry.register(new ItemShieldProp());
+			registry.register(new ItemWeaponFanIce());
+			registry.register(new ItemWeaponFanFire());
+			registry.register(new ItemWeaponBook("weapon_book"));
+			registry.register(new ItemWeaponBookFreezing());
+			registry.register(new ItemWeaponBookNightmare());
+			registry.register(new ItemWeaponBookMetal());
+			registry.register(new ItemWeaponBookEnder());
+			registry.register(new ItemWeaponBookHunger());
+			registry.register(new ItemWeaponBookBattle());
+			registry.register(new ItemWeaponBookNature());
+			registry.register(new ItemWeaponBookWither());
+			registry.register(new ItemWeaponBookBuff());
+			registry.register(new ItemWeaponDebug());
+			registry.register(new ItemAccessoryRingSpeed());
+			registry.register(new ItemAccessoryRingHaste());
+			registry.register(new ItemAccessoryRingJump());
+			registry.register(new ItemAccessoryRingNight());
+			registry.register(new ItemAccessoryTrinketPoison());
+			registry.register(new ItemAccessoryTrinketWither());
+			registry.register(new ItemAccessoryTrinketLevitation());
+			registry.register(new ItemAccessoryCursed());
+			registry.register(new ItemCard());
+			registry.register(new ItemAccessorySkull());
 
-        public static final Set<Item> ITEMS = new HashSet<>();
+			Gaia.LOGGER.info("Item registration complete.");
+		}
 
-        /**
-         * Register this mod's {@link Item}s.
-         *
-         * @param event The event
-         */
-        @SubscribeEvent
-        public static void registerItems(final RegistryEvent.Register<Item> event) {
-            Gaia.LOGGER.info("Registering items...");
-            init();
-            Item[] items = new Item[] {
-                    Shard,
-                    FoodMeat,
-                    FoodRottenHeart,
-                    FoodRoot,
-                    FoodCoalfish,
-                    FoodNetherWart,
-                    FoodSmallAppleGold,
-                    FoodMandrake,
-                    FoodWither,
-                    FoodPieMandrake,
-                    FoodPieMeat,
-                    FoodPieAppleGold,
-                    MiscSoulFire,
-                    MiscSoulFiery,
-                    MiscGigaGear,
-                    MiscFur,
-                    MiscExperience,
-                    MiscBook,
-                    MiscQuill,
-                    MiscRing,
-                    MiscFurnaceFuel,
-                    MiscCurrency,
-                    Spawn,
-                    SpawnCreeperGirl,
-                    SpawnEnderGirl,
-                    SpawnSlimeGirl,
-                    SpawnTrader,
-                    SpawnHolstaurus,
-                    SpawnWeresheep,
-                    SpawnTame,
-                    BoxIron,
-                    BoxGold,
-                    BoxDiamond,
-                    Box,
-                    BagOre,
-                    BagBook,
-                    BagRecord,
-                    BagArrow,
-                    BoxOld,
-                    Chest,
-                    PropWeapon,
-                    PropWeaponProjectile,
-                    PropWeaponEnchanted,
-                    PropShield,
-                    FanIce,
-                    FanFire,
-                    BookBase,
-                    BookFreezing,
-                    BookNightmare,
-                    BookMetal,
-                    BookEnder,
-                    BookHunger,
-                    BookBattle,
-                    BookNature,
-                    BookWither,
-                    BookBuff,
-                    Debug,
-                    AccessoryRingSpeed,
-                    AccessoryRingHaste,
-                    AccessoryRingJump,
-                    AccessoryRingNight,
-                    AccessoryTrinketPoison,
-                    AccessoryTrinketWither,
-                    AccessoryTrinketLevitation,
-                    AccessoryCursed,
-                    Card
-            };
-
-            final IForgeRegistry<Item> registry = event.getRegistry();
-
-            for (final Item item : items) {
-                registry.register(item);
-                ITEMS.add(item);
-            }
-            Gaia.proxy.registerItemsRender();
-            Gaia.LOGGER.info("Item registration complete.");
-        }
-    }
+		public static void registerOres() {
+			OreDictionary.registerOre("nuggetIron", new ItemStack(SHARD, 1, 0));
+			OreDictionary.registerOre("nuggetGold", new ItemStack(SHARD, 1, 1));
+			OreDictionary.registerOre("nuggetDiamond", new ItemStack(SHARD, 1, 2));
+			OreDictionary.registerOre("nuggetEmerald", new ItemStack(SHARD, 1, 3));
+			OreDictionary.registerOre("nuggetCopper", new ItemStack(SHARD, 1, 4));
+			OreDictionary.registerOre("nuggetSilver", new ItemStack(SHARD, 1, 5));
+			OreDictionary.registerOre("cropNetherWart", FOOD_NETHER_WART);
+		}
+	}
 }

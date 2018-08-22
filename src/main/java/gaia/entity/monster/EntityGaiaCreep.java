@@ -16,9 +16,9 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,257 +26,253 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * @see EntityCreeper
- */
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaCreep extends EntityMobHostileBase {
 
-    private int lastActiveTime;
-    private int timeSinceIgnited;
-    private int fuseTime = 30;
-    private int explosionRadius = 3;
+	private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
+	private int lastActiveTime;
+	private int timeSinceIgnited;
+	private int fuseTime = 30;
+	private int explosionRadius = 3;
 
-    private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityGaiaCreep.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(EntityGaiaCreep.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
 
-    public EntityGaiaCreep(World worldIn) {
-        super(worldIn);
+	public EntityGaiaCreep(World worldIn) {
+		super(worldIn);
 
-        this.setSize(0.75F, 0.75F);
-        this.experienceValue = EntityAttributes.experienceValue1;
-        this.stepHeight = 1.0F;
-    }
+		setSize(0.75F, 0.75F);
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
+		stepHeight = 1.0F;
+	}
 
-    protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIGaiaCreepSwell(this));
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed1, true));
-        this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(4, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIGaiaCreepSwell(this));
+		tasks.addTask(2, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true));
+		tasks.addTask(3, new EntityAIWander(this, 1.0D));
+		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(4, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue((double) EntityAttributes.maxHealth1);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-                .setBaseValue(EntityAttributes.followrange);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-                .setBaseValue(EntityAttributes.moveSpeed1);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue((double) EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR)
-                .setBaseValue(EntityAttributes.rateArmor1);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (damage > EntityAttributes.baseDefense1) {
-            damage = EntityAttributes.baseDefense1;
-        }
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+	}
 
-        return super.attackEntityFrom(source, damage);
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-        super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		super.fall(distance, damageMultiplier);
+		timeSinceIgnited = (int) (timeSinceIgnited + distance * 1.5F);
+		if (timeSinceIgnited > fuseTime - 5) {
+			timeSinceIgnited = fuseTime - 5;
+		}
+	}
 
-    public int getMaxSafePointTries() {
-        return this.getAttackTarget() == null
-                ? 3
-                : 3 + (int) (this.getHealth() - 1.0F);
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(STATE, -1);
+		dataManager.register(POWERED, Boolean.FALSE);
+		dataManager.register(IGNITED, Boolean.FALSE);
+	}
 
-    public void fall(float distance, float damageMultiplier) {
-        super.fall(distance, damageMultiplier);
-        this.timeSinceIgnited = (int) ((float) this.timeSinceIgnited + distance * 1.5F);
-        if (this.timeSinceIgnited > this.fuseTime - 5) {
-            this.timeSinceIgnited = this.fuseTime - 5;
-        }
-    }
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
 
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(STATE, Integer.valueOf(-1));
-        this.dataManager.register(POWERED, Boolean.valueOf(false));
-        this.dataManager.register(IGNITED, Boolean.valueOf(false));
-    }
+		if (dataManager.get(POWERED)) {
+			compound.setBoolean("powered", true);
+		}
 
-    public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
+		compound.setShort("Fuse", (short) fuseTime);
+		compound.setByte(EXPLOSION_RADIUS_TAG, (byte) explosionRadius);
+		compound.setBoolean("ignited", hasIgnited());
+	}
 
-        if (((Boolean) this.dataManager.get(POWERED)).booleanValue()) {
-            compound.setBoolean("powered", true);
-        }
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		dataManager.set(POWERED, compound.getBoolean("powered"));
 
-        compound.setShort("Fuse", (short) this.fuseTime);
-        compound.setByte("ExplosionRadius", (byte) this.explosionRadius);
-        compound.setBoolean("ignited", this.hasIgnited());
-    }
+		if (compound.hasKey("Fuse", 99)) {
+			fuseTime = compound.getShort("Fuse");
+		}
 
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
+		if (compound.hasKey(EXPLOSION_RADIUS_TAG, 99)) {
+			explosionRadius = compound.getByte(EXPLOSION_RADIUS_TAG);
+		}
 
-        if (compound.hasKey("Fuse", 99)) {
-            this.fuseTime = compound.getShort("Fuse");
-        }
+		if (compound.getBoolean("ignited")) {
+			ignite();
+		}
+	}
 
-        if (compound.hasKey("ExplosionRadius", 99)) {
-            this.explosionRadius = compound.getByte("ExplosionRadius");
-        }
+	@Override
+	public void onUpdate() {
+		if (isEntityAlive()) {
+			lastActiveTime = timeSinceIgnited;
 
-        if (compound.getBoolean("ignited")) {
-            this.ignite();
-        }
-    }
+			if (hasIgnited()) {
+				setCreeperState(1);
+			}
 
-    public void onUpdate() {
-        if (this.isEntityAlive()) {
-            this.lastActiveTime = this.timeSinceIgnited;
+			int i = getCreeperState();
 
-            if (this.hasIgnited()) {
-                this.setCreeperState(1);
-            }
+			if (i > 0 && timeSinceIgnited == 0) {
+				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+			}
 
-            int i = this.getCreeperState();
+			timeSinceIgnited += i;
 
-            if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
+			if (timeSinceIgnited < 0) {
+				timeSinceIgnited = 0;
+			}
 
-            this.timeSinceIgnited += i;
+			if (timeSinceIgnited >= fuseTime) {
+				timeSinceIgnited = fuseTime;
+				explode();
+			}
+		}
 
-            if (this.timeSinceIgnited < 0) {
-                this.timeSinceIgnited = 0;
-            }
+		super.onUpdate();
+	}
 
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
-                this.explode();
-            }
-        }
+	private boolean hasIgnited() {
+		return dataManager.get(IGNITED);
+	}
 
-        super.onUpdate();
-    }
+	private void ignite() {
+		dataManager.set(IGNITED, true);
+	}
 
-    public boolean hasIgnited() {
-        return ((Boolean) this.dataManager.get(IGNITED)).booleanValue();
-    }
+	private void explode() {
+		if (!world.isRemote) {
+			boolean flag = world.getGameRules().getBoolean("mobGriefing");
+			float f = getPowered() ? 2.0F : 1.0F;
+			dead = true;
+			world.createExplosion(this, posX, posY, posZ, explosionRadius * f, flag);
+			setDead();
+		}
+	}
 
-    public void ignite() {
-        this.dataManager.set(IGNITED, Boolean.valueOf(true));
-    }
+	public int getCreeperState() {
+		return dataManager.get(STATE);
+	}
 
-    private void explode() {
-        if (!this.world.isRemote) {
-            boolean flag = this.world.getGameRules()
-                    .getBoolean("mobGriefing");
-            float f = this.getPowered()
-                    ? 2.0F
-                    : 1.0F;
-            this.dead = true;
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius * f, flag);
-            this.setDead();
-        }
-    }
+	public void setCreeperState(int state) {
+		dataManager.set(STATE, state);
+	}
 
-    public int getCreeperState() {
-        return ((Integer) this.dataManager.get(STATE)).intValue();
-    }
+	@Override
+	public void onLivingUpdate() {
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.10F) {
+			addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 100, 0));
+		}
+		super.onLivingUpdate();
+	}
 
-    public void setCreeperState(int state) {
-        this.dataManager.set(STATE, Integer.valueOf(state));
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.ENTITY_CREEPER_HURT;
+	}
 
-    public void onLivingUpdate() {
-        /*
-         * if (this.getHealth() <= EntityAttributes.maxHealth1 * 0.10F) {
-         * this.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 100,
-         * 0)); }
-         */
-        super.onLivingUpdate();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.ENTITY_CREEPER_DEATH;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_CREEPER_HURT;
-    }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(Items.GUNPOWDER, 1);
+			}
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CREEPER_DEATH;
-    }
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                this.dropItem(Items.GUNPOWDER, 1);
-            }
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.dropNugget(this, 0);
+			}
 
-            // Nuggets/Fragments
-            int var11 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.OPTIONS.additionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
-            for (int var12 = 0; var12 < var11; ++var12) {
-                ItemShard.Drop_Nugget(this, 0);
-            }
+				for (int var14 = 0; var14 < var13; ++var14) {
+					ItemShard.dropNugget(this, 4);
+				}
+			}
 
-            if (GaiaConfig.AdditionalOre) {
-                int var13 = this.rand.nextInt(3) + 1;
+			// Rare
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(2);
+				if (i == 0) {
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				} else if (i == 1) {
+					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
+				}
+			}
 
-                for (int var14 = 0; var14 < var13; ++var14) {
-                    ItemShard.Drop_Nugget(this, 4);
-                }
-            }
+			// Very Rare
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
+				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
+			}
+		}
+	}
 
-            // Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(2)) {
-                    case 0:
-                        this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-                        break;
-                    case 1:
-                        this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollCreeperGirl), 1);
-                }
-            }
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		return true;
+	}
 
-            // Very Rare
-            if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1) > 0)) {
-                this.dropItem(GaiaItems.SpawnCreeperGirl, 1);
-            }
-        }
-    }
+	public boolean getPowered() {
+		return dataManager.get(POWERED);
+	}
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        return true;
-    }
+	@SideOnly(Side.CLIENT)
+	public float getCreeperFlashIntensity(float par1) {
+		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * par1) / (fuseTime - 2);
+	}
 
-    public boolean getPowered() {
-        return dataManager.get(POWERED);
-    }
+	@Override
+	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
+		super.onStruckByLightning(lightningBolt);
+		dataManager.set(POWERED, true);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public float getCreeperFlashIntensity(float par1) {
-        return ((float) this.lastActiveTime + (float) (this.timeSinceIgnited - this.lastActiveTime) * par1) / (float) (this.fuseTime - 2);
-    }
-
-    public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-        super.onStruckByLightning(lightningBolt);
-        this.dataManager.set(POWERED, true);
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY < 60.0D && this.posY > 32.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
+	}
 }

@@ -1,6 +1,0 @@
-{
-    "parent": "grimoireofgaia:item/weaponbook",
-    "textures": {
-        "0": "grimoireofgaia:items/models/book/WeaponBookEnder"
-    }
-}

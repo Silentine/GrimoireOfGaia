@@ -7,36 +7,38 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaPropChestMimic extends ModelGaia {
+	private ModelRenderer body;
+	private ModelRenderer lock;
 
-    ModelRenderer body;
-    ModelRenderer lock;
+	public ModelGaiaPropChestMimic() {
+		textureWidth = 64;
+		textureHeight = 32;
 
-    public ModelGaiaPropChestMimic() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
+		body = new ModelRenderer(this, 0, 0);
+		body.addBox(-8F, -8F, -8F, 14, 14, 14);
+		body.setRotationPoint(1F, 18F, 1F);
+		body.setTextureSize(64, 32);
+		body.mirror = true;
+		setRotation(body, 0F, 0F, 0F);
+		lock = new ModelRenderer(this, 0, 0);
+		lock.addBox(-2F, -5F, -9F, 2, 4, 1);
+		lock.setRotationPoint(1F, 18F, 1F);
+		lock.setTextureSize(64, 32);
+		lock.mirror = true;
+		setRotation(lock, 0F, 0F, 0F);
+	}
 
-        this.body = new ModelRenderer(this, 0, 0);
-        this.body.addBox(-8F, -8F, -8F, 14, 14, 14);
-        this.body.setRotationPoint(1F, 18F, 1F);
-        this.body.setTextureSize(64, 32);
-        this.body.mirror = true;
-        this.setRotation(body, 0F, 0F, 0F);
-        this.lock = new ModelRenderer(this, 0, 0);
-        this.lock.addBox(-2F, -5F, -9F, 2, 4, 1);
-        this.lock.setRotationPoint(1F, 18F, 1F);
-        this.lock.setTextureSize(64, 32);
-        this.lock.mirror = true;
-        this.setRotation(lock, 0F, 0F, 0F);
-    }
+	@Override
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		body.render(scale);
+		lock.render(scale);
+	}
 
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-        this.body.render(scale);
-        this.lock.render(scale);
-    }
-
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-            Entity entityIn) {
-    }
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
+			Entity entityIn) {
+		//noop
+	}
 }

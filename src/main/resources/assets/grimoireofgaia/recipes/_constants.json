@@ -1,0 +1,37 @@
+[
+    {
+        "name": "NUGGET_IRON",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "nuggetIron"
+        }
+    },
+    {
+        "name": "NUGGET_GOLD",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "nuggetGold"
+        }
+    },
+    {
+        "name": "NUGGET_DIAMOND",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "nuggetDiamond"
+        }
+    },
+    {
+        "name": "NUGGET_EMERALD",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "nuggetEmerald"
+        }
+    },
+    {
+        "name": "PAPER",
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "paper"
+        }
+    }
+]

@@ -1,43 +1,36 @@
 package gaia.renderer.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaFleshLich;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaFleshLich extends RenderLiving<EntityLiving> {
-	public static final Factory FACTORY = new Factory();
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/flesh_lich.png");
 
-    private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/flesh_lich.png");
+	public RenderGaiaFleshLich(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaFleshLich(), shadowSize);
+		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+	}
 
-    public RenderGaiaFleshLich(RenderManager renderManagerIn) {
-        super(renderManagerIn, new ModelGaiaFleshLich(), GaiaReference.MEDIUM_SHADOW);
-        this.addLayer(LayerGaiaHeldItem.Right(this, ModelGaiaFleshLich.rightarm));
-    }
+	private ModelGaiaFleshLich getModel() {
+		return (ModelGaiaFleshLich) getMainModel();
+	}
 
-    public void transformHeldFull3DItemLayer() {
-        GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
-    }
+	@Override
+	public void transformHeldFull3DItemLayer() {
+		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
+	}
 
-    @Override
-    protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return texture;
-    }
-    
-    public static class Factory implements IRenderFactory<EntityLiving> {
-	    @Override
-	    public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
-	      return new RenderGaiaFleshLich(manager);
-	    }
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return texture;
+	}
 }

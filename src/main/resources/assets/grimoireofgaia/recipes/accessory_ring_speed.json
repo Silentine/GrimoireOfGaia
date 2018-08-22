@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:miscring",
+      "item": "grimoireofgaia:misc_ring",
       "data": 0
     },
     {
@@ -10,6 +10,6 @@
     }
   ],
   "result": {
-    "item": "grimoireofgaia:accessoryringspeed"
+    "item": "grimoireofgaia:accessory_ring_speed"
   }
 }

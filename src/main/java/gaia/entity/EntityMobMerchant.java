@@ -1,7 +1,5 @@
 package gaia.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -15,176 +13,156 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import net.minecraft.village.Village;
 import net.minecraft.world.World;
 
 //Adapted from DivineRPG code
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {
+	private static final String OFFERS_TAG = "Offers";
+	private static final int MAX_RECIPES_TO_ADD = 75;
+	private MerchantRecipeList buyingList;
+	private int wealth;
 
-    private int randomTickDivider;
-    private Village villageObj;
-    private String lastBuyingPlayer;
-    private EntityPlayer buyingPlayer;
-    private MerchantRecipeList buyingList;
-    private int timeUntilReset;
-    private boolean needsInitilization;
-    private int wealth;
-    private String buyersName;
-    private float buying;
+	public EntityMobMerchant(World worldIn) {
+		super(worldIn);
 
-    public EntityMobMerchant(World worldIn) {
-        super(worldIn);
+	}
 
-        randomTickDivider = 0;
-        villageObj = null;
-    }
+	@Override
+	public ITextComponent getDisplayName() {
+		if (hasCustomName()) {
+			return super.getDisplayName();
+		}
 
-    @Override
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
+		TextComponentString nameString = new TextComponentString(getName());
+		nameString.getStyle().setHoverEvent(getHoverEvent());
+		nameString.getStyle().setInsertion(getCachedUniqueIdString());
+		return nameString;
+	}
 
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.maxHealth1);
-        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed1);
-        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
 
-    @Override
-    protected boolean canDespawn() {
-        return false;
-    }
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+	}
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
+	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return null;
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return null;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return null;
+	}
 
-    @Override
-    public boolean processInteract(EntityPlayer player, @Nonnull EnumHand hand) {
-        final ItemStack stack = player.getHeldItem(hand);
-        final boolean flag = stack != ItemStack.EMPTY && stack.getItem() == Items.SPAWN_EGG;
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return null;
+	}
 
-        if (!flag && isEntityAlive() && !isTrading() && !isChild() && !player.isSneaking()) {
-            if (!world.isRemote && (buyingList == null || !buyingList.isEmpty())) {
-                setCustomer(player);
-                String name = getCustomNameTag();
-                if (null == name || name.length() < 1) {
-                    name = getCommandSenderEntity()
-                            .getName();
-                }
-                player.displayVillagerTradeGui(this);
-            }
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		final boolean flag = stack != ItemStack.EMPTY && stack.getItem() == Items.SPAWN_EGG;
 
-            player.addStat(StatList.TALKED_TO_VILLAGER);
-            return true;
-        } else {
-            return super.processInteract(player, hand);
-        }
-    }
+		if (!flag && isEntityAlive() && !isTrading() && !isChild() && !player.isSneaking()) {
+			if (!world.isRemote && (buyingList == null || !buyingList.isEmpty())) {
+				setCustomer(player);
+				player.displayVillagerTradeGui(this);
+			}
 
-    public abstract void addRecipies(MerchantRecipeList list);
+			player.addStat(StatList.TALKED_TO_VILLAGER);
+			return true;
+		} else {
+			return super.processInteract(player, hand);
+		}
+	}
 
-    @Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
+	public abstract void addRecipies(MerchantRecipeList list);
 
-        compound.setInteger("Profession", getProfession());
-        compound.setInteger("Riches", wealth);
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
 
-        if (buyingList != null) {
-            compound.setTag("Offers", buyingList.getRecipiesAsTags());
-        }
-    }
+		compound.setInteger("Riches", wealth);
 
-    @Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
+		if (buyingList != null) {
+			compound.setTag(OFFERS_TAG, buyingList.getRecipiesAsTags());
+		}
+	}
 
-        setProfession(compound.getInteger("Profession"));
-        wealth = compound.getInteger("Riches");
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
 
-        if (compound.hasKey("Offers")) {
-            NBTTagCompound offerCompound = compound.getCompoundTag("Offers");
-            buyingList = new GaiaTradeList(offerCompound);
-        }
-    }
+		wealth = compound.getInteger("Riches");
 
-    @Override
-    public void useRecipe(@Nonnull MerchantRecipe recipe) {
-        recipe.incrementToolUses();
-        livingSoundTime = -getTalkInterval();
-        int i = 3 + rand.nextInt(4);
+		if (compound.hasKey(OFFERS_TAG)) {
+			NBTTagCompound offerCompound = compound.getCompoundTag(OFFERS_TAG);
+			buyingList = new GaiaTradeList(offerCompound);
+		}
+	}
 
-        if (recipe.getToolUses() == 1 || rand.nextInt(5) == 0) {
-            timeUntilReset = 40;
-            needsInitilization = true;
-            // TODO Will need to come back to this, mating code got changed
-            // TODO isWillingToMate = true;
+	@Override
+	public void useRecipe(MerchantRecipe recipe) {
+		recipe.incrementToolUses();
+		livingSoundTime = -getTalkInterval();
+		int i = 3 + rand.nextInt(4);
 
-            if (buyingPlayer != null) {
-                lastBuyingPlayer = buyingPlayer.getName();
-            } else {
-                lastBuyingPlayer = null;
-            }
+		if (recipe.getToolUses() == 1 || rand.nextInt(5) == 0) {
+			// TODO Will need to come back to this, mating code got changed
+			// TODO isWillingToMate = true;
 
-            i += 5;
-        }
+			i += 5;
+		}
 
-        if (recipe.getItemToBuy()
-                .getItem() == Items.EMERALD) {
-            wealth += recipe.getItemToBuy()
-                    .getMaxStackSize();
-        }
+		if (recipe.getItemToBuy()
+				.getItem() == Items.EMERALD) {
+			wealth += recipe.getItemToBuy()
+					.getMaxStackSize();
+		}
 
-        if (recipe.getRewardsExp()) {
-            world.spawnEntity(new EntityXPOrb(world, posX, posY + 0.5D, posZ, i));
-        }
-    }
+		if (recipe.getRewardsExp()) {
+			world.spawnEntity(new EntityXPOrb(world, posX, posY + 0.5D, posZ, i));
+		}
+	}
 
-    public void func_110297_a_(ItemStack itemstack) {
-    }
+	@Override
+	public MerchantRecipeList getRecipes(EntityPlayer var1) {
+		if (buyingList == null) {
+			addDefaultEquipmentAndRecipies(MAX_RECIPES_TO_ADD);
+		}
 
-    @Override
-    public MerchantRecipeList getRecipes(EntityPlayer var1) {
-        if (buyingList == null) {
-            addDefaultEquipmentAndRecipies(75);
-        }
+		return buyingList;
+	}
 
-        return buyingList;
-    }
+	private void addDefaultEquipmentAndRecipies(int maxRecipesToAdd) {
+		MerchantRecipeList rec = new MerchantRecipeList();
+		addRecipies(rec);
+		if (buyingList == null) {
+			buyingList = new MerchantRecipeList();
+		}
 
-    private void addDefaultEquipmentAndRecipies(int par1) {
-        if (buyingList != null) {
-            buying = MathHelper.sqrt(buyingList.size()) * 0.2F;
-        } else {
-            buying = 0.0F;
-        }
+		for (int i = 0; i < maxRecipesToAdd && i < rec.size(); ++i) {
+			buyingList.add(rec.get(i));
+		}
+	}
 
-        MerchantRecipeList rec = new MerchantRecipeList();
-        addRecipies(rec);
-        if (buyingList == null) {
-            buyingList = new MerchantRecipeList();
-        }
-
-        for (int var3 = 0; var3 < par1 && var3 < rec.size(); ++var3) {
-            buyingList.add((MerchantRecipe) rec.get(var3));
-        }
-    }
-
-    @Override
-    public boolean getCanSpawnHere() {
-        return posY < 0.0D && super.getCanSpawnHere();
-    }
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 0.0D && super.getCanSpawnHere();
+	}
 }

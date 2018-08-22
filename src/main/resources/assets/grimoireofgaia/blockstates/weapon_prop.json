@@ -1,0 +1,63 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "builtin/generated",
+        "transform": "forge:default-tool"
+    },
+    "variants": {
+        "variant": {
+            "ender": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_ender"
+                }
+            },
+            "blaze": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_blaze"
+                }
+            },
+            "spear": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_spear"
+                }
+            },
+            "dagger": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_dagger"
+                }
+            },
+            "fan": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_fan"
+                }
+            },
+            "axe": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_axe"
+                },
+                "display": {
+                    "thirdperson_righthand": {
+                        "rotation": [ 0, -90, 55 ],
+                        "translation": [ 0, 4.0, 0.5 ],
+                        "scale": [ 1.15, 1.15, 1.15 ]
+                    },
+                    "thirdperson_lefthand": {
+                        "rotation": [ 0, 90, -55 ],
+                        "translation": [ 0, 4.0, 0.5 ],
+                        "scale": [ 1.15, 1.15, 1.15 ]
+                    },
+                    "firstperson_righthand": {
+                        "rotation": [ 0, -90, 25 ],
+                        "translation": [ 1.13, 3.2, 1.13 ],
+                        "scale": [ 0.98, 0.98, 0.98 ]
+                    },
+                    "firstperson_lefthand": {
+                        "rotation": [ 0, 90, -25 ],
+                        "translation": [ 1.13, 3.2, 1.13 ],
+                        "scale": [ 0.98, 0.98, 0.98 ]
+                    }
+                }
+            }
+        }
+    }
+}

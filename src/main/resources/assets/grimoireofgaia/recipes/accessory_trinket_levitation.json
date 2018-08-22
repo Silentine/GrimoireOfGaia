@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:accessorycursed"
+      "item": "grimoireofgaia:accessory_cursed"
     },
     {
       "item": "minecraft:iron_ingot"
     }
   ],
   "result": {
-    "item": "grimoireofgaia:accessorytrinketlevitation"
+    "item": "grimoireofgaia:accessory_trinket_levitation"
   }
 }

@@ -1,21 +1,13 @@
 package gaia.items;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import gaia.CreativeTabGaia;
-import gaia.GaiaReference;
-import gaia.entity.item.EntityGaiaAgeableChest;
+import gaia.helpers.LootHelper;
+import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAppleGold;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -26,72 +18,68 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * @see ItemAppleGold
- */
-public class ItemChest extends Item {
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public ItemChest(String name) {
-        this.setHasSubtypes(true);
-        // this.maxStackSize = 1;
-        this.setRegistryName(GaiaReference.MOD_ID, name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(CreativeTabGaia.INSTANCE);
-    }
+public class ItemChest extends ItemBase {
+	public ItemChest() {
+		super("chest");
+		setHasSubtypes(true);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.RARE;
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public EnumRarity getRarity(ItemStack stack) {
+		return EnumRarity.RARE;
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (!this.isInCreativeTab(tab)) {
-            return;
-        }
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
 
-        for (int i = 0; i < 3; i++) {
-            items.add(new ItemStack(this, 1, i));
-        }
-    }
+		for (int i = 0; i < 3; i++) {
+			items.add(new ItemStack(this, 1, i));
+		}
+	}
 
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return this.getUnlocalizedName() + "_" + stack.getItemDamage();
-    }
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
+		final ItemStack stack = player.getHeldItem(handIn);
 
-    @Override
-    public @Nonnull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand handIn) {
-        final ItemStack stack = player.getHeldItem(handIn);
+		player.playSound(SoundEvents.BLOCK_CHEST_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-        player.playSound(SoundEvents.BLOCK_CHEST_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		if (!player.capabilities.isCreativeMode) {
+			stack.shrink(1);
+		}
 
-        if (!player.capabilities.isCreativeMode) {
-            stack.shrink(1);
-        }
+		if (!world.isRemote) {
+			if (stack.getMetadata() == 0) {
+				LootHelper.dropRandomLootAtPlayersPos(world, player, LootTableList.CHESTS_SIMPLE_DUNGEON, 2);
+			} else if (stack.getMetadata() == 1) {
+				LootHelper.dropRandomLootAtPlayersPos(world, player, LootTableList.CHESTS_JUNGLE_TEMPLE, 2);
+			} else if (stack.getMetadata() == 2) {
+				LootHelper.dropRandomLootAtPlayersPos(world, player, LootTableList.CHESTS_DESERT_PYRAMID, 2);
+			}
+		}
 
-        if (!world.isRemote) {
-            if (stack.getMetadata() == 0) {
-                EntityGaiaAgeableChest spawnEntity = new EntityGaiaAgeableChest(world, LootTableList.CHESTS_SIMPLE_DUNGEON);
-                spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0, 0);
-                world.spawnEntity(spawnEntity);
-            } else if (stack.getMetadata() == 1) {
-                EntityGaiaAgeableChest spawnEntity = new EntityGaiaAgeableChest(world, LootTableList.CHESTS_JUNGLE_TEMPLE);
-                spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0, 0);
-                world.spawnEntity(spawnEntity);
-            } else if (stack.getMetadata() == 2) {
-                EntityGaiaAgeableChest spawnEntity = new EntityGaiaAgeableChest(world, LootTableList.CHESTS_DESERT_PYRAMID);
-                spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0, 0);
-                world.spawnEntity(spawnEntity);
-            }
-        }
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	}
 
-        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_dungeon"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_jungle"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_desert")
+		);
+	}
 }

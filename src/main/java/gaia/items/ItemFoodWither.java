@@ -1,36 +1,26 @@
 package gaia.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import gaia.CreativeTabGaia;
-import gaia.GaiaReference;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFoodWither extends ItemFood {
+import javax.annotation.Nullable;
+import java.util.List;
 
-    String texture;
+public class ItemFoodWither extends ItemFoodBase {
+	public ItemFoodWither() {
+		super("food_wither", 8, 0.8F, true);
+		setPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 0), 0.6F);
+	}
 
-    public ItemFoodWither(int amount, float saturation, boolean isWolfFood, String name) {
-        super(amount, saturation, isWolfFood);
-        this.setRegistryName(GaiaReference.MOD_ID, name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(CreativeTabGaia.INSTANCE);
-
-        this.setPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 0), 0.6F);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add("(60%) " + I18n.format("effect.wither") + " (0:10)");
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add("(60%) " + I18n.format("effect.wither") + " (0:10)");
+	}
 }

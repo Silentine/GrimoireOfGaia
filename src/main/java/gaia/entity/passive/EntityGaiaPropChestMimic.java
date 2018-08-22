@@ -1,31 +1,18 @@
 package gaia.entity.passive;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Sets;
-
 import gaia.entity.monster.EntityGaiaMimic;
-import net.minecraft.block.Block;
+import gaia.helpers.LootHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -33,288 +20,222 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 
-/**
- * @see EntityShulker
- */
+import javax.annotation.Nullable;
+import java.util.List;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaPropChestMimic extends EntityAgeable {
 
-    private boolean canSpawn;
-    private boolean canSpawnDrop;
-    private boolean canDrop;
+	private boolean canSpawn;
+	private boolean canSpawnDrop;
+	private boolean canDrop;
 
-    public EntityGaiaPropChestMimic(World worldIn) {
-        super(worldIn);
-        this.setSize(0.8F, 0.8F);
-        this.experienceValue = 0;
-        this.prevRenderYawOffset = 180.0F;
-        this.renderYawOffset = 180.0F;
-        this.canSpawn = false;
-        this.canSpawnDrop = false;
-        this.canDrop = false;
-    }
+	public EntityGaiaPropChestMimic(World worldIn) {
+		super(worldIn);
+		setSize(0.8F, 0.8F);
+		experienceValue = 0;
+		prevRenderYawOffset = 180.0F;
+		renderYawOffset = 180.0F;
+		canSpawn = false;
+		canSpawnDrop = false;
+		canDrop = false;
+	}
 
-    @Nullable
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-        this.renderYawOffset = 180.0F;
-        this.prevRenderYawOffset = 180.0F;
-        this.rotationYaw = 180.0F;
-        this.prevRotationYaw = 180.0F;
-        this.rotationYawHead = 180.0F;
-        this.prevRotationYawHead = 180.0F;
+	@Override
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		renderYawOffset = 180.0F;
+		prevRenderYawOffset = 180.0F;
+		rotationYaw = 180.0F;
+		prevRotationYaw = 180.0F;
+		rotationYawHead = 180.0F;
+		prevRotationYawHead = 180.0F;
 
-        if (this.world.rand.nextInt(2) == 0) {
-            if (this.world.rand.nextInt(2) == 0) {
-                this.canSpawn = true;
-            } else {
-                this.canSpawnDrop = true;
-            }
-        } else {
-            this.canDrop = true;
-        }
+		if (world.rand.nextInt(2) == 0) {
+			if (world.rand.nextInt(2) == 0) {
+				canSpawn = true;
+			} else {
+				canSpawnDrop = true;
+			}
+		} else {
+			canDrop = true;
+		}
 
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
 
-    protected boolean canTriggerWalking() {
-        return false;
-    }
+	@Override
+	protected boolean canTriggerWalking() {
+		return false;
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue(1.0F);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+				.setBaseValue(1.0F);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		//noop
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public void onLivingUpdate() {
-        if (playerDetection(4) && this.canSpawn == true) {
-            this.attackEntityFrom(DamageSource.GENERIC, 2.0F);
-            this.spawnMob();
-        }
+	@Override
+	public void onLivingUpdate() {
+		if (playerDetection() && canSpawn) {
+			attackEntityFrom(DamageSource.GENERIC, 2.0F);
+			spawnMob();
+		}
 
-        if (this.getHealth() <= 0.0F) {
-            for (int i = 0; i < 2; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-                        this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                        this.posY + this.rand.nextDouble() * (double) this.height,
-                        this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
-            }
-        } else {
-            super.onLivingUpdate();
-        }
-    }
+		if (getHealth() <= 0.0F) {
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+						posX + (rand.nextDouble() - 0.5D) * (double) width,
+						posY + rand.nextDouble() * (double) height,
+						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+			}
+		} else {
+			super.onLivingUpdate();
+		}
+	}
 
-    /**
-     * Detects if there are any EntityPlayer nearby
-     */
-    public boolean playerDetection(int range) {
-        double d0 = (double) (range);
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	private boolean playerDetection() {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(4);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
-        int k = (int) this.posX;
-        int l = (int) this.posY;
-        int i1 = (int) this.posZ;
-        AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double) k, (double) l, (double) i1, (double) (k + 1), (double) (l + 1), (double) (i1 +
-                1))).grow(d0);
-        List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+		return !list.isEmpty();
 
-        if (!list.isEmpty()) {
-            return true;
-        }
+	}
 
-        return false;
-    }
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		attackEntityFrom(DamageSource.GENERIC, 2.0F);
 
-    @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        this.attackEntityFrom(DamageSource.GENERIC, 2.0F);
+		return super.processInteract(player, hand);
+	}
 
-        return super.processInteract(player, hand);
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_CHEST_OPEN;
+	}
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_CHEST_OPEN;
-    }
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
+		if (canSpawnDrop) {
+			spawnMob();
+		} else if (canDrop) {
+			LootHelper.dropRandomLootAtEntityPos(world, attackingPlayer, this, wasRecentlyHit, LootTableList.CHESTS_SIMPLE_DUNGEON, 2);
+		}
+	}
 
-    @Override
-    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-        // this.dropRandomLootFromLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON,
-        // wasRecentlyHit, lootingModifier, source);
-        if (this.canSpawnDrop) {
-            this.spawnMob();
-        } else if (this.canDrop) {
-            for (int var = 0; var < 2; ++var) {
-                this.dropRandomLootFromLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, wasRecentlyHit, lootingModifier, source);
-            }
-        }
+	private void spawnMob() {
+		EntityGaiaMimic spawnMob;
+		spawnMob = new EntityGaiaMimic(world);
+		spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+		spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
+		world.spawnEntity(spawnMob);
+		canSpawn = false;
+		canSpawnDrop = false;
+	}
 
-        // this.dropFewItems(wasRecentlyHit, lootingModifier);
-    }
+	@Override
+	protected void onDeathUpdate() {
+		setDead();
+	}
 
-    /**
-     * @see EntityLiving
-     */
-    public void dropRandomLootFromLootTable(ResourceLocation dungeonLoot, boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-        long LootTableSeed = 0;
-        int maxCount = 0;
-        int currentCount = 0;
-        Random Randomize = new Random();
-        int roll = 0;
+	@Override
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return false;
+	}
 
-        LootTable loottable = this.world.getLootTableManager()
-                .getLootTableFromLocation(dungeonLoot);
-        LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer) this.world)).withLootedEntity(this)
-                .withDamageSource(source);
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		//noop
+	}
 
-        if (wasRecentlyHit && this.attackingPlayer != null) {
-            lootcontext$builder = lootcontext$builder.withPlayer(this.attackingPlayer)
-                    .withLuck(this.attackingPlayer.getLuck());
-        }
+	@Override
+	public boolean canBeCollidedWith() {
+		return true;
+	}
 
-        for (ItemStack itemstack : loottable.generateLootForPools(LootTableSeed == 0L
-                ? this.rand
-                : new Random(LootTableSeed), lootcontext$builder.build())) {
-            maxCount++;
-        }
+	@Override
+	public boolean canBePushed() {
+		return true;
+	}
 
-        roll = Randomize.nextInt(maxCount);
+	/**
+	 * @see EntityMob
+	 */
+	private boolean isValidLightLevel() {
+		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
-        for (ItemStack itemstack : loottable.generateLootForPools(LootTableSeed == 0L
-                ? this.rand
-                : new Random(LootTableSeed), lootcontext$builder.build())) {
-            if (currentCount == roll) {
-                this.entityDropItem(itemstack, 0.0F);
-            }
-            currentCount++;
-        }
-    }
+		if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
+			return false;
+		} else {
+			int i = world.getLightFromNeighbors(blockpos);
 
-    /* Legacy code
-     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-         if (this.canSpawnDrop) {
-             this.spawnMob();
-         } else if (wasRecentlyHit && this.canSpawn == false) {
-             for (int var4 = 0; var4 < 1; ++var4) {
-                 Item var6 = chestDrops[this.rand.nextInt(chestDrops.length)];
+			if (world.isThundering()) {
+				int j = world.getSkylightSubtracted();
+				world.setSkylightSubtracted(10);
+				i = world.getLightFromNeighbors(blockpos);
+				world.setSkylightSubtracted(j);
+			}
 
-                 for (int var7 = 0; var7 < 1; ++var7) {
-                     this.dropItem(var6, 1);
-                 }
-             }
-         }
-     }
-     */
+			return i <= rand.nextInt(8);
+		}
+	}
 
-    /* LootTable
-     @Nullable
-     protected ResourceLocation getLootTable() {
-         return GaiaLootTableList.EMPTY;
-     }
-     */
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+	}
+	// ==================================//
 
-    protected void spawnMob() {
-        EntityGaiaMimic spawnMob;
-        spawnMob = new EntityGaiaMimic(this.world);
-        spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-        spawnMob.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData) null);
-        this.world.spawnEntity(spawnMob);
-        this.canSpawn = false;
-        this.canSpawnDrop = false;
-    }
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
 
-    protected void onDeathUpdate() {
-        this.setDead();
-    }
+	@Override
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox() {
+		return isEntityAlive()
+				? getEntityBoundingBox()
+				: null;
+	}
 
-    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return false;
-    }
+	@Override
+	public int getVerticalFaceSpeed() {
+		return 180;
+	}
 
-    protected void collideWithEntity(Entity entityIn) {
-    }
+	@Override
+	public int getHorizontalFaceSpeed() {
+		return 180;
+	}
 
-    public boolean canBeCollidedWith() {
-        return true;
-    }
+	@Override
+	public void applyEntityCollision(Entity entityIn) {
+		//noop
+	}
 
-    public boolean canBePushed() {
-        return true;
-    }
+	@Override
+	public float getCollisionBorderSize() {
+		return 0.0F;
+	}
 
-    public boolean allowLeashing() {
-        return false;
-    }
-
-    // ================= Spawn Conditions =================//
-    static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-            Blocks.STONE,
-            Blocks.DIRT
-    });
-
-    /**
-     * @see EntityMob
-     */
-    protected boolean isValidLightLevel() {
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
-
-        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
-            return false;
-        } else {
-            int i = this.world.getLightFromNeighbors(blockpos);
-
-            if (this.world.isThundering()) {
-                int j = this.world.getSkylightSubtracted();
-                this.world.setSkylightSubtracted(10);
-                i = this.world.getLightFromNeighbors(blockpos);
-                this.world.setSkylightSubtracted(j);
-            }
-
-            return i <= this.rand.nextInt(8);
-        }
-    }
-
-    public boolean getCanSpawnHere() {
-        return this.posY < 32.0D && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
-    }
-    // ==================================//
-
-    public int getMaxSpawnedInChunk() {
-        return 1;
-    }
-
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox() {
-        return this.isEntityAlive()
-                ? this.getEntityBoundingBox()
-                : null;
-    }
-
-    public int getVerticalFaceSpeed() {
-        return 180;
-    }
-
-    public int getHorizontalFaceSpeed() {
-        return 180;
-    }
-
-    public void applyEntityCollision(Entity entityIn) {
-    }
-
-    public float getCollisionBorderSize() {
-        return 0.0F;
-    }
-
-    public EntityAgeable createChild(EntityAgeable entityageable) {
-        return null;
-    }
+	public EntityAgeable createChild(EntityAgeable entityageable) {
+		return null;
+	}
 }

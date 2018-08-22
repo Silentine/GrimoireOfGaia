@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "grimoireofgaia:miscfur"
+      "item": "grimoireofgaia:misc_fur"
     }
   ],
   "result": {

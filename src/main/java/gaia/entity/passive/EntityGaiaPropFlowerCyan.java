@@ -1,11 +1,6 @@
 package gaia.entity.passive;
 
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Sets;
-
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
@@ -13,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -30,194 +24,204 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-/**
- * @see EntityShulker
- */
+import javax.annotation.Nullable;
+import java.util.Set;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
-    private int shovelAttack;
+	private int shovelAttack;
 
-    public EntityGaiaPropFlowerCyan(World worldIn) {
-        super(worldIn);
-        this.setSize(0.8F, 0.8F);
-        this.experienceValue = 0;
-        this.prevRenderYawOffset = 180.0F;
-        this.renderYawOffset = 180.0F;
+	public EntityGaiaPropFlowerCyan(World worldIn) {
+		super(worldIn);
+		setSize(0.8F, 0.8F);
+		experienceValue = 0;
+		prevRenderYawOffset = 180.0F;
+		renderYawOffset = 180.0F;
 
-        this.shovelAttack = 0;
-    }
+		shovelAttack = 0;
+	}
 
-    @Nullable
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-        this.renderYawOffset = 180.0F;
-        this.prevRenderYawOffset = 180.0F;
-        this.rotationYaw = 180.0F;
-        this.prevRotationYaw = 180.0F;
-        this.rotationYawHead = 180.0F;
-        this.prevRotationYawHead = 180.0F;
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
+	@Override
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		renderYawOffset = 180.0F;
+		prevRenderYawOffset = 180.0F;
+		rotationYaw = 180.0F;
+		prevRotationYaw = 180.0F;
+		rotationYawHead = 180.0F;
+		prevRotationYawHead = 180.0F;
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
 
-    protected boolean canTriggerWalking() {
-        return false;
-    }
+	@Override
+	protected boolean canTriggerWalking() {
+		return false;
+	}
 
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-                .setBaseValue(1.0D);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+				.setBaseValue(1.0D);
+	}
 
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        float input = damage;
-        Entity entity = source.getTrueSource();
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		float input = damage;
+		Entity entity = source.getTrueSource();
 
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack itemstack = player.getHeldItem(getActiveHand());
-            if (itemstack != null) {
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemStack itemstack = player.getHeldItem(getActiveHand());
 
-                if (itemstack.getItem() instanceof ItemSpade) {
-                    damage = input * 1.5F;
-                    this.shovelAttack += 1;
-                }
-            }
-        }
+			if (itemstack.getItem() instanceof ItemSpade) {
+				input = input * 1.5F;
+				shovelAttack += 1;
+			}
+		}
 
-        return super.attackEntityFrom(source, damage);
-    }
+		return super.attackEntityFrom(source, input);
+	}
 
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-    }
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		//noop
+	}
 
-    public boolean isAIDisabled() {
-        return false;
-    }
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
-    public void onLivingUpdate() {
-        if (this.getHealth() <= 0.0F) {
-            for (int i = 0; i < 2; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-                        this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                        this.posY + this.rand.nextDouble() * (double) this.height,
-                        this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
-            }
-        } else {
-            super.onLivingUpdate();
-        }
-    }
+	@Override
+	public void onLivingUpdate() {
+		if (getHealth() <= 0.0F) {
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+						posX + (rand.nextDouble() - 0.5D) * (double) width,
+						posY + rand.nextDouble() * (double) height,
+						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+			}
+		} else {
+			super.onLivingUpdate();
+		}
+	}
 
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_GRASS_BREAK;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_GRASS_BREAK;
+	}
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit) {
-            if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-                switch (this.rand.nextInt(10)) {
-                    case 0:
-                        this.dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
-                        break;
-                    case 1:
-                        this.dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
-                        break;
-                    case 2:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
-                        break;
-                    case 3:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
-                        break;
-                    case 4:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
-                        break;
-                    case 5:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
-                        break;
-                    case 6:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
-                        break;
-                    case 7:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
-                        break;
-                    case 8:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
-                        break;
-                    case 9:
-                        this.entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
-                        break;
-                }
-            } else {
-                EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(this.world);
-                spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                spawnMob.onSpawnWithEgg((IEntityLivingData) null);
-                this.world.spawnEntity(spawnMob);
-            }
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit) {
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				switch (rand.nextInt(10)) {
+					case 0:
+						dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
+						break;
+					case 1:
+						dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
+						break;
+					case 2:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
+						break;
+					case 3:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
+						break;
+					case 4:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
+						break;
+					case 5:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
+						break;
+					case 6:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
+						break;
+					case 7:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
+						break;
+					case 8:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
+						break;
+					case 9:
+					default:
+						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
+						break;
+				}
+			} else {
+				EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(world);
+				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+				world.spawnEntity(spawnMob);
+			}
 
-            if (this.shovelAttack >= 1) {
-                if ((this.rand.nextInt(16) == 0)) {
-                    this.dropItem(GaiaItems.FoodMandrake, 1);
-                }
-            }
-        }
-    }
+			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {
+				dropItem(GaiaItems.FOOD_MANDRAKE, 1);
+			}
+		}
+	}
 
-    protected void onDeathUpdate() {
-        this.setDead();
-    }
+	@Override
+	protected void onDeathUpdate() {
+		setDead();
+	}
 
-    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return false;
-    }
+	@Override
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return false;
+	}
 
-    protected void collideWithEntity(Entity entityIn) {
-    }
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		//noop
+	}
 
-    public boolean canBeCollidedWith() {
-        return true;
-    }
+	@Override
+	public boolean canBeCollidedWith() {
+		return true;
+	}
 
-    public boolean canBePushed() {
-        return true;
-    }
+	@Override
+	public boolean canBePushed() {
+		return true;
+	}
 
-    public boolean allowLeashing() {
-        return false;
-    }
+	// ================= Spawn Conditions =================//
+	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
 
-    // ================= Spawn Conditions =================//
-    static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-            Blocks.GRASS,
-            Blocks.DIRT
-    });
+	@Override
+	public boolean getCanSpawnHere() {
+		if (world.isDaytime()) {
+			float f = getBrightness();
+			if (f > 0.5F && world.canSeeSky(getPosition())) {
+				int i = MathHelper.floor(posX);
+				int j = MathHelper.floor(getEntityBoundingBox().minY);
+				int k = MathHelper.floor(posZ);
+				BlockPos blockpos = new BlockPos(i, j, k);
+				Block var1 = world.getBlockState(blockpos.down())
+						.getBlock();
 
-    public boolean getCanSpawnHere() {
-        if (this.world.isDaytime()) {
-            float f = this.getBrightness();
-            if (f > 0.5F && this.world.canSeeSky(this.getPosition())) {
-                int i = MathHelper.floor(this.posX);
-                int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-                int k = MathHelper.floor(this.posZ);
-                BlockPos blockpos = new BlockPos(i, j, k);
-                Block var1 = this.world.getBlockState(blockpos.down())
-                        .getBlock();
+				return world.getDifficulty() != EnumDifficulty.PEACEFUL && spawnBlocks.contains(var1) &&
+						!world.containsAnyLiquid(getEntityBoundingBox());
+			}
+		}
 
-                return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && spawnBlocks.contains(var1) &&
-                        !this.world.containsAnyLiquid(this.getEntityBoundingBox());
-            }
-        }
+		return false;
+	}
+	// ==================================//
 
-        return false;
-    }
-    // ==================================//
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
 
-    public int getMaxSpawnedInChunk() {
-        return 1;
-    }
+	@Override
+	public void applyEntityCollision(Entity entityIn) {
+		//noop
+	}
 
-    public void applyEntityCollision(Entity entityIn) {
-    }
-
-    public EntityAgeable createChild(EntityAgeable entityageable) {
-        return null;
-    }
+	public EntityAgeable createChild(EntityAgeable entityageable) {
+		return null;
+	}
 }
