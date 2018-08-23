@@ -3,9 +3,6 @@ package gaia.entity.ai;
 import gaia.GaiaConfig;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
-
-import java.util.Random;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -17,47 +14,50 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.DifficultyInstance;
+
+import java.util.Random;
+
+import static net.minecraft.world.EnumDifficulty.HARD;
 
 public class Ranged {
+	private Ranged() {}
 
 	/**
 	 * Shortcut Method for entities using ranged attacks.
 	 * Use this to replace entity [attackEntityWithRangedAttack].
-	 * @param target the entity to fire at
-	 * @param host the entity that is shooting
-	 * @param bonusdamage 
+	 *
+	 * @param target      the entity to fire at
+	 * @param host        the entity that is shooting
+	 * @param bonusdamage
 	 * @see EntitySkeleton
 	 */
-	public static void RangedAttack(EntityLivingBase target, EntityLivingBase host, float bonusdamage) {
+	public static void rangedAttack(EntityLivingBase target, EntityLivingBase host, float bonusdamage) {
 		Random rand = new Random();
-		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(host.worldObj, host);
+		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(host.world, host);
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entitytippedarrow.posY;
+		double d1 = target.getEntityBoundingBox().minY + target.height / 3.0D - entitytippedarrow.posY;
 		double d2 = target.posZ - host.posZ;
-		double d3 = (double)MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-		entitytippedarrow.setThrowableHeading(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float)(14 - host.worldObj.getDifficulty().getDifficultyId() * 4));
+		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
+		entitytippedarrow.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getDifficultyId() * 4));
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, host);
 		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, host);
-		DifficultyInstance difficultyinstance = host.worldObj.getDifficultyForLocation(new BlockPos(host));
-		entitytippedarrow.setDamage((double)(bonusdamage * 2.0F) + rand.nextGaussian() * 0.25D + (double)((float)host.worldObj.getDifficulty().getDifficultyId() * 0.11F));
 
-		if(host.worldObj.getDifficulty().getDifficultyId()==3 && GaiaConfig.BaseDamageArchers) {
-			//entitytippedarrow.addEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
+		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getDifficultyId() * 0.11D);
+
+		if (host.world.getDifficulty() == HARD && GaiaConfig.DAMAGE.baseDamageArchers) {
 			entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));
 		}
 
 		if (i > 0) {
-			entitytippedarrow.setDamage(entitytippedarrow.getDamage() + (double)i * 0.5D + 0.5D);
+			entitytippedarrow.setDamage(entitytippedarrow.getDamage() + i * 0.5D + 0.5D);
 		}
 
 		if (j > 0) {
 			entitytippedarrow.setKnockbackStrength(j);
 		}
 
-		boolean flag = host.isBurning() && difficultyinstance.isHard() && rand.nextBoolean();
+		boolean flag = host.isBurning() && host.getEntityWorld().getDifficulty() == HARD && rand.nextBoolean();
 		flag = flag || EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, host) > 0;
 
 		if (flag) {
@@ -66,43 +66,46 @@ public class Ranged {
 
 		ItemStack itemstack = host.getHeldItem(EnumHand.OFF_HAND);
 
-		if (itemstack != null && itemstack.getItem() == Items.TIPPED_ARROW) {
+		if (itemstack.getItem() == Items.TIPPED_ARROW) {
 			entitytippedarrow.setPotionEffect(itemstack);
-		}  
+		}
 
 		host.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (host.getRNG().nextFloat() * 0.4F + 0.8F));
-		host.worldObj.spawnEntityInWorld(entitytippedarrow);
+		host.world.spawnEntity(entitytippedarrow);
 	}
 
-	public static void fireball(EntityLivingBase target, EntityLivingBase host, float par2){
+	public static void fireball(EntityLivingBase target, EntityLivingBase host, float par2) {
 		Random rand = new Random();
 
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 2.0F) - (host.posY + (double)(host.height / 2.0F));
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
-		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
+		double f1 = MathHelper.sqrt(par2) * 0.5D;
 
 		for (int var10 = 0; var10 < 1; ++var10) {
-			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(host.worldObj, host, d0 + rand.nextGaussian() * (double)f1, d1, d2 + rand.nextGaussian() * (double)f1);
-			var11.posY = host.posY + (double)(host.height / 2.0F) + 0.5D;
-			host.worldObj.spawnEntityInWorld(var11);
+			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(host.world, host,
+					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			var11.posY = host.posY + host.height / 2.0D + 0.5D;
+			host.world.spawnEntity(var11);
 		}
 	}
-	
-	public static void magic(EntityLivingBase target, EntityLivingBase host, float par2){
+
+	public static void magic(EntityLivingBase target, EntityLivingBase host, float par2) {
 		Random rand = new Random();
-		
+
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
+
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 2.0F) - (host.posY + (double)(host.height / 2.0F));
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
-		float f1 = MathHelper.sqrt_float(par2) * 0.5F;
+		double f1 = MathHelper.sqrt(par2) * 0.5D;
 
 		for (int var10 = 0; var10 < 1; ++var10) {
-			EntityGaiaProjectileMagic var11 = new EntityGaiaProjectileMagic(host.worldObj, host, d0 + rand.nextGaussian() * (double)f1, d1, d2 + rand.nextGaussian() * (double)f1);
-			var11.posY = host.posY + (double)(host.height / 2.0F) + 0.5D;
-			host.worldObj.spawnEntityInWorld(var11);
+			EntityGaiaProjectileMagic var11 = new EntityGaiaProjectileMagic(host.world, host,
+					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			var11.posY = host.posY + host.height / 2.0D + 0.5D;
+			host.world.spawnEntity(var11);
 		}
 	}
 }

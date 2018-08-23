@@ -5,7 +5,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -17,6 +16,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -27,64 +27,71 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaSharko extends EntityMobHostileBase {
-	
+
 	private int buffEffect;
 
 	public EntityGaiaSharko(World worldIn) {
 		super(worldIn);
-		this.setSize(1.4F, 2.0F);
-		this.experienceValue = EntityAttributes.experienceValue2;
-		this.stepHeight = 1.0F;
-		this.fireResistance = 10;
-
-		this.buffEffect = 0;
+		setSize(1.4F, 2.0F);
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
+		stepHeight = 1.0F;
+		buffEffect = 0;
 	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true));
-		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
 
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
+
+	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
-	}
-	
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense2) {
-			damage = EntityAttributes.baseDefense2;
-		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+	}
+
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
+				byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 10;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 20;
-                }
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 20;
+				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 20, 2));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 20, 2));
 				}
 			}
 
@@ -94,103 +101,106 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 		}
 	}
 
-	public boolean isAIEnabled() {
-		return true;
+	@Override
+	public boolean isAIDisabled() {
+		return false;
 	}
 
+	@Override
 	public void onLivingUpdate() {
-		if (this.isInWater()) {
-			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
+		if (isInWater()) {
+			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
 		}
-		
-		if (this.isWet()) {
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+
+		if (isWet()) {
+			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 		}
-		
-		if (this.getHealth() > EntityAttributes.maxHealth2 * 0.25F && this.buffEffect == 1) {
-			this.buffEffect = 0;
-		} else if (this.getHealth() <= EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.buffEffect == 0) {
-	        this.worldObj.setEntityState(this, (byte)10);
-			
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
-			
-			this.buffEffect = 1;
+
+		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			world.setEntityState(this, (byte) 10);
+
+			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
+
+			buffEffect = 1;
 		}
 
 		super.onLivingUpdate();
 	}
 
+	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = this.rand.nextInt(3 + lootingModifier);
+			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				this.dropItem(GaiaItems.FoodCoalfish, 1);
+				dropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
-			if ((this.rand.nextInt(4) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				this.dropItem(Items.PRISMARINE_SHARD, 1);
+			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(Items.PRISMARINE_SHARD, 1);
 			}
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,1);
+				ItemShard.dropNugget(this, 1);
 			}
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.OPTIONS.additionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(3)) {
-    			case 0:
-    				this.entityDropItem(new ItemStack(GaiaItems.Box, 1, 0), 0.0F);
-    				break;
-    			case 1:
-    				this.dropItem(GaiaItems.BagBook, 1);
-    				break;
-    			case 2:
-    				this.dropItem(GaiaItems.BookBuff, 1);
-    			}
-    		}
+
+			// Rare
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(3);
+				if (i == 0) {
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				} else if (i == 1) {
+					dropItem(GaiaItems.BAG_BOOK, 1);
+				} else if (i == 2) {
+					dropItem(GaiaItems.BOOK_BUFF, 1);
+				}
+			}
 		}
 	}
 
 	@Override
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
-	
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
-		ItemStack BOOTS_SWIMMING = new ItemStack(Items.LEATHER_BOOTS);
-		this.setItemStackToSlot(EntityEquipmentSlot.FEET, BOOTS_SWIMMING);
-		BOOTS_SWIMMING.addEnchantment(Enchantment.getEnchantmentByLocation("depth_strider"), 3);
-		
-		return livingdata;		
-    }
-	
-	public float SharkoScaleAmount() {
-		return 1.25F;
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+		//noop
 	}
-	
-	//================= Immunities =================//
+
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+
+		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
+		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
+		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 3);
+
+		return ret;
+	}
+
+	// ================= Immunities =================//
+	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
 	}
 
-    public boolean isPushedByWater() {
-        return false;
-    }
-	//==============================================//
+	@Override
+	public boolean isPushedByWater() {
+		return false;
+	}
+	// ==============================================//
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && super.getCanSpawnHere();
+		return posY < 32.0D && super.getCanSpawnHere();
 	}
 }

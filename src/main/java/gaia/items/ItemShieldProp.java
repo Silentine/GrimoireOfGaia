@@ -1,58 +1,67 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-
+import gaia.helpers.ModelLoaderHelper;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemShieldProp extends Item {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public ItemShieldProp(String name) {
-		this.maxStackSize = 1;
-		this.setHasSubtypes(true);
-		this.setCreativeTab(Gaia.tabGaia);
-		this.setUnlocalizedName(name);
+public class ItemShieldProp extends ItemBase {
+	public ItemShieldProp() {
+		super("shield_prop");
+		maxStackSize = 1;
+		setHasSubtypes(true);
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.Prop.tag")));
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Prop.tag")));
 	}
-	
+
+	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
-		EntityPlayer player = host instanceof EntityPlayer ? (EntityPlayer)host : null;
-		
-		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
+		if (!(host instanceof EntityPlayer) || !((EntityPlayer) host).capabilities.isCreativeMode) {
+			stack.shrink(1);
 		}
-		
+
 		return true;
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 2; i ++) {
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		for (int i = 0; i < 2; i++) {
+			items.add(new ItemStack(this, 1, i));
 		}
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_iron"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_gold")
+		);
 	}
 }

@@ -9,7 +9,6 @@ import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -34,82 +33,85 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaMandragora extends EntityMobHostileDay {
-	
+
 	private int shovelAttack;
-	
+
 	public EntityGaiaMandragora(World worldIn) {
 		super(worldIn);
-		this.setSize(0.5F, 1.0F);
-		this.experienceValue = EntityAttributes.experienceValue1;
-		this.stepHeight = 1.0F;
 
-		this.shovelAttack = 0;
+		setSize(0.5F, 1.0F);
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
+		stepHeight = 1.0F;
+
+		shovelAttack = 0;
 	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed0, true));
-		this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(2, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
 
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_0, true));
+		tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(2, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
+
+	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth1);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed0);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage1);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor1);
-        
-		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+
+		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
-	
+
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense1) {
-			damage = EntityAttributes.baseDefense1;
-		}
-		
-		float input = damage;
-		Entity entity = source.getEntity();
-		
+		float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+		Entity entity = source.getTrueSource();
+
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			ItemStack itemstack = player.getHeldItem(getActiveHand());
-			if (itemstack != null) {
-				
-				if (itemstack.getItem() instanceof ItemSpade) {
-					damage = input*1.5F;
-					this.shovelAttack += 1;
-				}
+
+			if (itemstack.getItem() instanceof ItemSpade) {
+				input = input * 1.5F;
+				shovelAttack += 1;
 			}
 		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback1);
+
+		return super.attackEntityFrom(source, input);
 	}
 
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
-                byte byte1 = 0;
+				byte byte0 = 0;
+				byte byte1 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 20;
-                	byte1 = 10;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 30;
-                	byte1 = 20;
-                }
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 20;
+					byte1 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 30;
+					byte1 = 20;
+				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 3));
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, byte0 * 20, 0));
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte1 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 3));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte1 * 20, 0));
 				}
 			}
 
@@ -119,125 +121,137 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		}
 	}
 
-	public boolean isAIEnabled() {
-		return true;
+	@Override
+	public boolean isAIDisabled() {
+		return false;
 	}
 
+	@Override
 	public void onLivingUpdate() {
-		if (this.isInWater()) {
-			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
+		if (isInWater()) {
+			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
 		}
-		
-		if (this.isWet()) {
-			this.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
-		}
-		
-		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
-			int i = MathHelper.floor_double(this.posX);
-			int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-			int k = MathHelper.floor_double(this.posZ);
-			IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
 
-			if (iblockstate.getMaterial() != Material.AIR)
-			{
-				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, 4.0D * ((double)this.rand.nextFloat() - 0.5D), 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(iblockstate)});
+		if (isWet()) {
+			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
+		}
+
+		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
+			int i = MathHelper.floor(posX);
+			int j = MathHelper.floor(posY - 0.20000000298023224D);
+			int k = MathHelper.floor(posZ);
+			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
+
+			if (iblockstate.getMaterial() != Material.AIR) {
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
+						posX + (rand.nextDouble() - 0.5D) * width,
+						getEntityBoundingBox().minY + 0.1D,
+						posZ + (rand.nextDouble() - 0.5D) * width,
+						4.0D * (rand.nextDouble() - 0.5D), 0.5D,
+						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
-		
-		if (this.isBurning()) {
-			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+
+		if (isBurning()) {
+			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
 		super.onLivingUpdate();
 	}
 
+	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.aggressive_say;
+		return Sounds.AGGRESSIVE_SAY;
 	}
 
-	protected SoundEvent getHurtSound() {
-		return Sounds.aggressive_hurt;
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.AGGRESSIVE_HURT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.aggressive_death;
+		return Sounds.AGGRESSIVE_DEATH;
 	}
 
+	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			if ((this.rand.nextInt(2) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-				this.dropItem(GaiaItems.FoodRoot, 1);
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(GaiaItems.FOOD_ROOT, 1);
 			}
 
-			if 	(this.shovelAttack >= 4) {
-				if ((this.rand.nextInt(8) == 0)) {
-					this.dropItem(GaiaItems.FoodMandrake, 1);
+			if (shovelAttack >= 4) {
+				if ((rand.nextInt(8) == 0)) {
+					dropItem(GaiaItems.FOOD_MANDRAKE, 1);
 				}
 			} else {
-				if ((this.rand.nextInt(16) == 0)) {
-					this.dropItem(GaiaItems.FoodMandrake, 1);
+				if ((rand.nextInt(16) == 0)) {
+					dropItem(GaiaItems.FOOD_MANDRAKE, 1);
 				}
 			}
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,0);
+				ItemShard.dropNugget(this, 0);
 			}
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.OPTIONS.additionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,4);
+					ItemShard.dropNugget(this, 4);
 				}
 			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(1)) {
-    			case 0:
-    				this.dropItem(GaiaItems.BoxIron, 1);
-    			}
-    		}
+
+			// Rare
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+				dropItem(GaiaItems.BOX_IRON, 1);
+			}
 		}
 	}
-	
+
 	@Override
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {}
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+		//noop
+	}
 
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+
 		//TEMP Method used instead of isChild
-		this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		
-		return livingdata;		
+		setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+
+		return ret;
 	}
-	
-    public float getEyeHeight() {
-        float f;
 
-        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+	public float getEyeHeight() {
+		float f;
 
-        if (itemstack == null || itemstack.getItem() != Items.EGG) {
-            f = 1.74F;
-        } else {
-            f = (float)((double)1.74F - 0.81D);
-        }
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-        return f;
-    }
+		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+			f = 1.74F;
+		} else {
+			f = (float) ((double) 1.74F - 0.81D);
+		}
 
-	//================= Immunities =================//
+		return f;
+	}
+
+	// ================= Immunities =================//
+	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() == MobEffects.POISON ? false:super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	//==============================================//
+	// ==============================================//
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY < 0.0D && super.getCanSpawnHere();
+		return posY < 0.0D && super.getCanSpawnHere();
 	}
 }

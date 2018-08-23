@@ -4,14 +4,8 @@ import gaia.GaiaReference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 
-/** https://github.com/Choonster/TestMod3/blob/7d877920df256a11d7797178addd8d9d32cf92c7/src/main/java/choonster/testmod3/init/ModLootTables.java **/
-
-/** Tutorial Source
- * <li>http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/2782328-forge-1-10-tutorial-how-to-add-and-manipulate
- * <br>
- * <br>Registration and reference for new loot tables 
- */
 public class GaiaLootTableList {
+	private GaiaLootTableList() {}
 
 	public static final ResourceLocation BAG_ARROW = register("loot_table_bagarrow");
 	public static final ResourceLocation BOXES_IRON = register("loot_table_boxiron");

@@ -17,14 +17,15 @@ import net.minecraft.world.World;
 
 public class EntityGaiaProjectileMagic extends EntityFireball {
 
+	@SuppressWarnings("unused") //used in reflection
 	public EntityGaiaProjectileMagic(World worldIn) {
 		super(worldIn);
-		this.setSize(0.3125F, 0.3125F);
+		setSize(0.3125F, 0.3125F);
 	}
 
 	public EntityGaiaProjectileMagic(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
 		super(worldIn, shooter, accelX, accelY, accelZ);
-		this.setSize(0.3125F, 0.3125F);
+		setSize(0.3125F, 0.3125F);
 	}
 
 	@Override
@@ -32,70 +33,63 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 		return EnumParticleTypes.END_ROD;
 	}
 
+	@Override
 	protected float getMotionFactor() {
-		return this.isInvulnerable() ? 0.73F : super.getMotionFactor();
+		return isInvulnerable() ? 0.73F : super.getMotionFactor();
 	}
 
+	@Override
 	public boolean isBurning() {
 		return false;
 	}
 
-	/** 
-	 * @see EntityWitherSkull 
+	/**
+	 * @see EntityFireball
 	 */
+	@Override
 	protected void onImpact(RayTraceResult movingObject) {
-		if (!this.worldObj.isRemote) {
+		if (!world.isRemote) {
 			if (movingObject.entityHit != null) {
-				movingObject.entityHit.attackEntityFrom(DamageSource.magic, (EntityAttributes.attackDamage2/2));
+				movingObject.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
 
 				if (movingObject.entityHit instanceof EntityLivingBase) {
 					int i = 0;
 
-					if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
 						i = 10;
-					}
-					else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+					} else if (world.getDifficulty() == EnumDifficulty.HARD) {
 						i = 40;
 					}
 
 					if (i > 0) {
-						((EntityLivingBase)movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
+						((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
 					}
 				}
 			}
 
-			this.setDead();
+			setDead();
 		}
 	}
 
+	@Override
 	public boolean canBeCollidedWith() {
 		return false;
 	}
 
+	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
 		return false;
 	}
 
-	/*
-    protected void entityInit() {
-        this.dataWatcher.addObject(10, Byte.valueOf((byte)0));
-    }
-	 */
+	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
 
-	private static final DataParameter<Integer> Vuln = EntityDataManager.<Integer>createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+	@Override
 	protected void entityInit() {
-		super.entityInit();		
-		//this.dataWatcher.addObject(13, new Byte((byte)0));
-		this.dataManager.register(Vuln, Integer.valueOf(0));
+		super.entityInit();
+		dataManager.register(Vuln, 0);
 	}
 
-	public boolean isInvulnerable() {
-		//return this.dataWatcher.getWatchableObjectByte(10) == 1;
-		return ((Integer)this.dataManager.get(Vuln)).intValue() ==1;
-	}
-
-	public void setInvulnerable(boolean par1) {
-		//this.dataWatcher.updateObject(10, Byte.valueOf((byte)(par1 ? 1 : 0)));
-		this.dataManager.set(Vuln, (par1 ? 1 : 0));
+	private boolean isInvulnerable() {
+		return dataManager.get(Vuln) == 1;
 	}
 }

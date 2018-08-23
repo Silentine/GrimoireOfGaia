@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:diamond",
+    "ingredients": [
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        },
+        {
+            "item": "#NUGGET_DIAMOND"
+        }
+    ],
+    "result": {
+        "item": "minecraft:diamond"
+    }
+}

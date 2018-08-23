@@ -1,26 +1,30 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//TODO Remove/Phase out
-public class ItemMiscFurnaceFuel extends Item {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public ItemMiscFurnaceFuel(String name) {
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
+//TODO Remove/Phase out
+public class ItemMiscFurnaceFuel extends ItemBase {
+	public ItemMiscFurnaceFuel() {
+		super("misc_furnace_fuel");
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.translateToLocalFormatted("text.GrimoireOfGaia.FuelForSeconds", new Object[]{Integer.valueOf(180)}));
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", TileEntityFurnace.getItemBurnTime(stack)));
+	}
+
+	@Override
+	public int getItemBurnTime(ItemStack itemStack) {
+		return 3600;
 	}
 }

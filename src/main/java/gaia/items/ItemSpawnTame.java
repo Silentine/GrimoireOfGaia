@@ -1,34 +1,33 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemSpawnTame extends Item {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public ItemSpawnTame(String name) {
-		this.setMaxStackSize(1);
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
+public class ItemSpawnTame extends ItemBase {
+	public ItemSpawnTame() {
+		super("spawn_tame");
+		setMaxStackSize(1);
 	}
 
+	@Override
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.grimoireofgaia.desc")));
-		tooltip.add(I18n.translateToLocal("item.GrimoireOfGaia.SpawnTame.desc"));
-		tooltip.add(TextFormatting.ITALIC + I18n.translateToLocal("item.GrimoireOfGaia.SpawnTame2.desc"));
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.grimoireofgaia.desc")));
+		tooltip.add(I18n.format("item.grimoireofgaia.spawn_tame.desc"));
+		tooltip.add(TextFormatting.ITALIC + I18n.format("item.grimoireofgaia.spawn_tame2.desc"));
 	}
 }

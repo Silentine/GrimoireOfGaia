@@ -4,57 +4,54 @@ buildscript {
         maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1+"
     }
 }
+
+plugins {
+    id "com.jfrog.bintray" version "1.8.1"
+    id "org.sonarqube" version "2.6.2"
+}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
+version = "${mc_version}-${mod_version}." + getBuildNumber() + getStable()
+group= "${package_group}"
+archivesBaseName = "${mod_name}"
 
-version = "1.10.2-1.5.6"
-group= "com.silentine.grimoireofgaia"
-archivesBaseName = "GrimoireOfGaia3"
-
-sourceCompatibility = targetCompatibility = "1.6" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 minecraft {
-    version = "1.10.2-12.18.3.2281"
+    version = mc_version + "-" + forge_version
     runDir = "run"
-    
+
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not allways work.
+    // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20161111"
+    mappings = mappings_version
+
+    replace '@VERSION@', project.version
+    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+repositories {
+    maven {
+        name 'Curseforge Maven' // Baubles + Thaumcraft
+        url 'http://minecraft.curseforge.com/api/maven/'
+    }
+}
+
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    deobfCompile "baubles:Baubles:${baubles_mc_version}:${baubles_version}"
+    deobfCompile "thaumcraft:Thaumcraft:${mc_version}:${thaumcraft_version}"
 }
 
 processResources
@@ -74,5 +71,46 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add('-Xlint:unchecked')
+}
+
+def getBuildNumber() {
+    if (System.getenv("TRAVIS_BUILD_NUMBER") != null) {
+        return System.getenv("TRAVIS_BUILD_NUMBER").toString()
+    }
+    return ""
+}
+
+def getStable() {
+    if ((System.getenv("DRONE_BRANCH") == null || System.getenv("DRONE_BRANCH").endsWith("-dev"))
+            && (System.getenv("TRAVIS_BRANCH") == null || System.getenv("TRAVIS_BRANCH").endsWith("-dev"))) {
+        return "unstable"
+    }
+    return ""
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publish = true
+    filesSpec {
+        from 'build/libs'
+        into '.'
+        exclude '*sources.jar'
+    }
+    pkg {
+        version {
+            name = "${project.version}"
+            released = new Date()
+        }
+        repo = 'maven'
+        name = 'GrimoireOfGaia'
+        licenses = ['CC0-1.0']
+        vcsUrl = 'https://github.com/P3pp3rF1y/GrimoireOfGaia.git'
     }
 }

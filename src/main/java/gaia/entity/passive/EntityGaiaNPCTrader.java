@@ -5,101 +5,96 @@ import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCTrader extends EntityMobMerchant {
 
 	public EntityGaiaNPCTrader(World var1) {
 		super(var1);
 	}
 
-	public ITextComponent getDisplayName() {
-		String s = "entity.grimoireofgaia.Trader.name";
-		TextComponentTranslation text = new TextComponentTranslation(s);
-		return text;
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.passive_say;
+		return Sounds.PASSIVE_SAY;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
-		return Sounds.passive_hurt;
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.PASSIVE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.passive_death;
+		return Sounds.PASSIVE_DEATH;
 	}
-	
-	protected void dropFewItems(boolean par1, int par2) {
-		if (par1 && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + par2) > 0)) {
-            this.entityDropItem(new ItemStack(GaiaItems.SpawnTrader, 1, 0), 0.0F);
+
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			entityDropItem(new ItemStack(GaiaItems.SPAWN_TRADER, 1, 0), 0.0F);
 		}
 	}
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 1)));	
-		
-		//Buy List
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 1), new ItemStack(GaiaItems.BoxIron, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 1), new ItemStack(GaiaItems.BoxGold, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 4, 1), new ItemStack(GaiaItems.BoxDiamond, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 4, 1), new ItemStack(GaiaItems.BagBook, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 1, 1), new ItemStack(GaiaItems.BagOre, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 1), new ItemStack(GaiaItems.BagRecord, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 4, 1), new ItemStack(GaiaItems.MiscBook, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 1), new ItemStack(GaiaItems.Chest, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 1), new ItemStack(GaiaItems.Chest, 1, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscCurrency, 2, 1), new ItemStack(GaiaItems.Chest, 1, 2)));
-		
-		//Sell List
-			//Materials
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscGigaGear, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscRing, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscRing, 1, 1), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscRing, 1, 2), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MiscRing, 1, 3), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		
-			//Miscellaneous
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.Spawn, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnCreeperGirl, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnSlimeGirl, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnEnderGirl, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnTrader, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnHolstaurus, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SpawnWeresheep, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.Box, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 1, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.Box, 1, 1), new ItemStack(GaiaItems.MiscCurrency, 1, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.Box, 1, 2), new ItemStack(GaiaItems.MiscCurrency, 1, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BoxOld, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1)));
 
-			//Combat
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.FanFire, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.FanIce, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookBase, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookFreezing, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookNightmare, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookMetal, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookEnder, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookHunger, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookBattle, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookNature, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookWither, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BookBuff, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		
-			//Accessory
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.AccessoryTrinketPoison, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.AccessoryTrinketWither, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.AccessoryTrinketLevitation, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 2, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.AccessoryCursed, 1, 0), new ItemStack(GaiaItems.MiscCurrency, 4, 1)));
+		// Buy List
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1), new ItemStack(GaiaItems.BOX_IRON, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.BOX_GOLD, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.BOX_DIAMOND, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.BAG_BOOK, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1), new ItemStack(GaiaItems.BAG_ORE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.BAG_RECORD, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.MISC_BOOK, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 2)));
+
+		// Sell List
+		// Materials
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_GIGA_GEAR, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_RING, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_RING, 1, 1), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_RING, 1, 2), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_RING, 1, 3), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+
+		// Miscellaneous
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_SLIME_GIRL, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_ENDER_GIRL, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_TRADER, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_HOLSTAURUS, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.SPAWN_WERESHEEP, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BOX, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BOX, 1, 1), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BOX, 1, 2), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BOX_OLD, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
+
+		// Combat
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_FAN_FIRE, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_FAN_ICE, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_FREEZING, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_METAL, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_ENDER, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_HUNGER, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_BATTLE, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_NATURE, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.WEAPON_BOOK_WITHER, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.BOOK_BUFF, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+
+		// Accessory
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.ACCESSORY_TRINKET_POISON, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.ACCESSORY_TRINKET_WITHER, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.ACCESSORY_TRINKET_LEVITATION, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.ACCESSORY_CURSED, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1)));
 	}
 }

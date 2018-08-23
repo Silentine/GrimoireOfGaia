@@ -1,53 +1,55 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.entity.item.EntityGaiaBoxGold;
+import gaia.entity.GaiaLootTableList;
+import gaia.helpers.LootHelper;
 import gaia.init.Sounds;
-
-import java.util.List;
-
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBoxGold extends GaiaLootable {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public ItemBoxGold(String name) {
-		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
+public class ItemBoxGold extends ItemBase {
+	public ItemBoxGold() {
+		super("box_gold");
+		setMaxStackSize(1);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse"));
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		player.playSound(Sounds.bag_open, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
+		final ItemStack stack = player.getHeldItem(handIn);
+
+		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
+			stack.shrink(1);
 		}
 
 		if (!world.isRemote) {
-			EntityGaiaBoxGold spawnEntity = new EntityGaiaBoxGold(world);
-			spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0,0); 
-			world.spawnEntityInWorld(spawnEntity);
+			LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_GOLD);
 		}
 
-		return new ActionResult(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 }

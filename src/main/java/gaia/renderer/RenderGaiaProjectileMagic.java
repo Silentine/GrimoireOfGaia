@@ -2,7 +2,6 @@ package gaia.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -15,37 +14,39 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGaiaProjectileMagic extends Render {
-	
-    private final float scale;
-	protected final Item T_item;
-    private final RenderItem render= Minecraft.getMinecraft().getRenderItem();
-    
-    public RenderGaiaProjectileMagic(RenderManager rend, Item itemin, RenderItem rendin) {
-        super(Minecraft.getMinecraft().getRenderManager());
-        this.T_item = itemin;
-        this.scale = 2.0F;
-    }
+public class RenderGaiaProjectileMagic extends Render<Entity> {
+	private final float scale;
+	protected final Item item;
 
-    public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float)x, (float)y, (float)z);
-        GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(scale, scale, scale);
-        GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        this.render.renderItem(this.get_itemStack(entity), ItemCameraTransforms.TransformType.GROUND);
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.popMatrix();
-        super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
-    }
+	public RenderGaiaProjectileMagic(RenderManager renderManager, Item item) {
+		super(renderManager);
 
-    public ItemStack get_itemStack(Entity entity) {
-        return new ItemStack(this.T_item, 1, 0);
-    }
+		this.item = item;
+		this.scale = 2.0F;
+	}
 
-    protected ResourceLocation getEntityTexture(Entity entity) {
-        return TextureMap.LOCATION_BLOCKS_TEXTURE;
-    }
+	@Override
+	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) x, (float) y, (float) z);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+
+		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+		Minecraft.getMinecraft()
+				.getRenderItem().renderItem(new ItemStack(item), ItemCameraTransforms.TransformType.GROUND);
+
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
+
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+	}
 }

@@ -1,90 +1,94 @@
 package gaia.items;
 
-import gaia.Gaia;
+import com.google.common.collect.Multimap;
 import gaia.init.GaiaItems;
-
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.google.common.collect.Multimap;
-
-/** 
- * @see ItemSword
- */
-public class ItemWeaponFanFire extends Item {
-	
+public class ItemWeaponFanFire extends ItemBase {
 	private int attackDamage;
 
-	public ItemWeaponFanFire(String name) {
-		this.maxStackSize = 1;
-		this.setMaxDamage(780);
-		this.setCreativeTab(Gaia.tabGaia);
-		this.attackDamage = 7;
-		this.setUnlocalizedName(name);
+	public ItemWeaponFanFire() {
+		super("weapon_fan_fire");
+		maxStackSize = 1;
+		setMaxDamage(780);
+		attackDamage = 7;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
-	
+
+	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
 		stack.damageItem(1, host);
 		return true;
 	}
-	
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if ((double)state.getBlockHardness(worldIn, pos) != 0.0D) {
-            stack.damageItem(2, entityLiving);
-        }
 
-        return true;
-    }
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+		if (state.getBlockHardness(worldIn, pos) != 0.0f) {
+			stack.damageItem(2, entityLiving);
+		}
 
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D() {
-        return true;
-    }
-    
+		return true;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean isFull3D() {
+		return true;
+	}
+
+	@Override
 	public boolean getIsRepairable(ItemStack stack, ItemStack par2ItemStack) {
-		return GaiaItems.MiscSoulFiery == par2ItemStack.getItem()?true:super.getIsRepairable(stack, par2ItemStack);
+		return GaiaItems.MISC_SOUL_FIERY == par2ItemStack.getItem() && super.getIsRepairable(stack, par2ItemStack);
 	}
-	
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
-        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
-        }
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot, itemStack);
 
-        return multimap;
-    }
-	
+		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) attackDamage, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
+		}
+
+		return multimap;
+	}
+
+	@Override
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
-		stack.addEnchantment(Enchantment.getEnchantmentByLocation("fire_aspect"), 2);
-		stack.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
+		stack.addEnchantment(Enchantments.FIRE_ASPECT, 2);
+		stack.addEnchantment(Enchantments.KNOCKBACK, 1);
 	}
 
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		ItemStack stack = new ItemStack(par1, 1, 0);
-		stack.addEnchantment(Enchantment.getEnchantmentByLocation("fire_aspect"), 2);
-		stack.addEnchantment(Enchantment.getEnchantmentByLocation("knockback"), 1);
-		par3List.add(stack);
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		ItemStack stack = new ItemStack(this, 1, 0);
+		stack.addEnchantment(Enchantments.FIRE_ASPECT, 2);
+		stack.addEnchantment(Enchantments.KNOCKBACK, 1);
+		items.add(stack);
 	}
 }

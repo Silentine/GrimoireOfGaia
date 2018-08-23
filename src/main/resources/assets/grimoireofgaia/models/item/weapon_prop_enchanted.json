@@ -1,0 +1,53 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "grimoireofgaia:items/models/enchanted"
+    },
+		"display": {
+        "gui": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 3, 3, 3 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, -2.00, 0],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "body",
+            "from": [ 7.5, 7.5, 7.5 ], 
+            "to": [ 8.5, 8.5, 8.5 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 2.0, 2.0, 4.0, 4.0 ] },
+                "east": { "texture": "#0", "uv": [ 4.0, 2.0, 6.0, 4.0 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 6.0, 2.0, 8.0, 4.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.0, 2.0, 2.0, 4.0 ], "rotation": 90 },
+                "up": { "texture": "#0", "uv": [ 2.0, 0.0, 4.0, 2.0 ] },
+                "down": { "texture": "#0", "uv": [ 4.0, 0.0, 6.0, 2.0 ], "rotation": 90 }
+            }
+        }
+    ]
+}

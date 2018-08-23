@@ -1,84 +1,86 @@
 package gaia.items;
 
-import gaia.Gaia;
-import gaia.entity.item.EntityGaiaBox;
-import gaia.entity.item.EntityGaiaBoxEnd;
-import gaia.entity.item.EntityGaiaBoxNether;
-
-import java.util.List;
-
+import gaia.entity.GaiaLootTableList;
+import gaia.helpers.LootHelper;
+import gaia.helpers.ModelLoaderHelper;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAppleGold;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * @see ItemAppleGold
- */
-public class ItemBox extends Item {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public ItemBox(String name) {
-        this.setHasSubtypes(true);
-		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
+public class ItemBox extends ItemBase {
+	public ItemBox() {
+		super("box");
+		setHasSubtypes(true);
+		setMaxStackSize(1);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.translateToLocal("text.GrimoireOfGaia.RightClickUse"));
-	}
-	
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 3; i ++) {
-			list.add(new ItemStack(item, 1, i));
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
+	}
+
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		for (int i = 0; i < 3; i++) {
+			items.add(new ItemStack(this, 1, i));
 		}
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
+		final ItemStack stack = player.getHeldItem(handIn);
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.playSound(SoundEvents.BLOCK_CHEST_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
+			stack.shrink(1);
 		}
 
 		if (!world.isRemote) {
 			if (stack.getMetadata() == 0) {
-				EntityGaiaBox spawnEntity = new EntityGaiaBox(world);
-				spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0,0); 
-				world.spawnEntityInWorld(spawnEntity);
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_OVERWORLD);
 			} else if (stack.getMetadata() == 1) {
-				EntityGaiaBoxNether spawnEntity = new EntityGaiaBoxNether(world);
-				spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0,0); 
-				world.spawnEntityInWorld(spawnEntity);	
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_NETHER);
 			} else if (stack.getMetadata() == 2) {
-				EntityGaiaBoxEnd spawnEntity = new EntityGaiaBoxEnd(world);
-				spawnEntity.setLocationAndAngles(player.posX, player.posY, player.posZ, 0,0); 
-				world.spawnEntityInWorld(spawnEntity);	
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_END);
 			}
 		}
 
-		return new ActionResult(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_overworld"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_nether"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_end"));
+	}
+
 }

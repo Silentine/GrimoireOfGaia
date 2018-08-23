@@ -1,55 +1,58 @@
 package gaia.items;
 
-import gaia.Gaia;
-
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
+import baubles.api.BaubleType;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+import org.apache.commons.lang3.Range;
 import org.lwjgl.input.Keyboard;
 
-public class ItemAccessoryRingHaste extends ItemAccessoryRing {
-	
-	public ItemAccessoryRingHaste(String name) {
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(Gaia.tabGaia);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
+	public ItemAccessoryRingHaste() {
+		super("accessory_ring_haste");
+		setMaxStackSize(1);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.RARE;
+	@Override
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(0, 1);
 	}
 
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack) {
+		return BaubleType.RING;
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-		tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.Accessory.tag")));
-		
+		tooltip.add(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.Accessory.tag"));
+
 		if (shiftPressed) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.translateToLocal("text.GrimoireOfGaia.InventoryAccessory")));
-			tooltip.add(I18n.translateToLocal("effect.digSpeed"));
+			tooltip.add(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.InventoryAccessory"));
+			tooltip.add(I18n.format("effect.digSpeed"));
 		} else {
-			tooltip.add(TextFormatting.ITALIC + (I18n.translateToLocal("text.GrimoireOfGaia.HoldShift")));
+			tooltip.add(TextFormatting.ITALIC + I18n.format("text.grimoireofgaia.HoldShift"));
 		}
 	}
 
 	@Override
-	public void doEffect(EntityPlayer player, ItemStack item) {	
-		if (!player.isPotionActive(MobEffects.HASTE)) {
-			player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 10 * 20, 0, true, false));		
+	public void doEffect(EntityLivingBase player, ItemStack item) {
+		if (player.getActivePotionEffect(MobEffects.HASTE) != null) {
+			player.removePotionEffect(MobEffects.HASTE);
 		}
+
+		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 20 * 10, 1, true, true));
 	}
 }

@@ -6,12 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/** Tutorial Source
- * <li>http://jabelarminecraft.blogspot.com/p/complex-entity-models-including.html
- */
 @SideOnly(Side.CLIENT)
 public class ModelGaia extends ModelBase {
-
 	protected void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
@@ -27,24 +23,22 @@ public class ModelGaia extends ModelBase {
 		parChild.rotateAngleZ -= parParent.rotateAngleZ;
 		parParent.addChild(parChild);
 	}
-	
-	protected double distanceMovedTotal = 0.0D;
-	protected static final double CYCLES_PER_BLOCK = 3.0D; //CYCLES_PER_BLOCK = SPEED; 
-	protected int cycleIndex = 0;
-	
+
+	private double distanceMovedTotal = 0.0D;
+
 	// ***************************************
 	// Helper functions
 	// ***************************************
 
-	protected void updateDistanceMovedTotal(Entity parEntity) {
+	void updateDistanceMovedTotal(Entity parEntity) {
 		distanceMovedTotal += parEntity.getDistance(parEntity.prevPosX, parEntity.prevPosY, parEntity.prevPosZ);
 	}
 
-	protected double getDistanceMovedTotal(Entity parEntity) {
-		return (distanceMovedTotal);
+	double getDistanceMovedTotal() {
+		return distanceMovedTotal;
 	}
 
 	protected float degToRad(float degrees) {
-		return degrees * (float)Math.PI / 180 ;
+		return degrees * (float) Math.PI / 180;
 	}
 }

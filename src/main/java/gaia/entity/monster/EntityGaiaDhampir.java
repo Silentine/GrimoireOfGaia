@@ -28,7 +28,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -37,6 +36,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	private int spawn;
@@ -45,61 +47,68 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	public EntityGaiaDhampir(World worldIn) {
 		super(worldIn);
-		this.experienceValue = EntityAttributes.experienceValue2;
-		this.stepHeight = 1.0F;
 
-		this.spawn = 1;
-		this.spawnLevel3 = 0;
-		this.spawnLevel3Chance = 0;
+		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
+		stepHeight = 1.0F;
+
+		spawn = 1;
+		spawnLevel3 = 0;
+		spawnLevel3Chance = 0;
 	}
-	
-    protected void initEntityAI() {
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.attackSpeed2, true));
-		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    }
 
+	@Override
+	protected void initEntityAI() {
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+	}
+
+	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)EntityAttributes.maxHealth2);
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.followrange);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.moveSpeed2);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)EntityAttributes.attackDamage2);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.rateArmor2);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.baseDefense2) {
-			damage = EntityAttributes.baseDefense2;
-			
-			if (GaiaConfig.SpawnLevel3 == true) {
-				this.spawnLevel3Chance += (int) (GaiaConfig.SpawnLevel3Chance * 0.05);
+		float modifiedDamage = damage;
+		if (modifiedDamage > EntityAttributes.BASE_DEFENSE_2) {
+			modifiedDamage = EntityAttributes.BASE_DEFENSE_2;
+
+			if (GaiaConfig.GENERAL.spawnLevel3) {
+				spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
 			}
 		}
-		
-		return super.attackEntityFrom(source, damage);
-	}
-	
-    public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {
-		super.knockBack(entityIn, strenght, xRatio, zRatio, EntityAttributes.knockback2);
+
+		return super.attackEntityFrom(source, modifiedDamage);
 	}
 
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
-                byte byte0 = 0;
+				byte byte0 = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
-                	byte0 = 10;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-                	byte0 = 20;
-                }
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 20;
+				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
 				}
 			}
 
@@ -108,124 +117,135 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 			return false;
 		}
 	}
-	
-	public boolean isAIEnabled() {
-		return true;
+
+	@Override
+	public boolean isAIDisabled() {
+		return false;
 	}
 
-	public void onLivingUpdate() {	
-		if (this.getHealth() < EntityAttributes.maxHealth2 * 0.25F && this.getHealth() > 0.0F && this.spawn == 1) {
-			if (GaiaConfig.SpawnLevel3 == true) {
-				if (spawnLevel3Chance > (int) (GaiaConfig.SpawnLevel3Chance * 0.5)) {
-					this.spawnLevel3Chance = (int) (GaiaConfig.SpawnLevel3Chance * 0.5);
+	@Override
+	public void onLivingUpdate() {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
+			if (GaiaConfig.GENERAL.spawnLevel3) {
+				if (spawnLevel3Chance > (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5)) {
+					spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
 				}
-				
-				if ((this.rand.nextInt(GaiaConfig.SpawnLevel3Chance - this.spawnLevel3Chance) == 0 || this.rand.nextInt(1) > 0)) {
-					this.spawnLevel3 = 1;
+
+				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+					spawnLevel3 = 1;
 				}
 			}
-			
-			this.spawn = 2;
+
+			spawn = 2;
 		}
-		
+
 		if (spawnLevel3 == 1) {
-	        this.worldObj.setEntityState(this, (byte)13);
-			
-			this.attackEntityFrom(DamageSource.generic, EntityAttributes.maxHealth2 * 0.01F);
+			world.setEntityState(this, (byte) 13);
+
+			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
 
 		super.onLivingUpdate();
 	}
-	
-    @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(byte id) {
-    	if (id == 13)
-    		for (int i = 0; i < 1; ++i) {
-                ParticleWarning particleCustom = new ParticleWarning(this.worldObj, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, 0.0D, 0.0D, 0.0D);
-    			Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-    		}
-        else
-            super.handleStatusUpdate(id);
-    }
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 13) {
+			for (int i = 0; i < 1; ++i) {
+				ParticleWarning particleCustom = new ParticleWarning(world,
+						posX + rand.nextDouble() * width * 2.0D - width,
+						posY + 1.0D + rand.nextDouble() * height,
+						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
+				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
+			}
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.aggressive_say;
+		return Sounds.AGGRESSIVE_SAY;
 	}
 
-	protected SoundEvent getHurtSound() {
-		return Sounds.aggressive_hurt;
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.AGGRESSIVE_HURT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.aggressive_death;
+		return Sounds.AGGRESSIVE_DEATH;
 	}
 
+	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = this.rand.nextInt(3 + lootingModifier);
+			int var3 = rand.nextInt(3 + lootingModifier);
 
-			for(int var4 = 0; var4 < var3; ++var4) {
-				this.dropItem(GaiaItems.MiscSoulFire, 1);
+			for (int var4 = 0; var4 < var3; ++var4) {
+				dropItem(GaiaItems.MISC_SOUL_FIRE, 1);
 			}
 
-			//Nuggets/Fragments
-			int var11 = this.rand.nextInt(3) + 1;
+			// Nuggets/Fragments
+			int var11 = rand.nextInt(3) + 1;
 
-			for(int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.Drop_Nugget(this,1);
+			for (int var12 = 0; var12 < var11; ++var12) {
+				ItemShard.dropNugget(this, 1);
 			}
 
-			if (GaiaConfig.AdditionalOre == true) {
-				int var13 = this.rand.nextInt(3) + 1;
+			if (GaiaConfig.OPTIONS.additionalOre) {
+				int var13 = rand.nextInt(3) + 1;
 
 				for (int var14 = 0; var14 < var13; ++var14) {
-					ItemShard.Drop_Nugget(this,5);
+					ItemShard.dropNugget(this, 5);
 				}
 			}
-			
-    		//Rare
-    		if ((this.rand.nextInt(EntityAttributes.rateraredrop) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-    			switch(this.rand.nextInt(3)) {
-    			case 0:
-    				this.dropItem(GaiaItems.BoxGold, 1);
-    				break;
-    			case 1:
-    				this.dropItem(GaiaItems.BagBook, 1);
-    				break;
-    			case 2:
-    				this.dropItem(Item.getItemFromBlock(GaiaBlocks.DollMaid), 1);
-    			}
-    		}
+
+			// Rare
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				int i = rand.nextInt(3);
+				if (i == 0) {
+					dropItem(GaiaItems.BOX_GOLD, 1);
+				} else if (i == 1) {
+					dropItem(GaiaItems.BAG_BOOK, 1);
+				} else if (i == 2) {
+					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
+				}
+			}
 		}
-		
-		//Boss
+
+		// Boss
 		if (spawnLevel3 == 1) {
 			spawnLevel3();
 		}
 	}
-	
-	protected void spawnLevel3() {
-		EntityGaiaVampire spawnLevel3;
-		spawnLevel3 = new EntityGaiaVampire(this.worldObj);
-		spawnLevel3.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-		spawnLevel3.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnLevel3)), (IEntityLivingData)null);
-		this.worldObj.spawnEntityInWorld(spawnLevel3);
+
+	private void spawnLevel3() {
+		EntityGaiaVampire vampire = new EntityGaiaVampire(world);
+		vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+		vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
+		world.spawnEntity(vampire);
 	}
-	
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));	
-		this.setEnchantmentBasedOnDifficulty(difficulty);
-		
-		return livingdata;		
-    }
-	
+
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setEnchantmentBasedOnDifficulty(difficulty);
+
+		return ret;
+	}
+
+	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
+		return posY > 60.0D && super.getCanSpawnHere();
 	}
 }

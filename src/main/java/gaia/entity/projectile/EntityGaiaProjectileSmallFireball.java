@@ -9,38 +9,35 @@ import net.minecraft.world.World;
 //Same as EntitySmallFireball, except it does not spawn a fire block on impact
 public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
+	@SuppressWarnings("unused") //used in reflection
 	public EntityGaiaProjectileSmallFireball(World par1World) {
 		super(par1World);
-		this.setSize(0.3125F, 0.3125F);
+		setSize(0.3125F, 0.3125F);
 	}
 
-    public EntityGaiaProjectileSmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-        super(worldIn, shooter, accelX, accelY, accelZ);
-        this.setSize(0.3125F, 0.3125F);
-    }
+	public EntityGaiaProjectileSmallFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
+		super(worldIn, shooter, accelX, accelY, accelZ);
+		setSize(0.3125F, 0.3125F);
+	}
 
-    public EntityGaiaProjectileSmallFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-        super(worldIn, x, y, z, accelX, accelY, accelZ);
-        this.setSize(0.3125F, 0.3125F);
-    }
-
+	@Override
 	protected void onImpact(RayTraceResult par1MovingObjectPosition) {
-		if (!this.worldObj.isRemote) {
-			if (par1MovingObjectPosition.entityHit != null) {
-				if (!par1MovingObjectPosition.entityHit.isImmuneToFire() && par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 5.0F)) {
-					par1MovingObjectPosition.entityHit.setFire(4);
-				}
+		if (!world.isRemote) {
+			if (par1MovingObjectPosition.entityHit != null && !par1MovingObjectPosition.entityHit.isImmuneToFire() &&
+					par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F)) {
+				par1MovingObjectPosition.entityHit.setFire(4);
 			}
-
-			this.setDead();
+			setDead();
 		}
 	}
 
+	@Override
 	public boolean canBeCollidedWith() {
 		return false;
 	}
 
-	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
+	@Override
+	public boolean attackEntityFrom(DamageSource damageSource, float amount) {
 		return false;
 	}
 }

@@ -1,104 +1,80 @@
 package gaia.init;
 
+import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.block.BlockBustSphinx;
-import gaia.block.BlockBustValkyrie;
-import gaia.block.BlockBustVampire;
-import gaia.block.BlockDollCreeperGirl;
-import gaia.block.BlockDollEnderGirl;
-import gaia.block.BlockDollMaid;
-import gaia.block.BlockDollSlimeGirl;
+import gaia.block.BlockBust;
 import gaia.block.BlockSpawnGuard;
-import gaia.tileentity.TileEntityBustSphinx;
-import gaia.tileentity.TileEntityBustValkyrie;
-import gaia.tileentity.TileEntityBustVampire;
-import gaia.tileentity.TileEntityDollCreeperGirl;
-import gaia.tileentity.TileEntityDollEnderGirl;
-import gaia.tileentity.TileEntityDollMaid;
-import gaia.tileentity.TileEntityDollSlimeGirl;
-
-import java.util.Locale;
-
+import gaia.tileentity.TileEntityBust;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Items;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipesCrafting;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
+@GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaBlocks {
-	public static Block 
-	BustSphinx,
-	BustValkyrie,
-	BustVampire,
-	DollCreeperGirl,
-	DollEnderGirl,
-	DollSlimeGirl,
-	DollMaid,
-	SpawnGuard;
-	
-	public static void init() {
-		BustSphinx = new BlockBustSphinx();
-		BustValkyrie = new BlockBustValkyrie();
-		BustVampire = new BlockBustVampire();
-		DollCreeperGirl = new BlockDollCreeperGirl();
-		DollEnderGirl = new BlockDollEnderGirl();
-		DollSlimeGirl = new BlockDollSlimeGirl();
-		DollMaid = new BlockDollMaid();
-		SpawnGuard = new BlockSpawnGuard();
-		
-		registerTileEntities();
-	}
+	private GaiaBlocks() {}
 
-	/**
-	 * @param block .json
-	 * @param name en.lang
-	 */
-	public static void register() {
-		GameRegistry.registerBlock(BustSphinx, "thesphinx");
-		GameRegistry.registerBlock(BustValkyrie, "thevalkyrie");
-		GameRegistry.registerBlock(BustVampire, "thevampire");
-		GameRegistry.registerBlock(DollCreeperGirl, "creepergirldoll");
-		GameRegistry.registerBlock(DollEnderGirl, "endergirldoll");
-		GameRegistry.registerBlock(DollSlimeGirl, "slimegirldoll");
-		GameRegistry.registerBlock(DollMaid, "maiddoll");
-		GameRegistry.registerBlock(SpawnGuard, "spawnguard");
-	}
+	public static final Block BUST_SPHINX = Blocks.AIR;
+	public static final Block BUST_VALKYRIE = Blocks.AIR;
+	public static final Block BUST_VAMPIRE = Blocks.AIR;
+	public static final Block DOLL_CREEPER_GIRL = Blocks.AIR;
+	public static final Block DOLL_ENDER_GIRL = Blocks.AIR;
+	public static final Block DOLL_SLIME_GIRL = Blocks.AIR;
+	public static final Block DOLL_MAID = Blocks.AIR;
+	public static final Block SPAWN_GUARD = Blocks.AIR;
 
-	public static void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityBustSphinx.class, "BustSphinx");
-		GameRegistry.registerTileEntity(TileEntityBustValkyrie.class, "BustValkyrie");
-		GameRegistry.registerTileEntity(TileEntityBustVampire.class, "BustVampire");
-		GameRegistry.registerTileEntity(TileEntityDollCreeperGirl.class, "DollCreeperGirl");
-		GameRegistry.registerTileEntity(TileEntityDollEnderGirl.class, "DollEnderGirl");
-		GameRegistry.registerTileEntity(TileEntityDollSlimeGirl.class, "DollSlimeGirl");
-		GameRegistry.registerTileEntity(TileEntityDollMaid.class, "DollMaid");
-		//GameRegistry.registerTileEntity(TileEntitySpawnGuard.class, "SpawnGuard");
-	}
+	@SuppressWarnings("unused")
+	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
+	public static class RegistrationHandler {
+		private RegistrationHandler() {}
 
-	public static void registerRenders() {
-		registerRender(BustSphinx);
-		registerRender(BustValkyrie);
-		registerRender(BustVampire);
-		registerRender(DollCreeperGirl);
-		registerRender(DollEnderGirl);
-		registerRender(DollSlimeGirl);
-		registerRender(DollMaid);
-		registerRender(SpawnGuard);
-	}
+		@SubscribeEvent
+		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
+			Gaia.LOGGER.info("Registering blocks...");
+			IForgeRegistry<Block> registry = event.getRegistry();
 
-	public static void registerRender(Block block) {
-		Item item = Item.getItemFromBlock(block);
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(GaiaReference.MOD_ID + ":" + item.getUnlocalizedName().substring(20).toLowerCase(Locale.US), "inventory"));
-	}
+			registry.register(new BlockBust(Material.ROCK, "bust_sphinx"));
+			registry.register(new BlockBust(Material.ROCK, "bust_valkyrie"));
+			registry.register(new BlockBust(Material.ROCK, "bust_vampire"));
+			registry.register(new BlockBust(Material.ROCK, "doll_creeper_girl"));
+			registry.register(new BlockBust(Material.ROCK, "doll_ender_girl"));
+			registry.register(new BlockBust(Material.ROCK, "doll_slime_girl"));
+			registry.register(new BlockBust(Material.ROCK, "doll_maid"));
+			registry.register(new BlockSpawnGuard());
 
-	/**
-	 * Registers crafting recipes
-	 * @see RecipesCrafting
-	 */
-	public static void addRecipes() {
-		GameRegistry.addShapelessRecipe(new ItemStack(SpawnGuard, 4), new Object[]{GaiaItems.MiscQuill, Items.PAPER, Items.PAPER, Items.PAPER, Items.PAPER});
+			GameRegistry.registerTileEntity(TileEntityBust.class, new ResourceLocation(GaiaReference.MOD_ID, "tile_bust"));
+			Gaia.LOGGER.info("Block registration complete.");
+		}
+
+		@SubscribeEvent
+		public static void registerItemBlocks(final RegistryEvent.Register<Item> event) {
+			Gaia.LOGGER.info("Registering item blocks...");
+
+			IForgeRegistry<Item> registry = event.getRegistry();
+			registerItemBlock(registry, BUST_SPHINX);
+			registerItemBlock(registry, BUST_VALKYRIE);
+			registerItemBlock(registry, BUST_VAMPIRE);
+			registerItemBlock(registry, DOLL_CREEPER_GIRL);
+			registerItemBlock(registry, DOLL_ENDER_GIRL);
+			registerItemBlock(registry, DOLL_SLIME_GIRL);
+			registerItemBlock(registry, DOLL_MAID);
+			registerItemBlock(registry, SPAWN_GUARD);
+
+			Gaia.LOGGER.info("Item block registration complete.");
+		}
+
+		private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {
+			Item item = new ItemBlock(block);
+			ResourceLocation registryName = block.getRegistryName();
+			//noinspection ConstantConditions
+			registry.register(item.setRegistryName(registryName));
+		}
 	}
 }

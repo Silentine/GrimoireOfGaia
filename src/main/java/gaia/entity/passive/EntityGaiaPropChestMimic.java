@@ -1,30 +1,18 @@
 package gaia.entity.passive;
 
 import gaia.entity.monster.EntityGaiaMimic;
-
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.block.Block;
+import gaia.helpers.LootHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,16 +20,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import com.google.common.collect.Sets;
+import javax.annotation.Nullable;
+import java.util.List;
 
-/** 
- * @see EntityShulker
- */
+@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	private boolean canSpawn;
@@ -50,248 +34,207 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	public EntityGaiaPropChestMimic(World worldIn) {
 		super(worldIn);
-		this.setSize(0.8F, 0.8F);
-		this.experienceValue = 0;
-		this.prevRenderYawOffset = 180.0F;
-		this.renderYawOffset = 180.0F;
-		this.canSpawn = false;
-		this.canSpawnDrop = false;
-		this.canDrop = false;
+		setSize(0.8F, 0.8F);
+		experienceValue = 0;
+		prevRenderYawOffset = 180.0F;
+		renderYawOffset = 180.0F;
+		canSpawn = false;
+		canSpawnDrop = false;
+		canDrop = false;
 	}
 
+	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		this.renderYawOffset = 180.0F;
-		this.prevRenderYawOffset = 180.0F;
-		this.rotationYaw = 180.0F;
-		this.prevRotationYaw = 180.0F;
-		this.rotationYawHead = 180.0F;
-		this.prevRotationYawHead = 180.0F;
+		renderYawOffset = 180.0F;
+		prevRenderYawOffset = 180.0F;
+		rotationYaw = 180.0F;
+		prevRotationYaw = 180.0F;
+		rotationYawHead = 180.0F;
+		prevRotationYawHead = 180.0F;
 
-		if (this.worldObj.rand.nextInt(2) == 0) {
-			if (this.worldObj.rand.nextInt(2) == 0) {
-				this.canSpawn = true;
+		if (world.rand.nextInt(2) == 0) {
+			if (world.rand.nextInt(2) == 0) {
+				canSpawn = true;
 			} else {
-				this.canSpawnDrop = true;
+				canSpawnDrop = true;
 			}
 		} else {
-			this.canDrop = true;
+			canDrop = true;
 		}
 
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
-	
-    protected boolean canTriggerWalking() {
-        return false;
-    }
 
+	@Override
+	protected boolean canTriggerWalking() {
+		return false;
+	}
+
+	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0F);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+				.setBaseValue(1.0F);
 	}
 
-	public void knockBack(Entity entityIn, float strenght, double xRatio, double zRatio) {}
-
-	public boolean isAIEnabled() {
-		return true;
+	@Override
+	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
+		//noop
 	}
 
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
+
+	@Override
 	public void onLivingUpdate() {
-		if (playerDetection(4) && this.canSpawn == true) {
-			this.attackEntityFrom(DamageSource.generic, 2.0F);
-			this.spawnMob();
+		if (playerDetection() && canSpawn) {
+			attackEntityFrom(DamageSource.GENERIC, 2.0F);
+			spawnMob();
 		}
 
-		if (this.getHealth() <= 0.0F) {
+		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+						posX + (rand.nextDouble() - 0.5D) * (double) width,
+						posY + rand.nextDouble() * (double) height,
+						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
 		}
 	}
 
-	/** 
+	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
-	public boolean playerDetection(int range) {	
-		double d0 = (double)(range);          
+	private boolean playerDetection() {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(4);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
-		int k = (int) this.posX;
-		int l = (int) this.posY;
-		int i1 = (int) this.posZ;
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double)k, (double)l, (double)i1, (double)(k + 1), (double)(l + 1), (double)(i1 + 1))).expandXyz(d0);
-		List<EntityPlayer> list = this.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+		return !list.isEmpty();
 
-		if (!list.isEmpty()) return true;            
-
-		return false;
-	}
-	
-	public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack) {
-		this.attackEntityFrom(DamageSource.generic, 2.0F);
-		return super.processInteract(player, hand, stack);
 	}
 
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		attackEntityFrom(DamageSource.GENERIC, 2.0F);
 
+		return super.processInteract(player, hand);
+	}
+
+	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.BLOCK_CHEST_OPEN;	
+		return SoundEvents.BLOCK_CHEST_OPEN;
 	}
 
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		//this.dropRandomLootFromLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, wasRecentlyHit, lootingModifier, source);
-		if (this.canSpawnDrop) {
-			this.spawnMob();
-		} else if (this.canDrop) {
-			for (int var = 0; var < 2; ++var) {
-				this.dropRandomLootFromLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, wasRecentlyHit, lootingModifier, source);
-			}
-		}
-
-		//this.dropFewItems(wasRecentlyHit, lootingModifier);
-	}
-
-	/**
-	 * @see EntityLiving
-	 */
-	public void dropRandomLootFromLootTable(ResourceLocation dungeonLoot, boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		long LootTableSeed = 0;
-		int maxCount = 0;
-		int currentCount = 0;
-		Random Randomize = new Random();
-		int roll = 0;
-
-		LootTable loottable = this.worldObj.getLootTableManager().getLootTableFromLocation(dungeonLoot);
-		LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer)this.worldObj)).withLootedEntity(this).withDamageSource(source);
-
-		if (wasRecentlyHit && this.attackingPlayer != null) {
-			lootcontext$builder = lootcontext$builder.withPlayer(this.attackingPlayer).withLuck(this.attackingPlayer.getLuck());
-		}
-
-		for (ItemStack itemstack : loottable.generateLootForPools(LootTableSeed == 0L ? this.rand : new Random(LootTableSeed), lootcontext$builder.build())) {
-			maxCount++;
-		}
-
-		roll = Randomize.nextInt(maxCount);        
-
-		for (ItemStack itemstack : loottable.generateLootForPools(LootTableSeed == 0L ? this.rand : new Random(LootTableSeed), lootcontext$builder.build())) {
-			if (currentCount == roll)this.entityDropItem(itemstack, 0.0F);
-			currentCount++;      
+		if (canSpawnDrop) {
+			spawnMob();
+		} else if (canDrop) {
+			LootHelper.dropRandomLootAtEntityPos(world, attackingPlayer, this, wasRecentlyHit, LootTableList.CHESTS_SIMPLE_DUNGEON, 2);
 		}
 	}
 
-	/* Legacy code
-	 protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		 if (this.canSpawnDrop) {
-			 this.spawnMob();
-		 } else if (wasRecentlyHit && this.canSpawn == false) {
-			 for (int var4 = 0; var4 < 1; ++var4) {
-				 Item var6 = chestDrops[this.rand.nextInt(chestDrops.length)];
-
-				 for (int var7 = 0; var7 < 1; ++var7) {
-					 this.dropItem(var6, 1);
-				 }
-			 }
-		 }
-	 }
-	 */
-
-	/* LootTable
-	 @Nullable
-	 protected ResourceLocation getLootTable() {
-		 return GaiaLootTableList.EMPTY;
-	 }
-	 */
-
-	protected void spawnMob() {
+	private void spawnMob() {
 		EntityGaiaMimic spawnMob;
-		spawnMob = new EntityGaiaMimic(this.worldObj);
-		spawnMob.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-		spawnMob.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(spawnMob)), (IEntityLivingData)null);
-		this.worldObj.spawnEntityInWorld(spawnMob);
-		this.canSpawn = false;
-		this.canSpawnDrop = false;
+		spawnMob = new EntityGaiaMimic(world);
+		spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+		spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
+		world.spawnEntity(spawnMob);
+		canSpawn = false;
+		canSpawnDrop = false;
 	}
 
+	@Override
 	protected void onDeathUpdate() {
-		this.setDead();
+		setDead();
 	}
 
+	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return false;
 	}
 
-	protected void collideWithEntity(Entity entityIn) {}
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		//noop
+	}
 
+	@Override
 	public boolean canBeCollidedWith() {
 		return true;
 	}
 
+	@Override
 	public boolean canBePushed() {
 		return true;
 	}
 
-	public boolean allowLeashing() {
-		return false;
-	}
-
-	//================= Spawn Conditions =================//
-	static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
-			Blocks.STONE,
-			Blocks.DIRT
-	});
-
-	/** 
+	/**
 	 * @see EntityMob
 	 */
-	protected boolean isValidLightLevel() {
-		BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+	private boolean isValidLightLevel() {
+		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
-		if (this.worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+		if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
 			return false;
 		} else {
-			int i = this.worldObj.getLightFromNeighbors(blockpos);
+			int i = world.getLightFromNeighbors(blockpos);
 
-			if (this.worldObj.isThundering()) {
-				int j = this.worldObj.getSkylightSubtracted();
-				this.worldObj.setSkylightSubtracted(10);
-				i = this.worldObj.getLightFromNeighbors(blockpos);
-				this.worldObj.setSkylightSubtracted(j);
+			if (world.isThundering()) {
+				int j = world.getSkylightSubtracted();
+				world.setSkylightSubtracted(10);
+				i = world.getLightFromNeighbors(blockpos);
+				world.setSkylightSubtracted(j);
 			}
 
-			return i <= this.rand.nextInt(8);
+			return i <= rand.nextInt(8);
 		}
 	}
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
+		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
-	//==================================//
-	
+	// ==================================//
+
+	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
 	}
 
+	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return this.isEntityAlive() ? this.getEntityBoundingBox() : null;
+		return isEntityAlive()
+				? getEntityBoundingBox()
+				: null;
 	}
 
+	@Override
 	public int getVerticalFaceSpeed() {
 		return 180;
 	}
 
+	@Override
 	public int getHorizontalFaceSpeed() {
 		return 180;
 	}
 
-	public void applyEntityCollision(Entity entityIn) {}
+	@Override
+	public void applyEntityCollision(Entity entityIn) {
+		//noop
+	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 0.0F;
 	}
-	
+
 	public EntityAgeable createChild(EntityAgeable entityageable) {
 		return null;
 	}

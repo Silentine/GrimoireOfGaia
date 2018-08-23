@@ -2,72 +2,76 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-/** Source
- * <li>http://www.minecraftforge.net/forum/index.php/topic,38076.0.html
- */
+@GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class Sounds {
+	private Sounds() {}
 
-	static String MODID = GaiaReference.MOD_ID;
+	public static final SoundEvent PASSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent PASSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent PASSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent passive_say;
-	public static SoundEvent passive_hurt;
-	public static SoundEvent passive_death;
+	public static final SoundEvent ASSIST_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ASSIST_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ASSIST_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent assist_say;
-	public static SoundEvent assist_hurt;
-	public static SoundEvent assist_death;
+	public static final SoundEvent AGGRESSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent AGGRESSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent AGGRESSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent aggressive_say;
-	public static SoundEvent aggressive_hurt;
-	public static SoundEvent aggressive_death;
+	public static final SoundEvent MINOTAUR_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent MINOTAUR_HURT = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent minotaur_say;
-	public static SoundEvent minotaur_hurt;
+	public static final SoundEvent BOX_OPEN_1 = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BOX_OPEN_2 = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BAG_OPEN = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BOOK_HIT = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent box_open1;
-	public static SoundEvent box_open2;
-	public static SoundEvent bag_open;
-	public static SoundEvent book_hit;
+	public static final SoundEvent NONE = SoundEvents.BLOCK_GRASS_STEP;
 
-	public static SoundEvent none;
+	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
+	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
+	public static class RegistrationHandler {
 
-	public static void Sounds_Init() {
-		Gaia.logger.info("Registering Sounds");
-		SoundsRegister();
-		Gaia.logger.info("Sounds Finished");
-	}
+		@SubscribeEvent
+		public static void registerSoundEvents(final RegistryEvent.Register<SoundEvent> event) {
+			Gaia.LOGGER.info("Registering Sounds");
+			event.getRegistry().registerAll(
+					createSoundEvent("passive_say"),
+					createSoundEvent("passive_hurt"),
+					createSoundEvent("passive_death"),
 
-	public static void SoundsRegister() {
-		passive_say = Reg("passive_say");
-		passive_hurt = Reg("passive_hurt");
-		passive_death = Reg("passive_death");
+					createSoundEvent("assist_say"),
+					createSoundEvent("assist_hurt"),
+					createSoundEvent("assist_death"),
 
-		assist_say = Reg("assist_say");
-		assist_hurt = Reg("assist_hurt");
-		assist_death = Reg("assist_death");
+					createSoundEvent("aggressive_say"),
+					createSoundEvent("aggressive_hurt"),
+					createSoundEvent("aggressive_death"),
 
-		aggressive_say = Reg("aggressive_say");
-		aggressive_hurt = Reg("aggressive_hurt");
-		aggressive_death = Reg("aggressive_death");
+					createSoundEvent("minotaur_say"),
+					createSoundEvent("minotaur_hurt"),
 
-		minotaur_say = Reg("minotaur_say");
-		minotaur_hurt = Reg("minotaur_hurt");
+					createSoundEvent("box_open1"),
+					createSoundEvent("box_open2"),
+					createSoundEvent("bag_open"),
+					createSoundEvent("book_hit"),
 
-		box_open1 = Reg("box_open1");
-		box_open2 = Reg("box_open2");
-		bag_open = Reg("bag_open");
-		book_hit = Reg("book_hit");
+					createSoundEvent("none")
+			);
+			Gaia.LOGGER.info("Sounds Finished");
+		}
 
-		none = Reg("none");
-	}
-
-	public static SoundEvent Reg(String name) {
-		ResourceLocation location = new ResourceLocation(MODID, name);
-
-		return GameRegistry.register(new SoundEvent(location).setRegistryName(location));
+		private static SoundEvent createSoundEvent(final String soundName) {
+			ResourceLocation soundID = new ResourceLocation(GaiaReference.MOD_ID, soundName);
+			return new SoundEvent(soundID).setRegistryName(soundID);
+		}
 	}
 }
