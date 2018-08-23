@@ -271,4 +271,14 @@ configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nMobs can drop 
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
+<<<<<<< HEAD
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
+=======
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
+
+#Jei
+gaia.box.loot=Box Loot
+gui.gaia.box.loot=Box Loot
+gaia.satchel.loot=Bag Loot
+gui.gaia.satchel.loot=Bag Loot
+>>>>>>> pr/58
