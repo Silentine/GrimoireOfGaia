@@ -1,5 +1,8 @@
 package gaia.renderer.particle;
 
+/*
+ * TODO Remove/Replace
+ */
 import gaia.GaiaReference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -11,8 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ParticleHandler {
 
 	/**
-	 * Resources used.
-	 * Path leads to textures/particles/image.png
+	 * Resources used. Path leads to textures/particles/image.png
 	 */
 	static final ResourceLocation PARTICLE_BUFF = new ResourceLocation(GaiaReference.MOD_ID, "particles/particlebuff");
 	static final ResourceLocation PARTICLE_DROP = new ResourceLocation(GaiaReference.MOD_ID, "particles/particledrop");

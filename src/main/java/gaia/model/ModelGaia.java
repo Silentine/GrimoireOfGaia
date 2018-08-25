@@ -26,10 +26,9 @@ public class ModelGaia extends ModelBase {
 
 	private double distanceMovedTotal = 0.0D;
 
-	// ***************************************
-	// Helper functions
-	// ***************************************
-
+	/**
+	 * Helper functions
+	 **/
 	void updateDistanceMovedTotal(Entity parEntity) {
 		distanceMovedTotal += parEntity.getDistance(parEntity.prevPosX, parEntity.prevPosY, parEntity.prevPosZ);
 	}

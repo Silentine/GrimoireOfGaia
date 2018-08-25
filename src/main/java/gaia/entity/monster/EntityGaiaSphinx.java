@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaBlocks;
@@ -23,11 +25,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -37,20 +34,18 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSphinx extends EntityMobHostileBase {
 
 	private int spawnTime;
 
-	@SuppressWarnings("WeakerAccess") //used in reflection
+	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaSphinx(World worldIn) {
 		super(worldIn);
 
 		setSize(1.2F, 1.8F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_3;
-		stepHeight = 1.0F;
+		stepHeight = 6.0F;
 		isImmuneToFire = true;
 
 		spawnTime = 0;
@@ -132,56 +127,14 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 			}
 		}
 
-		if (!world.isRemote) {
-			setBesideClimbableBlock(collidedHorizontally);
-		}
-
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						posY + rand.nextDouble() * height,
-						posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
 		}
 	}
-
-	// ================= Climber data =================//
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(CLIMBING, (byte) 0);
-	}
-
-	protected PathNavigate getNewNavigator(World worldIn) {
-		return new PathNavigateClimber(this, worldIn);
-	}
-
-	@Override
-	public boolean isOnLadder() {
-		return isBesideClimbableBlock();
-	}
-
-	private boolean isBesideClimbableBlock() {
-		return (dataManager.get(CLIMBING) & 1) != 0;
-	}
-
-	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaSphinx.class, DataSerializers.BYTE);
-
-	private void setBesideClimbableBlock(boolean climbing) {
-		byte b0 = dataManager.get(CLIMBING);
-
-		if (climbing) {
-			b0 = (byte) (b0 | 1);
-		} else {
-			b0 = (byte) (b0 & -2);
-		}
-
-		dataManager.set(CLIMBING, b0);
-	}
-	// ================================================//
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -239,7 +192,6 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -253,7 +205,7 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 		return ret;
 	}
 
-	// ================= Tier Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
@@ -266,14 +218,12 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ===================================================//
+	/* IMMUNITIES */
 
 	@Override
 	public int getMaxSpawnedInChunk() {

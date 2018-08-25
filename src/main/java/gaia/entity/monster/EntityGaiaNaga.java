@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -28,9 +30,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaNaga extends EntityMobHostileBase {
 
 	private int buffEffect;
@@ -173,7 +173,6 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -192,7 +191,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* ARCHER DATA */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
@@ -202,7 +201,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	public boolean isPushedByWater() {
 		return false;
 	}
-	// ==============================================//
+	/* ARCHER DATA */
 
 	@Override
 	public boolean getCanSpawnHere() {

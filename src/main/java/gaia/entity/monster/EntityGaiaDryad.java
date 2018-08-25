@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -39,10 +43,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-import java.util.UUID;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	private static final UUID MODIFIER_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
@@ -158,27 +159,29 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
+		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(4) == 0) {
-				tasks.removeTask(aiMeleeAttack);
-				tasks.addTask(1, aiAvoid);
+			if (rand.nextInt(2) == 0) {
+				SetAI((byte) 1);
+				SetEquipment((byte) 1);
 				switchHealth = 1;
+				System.out.println("FLEE!");
 			} else {
-				switchHealth = 1;
+				switchHealth = 2;
 			}
 		}
 
-		if (switchHealth == 1 && ticksExisted % 10 == 0) {
-			world.setEntityState(this, (byte) 8);
-		}
-
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
-			tasks.addTask(1, aiMeleeAttack);
-			tasks.removeTask(aiAvoid);
+			SetAI((byte) 0);
+			SetEquipment((byte) 0);
+
 			switchHealth = 0;
 		}
+		/* FLEE DATA */
 
-		//Rough stamina system
+		/*
+		 * TODO Eventually implement stamina system to all mobs
+		 */
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
 			if (staminaTimer > 0) {
@@ -205,6 +208,28 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.addTask(1, aiMeleeAttack);
+			tasks.removeTask(aiAvoid);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiMeleeAttack);
+			tasks.addTask(1, aiAvoid);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
+		}
 	}
 
 	@Override
@@ -257,13 +282,12 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		tasks.addTask(1, aiMeleeAttack);
+		SetAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
@@ -292,6 +316,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		return f;
 	}
 
+	/* ALTERNATE SKIN */
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 
 	@Override
@@ -322,6 +347,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
+	/* ALTERNATE SKIN */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	private int buffEffect;
@@ -173,7 +173,6 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -187,7 +186,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
@@ -197,7 +196,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	public boolean isPushedByWater() {
 		return false;
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -31,8 +33,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaToad extends EntityMobHostileBase {
@@ -193,7 +193,6 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -207,12 +206,12 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

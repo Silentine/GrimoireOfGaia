@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCWeresheep extends EntityMobMerchant {
 
-	public EntityGaiaNPCWeresheep(World var1) {
-		super(var1);
+	public EntityGaiaNPCWeresheep(World worldIn) {
+		super(worldIn);
 	}
 
 	@Override
@@ -45,22 +45,22 @@ public class EntityGaiaNPCWeresheep extends EntityMobMerchant {
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3)));
 
 		// Buy List
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 1)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 2)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 3)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 4)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 5)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 6)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 7)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 8)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 9)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 10)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 11)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 12)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 13)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 14)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3), new ItemStack(Blocks.WOOL, 1, 15)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 3)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 4)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 5)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 6)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 7)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 8)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 9)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 10)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 11)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 12)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 13)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 14)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 3), new ItemStack(Blocks.WOOL, 1, 15)));
 
 		// Sell List
 		recipes.add(new GaiaTrade(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 3)));

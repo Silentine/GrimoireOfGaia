@@ -47,7 +47,7 @@ public class ModelGaiaSharko extends ModelGaia {
 		headjaw.setTextureSize(64, 32);
 		setRotation(headjaw, 0.1745329F, 0.0F, 0.0F);
 		finback = new ModelRenderer(this, 0, 15);
-		finback.addBox(-0.5F, -14.0F, -4.0F, 1, 8, 10);
+		finback.addBox(0.0F, -14.0F, -4.0F, 0, 8, 10);
 		finback.setRotationPoint(0.0F, 4.0F, -4.0F);
 		finback.setTextureSize(64, 32);
 		setRotation(finback, -0.0872665F, 0.0F, 0.0F);

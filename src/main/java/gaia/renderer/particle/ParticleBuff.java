@@ -7,6 +7,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
+/*
+ * TODO Remove/Replace
+ */
 public class ParticleBuff extends Particle {
 	public ParticleBuff(World world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(world, x, y, z, velocityX, velocityY, velocityZ);
@@ -52,8 +55,7 @@ public class ParticleBuff extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder vertexBuffer, Entity entity, float partialTick, float edgeLRdirectionX, float edgeUDdirectionY,
-			float edgeLRdirectionZ, float edgeUDdirectionX, float edgeUDdirectionZ) {
+	public void renderParticle(BufferBuilder vertexBuffer, Entity entity, float partialTick, float edgeLRdirectionX, float edgeUDdirectionY, float edgeLRdirectionZ, float edgeUDdirectionX, float edgeUDdirectionZ) {
 		double minU = this.particleTexture.getMinU();
 		double maxU = this.particleTexture.getMaxU();
 		double minV = this.particleTexture.getMinV();
@@ -68,33 +70,13 @@ public class ParticleBuff extends Particle {
 		int skyLightTimes16 = combinedBrightness >> 16 & 65535;
 		int blockLightTimes16 = combinedBrightness & 65535;
 
-		vertexBuffer.pos(
-				x - edgeLRdirectionX * scale - edgeUDdirectionX * scale,
-				y - edgeUDdirectionY * scale, z - edgeLRdirectionZ * scale - edgeUDdirectionZ * scale)
-				.tex(maxU, maxV)
-				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha)
-				.lightmap(skyLightTimes16, blockLightTimes16)
-				.endVertex();
-		vertexBuffer.pos(
-				x - edgeLRdirectionX * scale + edgeUDdirectionX * scale,
-				y + edgeUDdirectionY * scale, z - edgeLRdirectionZ * scale + edgeUDdirectionZ * scale)
-				.tex(maxU, minV)
-				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha)
-				.lightmap(skyLightTimes16, blockLightTimes16)
-				.endVertex();
-		vertexBuffer.pos(
-				x + edgeLRdirectionX * scale + edgeUDdirectionX * scale,
-				y + edgeUDdirectionY * scale, z + edgeLRdirectionZ * scale + edgeUDdirectionZ * scale)
-				.tex(minU, minV)
-				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha)
-				.lightmap(skyLightTimes16, blockLightTimes16)
-				.endVertex();
-		vertexBuffer.pos(
-				x + edgeLRdirectionX * scale - edgeUDdirectionX * scale,
-				y - edgeUDdirectionY * scale, z + edgeLRdirectionZ * scale - edgeUDdirectionZ * scale)
-				.tex(minU, maxV)
-				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha)
-				.lightmap(skyLightTimes16, blockLightTimes16)
-				.endVertex();
+		vertexBuffer.pos(x - edgeLRdirectionX * scale - edgeUDdirectionX * scale, y - edgeUDdirectionY * scale, z - edgeLRdirectionZ * scale - edgeUDdirectionZ * scale).tex(maxU, maxV)
+				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(skyLightTimes16, blockLightTimes16).endVertex();
+		vertexBuffer.pos(x - edgeLRdirectionX * scale + edgeUDdirectionX * scale, y + edgeUDdirectionY * scale, z - edgeLRdirectionZ * scale + edgeUDdirectionZ * scale).tex(maxU, minV)
+				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(skyLightTimes16, blockLightTimes16).endVertex();
+		vertexBuffer.pos(x + edgeLRdirectionX * scale + edgeUDdirectionX * scale, y + edgeUDdirectionY * scale, z + edgeLRdirectionZ * scale + edgeUDdirectionZ * scale).tex(minU, minV)
+				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(skyLightTimes16, blockLightTimes16).endVertex();
+		vertexBuffer.pos(x + edgeLRdirectionX * scale - edgeUDdirectionX * scale, y - edgeUDdirectionY * scale, z + edgeLRdirectionZ * scale - edgeUDdirectionZ * scale).tex(minU, maxV)
+				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(skyLightTimes16, blockLightTimes16).endVertex();
 	}
 }

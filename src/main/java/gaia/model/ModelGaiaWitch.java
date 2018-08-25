@@ -230,10 +230,9 @@ public class ModelGaiaWitch extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointY = (MathHelper.cos((1.5F + ageInTicks) * 0.5F)) * 0.5F;
+		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 		anchor.rotateAngleZ = (MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 0.05F;
 
 		// head

@@ -146,12 +146,11 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

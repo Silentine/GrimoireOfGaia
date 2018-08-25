@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class EntityGaiaProjectileMagic extends EntityFireball {
 
-	@SuppressWarnings("unused") //used in reflection
+	@SuppressWarnings("unused") // used in reflection
 	public EntityGaiaProjectileMagic(World worldIn) {
 		super(worldIn);
 		setSize(0.3125F, 0.3125F);
@@ -62,7 +62,8 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
+						((EntityLivingBase) movingObject.entityHit)
+								.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
 					}
 				}
 			}

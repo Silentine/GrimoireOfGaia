@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -18,11 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -30,8 +27,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMimic extends EntityMobHostileBase {
@@ -111,47 +106,8 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			motionY *= 0.8D;
 		}
 
-		if (!world.isRemote) {
-			setBesideClimbableBlock(collidedHorizontally);
-		}
-
 		super.onLivingUpdate();
 	}
-
-	// ================= Climber data =================//
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(CLIMBING, (byte) 0);
-	}
-
-	protected PathNavigate getNewNavigator(World worldIn) {
-		return new PathNavigateClimber(this, worldIn);
-	}
-
-	@Override
-	public boolean isOnLadder() {
-		return isBesideClimbableBlock();
-	}
-
-	private boolean isBesideClimbableBlock() {
-		return (dataManager.get(CLIMBING) & 1) != 0;
-	}
-
-	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaMimic.class, DataSerializers.BYTE);
-
-	private void setBesideClimbableBlock(boolean climbing) {
-		byte b0 = dataManager.get(CLIMBING);
-
-		if (climbing) {
-			b0 = (byte) (b0 | 1);
-		} else {
-			b0 = (byte) (b0 & -2);
-		}
-
-		dataManager.set(CLIMBING, b0);
-	}
-	// ==================================//
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -178,20 +134,20 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	@Nullable
 	protected ResourceLocation getLootTable() {
 		switch (rand.nextInt(6)) {
-			case 0:
-				return LootTableList.ENTITIES_CREEPER;
-			case 1:
-				return LootTableList.ENTITIES_SPIDER;
-			case 2:
-				return LootTableList.ENTITIES_ENDERMAN;
-			case 3:
-				return LootTableList.ENTITIES_SLIME;
-			case 4:
-				return LootTableList.ENTITIES_ZOMBIE;
-			case 5:
-				return LootTableList.ENTITIES_SKELETON;
-			default:
-				return LootTableList.EMPTY;
+		case 0:
+			return LootTableList.ENTITIES_CREEPER;
+		case 1:
+			return LootTableList.ENTITIES_SPIDER;
+		case 2:
+			return LootTableList.ENTITIES_ENDERMAN;
+		case 3:
+			return LootTableList.ENTITIES_SLIME;
+		case 4:
+			return LootTableList.ENTITIES_ZOMBIE;
+		case 5:
+			return LootTableList.ENTITIES_SKELETON;
+		default:
+			return LootTableList.EMPTY;
 		}
 	}
 
@@ -236,7 +192,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.HUNGER && super.isPotionApplicable(potioneffectIn);
@@ -244,9 +200,8 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

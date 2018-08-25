@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -36,7 +38,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -45,17 +46,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> HOLDING_BOW =
-			EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
@@ -102,10 +100,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (source instanceof EntityDamageSourceIndirect) {
-			return false;
-		}
-
 		if (damage > EntityAttributes.BASE_DEFENSE_2 && GaiaConfig.GENERAL.spawnLevel3) {
 			spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
 		}
@@ -177,10 +171,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
 			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world,
-						posX + rand.nextDouble() * width * 2.0D - width,
-						posY + 1.0D + rand.nextDouble() * height,
-						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
+				ParticleWarning particleCustom = new ParticleWarning(world, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
 		} else {
@@ -240,7 +231,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
 
-	// ================= Archer data =================//
+	/* ARCHER DATA */
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
@@ -267,7 +258,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	public void setHoldingBow(boolean swingingArms) {
 		dataManager.set(HOLDING_BOW, swingingArms);
 	}
-	// ===============================================//
+	/* ARCHER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -353,7 +344,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override

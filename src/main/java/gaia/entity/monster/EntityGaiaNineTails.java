@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -12,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -29,23 +32,27 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNineTails extends EntityMobHostileBase implements IRangedAttackMob {
+
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+
+	private int switchHealth;
 
 	public EntityGaiaNineTails(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+		switchHealth = 0;
 		isImmuneToFire = true;
 	}
 
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F));
+
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -81,16 +88,39 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 		double f1 = MathHelper.sqrt(par2) * 0.5D;
 
 		for (int var10 = 0; var10 < 3; ++var10) {
-			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(world, this,
-					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(world, this, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
 			var11.posY = posY + height / 2.0D + 0.5D;
 			world.spawnEntity(var11);
 		}
 	}
 
 	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			entityIn.setFire(6);
+		}
+		return true;
+	}
+
+	@Override
 	public boolean isAIDisabled() {
 		return false;
+	}
+
+	public void onLivingUpdate() {
+		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+			switchHealth = 1;
+		}
+
+		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(1, aiArrowAttack);
+			switchHealth = 0;
+		}
+
+		super.onLivingUpdate();
 	}
 
 	@Override
@@ -153,15 +183,16 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setLeftHanded(false);
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.addTask(1, aiArrowAttack);
 
+		setLeftHanded(false);
 		ItemStack weapon;
 
 		if (rand.nextInt(4) == 0) {

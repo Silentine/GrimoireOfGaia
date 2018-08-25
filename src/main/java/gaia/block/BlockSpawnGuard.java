@@ -1,5 +1,9 @@
 package gaia.block;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -20,9 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class BlockSpawnGuard extends BlockBase {
 
 	private static final PropertyEnum<BlockSpawnGuard.EnumType> TYPE = PropertyEnum.create("type", BlockSpawnGuard.EnumType.class);
@@ -32,8 +33,7 @@ public class BlockSpawnGuard extends BlockBase {
 		this.setLightOpacity(0);
 		this.setHardness(0.0F);
 		this.setResistance(6.0F);
-		this.setDefaultState(this.blockState.getBaseState()
-				.withProperty(TYPE, EnumType.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.NORTH));
 	}
 
 	@Override

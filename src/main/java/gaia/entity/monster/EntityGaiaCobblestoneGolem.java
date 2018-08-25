@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 	private int attackTimer;
@@ -137,11 +137,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						getEntityBoundingBox().minY + 0.1D,
-						posZ + (rand.nextDouble() - 0.5D) * width,
-						4.0D * (rand.nextDouble() - 0.5D), 0.5D,
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
 						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
@@ -205,12 +201,12 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// =============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

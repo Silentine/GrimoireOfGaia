@@ -41,13 +41,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMatango extends EntityMobHostileDay {
 
-	private static final Item[] matangoDrops = new Item[] {
-			Item.getItemFromBlock(Blocks.RED_MUSHROOM),
-			Item.getItemFromBlock(Blocks.BROWN_MUSHROOM)
-	};
+	private static final Item[] matangoDrops = new Item[] { Item.getItemFromBlock(Blocks.RED_MUSHROOM), Item.getItemFromBlock(Blocks.BROWN_MUSHROOM) };
 
 	private int spawnTime;
 
@@ -149,11 +146,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						getEntityBoundingBox().minY + 0.1D,
-						posZ + (rand.nextDouble() - 0.5D) * width,
-						4.0D * (rand.nextDouble() - 0.5D), 0.5D,
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
 						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
@@ -204,10 +197,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + rand.nextDouble() * width * 2.0F - width,
-					posY + 1.0D + rand.nextDouble() * height,
-					posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 
@@ -274,7 +264,6 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -288,12 +277,12 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

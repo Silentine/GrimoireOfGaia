@@ -1,8 +1,12 @@
 package gaia.init;
 
+import java.util.Set;
+
 import com.google.common.collect.ImmutableSet;
+
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -74,12 +78,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.Set;
-
 public class GaiaEntities {
 	private GaiaEntities() {}
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
+			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
 			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
 			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646),

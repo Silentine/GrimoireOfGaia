@@ -1,5 +1,9 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import net.minecraft.client.resources.I18n;
@@ -14,19 +18,16 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
-public class ItemAccessorySkull extends ItemBase implements IBauble {
-	public ItemAccessorySkull() {
-		super("accessory_skull");
+public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
+	
+	public ItemAccessoryHeadgear() {
+		super("accessory_headgear");
 		setMaxStackSize(1);
 	}
 
@@ -39,8 +40,7 @@ public class ItemAccessorySkull extends ItemBase implements IBauble {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.GrimoireOfGaia.WIP.tag")));
-		tooltip.add(I18n.format("text.GrimoireOfGaia.RightClickEquip"));
+		tooltip.add(I18n.format("text.grimoireofgaia.RightClickEquip"));
 	}
 
 	@Override
@@ -56,11 +56,6 @@ public class ItemAccessorySkull extends ItemBase implements IBauble {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName() + "_" + stack.getItemDamage();
-	}
-
-	@Override
-	public BaubleType getBaubleType(ItemStack itemStack) {
-		return BaubleType.HEAD;
 	}
 
 	@Override
@@ -80,5 +75,11 @@ public class ItemAccessorySkull extends ItemBase implements IBauble {
 		} else {
 			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
+	}
+	
+	/** Baubles **/
+	@Override
+	public BaubleType getBaubleType(ItemStack itemStack) {
+		return BaubleType.HEAD;
 	}
 }

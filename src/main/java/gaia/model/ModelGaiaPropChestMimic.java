@@ -37,8 +37,6 @@ public class ModelGaiaPropChestMimic extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
-		//noop
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 	}
 }

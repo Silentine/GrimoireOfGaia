@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -8,7 +10,6 @@ import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
@@ -33,9 +34,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
@@ -90,7 +89,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLiving) {
+			if (entityIn instanceof EntityLivingBase) {
 				byte byte0 = 0;
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
@@ -205,7 +204,6 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -220,10 +218,10 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
 	}
-	// =============================================//
+	/* IMMUNITIES */
 }

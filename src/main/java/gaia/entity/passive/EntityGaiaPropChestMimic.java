@@ -1,5 +1,9 @@
 package gaia.entity.passive;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.helpers.LootHelper;
 import net.minecraft.entity.Entity;
@@ -22,10 +26,8 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+//TODO Missing model
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	private boolean canSpawn;
@@ -74,13 +76,11 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-				.setBaseValue(1.0F);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0F);
 	}
 
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
-		//noop
 	}
 
 	@Override
@@ -97,10 +97,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-						posX + (rand.nextDouble() - 0.5D) * (double) width,
-						posY + rand.nextDouble() * (double) height,
-						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
@@ -115,7 +112,6 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 		return !list.isEmpty();
-
 	}
 
 	@Override
@@ -161,7 +157,6 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	@Override
 	protected void collideWithEntity(Entity entityIn) {
-		//noop
 	}
 
 	@Override
@@ -196,23 +191,22 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 		}
 	}
 
+	/* SPAWN CONDITIONS */
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
-	// ==================================//
 
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
 	}
+	/* SPAWN CONDITIONS */
 
 	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return isEntityAlive()
-				? getEntityBoundingBox()
-				: null;
+		return isEntityAlive() ? getEntityBoundingBox() : null;
 	}
 
 	@Override
@@ -227,7 +221,6 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	@Override
 	public void applyEntityCollision(Entity entityIn) {
-		//noop
 	}
 
 	@Override

@@ -105,8 +105,7 @@ public class ModelGaiaWitherCow extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -115,6 +114,10 @@ public class ModelGaiaWitherCow extends ModelGaia {
 		if (swingProgress > -9990.0F) {
 			holdingMelee();
 		}
+
+		// body
+		ribs.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 24)) * degToRad(2);
+		ribs.rotateAngleZ -= 0.1745329F;
 
 		// legs
 		leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;

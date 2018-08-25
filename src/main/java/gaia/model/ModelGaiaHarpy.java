@@ -34,7 +34,7 @@ public class ModelGaiaHarpy extends ModelGaia {
 	private static final float Y_OFFSET_HEAD = 15.0F;
 	private static final float Y_OFFSET_BODY = 23.5F;
 
-	//x and y coordinate of hairahoge must be manually adjusted by a 0.5 difference
+	// x and y coordinates of hairahoge must be manually adjusted by a 0.5 difference
 	public ModelGaiaHarpy() {
 		textureWidth = 128;
 		textureHeight = 64;
@@ -233,7 +233,6 @@ public class ModelGaiaHarpy extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
@@ -256,7 +255,7 @@ public class ModelGaiaHarpy extends ModelGaia {
 				headeyes.render(scale);
 			}
 		} else {
-			// ================= Scaling =================//
+			/** SCALING **/
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
 			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
@@ -268,7 +267,7 @@ public class ModelGaiaHarpy extends ModelGaia {
 
 			headaccessory.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/** SCALING **/
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
 			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
@@ -283,13 +282,14 @@ public class ModelGaiaHarpy extends ModelGaia {
 			leftleg.render(scale);
 			tail.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/** SCALING **/
 		}
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = (headPitch / 57.295776F) + 0.0872665F;
@@ -312,6 +312,10 @@ public class ModelGaiaHarpy extends ModelGaia {
 		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.3490659F;
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+
+		if (itemstack.getItem() == Items.FEATHER) {
+			animationFlee();
+		}
 
 		// body
 		tail.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(5);
@@ -343,5 +347,14 @@ public class ModelGaiaHarpy extends ModelGaia {
 		leftarm.rotateAngleX -= (float) ((double) leftarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		leftarm.rotateAngleY += (bodytop.rotateAngleY * 2.0F);
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
+	}
+
+	private void animationFlee() {
+		if ((rightleg.rotateAngleX != -0.5235988F) || (leftleg.rotateAngleX != -0.5235988F)) {
+			rightarm.rotateAngleX += 1.0472F;
+			leftarm.rotateAngleX += 1.0472F;
+			rightarm.rotateAngleY -= 0.523599F;
+			leftarm.rotateAngleY += 0.523599F;
+		}
 	}
 }

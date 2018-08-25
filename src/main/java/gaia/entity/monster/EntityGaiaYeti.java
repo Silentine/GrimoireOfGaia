@@ -160,7 +160,6 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override

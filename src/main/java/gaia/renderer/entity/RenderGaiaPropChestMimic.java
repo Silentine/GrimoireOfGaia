@@ -13,13 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderGaiaPropChestMimic extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/prop_chest_mimic.png");
 
-	public RenderGaiaPropChestMimic(RenderManager renderManager) {
+	public RenderGaiaPropChestMimic(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaPropChestMimic(), 0.0F);
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLiving living, float par2) {
-		shadowSize = 0.0F;
 	}
 
 	@Override

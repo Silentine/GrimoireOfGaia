@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -40,10 +44,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -182,14 +183,13 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 		return !list.isEmpty();
 	}
 
-	// ================= Archer data =================//
+	/* ARCHER DATA */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
 
 	@Override
 	public void setSwingingArms(boolean swingingArms) {
-		//noop
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	public void setHoldingBow(boolean swingingArms) {
 		dataManager.set(HOLDING_BOW, swingingArms);
 	}
-	// ==================================//
+	/* ARCHER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -264,7 +264,6 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override

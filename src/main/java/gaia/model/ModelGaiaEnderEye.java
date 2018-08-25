@@ -1,5 +1,6 @@
 package gaia.model;
 
+import net.minecraft.client.model.ModelBlaze;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -86,11 +87,13 @@ public class ModelGaiaEnderEye extends ModelGaia {
 		anchor.render(scale);
 	}
 
+	/**
+	 * @see ModelBlaze
+	 */
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointY = MathHelper.cos((1.5F + ageInTicks) * 0.5F);
+		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 
 		// body
 		body.rotateAngleY = netHeadYaw / 57.295776F;

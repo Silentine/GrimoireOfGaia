@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -33,8 +35,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBoneKnight extends EntityMobHostileBase {
@@ -176,6 +176,10 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

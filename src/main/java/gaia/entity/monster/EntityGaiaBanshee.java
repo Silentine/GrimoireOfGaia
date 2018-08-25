@@ -96,10 +96,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		}
 
 		for (int var2 = 0; var2 < 2; ++var2) {
-			world.spawnParticle(EnumParticleTypes.PORTAL,
-					posX + (rand.nextDouble() - 0.5D) * width,
-					posY + rand.nextDouble() * height,
-					posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 		}
 
 		super.onLivingUpdate();
@@ -122,10 +119,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
 
-			world.spawnParticle(particleType,
-					posX + (rand.nextDouble() * width * 2.0D) - width,
-					posY + 1.0D + (rand.nextDouble() * height),
-					posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + (rand.nextDouble() * width * 2.0D) - width, posY + 1.0D + (rand.nextDouble() * height), posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
 		}
 	}
 
@@ -192,17 +186,15 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

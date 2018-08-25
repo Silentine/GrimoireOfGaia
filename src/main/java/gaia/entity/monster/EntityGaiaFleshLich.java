@@ -118,10 +118,7 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + rand.nextDouble() * width * 2.0F - width,
-					posY + 1.0D + rand.nextDouble() * height,
-					posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 
@@ -185,7 +182,6 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override

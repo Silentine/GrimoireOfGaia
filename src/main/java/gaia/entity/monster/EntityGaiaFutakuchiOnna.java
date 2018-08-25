@@ -140,12 +140,12 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.HUNGER && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

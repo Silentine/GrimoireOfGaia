@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
@@ -40,10 +44,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
@@ -194,7 +195,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 		return !list.isEmpty();
 	}
 
-	// ================= Archer data =================//
+	/* ARCHER DATA */
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
@@ -220,7 +221,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	public void setHoldingBow(boolean swingingArms) {
 		dataManager.set(HOLDING_BOW, swingingArms);
 	}
-	// ===============================================//
+	/* ARCHER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -277,7 +278,6 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -305,7 +305,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPushedByWater() {
 		return false;
@@ -315,7 +315,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// =============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -305,8 +306,11 @@ public class ModelGaiaCentaur extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		ItemStack equipstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
+		EntityGaiaCentaur entity = (EntityGaiaCentaur) entityIn;
+		
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -324,13 +328,14 @@ public class ModelGaiaCentaur extends ModelGaia {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
-		EntityGaiaCentaur entity = (EntityGaiaCentaur) entityIn;
-
-		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)) {
+		if (entity.isHoldingBow() && (equipstack.getItem() == Items.BOW)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();
+		}
+
+		if (itemstack.getItem() == Items.FEATHER) {
+			animationPotion();
 		}
 
 		// body
@@ -379,6 +384,15 @@ public class ModelGaiaCentaur extends ModelGaia {
 		rightarm.rotateAngleX = (float) ((double) rightarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		rightarm.rotateAngleX += (bodytop.rotateAngleY * 2.0F);
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
+	}
+
+	private void animationPotion() {
+		if ((rightlegupper.rotateAngleX != 0.0F) || (leftlegupper.rotateAngleX != 0.0F)) {
+			rightarm.rotateAngleX += 1.0472F;
+			leftarm.rotateAngleX += 1.0472F;
+			rightarm.rotateAngleY = -0.523599F;
+			leftarm.rotateAngleY = +0.523599F;
+		}
 	}
 
 	public ModelRenderer getRightArm() {

@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSummonButler extends EntityMobHostileBase {
 
-	@SuppressWarnings("WeakerAccess") //used in reflection
+	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaSummonButler(World worldIn) {
 		super(worldIn);
 

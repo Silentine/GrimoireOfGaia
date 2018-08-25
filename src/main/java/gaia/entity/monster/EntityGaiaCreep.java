@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -33,7 +34,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+/**
+ * @see EntityCreeper
+ */
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
@@ -192,14 +196,6 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	public void setCreeperState(int state) {
 		dataManager.set(STATE, state);
-	}
-
-	@Override
-	public void onLivingUpdate() {
-		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.10F) {
-			addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 100, 0));
-		}
-		super.onLivingUpdate();
 	}
 
 	@Override

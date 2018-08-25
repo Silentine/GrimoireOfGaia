@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCTrader extends EntityMobMerchant {
 
-	public EntityGaiaNPCTrader(World var1) {
-		super(var1);
+	public EntityGaiaNPCTrader(World worldIn) {
+		super(worldIn);
 	}
 
 	@Override

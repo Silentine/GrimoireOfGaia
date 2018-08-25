@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 
-	public EntityGaiaNPCEnderGirl(World var1) {
-		super(var1);
+	public EntityGaiaNPCEnderGirl(World worldIn) {
+		super(worldIn);
 	}
 
 	@Override

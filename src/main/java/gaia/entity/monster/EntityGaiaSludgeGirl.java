@@ -20,7 +20,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
@@ -38,11 +37,6 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
 	}
 
 	@Override
@@ -125,7 +119,9 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	@Override
 	public void onDeath(DamageSource cause) {
-		lingeringEffect(this, MobEffects.POISON, PotionTypes.EMPTY, getPosition());
+		if (!this.world.isRemote) {
+			spawnLingeringCloud(this, MobEffects.POISON);
+		}
 		super.onDeath(cause);
 	}
 
@@ -163,12 +159,17 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -13,19 +13,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Used to render items inserted into the HEAD slot of Baubles
+ */
 @SideOnly(Side.CLIENT)
-public class LayerSkull implements LayerRenderer<EntityPlayer> {
+public class LayerHeadgear implements LayerRenderer<EntityPlayer> {
 	private ModelRenderer bipedHead;
 
-	public LayerSkull(ModelRenderer bipedHead) {
+	public LayerHeadgear(ModelRenderer bipedHead) {
 		this.bipedHead = bipedHead;
 	}
 
 	@Override
 	public void doRenderLayer(EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		ItemStack skull = getSkull(player);
+		ItemStack headgear = getHeadgear(player);
 
-		if (!skull.isEmpty()) {
+		if (!headgear.isEmpty()) {
 			GlStateManager.pushMatrix();
 
 			if (player.isSneaking()) {
@@ -39,26 +42,27 @@ public class LayerSkull implements LayerRenderer<EntityPlayer> {
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			GlStateManager.scale(0.625F, -0.625F, -0.625F);
 
-			Minecraft.getMinecraft().getItemRenderer().renderItem(player, skull, ItemCameraTransforms.TransformType.HEAD);
+			Minecraft.getMinecraft().getItemRenderer().renderItem(player, headgear, ItemCameraTransforms.TransformType.HEAD);
 			GlStateManager.popMatrix();
 		}
 	}
+	
+	@Override
+	public boolean shouldCombineTextures() {
+		return false;
+	}
 
-	private ItemStack getSkull(EntityPlayer entity) {
+	/** Baubles **/
+	private ItemStack getHeadgear(EntityPlayer entity) {
 		IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(entity);
 
 		for (int i = 0; i < baubles.getSlots(); i++) {
 			ItemStack bauble = baubles.getStackInSlot(i);
-			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_SKULL)
+			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR)
 				continue;
 
 			return bauble;
 		}
 		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public boolean shouldCombineTextures() {
-		return false;
 	}
 }

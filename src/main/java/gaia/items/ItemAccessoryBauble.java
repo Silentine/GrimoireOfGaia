@@ -1,5 +1,7 @@
 package gaia.items;
 
+import org.apache.commons.lang3.Range;
+
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +19,6 @@ import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import org.apache.commons.lang3.Range;
 
 @Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
@@ -94,9 +95,11 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 		}
 	}
 
+	public abstract void doEffect(EntityLivingBase player, ItemStack item);
+
 	protected abstract Range<Integer> getActiveSlotRange();
 
-	// ==================== Bauble ===================//
+	/** Baubles **/
 	@Override
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
 		if (player instanceof EntityPlayer && !player.world.isRemote) {
@@ -121,7 +124,4 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
-	// =======================================//
-
-	public abstract void doEffect(EntityLivingBase player, ItemStack item);
 }

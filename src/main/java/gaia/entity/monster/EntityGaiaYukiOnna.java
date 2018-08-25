@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -22,6 +24,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -34,14 +37,11 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid =
-			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
 
@@ -50,6 +50,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+
 		switchHealth = 0;
 	}
 
@@ -119,25 +120,25 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	@Override
 	public void onLivingUpdate() {
+		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(1) == 0) {
-				tasks.removeTask(aiMeleeAttack);
-				tasks.addTask(1, aiAvoid);
+			if (rand.nextInt(2) == 0) {
+				SetAI((byte) 1);
+				SetEquipment((byte) 1);
 				switchHealth = 1;
+				System.out.println("FLEE!");
 			} else {
-				switchHealth = 1;
+				switchHealth = 2;
 			}
 		}
 
-		if (switchHealth == 1 && ticksExisted % 10 == 0) {
-			world.setEntityState(this, (byte) 8);
-		}
-
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F) && (switchHealth == 1)) {
-			tasks.addTask(1, aiMeleeAttack);
-			tasks.removeTask(aiAvoid);
+			SetAI((byte) 0);
+			SetEquipment((byte) 0);
+
 			switchHealth = 0;
 		}
+		/* FLEE DATA */
 
 		int i = MathHelper.floor(posX);
 		int j = MathHelper.floor(posZ);
@@ -149,6 +150,28 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.addTask(1, aiMeleeAttack);
+			tasks.removeTask(aiAvoid);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiMeleeAttack);
+			tasks.addTask(1, aiAvoid);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
+		}
 	}
 
 	@Override
@@ -215,14 +238,12 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.addTask(1, aiMeleeAttack);
+		SetAI((byte) 0);
 
 		setLeftHanded(false);
 
@@ -246,17 +267,15 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	private boolean isSnowing() {
 		return world.isRaining();

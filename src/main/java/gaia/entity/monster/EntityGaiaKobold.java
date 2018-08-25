@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
@@ -185,7 +185,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		return !list.isEmpty();
 	}
 
-	// ================= Archer data =================//
+	/* ARCHER DATA */
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
@@ -211,7 +211,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	public void setHoldingBow(boolean swingingArms) {
 		dataManager.set(HOLDING_BOW, swingingArms);
 	}
-	// ==================================//
+	/* ARCHER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -264,7 +264,6 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override

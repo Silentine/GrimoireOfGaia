@@ -269,8 +269,7 @@ public class ModelGaiaEnderDragonGirl extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = (headPitch / 57.295776F) + 0.1745329F;
@@ -313,7 +312,7 @@ public class ModelGaiaEnderDragonGirl extends ModelGaia {
 		// legs
 		rightleg1.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 1.5F;
 		rightleg1.rotateAngleX -= 0.3490659F;
-		leftleg1.rotateAngleX = (MathHelper.cos(limbSwing * 0.6665F + (float) Math.PI) * 0.2F * limbSwingAmount) * 1.5F;
+		leftleg1.rotateAngleX = (MathHelper.cos(limbSwing * 0.6665F + (float) Math.PI) * 0.5F * limbSwingAmount) * 1.5F;
 		leftleg1.rotateAngleX -= 0.3490659F;
 	}
 

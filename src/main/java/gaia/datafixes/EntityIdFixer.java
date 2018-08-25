@@ -1,14 +1,15 @@
 package gaia.datafixes;
 
+import java.util.Map;
+
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
-
-import java.util.Map;
 
 public class EntityIdFixer implements IFixableData {
 	private final Map<String, String> mapping = new ImmutableMap.Builder<String, String>()

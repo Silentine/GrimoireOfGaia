@@ -1,5 +1,7 @@
 package gaia.entity;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import gaia.renderer.particle.ParticleBuff;
@@ -14,26 +16,27 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+/**
+ * Copy any changes made to EntityMobPassiveBase.
+ *
+ * @see EntityMobPassiveBase
+ */
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobHostileBase extends EntityMob {
 
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
@@ -47,8 +50,6 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
-			// TODO Rebalance tweaking for shields
-			// Shields aren't so fun when they can't block most of the damage
 			if (GaiaConfig.DAMAGE.baseDamage) {
 				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
 					EntityPlayer player = (EntityPlayer) entity;
@@ -67,38 +68,31 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		}
 	}
 
+	// TODO handleStatusUpdate particle effects do not work properly
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				ParticleDrop particleCustom = new ParticleDrop(this.world,
-						this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-						this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
+				ParticleDrop particleCustom = new ParticleDrop(this.world, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
 						this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
 		} else if (id == 9) {
 			for (int i = 0; i < 8; ++i) {
-				ParticleHeal particleCustom = new ParticleHeal(this.world,
-						this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-						this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
+				ParticleHeal particleCustom = new ParticleHeal(this.world, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
 						this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
 		} else if (id == 10) {
 			for (int i = 0; i < 8; ++i) {
-				ParticleBuff particleCustom = new ParticleBuff(this.world,
-						this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-						this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
+				ParticleBuff particleCustom = new ParticleBuff(this.world, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
 						this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
 		} else if (id == 11) {
 			for (int i = 0; i < 8; ++i) {
-				this.world.spawnParticle(EnumParticleTypes.HEART,
-						this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-						this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
+				this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
 						this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
@@ -127,26 +121,24 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	}
 
 	/**
-	 * Adapted from @EntityPotion
+	 * Adapted from @EntityCreeper
 	 *
-	 * @param sourceMob The mob creating the cloud
+	 * @param sourceMob Entity creating the cloud
 	 * @param effect    Potion Effect to Implement (@MobEffects.class)
-	 * @param type      Type of potion (I think for rendering) (@PotionTypes.class)
-	 * @param pos       Position to spawn effect
-	 * @see EntityPotion
+	 * @see EntityAreaEffectCloud
 	 */
-	protected void lingeringEffect(EntityLivingBase sourceMob, Potion effect, PotionType type, BlockPos pos) {
-		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, pos.getX(), pos.getY(), pos.getZ());
+	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion effect) {
+
+		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, this.posX, this.posY, this.posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
-		entityareaeffectcloud.setRadius(3.0F);
+		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
+		entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
-		entityareaeffectcloud.setPotion(type);
+		entityareaeffectcloud.addEffect(new PotionEffect(effect));
 
-		entityareaeffectcloud.addEffect(new PotionEffect(effect, 200, 0));
-
-		world.spawnEntity(entityareaeffectcloud);
+		this.world.spawnEntity(entityareaeffectcloud);
 	}
 
 	/**

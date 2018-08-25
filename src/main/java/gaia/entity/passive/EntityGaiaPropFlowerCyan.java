@@ -27,7 +27,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+//TODO Missing model
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	private int shovelAttack;
@@ -62,8 +63,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
-				.setBaseValue(1.0D);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
 	}
 
 	@Override
@@ -86,7 +86,6 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
-		//noop
 	}
 
 	@Override
@@ -98,10 +97,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	public void onLivingUpdate() {
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-						posX + (rand.nextDouble() - 0.5D) * (double) width,
-						posY + rand.nextDouble() * (double) height,
-						posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
@@ -118,37 +114,37 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				switch (rand.nextInt(10)) {
-					case 0:
-						dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
-						break;
-					case 1:
-						dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
-						break;
-					case 2:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
-						break;
-					case 3:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
-						break;
-					case 4:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
-						break;
-					case 5:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
-						break;
-					case 6:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
-						break;
-					case 7:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
-						break;
-					case 8:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
-						break;
-					case 9:
-					default:
-						entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
-						break;
+				case 0:
+					dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
+					break;
+				case 1:
+					dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
+					break;
+				case 2:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
+					break;
+				case 3:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
+					break;
+				case 4:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
+					break;
+				case 5:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
+					break;
+				case 6:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
+					break;
+				case 7:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
+					break;
+				case 8:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
+					break;
+				case 9:
+				default:
+					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
+					break;
 				}
 			} else {
 				EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(world);
@@ -174,7 +170,6 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	@Override
 	protected void collideWithEntity(Entity entityIn) {
-		//noop
 	}
 
 	@Override
@@ -187,7 +182,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		return true;
 	}
 
-	// ================= Spawn Conditions =================//
+	/* SPAWN CONDITIONS */
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
 
 	@Override
@@ -199,26 +194,23 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 				int j = MathHelper.floor(getEntityBoundingBox().minY);
 				int k = MathHelper.floor(posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
-				Block var1 = world.getBlockState(blockpos.down())
-						.getBlock();
+				Block var1 = world.getBlockState(blockpos.down()).getBlock();
 
-				return world.getDifficulty() != EnumDifficulty.PEACEFUL && spawnBlocks.contains(var1) &&
-						!world.containsAnyLiquid(getEntityBoundingBox());
+				return world.getDifficulty() != EnumDifficulty.PEACEFUL && spawnBlocks.contains(var1) && !world.containsAnyLiquid(getEntityBoundingBox());
 			}
 		}
 
 		return false;
 	}
-	// ==================================//
 
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
 	}
+	/* SPAWN CONDITIONS */
 
 	@Override
 	public void applyEntityCollision(Entity entityIn) {
-		//noop
 	}
 
 	public EntityAgeable createChild(EntityAgeable entityageable) {

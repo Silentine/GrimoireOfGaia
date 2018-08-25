@@ -1,5 +1,10 @@
 package gaia.proxy;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import gaia.entity.monster.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -63,6 +68,7 @@ import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.init.GaiaItems;
 import gaia.renderer.RenderGaiaProjectileMagic;
+import gaia.renderer.entity.RenderDebugMob;
 import gaia.renderer.entity.RenderGaiaAnt;
 import gaia.renderer.entity.RenderGaiaAnubis;
 import gaia.renderer.entity.RenderGaiaArachne;
@@ -123,7 +129,7 @@ import gaia.renderer.entity.RenderGaiaWitch;
 import gaia.renderer.entity.RenderGaiaWitherCow;
 import gaia.renderer.entity.RenderGaiaYeti;
 import gaia.renderer.entity.RenderGaiaYukiOnna;
-import gaia.renderer.entity.layers.LayerSkull;
+import gaia.renderer.entity.layers.LayerHeadgear;
 import gaia.renderer.particle.ParticleHandler;
 import gaia.renderer.tileentity.TileRenderBust;
 import gaia.tileentity.TileEntityBust;
@@ -137,10 +143,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -175,6 +177,7 @@ public class ClientProxy extends CommonProxy {
 		float large = 0.7F;
 
 		// Mob
+		RenderingRegistry.registerEntityRenderingHandler(EntityDebugMob.class, renderManager -> new RenderDebugMob(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnt.class, renderManager -> new RenderGaiaAnt(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, renderManager -> new RenderGaiaAnubis(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaArachne.class, renderManager -> new RenderGaiaArachne(renderManager, large));
@@ -215,8 +218,13 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCHolstaurus.class, renderManager -> new RenderGaiaNPCHolstaurus(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCWeresheep.class, renderManager -> new RenderGaiaNPCWeresheep(renderManager, small));
 		// Prop
+		/*
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, RenderGaiaPropChestMimic::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, RenderGaiaPropFlowerCyan::new);
+		*/
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, renderManager -> new RenderGaiaPropChestMimic(renderManager, small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, renderManager -> new RenderGaiaPropFlowerCyan(renderManager, small));
 		// Mob
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSahuagin.class, renderManager -> new RenderGaiaSahuagin(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSatyress.class, renderManager -> new RenderGaiaSatyress(renderManager, small));
@@ -239,6 +247,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYeti.class, renderManager -> new RenderGaiaYeti(renderManager, large));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, renderManager -> new RenderGaiaYukiOnna(renderManager, small));
 		// Projectile
+		//TODO EntityGaiaProjectileMagic is being rendered as EntityLargeFireball.java
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectileMagic(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE));
 	}
 
@@ -252,7 +261,7 @@ public class ClientProxy extends CommonProxy {
 		if (Loader.isModLoaded("baubles")) {
 			Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 			RenderPlayer render = skinMap.get("default");
-			render.addLayer(new LayerSkull(render.getMainModel().bipedHead));
+			render.addLayer(new LayerHeadgear(render.getMainModel().bipedHead));
 		}
 	}
 }

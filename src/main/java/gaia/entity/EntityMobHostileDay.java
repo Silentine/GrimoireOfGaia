@@ -1,6 +1,9 @@
 package gaia.entity;
 
+import java.util.Set;
+
 import com.google.common.collect.Sets;
+
 import gaia.helpers.BlockPosHelper;
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
@@ -9,17 +12,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.Set;
-
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	private static final int TORCH_RADIUS = 8;
-	private static Set<Block> spawnBlocks = Sets.newHashSet(
-			Blocks.GRASS,
-			Blocks.DIRT,
-			Blocks.GRAVEL,
-			Blocks.SAND,
-			Blocks.SNOW_LAYER);
+	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW_LAYER);
 
 	public EntityMobHostileDay(World worldIn) {
 		super(worldIn);
@@ -38,8 +34,7 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 				int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 				int k = MathHelper.floor(this.posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
-				Block var1 = this.world.getBlockState(blockpos.down())
-						.getBlock();
+				Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
 
 				return spawnBlocks.contains(var1) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
 			}
@@ -51,19 +46,15 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);
 
 	/**
-	 * The actual check It inputs the radius and feeds it to the sphere shape
-	 * method. After it gets the block position map it scans every block in that
-	 * map. Then returns depending if the match triggers.
+	 * It inputs the radius and feeds it to the sphere shape method. After it gets the block position map it scans every block in that map. Then returns depending if the match triggers.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
 		for (BlockPos location : BlockPosHelper.sphereShape(pos, TORCH_RADIUS)) {
-			if (blackList.contains(world.getBlockState(location)
-					.getBlock())) {
+			if (blackList.contains(world.getBlockState(location).getBlock())) {
 				return true;
 			}
 		}
 
 		return false;
 	}
-
 }

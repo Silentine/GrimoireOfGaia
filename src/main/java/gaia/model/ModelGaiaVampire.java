@@ -201,10 +201,9 @@ public class ModelGaiaVampire extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointY = (MathHelper.cos((1.5F + ageInTicks) * 0.5F)) * 0.5F;
+		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;

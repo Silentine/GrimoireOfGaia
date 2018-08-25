@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -45,10 +49,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaArachne extends EntityMobHostileBase {
 
 	private int spawn;
@@ -178,14 +179,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + (rand.nextDouble() * width * 2.0D) - width,
-					posY + 1.0D + (rand.nextDouble() * height),
-					posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + (rand.nextDouble() * width * 2.0D) - width, posY + 1.0D + (rand.nextDouble() * height), posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
 		}
 	}
 
-	// ================= Climber data =================//
+	// TODO Entity does not climb wall unless AI is disabled. This may be due to
+	// pathfinding.
+	/** CLIMBER DATA **/
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -218,7 +218,8 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 		dataManager.set(CLIMBING, b0);
 	}
-	// =============================================//
+
+	/** CLIMBER DATA **/
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -289,7 +290,6 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
-	// ================= Immunities =================//
+	/** IMMUNITIES **/
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
@@ -326,9 +326,9 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ==============================================//
+
+	/** IMMUNITIES **/
 
 	@Override
 	public boolean getCanSpawnHere() {

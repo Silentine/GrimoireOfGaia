@@ -246,10 +246,13 @@ public class ModelGaiaNPCWeresheep extends ModelGaia {
 		waist1.render(scale);
 		waist2.render(scale);
 		tail.render(scale);
+		
+		/*
 		rightlegbutton.render(scale);
 		leftlegbutton.render(scale);
 		rightleglower.render(scale);
 		leftleglower.render(scale);
+		*/
 
 		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
 			headeyes.render(scale);
@@ -257,8 +260,7 @@ public class ModelGaiaNPCWeresheep extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;

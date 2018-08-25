@@ -1,5 +1,10 @@
 package gaia.entity.monster;
 
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -21,6 +26,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,11 +56,10 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.UUID;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+/**
+ * @see EntityWitch
+ */
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private int spawn;
@@ -127,10 +132,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 		if (motionX > 0 || motionY > 0 || motionZ > 0) {
 			for (int var5 = 0; var5 < 2; ++var5) {
-				world.spawnParticle(EnumParticleTypes.SPELL_WITCH,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						posY + rand.nextDouble() * height,
-						posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -174,8 +176,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 						}
 					}
 
-					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-							.removeModifier(MODIFIER);
+					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
 				}
 			} else {
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
@@ -183,26 +184,19 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 				if (rand.nextFloat() < 0.15F && isInsideOfMaterial(Material.WATER) && !isPotionActive(MobEffects.WATER_BREATHING)) {
 					potiontype = PotionTypes.WATER_BREATHING;
-				} else if (rand.nextFloat() < 0.15F && (isBurning() || getLastDamageSource() != null && getLastDamageSource()
-						.isFireDamage()) &&
-						!isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+				} else if (rand.nextFloat() < 0.15F && (isBurning() || getLastDamageSource() != null && getLastDamageSource().isFireDamage()) && !isPotionActive(MobEffects.FIRE_RESISTANCE)) {
 					potiontype = PotionTypes.FIRE_RESISTANCE;
 				} else if (rand.nextFloat() < 0.05F && getHealth() < getMaxHealth()) {
 					potiontype = PotionTypes.HEALING;
-				} else if (rand.nextFloat() < 0.5F && getAttackTarget() != null && !isPotionActive(MobEffects.SPEED) &&
-						getAttackTarget().getDistanceSq(this) > 121.0D) {
+				} else if (rand.nextFloat() < 0.5F && getAttackTarget() != null && !isPotionActive(MobEffects.SPEED) && getAttackTarget().getDistanceSq(this) > 121.0D) {
 					potiontype = PotionTypes.SWIFTNESS;
 				}
 
 				if (potiontype != null) {
-					setItemStackToSlot(EntityEquipmentSlot.MAINHAND,
-							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype));
-					witchAttackTimer = getHeldItemMainhand()
-							.getMaxItemUseDuration();
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype));
+					witchAttackTimer = getHeldItemMainhand().getMaxItemUseDuration();
 					setAggressive(true);
-					world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_DRINK,
-							getSoundCategory(), 1.0F,
-							0.8F + rand.nextFloat() * 0.4F);
+					world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_DRINK, getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
 					IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 					iattributeinstance.removeModifier(MODIFIER);
 					iattributeinstance.applyModifier(MODIFIER);
@@ -230,10 +224,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
 		} else if (id == 15) {
 			for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
-				world.spawnParticle(EnumParticleTypes.SPELL_WITCH,
-						posX + rand.nextGaussian() * 0.12999999523162842D,
-						getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D,
-						posZ + rand.nextGaussian() * 0.13D, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.13D, 0.0D,
+						0.0D, 0.0D);
 			}
 		} else {
 			super.handleStatusUpdate(id);
@@ -246,10 +238,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + rand.nextDouble() * width * 2.0F - width,
-					posY + 1.0D + rand.nextDouble() * height,
-					posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 
@@ -299,12 +288,10 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 				potiontype = PotionTypes.WEAKNESS;
 			}
 
-			EntityPotion entitypotion =
-					new EntityPotion(world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+			EntityPotion entitypotion = new EntityPotion(world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
 			entitypotion.rotationPitch -= -20.0F;
 			entitypotion.shoot(d1, d2 + f * 0.2D, d3, 0.75F, 8.0F);
-			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_THROW, getSoundCategory(), 1.0F,
-					0.8F + rand.nextFloat() * 0.4F);
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_WITCH_THROW, getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
 			world.spawnEntity(entitypotion);
 		}
 	}
@@ -394,7 +381,6 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -406,7 +392,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
@@ -414,9 +400,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

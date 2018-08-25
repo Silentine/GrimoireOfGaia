@@ -154,7 +154,6 @@ public class ModelGaiaDryad extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
@@ -181,7 +180,7 @@ public class ModelGaiaDryad extends ModelGaia {
 			}
 
 		} else {
-			// ================= Scaling =================//
+			/** SCALING **/
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
 			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
@@ -195,7 +194,7 @@ public class ModelGaiaDryad extends ModelGaia {
 			hair1.render(scale);
 			hair2.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/** SCALING **/
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
 			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
@@ -211,13 +210,14 @@ public class ModelGaiaDryad extends ModelGaia {
 			waist1.render(scale);
 			waist2.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/** SCALING **/
 		}
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -237,6 +237,10 @@ public class ModelGaiaDryad extends ModelGaia {
 
 		if (swingProgress > -9990.0F) {
 			holdingMelee();
+		}
+
+		if (itemstack.getItem() == Items.FEATHER) {
+			animationFlee();
 		}
 
 		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
@@ -265,7 +269,20 @@ public class ModelGaiaDryad extends ModelGaia {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
+	private void animationFlee() {
+		if ((rightleg.rotateAngleX != 0.0F) || (leftleg.rotateAngleX != 0.0F)) {
+			rightarm.rotateAngleX += 1.0472F;
+			leftarm.rotateAngleX += 1.0472F;
+			rightarm.rotateAngleY = -0.523599F;
+			leftarm.rotateAngleY = 0.523599F;
+		}
+	}
+
 	public ModelRenderer getRightArm() {
 		return rightarm;
+	}
+
+	public ModelRenderer getLeftArm() {
+		return leftarm;
 	}
 }

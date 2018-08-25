@@ -20,7 +20,6 @@ public class RenderGaiaProjectileMagic extends Render<Entity> {
 
 	public RenderGaiaProjectileMagic(RenderManager renderManager, Item item) {
 		super(renderManager);
-
 		this.item = item;
 		this.scale = 2.0F;
 	}
@@ -36,8 +35,8 @@ public class RenderGaiaProjectileMagic extends Render<Entity> {
 
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-		Minecraft.getMinecraft()
-				.getRenderItem().renderItem(new ItemStack(item), ItemCameraTransforms.TransformType.GROUND);
+		Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(item),
+				ItemCameraTransforms.TransformType.GROUND);
 
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();

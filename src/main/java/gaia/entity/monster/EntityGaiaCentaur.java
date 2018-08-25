@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -41,14 +43,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid =
-			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
@@ -104,16 +103,14 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	public void onLivingUpdate() {
+		/* REGENERATE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
 			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stacky);
-			tasks.removeTask(aiArrowAttack);
-			tasks.addTask(1, aiAvoid);
-			fullHealth = 1;
-		}
+			SetAI((byte) 1);
+			SetEquipment((byte) 1);
 
-		if (fullHealth == 1 && ticksExisted % 10 == 0) {
-			world.setEntityState(this, (byte) 8);
+			fullHealth = 1;
 		}
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1) && (fullHealth == 1)) {
@@ -127,16 +124,40 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		} else if ((getHealth() >= EntityAttributes.MAX_HEALTH_1) && (fullHealth == 1)) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			removePotionEffect(MobEffects.REGENERATION);
-			tasks.removeTask(aiAvoid);
-			tasks.addTask(1, aiArrowAttack);
+			SetAI((byte) 0);
+			SetEquipment((byte) 0);
+
 			fullHealth = 0;
 			regenerateHealth = 0;
 		}
+		/* REGENERATE DATA */
 
 		super.onLivingUpdate();
 	}
 
-	// ================= Archer data =================//
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAvoid);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAvoid);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
+		}
+	}
+
+	/* ARCHER DATA */
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
@@ -144,7 +165,6 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	public void setSwingingArms(boolean swingingArms) {
-		//noop
 	}
 
 	@Override
@@ -167,7 +187,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	public void setHoldingBow(boolean swingingArms) {
 		dataManager.set(HOLDING_BOW, swingingArms);
 	}
-	// ==================================//
+	/* ARCHER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -214,13 +234,13 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				switch (rand.nextInt(2)) {
-					case 0:
-						dropItem(GaiaItems.BOX_IRON, 1);
-						break;
-					case 1:
-						dropItem(GaiaItems.BAG_ARROW, 1);
-						break;
-					default:
+				case 0:
+					dropItem(GaiaItems.BOX_IRON, 1);
+					break;
+				case 1:
+					dropItem(GaiaItems.BAG_ARROW, 1);
+					break;
+				default:
 				}
 			}
 		}
@@ -228,15 +248,12 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingData) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingData);
-
-		tasks.removeTask(aiAvoid);
-		tasks.addTask(1, aiArrowAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);

@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -43,10 +47,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
@@ -165,7 +166,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		EntitySkeleton spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -173,7 +174,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			if (spawnTimer == 30) {
 				world.setEntityState(this, (byte) 12);
-				setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+				setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 
 				if (!world.isRemote) {
 					spawnMob = new EntitySkeleton(world);
@@ -239,20 +240,12 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
 		} else if (id == 13) {
 			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world,
-						posX + rand.nextDouble() * width * 2.0D - width,
-						posY + 1.0D + rand.nextDouble() * height,
-						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
+				ParticleWarning particleCustom = new ParticleWarning(world, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
 		} else {
 			super.handleStatusUpdate(id);
 		}
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -261,10 +254,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + rand.nextDouble() * width * 2.0D - width,
-					posY + 1.0D + rand.nextDouble() * height,
-					posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 
@@ -359,7 +349,6 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -373,6 +362,13 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		return ret;
 	}
+
+	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

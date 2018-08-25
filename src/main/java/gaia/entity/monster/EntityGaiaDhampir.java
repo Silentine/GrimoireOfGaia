@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -36,9 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	private int spawn;
@@ -131,7 +131,8 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 					spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0
+						|| rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
 			}
@@ -154,8 +155,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		if (id == 13) {
 			for (int i = 0; i < 1; ++i) {
 				ParticleWarning particleCustom = new ParticleWarning(world,
-						posX + rand.nextDouble() * width * 2.0D - width,
-						posY + 1.0D + rand.nextDouble() * height,
+						posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height,
 						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
 			}
@@ -227,6 +227,10 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 		vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
 		world.spawnEntity(vampire);
+	}
+
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

@@ -1,7 +1,15 @@
 package gaia.entity.monster;
 
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -23,6 +31,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -44,23 +53,17 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+/**
+ * @see EntityEnderman
+ */
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
-	private static final AttributeModifier ATTACKING_SPEED_BOOST =
-			(new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
+	private static final AttributeModifier ATTACKING_SPEED_BOOST = (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
 	private static final Set<Block> CARRIABLE_BLOCKS = Sets.newIdentityHashSet();
-	private static final DataParameter<Optional<IBlockState>> CARRIED_BLOCK =
-			EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.OPTIONAL_BLOCK_STATE);
-	private static final DataParameter<Boolean> SCREAMING =
-			EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Optional<IBlockState>> CARRIED_BLOCK = EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.OPTIONAL_BLOCK_STATE);
+	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.BOOLEAN);
 	private static final String CARRIED_TAG = "carried";
 	private static final String CARRIED_DATA_TAG = "carriedData";
 
@@ -77,7 +80,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, false));
+		tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
 		tasks.addTask(7, new EntityAIWander(this, 1.0D));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
@@ -85,8 +88,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		tasks.addTask(11, new EntityGaiaEnderDragonGirl.AITakeBlock(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntityGaiaEnderDragonGirl.AIFindPlayer(this));
-		targetTasks.addTask(3,
-				new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
 	}
 
 	@Override
@@ -168,8 +170,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 		if (iblockstate != null) {
 			tag.setShort(CARRIED_TAG, (short) Block.getIdFromBlock(iblockstate.getBlock()));
-			tag.setShort(CARRIED_DATA_TAG, (short) iblockstate.getBlock()
-					.getMetaFromState(iblockstate));
+			tag.setShort(CARRIED_DATA_TAG, (short) iblockstate.getBlock().getMetaFromState(iblockstate));
 		}
 	}
 
@@ -182,29 +183,23 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		IBlockState iblockstate;
 
 		if (tagCompund.hasKey(CARRIED_TAG, 8)) {
-			iblockstate = Block.getBlockFromName(tagCompund.getString(CARRIED_TAG))
-					.getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
+			iblockstate = Block.getBlockFromName(tagCompund.getString(CARRIED_TAG)).getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
 		} else {
-			iblockstate = Block.getBlockById(tagCompund.getShort(CARRIED_TAG))
-					.getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
+			iblockstate = Block.getBlockById(tagCompund.getShort(CARRIED_TAG)).getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
 		}
 
 		setHeldBlockState(iblockstate);
 	}
 
 	/**
-	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-	 * use this to react to sunlight and start to burn.
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
 	@Override
 	public void onLivingUpdate() {
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.PORTAL,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						posY + rand.nextDouble() * height - 0.25D,
-						posZ + (rand.nextDouble() - 0.5D) * width,
-						(rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D,
+						-rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 			}
 		}
 
@@ -244,10 +239,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	 * Teleport the enderman to another entity
 	 */
 	boolean teleportToEntity(Entity entity) {
-		Vec3d vec3d = new Vec3d(
-				posX - entity.posX,
-				getEntityBoundingBox().minY + height / 2.0D - entity.posY + entity.getEyeHeight(),
-				posZ - entity.posZ);
+		Vec3d vec3d = new Vec3d(posX - entity.posX, getEntityBoundingBox().minY + height / 2.0D - entity.posY + entity.getEyeHeight(), posZ - entity.posZ);
 		vec3d = vec3d.normalize();
 		double d1 = posX + (rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
 		double d2 = posY + (rand.nextInt(16) - 8) - vec3d.y * 16.0D;
@@ -259,16 +251,14 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	 * Teleport the enderman
 	 */
 	private boolean teleportTo(double x, double y, double z) {
-		net.minecraftforge.event.entity.living.EnderTeleportEvent event =
-				new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
+		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
 		if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
 			return false;
 		}
 		boolean flag = attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 
 		if (flag) {
-			world.playSound(null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT,
-					getSoundCategory(), 1.0F, 1.0F);
+			world.playSound(null, prevPosX, prevPosY, prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, getSoundCategory(), 1.0F, 1.0F);
 			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
 		}
 
@@ -277,9 +267,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return isScreaming()
-				? SoundEvents.ENTITY_ENDERMEN_SCREAM
-				: SoundEvents.ENTITY_ENDERMEN_AMBIENT;
+		return isScreaming() ? SoundEvents.ENTITY_ENDERMEN_SCREAM : SoundEvents.ENTITY_ENDERMEN_AMBIENT;
 	}
 
 	@Override
@@ -339,17 +327,15 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	void setHeldBlockState(@Nullable IBlockState state) {
 		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
@@ -359,8 +345,6 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	public IBlockState getHeldBlockState() {
 		return dataManager.get(CARRIED_BLOCK).orNull();
 	}
-
-	/*===================================== Forge End ==============================*/
 
 	public boolean isScreaming() {
 		return dataManager.get(SCREAMING);
@@ -405,9 +389,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		@Override
 		public boolean shouldExecute() {
 			double d0 = getTargetDistance();
-			List<EntityPlayer> list =
-					taskOwner.world.getEntitiesWithinAABB(EntityPlayer.class, taskOwner.getEntityBoundingBox()
-							.expand(d0, 4.0D, d0), targetEntitySelector);
+			List<EntityPlayer> list = taskOwner.world.getEntitiesWithinAABB(EntityPlayer.class, taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), targetEntitySelector);
 			list.sort(sorter);
 
 			if (list.isEmpty()) {
@@ -472,8 +454,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 						}
 
 						teleportTime = 0;
-					} else if (targetEntity.getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 &&
-							enderman.teleportToEntity(targetEntity)) {
+					} else if (targetEntity.getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 && enderman.teleportToEntity(targetEntity)) {
 						teleportTime = 0;
 					}
 				}
@@ -491,12 +472,8 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
 				return false;
 			} else {
-				Vec3d vec3d = player.getLook(1.0F)
-						.normalize();
-				Vec3d vec3d1 = new Vec3d(
-						enderman.posX - player.posX,
-						enderman.getEntityBoundingBox().minY + enderman.getEyeHeight() - (player.posY + player.getEyeHeight()),
-						enderman.posZ - player.posZ);
+				Vec3d vec3d = player.getLook(1.0F).normalize();
+				Vec3d vec3d1 = new Vec3d(enderman.posX - player.posX, enderman.getEntityBoundingBox().minY + enderman.getEyeHeight() - (player.posY + player.getEyeHeight()), enderman.posZ - player.posZ);
 				double d0 = vec3d1.lengthVector();
 				vec3d1 = vec3d1.normalize();
 				double d1 = vec3d.dotProduct(vec3d1);
@@ -517,8 +494,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		 * Returns whether the EntityAIBase should begin execution.
 		 */
 		public boolean shouldExecute() {
-			return enderman.getHeldBlockState() != null && (enderman.world.getGameRules().getBoolean("mobGriefing")
-					&& enderman.getRNG().nextInt(2000) == 0);
+			return enderman.getHeldBlockState() != null && (enderman.world.getGameRules().getBoolean("mobGriefing") && enderman.getRNG().nextInt(2000) == 0);
 		}
 
 		/**
@@ -574,9 +550,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			BlockPos blockpos = new BlockPos(i, j, k);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 			Block block = iblockstate.getBlock();
-			RayTraceResult raytraceresult = world.rayTraceBlocks(
-					new Vec3d(MathHelper.floor(enderman.posX) + 0.5D, j + 0.5D, MathHelper.floor(enderman.posZ) + 0.5D),
-					new Vec3d(i + 0.5D, j + 0.5D, k + 0.5D), false, true, false);
+			RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d(MathHelper.floor(enderman.posX) + 0.5D, j + 0.5D, MathHelper.floor(enderman.posZ) + 0.5D), new Vec3d(i + 0.5D, j + 0.5D, k + 0.5D), false, true, false);
 			boolean flag = raytraceresult != null && raytraceresult.getBlockPos().equals(blockpos);
 
 			if (EntityGaiaEnderDragonGirl.CARRIABLE_BLOCKS.contains(block) && flag) {

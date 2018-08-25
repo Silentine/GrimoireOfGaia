@@ -9,17 +9,16 @@ import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.items.ItemAccessoryCursed;
+import gaia.items.ItemAccessoryHeadgear;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
 import gaia.items.ItemAccessoryRingNight;
 import gaia.items.ItemAccessoryRingSpeed;
-import gaia.items.ItemAccessorySkull;
 import gaia.items.ItemAccessoryTrinketLevitation;
 import gaia.items.ItemAccessoryTrinketPoison;
 import gaia.items.ItemAccessoryTrinketWither;
 import gaia.items.ItemBagArrow;
 import gaia.items.ItemBagBook;
-import gaia.items.ItemBagOre;
 import gaia.items.ItemBagRecord;
 import gaia.items.ItemBase;
 import gaia.items.ItemBox;
@@ -148,7 +147,7 @@ public class GaiaItems {
 	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
 	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
 	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
-	public static final Item ACCESSORY_SKULL = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
 
 	private GaiaItems() {}
 
@@ -197,7 +196,6 @@ public class GaiaItems {
 			registry.register(new ItemBoxGold());
 			registry.register(new ItemBoxDiamond());
 			registry.register(new ItemBox());
-			registry.register(new ItemBagOre());
 			registry.register(new ItemBagBook());
 			registry.register(new ItemBagRecord());
 			registry.register(new ItemBagArrow());
@@ -229,7 +227,7 @@ public class GaiaItems {
 			registry.register(new ItemAccessoryTrinketLevitation());
 			registry.register(new ItemAccessoryCursed());
 			registry.register(new ItemCard());
-			registry.register(new ItemAccessorySkull());
+			registry.register(new ItemAccessoryHeadgear());
 
 			Gaia.LOGGER.info("Item registration complete.");
 		}

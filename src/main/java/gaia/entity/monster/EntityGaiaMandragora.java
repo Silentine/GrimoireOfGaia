@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	private int shovelAttack;
@@ -143,11 +143,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						getEntityBoundingBox().minY + 0.1D,
-						posZ + (rand.nextDouble() - 0.5D) * width,
-						4.0D * (rand.nextDouble() - 0.5D), 0.5D,
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
 						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
@@ -216,14 +212,13 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		//TEMP Method used instead of isChild
+		// TEMP Method used instead of isChild
 		setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 
 		return ret;
@@ -243,12 +238,12 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		return f;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

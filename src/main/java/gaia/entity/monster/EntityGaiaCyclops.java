@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -29,9 +31,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	private int buffEffect;
@@ -43,11 +43,6 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		stepHeight = 1.0F;
 
 		buffEffect = 0;
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
 	}
 
 	@Override
@@ -169,6 +164,10 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	}
 
 	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+	}
+
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
@@ -179,6 +178,13 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 		return ret;
 	}
+
+	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

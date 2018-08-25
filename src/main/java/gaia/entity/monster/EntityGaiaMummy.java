@@ -32,10 +32,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMummy extends EntityMobHostileBase {
 
-	private static final Item[] mummyDrops = new Item[] {
-			Items.BONE,
-			Items.ROTTEN_FLESH
-	};
+	private static final Item[] mummyDrops = new Item[] { Items.BONE, Items.ROTTEN_FLESH };
 
 	public EntityGaiaMummy(World worldIn) {
 		super(worldIn);
@@ -91,6 +88,12 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 				if (byte0 > 0) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 20, 0));
 				}
+			}
+
+			float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+
+			if (this.getHeldItemMainhand().isEmpty() && this.isBurning() && this.rand.nextFloat() < f * 0.3F) {
+				entityIn.setFire(2 * (int) f);
 			}
 
 			return true;

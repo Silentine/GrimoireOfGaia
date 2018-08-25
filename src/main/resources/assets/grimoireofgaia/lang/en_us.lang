@@ -90,7 +90,7 @@ item.grimoireofgaia.accessory_trinket_poison.name=Toadstone
 item.grimoireofgaia.accessory_trinket_wither.name=Withered Heart
 item.grimoireofgaia.accessory_trinket_levitation.name=Ball and Chain
 item.grimoireofgaia.accessory_cursed.name=Heavy Barbell
-item.grimoireofgaia.accessory_skull_0.name=Dryad Skull
+item.grimoireofgaia.accessory_headgear_0.name=Dryad Mask
 
 item.grimoireofgaia.card_0.name=NULL Card
 item.grimoireofgaia.card_1.name=Child Card
@@ -107,6 +107,7 @@ tile.grimoireofgaia.doll_slime_girl.name=Slime Girl Doll
 tile.grimoireofgaia.doll_maid.name=Maid Doll
 tile.grimoireofgaia.spawn_guard.name=Protection Talisman
 
+entity.grimoireofgaia.debug_mob.name=DEBUG MOB
 entity.grimoireofgaia.ant.name=Ant Worker
 entity.grimoireofgaia.anubis.name=Anubis
 entity.grimoireofgaia.arachne.name=Arachne
@@ -273,7 +274,7 @@ configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all n
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
 
-#Jei
+#JEI
 gaia.box.loot=Box Loot
 gui.gaia.box.loot=Box Loot
 gaia.satchel.loot=Bag Loot

@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -35,14 +37,11 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid =
-			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int fullHealth;
 	private int regenerateHealth;
@@ -61,9 +60,9 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
 
-		tasks.addTask(3, new EntityAIWander(this, 1.0D));
-		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(4, new EntityAILookIdle(this));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAIGaiaValidateTargetPlayer(this));
 	}
@@ -118,16 +117,14 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	@Override
 	public void onLivingUpdate() {
+		/* REGENERATE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
 			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stacky);
-			tasks.removeTask(aiMeleeAttack);
-			tasks.addTask(1, aiAvoid);
-			fullHealth = 1;
-		}
+			SetAI((byte) 1);
+			SetEquipment((byte) 1);
 
-		if (fullHealth == 1 && ticksExisted % 10 == 0) {
-			world.setEntityState(this, (byte) 8);
+			fullHealth = 1;
 		}
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1) && (fullHealth == 1)) {
@@ -141,13 +138,37 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 		} else if ((getHealth() >= EntityAttributes.MAX_HEALTH_1) && (fullHealth == 1)) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
 			removePotionEffect(MobEffects.REGENERATION);
-			tasks.removeTask(aiAvoid);
-			tasks.addTask(1, aiMeleeAttack);
+			SetAI((byte) 0);
+			SetEquipment((byte) 0);
+
 			fullHealth = 0;
 			regenerateHealth = 0;
 		}
+		/* REGENERATE DATA */
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.addTask(1, aiMeleeAttack);
+			tasks.removeTask(aiAvoid);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiMeleeAttack);
+			tasks.addTask(1, aiAvoid);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
+		}
 	}
 
 	@Override
@@ -201,15 +222,12 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.removeTask(aiAvoid);
-		tasks.addTask(1, aiMeleeAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
 		setEnchantmentBasedOnDifficulty(difficulty);

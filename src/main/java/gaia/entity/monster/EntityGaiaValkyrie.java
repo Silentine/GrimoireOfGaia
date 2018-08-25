@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
@@ -7,8 +11,6 @@ import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import gaia.renderer.particle.ParticleWarning;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -27,11 +29,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -44,10 +41,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	private static final double DETECTION_RANGE = 6D;
@@ -58,7 +52,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	private int aggression;
 	private int aggressive;
 
-	@SuppressWarnings("WeakerAccess") //used in reflection
+	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaValkyrie(World worldIn) {
 		super(worldIn);
 
@@ -146,7 +140,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 
 		if (equipItems == 0 && itemstack.isEmpty()) {
-			if (aggressive <= 5) {
+			if (aggressive <= 4) {
 				if (playerDetection(DETECTION_RANGE)) {
 					if (aggression <= 60) {
 						aggression += 1;
@@ -191,16 +185,9 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			buffEffect = 1;
 		}
 
-		if (!world.isRemote) {
-			setBesideClimbableBlock(collidedHorizontally);
-		}
-
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-						posX + (rand.nextDouble() - 0.5D) * width,
-						posY + rand.nextDouble() * height,
-						posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.onLivingUpdate();
@@ -211,15 +198,20 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
-			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world,
-						posX + rand.nextDouble() * width * 2.0D - width,
-						posY + 0.5D + rand.nextDouble() * height,
-						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
+			this.spawnParticles(EnumParticleTypes.VILLAGER_ANGRY);
 		} else {
 			super.handleStatusUpdate(id);
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = this.rand.nextGaussian() * 0.02D;
+			double d1 = this.rand.nextGaussian() * 0.02D;
+			double d2 = this.rand.nextGaussian() * 0.02D;
+			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
+					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
 		}
 	}
 
@@ -233,41 +225,6 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		return !list.isEmpty();
 
 	}
-
-	// ================= Climber data =================//
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(CLIMBING, (byte) 0);
-	}
-
-	protected PathNavigate getNewNavigator(World worldIn) {
-		return new PathNavigateClimber(this, worldIn);
-	}
-
-	@Override
-	public boolean isOnLadder() {
-		return isBesideClimbableBlock();
-	}
-
-	private boolean isBesideClimbableBlock() {
-		return (dataManager.get(CLIMBING) & 1) != 0;
-	}
-
-	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntityGaiaValkyrie.class, DataSerializers.BYTE);
-
-	private void setBesideClimbableBlock(boolean climbing) {
-		byte b0 = dataManager.get(CLIMBING);
-
-		if (climbing) {
-			b0 = (byte) (b0 | 1);
-		} else {
-			b0 = (byte) (b0 & -2);
-		}
-
-		dataManager.set(CLIMBING, b0);
-	}
-	// ================================================//
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -320,7 +277,6 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -333,7 +289,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		return ret;
 	}
 
-	// ================= Tier Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
@@ -346,14 +302,12 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
 
 	@Override
 	public void setInWeb() {
-		//noop
 	}
-	// ===================================================//
+	/* IMMUNITIES */
 
 	@Override
 	public int getMaxSpawnedInChunk() {

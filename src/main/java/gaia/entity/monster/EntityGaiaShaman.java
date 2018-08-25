@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -40,10 +44,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
@@ -128,11 +129,6 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		return false;
 	}
 
-	@Override
-	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotion() != MobEffects.POISON && super.isPotionApplicable(par1PotionEffect);
-	}
-
 	public void onLivingUpdate() {
 		this.beaconMonster();
 
@@ -194,17 +190,13 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType,
-					posX + rand.nextDouble() * width * 2.0F - width,
-					posY + 1.0D + rand.nextDouble() * height,
-					posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 
 	private void beaconMonster() {
 		if (!world.isRemote) {
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(6)
-					.expand(0.0D, 0.0D, 0.0D);
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(6).expand(0.0D, 0.0D, 0.0D);
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
@@ -282,7 +274,6 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -297,6 +288,14 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 		return ret;
 	}
+
+	/* IMMUNITIES */
+	@Override
+	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
+		return par1PotionEffect.getPotion() != MobEffects.POISON && super.isPotionApplicable(par1PotionEffect);
+	}
+
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -16,9 +16,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 /**
- * This is a direct copy of EntityMob Used by assist mobs to not trigger the
- * warning message when using a bed. No additional changes have been made aside
- * from the class name.
+ * This is a direct copy of EntityMob used by assist mobs to not trigger the warning message when using a bed. No additional changes have been made aside from the class name.
  *
  * @see EntityMobPassive
  */
@@ -30,9 +28,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 	}
 
 	/**
-	 * Called frequently so the entity can update its state every tick as
-	 * required. For example, zombies and skeletons use this to react to
-	 * sunlight and start to burn.
+	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
 	@Override
 	public void onLivingUpdate() {
@@ -72,13 +68,22 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 	 * Called when the entity is attacked.
 	 */
 
-    /*
-	 * TODO updated attack line public boolean attackEntityFrom(DamageSource
-     * source, float amount) { if (this.isEntityInvulnerable(source)) { return
-     * false; } else if (super.attackEntityFrom(source, amount)) { Entity entity
-     * = source.getTrueSource(); return this.riddenByEntity != entity &&
-     * this.ridingEntity != entity ? true : true; } else { return false; } }
-     */
+	// TODO updated attack line
+
+//	public boolean attackEntityFrom(DamageSource source, float amount) {
+//		if (this.isEntityInvulnerable(source)) {
+//			return false;
+//		} else if (super.attackEntityFrom(source, amount)) {
+//			Entity entity = source.getTrueSource();
+//			return this.riddenByEntity != entity && this.ridingEntity != entity ? true : true;
+//		} else {
+//			return false;
+//		}
+//	}
+
+	/**
+	 * Returns the sound this mob makes when it is hurt.
+	 */
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float inputDamage) {
 		return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, inputDamage);
@@ -102,8 +107,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-				.getAttributeValue();
+		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 
 		if (entityIn instanceof EntityLivingBase) {
@@ -115,8 +119,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 
 		if (flag) {
 			if (i > 0) {
-				entityIn.addVelocity((double) (-MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F), 0.1D,
-						(double) (MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F));
+				entityIn.addVelocity((double) (-MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
@@ -161,8 +164,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 	}
 
 	/**
-	 * Checks if the entity's current position is a valid location to spawn this
-	 * entity.
+	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	@Override
 	public boolean getCanSpawnHere() {
@@ -172,8 +174,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IMob {
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getAttributeMap()
-				.registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 	}
 
 	/**

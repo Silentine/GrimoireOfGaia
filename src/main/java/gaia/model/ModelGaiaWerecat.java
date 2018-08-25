@@ -2,6 +2,10 @@ package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -231,8 +235,9 @@ public class ModelGaiaWerecat extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -256,6 +261,10 @@ public class ModelGaiaWerecat extends ModelGaia {
 		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+		
+		if (itemstack.getItem() == Items.FEATHER) {
+			animationFlee();
+		}
 
 		// body
 		tail1.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(15);
@@ -288,5 +297,14 @@ public class ModelGaiaWerecat extends ModelGaia {
 		leftarm.rotateAngleX = (float) ((double) leftarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		leftarm.rotateAngleY += (bodytop.rotateAngleY * 2.0F);
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
+	}
+
+	private void animationFlee() {
+		if ((rightleg.rotateAngleX != -0.4363323F) || (leftleg.rotateAngleX != -0.4363323F)) {
+			rightarm.rotateAngleX += 1.0472F;
+			leftarm.rotateAngleX += 1.0472F;
+			rightarm.rotateAngleY = -0.523599F;
+			leftarm.rotateAngleY = 0.523599F;
+		}
 	}
 }

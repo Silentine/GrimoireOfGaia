@@ -27,10 +27,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CommonProxy {
 	public void registerRenders() {
-		//noop
 	}
 
-	@SuppressWarnings("squid:S1186") //overriden in client proxy
+	@SuppressWarnings("squid:S1186") // Overridden in @ClientProxy
 	public void addClientRegister(IClientRegister register) {
 	}
 
@@ -124,18 +123,15 @@ public class CommonProxy {
 		}
 		stack.damageItem(2, player);
 
-		// Manually send an update to destroy the item
-		// otherwise client doesn't sync correctly here
+		// Manually send an update to destroy the item otherwise client doesn't sync correctly here
 		if (stack.getItemDamage() <= 0) {
 			player.inventory.setInventorySlotContents(40, ItemStack.EMPTY);
 		}
 	}
 
 	public void registerTileRenders() {
-		//noop
 	}
 
 	public void registerLayerRenders() {
-		//noop
 	}
 }

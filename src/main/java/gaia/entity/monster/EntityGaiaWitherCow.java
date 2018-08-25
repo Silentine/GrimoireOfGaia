@@ -18,7 +18,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -105,10 +104,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		beaconDebuff(MobEffects.SLOWNESS, 5 * 10);
 
 		for (int i = 0; i < 2; ++i) {
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-					posX + (rand.nextDouble() - 0.5D) * width,
-					posY + rand.nextDouble() * height,
-					posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 		}
 		super.onLivingUpdate();
 	}
@@ -135,7 +131,9 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 
 	@Override
 	public void onDeath(DamageSource cause) {
-		lingeringEffect(this, MobEffects.WITHER, PotionTypes.EMPTY, getPosition());
+		if (!this.world.isRemote) {
+			spawnLingeringCloud(this, MobEffects.WITHER);
+		}
 		super.onDeath(cause);
 	}
 
@@ -176,10 +174,10 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		}
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 }

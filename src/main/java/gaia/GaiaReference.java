@@ -4,7 +4,7 @@ public class GaiaReference {
 	private GaiaReference() {}
 
 	public static final String MOD_ID = "grimoireofgaia";
-	public static final String MOD_NAME = "Grimoire of Gaia 3";
+	static final String MOD_NAME = "Grimoire of Gaia 3";
 	static final String VERSION = "@VERSION@";
 
 	static final String CLIENT_PROXY_CLASS = "gaia.proxy.ClientProxy";

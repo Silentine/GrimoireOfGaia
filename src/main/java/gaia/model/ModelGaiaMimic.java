@@ -8,7 +8,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaMimic extends ModelGaia {
-
 	private ModelRenderer anchor;
 	private ModelRenderer lid1;
 	private ModelRenderer lid2;
@@ -19,9 +18,7 @@ public class ModelGaiaMimic extends ModelGaia {
 	public ModelGaiaMimic() {
 		textureWidth = 128;
 		textureHeight = 64;
-
 		float rotationPointZ = -4F;
-
 		anchor = new ModelRenderer(this, 0, 19);
 		anchor.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
 		anchor.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
@@ -57,7 +54,6 @@ public class ModelGaiaMimic extends ModelGaia {
 		rot.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
 		rot.setTextureSize(128, 64);
 		setRotation(rot, -0.1745329F, 0.0F, 0.0F);
-
 		anchor.addChild(lid1);
 		anchor.addChild(lid2);
 		anchor.addChild(lock);
@@ -74,22 +70,9 @@ public class ModelGaiaMimic extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointY = MathHelper.cos((1.5F + ageInTicks) * 0.5F);
-
-        /*TODO Random model movement
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-            anchor.rotationPointX += 1.0F;
-        }
-        
-        if (entityIn.ticksExisted % 61 == 0 && limbSwingAmount <= 0.1F) {
-            if (anchor.rotationPointX != 0.0F) {
-                anchor.rotationPointX = 0.0F;
-            }
-        }
-         */
+		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 
 		// body
 		lid1.rotateAngleX = MathHelper.cos(ageInTicks * 1.8F + (float) Math.PI) * 0.8F * 0.5F;

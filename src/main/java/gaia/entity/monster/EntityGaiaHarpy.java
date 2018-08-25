@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -37,15 +39,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaHarpy.AILeapAttack(this);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid =
-			new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
 
@@ -118,33 +117,55 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(4) == 0) {
-				tasks.removeTask(aiGaiaLeapAtTarget);
-				tasks.removeTask(aiMeleeAttack);
-				tasks.addTask(2, aiAvoid);
+			if (rand.nextInt(2) == 0) {
+				SetAI((byte) 1);
+				SetEquipment((byte) 1);
 				switchHealth = 1;
+				System.out.println("FLEE!");
 			} else {
-				switchHealth = 1;
+				switchHealth = 2;
 			}
 		}
 
-		if (switchHealth == 1 && ticksExisted % 10 == 0) {
-			world.setEntityState(this, (byte) 8);
-		}
-
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
-			tasks.addTask(1, aiGaiaLeapAtTarget);
-			tasks.addTask(2, aiMeleeAttack);
-			tasks.removeTask(aiAvoid);
+			SetAI((byte) 0);
+			SetEquipment((byte) 0);
+
 			switchHealth = 0;
 		}
+		/* FLEE DATA */
 
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.addTask(1, aiGaiaLeapAtTarget);
+			tasks.addTask(2, aiMeleeAttack);
+			tasks.removeTask(aiAvoid);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiGaiaLeapAtTarget);
+			tasks.removeTask(aiMeleeAttack);
+			tasks.addTask(2, aiAvoid);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
+		}
 	}
 
 	@Override
@@ -198,14 +219,12 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		tasks.addTask(1, aiGaiaLeapAtTarget);
-		tasks.addTask(2, aiMeleeAttack);
+		SetAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
@@ -246,6 +265,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		}
 	}
 
+	/* ALTERNATE SKIN */
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
 
 	@Override
@@ -276,13 +296,13 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
+	/* ALTERNATE SKIN */
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
-		//noop
 	}
-	// ==============================================//
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -31,8 +33,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
@@ -41,11 +41,6 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
 	}
 
 	@Override
@@ -184,7 +179,6 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-		//noop
 	}
 
 	@Override
@@ -202,7 +196,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 		return ret;
 	}
 
-	// ================= Immunities =================//
+	/* IMMUNITIES */
 	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
@@ -212,7 +206,12 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	public boolean isPushedByWater() {
 		return false;
 	}
-	// ==============================================//
+
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {
