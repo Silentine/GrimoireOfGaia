@@ -1,0 +1,61 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "grimoireofgaia:items/arrow"
+    },
+	"display": {
+        "gui": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+		"head": {
+            "rotation": [ 0, 0, 316 ],
+            "translation": [ 0, 0, 0 ],
+            "scale":[ 2, 2, 2 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale":[ 1, 1, 1 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 45, 45, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "body1",
+            "from": [ 4.0, 4.0, 4.0 ], 
+            "to": [ 12.0, 12.0, 12.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.0, 3.0, 6.0, 6.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 3.0, 3.0, 6.0 ] },
+                "south": { "texture": "#0", "uv": [ 9.0, 3.0, 12.0, 6.0 ] },
+                "west": { "texture": "#0", "uv": [ 6.0, 3.0, 9.0, 6.0 ] },
+                "up": { "texture": "#0", "uv": [ 3.0, 0.0, 6.0, 3.0 ] },
+                "down": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] }
+            }
+        },
+        {
+            "name": "body2",
+            "from": [ 3.5, 3.5, 3.5 ], 
+            "to": [ 12.5, 12.5, 12.5 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.5, 9.5, 7.0, 13.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 9.5, 3.5, 13.0 ] },
+                "south": { "texture": "#0", "uv": [ 10.5, 9.5, 14.0, 13.0 ] },
+                "west": { "texture": "#0", "uv": [ 7.0, 9.5, 10.5, 13.0 ] },
+                "up": { "texture": "#0", "uv": [ 3.5, 6.0, 7.0, 9.5 ], "rotation": 180 },
+                "down": { "texture": "#0", "uv": [ 7.0, 6.0, 10.5, 9.5 ] }
+            }
+        }
+    ]
+}
