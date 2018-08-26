@@ -11,8 +11,6 @@ import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
-import gaia.renderer.particle.ParticleWarning;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -38,6 +36,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -172,19 +171,37 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		super.onLivingUpdate();
 	}
 
+	private void SetSpawn(byte id) {
+		EntityGaiaValkyrie valyrie;
+
+		if (id == 1) {
+			valyrie = new EntityGaiaValkyrie(world);
+			valyrie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null);
+			world.spawnEntity(valyrie);
+		}
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
-			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
-		} else {
-			super.handleStatusUpdate(id);
+			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+		}
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 
+	/* CLASS TYPE */
 	@Override
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
@@ -235,6 +252,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
+	/* CLASS TYPE */
 
 	/* ARCHER DATA */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
@@ -328,7 +346,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 		// Boss
 		if (spawnLevel3 == 1) {
-			spawnLevel3();
+			SetSpawn((byte) 1);
 		}
 	}
 

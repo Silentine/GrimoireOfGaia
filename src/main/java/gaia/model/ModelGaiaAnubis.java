@@ -260,7 +260,7 @@ public class ModelGaiaAnubis extends ModelGaia {
 			leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
 			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 		} else if (itemstack.getItem() == Items.STICK) {
-			animationSpawn();
+			animationCasting();
 		}
 
 		// body
@@ -287,7 +287,7 @@ public class ModelGaiaAnubis extends ModelGaia {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	private void animationSpawn() {
+	private void animationCasting() {
 		rightarm.rotateAngleX = -1.047198F;
 		leftarm.rotateAngleX = -1.047198F;
 

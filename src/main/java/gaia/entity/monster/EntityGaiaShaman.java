@@ -133,27 +133,20 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		this.beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			tasks.removeTask(aiArrowAttack);
-			tasks.addTask(1, aiAttackOnCollide);
+			SetAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			tasks.removeTask(aiAttackOnCollide);
-			tasks.addTask(1, aiArrowAttack);
+			SetAI((byte) 0);
 			switchHealth = 0;
 		}
 
-		EntityZombie spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntityZombie(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 1;
 		}
@@ -162,11 +155,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntityZombie(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 2;
 		}
@@ -174,11 +163,35 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		super.onLivingUpdate();
 	}
 
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+
+	private void SetSpawn(byte id) {
+		EntityZombie zombie;
+
+		if (id == 0) {
+			zombie = new EntityZombie(world);
+			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
+			world.spawnEntity(zombie);
+		}
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(EnumParticleTypes.FLAME);
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -279,9 +292,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.removeTask(aiAttackOnCollide);
-		tasks.addTask(1, aiArrowAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 		setEnchantmentBasedOnDifficulty(difficulty);

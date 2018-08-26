@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
@@ -37,9 +41,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMatango extends EntityMobHostileDay {
@@ -151,7 +152,6 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			}
 		}
 
-		EntityGaiaSummonSporeling spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.90F && getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.10F) {
 			if ((spawnTime > 0) && (spawnTime <= 140)) {
 				++spawnTime;
@@ -159,10 +159,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 				world.setEntityState(this, (byte) 12);
 
 				if (!world.isRemote) {
-					spawnMob = new EntityGaiaSummonSporeling(world);
-					spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-					spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-					world.spawnEntity(spawnMob);
+					SetSpawn((byte) 0);
 				}
 
 				world.setEntityState(this, (byte) 9);
@@ -181,11 +178,22 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		super.onLivingUpdate();
 	}
 
+	private void SetSpawn(byte id) {
+		EntityGaiaSummonSporeling sporeling;
+
+		if (id == 0) {
+			sporeling = new EntityGaiaSummonSporeling(world);
+			sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
+			world.spawnEntity(sporeling);
+		}
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(EnumParticleTypes.FLAME);
 		} else {
 			super.handleStatusUpdate(id);
 		}

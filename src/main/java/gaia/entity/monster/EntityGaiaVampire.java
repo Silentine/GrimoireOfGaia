@@ -147,10 +147,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				world.setEntityState(this, (byte) 12);
 
 				if (!world.isRemote) {
-					EntityGaiaSummonButler spawnMob = new EntityGaiaSummonButler(world);
-					spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-					spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-					world.spawnEntity(spawnMob);
+					SetSpawn((byte) 0);
 				}
 
 				world.setEntityState(this, (byte) 9);
@@ -166,13 +163,13 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 
-			EntityBat spawnMob2 = new EntityBat(world);
 			if (spawnTime2 == 0 && !world.isRemote) {
 				spawnTime2 = 1;
-			} else if (spawnTime2 == 1 && !world.isRemote) {
-				spawnMob2.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
-				spawnMob2.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob2)), null);
-				world.spawnEntity(spawnMob2);
+			} else if (spawnTime2 == 1) {
+				if (!world.isRemote) {
+					SetSpawn((byte) 1);
+				}
+
 				spawnTime2 = 2;
 			}
 		} else {
@@ -180,11 +177,30 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 		}
 	}
 
+	private void SetSpawn(byte id) {
+		EntityGaiaSummonButler butler;
+		EntityBat bat;
+
+		if (id == 0) {
+			butler = new EntityGaiaSummonButler(world);
+			butler.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			butler.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(butler)), null);
+			world.spawnEntity(butler);
+		}
+
+		if (id == 1) {
+			bat = new EntityBat(world);
+			bat.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
+			bat.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(bat)), null);
+			world.spawnEntity(bat);
+		}
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(EnumParticleTypes.FLAME);
 		} else if (id == 13) {
 			spawnParticles(EnumParticleTypes.SMOKE_LARGE);
 		} else {

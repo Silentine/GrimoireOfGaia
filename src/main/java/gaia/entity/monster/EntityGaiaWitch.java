@@ -26,7 +26,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
@@ -136,15 +135,11 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			}
 		}
 
-		EntitySpider spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntitySpider(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 1;
 		}
@@ -153,10 +148,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntitySpider(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 2;
 		}
@@ -211,6 +203,17 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		super.onLivingUpdate();
 	}
 
+	private void SetSpawn(byte id) {
+		EntitySpider spider;
+
+		if (id == 0) {
+			spider = new EntitySpider(world);
+			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
+			world.spawnEntity(spider);
+		}
+	}
+
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -221,7 +224,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(EnumParticleTypes.FLAME);
 		} else if (id == 15) {
 			for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
 				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.13D, 0.0D,

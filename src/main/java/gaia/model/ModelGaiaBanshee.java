@@ -7,8 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelGaiaBanshee extends ModelGaia
-{
+public class ModelGaiaBanshee extends ModelGaia {
 	private ModelRenderer anchor;
 	private ModelRenderer head;
 	private ModelRenderer headeyes;
@@ -21,8 +20,7 @@ public class ModelGaiaBanshee extends ModelGaia
 	private ModelRenderer waist3;
 	private ModelRenderer waist4;
 
-	public ModelGaiaBanshee()
-	{
+	public ModelGaiaBanshee() {
 		textureWidth = 128;
 		textureHeight = 64;
 		anchor = new ModelRenderer(this, 0, 0);
@@ -178,19 +176,18 @@ public class ModelGaiaBanshee extends ModelGaia
 	}
 
 	@Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-	{
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		anchor.render(scale);
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-	{
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
 		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 		anchor.showModel = !(entityIn.ticksExisted % 45 == 0 && limbSwingAmount <= 0.1F);
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -199,21 +196,23 @@ public class ModelGaiaBanshee extends ModelGaia
 		headaccessory.rotateAngleY = head.rotateAngleY;
 		headaccessory.rotateAngleX = head.rotateAngleX;
 		headeyes.showModel = entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F;
+
 		// arms
 		rightarm.rotateAngleZ = 0.0F;
 		rightarm.rotateAngleX = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleX = 0.0F;
-		if (swingProgress > -9990.0F)
-		{
+		if (swingProgress > -9990.0F) {
 			holdingMelee();
 		}
+
 		rightarm.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(10);
 		leftarm.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(-10);
 		rightarm.rotateAngleZ += 0.2617994F;
 		leftarm.rotateAngleZ -= 0.2617994F;
 		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+
 		// body
 		waist1.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(1);
 		waist2.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(2);
@@ -221,8 +220,7 @@ public class ModelGaiaBanshee extends ModelGaia
 		waist4.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(4);
 	}
 
-	public void holdingMelee()
-	{
+	public void holdingMelee() {
 		float f6;
 		float f7;
 		f6 = 1.0F - swingProgress;

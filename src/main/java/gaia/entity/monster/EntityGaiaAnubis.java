@@ -11,8 +11,6 @@ import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import gaia.renderer.particle.ParticleWarning;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -49,7 +47,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
-
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
@@ -152,21 +149,17 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			tasks.removeTask(aiArrowAttack);
-			tasks.addTask(1, aiAttackOnCollide);
+			SetAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			tasks.removeTask(aiAttackOnCollide);
-			tasks.addTask(1, aiArrowAttack);
+			SetAI((byte) 0);
 			switchHealth = 0;
 		}
 
-		EntitySkeleton spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
-
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+			SetEquipment((byte) 1);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -174,14 +167,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			if (spawnTimer == 30) {
 				world.setEntityState(this, (byte) 12);
-				setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					spawnMob = new EntitySkeleton(world);
-					spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-					spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-					spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
-					world.spawnEntity(spawnMob);
+					SetSpawn((byte) 0);
 				}
 
 				spawnTimer = 0;
@@ -190,8 +179,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
+			SetEquipment((byte) 1);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -199,14 +187,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			if (spawnTimer == 30) {
 				world.setEntityState(this, (byte) 12);
-				setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					spawnMob = new EntitySkeleton(world);
-					spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-					spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-					spawnMob.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
-					world.spawnEntity(spawnMob);
+					SetSpawn((byte) 0);
 				}
 
 				if (GaiaConfig.GENERAL.spawnLevel3) {
@@ -233,19 +217,58 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		super.onLivingUpdate();
 	}
 
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+	}
+
+	private void SetSpawn(byte id) {
+		EntitySkeleton skeleton;
+		EntityGaiaSphinx sphinx;
+
+		if (id == 0) {
+			skeleton = new EntitySkeleton(world);
+			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
+			world.spawnEntity(skeleton);
+		}
+
+		if (id == 1) {
+			sphinx = new EntityGaiaSphinx(world);
+			sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
+			world.spawnEntity(sphinx);
+		}
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
-		} else if (id == 13) {
-			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
-		} else {
-			super.handleStatusUpdate(id);
+			spawnParticles(EnumParticleTypes.FLAME);
 		}
+		if (id == 13) {
+			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+		}
+
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -335,16 +358,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		// Boss
 		if (spawnLevel3 == 1) {
-			spawnLevel3();
+			SetSpawn((byte) 1);
 		}
-	}
-
-	private void spawnLevel3() {
-		EntityGaiaSphinx sphinx;
-		sphinx = new EntityGaiaSphinx(world);
-		sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-		sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
-		world.spawnEntity(sphinx);
 	}
 
 	@Override
@@ -354,9 +369,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.removeTask(aiAttackOnCollide);
-		tasks.addTask(1, aiArrowAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 

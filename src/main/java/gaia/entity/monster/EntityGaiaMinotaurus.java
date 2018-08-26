@@ -38,6 +38,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -166,19 +167,37 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		super.onLivingUpdate();
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
-		} else {
-			super.handleStatusUpdate(id);
+	private void SetSpawn(byte id) {
+		EntityGaiaMinotaur minotaur;
+
+		if (id == 1) {
+			minotaur = new EntityGaiaMinotaur(world);
+			minotaur.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			minotaur.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(minotaur)), null);
+			world.spawnEntity(minotaur);
 		}
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 13) {
+			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+		}
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
+		}
+	}
+
+	/* CLASS TYPE */
 	@Override
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
@@ -230,6 +249,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
+	/* CLASS TYPE */
 
 	/* ARCHER DATA */
 	@Override
@@ -331,15 +351,8 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 		// Boss
 		if (spawnLevel3 == 1) {
-			spawnLevel3();
+			SetSpawn((byte) 1);
 		}
-	}
-
-	private void spawnLevel3() {
-		EntityGaiaMinotaur minotaur = new EntityGaiaMinotaur(world);
-		minotaur.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-		minotaur.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(minotaur)), null);
-		world.spawnEntity(minotaur);
 	}
 
 	@Override

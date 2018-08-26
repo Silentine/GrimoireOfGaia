@@ -153,8 +153,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
-				tasks.removeTask(aiArrowAttack);
-				tasks.addTask(1, aiAttackOnCollide);
+				SetAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;
 			}
@@ -168,8 +167,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 					removePotionEffect(MobEffects.SPEED);
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				tasks.removeTask(aiAttackOnCollide);
-				tasks.addTask(1, aiArrowAttack);
+				SetAI((byte) 0);
 				timer = 0;
 				switchEquip = 0;
 			}
@@ -186,6 +184,18 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+		}
 	}
 
 	/**
@@ -282,9 +292,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.removeTask(aiAttackOnCollide);
-		tasks.addTask(1, aiArrowAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);

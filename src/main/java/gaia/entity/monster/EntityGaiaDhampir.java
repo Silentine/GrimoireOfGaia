@@ -30,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -131,8 +132,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 					spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0
-						|| rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
 			}
@@ -149,18 +149,33 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		super.onLivingUpdate();
 	}
 
+	private void SetSpawn(byte id) {
+		EntityGaiaVampire vampire;
+
+		if (id == 1) {
+			vampire = new EntityGaiaVampire(world);
+			vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
+			world.spawnEntity(vampire);
+		}
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
-			for (int i = 0; i < 1; ++i) {
-				ParticleWarning particleCustom = new ParticleWarning(world,
-						posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height,
-						posZ + rand.nextDouble() * width * 2.0D - width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
-		} else {
-			super.handleStatusUpdate(id);
+			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+		}
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 
@@ -218,15 +233,8 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 		// Boss
 		if (spawnLevel3 == 1) {
-			spawnLevel3();
+			SetSpawn((byte) 1);
 		}
-	}
-
-	private void spawnLevel3() {
-		EntityGaiaVampire vampire = new EntityGaiaVampire(world);
-		vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-		vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
-		world.spawnEntity(vampire);
 	}
 
 	@Override

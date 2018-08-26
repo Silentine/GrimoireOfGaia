@@ -118,15 +118,11 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	public void onLivingUpdate() {
 		beaconMonster();
 
-		EntityCaveSpider spawnMob;
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntityCaveSpider(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 1;
 		}
@@ -135,10 +131,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 			world.setEntityState(this, (byte) 12);
 
 			if (!world.isRemote) {
-				spawnMob = new EntityCaveSpider(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 			spawn = 2;
 		}
@@ -148,6 +141,17 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetSpawn(byte id) {
+		EntityCaveSpider caveSpider;
+
+		if (id == 0) {
+			caveSpider = new EntityCaveSpider(world);
+			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);
+			world.spawnEntity(caveSpider);
+		}
 	}
 
 	private void beaconMonster() {

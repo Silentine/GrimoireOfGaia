@@ -118,18 +118,28 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	public void onLivingUpdate() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			tasks.removeTask(aiArrowAttack);
-			tasks.addTask(1, aiAttackOnCollide);
+			SetAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			tasks.removeTask(aiAttackOnCollide);
-			tasks.addTask(1, aiArrowAttack);
+			SetAI((byte) 0);
 			switchHealth = 0;
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+		}
 	}
 
 	@Override
@@ -209,9 +219,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
-		tasks.removeTask(aiAttackOnCollide);
-		tasks.addTask(1, aiArrowAttack);
+		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
 

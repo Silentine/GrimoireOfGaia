@@ -53,10 +53,10 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		super(worldIn);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-		// timers
+		/* Timers */
 		timer = 20;
 		manual_clock = 0;
-		/** Server data setup **/
+		/* Server data setup */
 		sitting = false;
 	}
 

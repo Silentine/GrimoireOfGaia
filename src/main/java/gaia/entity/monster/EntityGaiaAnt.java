@@ -130,6 +130,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 		}
 	}
 
+	/* CLASS TYPE */
 	@Override
 	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
 		super.setItemStackToSlot(par1, par2ItemStack);
@@ -183,6 +184,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
+	/* CLASS TYPE */
 
 	/* ARCHER DATA */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
