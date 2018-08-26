@@ -52,6 +52,17 @@ public class ItemMiscExperience extends ItemBase {
 	}
 
 	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		for (int i = 0; i < 3; i++) {
+			items.add(new ItemStack(this, 1, i));
+		}
+	}
+
+	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase living) {
 		if (living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
@@ -93,27 +104,10 @@ public class ItemMiscExperience extends ItemBase {
 		player.setActiveHand(handIn);
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
-	
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		for (int i = 0; i < 3; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, 
-				"variant=iron", 
-				"variant=gold", 
-				"variant=diamond"
-				);
+		ModelLoaderHelper.registerItem(this, "variant=iron", "variant=gold", "variant=diamond");
 	}
-	/* SUBITEMS */
 }

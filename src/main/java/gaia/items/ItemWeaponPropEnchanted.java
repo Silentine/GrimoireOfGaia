@@ -58,4 +58,5 @@ public class ItemWeaponPropEnchanted extends ItemBase {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
+
 }

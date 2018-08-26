@@ -22,7 +22,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 @Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
-
 	ItemAccessoryBauble(String name) {
 		super(name);
 		setMaxStackSize(1);

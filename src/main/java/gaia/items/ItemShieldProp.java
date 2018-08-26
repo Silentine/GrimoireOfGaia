@@ -45,7 +45,6 @@ public class ItemShieldProp extends ItemBase {
 		return true;
 	}
 
-	/* SUBITEMS */
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
@@ -65,5 +64,4 @@ public class ItemShieldProp extends ItemBase {
 				ModelLoaderHelper.getSuffixedLocation(this, "_gold")
 		);
 	}
-	/* SUBITEMS */
 }

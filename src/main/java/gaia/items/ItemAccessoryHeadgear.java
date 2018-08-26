@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,10 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
-
+	
 	public ItemAccessoryHeadgear() {
 		super("accessory_headgear");
-		setHasSubtypes(true);
 		setMaxStackSize(1);
 	}
 
@@ -43,6 +41,21 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(I18n.format("text.grimoireofgaia.RightClickEquip"));
+	}
+
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+		for (int i = 0; i < 1; i++) {
+			items.add(new ItemStack(this, 1, i));
+		}
+	}
+
+	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		return getUnlocalizedName() + "_" + stack.getItemDamage();
 	}
 
 	@Override
@@ -63,32 +76,10 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
-
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-		for (int i = 0; i < 2; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
 	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this,
-				ModelLoaderHelper.getSuffixedLocation(this, "_head"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_arrow")
-		);
-	}
-	/* SUBITEMS */
-
-	/* BAUBLES */
+	/** Baubles **/
 	@Override
 	public BaubleType getBaubleType(ItemStack itemStack) {
 		return BaubleType.HEAD;
 	}
-	/* BAUBLES */
 }

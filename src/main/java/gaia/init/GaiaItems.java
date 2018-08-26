@@ -131,7 +131,7 @@ public class GaiaItems {
 	public static final Item WEAPON_BOOK_FREEZING = Items.AIR;
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
 	public static final Item SPAWN_WERESHEEP = Items.AIR;
-	@SuppressWarnings("WeakerAccess") // needs to be public static final for objectholder code to work
+	@SuppressWarnings("WeakerAccess") //needs to be public static final for objectholder code to work
 	public static final Item MISC_EXPERIENCE = Items.AIR;
 	public static final Item MISC_QUILL = Items.AIR;
 	public static final Item MISC_SOUL_FIRE = Items.AIR;
@@ -149,14 +149,12 @@ public class GaiaItems {
 	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
 
-	private GaiaItems() {
-	}
+	private GaiaItems() {}
 
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	@SuppressWarnings("unused")
 	public static class RegistrationHandler {
-		private RegistrationHandler() {
-		}
+		private RegistrationHandler() {}
 
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {

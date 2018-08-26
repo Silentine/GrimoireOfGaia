@@ -1,7 +1,5 @@
 package gaia.items;
 
-import java.util.List;
-
 import gaia.GaiaConfig;
 import gaia.helpers.ModelLoaderHelper;
 import gaia.init.GaiaItems;
@@ -14,6 +12,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.List;
+
 public class ItemShard extends ItemBase {
 
 	public ItemShard() {
@@ -21,8 +21,20 @@ public class ItemShard extends ItemBase {
 		setHasSubtypes(true);
 	}
 
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		for (int i = 0; i < 6; i++) {
+			items.add(new ItemStack(this, 1, i));
+		}
+	}
+
 	/**
-	 * Drops a nugget in the world. Will drop Gaia nuggets if no other nuggets are present.
+	 * Drops a nugget in the world. Will drop Gaia nuggets if no other nuggets
+	 * are present.
 	 */
 	public static void dropNugget(Entity ent, int i) {
 		ItemStack stack = new ItemStack(GaiaItems.SHARD, 1, i);
@@ -52,7 +64,8 @@ public class ItemShard extends ItemBase {
 	}
 
 	/**
-	 * Checks ore dictionary if there is already a registered nugget. Then attempts to use that instead
+	 * Checks ore dictionary if there is already a registered nugget. Then
+	 * attempts to use that instead
 	 */
 	private static ItemStack oreCheck(ItemStack stack, String s) {
 		List<ItemStack> oreEquivalents = OreDictionary.getOres(s);
@@ -75,29 +88,9 @@ public class ItemShard extends ItemBase {
 		return stack;
 	}
 
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		for (int i = 0; i < 6; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, 
-				"variant=iron", 
-				"variant=gold", 
-				"variant=diamond", 
-				"variant=emerald", 
-				"variant=copper", 
-				"variant=silver"
-				);
+		ModelLoaderHelper.registerItem(this, "variant=iron", "variant=gold", "variant=diamond", "variant=emerald", "variant=copper", "variant=silver");
 	}
-	/* SUBITEMS */
 }

@@ -1,9 +1,5 @@
 package gaia.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,6 +12,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemWeaponPropProjectile extends ItemBase {
 	public ItemWeaponPropProjectile() {
@@ -59,4 +58,5 @@ public class ItemWeaponPropProjectile extends ItemBase {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
+
 }
