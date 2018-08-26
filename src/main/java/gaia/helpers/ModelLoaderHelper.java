@@ -11,7 +11,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelLoaderHelper {
-	private ModelLoaderHelper() {}
+	private ModelLoaderHelper() {
+	}
 
 	public static void registerItem(Block block) {
 		Item item = Item.getItemFromBlock(block);
@@ -21,7 +22,7 @@ public class ModelLoaderHelper {
 	public static void registerItem(Item item) {
 		if (item.getHasSubtypes()) {
 			NonNullList<ItemStack> subItems = NonNullList.create();
-			//noinspection ConstantConditions
+			// noinspection ConstantConditions
 			item.getSubItems(item.getCreativeTab(), subItems);
 
 			for (ItemStack stack : subItems) {
@@ -37,7 +38,7 @@ public class ModelLoaderHelper {
 	}
 
 	private static void registerItem(Item item, int meta, String variant) {
-		//noinspection ConstantConditions
+		// noinspection ConstantConditions
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
 	}
 
@@ -54,7 +55,7 @@ public class ModelLoaderHelper {
 	}
 
 	public static ModelResourceLocation getSuffixedLocation(Item item, String suffix) {
-		//noinspection ConstantConditions
+		// noinspection ConstantConditions
 		return new ModelResourceLocation(item.getRegistryName().getResourceDomain() + ":" + item.getRegistryName().getResourcePath() + suffix, "inventory");
 	}
 }
