@@ -23,8 +23,7 @@ public final class ItemNBTHelper {
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
 
 	/**
-	 * Gets the NBTTagCompound in an ItemStack. Tries to init it previously in
-	 * case there isn't one present
+	 * Gets the NBTTagCompound in an ItemStack. Tries to init it previously in case there isn't one present
 	 **/
 	public static NBTTagCompound getNBT(ItemStack stack) {
 		if (!stack.hasTagCompound()) {
@@ -167,5 +166,4 @@ public final class ItemNBTHelper {
 				? null
 				: new NBTTagList();
 	}
-
 }

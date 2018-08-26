@@ -20,6 +20,7 @@ public class ItemMiscRing extends ItemBase {
 		return EnumRarity.RARE;
 	}
 
+	/* SUBITEMS */
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
@@ -34,6 +35,12 @@ public class ItemMiscRing extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, "variant=speed", "variant=haste", "variant=jump", "variant=night");
+		ModelLoaderHelper.registerItem(this, 
+				"variant=speed", 
+				"variant=haste", 
+				"variant=jump", 
+				"variant=night"
+				);
 	}
+	/* SUBITEMS */
 }

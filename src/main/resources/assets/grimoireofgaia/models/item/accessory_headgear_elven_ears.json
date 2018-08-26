@@ -3,7 +3,7 @@
 "ambientocclusion": false,
     "textures": {
         "0": "grimoireofgaia:items/models/bauble/accessory_base",
-        "1": "grimoireofgaia:items/models/bauble/accessory_head_elven_ears"
+        "1": "grimoireofgaia:items/models/bauble/accessory_headgear_elven_ears"
     },
 	"display": {
         "gui": {

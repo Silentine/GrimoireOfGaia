@@ -39,6 +39,7 @@ public class ItemChest extends ItemBase {
 		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
 	}
 
+	/* SUBITEMS */
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
@@ -50,6 +51,17 @@ public class ItemChest extends ItemBase {
 		}
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerClient() {
+		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_dungeon"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_jungle"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_desert")
+		);
+	}
+	/* SUBITEMS */
+	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
@@ -71,15 +83,5 @@ public class ItemChest extends ItemBase {
 		}
 
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this,
-				ModelLoaderHelper.getSuffixedLocation(this, "_dungeon"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_jungle"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_desert")
-		);
 	}
 }

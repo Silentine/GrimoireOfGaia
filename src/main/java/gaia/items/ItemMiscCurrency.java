@@ -34,6 +34,7 @@ public class ItemMiscCurrency extends ItemBase {
 		}
 	}
 
+	/* SUBITEMS */
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) {
@@ -48,6 +49,12 @@ public class ItemMiscCurrency extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, "variant=sell", "variant=trader", "variant=holstaurus", "variant=weresheep");
+		ModelLoaderHelper.registerItem(this, 
+				"variant=sell", 
+				"variant=trader", 
+				"variant=holstaurus", 
+				"variant=weresheep"
+				);
 	}
+	/* SUBITEMS */
 }
