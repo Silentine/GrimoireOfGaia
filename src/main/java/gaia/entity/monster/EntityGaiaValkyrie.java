@@ -48,9 +48,12 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
 	private int equipItems;
-	private int buffEffect;
 	private int aggression;
 	private int aggressive;
+
+	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
 	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaValkyrie(World worldIn) {
@@ -62,9 +65,12 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		isImmuneToFire = true;
 
 		equipItems = 0;
-		buffEffect = 0;
 		aggression = 0;
 		aggressive = 0;
+
+		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -174,10 +180,10 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			equipItems = 1;
 		}
 
-		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
-			buffEffect = 0;
-		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			world.setEntityState(this, (byte) 10);
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			SetEquipment((byte) 1);
+			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 			addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
@@ -185,12 +191,36 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			buffEffect = 1;
 		}
 
-		if (getHealth() <= 0.0F) {
-			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 30) {
+				animationTimer += 1;
+			} else {
+				SetEquipment((byte) 0);
+				animationPlay = false;
 			}
+		}
+		/* BUFF */
+
+		if (getHealth() <= 0.0F) {
+			world.setEntityState(this, (byte) 14);
 		} else {
 			super.onLivingUpdate();
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
 
@@ -199,6 +229,8 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
 			this.spawnParticles(EnumParticleTypes.VILLAGER_ANGRY);
+		} else if (id == 14) {
+			this.spawnParticles(EnumParticleTypes.EXPLOSION_LARGE);
 		} else {
 			super.handleStatusUpdate(id);
 		}

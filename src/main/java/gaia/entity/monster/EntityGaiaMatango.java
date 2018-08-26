@@ -39,8 +39,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMatango extends EntityMobHostileDay {
@@ -156,13 +154,13 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			if ((spawnTime > 0) && (spawnTime <= 140)) {
 				++spawnTime;
 			} else {
-				world.setEntityState(this, (byte) 12);
+				world.setEntityState(this, (byte) 9);
 
 				if (!world.isRemote) {
 					SetSpawn((byte) 0);
 				}
 
-				world.setEntityState(this, (byte) 9);
+				world.setEntityState(this, (byte) 8);
 
 				heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
 
@@ -186,26 +184,6 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
 			world.spawnEntity(sporeling);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.FLAME);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 

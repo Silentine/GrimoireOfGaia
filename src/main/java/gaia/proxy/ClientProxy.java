@@ -130,7 +130,6 @@ import gaia.renderer.entity.RenderGaiaWitherCow;
 import gaia.renderer.entity.RenderGaiaYeti;
 import gaia.renderer.entity.RenderGaiaYukiOnna;
 import gaia.renderer.entity.layers.LayerHeadgear;
-import gaia.renderer.particle.ParticleHandler;
 import gaia.renderer.tileentity.TileRenderBust;
 import gaia.tileentity.TileEntityBust;
 import net.minecraft.client.Minecraft;
@@ -166,7 +165,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerHandlers() {
-		MinecraftForge.EVENT_BUS.register(new ParticleHandler());
 	}
 
 	@Override
@@ -219,10 +217,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCWeresheep.class, renderManager -> new RenderGaiaNPCWeresheep(renderManager, small));
 		// Prop
 		/*
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, RenderGaiaPropChestMimic::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, RenderGaiaPropFlowerCyan::new);
-		*/
-		
+		 * RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, RenderGaiaPropChestMimic::new); RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, RenderGaiaPropFlowerCyan::new);
+		 */
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, renderManager -> new RenderGaiaPropChestMimic(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, renderManager -> new RenderGaiaPropFlowerCyan(renderManager, small));
 		// Mob
@@ -247,7 +244,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYeti.class, renderManager -> new RenderGaiaYeti(renderManager, large));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, renderManager -> new RenderGaiaYukiOnna(renderManager, small));
 		// Projectile
-		//TODO EntityGaiaProjectileMagic is being rendered as EntityLargeFireball.java
+		// TODO EntityGaiaProjectileMagic is being rendered as EntityLargeFireball.java
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectileMagic(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE));
 	}
 

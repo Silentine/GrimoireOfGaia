@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//TODO Use RenderEnderman as basis to make ModelGaiaMimic randomly shake
 @SideOnly(Side.CLIENT)
 public class RenderGaiaMimic extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/mimic.png");

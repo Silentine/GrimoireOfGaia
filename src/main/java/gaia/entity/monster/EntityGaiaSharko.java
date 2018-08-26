@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -27,19 +29,22 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
 	public EntityGaiaSharko(World worldIn) {
 		super(worldIn);
 		setSize(1.4F, 2.0F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+
 		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -116,17 +121,43 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 		}
 
-		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
-			buffEffect = 0;
-		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			world.setEntityState(this, (byte) 10);
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			SetEquipment((byte) 1);
+			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 
 			buffEffect = 1;
 		}
 
+		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 30) {
+				animationTimer += 1;
+			} else {
+				SetEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+		/* BUFF */
+
 		super.onLivingUpdate();
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
 	}
 
 	@Override

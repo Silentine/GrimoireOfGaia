@@ -9,8 +9,6 @@ import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
-import gaia.renderer.particle.ParticleWarning;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -30,14 +28,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
@@ -141,7 +136,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		}
 
 		if (spawnLevel3 == 1) {
-			world.setEntityState(this, (byte) 13);
+			world.setEntityState(this, (byte) 10);
 
 			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
@@ -157,25 +152,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 			vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
 			world.spawnEntity(vampire);
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			spawnParticles(EnumParticleTypes.SPELL_WITCH);
-		}
-
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 

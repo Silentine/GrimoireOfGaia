@@ -85,7 +85,7 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 				if (byte0 > 0) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
 
-					world.setEntityState(this, (byte) 9);
+					world.setEntityState(this, (byte) 8);
 
 					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
 				}

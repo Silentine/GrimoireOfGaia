@@ -3,10 +3,6 @@ package gaia.entity;
 import java.util.List;
 
 import gaia.GaiaConfig;
-import gaia.renderer.particle.ParticleBuff;
-import gaia.renderer.particle.ParticleDrop;
-import gaia.renderer.particle.ParticleHeal;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
@@ -60,35 +56,41 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		}
 	}
 
-	// TODO handleStatusUpdate particle effects do not work properly
+	/**
+	 * @param id    ParticleType.NAME
+	 * @param id_08 ParticleType.HEART (For Healing)
+	 * @param id_09 ParticleType.FLAME (For Spawning)
+	 * @param id_10 ParticleType.SPELL_WITCH (For Spawning)
+	 * @param id_11 ParticleType.SMOKE_NORMAL
+	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				ParticleDrop particleCustom = new ParticleDrop(world, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height),
-						posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
+				this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
 			}
 		} else if (id == 9) {
-			for (int i = 0; i < 8; ++i) {
-				ParticleHeal particleCustom = new ParticleHeal(world, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height),
-						posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
+			spawnParticles(EnumParticleTypes.FLAME);
 		} else if (id == 10) {
-			for (int i = 0; i < 8; ++i) {
-				ParticleBuff particleCustom = new ParticleBuff(world, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height),
-						posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
-				Minecraft.getMinecraft().effectRenderer.addEffect(particleCustom);
-			}
+			spawnParticles(EnumParticleTypes.SPELL_WITCH);
 		} else if (id == 11) {
-			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height),
-						posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
-			}
+			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
 		} else {
 			super.handleStatusUpdate(id);
+		}
+	}
+
+	/**
+	 * Adapted from @EntityVillager
+	 */
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package gaia.model;
 
+import java.util.Random;
+
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -15,10 +17,14 @@ public class ModelGaiaMimic extends ModelGaia {
 	private ModelRenderer teeth1;
 	private ModelRenderer teeth2;
 
+	private Random rnd = new Random();
+
 	public ModelGaiaMimic() {
 		textureWidth = 128;
 		textureHeight = 64;
+
 		float rotationPointZ = -4F;
+
 		anchor = new ModelRenderer(this, 0, 19);
 		anchor.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
 		anchor.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
@@ -72,6 +78,9 @@ public class ModelGaiaMimic extends ModelGaia {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
+		anchor.rotationPointX = (float) (this.rnd.nextGaussian());
+		anchor.rotationPointZ = (float) (this.rnd.nextGaussian());
+
 		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 
 		// body

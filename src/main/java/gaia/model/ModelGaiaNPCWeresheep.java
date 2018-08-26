@@ -246,13 +246,10 @@ public class ModelGaiaNPCWeresheep extends ModelGaia {
 		waist1.render(scale);
 		waist2.render(scale);
 		tail.render(scale);
-		
+
 		/*
-		rightlegbutton.render(scale);
-		leftlegbutton.render(scale);
-		rightleglower.render(scale);
-		leftleglower.render(scale);
-		*/
+		 * rightlegbutton.render(scale); leftlegbutton.render(scale); rightleglower.render(scale); leftleglower.render(scale);
+		 */
 
 		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
 			headeyes.render(scale);

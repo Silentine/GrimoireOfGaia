@@ -37,11 +37,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
 	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaMinotaur(World worldIn) {
@@ -53,6 +57,8 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		isImmuneToFire = true;
 
 		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -132,10 +138,10 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 			}
 		}
 
-		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
-			buffEffect = 0;
-		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			world.setEntityState(this, (byte) 10);
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			SetEquipment((byte) 1);
+			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
 			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 100, 0));
@@ -143,12 +149,57 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 			buffEffect = 1;
 		}
 
-		if (getHealth() <= 0.0F) {
-			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 30) {
+				animationTimer += 1;
+			} else {
+				SetEquipment((byte) 0);
+				animationPlay = false;
 			}
+		}
+		/* BUFF */
+
+		if (getHealth() <= 0.0F) {
+			world.setEntityState(this, (byte) 13);
 		} else {
 			super.onLivingUpdate();
+		}
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 13) {
+			this.spawnParticles(EnumParticleTypes.EXPLOSION_LARGE);
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void spawnParticles(EnumParticleTypes particleType) {
+		for (int i = 0; i < 5; ++i) {
+			double d0 = this.rand.nextGaussian() * 0.02D;
+			double d1 = this.rand.nextGaussian() * 0.02D;
+			double d2 = this.rand.nextGaussian() * 0.02D;
+			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
+					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
 		}
 	}
 

@@ -26,6 +26,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -37,7 +38,6 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -46,13 +46,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaArachne extends EntityMobHostileBase {
 
+	private int switchHealth;
 	private int spawn;
+	private int spawnTimer;
 
 	public EntityGaiaArachne(World worldIn) {
 		super(worldIn);
@@ -61,7 +61,9 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
+		switchHealth = 0;
 		spawn = 0;
+		spawnTimer = 0;
 	}
 
 	@Override
@@ -119,21 +121,43 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		beaconMonster();
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			world.setEntityState(this, (byte) 12);
+			SetEquipment((byte) 1);
 
-			if (!world.isRemote) {
-				SetSpawn((byte) 0);
+			if (spawnTimer != 30) {
+				spawnTimer += 1;
 			}
-			spawn = 1;
+
+			if (spawnTimer == 30) {
+				world.setEntityState(this, (byte) 9);
+				SetEquipment((byte) 0);
+
+				if (!world.isRemote) {
+					SetSpawn((byte) 0);
+				}
+
+				spawnTimer = 0;
+				spawn = 1;
+			}
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			world.setEntityState(this, (byte) 12);
+			SetEquipment((byte) 1);
 
-			if (!world.isRemote) {
-				SetSpawn((byte) 0);
+			if (spawnTimer != 30) {
+				spawnTimer += 1;
 			}
-			spawn = 2;
+
+			if (spawnTimer == 30) {
+				world.setEntityState(this, (byte) 9);
+				SetEquipment((byte) 0);
+
+				if (!world.isRemote) {
+					SetSpawn((byte) 0);
+				}
+
+				spawnTimer = 0;
+				spawn = 2;
+			}
 		}
 
 		if (!world.isRemote) {
@@ -141,6 +165,16 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
 	}
 
 	private void SetSpawn(byte id) {
@@ -167,28 +201,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		}
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + (rand.nextDouble() * width * 2.0D) - width, posY + 1.0D + (rand.nextDouble() * height), posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
-		}
-	}
-
-	// TODO Entity does not climb wall unless AI is disabled. This may be due to
-	// pathfinding.
+	// TODO Entity does not climb wall unless AI is disabled. This may be due to pathfinding.
 	/** CLIMBER DATA **/
 	@Override
 	protected void entityInit() {
@@ -322,7 +335,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
-	/** IMMUNITIES **/
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
@@ -331,8 +344,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	@Override
 	public void setInWeb() {
 	}
-
-	/** IMMUNITIES **/
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

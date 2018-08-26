@@ -136,7 +136,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			world.setEntityState(this, (byte) 12);
+			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
 				SetSpawn((byte) 0);
@@ -145,7 +145,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			world.setEntityState(this, (byte) 12);
+			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
 				SetSpawn((byte) 0);
@@ -196,7 +196,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			}
 
 			if (rand.nextFloat() < 7.5E-4F) {
-				world.setEntityState(this, (byte) 15);
+				world.setEntityState(this, (byte) 13);
 			}
 		}
 
@@ -223,25 +223,13 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.FLAME);
-		} else if (id == 15) {
+		if (id == 13) {
 			for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
 				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.13D, 0.0D,
 						0.0D, 0.0D);
 			}
 		} else {
 			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 

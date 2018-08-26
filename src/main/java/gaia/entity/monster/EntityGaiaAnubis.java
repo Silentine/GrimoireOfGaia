@@ -33,7 +33,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -42,8 +41,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
@@ -166,7 +163,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			}
 
 			if (spawnTimer == 30) {
-				world.setEntityState(this, (byte) 12);
+				world.setEntityState(this, (byte) 9);
 				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
@@ -186,7 +183,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			}
 
 			if (spawnTimer == 30) {
-				world.setEntityState(this, (byte) 12);
+				world.setEntityState(this, (byte) 9);
 				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
@@ -209,7 +206,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (spawnLevel3 == 1) {
-			world.setEntityState(this, (byte) 13);
+			world.setEntityState(this, (byte) 10);
 
 			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
@@ -256,28 +253,6 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
 			world.spawnEntity(sphinx);
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.FLAME);
-		}
-		if (id == 13) {
-			spawnParticles(EnumParticleTypes.SPELL_WITCH);
-		}
-
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0D - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0D - width, d0, d1, d2);
 		}
 	}
 

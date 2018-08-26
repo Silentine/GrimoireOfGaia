@@ -35,6 +35,8 @@ import net.minecraft.world.World;
 public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
 	public EntityGaiaCyclops(World worldIn) {
 		super(worldIn);
@@ -43,6 +45,8 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		stepHeight = 1.0F;
 
 		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -106,17 +110,43 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	@Override
 	public void onLivingUpdate() {
-		if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
-			buffEffect = 0;
-		} else if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			world.setEntityState(this, (byte) 10);
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			SetEquipment((byte) 1);
+			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 
 			buffEffect = 1;
 		}
 
+		if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 30) {
+				animationTimer += 1;
+			} else {
+				SetEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+		/* BUFF */
+
 		super.onLivingUpdate();
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
 	}
 
 	@Override

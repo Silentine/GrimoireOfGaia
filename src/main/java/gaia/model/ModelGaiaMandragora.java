@@ -29,7 +29,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 
 	private static final float SCALE_AMOUNT_HEAD = 0.75F;
 	private static final float SCALE_AMOUNT_BODY = 0.5F;
-	//Increasing the value moves it closer to the ground
+	// Increasing the value moves it closer to the ground
 	private static final float Y_OFFSET_HEAD = 15.5F;
 	private static final float Y_OFFSET_BODY = 23.5F;
 
@@ -272,8 +272,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;

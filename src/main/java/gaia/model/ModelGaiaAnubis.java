@@ -244,7 +244,7 @@ public class ModelGaiaAnubis extends ModelGaia {
 		hair2.rotateAngleY = (head.rotateAngleY) * 0.75F;
 
 		// arms
-		if (itemstack.isEmpty() || itemstack.getItem() != Items.STICK) {
+		if (itemstack.getItem() != Items.STICK) {
 			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -259,7 +259,9 @@ public class ModelGaiaAnubis extends ModelGaia {
 			rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 			leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
 			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
-		} else if (itemstack.getItem() == Items.STICK) {
+		}
+
+		if (itemstack.getItem() == Items.STICK) {
 			animationCasting();
 		}
 
@@ -291,8 +293,8 @@ public class ModelGaiaAnubis extends ModelGaia {
 		rightarm.rotateAngleX = -1.047198F;
 		leftarm.rotateAngleX = -1.047198F;
 
-		rightarm.rotateAngleY = -0.2617994F;
-		leftarm.rotateAngleY = 0.2617994F;
+		rightarm.rotateAngleY = -0.436332F;
+		leftarm.rotateAngleY = 0.436332F;
 	}
 
 	public ModelRenderer getRightArm() {

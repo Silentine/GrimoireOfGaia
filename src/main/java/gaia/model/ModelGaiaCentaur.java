@@ -310,7 +310,7 @@ public class ModelGaiaCentaur extends ModelGaia {
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 		ItemStack equipstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		EntityGaiaCentaur entity = (EntityGaiaCentaur) entityIn;
-		
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;

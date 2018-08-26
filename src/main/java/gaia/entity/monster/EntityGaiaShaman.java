@@ -27,12 +27,12 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -41,8 +41,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAttackMob {
@@ -52,14 +50,17 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 	private int switchHealth;
 	private int spawn;
+	private int spawnTimer;
 
 	public EntityGaiaShaman(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+
 		switchHealth = 0;
 		spawn = 0;
+		spawnTimer = 0;
 	}
 
 	@Override
@@ -143,21 +144,43 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			world.setEntityState(this, (byte) 12);
+			SetEquipment((byte) 1);
 
-			if (!world.isRemote) {
-				SetSpawn((byte) 0);
+			if (spawnTimer != 30) {
+				spawnTimer += 1;
 			}
-			spawn = 1;
+
+			if (spawnTimer == 30) {
+				world.setEntityState(this, (byte) 9);
+				SetEquipment((byte) 0);
+
+				if (!world.isRemote) {
+					SetSpawn((byte) 0);
+				}
+
+				spawnTimer = 0;
+				spawn = 1;
+			}
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			world.setEntityState(this, (byte) 12);
+			SetEquipment((byte) 1);
 
-			if (!world.isRemote) {
-				SetSpawn((byte) 0);
+			if (spawnTimer != 30) {
+				spawnTimer += 1;
 			}
-			spawn = 2;
+
+			if (spawnTimer == 30) {
+				world.setEntityState(this, (byte) 9);
+				SetEquipment((byte) 0);
+
+				if (!world.isRemote) {
+					SetSpawn((byte) 0);
+				}
+
+				spawnTimer = 0;
+				spawn = 2;
+			}
 		}
 
 		super.onLivingUpdate();
@@ -175,6 +198,16 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		}
 	}
 
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+	}
+
 	private void SetSpawn(byte id) {
 		EntityZombie zombie;
 
@@ -184,26 +217,6 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
 			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
 			world.spawnEntity(zombie);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.FLAME);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + rand.nextDouble() * width * 2.0F - width, posY + 1.0D + rand.nextDouble() * height, posZ + rand.nextDouble() * width * 2.0F - width, d0, d1, d2);
 		}
 	}
 

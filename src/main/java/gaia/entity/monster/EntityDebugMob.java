@@ -7,9 +7,7 @@ import javax.annotation.Nullable;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
-import gaia.renderer.particle.ParticleExample;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -134,19 +132,18 @@ public class EntityDebugMob extends EntityMobHostileDay {
 			}
 		}
 		// Example of generating a custom particle
-		if (!world.isRemote && rand.nextInt(200) == 0) {
-			BlockPos pos = getPosition();
-			ParticleExample newEffect = new ParticleExample(world, pos.getX() + 0.5, pos.getY() + 2.2, pos.getZ() + 0.5, 0, 0.001, 0);
-			Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
-		}
+//		if (!world.isRemote && rand.nextInt(200) == 0) {
+//			BlockPos pos = getPosition();
+//			ParticleExample newEffect = new ParticleExample(world, pos.getX() + 0.5, pos.getY() + 2.2, pos.getZ() + 0.5, 0, 0.001, 0);
+//			Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
+//		}
 	}
 
 	/**
 	 * Example Methods
 	 */
 	/**
-	 * This method gets called first when a mob dies and wants to drop some loot Normally it would check if there is a LootTable bound to the mob, and drop it If not, it would send it to the hardcoded dropFewItems() method Instead of doing
-	 * one or the other, I've overriden it an told it to do both so it can drop things from a special LootTable and what else would normally drop
+	 * This method gets called first when a mob dies and wants to drop some loot Normally it would check if there is a LootTable bound to the mob, and drop it If not, it would send it to the hardcoded dropFewItems() method Instead of doing one or the other, I've overriden it an told it to do both so it can drop things from a special LootTable and what else would normally drop
 	 */
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
@@ -200,9 +197,9 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	 * Our legacy method for dropping items In the newest versions, this is a fallback
 	 **/
 	protected void dropFewItems(boolean flag, int par) {
-		BlockPos pos3 = getPosition();
-		ParticleExample newEffect3 = new ParticleExample(world, pos3.getX() + 0.5, pos3.getY() + 2.2, pos3.getZ() + 0.5, 0, 0.0025, 0);
-		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
+//		BlockPos pos3 = getPosition();
+//		ParticleExample newEffect3 = new ParticleExample(world, pos3.getX() + 0.5, pos3.getY() + 2.2, pos3.getZ() + 0.5, 0, 0.0025, 0);
+//		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
 
 //		// IDs found @Enchantment.registerEnchantments();
 //		ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);

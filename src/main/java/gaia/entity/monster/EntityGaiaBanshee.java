@@ -22,8 +22,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBanshee extends EntityMobHostileBase {
@@ -90,7 +88,8 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			float f = getBrightness();
 
 			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(getPosition())) {
-				world.setEntityState(this, (byte) 13);
+				world.setEntityState(this, (byte) 11);
+
 				attackEntityFrom(DamageSource.OUT_OF_WORLD, EntityAttributes.MAX_HEALTH_2 * 0.25F);
 			}
 		}
@@ -100,27 +99,6 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-
-			world.spawnParticle(particleType, posX + (rand.nextDouble() * width * 2.0D) - width, posY + 1.0D + (rand.nextDouble() * height), posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
-		}
 	}
 
 	@Override

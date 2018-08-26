@@ -2,6 +2,10 @@ package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -265,8 +269,9 @@ public class ModelGaiaArachne extends ModelGaia {
 	}
 
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -276,23 +281,29 @@ public class ModelGaiaArachne extends ModelGaia {
 		headaccessory.rotateAngleX = head.rotateAngleX;
 
 		// arms
-		rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		if (itemstack.getItem() != Items.STICK) {
+			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
-		rightarm.rotateAngleZ = 0.0F;
-		leftarm.rotateAngleZ = 0.0F;
+			rightarm.rotateAngleZ = 0.0F;
+			leftarm.rotateAngleZ = 0.0F;
 
-		if (swingProgress > -9990.0F) {
-			holdingMelee();
+			if (swingProgress > -9990.0F) {
+				holdingMelee();
+			}
+
+			rightarm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
+			rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+			leftarm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
+			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+
+			rightarm.rotateAngleZ += 0.3490659F;
+			leftarm.rotateAngleZ -= 0.3490659F;
 		}
 
-		rightarm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
-		leftarm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
-
-		rightarm.rotateAngleZ += 0.3490659F;
-		leftarm.rotateAngleZ -= 0.3490659F;
+		if (itemstack.getItem() == Items.STICK) {
+			animationCasting();
+		}
 
 		// body
 		rightchest.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount + 0.8726646F;
@@ -367,6 +378,14 @@ public class ModelGaiaArachne extends ModelGaia {
 		rightarm.rotateAngleX = (float) ((double) rightarm.rotateAngleX - ((double) f7 * 1.2D + (double) f8));
 		rightarm.rotateAngleX += (bodytop.rotateAngleY * 2.0F);
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
+	}
+
+	private void animationCasting() {
+		rightarm.rotateAngleX = -1.047198F;
+		leftarm.rotateAngleX = -1.047198F;
+
+		rightarm.rotateAngleY = -0.610865F;
+		leftarm.rotateAngleY = 0.610865F;
 	}
 
 	public ModelRenderer getRightArm() {

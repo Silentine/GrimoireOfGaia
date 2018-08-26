@@ -120,6 +120,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 		}
 		
+		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
 			SetEquipment((byte) 1);
 			animationPlay = true;
@@ -143,6 +144,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 				animationPlay = false;
 			}
 		}
+		/* BUFF */
 
 		super.onLivingUpdate();
 	}
