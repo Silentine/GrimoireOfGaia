@@ -46,9 +46,9 @@ public class BlockSpawnGuard extends BlockBase {
 	private static final AxisAlignedBB DOWN_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.06F, 1.0F);
 	private static final AxisAlignedBB UP_BOX = new AxisAlignedBB(0.0F, 0.94F, 0.0F, 1.0F, 1.0F, 1.0F);
 	private static final AxisAlignedBB NORTH_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.94F, 1.0F, 1.0F, 1.0F);
-	private static final AxisAlignedBB SOUTH_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.06F);
-	private static final AxisAlignedBB WEST_BOX = new AxisAlignedBB(0.94F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-	private static final AxisAlignedBB EAST_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.06F, 1.0F, 1.0F);
+	private static final AxisAlignedBB WEST_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.06F);
+	private static final AxisAlignedBB EAST_BOX = new AxisAlignedBB(0.94F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+	private static final AxisAlignedBB SOUTH_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.06F, 1.0F, 1.0F);
 
 	@Override
 	public boolean isFullCube(IBlockState state) {

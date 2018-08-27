@@ -11,8 +11,8 @@
         "type=u_east":  { "model": "grimoireofgaia:spawn_guard", "x": 180, "y": 90  },
         
         "type=v_north": { "model": "grimoireofgaia:spawn_guard", "x": 270, "y": 180 },
-        "type=v_south": { "model": "grimoireofgaia:spawn_guard", "x": 270           },
-        "type=v_west":  { "model": "grimoireofgaia:spawn_guard", "x": 270, "y": 90  },
-        "type=v_east":  { "model": "grimoireofgaia:spawn_guard", "x": 270, "y": 270 }
+        "type=v_west": { "model": "grimoireofgaia:spawn_guard", "x": 270           },
+        "type=v_east":  { "model": "grimoireofgaia:spawn_guard", "x": 270, "y": 90  },
+        "type=v_south":  { "model": "grimoireofgaia:spawn_guard", "x": 270, "y": 270 }
     }
 }
