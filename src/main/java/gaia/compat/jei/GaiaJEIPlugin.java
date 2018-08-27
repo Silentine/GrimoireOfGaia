@@ -95,7 +95,6 @@ public class GaiaJEIPlugin implements IModPlugin{
 	
 	private List<GaiaLootWrapper> getBoxLoot() {
 		List<GaiaLootWrapper> result = new ArrayList<GaiaLootWrapper>();
-		System.out.println("hey");
 		ArrayList<ItemStack> boxLoot = new ArrayList<>();
 		boxLoot.add(new ItemStack(Blocks.COAL_ORE));
 		boxLoot.add(new ItemStack(Blocks.IRON_ORE));
