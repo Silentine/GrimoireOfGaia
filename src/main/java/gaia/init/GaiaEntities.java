@@ -66,18 +66,20 @@ import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Set;
 
 public class GaiaEntities {
 	private GaiaEntities() {}
+
+	private static int modEntityId = 0;
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
@@ -87,12 +89,12 @@ public class GaiaEntities {
 			createEntityEntry("baphomet", EntityGaiaBaphomet.class, 3559756, 14197864),
 			createEntityEntry("bone_knight", EntityGaiaBoneKnight.class, 4602533, 13619151),
 			createEntityEntry("centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535),
-			createEntityEntry("chest", EntityGaiaPropChestMimic.class, 11237677, 4274991),
+			createEntityEntry("chest", EntityGaiaPropChestMimic.class, 11237677, 4274991, false),
 			createEntityEntry("cobble_golem", EntityGaiaCobbleGolem.class, 11513775, 11513775),
 			createEntityEntry("cobblestone_golem", EntityGaiaCobblestoneGolem.class, 11513775, 11513775),
 			createEntityEntry("creep", EntityGaiaCreep.class, 7917159, 2053400),
 			createEntityEntry("cyclops", EntityGaiaCyclops.class, 4936602, 3487029),
-			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287),
+			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287, false),
 			createEntityEntry("dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161),
 			createEntityEntry("dryad", EntityGaiaDryad.class, 10255437, 5681460),
 			createEntityEntry("dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d),
@@ -132,12 +134,18 @@ public class GaiaEntities {
 			createEntityEntry("yuki-onna", EntityGaiaYukiOnna.class, 6781114, 13817330)
 	);
 
-	private static EntityEntry createEntityEntry(String name, Class<? extends Entity> cls, int primaryColorIn, int secondaryColorIn) {
-		EntityEntry entityEntry = new EntityEntry(cls, GaiaReference.MOD_ID + "." + name);
-		entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
-		//noinspection ConstantConditions
-		entityEntry.setEgg(new EntityEggInfo(entityEntry.getRegistryName(), primaryColorIn, secondaryColorIn));
-		return entityEntry;
+	private static <T extends Entity> EntityEntry createEntityEntry(String name, Class<T> cls, int primaryColorIn, int secondaryColorIn) {
+		return createEntityEntry(name, cls, primaryColorIn, secondaryColorIn, true);
+	}
+
+	private static <T extends Entity> EntityEntry createEntityEntry(String name, Class<T> cls, int primaryColorIn, int secondaryColorIn, boolean sendVelocityUpdates) {
+		EntityEntryBuilder<T> builder = EntityEntryBuilder.create();
+		builder.entity(cls);
+		builder.name(GaiaReference.MOD_ID + "." + name);
+		builder.id(new ResourceLocation(GaiaReference.MOD_ID, name), modEntityId++);
+		builder.tracker(64, 20, sendVelocityUpdates);
+		builder.egg(primaryColorIn, secondaryColorIn);
+		return builder.build();
 	}
 
 	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
@@ -174,14 +182,21 @@ public class GaiaEntities {
 			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
 
 			// Projectiles
-			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry);
-			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry);
+			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
+			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry, 3);
 		}
 
-		private static void createEntityEntry(String name, Class<? extends Entity> cls, IForgeRegistry<EntityEntry> registry) {
-			EntityEntry entityEntry = new EntityEntry(cls, GaiaReference.MOD_ID + "." + name);
-			entityEntry.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
-			registry.register(entityEntry);
+		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry) {
+			createEntityEntry(name, cls, registry, 20);
+		}
+
+		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry, int updateFrequency) {
+			EntityEntryBuilder<T> builder = EntityEntryBuilder.create();
+			builder.entity(cls);
+			builder.name(GaiaReference.MOD_ID + "." + name);
+			builder.id(new ResourceLocation(GaiaReference.MOD_ID, name), modEntityId++);
+			builder.tracker(64, updateFrequency, true);
+			registry.register(builder.build());
 		}
 	}
 }
