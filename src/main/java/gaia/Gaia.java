@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 import static gaia.GaiaReference.MOD_ID;
 
-@Mod(modid = MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, dependencies = GaiaReference.DEPENDENCIES)
+@Mod(modid = MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, acceptedMinecraftVersions = GaiaReference.MC_VERSIONS, dependencies = GaiaReference.DEPENDENCIES)
 public class Gaia {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
