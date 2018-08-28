@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -17,6 +19,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -27,8 +30,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaYeti extends EntityMobHostileBase {
@@ -133,7 +134,7 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

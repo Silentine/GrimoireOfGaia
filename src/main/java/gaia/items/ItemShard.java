@@ -23,8 +23,11 @@ public class ItemShard extends ItemBase {
 
 	/**
 	 * Drops a nugget in the world. Will drop Gaia nuggets if no other nuggets are present.
+	 * 
+	 * @param entity
+	 * @param i      0 = Iron, 1 = Gold, 2 = Diamond, 3 = Emerald, 4 = Copper, 5 = Silver
 	 */
-	public static void dropNugget(Entity ent, int i) {
+	public static void dropNugget(Entity entity, int i) {
 		ItemStack stack = new ItemStack(GaiaItems.SHARD, 1, i);
 
 		if (GaiaConfig.DEBUG.oreUnity) {
@@ -48,7 +51,7 @@ public class ItemShard extends ItemBase {
 			}
 		}
 
-		ent.entityDropItem(stack, 0.0F);
+		entity.entityDropItem(stack, 0.0F);
 	}
 
 	/**
@@ -90,14 +93,7 @@ public class ItemShard extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, 
-				"variant=iron", 
-				"variant=gold", 
-				"variant=diamond", 
-				"variant=emerald", 
-				"variant=copper", 
-				"variant=silver"
-				);
+		ModelLoaderHelper.registerItem(this, "variant=iron", "variant=gold", "variant=diamond", "variant=emerald", "variant=copper", "variant=silver");
 	}
 	/* SUBITEMS */
 }

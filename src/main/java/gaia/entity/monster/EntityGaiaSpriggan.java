@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -137,7 +138,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

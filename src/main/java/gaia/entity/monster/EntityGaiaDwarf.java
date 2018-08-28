@@ -276,7 +276,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 				}
 			} else {
 				for (int var4 = 0; var4 < var3; ++var4) {
-					ItemShard.dropNugget(this, 0);
+					dropItem(Items.IRON_NUGGET, 1);
 				}
 			}
 
@@ -284,7 +284,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

@@ -1,10 +1,12 @@
 package gaia;
 
 public class GaiaReference {
-	private GaiaReference() {}
+
+	private GaiaReference() {
+	}
 
 	public static final String MOD_ID = "grimoireofgaia";
-	static final String MOD_NAME = "Grimoire of Gaia 3";
+	public static final String MOD_NAME = "Grimoire of Gaia 3";
 	static final String MC_VERSIONS = "1.12.2";
 	static final String VERSION = "@VERSION@";
 

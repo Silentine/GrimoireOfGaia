@@ -207,7 +207,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

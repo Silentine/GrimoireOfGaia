@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -158,7 +159,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 0);
+				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

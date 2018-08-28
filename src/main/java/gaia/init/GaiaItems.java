@@ -26,7 +26,6 @@ import gaia.items.ItemBoxDiamond;
 import gaia.items.ItemBoxGold;
 import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
-import gaia.items.ItemCard;
 import gaia.items.ItemChest;
 import gaia.items.ItemFoodBase;
 import gaia.items.ItemFoodCoalfish;
@@ -79,7 +78,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
-//Modify ClientProxy when adding metadata items
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
 	public static final Item SHARD = Items.AIR;
@@ -131,7 +129,7 @@ public class GaiaItems {
 	public static final Item WEAPON_BOOK_FREEZING = Items.AIR;
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
 	public static final Item SPAWN_WERESHEEP = Items.AIR;
-	@SuppressWarnings("WeakerAccess") // needs to be public static final for objectholder code to work
+	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
 	public static final Item MISC_EXPERIENCE = Items.AIR;
 	public static final Item MISC_QUILL = Items.AIR;
 	public static final Item MISC_SOUL_FIRE = Items.AIR;
@@ -228,7 +226,6 @@ public class GaiaItems {
 			registry.register(new ItemAccessoryTrinketWither());
 			registry.register(new ItemAccessoryTrinketLevitation());
 			registry.register(new ItemAccessoryCursed());
-			registry.register(new ItemCard());
 			registry.register(new ItemAccessoryHeadgear());
 
 			Gaia.LOGGER.info("Item registration complete.");

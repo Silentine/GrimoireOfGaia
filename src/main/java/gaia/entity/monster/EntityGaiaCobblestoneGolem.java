@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemPickaxe;
@@ -137,8 +138,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
-						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
 	}
@@ -169,14 +169,14 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 			int var3 = rand.nextInt(3 + lootingModifier);
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				ItemShard.dropNugget(this, 0);
+				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			// Nuggets/Fragments
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

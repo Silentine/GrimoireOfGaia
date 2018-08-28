@@ -220,7 +220,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 			int var11 = rand.nextInt(3) + 1;
 
 			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 0);
+				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {

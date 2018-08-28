@@ -3,7 +3,9 @@ package gaia.entity;
 import gaia.GaiaConfig;
 
 public class EntityAttributes {
-	private EntityAttributes() {}
+	
+	private EntityAttributes() {
+	}
 
 	public static final double ATTACK_SPEED_0 = 1.15D;
 	public static final double ATTACK_SPEED_1 = 1.25D;
