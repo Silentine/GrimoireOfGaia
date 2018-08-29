@@ -146,7 +146,7 @@ public class GaiaEntities {
 		builder.entity(cls);
 		builder.name(GaiaReference.MOD_ID + "." + name);
 		builder.id(new ResourceLocation(GaiaReference.MOD_ID, name), modEntityId++);
-		builder.tracker(64, 20, sendVelocityUpdates);
+		builder.tracker(64, 3, sendVelocityUpdates);
 		builder.egg(primaryColorIn, secondaryColorIn);
 		return builder.build();
 	}
@@ -190,7 +190,7 @@ public class GaiaEntities {
 		}
 
 		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry) {
-			createEntityEntry(name, cls, registry, 20);
+			createEntityEntry(name, cls, registry, 3);
 		}
 
 		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry, int updateFrequency) {
