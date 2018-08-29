@@ -1,6 +1,11 @@
 package gaia.entity.passive;
 
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Sets;
+
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
@@ -10,7 +15,9 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -23,9 +30,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
-import java.util.Set;
 
 //TODO Missing model
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
@@ -104,6 +108,18 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		}
 	}
 
+	private void SetSpawn(byte id) {
+		EntityGaiaMandragora mandragora;
+
+		if (id == 0) {
+			mandragora = new EntityGaiaMandragora(world);
+			mandragora.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			mandragora.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mandragora)), null);
+			mandragora.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+			world.spawnEntity(mandragora);
+		}
+	}
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.BLOCK_GRASS_BREAK;
@@ -147,9 +163,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 					break;
 				}
 			} else {
-				EntityGaiaMandragora spawnMob = new EntityGaiaMandragora(world);
-				spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				world.spawnEntity(spawnMob);
+				SetSpawn((byte) 0);
 			}
 
 			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {

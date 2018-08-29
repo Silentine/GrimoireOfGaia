@@ -192,6 +192,10 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	}
 
 	@Override
+	public void setSwingingArms(boolean swingingArms) {
+	}
+
+	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);

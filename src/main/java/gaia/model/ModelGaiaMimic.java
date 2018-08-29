@@ -23,6 +23,7 @@ public class ModelGaiaMimic extends ModelGaia {
 		textureWidth = 128;
 		textureHeight = 64;
 
+		// Used to adjust height
 		float rotationPointZ = -4F;
 
 		anchor = new ModelRenderer(this, 0, 19);
@@ -60,6 +61,7 @@ public class ModelGaiaMimic extends ModelGaia {
 		rot.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
 		rot.setTextureSize(128, 64);
 		setRotation(rot, -0.1745329F, 0.0F, 0.0F);
+
 		anchor.addChild(lid1);
 		anchor.addChild(lid2);
 		anchor.addChild(lock);

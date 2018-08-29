@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+//TODO apply RenderEnderman shaking when provoked
 @SideOnly(Side.CLIENT)
 public class RenderGaiaEnderEye extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation endereyeEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_ender_eye.png");

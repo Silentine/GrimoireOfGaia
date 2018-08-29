@@ -48,7 +48,6 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.BOX_GOLD, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.BOX_DIAMOND, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.BAG_BOOK, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 1), new ItemStack(GaiaItems.BAG_ORE, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.BAG_RECORD, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.MISC_BOOK, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 0)));

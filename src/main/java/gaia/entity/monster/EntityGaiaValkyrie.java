@@ -143,9 +143,10 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			motionY *= 0.8D;
 		}
 
-		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-
-		if (equipItems == 0 && itemstack.isEmpty()) {
+		/* AGGRESSION */
+//		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+//		if (equipItems == 0 && itemstack.isEmpty()) {	
+		if (equipItems == 0) {
 			if (aggressive <= 4) {
 				if (playerDetection(DETECTION_RANGE)) {
 					if (aggression <= 60) {
@@ -160,25 +161,20 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 					}
 				}
 			} else {
-				targetTasks.addTask(2, aiNearestAttackableTarget);
-
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
-				ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
-				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
+				SetAI((byte) 0);
+				SetEquipment((byte) 2);
 
 				equipItems = 1;
 			}
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && equipItems == 0) {
-			targetTasks.addTask(2, aiNearestAttackableTarget);
-
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
-			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
-			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
+			SetAI((byte) 0);
+			SetEquipment((byte) 2);
 
 			equipItems = 1;
 		}
+		/* AGGRESSION */
 
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
@@ -214,6 +210,12 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 	}
 
+	private void SetAI(byte id) {
+		if (id == 0) {
+			targetTasks.addTask(2, aiNearestAttackableTarget);
+		}
+	}
+
 	private void SetEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
@@ -221,6 +223,12 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+
+		if (id == 2) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		}
 	}
 
@@ -242,8 +250,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			double d0 = this.rand.nextGaussian() * 0.02D;
 			double d1 = this.rand.nextGaussian() * 0.02D;
 			double d2 = this.rand.nextGaussian() * 0.02D;
-			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
-					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
 		}
 	}
 

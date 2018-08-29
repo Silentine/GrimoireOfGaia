@@ -24,15 +24,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * DEBUG item
+ * 
+ * Disable item in GaiaItems before release
+ * Set boolean @debug to true
+ */
 public class ItemWeaponDebug extends ItemBase {
 	private int attackDamage;
-	
+	private boolean debug;
+
 	public ItemWeaponDebug() {
 		super("weapon_debug");
 		maxStackSize = 1;
 		setMaxDamage(780);
 		attackDamage = 256;
-		//setCreativeTab(null);
+		
+		setCreativeTab(null);
+		debug = true;
 	}
 
 	@Override
@@ -43,28 +52,32 @@ public class ItemWeaponDebug extends ItemBase {
 
 	/**
 	 * https://github.com/Flaxbeard/Cyberware/blob/4bae328ee0a714900094d3f203b3281af3e048c4/src/main/java/flaxbeard/cyberware/common/handler/CyberwareMenuHandler.java
-	 **/
+	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
 		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Debug.tag")));
+
 		if (shiftPressed) {
 			tooltip.add(I18n.format("item.grimoireofgaia.weapon_debug.desc"));
+			if (debug) {
+				tooltip.add(I18n.format("effect.regeneration"));
+			}
 		} else {
 			tooltip.add(TextFormatting.ITALIC + (I18n.format("text.grimoireofgaia.HoldShift")));
 		}
 	}
-	
+
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack) {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot, itemStack);
 
-		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) attackDamage, 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
+		if (debug) {
+			if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+				multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) attackDamage, 0));
+				multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
+			}
 		}
 
 		return multimap;
@@ -77,7 +90,9 @@ public class ItemWeaponDebug extends ItemBase {
 
 		for (int i = 0; i < 9; ++i) {
 			if (player.inventory.getStackInSlot(i) == stack) {
-				doEffect(player);
+				if (debug) {
+					doEffect(player);
+				}
 				break;
 			}
 		}

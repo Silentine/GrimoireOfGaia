@@ -180,7 +180,7 @@ public class ModelGaiaDryad extends ModelGaia {
 			}
 
 		} else {
-			/** SCALING **/
+			/* SCALING */
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
 			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
@@ -194,7 +194,7 @@ public class ModelGaiaDryad extends ModelGaia {
 			hair1.render(scale);
 			hair2.render(scale);
 			GlStateManager.popMatrix();
-			/** SCALING **/
+			/* SCALING */
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
 			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
@@ -210,7 +210,7 @@ public class ModelGaiaDryad extends ModelGaia {
 			waist1.render(scale);
 			waist2.render(scale);
 			GlStateManager.popMatrix();
-			/** SCALING **/
+			/* SCALING */
 		}
 	}
 

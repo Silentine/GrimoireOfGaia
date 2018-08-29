@@ -38,7 +38,10 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 
 /**
- * Used for testing new or updated features. Remove egg from GaiaEntity before release.
+ * DEBUG mob
+ * 
+ * Disable mob in GaiaEntities and ClientProxy before release.
+ * Set boolean @debug to true
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityDebugMob extends EntityMobHostileDay {
@@ -46,6 +49,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityDebugMob.AILeapAttack(this);
+	
+	private boolean debug;
 
 	public EntityDebugMob(World worldIn) {
 		super(worldIn);
@@ -56,6 +61,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		manual_clock = 0;
 		/* Server data setup */
 		sitting = false;
+		
+		debug = false;
 	}
 
 	@Override
@@ -308,6 +315,11 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		if (!debug) {
+			this.dead = true;
+		}
+
+		/* DEBUG */
 		tasks.addTask(1, aiGaiaLeapAtTarget);
 		tasks.addTask(2, aiMeleeAttack);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));

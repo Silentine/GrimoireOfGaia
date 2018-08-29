@@ -24,6 +24,11 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * UNDER CONSTRUCTION
+ * 
+ * TODO need to fix registerLayerRenders @ClientProxy. Headgear appears invisible on the Alex player model when equipped in baubles HEAD slot.
+ */
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 
@@ -31,6 +36,8 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		super("accessory_headgear");
 		setHasSubtypes(true);
 		setMaxStackSize(1);
+		
+		setCreativeTab(null);
 	}
 
 	@Override
@@ -70,7 +77,7 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		if (!isInCreativeTab(tab)) {
 			return;
 		}
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -80,7 +87,8 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 	public void registerClient() {
 		ModelLoaderHelper.registerItem(this,
 				ModelLoaderHelper.getSuffixedLocation(this, "_head"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_arrow")
+				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_doll")
 		);
 	}
 	/* SUBITEMS */

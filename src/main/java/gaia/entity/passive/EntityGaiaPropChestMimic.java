@@ -92,7 +92,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	public void onLivingUpdate() {
 		if (playerDetection() && canSpawn) {
 			attackEntityFrom(DamageSource.GENERIC, 2.0F);
-			spawnMob();
+			SetSpawn((byte) 0);
 		}
 
 		if (getHealth() <= 0.0F) {
@@ -101,6 +101,20 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 			}
 		} else {
 			super.onLivingUpdate();
+		}
+	}
+
+	private void SetSpawn(byte id) {
+		EntityGaiaMimic mimic;
+
+		if (id == 0) {
+			mimic = new EntityGaiaMimic(world);
+			mimic.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			mimic.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mimic)), null);
+			world.spawnEntity(mimic);
+
+			canSpawn = false;
+			canSpawnDrop = false;
 		}
 	}
 
@@ -129,20 +143,10 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
 		if (canSpawnDrop) {
-			spawnMob();
+			SetSpawn((byte) 0);
 		} else if (canDrop) {
 			LootHelper.dropRandomLootAtEntityPos(world, attackingPlayer, this, wasRecentlyHit, LootTableList.CHESTS_SIMPLE_DUNGEON, 2);
 		}
-	}
-
-	private void spawnMob() {
-		EntityGaiaMimic spawnMob;
-		spawnMob = new EntityGaiaMimic(world);
-		spawnMob.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-		spawnMob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spawnMob)), null);
-		world.spawnEntity(spawnMob);
-		canSpawn = false;
-		canSpawnDrop = false;
 	}
 
 	@Override

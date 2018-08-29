@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
@@ -33,8 +35,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMandragora extends EntityMobHostileDay {
 
@@ -43,7 +43,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	public EntityGaiaMandragora(World worldIn) {
 		super(worldIn);
 
-		setSize(0.5F, 1.0F);
+		setSize(0.75F, 1.0F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
@@ -143,8 +143,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
-						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
 
@@ -218,25 +217,25 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		// TEMP Method used instead of isChild
-		setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-
 		return ret;
 	}
 
+	/* CHILD CODE */
+	@Override
 	public float getEyeHeight() {
 		float f;
 
-		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
 			f = 1.74F;
 		} else {
-			f = (float) ((double) 1.74F - 0.81D);
+			f = 1.74F - 0.81F;
 		}
 
 		return f;
 	}
+	/* CHILD CODE */
 
 	/* IMMUNITIES */
 	@Override

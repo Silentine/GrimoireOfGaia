@@ -93,10 +93,7 @@ item.grimoireofgaia.accessory_cursed.name=Heavy Barbell
 
 item.grimoireofgaia.accessory_headgear_0.name=Dryad Mask
 item.grimoireofgaia.accessory_headgear_1.name=Arrow Through Head
-
-item.grimoireofgaia.card_0.name=NULL Card
-item.grimoireofgaia.card_1.name=Child Card
-item.grimoireofgaia.card_2.name=Attack Card
+item.grimoireofgaia.accessory_headgear_2.name=Drooping Maid
 
 item.grimoireofgaia.spawnegg.name=Spawn
 

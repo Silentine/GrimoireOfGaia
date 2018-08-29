@@ -16,9 +16,10 @@ plugins {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "${mc_version}-${mod_version}." + getBuildNumber() + getStable()
+version = "${mod_version}"
+						//." + getBuildNumber() + getStable()
 group= "${package_group}"
-archivesBaseName = "${mod_name}"
+archivesBaseName = "${mod_name}-${mc_version}"
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
 compileJava {

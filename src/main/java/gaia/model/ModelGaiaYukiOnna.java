@@ -1,6 +1,7 @@
 package gaia.model;
 
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
@@ -28,6 +29,12 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 	private ModelRenderer leftleg;
 	private ModelRenderer hair1;
 	private ModelRenderer hair2;
+
+	private static final float SCALE_AMOUNT_HEAD = 0.75F;
+	private static final float SCALE_AMOUNT_BODY = 0.5F;
+	// Increasing the value moves it closer to the ground
+	private static final float Y_OFFSET_BODY = 23.5F;
+	private static final float Y_OFFSET_HEAD = 15.5F;
 
 	public ModelGaiaYukiOnna() {
 		textureWidth = 128;
@@ -145,24 +152,58 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		head.render(scale);
-		headaccessory.render(scale);
-		neck.render(scale);
-		bodytop.render(scale);
-		bodymiddle.render(scale);
-		bodymiddlebutton.render(scale);
-		bodybottom.render(scale);
-		rightchest.render(scale);
-		leftchest.render(scale);
-		rightarm.render(scale);
-		leftarm.render(scale);
-		rightleg.render(scale);
-		leftleg.render(scale);
-		hair1.render(scale);
-		hair2.render(scale);
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.render(scale);
+		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+			head.render(scale);
+			headaccessory.render(scale);
+			neck.render(scale);
+			bodytop.render(scale);
+			bodymiddle.render(scale);
+			bodymiddlebutton.render(scale);
+			bodybottom.render(scale);
+			rightchest.render(scale);
+			leftchest.render(scale);
+			rightarm.render(scale);
+			leftarm.render(scale);
+			rightleg.render(scale);
+			leftleg.render(scale);
+			hair1.render(scale);
+			hair2.render(scale);
+
+			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+				headeyes.render(scale);
+			}
+		} else {
+			/* SCALING */
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
+			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
+			head.render(scale);
+
+			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
+				headeyes.render(scale);
+			}
+
+			headaccessory.render(scale);
+			hair1.render(scale);
+			hair2.render(scale);
+			GlStateManager.popMatrix();
+			/* SCALING */
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
+			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
+			neck.render(scale);
+			bodytop.render(scale);
+			bodymiddle.render(scale);
+			bodymiddlebutton.render(scale);
+			bodybottom.render(scale);
+			rightarm.render(scale);
+			leftarm.render(scale);
+			rightleg.render(scale);
+			leftleg.render(scale);
+			GlStateManager.popMatrix();
+			/* SCALING */
 		}
 	}
 

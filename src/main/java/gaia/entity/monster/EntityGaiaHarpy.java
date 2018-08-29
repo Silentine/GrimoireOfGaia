@@ -166,6 +166,10 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
 		}
+
+		if (id == 2) {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
 	}
 
 	@Override
@@ -231,11 +235,20 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		}
 
 		// TEMP Method used instead of isChild
-		if (world.rand.nextInt(10) == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
+		SetChild(true, 10);
 
 		return ret;
+	}
+
+	/* CHILD CODE */
+	private void SetChild(boolean isRandom, int chance) {
+		if (isRandom) {
+			if (world.rand.nextInt(chance) == 0) {
+				SetEquipment((byte) 2);
+			}
+		} else {
+			SetEquipment((byte) 2);
+		}
 	}
 
 	@Override
@@ -252,6 +265,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 		return f;
 	}
+	/* CHILD CODE */
 
 	static class AILeapAttack extends EntityAIAttackMelee {
 

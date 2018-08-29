@@ -219,7 +219,6 @@ public class ModelGaiaMandragora extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
@@ -240,7 +239,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 				headeyes.render(scale);
 			}
 		} else {
-			// ================= Scaling =================//
+			/* SCALING */
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
 			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
@@ -252,7 +251,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 
 			headaccessory.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/* SCALING */
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
 			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
@@ -267,7 +266,7 @@ public class ModelGaiaMandragora extends ModelGaia {
 			leftleg.render(scale);
 			waist.render(scale);
 			GlStateManager.popMatrix();
-			// ===========================================//
+			/* SCALING */
 		}
 	}
 

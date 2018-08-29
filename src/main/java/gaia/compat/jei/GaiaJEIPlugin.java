@@ -55,16 +55,6 @@ public class GaiaJEIPlugin implements IModPlugin {
 		}
 		result.add(new GaiaLootWrapper(new ItemStack(GaiaItems.BAG_BOOK), bookLoot));
 
-		ArrayList<ItemStack> oreLoot = new ArrayList<>();
-		oreLoot.add(new ItemStack(Blocks.COAL_ORE));
-		oreLoot.add(new ItemStack(Blocks.IRON_ORE));
-		oreLoot.add(new ItemStack(Blocks.GOLD_ORE));
-		oreLoot.add(new ItemStack(Blocks.DIAMOND_ORE));
-		oreLoot.add(new ItemStack(Blocks.EMERALD_ORE));
-		oreLoot.add(new ItemStack(Blocks.REDSTONE_ORE));
-		oreLoot.add(new ItemStack(Blocks.LAPIS_ORE));
-		result.add(new GaiaLootWrapper(new ItemStack(GaiaItems.BAG_ORE), oreLoot));
-
 		ArrayList<ItemStack> recordLoot = new ArrayList<>();
 		recordLoot.add(new ItemStack(Items.RECORD_13));
 		recordLoot.add(new ItemStack(Items.RECORD_CAT));

@@ -69,8 +69,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 /**
- * Streamlined Spawning Registry, Tried to keep structure as similar, but
- * cleaned up methods and repetitive code to save time and fingers.
+ * Streamlined Spawning Registry, Tried to keep structure as similar, but cleaned up methods and repetitive code to save time and fingers.
  */
 public class GaiaSpawning {
 	private GaiaSpawning() {}

@@ -44,6 +44,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
+	private boolean isChild;
 
 	public EntityGaiaYukiOnna(World worldIn) {
 		super(worldIn);
@@ -52,6 +53,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		stepHeight = 1.0F;
 
 		switchHealth = 0;
+		isChild = false;
 	}
 
 	@Override
@@ -172,6 +174,10 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
 		}
+
+		if (id == 2) {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
 	}
 
 	@Override
@@ -249,18 +255,51 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 		ItemStack weapon;
 
-		if (rand.nextInt(4) == 0) {
-			weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 4);
-			weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
-		} else {
-			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
-			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
-		}
+		SetChild(true, 1);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+		if (!isChild) {
+			if (rand.nextInt(4) == 0) {
+				weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 4);
+				weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
+			} else {
+				weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+				weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
+			}
+
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+		}
 
 		return ret;
 	}
+
+	/* CHILD CODE */
+	private void SetChild(boolean isRandom, int chance) {
+		if (isRandom) {
+			if (world.rand.nextInt(chance) == 0) {
+				SetEquipment((byte) 2);
+				isChild = true;
+			}
+		} else {
+			SetEquipment((byte) 2);
+			isChild = true;
+		}
+	}
+
+	@Override
+	public float getEyeHeight() {
+		float f;
+
+		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+			f = 1.74F;
+		} else {
+			f = 1.74F - 0.81F;
+		}
+
+		return f;
+	}
+	/* CHILD CODE */
 
 	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {

@@ -63,7 +63,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	private static final AttributeModifier ATTACKING_SPEED_BOOST = (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
 	private static final Set<Block> CARRIABLE_BLOCKS = Sets.newIdentityHashSet();
 	private static final DataParameter<Optional<IBlockState>> CARRIED_BLOCK = EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.OPTIONAL_BLOCK_STATE);
-	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.BOOLEAN);
 	private static final String CARRIED_TAG = "carried";
 	private static final String CARRIED_DATA_TAG = "carriedData";
 
@@ -108,11 +108,11 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 		if (entitylivingbaseIn == null) {
 			targetChangeTime = 0;
-			dataManager.set(SCREAMING, false);
+			this.dataManager.set(SCREAMING, Boolean.valueOf(false));
 			iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
 		} else {
 			targetChangeTime = ticksExisted;
-			dataManager.set(SCREAMING, true);
+			this.dataManager.set(SCREAMING, Boolean.valueOf(true));
 
 			if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
 				iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
@@ -157,7 +157,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(CARRIED_BLOCK, Optional.absent());
-		dataManager.register(SCREAMING, false);
+		this.dataManager.set(SCREAMING, Boolean.valueOf(false));
 	}
 
 	/**
@@ -198,8 +198,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	public void onLivingUpdate() {
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D,
-						-rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 			}
 		}
 
@@ -327,16 +326,6 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		}
 	}
 
-	/* IMMUNITIES */
-	@Override
-	public void fall(float distance, float damageMultiplier) {
-	}
-
-	@Override
-	public void setInWeb() {
-	}
-	/* IMMUNITIES */
-
 	void setHeldBlockState(@Nullable IBlockState state) {
 		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
 	}
@@ -347,8 +336,18 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	}
 
 	public boolean isScreaming() {
-		return dataManager.get(SCREAMING);
+		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
 	}
+
+	/* IMMUNITIES */
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+	}
+
+	@Override
+	public void setInWeb() {
+	}
+	/* IMMUNITIES */
 
 	static {
 		CARRIABLE_BLOCKS.add(Blocks.GRASS);

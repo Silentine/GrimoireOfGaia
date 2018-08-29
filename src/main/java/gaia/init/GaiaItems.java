@@ -67,6 +67,7 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropProjectile;
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -80,72 +81,80 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
-	public static final Item SHARD = Items.AIR;
-	public static final Item WEAPON_PROP_PROJECTILE = Items.AIR;
-	public static final Item MISC_BOOK = Items.AIR;
-	public static final Item BOX = Items.AIR;
-	public static final Item WEAPON_PROP = Items.AIR;
-	public static final Item BAG_BOOK = Items.AIR;
-	public static final Item WEAPON_BOOK_ENDER = Items.AIR;
-	public static final Item SPAWN_ENDER_GIRL = Items.AIR;
-	public static final Item FOOD_MEAT = Items.AIR;
-	public static final Item BOX_IRON = Items.AIR;
-	public static final Item BAG_ARROW = Items.AIR;
-	public static final Item BOX_GOLD = Items.AIR;
-	public static final Item MISC_SOUL_FIERY = Items.AIR;
-	public static final Item WEAPON_BOOK_NIGHTMARE = Items.AIR;
-	public static final Item SHIELD_PROP = Items.AIR;
-	public static final Item CHEST = Items.AIR;
-	public static final Item SPAWN_CREEPER_GIRL = Items.AIR;
-	public static final Item FOOD_ROOT = Items.AIR;
-	public static final Item MISC_FUR = Items.AIR;
-	public static final Item FOOD_COALFISH = Items.AIR;
-	public static final Item BOX_OLD = Items.AIR;
-	public static final Item SPAWN_TAME = Items.AIR;
-	public static final Item MISC_GIGA_GEAR = Items.AIR;
-	public static final Item WEAPON_BOOK_WITHER = Items.AIR;
-	public static final Item SPAWN = Items.AIR;
-	public static final Item SPAWN_HOLSTAURUS = Items.AIR;
-	public static final Item WEAPON_BOOK_HUNGER = Items.AIR;
-	public static final Item SPAWN_TRADER = Items.AIR;
-	public static final Item BAG_RECORD = Items.AIR;
-	public static final Item MISC_FURNACE_FUEL = Items.AIR;
-	public static final Item FOOD_NETHER_WART = Items.AIR;
-	public static final Item SPAWN_SLIME_GIRL = Items.AIR;
-	public static final Item ACCESSORY_TRINKET_WITHER = Items.AIR;
-	public static final Item MISC_CURRENCY = Items.AIR;
-	public static final Item FOOD_ROTTEN_HEART = Items.AIR;
-	public static final Item FOOD_MANDRAKE = Items.AIR;
-	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
-	public static final Item FOOD_SMALL_APPLE_GOLD = Items.AIR;
-	public static final Item BOX_DIAMOND = Items.AIR;
+	// 	A
 	public static final Item ACCESSORY_CURSED = Items.AIR;
-	public static final Item MISC_RING = Items.AIR;
-	public static final Item WEAPON_BOOK_BATTLE = Items.AIR;
-	public static final Item WEAPON_FAN_FIRE = Items.AIR;
-	public static final Item WEAPON_BOOK_NATURE = Items.AIR;
-	public static final Item ACCESSORY_TRINKET_POISON = Items.AIR;
-	public static final Item FOOD_WITHER = Items.AIR;
-	public static final Item WEAPON_BOOK_FREEZING = Items.AIR;
-	public static final Item WEAPON_FAN_ICE = Items.AIR;
-	public static final Item SPAWN_WERESHEEP = Items.AIR;
-	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
-	public static final Item MISC_EXPERIENCE = Items.AIR;
-	public static final Item MISC_QUILL = Items.AIR;
-	public static final Item MISC_SOUL_FIRE = Items.AIR;
-	public static final Item BOOK_BUFF = Items.AIR;
-	public static final Item BAG_ORE = Items.AIR;
-	public static final Item WEAPON_BOOK = Items.AIR;
-	public static final Item WEAPON_BOOK_METAL = Items.AIR;
-	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
-	public static final Item FOOD_PIE_MANDRAKE = Items.AIR;
-	public static final Item FOOD_PIE_MEAT = Items.AIR;
-	public static final Item FOOD_PIE_APPLE_GOLD = Items.AIR;
-	public static final Item ACCESSORY_RING_SPEED = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
 	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
 	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
 	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
-	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
+	public static final Item ACCESSORY_RING_SPEED = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_POISON = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_WITHER = Items.AIR;
+	// 	B
+	public static final Item BOX = Items.AIR;
+	public static final Item BAG_ARROW = Items.AIR;
+	public static final Item BAG_BOOK = Items.AIR;
+	public static final Item BAG_RECORD = Items.AIR;
+	public static final Item BOOK_BUFF = Items.AIR;
+	public static final Item BOX_DIAMOND = Items.AIR;
+	public static final Item BOX_GOLD = Items.AIR;
+	public static final Item BOX_IRON = Items.AIR;
+	public static final Item BOX_OLD = Items.AIR;
+
+	// 	C
+	public static final Item CHEST = Items.AIR;
+	//	F
+	public static final Item FOOD_COALFISH = Items.AIR;
+	public static final Item FOOD_MANDRAKE = Items.AIR;
+	public static final Item FOOD_MEAT = Items.AIR;
+	public static final Item FOOD_NETHER_WART = Items.AIR;
+	public static final Item FOOD_PIE_APPLE_GOLD = Items.AIR;
+	public static final Item FOOD_PIE_MANDRAKE = Items.AIR;
+	public static final Item FOOD_PIE_MEAT = Items.AIR;
+	public static final Item FOOD_ROOT = Items.AIR;
+	public static final Item FOOD_ROTTEN_HEART = Items.AIR;
+	public static final Item FOOD_SMALL_APPLE_GOLD = Items.AIR;
+	public static final Item FOOD_WITHER = Items.AIR;
+	// 	M
+	public static final Item MISC_BOOK = Items.AIR;
+	public static final Item MISC_CURRENCY = Items.AIR;
+	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
+	public static final Item MISC_EXPERIENCE = Items.AIR;
+	public static final Item MISC_FUR = Items.AIR;
+	public static final Item MISC_FURNACE_FUEL = Items.AIR;
+	public static final Item MISC_GIGA_GEAR = Items.AIR;
+	public static final Item MISC_QUILL = Items.AIR;
+	public static final Item MISC_RING = Items.AIR;
+	public static final Item MISC_SOUL_FIRE = Items.AIR;
+	public static final Item MISC_SOUL_FIERY = Items.AIR;
+	//	S
+	public static final Item SHARD = Items.AIR;
+	public static final Item SHIELD_PROP = Items.AIR;
+	public static final Item SPAWN = Items.AIR;
+	public static final Item SPAWN_WERESHEEP = Items.AIR;
+	public static final Item SPAWN_CREEPER_GIRL = Items.AIR;
+	public static final Item SPAWN_ENDER_GIRL = Items.AIR;
+	public static final Item SPAWN_HOLSTAURUS = Items.AIR;
+	public static final Item SPAWN_SLIME_GIRL = Items.AIR;
+	public static final Item SPAWN_TAME = Items.AIR;
+	public static final Item SPAWN_TRADER = Items.AIR;
+	//	W
+	public static final Item WEAPON_BOOK = Items.AIR;
+	public static final Item WEAPON_BOOK_BATTLE = Items.AIR;
+	public static final Item WEAPON_BOOK_BUFF = Items.AIR;
+	public static final Item WEAPON_BOOK_ENDER = Items.AIR;
+	public static final Item WEAPON_BOOK_FREEZING = Items.AIR;
+	public static final Item WEAPON_BOOK_HUNGER = Items.AIR;
+	public static final Item WEAPON_BOOK_METAL = Items.AIR;
+	public static final Item WEAPON_BOOK_NATURE = Items.AIR;
+	public static final Item WEAPON_BOOK_NIGHTMARE = Items.AIR;
+	public static final Item WEAPON_BOOK_WITHER = Items.AIR;
+	public static final Item WEAPON_FAN_FIRE = Items.AIR;
+	public static final Item WEAPON_FAN_ICE = Items.AIR;
+	public static final Item WEAPON_PROP = Items.AIR;
+	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
+	public static final Item WEAPON_PROP_PROJECTILE = Items.AIR;
 
 	private GaiaItems() {
 	}
@@ -217,7 +226,7 @@ public class GaiaItems {
 			registry.register(new ItemWeaponBookNature());
 			registry.register(new ItemWeaponBookWither());
 			registry.register(new ItemWeaponBookBuff());
-			registry.register(new ItemWeaponDebug());
+//			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemAccessoryRingSpeed());
 			registry.register(new ItemAccessoryRingHaste());
 			registry.register(new ItemAccessoryRingJump());

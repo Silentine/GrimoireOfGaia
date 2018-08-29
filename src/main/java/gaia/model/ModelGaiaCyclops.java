@@ -27,8 +27,7 @@ public class ModelGaiaCyclops extends ModelGaia {
 	private ModelRenderer rightleg;
 	private ModelRenderer leftleg;
 	private ModelRenderer hair;
-	private ModelRenderer skirt1;
-	private ModelRenderer skirt2;
+	private ModelRenderer skirt;
 
 	public ModelGaiaCyclops() {
 		textureWidth = 128;
@@ -145,16 +144,22 @@ public class ModelGaiaCyclops extends ModelGaia {
 		leftarmgauntlet.setRotationPoint(2.5F, 2.5F, 0F);
 		leftarmgauntlet.setTextureSize(64, 32);
 		setRotation(leftarmgauntlet, 0.0872665F, 0F, -0.1745329F);
-		skirt1 = new ModelRenderer(this, 64, 0);
-		skirt1.addBox(-3.5F, 7.466667F, -3F, 7, 6, 4);
-		skirt1.setRotationPoint(0F, 1F, 0F);
-		skirt1.setTextureSize(64, 32);
-		setRotation(skirt1, 0.0872665F, 0F, 0F);
-		skirt2 = new ModelRenderer(this, 64, 10);
-		skirt2.addBox(-4F, 8.466666F, -3.5F, 8, 7, 4);
-		skirt2.setRotationPoint(0F, 1F, 0F);
-		skirt2.setTextureSize(64, 32);
-		setRotation(skirt2, 0.1745329F, 0F, 0F);
+		skirt = new ModelRenderer(this, 64, 0);
+		skirt.addBox(-3.5F, 7.466667F, -3F, 7, 6, 4);
+		skirt.setRotationPoint(0F, 1F, 0F);
+		skirt.setTextureSize(128, 64);
+		setRotation(skirt, 0.0872665F, 0F, 0F);
+		ModelRenderer rightlegupper = new ModelRenderer(this, 64, 10);
+		rightlegupper.addBox(-2F, -1.533333F, -2F, 4, 7, 4);
+		rightlegupper.setRotationPoint(-2F, 11F, 0F);
+		rightlegupper.setTextureSize(128, 64);
+		setRotation(rightlegupper, 0.0872665F, 0F, 0.1745329F);
+		ModelRenderer leftlegupper = new ModelRenderer(this, 64, 10);
+		leftlegupper.mirror = true;
+		leftlegupper.addBox(-2F, -1.533333F, -2F, 4, 7, 4);
+		leftlegupper.setRotationPoint(2F, 11F, 0F);
+		leftlegupper.setTextureSize(128, 64);
+		setRotation(leftlegupper, 0.0872665F, 0F, -0.1745329F);
 
 		convertToChild(head, hairribbon);
 		convertToChild(head, righthorn);
@@ -163,6 +168,8 @@ public class ModelGaiaCyclops extends ModelGaia {
 		convertToChild(leftarm, leftarmpauldron);
 		convertToChild(rightarm, rightarmgauntlet);
 		convertToChild(leftarm, leftarmgauntlet);
+		convertToChild(rightleg, rightlegupper);
+		convertToChild(leftleg, leftlegupper);
 	}
 
 	@Override
@@ -183,8 +190,7 @@ public class ModelGaiaCyclops extends ModelGaia {
 		rightleg.render(scale);
 		leftleg.render(scale);
 		hair.render(scale);
-		skirt1.render(scale);
-		skirt2.render(scale);
+		skirt.render(scale);
 
 		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
 			headeyes.render(scale);

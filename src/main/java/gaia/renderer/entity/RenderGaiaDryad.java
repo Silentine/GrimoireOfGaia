@@ -33,12 +33,12 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 
 	private ResourceLocation getTexture(EntityGaiaDryad entityGaiaDryad) {
 		switch (entityGaiaDryad.getTextureType()) {
-			case 0:
-				return texture01;
-			case 1:
-				return texture02;
-			default:
-				return texture01;
+		case 0:
+			return texture01;
+		case 1:
+			return texture02;
+		default:
+			return texture01;
 		}
 	}
 

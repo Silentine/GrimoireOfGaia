@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Predicate;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
@@ -51,7 +53,7 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
 	private static final AttributeModifier ATTACKING_SPEED_BOOST = (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
-	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.createKey(EntityGaiaEnderEye.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaEnderEye.class, DataSerializers.BOOLEAN);
 
 	private int targetChangeTime;
 
@@ -71,7 +73,11 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntityGaiaEnderEye.AIFindPlayer(this));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>() {
+			public boolean apply(@Nullable EntityEndermite p_apply_1_) {
+				return p_apply_1_.isSpawnedByPlayer();
+			}
+		}));
 	}
 
 	@Override
@@ -96,11 +102,11 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
 		if (entitylivingbaseIn == null) {
 			targetChangeTime = 0;
-			dataManager.set(SCREAMING, false);
+			this.dataManager.set(SCREAMING, Boolean.valueOf(false));
 			iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
 		} else {
 			targetChangeTime = ticksExisted;
-			dataManager.set(SCREAMING, true);
+			this.dataManager.set(SCREAMING, Boolean.valueOf(true));
 
 			if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
 				iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
@@ -139,7 +145,7 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataManager.register(SCREAMING, false);
+		this.dataManager.register(SCREAMING, Boolean.valueOf(false));
 	}
 
 	/**
@@ -149,8 +155,7 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 	public void onLivingUpdate() {
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D,
-						-rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+				world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 			}
 		}
 
@@ -270,6 +275,10 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 		}
 	}
 
+	public boolean isScreaming() {
+		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
+	}
+
 	/* IMMUNITIES */
 	@Override
 	public void fall(float distance, float damageMultiplier) {
@@ -279,10 +288,6 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
-
-	private boolean isScreaming() {
-		return dataManager.get(SCREAMING);
-	}
 
 	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 

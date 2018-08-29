@@ -15,7 +15,15 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	private static final int TORCH_RADIUS = 8;
-	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW_LAYER);
+	private static Set<Block> spawnBlocks = 
+			Sets.newHashSet
+			(
+					Blocks.GRASS, 
+					Blocks.DIRT, 
+					Blocks.GRAVEL, 
+					Blocks.SAND, 
+					Blocks.SNOW_LAYER
+			);
 
 	public EntityMobHostileDay(World worldIn) {
 		super(worldIn);

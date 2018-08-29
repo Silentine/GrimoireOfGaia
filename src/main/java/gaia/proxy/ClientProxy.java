@@ -175,7 +175,7 @@ public class ClientProxy extends CommonProxy {
 		float large = 0.7F;
 
 		// Mob
-		RenderingRegistry.registerEntityRenderingHandler(EntityDebugMob.class, renderManager -> new RenderDebugMob(renderManager, small));
+//		RenderingRegistry.registerEntityRenderingHandler(EntityDebugMob.class, renderManager -> new RenderDebugMob(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnt.class, renderManager -> new RenderGaiaAnt(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaAnubis.class, renderManager -> new RenderGaiaAnubis(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaArachne.class, renderManager -> new RenderGaiaArachne(renderManager, large));
@@ -216,10 +216,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCHolstaurus.class, renderManager -> new RenderGaiaNPCHolstaurus(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaNPCWeresheep.class, renderManager -> new RenderGaiaNPCWeresheep(renderManager, small));
 		// Prop
-		/*
-		 * RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, RenderGaiaPropChestMimic::new); RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, RenderGaiaPropFlowerCyan::new);
-		 */
-
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, renderManager -> new RenderGaiaPropChestMimic(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, renderManager -> new RenderGaiaPropFlowerCyan(renderManager, small));
 		// Mob
@@ -244,7 +240,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYeti.class, renderManager -> new RenderGaiaYeti(renderManager, large));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, renderManager -> new RenderGaiaYukiOnna(renderManager, small));
 		// Projectile
-		// TODO EntityGaiaProjectileMagic is being rendered as EntityLargeFireball.java
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectileMagic(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE));
 	}
 
@@ -253,6 +248,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
 	}
 
+	// TODO headgear appear invisible on the Alex player model when equipped in baubles HEAD slot.
 	@Override
 	public void registerLayerRenders() {
 		if (Loader.isModLoaded("baubles")) {

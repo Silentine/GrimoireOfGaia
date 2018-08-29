@@ -84,7 +84,7 @@ public class GaiaEntities {
 	private static int modEntityId = 0;
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
-			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
+//			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
 			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
 			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646),
