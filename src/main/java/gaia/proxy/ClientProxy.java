@@ -248,12 +248,19 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBust.class, new TileRenderBust());
 	}
 
-	// TODO headgear appear invisible on the Alex player model when equipped in baubles HEAD slot.
+	/**
+	 * @reference 
+	 * https://github.com/gigaherz/ToolBelt/blob/master/src/main/java/gigaherz/toolbelt/client/ClientProxy.java
+	 */
 	@Override
 	public void registerLayerRenders() {
 		if (Loader.isModLoaded("baubles")) {
 			Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
+			// Used for default player model
 			RenderPlayer render = skinMap.get("default");
+			render.addLayer(new LayerHeadgear(render.getMainModel().bipedHead));
+			// Used for slim player model
+			render = skinMap.get("slim");
 			render.addLayer(new LayerHeadgear(render.getMainModel().bipedHead));
 		}
 	}

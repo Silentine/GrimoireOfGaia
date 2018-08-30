@@ -317,6 +317,10 @@ public class ModelGaiaHarpy extends ModelGaia {
 			animationFlee();
 		}
 
+		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		// body
 		tail.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(5);
 
@@ -349,12 +353,22 @@ public class ModelGaiaHarpy extends ModelGaia {
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
+	private float defaultRotateAngleX = -0.5235988F;
+
 	private void animationFlee() {
-		if ((rightleg.rotateAngleX != -0.5235988F) || (leftleg.rotateAngleX != -0.5235988F)) {
+		if ((rightleg.rotateAngleX >= defaultRotateAngleX + degToRad(5)) || (rightleg.rotateAngleX <= defaultRotateAngleX + degToRad(-5))) {
 			rightarm.rotateAngleX += 1.0472F;
 			leftarm.rotateAngleX += 1.0472F;
-			rightarm.rotateAngleY -= 0.523599F;
-			leftarm.rotateAngleY += 0.523599F;
+			rightarm.rotateAngleY = -0.523599F;
+			leftarm.rotateAngleY = 0.523599F;
+		} else {
+			rightarm.rotateAngleY = 0.0F;
+			leftarm.rotateAngleY = 0.0F;
 		}
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 }

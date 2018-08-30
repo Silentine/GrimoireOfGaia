@@ -165,7 +165,6 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 				SetAI((byte) 1);
 				SetEquipment((byte) 1);
 				switchHealth = 1;
-				System.out.println("FLEE!");
 			} else {
 				switchHealth = 2;
 			}

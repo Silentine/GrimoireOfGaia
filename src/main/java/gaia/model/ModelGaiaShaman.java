@@ -240,6 +240,10 @@ public class ModelGaiaShaman extends ModelGaia {
 			animationCasting();
 		}
 
+		if (itemstack.getItem() == Items.EGG || itemstack.isEmpty()) {
+			animationReset();
+		}
+
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
@@ -267,6 +271,11 @@ public class ModelGaiaShaman extends ModelGaia {
 
 		rightarm.rotateAngleY = -0.436332F;
 		leftarm.rotateAngleY = 0.436332F;
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

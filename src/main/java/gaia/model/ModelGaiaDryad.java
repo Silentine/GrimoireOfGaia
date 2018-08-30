@@ -192,7 +192,7 @@ public class ModelGaiaDryad extends ModelGaia {
 
 			headaccessory.render(scale);
 			hair1.render(scale);
-			hair2.render(scale);
+//			hair2.render(scale);
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();
@@ -243,6 +243,10 @@ public class ModelGaiaDryad extends ModelGaia {
 			animationFlee();
 		}
 
+		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
 		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
@@ -270,12 +274,20 @@ public class ModelGaiaDryad extends ModelGaia {
 	}
 
 	private void animationFlee() {
-		if ((rightleg.rotateAngleX != 0.0F) || (leftleg.rotateAngleX != 0.0F)) {
+		if ((rightleg.rotateAngleX >= degToRad(5)) || (rightleg.rotateAngleX <= degToRad(-5))) {
 			rightarm.rotateAngleX += 1.0472F;
 			leftarm.rotateAngleX += 1.0472F;
 			rightarm.rotateAngleY = -0.523599F;
 			leftarm.rotateAngleY = 0.523599F;
+		} else {
+			rightarm.rotateAngleY = 0.0F;
+			leftarm.rotateAngleY = 0.0F;
 		}
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

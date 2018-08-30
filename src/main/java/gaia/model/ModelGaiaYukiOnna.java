@@ -187,7 +187,7 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 
 			headaccessory.render(scale);
 			hair1.render(scale);
-			hair2.render(scale);
+//			hair2.render(scale);
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();
@@ -241,6 +241,10 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 			animationFlee();
 		}
 
+		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.1F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 0.1F * limbSwingAmount;
@@ -263,12 +267,20 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 	}
 
 	private void animationFlee() {
-		if ((rightleg.rotateAngleX != 0.0F) || (leftleg.rotateAngleX != 0.0F)) {
+		if ((rightleg.rotateAngleX >= degToRad(5)) || (rightleg.rotateAngleX <= degToRad(-5))) {
 			rightarm.rotateAngleX += 1.0472F;
 			leftarm.rotateAngleX += 1.0472F;
 			rightarm.rotateAngleY = -0.523599F;
 			leftarm.rotateAngleY = 0.523599F;
+		} else {
+			rightarm.rotateAngleY = 0.0F;
+			leftarm.rotateAngleY = 0.0F;
 		}
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

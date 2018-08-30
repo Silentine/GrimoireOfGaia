@@ -81,6 +81,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
+	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
 	// 	A
 	public static final Item ACCESSORY_CURSED = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
@@ -101,7 +102,6 @@ public class GaiaItems {
 	public static final Item BOX_GOLD = Items.AIR;
 	public static final Item BOX_IRON = Items.AIR;
 	public static final Item BOX_OLD = Items.AIR;
-
 	// 	C
 	public static final Item CHEST = Items.AIR;
 	//	F
@@ -119,7 +119,6 @@ public class GaiaItems {
 	// 	M
 	public static final Item MISC_BOOK = Items.AIR;
 	public static final Item MISC_CURRENCY = Items.AIR;
-	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
 	public static final Item MISC_EXPERIENCE = Items.AIR;
 	public static final Item MISC_FUR = Items.AIR;
 	public static final Item MISC_FURNACE_FUEL = Items.AIR;

@@ -258,6 +258,10 @@ public class ModelGaiaMinotaur extends ModelGaia {
 			animationBuff();
 		}
 
+		if (itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
@@ -286,6 +290,11 @@ public class ModelGaiaMinotaur extends ModelGaia {
 		leftarm.rotateAngleX = -0.698132F;
 		rightarm.rotateAngleY = 0.698132F;
 		leftarm.rotateAngleY = -0.698132F;
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

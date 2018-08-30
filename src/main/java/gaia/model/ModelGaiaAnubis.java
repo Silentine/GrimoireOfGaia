@@ -264,6 +264,10 @@ public class ModelGaiaAnubis extends ModelGaia {
 		if (itemstack.getItem() == Items.STICK) {
 			animationCasting();
 		}
+		
+		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
 
 		// body
 		tail.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(5);
@@ -295,6 +299,11 @@ public class ModelGaiaAnubis extends ModelGaia {
 
 		rightarm.rotateAngleY = -0.436332F;
 		leftarm.rotateAngleY = 0.436332F;
+	}
+	
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

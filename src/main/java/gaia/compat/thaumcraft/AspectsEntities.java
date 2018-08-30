@@ -19,16 +19,22 @@ public class AspectsEntities {
 
 		String ref = GaiaReference.MOD_ID + ".";
 
-		//Entity - Format is based on GaiaEntity
-		//Tier 1 - 1-2<4
-		//Tier 2 - 2-3<6
-		//Tier 3 - 2-4<8
+		/**
+		 * Entity - Format is based on GaiaEntity
+		 * Tier 1 - 1-2<4
+		 * 
+		 * Tier 2 - 2-3<6
+		 * 
+		 * Tier 3 - 2-4<8
+		 */
+
+		// 	A
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "anubis",
 				(new AspectList()).add(Aspect.BEAST, 3).add(Aspect.DARKNESS, 3)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "arachne",
 				(new AspectList()).add(Aspect.ENTROPY, 2)));
-
+		//	B
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "banshee",
 				(new AspectList()).add(Aspect.SOUL, 2).add(Aspect.ENTROPY, 2).add(Aspect.FIRE, 2)));
 
@@ -37,7 +43,7 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "bone_knight",
 				(new AspectList()).add(Aspect.UNDEAD, 2).add(Aspect.MAN, 2).add(Aspect.PROTECT, 2)));
-
+		//	C
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "centaur",
 				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.EARTH, 1)));
 
@@ -58,7 +64,7 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "cyan_flower",
 				(new AspectList()).add(Aspect.PLANT, 2)));
-
+		//	D
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "dhampir",
 				(new AspectList()).add(Aspect.UNDEAD, 2).add(Aspect.MAN, 2).add(Aspect.ENTROPY, 2)));
 
@@ -70,25 +76,25 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "dwarf",
 				(new AspectList()).add(Aspect.MAN, 1).add(Aspect.EARTH, 1)));
-
+		//	E
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "ender_dragon_girl",
 				(new AspectList()).add(Aspect.ELDRITCH, 4).add(Aspect.DARKNESS, 2)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "ender_eye",
 				(new AspectList()).add(Aspect.ELDRITCH, 1).add(Aspect.DARKNESS, 1)));
-
+		//	F
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "flesh_lich",
 				(new AspectList()).add(Aspect.UNDEAD, 2).add(Aspect.MAN, 2).add(Aspect.FIRE, 2)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "futakuchi_onna",
 				(new AspectList()).add(Aspect.MAN, 1).add(Aspect.ENTROPY, 1)));
-
+		//	H
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "harpy",
 				(new AspectList()).add(Aspect.AIR, 2)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "hunter",
 				(new AspectList()).add(Aspect.MAN, 1).add(Aspect.EARTH, 1)));
-
+		//	M
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "matango",
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.DARKNESS, 1)));
 
@@ -103,13 +109,13 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "minotaurus",
 				(new AspectList()).add(Aspect.BEAST, 3).add(Aspect.AVERSION, 3)));
-
+		//	N
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "naga",
 				(new AspectList()).add(Aspect.PROTECT, 2).add(Aspect.WATER, 2).add(Aspect.EARTH, 2)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "nine_tails",
 				(new AspectList()).add(Aspect.BEAST, 3).add(Aspect.FIRE, 3)));
-
+		//	S
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "sahuagin",
 				(new AspectList()).add(Aspect.WATER, 2)));
 
@@ -139,16 +145,16 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "succubus",
 				(new AspectList()).add(Aspect.FIRE, 2)));
-
+		//	T
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "toad",
 				(new AspectList()).add(Aspect.LIFE, 3).add(Aspect.WATER, 3)));
-
+		//	V
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "valkyrie",
 				(new AspectList()).add(Aspect.MAN, 2).add(Aspect.MOTION, 2).add(Aspect.FLIGHT, 2).add(Aspect.ORDER, 2)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "vampire",
 				(new AspectList()).add(Aspect.UNDEAD, 2).add(Aspect.MAN, 2).add(Aspect.SENSES, 2).add(Aspect.ENTROPY, 2)));
-
+		//	W
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "werecat",
 				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.EARTH, 1)));
 
@@ -157,14 +163,14 @@ public class AspectsEntities {
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "wither_cow",
 				(new AspectList()).add(Aspect.UNDEAD, 1).add(Aspect.BEAST, 1)));
-
+		//	Y
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "yeti",
 				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.COLD, 1)));
 
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "yuki-onna",
 				(new AspectList()).add(Aspect.SOUL, 2).add(Aspect.COLD, 2).add(Aspect.ORDER, 2)));
 
-		//NPC
+		//	NPC
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "creeper_girl",
 				(new AspectList()).add(Aspect.FIRE, 1).add(Aspect.MAN, 1)));
 
@@ -183,9 +189,8 @@ public class AspectsEntities {
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "weresheep",
 				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.CRAFT, 1)));
 
-		//Spawn
+		//	Spawn
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "mandragora",
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.EARTH, 1)));
-
 	}
 }

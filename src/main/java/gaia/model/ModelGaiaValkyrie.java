@@ -289,6 +289,10 @@ public class ModelGaiaValkyrie extends ModelGaia {
 			animationBuff();
 		}
 
+		if (itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		// body
 		rightwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
 		leftwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
@@ -321,6 +325,11 @@ public class ModelGaiaValkyrie extends ModelGaia {
 		leftarm.rotateAngleX = -0.698132F;
 		rightarm.rotateAngleY = 0.698132F;
 		leftarm.rotateAngleY = -0.698132F;
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

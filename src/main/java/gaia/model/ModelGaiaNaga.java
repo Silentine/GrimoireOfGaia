@@ -47,122 +47,122 @@ public class ModelGaiaNaga extends ModelGaia {
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-3F, -5F, -3F, 6, 5, 7);
 		head.setRotationPoint(0F, -6F, -3F);
-		head.setTextureSize(textureWidth, textureHeight);
+		head.setTextureSize(128, 64);
 		setRotation(head, 0F, 0F, 0F);
 		ModelRenderer headnose1 = new ModelRenderer(this, 0, 12);
 		headnose1.addBox(-1F, -4F, -5F, 2, 1, 2);
 		headnose1.setRotationPoint(0F, -6F, -3F);
-		headnose1.setTextureSize(textureWidth, textureHeight);
+		headnose1.setTextureSize(128, 64);
 		setRotation(headnose1, 0F, 0F, 0F);
 		ModelRenderer headnose2 = new ModelRenderer(this, 0, 15);
 		headnose2.addBox(-2F, -3F, -6F, 4, 2, 3);
 		headnose2.setRotationPoint(0F, -6F, -3F);
-		headnose2.setTextureSize(textureWidth, textureHeight);
+		headnose2.setTextureSize(128, 64);
 		setRotation(headnose2, 0F, 0F, 0F);
 		ModelRenderer headjaw = new ModelRenderer(this, 0, 20);
 		headjaw.addBox(-2.5F, -2F, -6.5F, 5, 3, 6);
 		headjaw.setRotationPoint(0F, -6F, -3F);
-		headjaw.setTextureSize(textureWidth, textureHeight);
+		headjaw.setTextureSize(128, 64);
 		setRotation(headjaw, 0F, 0F, 0F);
 		ModelRenderer headtendrils = new ModelRenderer(this, 0, 29);
 		headtendrils.addBox(-3F, -1F, -6.5F, 6, 6, 6);
 		headtendrils.setRotationPoint(0F, -6F, -3F);
-		headtendrils.setTextureSize(textureWidth, textureHeight);
+		headtendrils.setTextureSize(128, 64);
 		setRotation(headtendrils, 0F, 0F, 0F);
 		ModelRenderer rightfin = new ModelRenderer(this, 19, -5);
 		rightfin.addBox(-3F, -5F, 0F, 0, 5, 5);
 		rightfin.setRotationPoint(0F, -6F, -3F);
-		rightfin.setTextureSize(textureWidth, textureHeight);
+		rightfin.setTextureSize(128, 64);
 		setRotation(rightfin, 0F, -0.5235988F, 0F);
 		ModelRenderer leftfin = new ModelRenderer(this, 19, -5);
 		leftfin.addBox(3F, -5F, 0F, 0, 5, 5);
 		leftfin.setRotationPoint(0F, -6F, -3F);
-		leftfin.setTextureSize(textureWidth, textureHeight);
+		leftfin.setTextureSize(128, 64);
 		setRotation(leftfin, 0F, 0.5235988F, 0F);
 		pauldron = new ModelRenderer(this, 34, 0);
 		pauldron.addBox(-9F, -0.5F, -3F, 18, 7, 7);
 		pauldron.setRotationPoint(0F, -7F, 0F);
-		pauldron.setTextureSize(textureWidth, textureHeight);
+		pauldron.setTextureSize(128, 64);
 		setRotation(pauldron, -0.1745329F, 0F, 0F);
 		body = new ModelRenderer(this, 34, 14);
 		body.addBox(-4.5F, -2F, -1.5F, 9, 4, 4);
 		body.setRotationPoint(0F, -7F, 0F);
-		body.setTextureSize(textureWidth, textureHeight);
+		body.setTextureSize(128, 64);
 		setRotation(body, 0.2617994F, 0F, 0F);
 		body2 = new ModelRenderer(this, 34, 44);
 		body2.addBox(-5.5F, 0F, -2.5F, 11, 9, 6);
 		body2.setRotationPoint(0F, -7F, 0F);
-		body2.setTextureSize(textureWidth, textureHeight);
+		body2.setTextureSize(128, 64);
 		setRotation(body2, -0.1745329F, 0F, 0F);
 		fin1 = new ModelRenderer(this, 0, 34);
 		fin1.addBox(0F, -5F, -2.5F, 0, 13, 12);
 		fin1.setRotationPoint(0F, -7F, 0F);
-		fin1.setTextureSize(textureWidth, textureHeight);
+		fin1.setTextureSize(128, 64);
 		setRotation(fin1, -0.1745329F, 0F, 0F);
 		fin2 = new ModelRenderer(this, 0, 35);
 		fin2.addBox(0F, -9F, -3F, 0, 5, 6);
 		fin2.setRotationPoint(0F, -6F, -3F);
-		fin2.setTextureSize(textureWidth, textureHeight);
+		fin2.setTextureSize(128, 64);
 		setRotation(fin2, 0F, 0F, 0F);
 		rightarm = new ModelRenderer(this, 34, 22);
 		rightarm.addBox(-3F, -1.5F, -1.5F, 3, 8, 3);
 		rightarm.setRotationPoint(-5.5F, -4F, 0F);
-		rightarm.setTextureSize(textureWidth, textureHeight);
+		rightarm.setTextureSize(128, 64);
 		setRotation(rightarm, 0F, 0F, 0.0872665F);
 		ModelRenderer rightarmlower = new ModelRenderer(this, 34, 33);
 		rightarmlower.addBox(-3F, 6.5F, -0.5F, 3, 8, 3);
 		rightarmlower.setRotationPoint(-5.5F, -4F, 0F);
-		rightarmlower.setTextureSize(textureWidth, textureHeight);
+		rightarmlower.setTextureSize(128, 64);
 		setRotation(rightarmlower, -0.1745329F, 0F, 0.0872665F);
 		leftarm = new ModelRenderer(this, 46, 22);
 		leftarm.addBox(0F, -1.5F, -1.5F, 3, 8, 3);
 		leftarm.setRotationPoint(5.5F, -4F, 0F);
-		leftarm.setTextureSize(textureWidth, textureHeight);
+		leftarm.setTextureSize(128, 64);
 		setRotation(leftarm, 0F, 0F, -0.0872665F);
 		ModelRenderer leftarmlower = new ModelRenderer(this, 46, 33);
 		leftarmlower.addBox(0F, 6.5F, -0.5F, 3, 8, 3);
 		leftarmlower.setRotationPoint(5.5F, -4F, 0F);
-		leftarmlower.setTextureSize(textureWidth, textureHeight);
+		leftarmlower.setTextureSize(128, 64);
 		setRotation(leftarmlower, -0.1745329F, 0F, -0.0872665F);
 		waist = new ModelRenderer(this, 84, 0);
 		waist.addBox(-4.5F, 9F, -2.5F, 9, 5, 5);
 		waist.setRotationPoint(0F, -7F, 0F);
-		waist.setTextureSize(textureWidth, textureHeight);
+		waist.setTextureSize(128, 64);
 		setRotation(waist, -0.1308997F, undulationCycle[0][0], 0F);
 		tail1 = new ModelRenderer(this, 84, 10);
 		tail1.addBox(-4F, 14F, -2.5F, 8, 3, 4);
 		tail1.setRotationPoint(0F, -7F, 0F);
-		tail1.setTextureSize(textureWidth, textureHeight);
+		tail1.setTextureSize(128, 64);
 		setRotation(tail1, -0.0436332F, undulationCycle[0][1], 0F);
 		tail2 = new ModelRenderer(this, 84, 17);
 		tail2.addBox(-3.5F, 17F, -2.5F, 7, 3, 4);
 		tail2.setRotationPoint(0F, -7F, 0F);
-		tail2.setTextureSize(textureWidth, textureHeight);
+		tail2.setTextureSize(128, 64);
 		setRotation(tail2, 0F, undulationCycle[0][2], 0F);
 		tail3 = new ModelRenderer(this, 108, 10);
 		tail3.addBox(-3F, 20F, -2.5F, 6, 3, 4);
 		tail3.setRotationPoint(0F, -7F, 0F);
-		tail3.setTextureSize(textureWidth, textureHeight);
+		tail3.setTextureSize(128, 64);
 		setRotation(tail3, 0.0436332F, undulationCycle[0][3], 0F);
 		tail4 = new ModelRenderer(this, 108, 10);
 		tail4.addBox(-3F, 23F, -3.5F, 6, 3, 4);
 		tail4.setRotationPoint(0F, -7F, 0F);
-		tail4.setTextureSize(textureWidth, textureHeight);
+		tail4.setTextureSize(128, 64);
 		setRotation(tail4, 0.1308997F, undulationCycle[0][4], 0F);
 		tail5 = new ModelRenderer(this, 108, 10);
 		tail5.addBox(-3F, 26F, -3.5F, 6, 3, 4);
 		tail5.setRotationPoint(0F, -7F, 0F);
-		tail5.setTextureSize(textureWidth, textureHeight);
+		tail5.setTextureSize(128, 64);
 		setRotation(tail5, 0.1745329F, undulationCycle[0][5], 0F);
 		tail6 = new ModelRenderer(this, 108, 17);
 		tail6.addBox(-2.5F, 28F, -1.5F, 5, 3, 4);
 		tail6.setRotationPoint(0F, -7F, 0F);
-		tail6.setTextureSize(textureWidth, textureHeight);
+		tail6.setTextureSize(128, 64);
 		setRotation(tail6, 0.1745329F, undulationCycle[0][6], 0F);
 		tail7 = new ModelRenderer(this, 108, 17);
 		tail7.addBox(-2.5F, 29F, 1.5F, 5, 3, 4);
 		tail7.setRotationPoint(0F, -7F, 0F);
-		tail7.setTextureSize(textureWidth, textureHeight);
+		tail7.setTextureSize(128, 64);
 		setRotation(tail7, 0.1745329F, undulationCycle[0][7], 0F);
 
 		convertToChild(head, headnose1);
@@ -226,6 +226,10 @@ public class ModelGaiaNaga extends ModelGaia {
 		if (itemstack.getItem() == Items.STICK) {
 			animationBuff();
 		}
+		
+		if (itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
 
 		// body
 		fin2.rotateAngleY = head.rotateAngleY;
@@ -266,6 +270,11 @@ public class ModelGaiaNaga extends ModelGaia {
 		leftarm.rotateAngleX = -0.698132F;
 		rightarm.rotateAngleY = 0.698132F;
 		leftarm.rotateAngleY = -0.698132F;
+	}
+	
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

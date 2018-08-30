@@ -6,14 +6,14 @@
     },
 	"display": {
         "gui": {
-            "rotation": [ 0, 180, 0 ],
+            "rotation": [ 30, 225, 0 ],
             "translation": [ 0, 0, 0],
             "scale":[ 1.0, 1.0, 1.0 ]
         },
 		"head": {
             "rotation": [ 180, 180, 180 ],
             "translation": [ 0, 1.2, 0],
-            "scale":[ 1.9, 1.9, 1.9 ]
+            "scale":[ 2.0, 2.0, 2.0 ]
         },
         "fixed": {
             "rotation": [ 0, 180, 0 ],

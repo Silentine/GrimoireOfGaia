@@ -304,6 +304,10 @@ public class ModelGaiaArachne extends ModelGaia {
 		if (itemstack.getItem() == Items.STICK) {
 			animationCasting();
 		}
+		
+		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
 
 		// body
 		rightchest.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount + 0.8726646F;
@@ -386,6 +390,11 @@ public class ModelGaiaArachne extends ModelGaia {
 
 		rightarm.rotateAngleY = -0.610865F;
 		leftarm.rotateAngleY = 0.610865F;
+	}
+	
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

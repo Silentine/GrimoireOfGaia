@@ -187,10 +187,10 @@ text.grimoireofgaia.InventoryImmunity=Immunity to
 
 text.grimoireofgaia.Accessory.tag=Accessory
 text.grimoireofgaia.Trinket.tag=Trinket
+text.grimoireofgaia.Headgear.tag=Headgear
 text.grimoireofgaia.Prop.tag=Prop
 text.grimoireofgaia.WIP.tag=WIP
 text.grimoireofgaia.Debug.tag=Debug
-text.grimoireofgaia.card.tag=Action Card
 
 text.grimoireofgaia.HoldShift=<Hold Shift>
 

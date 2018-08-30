@@ -1,22 +1,23 @@
 {
-    "parent": "item/generated",
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+	"ambientocclusion": false,
     "textures": {
-        "layer0": "grimoireofgaia:items/arrow"
+        "1": "grimoireofgaia:items/models/bauble/accessory_headgear_arrow"
     },
 	"display": {
         "gui": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, 0, 0],
             "scale":[ 1.0, 1.0, 1.0 ]
         },
 		"head": {
-            "rotation": [ 0, 0, 316 ],
-            "translation": [ 0, 0, 0 ],
-            "scale":[ 2, 2, 2 ]
+            "rotation": [ 180, 180, 180 ],
+            "translation": [ 0, 1.2, 0],
+            "scale":[ 2.0, 2.0, 2.0 ]
         },
         "fixed": {
             "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
             "scale":[ 1, 1, 1 ]
         },
         "ground": {
@@ -33,28 +34,54 @@
     "elements": [
         {
             "name": "body1",
-            "from": [ 4.0, 4.0, 4.0 ], 
-            "to": [ 12.0, 12.0, 12.0 ], 
+            "from": [ 1.00, 7.50, 7.50 ], 
+            "to": [ 16.00, 8.50, 8.50 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 3.0, 3.0, 6.0, 6.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 3.0, 3.0, 6.0 ] },
-                "south": { "texture": "#0", "uv": [ 9.0, 3.0, 12.0, 6.0 ] },
-                "west": { "texture": "#0", "uv": [ 6.0, 3.0, 9.0, 6.0 ] },
-                "up": { "texture": "#0", "uv": [ 3.0, 0.0, 6.0, 3.0 ] },
-                "down": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] }
+                "north": { "texture": "#1", "uv": [ 0.00, 1.00, 8.00, 1.50 ] },
+                "south": { "texture": "#1", "uv": [ 0.00, 1.00, 8.00, 1.50 ], "rotation": 180 },
+                "west": { "texture": "#1", "uv": [ 7.50, 1.50, 8.00, 1.00 ] },
+                "up": { "texture": "#1", "uv": [ 0.00, 1.00, 8.00, 1.50 ], "rotation": 180 },
+                "down": { "texture": "#1", "uv": [ 0.00, 1.00, 8.00, 1.50 ], "rotation": 180 }
             }
         },
         {
-            "name": "body2",
-            "from": [ 3.5, 3.5, 3.5 ], 
-            "to": [ 12.5, 12.5, 12.5 ], 
+            "name": "bodyup",
+            "from": [ 0.00, 7.00, 5.50 ], 
+            "to": [ 16.00, 8.00, 10.50 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 3.5, 9.5, 7.0, 13.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 9.5, 3.5, 13.0 ] },
-                "south": { "texture": "#0", "uv": [ 10.5, 9.5, 14.0, 13.0 ] },
-                "west": { "texture": "#0", "uv": [ 7.0, 9.5, 10.5, 13.0 ] },
-                "up": { "texture": "#0", "uv": [ 3.5, 6.0, 7.0, 9.5 ], "rotation": 180 },
-                "down": { "texture": "#0", "uv": [ 7.0, 6.0, 10.5, 9.5 ] }
+                "up": { "texture": "#1", "uv": [ 0.00, 2.50, 8.00, 0.00 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "bodynorth",
+            "from": [ 0.00, 5.50, 8.10 ], 
+            "to": [ 16.00, 10.50, 9.10 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 0.00, 2.50, 8.00, 0.00 ] }
+            }
+        },
+        {
+            "name": "bodydown",
+            "from": [ 0.00, 8.10, 5.50 ], 
+            "to": [ 16.00, 9.10, 10.50 ], 
+            "faces": {
+                "down": { "texture": "#1", "uv": [ 0.00, 2.50, 8.00, 0.00 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "bodysouth",
+            "from": [ 0.00, 5.50, 7.00 ], 
+            "to": [ 16.00, 10.50, 8.00 ], 
+            "faces": {
+                "south": { "texture": "#1", "uv": [ 0.00, 2.50, 8.00, 0.00 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "bodybottom",
+            "from": [ 15.00, 5.50, 5.50 ], 
+            "to": [ 16.00, 10.50, 10.50 ], 
+            "faces": {
+                "east": { "texture": "#1", "uv": [ 0.00, 2.50, 2.50, 5.00 ] }
             }
         }
     ]

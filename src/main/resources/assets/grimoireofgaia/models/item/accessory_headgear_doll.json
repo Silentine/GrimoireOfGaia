@@ -1,15 +1,15 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-"ambientocclusion": false,
+	"ambientocclusion": false,
     "textures": {
         "1": "grimoireofgaia:items/models/bauble/accessory_headgear_doll_head",
         "2": "grimoireofgaia:items/models/bauble/accessory_headgear_doll_body"
     },
 	"display": {
         "gui": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, -8.5, 0],
-            "scale":[ 1.5, 1.5, 1.0 ]
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 1.0, -8.0, 0],
+            "scale":[ 1.5, 1.5, 1.5 ]
         },
 		"head": {
             "rotation": [ 180, 180, 180 ],
@@ -23,13 +23,23 @@
         },
         "ground": {
             "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 3, 0 ],
+            "translation": [ 0, 0, 0 ],
             "scale": [ 0.5, 0.5, 0.5 ]
         },
         "thirdperson_righthand": {
             "rotation": [ 45, 45, 0 ],
             "translation": [ 0, 3, 0 ],
             "scale": [ 0.5, 0.5, 0.5 ]
+        },
+		"firstperson_righthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, -5.0, 0 ],
+            "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, -5.0, 0 ],
+            "scale": [ 1.0, 1.0, 1.0 ]
         }
     },
     "elements": [

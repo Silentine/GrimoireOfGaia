@@ -112,7 +112,7 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	public void onLivingUpdate() {
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 1);
+			SetEquipment((byte) 2);
 			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -130,21 +130,24 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 			if (animationTimer != 30) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 0);
+				SetEquipment((byte) 1);
 				animationPlay = false;
 			}
 		}
 		/* BUFF */
-
 		super.onLivingUpdate();
 	}
 
 	private void SetEquipment(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 2) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}

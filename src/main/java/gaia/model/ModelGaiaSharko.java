@@ -234,6 +234,10 @@ public class ModelGaiaSharko extends ModelGaia {
 			animationBuff();
 		}
 
+		if (itemstack.getItem() == Items.EGG) {
+			animationReset();
+		}
+
 		// body
 		tail1.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(2);
 		tail2.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(4);
@@ -274,6 +278,11 @@ public class ModelGaiaSharko extends ModelGaia {
 		leftarm.rotateAngleX = -0.698132F;
 		rightarm.rotateAngleY = 0.698132F;
 		leftarm.rotateAngleY = -0.698132F;
+	}
+
+	private void animationReset() {
+		rightarm.rotateAngleY = 0.0F;
+		leftarm.rotateAngleY = 0.0F;
 	}
 
 	public ModelRenderer getRightArm() {

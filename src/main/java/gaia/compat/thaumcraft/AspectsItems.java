@@ -12,6 +12,7 @@ import static gaia.init.GaiaItems.ACCESSORY_RING_HASTE;
 import static gaia.init.GaiaItems.ACCESSORY_RING_JUMP;
 import static gaia.init.GaiaItems.ACCESSORY_RING_NIGHT;
 import static gaia.init.GaiaItems.ACCESSORY_RING_SPEED;
+import static gaia.init.GaiaItems.ACCESSORY_TRINKET_LEVITATION;
 import static gaia.init.GaiaItems.ACCESSORY_TRINKET_POISON;
 import static gaia.init.GaiaItems.ACCESSORY_TRINKET_WITHER;
 import static gaia.init.GaiaItems.BAG_ARROW;
@@ -80,25 +81,28 @@ public class AspectsItems {
 		//Items
 		//	A
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_CURSED),
-				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.BEAST, 4).add(Aspect.ENTROPY, 6));
+				(new AspectList()).add(Aspect.METAL, 16).add(Aspect.BEAST, 16).add(Aspect.ENTROPY, 16));
 		
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_RING_HASTE),
-				(new AspectList()).add(Aspect.PROTECT, 2).add(Aspect.METAL, 2).add(Aspect.ORDER, 4).add(Aspect.ELDRITCH, 2).add(Aspect.MOTION, 6));
+				(new AspectList()).add(Aspect.PROTECT, 4).add(Aspect.METAL, 4).add(Aspect.ORDER, 16).add(Aspect.ELDRITCH, 12).add(Aspect.MOTION, 16));
 
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_RING_JUMP),
-				(new AspectList()).add(Aspect.PROTECT, 2).add(Aspect.METAL, 2).add(Aspect.ORDER, 4).add(Aspect.ELDRITCH, 2).add(Aspect.FLIGHT, 6));
+				(new AspectList()).add(Aspect.PROTECT, 4).add(Aspect.METAL, 4).add(Aspect.ORDER, 16).add(Aspect.ELDRITCH, 12).add(Aspect.FLIGHT, 16));
 		
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_RING_NIGHT),
-				(new AspectList()).add(Aspect.PROTECT, 2).add(Aspect.METAL, 2).add(Aspect.ORDER, 4).add(Aspect.ELDRITCH, 2).add(Aspect.SENSES, 6));
+				(new AspectList()).add(Aspect.PROTECT, 4).add(Aspect.METAL, 4).add(Aspect.ORDER, 16).add(Aspect.ELDRITCH, 12).add(Aspect.SENSES, 16));
 		
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_RING_SPEED),
-				(new AspectList()).add(Aspect.PROTECT, 2).add(Aspect.METAL, 2).add(Aspect.ORDER, 4).add(Aspect.ELDRITCH, 2).add(Aspect.ENERGY, 6));
+				(new AspectList()).add(Aspect.PROTECT, 4).add(Aspect.METAL, 4).add(Aspect.ORDER, 16).add(Aspect.ELDRITCH, 12).add(Aspect.ENERGY, 16));
+		
+		event.register.registerObjectTag(new ItemStack(ACCESSORY_TRINKET_LEVITATION),
+				(new AspectList()).add(Aspect.METAL, 12).add(Aspect.EARTH, 16).add(Aspect.MOTION, 4));
 		
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_TRINKET_POISON),
-				(new AspectList()).add(Aspect.DEATH, 8).add(Aspect.PLANT, 8));
+				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.DEATH, 8).add(Aspect.PLANT, 8));
 		
 		event.register.registerObjectTag(new ItemStack(ACCESSORY_TRINKET_WITHER),
-				(new AspectList()).add(Aspect.DEATH, 6).add(Aspect.DARKNESS, 8).add(Aspect.ENTROPY, 2));
+				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.DEATH, 6).add(Aspect.DARKNESS, 8).add(Aspect.ENTROPY, 2));
 		//	B
 		event.register.registerObjectTag(new ItemStack(BOX, 1, 0),
 				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.DESIRE, 4).add(Aspect.PLANT, 8));
@@ -113,22 +117,22 @@ public class AspectsItems {
 				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.EARTH, 8).add(Aspect.TOOL, 8).add(Aspect.FLIGHT, 8).add(Aspect.AIR, 8));
 		
 		event.register.registerObjectTag(new ItemStack(BAG_BOOK),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.MIND, 4));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.MIND, 8));
 		
 		event.register.registerObjectTag(new ItemStack(BOX_DIAMOND),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.CRYSTAL, 4).add(Aspect.DESIRE, 4));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.CRYSTAL, 8).add(Aspect.DESIRE, 8));
 		
 		event.register.registerObjectTag(new ItemStack(BOX_GOLD),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.METAL, 3).add(Aspect.DESIRE, 2));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.METAL, 6).add(Aspect.DESIRE, 6));
 		
 		event.register.registerObjectTag(new ItemStack(BOX_IRON),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.METAL, 4));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.METAL, 8));
 
 		event.register.registerObjectTag(new ItemStack(BOX_OLD),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.DESIRE, 4));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.DESIRE, 4));
 
 		event.register.registerObjectTag(new ItemStack(BAG_RECORD),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.SENSES, 4).add(Aspect.AIR, 4));
+				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.SENSES, 4).add(Aspect.AIR, 4));
 		//	C
 		event.register.registerObjectTag(new ItemStack(CHEST, 1, 0),
 				(new AspectList()).add(Aspect.VOID, 4).add(Aspect.DESIRE, 4).add(Aspect.PLANT, 8));
@@ -142,7 +146,6 @@ public class AspectsItems {
 		event.register.registerObjectTag(new ItemStack(FOOD_COALFISH),
 				(new AspectList()).add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.FIRE, 1));
 		
-		
 		event.register.registerObjectTag(new ItemStack(FOOD_MANDRAKE),
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.LIFE, 2).add(Aspect.SOUL, 1));
 		
@@ -150,10 +153,10 @@ public class AspectsItems {
 				(new AspectList()).add(Aspect.LIFE, 2).add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1));
 		
 		event.register.registerObjectTag(new ItemStack(FOOD_NETHER_WART),
-				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.FIRE, 1).add(Aspect.MOTION, 1));
+				(new AspectList()).add(Aspect.ALCHEMY, 4).add(Aspect.FLUX, 4).add(Aspect.PLANT, 2).add(Aspect.WATER, 2));
 		
 		event.register.registerObjectTag(new ItemStack(FOOD_PIE_APPLE_GOLD),
-				(new AspectList()).add(Aspect.METAL, 32).add(Aspect.DESIRE, 32).add(Aspect.LIFE, 4).add(Aspect.MOTION, 2).add(Aspect.PLANT, 1));
+				(new AspectList()).add(Aspect.METAL, 32).add(Aspect.DESIRE, 32).add(Aspect.LIFE, 16).add(Aspect.MOTION, 16).add(Aspect.PLANT, 4));
 		
 		event.register.registerObjectTag(new ItemStack(FOOD_PIE_MANDRAKE),
 				(new AspectList()).add(Aspect.LIFE, 2).add(Aspect.DESIRE, 1).add(Aspect.PLANT, 1).add(Aspect.SENSES, 1).add(Aspect.WATER, 1));
@@ -174,34 +177,34 @@ public class AspectsItems {
 				(new AspectList()).add(Aspect.MIND, 2).add(Aspect.LIFE, 2).add(Aspect.UNDEAD, 2).add(Aspect.DARKNESS, 2));
 		// 	M
 		event.register.registerObjectTag(new ItemStack(MISC_BOOK),
-				(new AspectList()).add(Aspect.MIND, 12));
+				(new AspectList()).add(Aspect.MIND, 24));
 		
 		event.register.registerObjectTag(new ItemStack(MISC_FUR),
 				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.PROTECT, 4).add(Aspect.COLD, 2));
 		
 		event.register.registerObjectTag(new ItemStack(MISC_FURNACE_FUEL),
-				(new AspectList()).add(Aspect.MOTION, 3).add(Aspect.FIRE, 3));
+				(new AspectList()).add(Aspect.MOTION, 8).add(Aspect.FIRE, 8));
 		
 		event.register.registerObjectTag(new ItemStack(MISC_GIGA_GEAR),
 				(new AspectList()).add(Aspect.FIRE, 32).add(Aspect.ENERGY, 32).add(Aspect.MECHANISM, 24));
 		
 		event.register.registerObjectTag(new ItemStack(MISC_RING, 1, 0),
-				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.PROTECT, 1));
+				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.PROTECT, 16));
 
 		event.register.registerObjectTag(new ItemStack(MISC_RING, 1, 1),
-				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.PROTECT, 1));
+				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.PROTECT, 16));
 
 		event.register.registerObjectTag(new ItemStack(MISC_RING, 1, 2),
-				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.PROTECT, 1));
+				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.PROTECT, 16));
 
 		event.register.registerObjectTag(new ItemStack(MISC_RING, 1, 3),
-				(new AspectList()).add(Aspect.METAL, 2).add(Aspect.PROTECT, 1));
-
-		event.register.registerObjectTag(new ItemStack(MISC_SOUL_FIERY),
-				(new AspectList()).add(Aspect.FIRE, 4).add(Aspect.TRAP, 2).add(Aspect.SOUL, 2));
+				(new AspectList()).add(Aspect.METAL, 4).add(Aspect.PROTECT, 16));
 		
 		event.register.registerObjectTag(new ItemStack(MISC_SOUL_FIRE),
 				(new AspectList()).add(Aspect.FIRE, 2).add(Aspect.TRAP, 1).add(Aspect.SOUL, 1));
+		
+		event.register.registerObjectTag(new ItemStack(MISC_SOUL_FIERY),
+				(new AspectList()).add(Aspect.FIRE, 4).add(Aspect.TRAP, 2).add(Aspect.SOUL, 2));
 		//	S
 		event.register.registerObjectTag(new ItemStack(SHARD, 1, 0),
 				(new AspectList()).add(Aspect.METAL, 1));
@@ -222,28 +225,28 @@ public class AspectsItems {
 				(new AspectList()).add(Aspect.METAL, 1));
 
 		event.register.registerObjectTag(new ItemStack(SPAWN),
-				(new AspectList()).add(Aspect.VOID, 2).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 12).add(Aspect.LIFE, 4).add(Aspect.VOID, 2));
 		
 		event.register.registerObjectTag(new ItemStack(SPAWN_WERESHEEP),
-				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.CRAFT, 1).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 16).add(Aspect.LIFE, 4).add(Aspect.CRAFT, 1));
 		
 		event.register.registerObjectTag(new ItemStack(SPAWN_CREEPER_GIRL),
-				(new AspectList()).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.LIFE, 4).add(Aspect.ENERGY, 2));
 		
 		event.register.registerObjectTag(new ItemStack(SPAWN_ENDER_GIRL),
-				(new AspectList()).add(Aspect.ELDRITCH, 2).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.LIFE, 4).add(Aspect.ELDRITCH, 2));
 		
 		event.register.registerObjectTag(new ItemStack(SPAWN_HOLSTAURUS),
-				(new AspectList()).add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 16).add(Aspect.LIFE, 4));
 
 		event.register.registerObjectTag(new ItemStack(SPAWN_SLIME_GIRL),
-				(new AspectList()).add(Aspect.FIRE, 2).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.LIFE, 4).add(Aspect.FIRE, 2));
 		
 		event.register.registerObjectTag(new ItemStack(SPAWN_TAME),
 				(new AspectList()).add(Aspect.BEAST, 16).add(Aspect.LIFE, 16).add(Aspect.DESIRE, 8));
 
 		event.register.registerObjectTag(new ItemStack(SPAWN_TRADER),
-				(new AspectList()).add(Aspect.DESIRE, 2).add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
+				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.LIFE, 1).add(Aspect.DESIRE, 2));
 		//	W
 		event.register.registerObjectTag(new ItemStack(WEAPON_BOOK_BATTLE),
 				(new AspectList()).add(Aspect.AVERSION, 8));
@@ -269,7 +272,6 @@ public class AspectsItems {
 		event.register.registerObjectTag(new ItemStack(WEAPON_BOOK_METAL),
 				(new AspectList()).add(Aspect.METAL, 5).add(Aspect.MOTION, 4));
 
-
 		event.register.registerObjectTag(new ItemStack(WEAPON_BOOK_WITHER),
 				(new AspectList()).add(Aspect.DEATH, 5).add(Aspect.DARKNESS, 4).add(Aspect.ENTROPY, 2));
 		
@@ -281,24 +283,24 @@ public class AspectsItems {
 		
 		//Blocks
 		event.register.registerObjectTag(new ItemStack(BUST_SPHINX),
-				(new AspectList()).add(Aspect.EARTH, 4).add(Aspect.DESIRE, 2));
+				(new AspectList()).add(Aspect.ENTROPY, 16).add(Aspect.DESIRE, 8));
 
 		event.register.registerObjectTag(new ItemStack(BUST_VALKYRIE),
-				(new AspectList()).add(Aspect.EARTH, 4).add(Aspect.DESIRE, 2));
+				(new AspectList()).add(Aspect.ENTROPY, 16).add(Aspect.DESIRE, 8));
 
 		event.register.registerObjectTag(new ItemStack(BUST_VAMPIRE),
-				(new AspectList()).add(Aspect.EARTH, 4).add(Aspect.DESIRE, 2));
+				(new AspectList()).add(Aspect.ENTROPY, 16).add(Aspect.DESIRE, 8));
 
 		event.register.registerObjectTag(new ItemStack(DOLL_CREEPER_GIRL),
-				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.CRAFT, 2).add(Aspect.DESIRE, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.CRAFT, 4).add(Aspect.DESIRE, 2));
 
 		event.register.registerObjectTag(new ItemStack(DOLL_ENDER_GIRL),
-				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.CRAFT, 2).add(Aspect.DESIRE, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.CRAFT, 4).add(Aspect.DESIRE, 2));
 
 		event.register.registerObjectTag(new ItemStack(DOLL_SLIME_GIRL),
-				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.CRAFT, 2).add(Aspect.DESIRE, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.CRAFT, 4).add(Aspect.DESIRE, 2));
 
 		event.register.registerObjectTag(new ItemStack(DOLL_MAID),
-				(new AspectList()).add(Aspect.BEAST, 4).add(Aspect.CRAFT, 2).add(Aspect.DESIRE, 1));
+				(new AspectList()).add(Aspect.BEAST, 8).add(Aspect.CRAFT, 4).add(Aspect.DESIRE, 2));
 	}
 }

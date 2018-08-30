@@ -19,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,8 +27,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * UNDER CONSTRUCTION
- * 
- * TODO need to fix registerLayerRenders @ClientProxy. Headgear appears invisible on the Alex player model when equipped in baubles HEAD slot.
  */
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
@@ -36,8 +35,8 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		super("accessory_headgear");
 		setHasSubtypes(true);
 		setMaxStackSize(1);
-		
-		setCreativeTab(null);
+
+//		setCreativeTab(null);
 	}
 
 	@Override
@@ -49,7 +48,9 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.RightClickEquip"));
+		tooltip.add(TextFormatting.BOLD + I18n.format("text.grimoireofgaia.WIP.tag"));
+		tooltip.add(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.Headgear.tag"));
+//		tooltip.add(I18n.format("text.grimoireofgaia.RightClickEquip"));
 	}
 
 	@Override
