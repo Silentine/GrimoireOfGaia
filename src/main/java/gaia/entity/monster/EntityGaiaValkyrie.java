@@ -226,7 +226,6 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		if (id == 2) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
 			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		}
@@ -321,10 +320,14 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_IRON));
+		setEnchantmentBasedOnDifficulty(difficulty);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
+		
 		return ret;
 	}
 

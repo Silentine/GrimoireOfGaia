@@ -186,8 +186,9 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
 		setEnchantmentBasedOnDifficulty(difficulty);
+		
 		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 

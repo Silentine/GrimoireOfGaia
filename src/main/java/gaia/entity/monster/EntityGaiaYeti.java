@@ -40,12 +40,6 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 		setSize(1.4F, 2.4F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 20;
 	}
 
 	@Override
@@ -171,6 +165,13 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 		return ret;
 	}
+
+	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 20;
+	}
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

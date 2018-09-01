@@ -10,14 +10,15 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponBook extends ItemSword implements IClientRegister {
 
-	public ItemWeaponBook(String name) {
-		super(Item.ToolMaterial.IRON);
-		setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
+	public ItemWeaponBook(ToolMaterial material, String name) {
+		super(material);
+
 		setCreativeTab(CreativeTabGaia.INSTANCE);
 		setRegistryName(GaiaReference.MOD_ID, name);
 		setUnlocalizedName(GaiaReference.MOD_ID + "." + name);

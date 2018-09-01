@@ -12,6 +12,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
@@ -27,9 +28,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWeaponBookEnder extends ItemWeaponBook {
-	public ItemWeaponBookEnder() {
-		super("weapon_book_ender");
-		setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
+	
+	public ItemWeaponBookEnder(ToolMaterial material, String name) {
+		super(material, name);
 	}
 
 	@Override

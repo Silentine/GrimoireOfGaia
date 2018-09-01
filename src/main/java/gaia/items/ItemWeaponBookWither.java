@@ -10,6 +10,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -20,9 +21,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWeaponBookWither extends ItemWeaponBook {
-	public ItemWeaponBookWither() {
-		super("weapon_book_wither");
-		setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
+	
+	public ItemWeaponBookWither(ToolMaterial material, String name) {
+		super(material, name);
 	}
 
 	@Override

@@ -1,5 +1,9 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,10 +21,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class ItemMiscSoulFire extends ItemBase {
+
+	private int fuelTimeTicks = 11600;
+	private int fuelTimeSeconds = fuelTimeTicks / 20;
+
 	public ItemMiscSoulFire() {
 		super("misc_soul_fire");
 	}
@@ -28,7 +33,7 @@ public class ItemMiscSoulFire extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", TileEntityFurnace.getItemBurnTime(stack)));
+		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
 		tooltip.add(TextFormatting.ITALIC + I18n.format("item.grimoireofgaia.misc_soul_fire.desc"));
 	}
 
@@ -58,6 +63,6 @@ public class ItemMiscSoulFire extends ItemBase {
 
 	@Override
 	public int getItemBurnTime(ItemStack itemStack) {
-		return 580;
+		return fuelTimeTicks;
 	}
 }

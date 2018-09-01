@@ -365,8 +365,9 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		} else {
 			tasks.addTask(1, aiAttackOnCollide);
 
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
 			setEnchantmentBasedOnDifficulty(difficulty);
+			
 			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 

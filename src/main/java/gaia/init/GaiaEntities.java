@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableSet;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.entity.monster.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -18,6 +17,7 @@ import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
@@ -98,6 +98,7 @@ public class GaiaEntities {
 			createEntityEntry("creep", EntityGaiaCreep.class, 7917159, 2053400),
 			createEntityEntry("cyclops", EntityGaiaCyclops.class, 4936602, 3487029),
 			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287, false),
+//			createEntityEntry("deathword", EntityGaiaDeathword.class, 0xb77a35, 0xffd800),
 			createEntityEntry("dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161),
 			createEntityEntry("dryad", EntityGaiaDryad.class, 10255437, 5681460),
 			createEntityEntry("dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d),

@@ -229,7 +229,7 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 		SetAI((byte) 0);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		return ret;

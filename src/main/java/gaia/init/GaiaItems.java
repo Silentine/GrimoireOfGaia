@@ -61,17 +61,18 @@ import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
 import gaia.items.ItemWeaponBookWither;
-import gaia.items.ItemWeaponDebug;
 import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropProjectile;
-import net.minecraft.block.Block;
+import gaia.items.ItemWeaponPropMinecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -149,18 +150,31 @@ public class GaiaItems {
 	public static final Item WEAPON_BOOK_NATURE = Items.AIR;
 	public static final Item WEAPON_BOOK_NIGHTMARE = Items.AIR;
 	public static final Item WEAPON_BOOK_WITHER = Items.AIR;
+	public static final Item WEAPON_DEBUG = Items.AIR;
 	public static final Item WEAPON_FAN_FIRE = Items.AIR;
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
 	public static final Item WEAPON_PROP = Items.AIR;
 	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE = Items.AIR;
-
+	public static final Item WEAPON_PROP_SWORD_WOOD = Items.AIR;
+	public static final Item WEAPON_PROP_SWORD_STONE = Items.AIR;
+	public static final Item WEAPON_PROP_SWORD_IRON = Items.AIR;
+	public static final Item WEAPON_PROP_SWORD_GOLD = Items.AIR;
+	public static final Item WEAPON_PROP_AXE_WOOD = Items.AIR;
+	public static final Item WEAPON_PROP_AXE_STONE = Items.AIR;
+	public static final Item WEAPON_PROP_AXE_IRON = Items.AIR;
+	public static final Item WEAPON_PROP_AXE_GOLD = Items.AIR;
+	
+	public static ToolMaterial MATERIAL_PROP = EnumHelper.addToolMaterial("material_prop", 0, 250, 6.0F, -3.0F, 36);
+	public static ToolMaterial MATERIAL_BOOK = EnumHelper.addToolMaterial("material_book", 2, 780, 6.0F, 2.0F, 22);
+	
 	private GaiaItems() {
 	}
 
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	@SuppressWarnings("unused")
 	public static class RegistrationHandler {
+		
 		private RegistrationHandler() {
 		}
 
@@ -215,15 +229,15 @@ public class GaiaItems {
 			registry.register(new ItemShieldProp());
 			registry.register(new ItemWeaponFanIce());
 			registry.register(new ItemWeaponFanFire());
-			registry.register(new ItemWeaponBook("weapon_book"));
-			registry.register(new ItemWeaponBookFreezing());
-			registry.register(new ItemWeaponBookNightmare());
-			registry.register(new ItemWeaponBookMetal());
-			registry.register(new ItemWeaponBookEnder());
-			registry.register(new ItemWeaponBookHunger());
-			registry.register(new ItemWeaponBookBattle());
-			registry.register(new ItemWeaponBookNature());
-			registry.register(new ItemWeaponBookWither());
+			registry.register(new ItemWeaponBook(MATERIAL_BOOK, "weapon_book"));
+			registry.register(new ItemWeaponBookFreezing(MATERIAL_BOOK, "weapon_book_freezing"));
+			registry.register(new ItemWeaponBookNightmare(MATERIAL_BOOK, "weapon_book_nightmare"));
+			registry.register(new ItemWeaponBookMetal(MATERIAL_BOOK, "weapon_book_metal"));
+			registry.register(new ItemWeaponBookEnder(MATERIAL_BOOK, "weapon_book_ender"));
+			registry.register(new ItemWeaponBookHunger(MATERIAL_BOOK, "weapon_book_hunger"));
+			registry.register(new ItemWeaponBookBattle(MATERIAL_BOOK, "weapon_book_battle"));
+			registry.register(new ItemWeaponBookNature(MATERIAL_BOOK, "weapon_book_nature"));
+			registry.register(new ItemWeaponBookWither(MATERIAL_BOOK, "weapon_book_wither"));
 			registry.register(new ItemWeaponBookBuff());
 //			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemAccessoryRingSpeed());
@@ -235,6 +249,14 @@ public class GaiaItems {
 			registry.register(new ItemAccessoryTrinketLevitation());
 			registry.register(new ItemAccessoryCursed());
 			registry.register(new ItemAccessoryHeadgear());
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_wood"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_stone"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_iron"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_gold"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_wood"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_stone"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_iron"));
+			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_gold"));
 
 			Gaia.LOGGER.info("Item registration complete.");
 		}

@@ -326,9 +326,11 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 		int i = rand.nextInt(3);
 
 		if (i == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+			setEnchantmentBasedOnDifficulty(difficulty);
 		} else {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_SWORD));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
+			setEnchantmentBasedOnDifficulty(difficulty);
 		}
 	}
 

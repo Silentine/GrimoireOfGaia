@@ -205,7 +205,7 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 		ItemStack weapon;
 
 		if (rand.nextInt(4) == 0) {
-			weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 4);
+			weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 3);
 			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
 		} else {
 			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);

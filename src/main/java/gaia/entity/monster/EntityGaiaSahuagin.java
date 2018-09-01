@@ -159,7 +159,7 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 				if (!isPotionActive(MobEffects.SPEED)) {
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
 				SetAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;

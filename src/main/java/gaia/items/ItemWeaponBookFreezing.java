@@ -11,6 +11,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
@@ -27,9 +28,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWeaponBookFreezing extends ItemWeaponBook {
-	public ItemWeaponBookFreezing() {
-		super("weapon_book_freezing");
-		setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
+	
+	public ItemWeaponBookFreezing(ToolMaterial material, String name) {
+		super(material, name);
 	}
 
 	@Override

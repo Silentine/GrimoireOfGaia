@@ -1,5 +1,9 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,10 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class ItemFoodCoalfish extends ItemFoodBase {
+
+	private int fuelTimeTicks = 3600;
+	private int fuelTimeSeconds = fuelTimeTicks / 20;
 
 	public ItemFoodCoalfish() {
 		super("food_coalfish", 4, 0.4F, true);
@@ -23,7 +27,7 @@ public class ItemFoodCoalfish extends ItemFoodBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", TileEntityFurnace.getItemBurnTime(stack)));
+		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
 		tooltip.add(I18n.format("effect.waterBreathing") + " (2:00)");
 	}
 
@@ -34,6 +38,6 @@ public class ItemFoodCoalfish extends ItemFoodBase {
 
 	@Override
 	public int getItemBurnTime(ItemStack itemStack) {
-		return 180;
+		return fuelTimeTicks;
 	}
 }

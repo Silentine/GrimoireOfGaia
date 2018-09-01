@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -19,9 +20,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWeaponBookBattle extends ItemWeaponBook {
-	public ItemWeaponBookBattle() {
-		super("weapon_book_battle");
-		setMaxDamage((int) (Item.ToolMaterial.IRON.getMaxUses() * 3.48F));
+	
+	public ItemWeaponBookBattle(ToolMaterial material, String name) {
+		super(material, name);
 	}
 
 	@Override

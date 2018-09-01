@@ -315,7 +315,10 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		tasks.addTask(2, aiMeleeAttack);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
+		
 		setCustomNameTag("Debug Mob");
+		setAlwaysRenderNameTag(true);
+		
 		return ret;
 	}
 

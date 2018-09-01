@@ -374,9 +374,11 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	@Override
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
 		if (rand.nextInt(4) == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
+			setEnchantmentBasedOnDifficulty(difficulty);
 		} else {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
+			setEnchantmentBasedOnDifficulty(difficulty);
 		}
 	}
 

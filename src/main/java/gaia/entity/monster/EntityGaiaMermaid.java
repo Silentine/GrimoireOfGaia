@@ -185,8 +185,9 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
+		
 		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 

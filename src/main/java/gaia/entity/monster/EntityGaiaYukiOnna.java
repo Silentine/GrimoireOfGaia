@@ -57,11 +57,6 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected int getFireImmuneTicks() {
-		return 20;
-	}
-
-	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
 
@@ -259,7 +254,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 		if (!isChild) {
 			if (rand.nextInt(4) == 0) {
-				weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 4);
+				weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 3);
 				weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
 			} else {
 				weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
@@ -307,6 +302,11 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 20;
+	}
+	
 	@Override
 	public void fall(float distance, float damageMultiplier) {
 	}

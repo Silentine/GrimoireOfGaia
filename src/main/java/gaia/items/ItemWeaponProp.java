@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWeaponProp extends ItemBase {
+
 	public ItemWeaponProp() {
 		super("weapon_prop");
 		maxStackSize = 1;
@@ -58,7 +59,7 @@ public class ItemWeaponProp extends ItemBase {
 			return;
 		}
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 4; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -69,10 +70,8 @@ public class ItemWeaponProp extends ItemBase {
 		ModelLoaderHelper.registerItem(this, 
 				"variant=ender", 
 				"variant=blaze", 
-				"variant=spear", 
 				"variant=dagger", 
-				"variant=fan", 
-				"variant=axe"
+				"variant=fan"
 				);
 	}
 	/* SUBITEMS */

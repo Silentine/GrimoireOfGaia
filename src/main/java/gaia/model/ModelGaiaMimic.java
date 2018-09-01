@@ -31,6 +31,7 @@ public class ModelGaiaMimic extends ModelGaia {
 		anchor.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
 		anchor.setTextureSize(128, 64);
 		setRotation(anchor, 0F, 0F, 0F);
+		
 		lid1 = new ModelRenderer(this, 0, 0);
 		lid1.addBox(-7.0F, -5.0F, -14.0F, 14, 5, 14);
 		lid1.setRotationPoint(0.0F, 5.0F, 7.0F + rotationPointZ);
@@ -83,7 +84,7 @@ public class ModelGaiaMimic extends ModelGaia {
 		anchor.rotationPointX = (float) (this.rnd.nextGaussian());
 		anchor.rotationPointZ = (float) (this.rnd.nextGaussian());
 
-		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
+		anchor.rotationPointY = -2.0F + MathHelper.cos((ageInTicks + 1.5F) * 0.5F) * 0.5F;
 
 		// body
 		lid1.rotateAngleX = MathHelper.cos(ageInTicks * 1.8F + (float) Math.PI) * 0.8F * 0.5F;

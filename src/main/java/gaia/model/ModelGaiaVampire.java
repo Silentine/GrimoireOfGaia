@@ -33,6 +33,7 @@ public class ModelGaiaVampire extends ModelGaia {
 		anchor.setRotationPoint(0F, -5F, 0F);
 		anchor.setTextureSize(64, 32);
 		setRotation(anchor, 0F, 0F, 0F);
+		
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-3F, -6F, -3F, 6, 6, 6);
 		head.setRotationPoint(0F, -8F, 0F);

@@ -38,6 +38,7 @@ public class ModelGaiaEnderEye extends ModelGaia {
 		anchor.setRotationPoint(0F, -7F, 0F + rotationPointZ);
 		anchor.setTextureSize(128, 64);
 		setRotation(anchor, 0F, 0F, 0F);
+		
 		body = new ModelRenderer(this, 0, 0);
 		body.addBox(-4F, -5F, -2F, 8, 8, 6);
 		body.setRotationPoint(0F, -7F, 0F + rotationPointZ);
@@ -102,7 +103,7 @@ public class ModelGaiaEnderEye extends ModelGaia {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
+		anchor.rotationPointY = -2.0F + MathHelper.cos((ageInTicks + 1.5F) * 0.5F) * 0.5F;
 
 		// body
 		body.rotateAngleY = netHeadYaw / 57.295776F;

@@ -25,6 +25,7 @@ public class ModelGaiaWitch extends ModelGaia {
 		anchor.setRotationPoint(-1.5F, 10F, 4F + rotationPointZ);
 		anchor.setTextureSize(64, 32);
 		setRotation(anchor, 0F, 0F, 0F);
+		
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-3F, -6F, -3F, 6, 6, 6);
 		head.setRotationPoint(0F, 1F, 0F + rotationPointZ);
