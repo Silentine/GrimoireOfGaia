@@ -35,7 +35,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -55,7 +54,9 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
 	private int mobClass;
-	private int spawn;
+
+	private boolean canSpawnLevel3;
+	private boolean spawned;
 	private int spawnLevel3;
 	private int spawnLevel3Chance;
 
@@ -67,7 +68,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		stepHeight = 1.0F;
 
 		mobClass = 0;
-		spawn = 1;
 		spawnLevel3 = 0;
 		spawnLevel3Chance = 0;
 
@@ -98,17 +98,13 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		float ret = damage;
 		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			ret = EntityAttributes.BASE_DEFENSE_2;
-
-			if (GaiaConfig.GENERAL.spawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
+			if (canSpawnLevel3) {
+				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
 			}
 		}
 
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, ret);
-
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
 	@Override
@@ -147,18 +143,24 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 	@Override
 	public void onLivingUpdate() {
-		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			if (GaiaConfig.GENERAL.spawnLevel3) {
-				if (spawnLevel3Chance > (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
+		/* LEVEL 3 SPAWN DATA */
+		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
+			canSpawnLevel3 = true;
+		}
+
+		if (canSpawnLevel3) {
+			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
+
+				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
+					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
-			}
 
-			spawn = 2;
+				spawned = true;
+			}
 		}
 
 		if (spawnLevel3 == 1) {
@@ -166,6 +168,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
+		/* LEVEL 3 SPAWN DATA */
 
 		super.onLivingUpdate();
 	}
@@ -174,6 +177,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		EntityGaiaValkyrie valyrie;
 
 		if (id == 1) {
+			explode();
+
 			valyrie = new EntityGaiaValkyrie(world);
 			valyrie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null);
@@ -265,6 +270,17 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 	/* ARCHER DATA */
 
+	private void explode() {
+		if (!this.world.isRemote) {
+			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
+			int explosionRadius = 2;
+
+			this.dead = true;
+			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
+			this.setDead();
+		}
+	}
+
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
@@ -330,14 +346,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		}
 	}
 
-	private void spawnLevel3() {
-		EntityGaiaValkyrie entityToSpawn;
-		entityToSpawn = new EntityGaiaValkyrie(world);
-		entityToSpawn.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-		entityToSpawn.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityToSpawn)), null);
-		world.spawnEntity(entityToSpawn);
-	}
-
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
@@ -367,7 +375,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
 			setEnchantmentBasedOnDifficulty(difficulty);
-			
+
 			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
@@ -375,6 +383,10 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 			setTextureType(0);
 			mobClass = 0;
+		}
+
+		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
+			canSpawnLevel3 = true;
 		}
 
 		return ret;

@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -30,6 +32,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,6 +42,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
+	
+	private static final int DETECTION_RANGE = 6;
 
 	private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
 	private int lastActiveTime;
@@ -144,6 +149,16 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	@Override
 	public void onUpdate() {
+		if (playerDetection(DETECTION_RANGE)) {
+			if (isPotionActive(MobEffects.INVISIBILITY)) {
+				removePotionEffect(MobEffects.INVISIBILITY);
+			}
+		} else {
+			if (!isPotionActive(MobEffects.INVISIBILITY)) {
+				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 320 * 20, 0));
+			}
+		}
+		
 		if (isEntityAlive()) {
 			lastActiveTime = timeSinceIgnited;
 
@@ -170,6 +185,16 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 		}
 
 		super.onUpdate();
+	}
+	
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	private boolean playerDetection(int range) {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+
+		return !list.isEmpty();
 	}
 
 	private boolean hasIgnited() {

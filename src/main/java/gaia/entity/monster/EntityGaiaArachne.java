@@ -26,6 +26,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -313,7 +314,10 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP, 1, 0);
+		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
+		weaponCustom.hasEffect();
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 
 		return ret;
 	}

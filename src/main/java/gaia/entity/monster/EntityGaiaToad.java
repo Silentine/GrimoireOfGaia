@@ -198,6 +198,10 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		
+		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);

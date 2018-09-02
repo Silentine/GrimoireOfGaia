@@ -229,7 +229,7 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		}
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
-		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
+		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 		return ret;
 	}

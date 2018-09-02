@@ -250,7 +250,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 		ItemStack weapon;
 
-		SetChild(true, 1);
+		SetChild(true, 10);
 
 		if (!isChild) {
 			if (rand.nextInt(4) == 0) {
@@ -306,7 +306,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	protected int getFireImmuneTicks() {
 		return 20;
 	}
-	
+
 	@Override
 	public void fall(float distance, float damageMultiplier) {
 	}
@@ -316,6 +316,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
 	private boolean isSnowing() {
 		return world.isRaining();
 	}
@@ -324,4 +325,5 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && isSnowing() && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

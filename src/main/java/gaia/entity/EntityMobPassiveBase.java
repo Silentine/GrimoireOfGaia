@@ -36,6 +36,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		super(worldIn);
 	}
 
+	/* SHARED CODE */
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
@@ -137,8 +138,10 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 
 	/**
 	 * Used to adjust the motionY when a mob is hit.
+	 * 
+	 * @see EntityLivingBase
 	 */
-	public void knockBack(double xRatio, double zRatio, double yRatio) {
+	public void knockBack(double xRatio, double zRatio, double power) {
 		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			isAirBorne = true;
 			float f1 = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
@@ -149,9 +152,30 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 			motionX -= xRatio / (double) f1 * (double) f2;
 			motionY += (double) f2;
 			motionZ -= zRatio / (double) f1 * (double) f2;
-			if (motionY > yRatio) {
-				motionY = yRatio;
+			
+			if (motionY > power) {
+				motionY = power;
 			}
 		}
 	}
+
+	public boolean daysPassed() {
+		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
+
+		return GaiaConfig.SPAWN.spawnDaysSet <= daysPassedClientInt;
+	}
+
+	@Override
+	public boolean getCanSpawnHere() {
+		if (GaiaConfig.SPAWN.spawnDaysPassed) {
+			return daysPassed() && super.getCanSpawnHere();
+		} else {
+			return super.getCanSpawnHere();
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void setSwingingArms(boolean swingingArms) {
+	}
+	/* SHARED CODE */
 }

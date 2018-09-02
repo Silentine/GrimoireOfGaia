@@ -93,7 +93,14 @@ public class ItemShard extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, "variant=iron", "variant=gold", "variant=diamond", "variant=emerald", "variant=copper", "variant=silver");
+		ModelLoaderHelper.registerItem(this, 
+				"variant=iron", 
+				"variant=gold", 
+				"variant=diamond", 
+				"variant=emerald", 
+				"variant=copper", 
+				"variant=silver"
+				);
 	}
 	/* SUBITEMS */
 }

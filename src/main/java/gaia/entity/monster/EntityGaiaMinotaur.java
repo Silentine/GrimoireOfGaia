@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import javax.annotation.Nullable;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaItems;
@@ -294,7 +295,8 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
-
+	
+	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
@@ -302,6 +304,11 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
+			return posY > 60.0D && world.isRaining() && super.getCanSpawnHere();
+		} else {
+			return posY > 32.0D && super.getCanSpawnHere();
+		}
 	}
+	/* SPAWN CONDITIONS */
 }

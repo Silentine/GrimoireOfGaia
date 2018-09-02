@@ -25,14 +25,10 @@ public class GaiaConfig {
 		}
 	}
 
-	@Config.LangKey("configgui.grimoireofgaia.category.general")
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu0.general")
 	public static final General GENERAL = new General();
 
 	public static class General {
-		@Config.LangKey("configgui.grimoireofgaia.category.general.SpawnLevel3")
-		public boolean spawnLevel3 = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.general.SpawnLevel3Chance")
-		public int spawnLevel3Chance = 20;
 		// closed; taiga, taigaHills, megaTaiga, megaTaigaHills
 		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
 		public int spawnCyclops = 60;
@@ -149,32 +145,24 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
 		public int spawnEnderDragonGirl = 4;
 	}
+	
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu1.spawns")
+	public static final Spawn SPAWN = new Spawn();
 
-	@Config.LangKey("configgui.grimoireofgaia.category.damage")
-	public static final Damage DAMAGE = new Damage();
-
-	public static class Damage {
-		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu0.BaseDamage")
-		public boolean baseDamage = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing")
-		public boolean shieldsBlockPiercing = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers")
-		public boolean baseDamageArchers = true;
+	public static class Spawn {
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed")
+		public boolean spawnDaysPassed = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet")
+		public int spawnDaysSet = 3;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain")
+		public boolean spawnLevel3Rain = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3")
+		public boolean spawnLevel3 = true;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance")
+		public int spawnLevel3Chance = 20;
 	}
-
-	@Config.LangKey("configgui.grimoireofgaia.category.defense")
-	public static final Defense DEFENSE = new Defense();
-
-	public static class Defense {
-		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier1baseDefense")
-		public int tier1baseDefense = 2;
-		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier2baseDefense")
-		public int tier2baseDefense = 4;
-		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier3baseDefense")
-		public int tier3baseDefense = 8;
-	}
-
-	@Config.LangKey("configgui.grimoireofgaia.category.attributes")
+	
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu2.attributes")
 	public static final Attributes ATTRIBUTES = new Attributes();
 
 	public static class Attributes {
@@ -192,7 +180,31 @@ public class GaiaConfig {
 		public int tier3attackDamage = 100;
 	}
 
-	@Config.LangKey("configgui.grimoireofgaia.category.options")
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu3.damage")
+	public static final Damage DAMAGE = new Damage();
+
+	public static class Damage {
+		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu0.BaseDamage")
+		public boolean baseDamage = true;
+		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing")
+		public boolean shieldsBlockPiercing = true;
+		@Config.LangKey("configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers")
+		public boolean baseDamageArchers = true;
+	}
+
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu4.defense")
+	public static final Defense DEFENSE = new Defense();
+
+	public static class Defense {
+		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier1baseDefense")
+		public int tier1baseDefense = 2;
+		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier2baseDefense")
+		public int tier2baseDefense = 4;
+		@Config.LangKey("configgui.grimoireofgaia.category.defense.Tier3baseDefense")
+		public int tier3baseDefense = 8;
+	}
+
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu5.options")
 	public static final Options OPTIONS = new Options();
 
 	public static class Options {
@@ -205,7 +217,7 @@ public class GaiaConfig {
 		public boolean strafingArchers = true;
 	}
 
-	@Config.LangKey("configgui.grimoireofgaia.category.debug")
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu6.debug")
 	public static final Debug DEBUG = new Debug();
 
 	public static class Debug {
@@ -216,7 +228,7 @@ public class GaiaConfig {
 		public boolean oreUnity = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands")
 		@Config.RequiresMcRestart
-		public boolean debugCommands = true;
+		public boolean debugCommands = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn")
 		@Config.RequiresMcRestart
 		public boolean debugSpawn = false;

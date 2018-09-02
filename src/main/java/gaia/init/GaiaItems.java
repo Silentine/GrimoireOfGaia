@@ -47,6 +47,7 @@ import gaia.items.ItemMiscRing;
 import gaia.items.ItemMiscSoulFiery;
 import gaia.items.ItemMiscSoulFire;
 import gaia.items.ItemShard;
+import gaia.items.ItemShardMisc;
 import gaia.items.ItemShieldProp;
 import gaia.items.ItemSpawn;
 import gaia.items.ItemSpawnNPC;
@@ -65,8 +66,8 @@ import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
-import gaia.items.ItemWeaponPropProjectile;
 import gaia.items.ItemWeaponPropMinecraft;
+import gaia.items.ItemWeaponPropProjectile;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -130,6 +131,7 @@ public class GaiaItems {
 	public static final Item MISC_SOUL_FIERY = Items.AIR;
 	//	S
 	public static final Item SHARD = Items.AIR;
+	public static final Item SHARD_MISC = Items.AIR;
 	public static final Item SHIELD_PROP = Items.AIR;
 	public static final Item SPAWN = Items.AIR;
 	public static final Item SPAWN_WERESHEEP = Items.AIR;
@@ -185,6 +187,7 @@ public class GaiaItems {
 			final IForgeRegistry<Item> registry = event.getRegistry();
 
 			registry.register(new ItemShard());
+			registry.register(new ItemShardMisc());
 			registry.register(new ItemFoodBase("food_meat", 6, 0.6F, true));
 			registry.register(new ItemFoodRottenHeart());
 			registry.register(new ItemFoodRoot());

@@ -22,6 +22,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -47,6 +48,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
+	private boolean isChild;
 
 	public EntityGaiaHarpy(World worldIn) {
 		super(worldIn);
@@ -236,6 +238,12 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 		// TEMP Method used instead of isChild
 		SetChild(true, 10);
+		
+		if (!isChild) {
+			ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+			weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
+		}
 
 		return ret;
 	}
@@ -245,9 +253,11 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
 				SetEquipment((byte) 2);
+				isChild = true;
 			}
 		} else {
 			SetEquipment((byte) 2);
+			isChild = true;
 		}
 	}
 

@@ -149,6 +149,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
 				SetAI((byte) 1);
+				
 				timer = 0;
 				switchEquip = 1;
 			}
@@ -163,6 +164,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 				SetAI((byte) 0);
+				
 				timer = 0;
 				switchEquip = 0;
 			}

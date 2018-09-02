@@ -50,6 +50,9 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	private int switchHealth;
 	private int spawn;
 	private int spawnTimer;
+
+	private boolean canSpawnLevel3;
+	private boolean spawned;
 	private int spawnLevel3;
 	private int spawnLevel3Chance;
 
@@ -90,13 +93,12 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			if (GaiaConfig.GENERAL.spawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
+			if (canSpawnLevel3) {
+				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
 			}
-			return super.attackEntityFrom(source, EntityAttributes.BASE_DEFENSE_2);
 		}
 
-		return super.attackEntityFrom(source, damage);
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
 	@Override
@@ -190,19 +192,31 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 					SetSpawn((byte) 0);
 				}
 
-				if (GaiaConfig.GENERAL.spawnLevel3) {
-					if (spawnLevel3Chance > (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5)) {
-						spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
-					}
+				/* LEVEL 3 SPAWN DATA */
+				if (canSpawnLevel3) {
+					if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
 
-					if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
-						spawnLevel3 = 1;
+						if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
+							spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
+						}
+
+						if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+							spawnLevel3 = 1;
+						}
+
+						spawned = true;
 					}
 				}
+				/* LEVEL 3 SPAWN DATA */
 
 				spawnTimer = 0;
 				spawn = 2;
 			}
+		}
+
+		/* LEVEL 3 SPAWN DATA */
+		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
+			canSpawnLevel3 = true;
 		}
 
 		if (spawnLevel3 == 1) {
@@ -210,6 +224,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
+		/* LEVEL 3 SPAWN DATA */
 
 		super.onLivingUpdate();
 	}
@@ -249,6 +264,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (id == 1) {
+			explode();
+
 			sphinx = new EntityGaiaSphinx(world);
 			sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
@@ -267,6 +284,17 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 					mob.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 1, true, true));
 				}
 			}
+		}
+	}
+
+	private void explode() {
+		if (!this.world.isRemote) {
+			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
+			int explosionRadius = 2;
+
+			this.dead = true;
+			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
+			this.setDead();
 		}
 	}
 
@@ -347,6 +375,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		SetAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+
+		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
+			canSpawnLevel3 = true;
+		}
 
 		return ret;
 	}

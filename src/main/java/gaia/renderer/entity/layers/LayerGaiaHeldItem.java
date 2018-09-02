@@ -60,8 +60,7 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 	}
 
 	@Override
-	public void doRenderLayer(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
-			float netHeadYaw, float headPitch, float scale) {
+	public void doRenderLayer(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack stack = living.getItemStackFromSlot(slot);
 
 		GlStateManager.pushMatrix();
@@ -72,8 +71,9 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 		}
 
-		// Used to manually adjust x, y, z coordinates
-		// Never adjust x
+		/**
+		 * Used to manually adjust x, y, z coordinates. x = NEVER adjust y = distance from shoulder z = angle
+		 */
 
 		if (living instanceof EntityGaiaAnt) {
 			GlStateManager.translate(0.0F, 0.08F, 0.0F);
@@ -104,7 +104,7 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		}
 
 		if (living instanceof EntityGaiaMinotaur) {
-			GlStateManager.translate(0.1F, 0.40F, -0.01F);
+			GlStateManager.translate(0.1F, 0.4F, -0.01F);
 			GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
 		}
 
@@ -144,12 +144,8 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float) (flag
-					? -1
-					: 1) / 16.0F, 0.125F, -0.625F);
-			Minecraft.getMinecraft()
-					.getItemRenderer()
-					.renderItemSide(living, stack, camera, flag);
+			GlStateManager.translate((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
+			Minecraft.getMinecraft().getItemRenderer().renderItemSide(living, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}
 	}

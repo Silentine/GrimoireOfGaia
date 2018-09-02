@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
@@ -351,6 +352,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
@@ -358,6 +360,11 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 80.0D && super.getCanSpawnHere();
+		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
+			return posY > 80.0D && world.isRaining() && super.getCanSpawnHere();
+		} else {
+			return posY > 80.0D && super.getCanSpawnHere();
+		}
 	}
+	/* SPAWN CONDITIONS */
 }

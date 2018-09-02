@@ -37,7 +37,8 @@ import net.minecraft.world.World;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
 
-	private int spawn;
+	private boolean canSpawnLevel3;
+	private boolean spawned;
 	private int spawnLevel3;
 	private int spawnLevel3Chance;
 
@@ -47,7 +48,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 
-		spawn = 1;
 		spawnLevel3 = 0;
 		spawnLevel3Chance = 0;
 	}
@@ -74,16 +74,13 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		float modifiedDamage = damage;
-		if (modifiedDamage > EntityAttributes.BASE_DEFENSE_2) {
-			modifiedDamage = EntityAttributes.BASE_DEFENSE_2;
-
-			if (GaiaConfig.GENERAL.spawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.05);
+		if (damage > EntityAttributes.BASE_DEFENSE_2) {
+			if (canSpawnLevel3) {
+				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
 			}
 		}
 
-		return super.attackEntityFrom(source, modifiedDamage);
+		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
 	@Override
@@ -121,18 +118,24 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			if (GaiaConfig.GENERAL.spawnLevel3) {
-				if (spawnLevel3Chance > (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.GENERAL.spawnLevel3Chance * 0.5);
+		/* LEVEL 3 SPAWN DATA */
+		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
+			canSpawnLevel3 = true;
+		}
+
+		if (canSpawnLevel3) {
+			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
+
+				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
+					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.GENERAL.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
-			}
 
-			spawn = 2;
+				spawned = true;
+			}
 		}
 
 		if (spawnLevel3 == 1) {
@@ -140,6 +143,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
 		}
+		/* LEVEL 3 SPAWN DATA */
 
 		super.onLivingUpdate();
 	}
@@ -148,10 +152,23 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		EntityGaiaVampire vampire;
 
 		if (id == 1) {
+			explode();
+
 			vampire = new EntityGaiaVampire(world);
 			vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
 			world.spawnEntity(vampire);
+		}
+	}
+
+	private void explode() {
+		if (!this.world.isRemote) {
+			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
+			int explosionRadius = 2;
+
+			this.dead = true;
+			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
+			this.setDead();
 		}
 	}
 
@@ -223,6 +240,10 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		setEnchantmentBasedOnDifficulty(difficulty);
+
+		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
+			canSpawnLevel3 = true;
+		}
 
 		return ret;
 	}

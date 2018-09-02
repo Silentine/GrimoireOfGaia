@@ -58,6 +58,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		manual_clock = 0;
 		/* Server data setup */
 		sitting = false;
+		
+		this.setCanPickUpLoot(true);
 	}
 
 	@Override
@@ -199,6 +201,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	 * Our legacy method for dropping items In the newest versions, this is a fallback
 	 **/
 	protected void dropFewItems(boolean flag, int par) {
+		System.out.println("I died!");
+		
 //		BlockPos pos3 = getPosition();
 //		ParticleExample newEffect3 = new ParticleExample(world, pos3.getX() + 0.5, pos3.getY() + 2.2, pos3.getZ() + 0.5, 0, 0.0025, 0);
 //		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);

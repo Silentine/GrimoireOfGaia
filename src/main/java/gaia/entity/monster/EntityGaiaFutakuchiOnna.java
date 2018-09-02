@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -18,14 +20,18 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
+
+	private static final int DETECTION_RANGE = 6;
 
 	public EntityGaiaFutakuchiOnna(World worldIn) {
 		super(worldIn);
@@ -90,6 +96,31 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 	@Override
 	public boolean isAIDisabled() {
 		return false;
+	}
+
+	@Override
+	public void onUpdate() {
+		if (playerDetection(DETECTION_RANGE)) {
+			if (isPotionActive(MobEffects.INVISIBILITY)) {
+				removePotionEffect(MobEffects.INVISIBILITY);
+			}
+		} else {
+			if (!isPotionActive(MobEffects.INVISIBILITY)) {
+				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 320 * 20, 0));
+			}
+		}
+
+		super.onUpdate();
+	}
+
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	private boolean playerDetection(int range) {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+
+		return !list.isEmpty();
 	}
 
 	@Override

@@ -27,11 +27,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Copy any changes made to EntityMobPassiveBase.
+ * Apply all changes made here to EntityMobPassiveBase (except for AI and processInteract).
  *
  * @see EntityMobPassiveBase
  */
-
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobHostileBase extends EntityMob {
 
@@ -40,9 +39,28 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	public EntityMobHostileBase(World worldIn) {
 		super(worldIn);
 
-		this.targetTasks.addTask(2, this.aiNearestAttackableTarget);
+		targetTasks.addTask(2, aiNearestAttackableTarget);
 	}
 
+	@Override
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getItem() == GaiaItems.SPAWN_TAME) {
+			world.setEntityState(this, (byte) 11);
+
+			if (!player.capabilities.isCreativeMode) {
+				stack.shrink(1);
+			}
+
+			targetTasks.removeTask(aiNearestAttackableTarget);
+
+			return true;
+		} else {
+			return super.processInteract(player, hand);
+		}
+	}
+
+	/* SHARED CODE */
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
@@ -76,7 +94,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	public void handleStatusUpdate(byte id) {
 		if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else if (id == 9) {
 			spawnParticles(EnumParticleTypes.FLAME);
@@ -110,9 +128,9 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	 * @see TileEntityBeacon
 	 */
 	protected void beaconDebuff(Potion effect, int duration) {
-		if (!this.world.isRemote) {
+		if (!world.isRemote) {
 			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(2);
-			List<EntityLivingBase> moblist = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
 				if (!(mob instanceof EntityMob) && (mob instanceof IMob || mob instanceof EntityPlayer)) {
@@ -131,7 +149,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	 */
 	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion effect) {
 
-		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, this.posX, this.posY, this.posZ);
+		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
 		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
@@ -140,48 +158,49 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
 		entityareaeffectcloud.addEffect(new PotionEffect(effect));
 
-		this.world.spawnEntity(entityareaeffectcloud);
+		world.spawnEntity(entityareaeffectcloud);
 	}
 
 	/**
 	 * Used to adjust the motionY when a mob is hit.
+	 * 
+	 * @see EntityLivingBase
 	 */
-	public void knockBack(double xRatio, double zratio, double power) {
-		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
-			this.isAirBorne = true;
-			float f1 = MathHelper.sqrt(xRatio * xRatio + zratio * zratio);
+	public void knockBack(double xRatio, double zRatio, double power) {
+		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
+			isAirBorne = true;
+			float f1 = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
 			float f2 = 0.4F;
-			this.motionX /= 2.0D;
-			this.motionY /= 2.0D;
-			this.motionZ /= 2.0D;
-			this.motionX -= xRatio / (double) f1 * (double) f2;
-			this.motionY += (double) f2;
-			this.motionZ -= zratio / (double) f1 * (double) f2;
-			if (this.motionY > power) {
-				this.motionY = power;
+			motionX /= 2.0D;
+			motionY /= 2.0D;
+			motionZ /= 2.0D;
+			motionX -= xRatio / (double) f1 * (double) f2;
+			motionY += (double) f2;
+			motionZ -= zRatio / (double) f1 * (double) f2;
+			
+			if (motionY > power) {
+				motionY = power;
 			}
 		}
 	}
+	
+	public boolean daysPassed() {
+		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
+
+		return GaiaConfig.SPAWN.spawnDaysSet <= daysPassedClientInt;
+	}
 
 	@Override
-	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getItem() == GaiaItems.SPAWN_TAME) {
-			this.world.setEntityState(this, (byte) 11);
-
-			if (!player.capabilities.isCreativeMode) {
-				stack.shrink(1);
-			}
-
-			this.targetTasks.removeTask(this.aiNearestAttackableTarget);
-
-			return true;
+	public boolean getCanSpawnHere() {
+		if (GaiaConfig.SPAWN.spawnDaysPassed) {
+			return daysPassed() && super.getCanSpawnHere();
 		} else {
-			return super.processInteract(player, hand);
+			return super.getCanSpawnHere();
 		}
 	}
 
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {
 	}
+	/* SHARED CODE */
 }
