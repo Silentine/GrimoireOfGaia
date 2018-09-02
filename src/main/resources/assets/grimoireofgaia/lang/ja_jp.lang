@@ -6,7 +6,10 @@ item.grimoireofgaia.shard_2.name=ダイヤモンドの欠片
 item.grimoireofgaia.shard_3.name=エメラルドの欠片
 item.grimoireofgaia.shard_4.name=銅塊
 item.grimoireofgaia.shard_5.name=銀塊
+<<<<<<< HEAD
 item.grimoireofgaia.shard_misc_0.name=Totem of Undying Fragment
+=======
+>>>>>>> e128443e22e0e4002aa476bd96da159d7c2f5f77
 item.grimoireofgaia.food_meat.name=肉
 item.grimoireofgaia.food_rotten_heart.name=腐った心臓
 item.grimoireofgaia.food_root.name=太い根っこ
@@ -150,7 +153,10 @@ entity.grimoireofgaia.minotaurus.name=ミノタウロス
 entity.grimoireofgaia.mummy.name=マミー
 entity.grimoireofgaia.naga.name=ナーガ
 entity.grimoireofgaia.nine_tails.name=九尾
+<<<<<<< HEAD
 entity.grimoireofgaia.orc.name=Orc
+=======
+>>>>>>> e128443e22e0e4002aa476bd96da159d7c2f5f77
 entity.grimoireofgaia.sahuagin.name=サハギン
 entity.grimoireofgaia.satyress.name=サテュレス
 entity.grimoireofgaia.selkie.name=セルキー
@@ -220,6 +226,7 @@ item.grimoireofgaia.weapon_book_ender.desc=右クリックでエンダーパー�
 item.grimoireofgaia.weapon_debug.desc=テスト用
 
 block.grimoireofgaia.SpawnGuard.desc=%d ブロック内の日中のモブのスポーンを抑制します
+<<<<<<< HEAD
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=スポーン率
 configgui.grimoireofgaia.category.Menu0.general.tooltip=\nモブのスポーンを無効化するには0に設定してください\n日中: (<30 まれ, >60 普通)\nNight: (<60 まれ, >100 普通)
@@ -290,6 +297,70 @@ configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=(要再起動)
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=デバッグコマンド
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=(要再起動)\n開発者向けコマンドを有効にします。
 
+=======
+
+configgui.grimoireofgaia.category.general=スポーン率
+configgui.grimoireofgaia.category.general.tooltip=\nモブのスポーンを無効化するには0に設定してください\n日中: (<30 まれ, >60 普通)\nNight: (<60 まれ, >100 普通)
+configgui.grimoireofgaia.category.damage=基底攻撃力
+configgui.grimoireofgaia.category.damage.tooltip=(要再起動)\n防具を貫通する魔法ダメージをすべてのモブの攻撃に追加します
+configgui.grimoireofgaia.category.defense=基底守備力
+configgui.grimoireofgaia.category.defense.tooltip=(要再起動)\n100分率に基づいた受けるダメージ量を設定します\n(注意: 0に設定厳禁)
+configgui.grimoireofgaia.category.attributes=属性
+configgui.grimoireofgaia.category.attributes.tooltip=(要再起動)\n100分率に基づく属性\n(注意: 50未満に設定厳禁)
+configgui.grimoireofgaia.category.options=オプション
+configgui.grimoireofgaia.category.options.tooltip=\n特徴の有効/無効の設定
+configgui.grimoireofgaia.category.debug=デバッグ
+configgui.grimoireofgaia.category.debug.tooltip=\n両立性及びデバッグのオプション
+
+configgui.grimoireofgaia.category.general.SpawnLevel3=Level3モブの自発的なスポーンを禁止します
+configgui.grimoireofgaia.category.general.SpawnLevel3.tooltip=\nLevel3モブは自発的にスポーンせず、特定のモブからの呼び寄せによりスポーンします。
+configgui.grimoireofgaia.category.general.SpawnLevel3Chance=Level3モブのスポーン率
+configgui.grimoireofgaia.category.general.SpawnLevel3Chance.tooltip=\nLevel3モブの特定のモブからの呼び寄せスポーン率。\n((1/value)*100)
+
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=基底攻撃力
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\n近接攻撃において2.0(1ハート分)のダメージを追加します
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers=基底攻撃力(弓)
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nモブからの弓矢による攻撃に1.0(半ハート分)のダメージを追加します
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing=盾による貫通ダメージ防御
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\n近接ダメージは盾を貫通しなくなります
+
+configgui.grimoireofgaia.category.defense.Tier1baseDefense=Tier 1 ダメージ上限
+configgui.grimoireofgaia.category.defense.Tier1baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
+configgui.grimoireofgaia.category.defense.Tier2baseDefense=Tier 2 ダメージ上限
+configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
+configgui.grimoireofgaia.category.defense.Tier3baseDefense=Tier 3 ダメージ上限
+configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\n必要ヒット数の最大数\n(0ならば無効化)
+
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Tier 1 モブの体力
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\n体力:40 (20ハート分).\n(50 = 半分, 200 = 2倍)
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage=Tier 1 モブの攻撃力
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage.tooltip=\nダメージ: 4 (2ハート分).\n(50 = 半分, 200 = 2倍)
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth=Tier 2 モブの体力
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth.tooltip=\n体力:80 (40ハート分).\n(50 = 半分, 200 = 2倍)
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage=Tier 2 モブの攻撃力
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage.tooltip=\nダメージ: 6 (3ハート分).\n(50 = 半分, 200 = 2倍)
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Tier 3 モブの体力
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\n体力:160 (80ハート分).\n(50 = 半分, 200 = 2倍)
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Tier 3 モブの攻撃力
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nダメージ: 8 (4ハート分).\n(50 = 半分, 200 = 2倍)
+
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=スポーン有効
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=(要再起動)\n Grimoire of Gaiaのモブのスポーンを有効にします。
+configgui.grimoireofgaia.category.options.Menu1.AdditionalOre=ナゲットの追加
+configgui.grimoireofgaia.category.options.Menu1.AdditionalOre.tooltip=\n Grimoire of Gaiaのモブが銅塊、銀塊をドロップするようになります。
+configgui.grimoireofgaia.category.options.Menu2.StrafingArchers=弓使いの射ち方
+configgui.grimoireofgaia.category.options.Menu2.StrafingArchers.tooltip=\n弓使いは攻撃を避けるように弓を撃ちます。(スケルトンの様に)
+
+configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=バイオームの微調整
+configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=(要再起動)\n"M"系バイオームの辞書名を微調整します。\n(問題が生じた場合無効にして下さい。)
+configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=欠片ドロップの統合
+configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nモブは他のModで追加されたナゲット/欠片をドロップするようになります。\n(問題が生じた場合無効にして下さい。)
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=デバッグスポーン
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=(要再起動)\n当Mod以外のモブがスポーンしなくなります。
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=デバッグコマンド
+configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=(要再起動)\n開発者向けコマンドを有効にします。
+
+>>>>>>> e128443e22e0e4002aa476bd96da159d7c2f5f77
 #JEI
 gaia.box.loot=Box Loot
 gui.gaia.box.loot=Box Loot
