@@ -106,6 +106,11 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
+		
+		if (isBurning()) {
+			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+		}
 
 		super.onLivingUpdate();
 	}
@@ -194,11 +199,6 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	}
 
 	/* IMMUNITIES */
-	@Override
-	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.HUNGER && super.isPotionApplicable(potioneffectIn);
-	}
-
 	@Override
 	public void fall(float distance, float damageMultiplier) {
 	}

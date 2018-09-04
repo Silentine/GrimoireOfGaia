@@ -229,7 +229,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
 }

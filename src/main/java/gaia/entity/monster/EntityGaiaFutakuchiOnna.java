@@ -106,7 +106,7 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 			}
 		} else {
 			if (!isPotionActive(MobEffects.INVISIBILITY)) {
-				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 320 * 20, 0));
+				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
 			}
 		}
 
@@ -171,13 +171,6 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 			}
 		}
 	}
-
-	/* IMMUNITIES */
-	@Override
-	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.HUNGER && super.isPotionApplicable(potioneffectIn);
-	}
-	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

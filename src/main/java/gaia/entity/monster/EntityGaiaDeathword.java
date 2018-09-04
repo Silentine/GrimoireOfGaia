@@ -191,10 +191,10 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
-
+		/* WIP */
 		setCustomNameTag("WIP");
 		setAlwaysRenderNameTag(true);
-
+		/* WIP */
 		return ret;
 	}
 

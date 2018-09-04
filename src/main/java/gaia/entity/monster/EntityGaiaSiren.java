@@ -321,7 +321,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
 

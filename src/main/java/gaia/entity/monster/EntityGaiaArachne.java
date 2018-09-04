@@ -153,7 +153,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					SetSpawn((byte) 0);
+					SetSpawn((byte) 1);
 				}
 
 				spawnTimer = 0;
@@ -179,9 +179,17 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	}
 
 	private void SetSpawn(byte id) {
+		EntitySpider spider;
 		EntityCaveSpider caveSpider;
 
 		if (id == 0) {
+			spider = new EntitySpider(world);
+			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
+			world.spawnEntity(spider);
+		}
+		
+		if (id == 1) {
 			caveSpider = new EntityCaveSpider(world);
 			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);
@@ -316,7 +324,6 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP, 1, 0);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
-		weaponCustom.hasEffect();
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 
 		return ret;
@@ -342,7 +349,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 
 	@Override

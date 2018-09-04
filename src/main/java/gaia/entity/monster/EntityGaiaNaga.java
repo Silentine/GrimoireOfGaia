@@ -40,6 +40,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	public EntityGaiaNaga(World worldIn) {
 		super(worldIn);
 
+		setSize(1.0F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
@@ -212,7 +213,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 		
-		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 2);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
@@ -225,7 +226,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	/* ARCHER DATA */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 
 	@Override

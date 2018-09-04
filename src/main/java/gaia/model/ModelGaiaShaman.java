@@ -281,4 +281,8 @@ public class ModelGaiaShaman extends ModelGaia {
 	public ModelRenderer getRightArm() {
 		return rightarm;
 	}
+	
+	public ModelRenderer getLeftArm() {
+		return leftarm;
+	}
 }

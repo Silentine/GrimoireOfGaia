@@ -19,9 +19,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemWeaponPropMinecraft extends ItemSword implements IClientRegister {
+public class ItemWeaponPropItemSword extends ItemSword implements IClientRegister {
 
-	public ItemWeaponPropMinecraft(ToolMaterial material, String name) {
+	public ItemWeaponPropItemSword(ToolMaterial material, String name) {
 		super(material);
 
 		setCreativeTab(CreativeTabGaia.INSTANCE);

@@ -26,7 +26,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -44,6 +43,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
+	
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
@@ -259,7 +259,13 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			skeleton = new EntitySkeleton(world);
 			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.HEAD, 0);
 			world.spawnEntity(skeleton);
 		}
 

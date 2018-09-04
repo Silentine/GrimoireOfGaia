@@ -3,7 +3,11 @@ package gaia.entity.ai;
 import gaia.entity.monster.EntityGaiaCreep;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAICreeperSwell;
 
+/**
+ * @see EntityAICreeperSwell
+ */
 public class EntityAIGaiaCreepSwell extends EntityAIBase {
 
 	private EntityGaiaCreep swellingCreep;

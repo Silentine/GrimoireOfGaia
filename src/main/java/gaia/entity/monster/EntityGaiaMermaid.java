@@ -188,7 +188,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 		
-		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 2);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);

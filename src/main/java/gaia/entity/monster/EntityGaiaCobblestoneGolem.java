@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -204,7 +205,24 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.POISON || potioneffectIn.getPotion() == MobEffects.INSTANT_DAMAGE ? false : super.isPotionApplicable(potioneffectIn);
+	}
+	
+	/**
+	 * @see EntityWitch
+	 */
+	protected float applyPotionDamageCalculations(DamageSource source, float damage) {
+		damage = super.applyPotionDamageCalculations(source, damage);
+
+		if (source.getTrueSource() == this) {
+			damage = 0.0F;
+		}
+
+		if (source.isMagicDamage()) {
+			damage = (float) ((double) damage * 0.15D);
+		}
+
+		return damage;
 	}
 	/* IMMUNITIES */
 

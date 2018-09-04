@@ -281,8 +281,7 @@ public class GaiaSpawning {
 	}
 
 	/**
-	 * "Mutated" biomes don't have type dictionaries by default. This addition
-	 * compensates for specific sub biomes having gaps in creature spawning.
+	 * "Mutated" biomes don't have type dictionaries by default. This addition compensates for specific sub biomes having gaps in creature spawning.
 	 */
 	public static void biomeTweaks() {
 		Gaia.LOGGER.info("Sub Biome Tweaks Enabled");

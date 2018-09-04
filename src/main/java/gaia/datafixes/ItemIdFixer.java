@@ -45,6 +45,7 @@ public class ItemIdFixer implements IFixableData {
 			.put("grimoireofgaia:miscring", "grimoireofgaia:misc_ring")
 			.put("grimoireofgaia:miscsoulfiery", "grimoireofgaia:misc_soul_fiery")
 			.put("grimoireofgaia:miscsoulfire", "grimoireofgaia:misc_soul_fire")
+			.put("grimoireofgaia:shardmisc", "grimoireofgaia:shard_misc")
 			.put("grimoireofgaia:shieldprop", "grimoireofgaia:shield_prop")
 			.put("grimoireofgaia:spawncreepergirl", "grimoireofgaia:spawn_creeper_girl")
 			.put("grimoireofgaia:spawnendergirl", "grimoireofgaia:spawn_ender_girl")

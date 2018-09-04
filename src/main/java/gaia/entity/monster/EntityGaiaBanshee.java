@@ -1,5 +1,9 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -8,41 +12,68 @@ import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+/**
+ * Copied code from EntityVex with the main difference that code related to 'owner' and 'limitedLifespan' have been removed.
+ * isAIDisabled has also been removed.
+ * 
+ * @see EntityVex
+ */
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBanshee extends EntityMobHostileBase {
+
+	private static final int DETECTION_RANGE = 8;
+
+	protected static final DataParameter<Byte> VEX_FLAGS = EntityDataManager.<Byte>createKey(EntityGaiaBanshee.class, DataSerializers.BYTE);
+	@Nullable
+	private BlockPos boundOrigin;
 
 	public EntityGaiaBanshee(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
-		stepHeight = 1.0F;
 		isImmuneToFire = true;
+
+		this.moveHelper = new EntityGaiaBanshee.AIMoveControl(this);
 	}
 
 	@Override
 	protected void initEntityAI() {
-		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true));
-		tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(3, new EntityAILookIdle(this));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		super.initEntityAI();
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(4, new EntityGaiaBanshee.AIChargeAttack());
+		this.tasks.addTask(8, new EntityGaiaBanshee.AIMoveRandom());
+		this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] { EntityGaiaBanshee.class }));
 	}
 
 	@Override
@@ -73,18 +104,9 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		}
 		return true;
 	}
-
-	@Override
-	public boolean isAIDisabled() {
-		return false;
-	}
-
+	
 	@Override
 	public void onLivingUpdate() {
-		if (!onGround && motionY < 0.0D) {
-			motionY *= 0.8D;
-		}
-
 		if (world.isDaytime() && !world.isRemote) {
 			float f = getBrightness();
 
@@ -101,6 +123,236 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
+
+	/* VEX CODE */
+	/**
+	 * Tries to move the entity towards the specified location.
+	 */
+	public void move(MoverType type, double x, double y, double z) {
+		super.move(type, x, y, z);
+		this.doBlockCollisions();
+	}
+
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
+		this.noClip = true;
+		super.onUpdate();
+		this.noClip = false;
+		this.setNoGravity(true);
+	}
+
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(VEX_FLAGS, Byte.valueOf((byte) 0));
+	}
+
+	public static void registerFixesVex(DataFixer fixer) {
+		EntityLiving.registerFixesMob(fixer, EntityGaiaBanshee.class);
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		if (compound.hasKey("BoundX")) {
+			this.boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
+		}
+	}
+
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+
+		if (this.boundOrigin != null) {
+			compound.setInteger("BoundX", this.boundOrigin.getX());
+			compound.setInteger("BoundY", this.boundOrigin.getY());
+			compound.setInteger("BoundZ", this.boundOrigin.getZ());
+		}
+	}
+
+	@Nullable
+	public BlockPos getBoundOrigin() {
+		return this.boundOrigin;
+	}
+
+	public void setBoundOrigin(@Nullable BlockPos boundOriginIn) {
+		this.boundOrigin = boundOriginIn;
+	}
+
+	private boolean getVexFlag(int mask) {
+		int i = ((Byte) this.dataManager.get(VEX_FLAGS)).byteValue();
+		return (i & mask) != 0;
+	}
+
+	private void setVexFlag(int mask, boolean value) {
+		int i = ((Byte) this.dataManager.get(VEX_FLAGS)).byteValue();
+
+		if (value) {
+			i = i | mask;
+		} else {
+			i = i & ~mask;
+		}
+
+		this.dataManager.set(VEX_FLAGS, Byte.valueOf((byte) (i & 255)));
+	}
+
+	public boolean isCharging() {
+		return this.getVexFlag(1);
+	}
+
+	public void setCharging(boolean charging) {
+		this.setVexFlag(1, charging);
+	}
+
+	class AIChargeAttack extends EntityAIBase {
+		public AIChargeAttack() {
+			this.setMutexBits(1);
+		}
+
+		/**
+		 * Returns whether the EntityAIBase should begin execution.
+		 */
+		public boolean shouldExecute() {
+			if (EntityGaiaBanshee.this.getAttackTarget() != null && !EntityGaiaBanshee.this.getMoveHelper().isUpdating() && EntityGaiaBanshee.this.rand.nextInt(7) == 0) {
+				return EntityGaiaBanshee.this.getDistanceSq(EntityGaiaBanshee.this.getAttackTarget()) > 4.0D;
+			} else {
+				return false;
+			}
+		}
+
+		/**
+		 * Returns whether an in-progress EntityAIBase should continue executing
+		 */
+		public boolean shouldContinueExecuting() {
+			return EntityGaiaBanshee.this.getMoveHelper().isUpdating() && EntityGaiaBanshee.this.isCharging() && EntityGaiaBanshee.this.getAttackTarget() != null && EntityGaiaBanshee.this.getAttackTarget().isEntityAlive();
+		}
+
+		/**
+		 * Execute a one shot task or start executing a continuous task
+		 */
+		public void startExecuting() {
+			EntityLivingBase entitylivingbase = EntityGaiaBanshee.this.getAttackTarget();
+			Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+			EntityGaiaBanshee.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
+			EntityGaiaBanshee.this.setCharging(true);
+			EntityGaiaBanshee.this.playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
+		}
+
+		/**
+		 * Reset the task's internal state. Called when this task is interrupted by another one
+		 */
+		public void resetTask() {
+			EntityGaiaBanshee.this.setCharging(false);
+		}
+
+		/**
+		 * Keep ticking a continuous task that has already been started
+		 */
+		public void updateTask() {
+			EntityLivingBase entitylivingbase = EntityGaiaBanshee.this.getAttackTarget();
+
+			if (EntityGaiaBanshee.this.getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox())) {
+				EntityGaiaBanshee.this.attackEntityAsMob(entitylivingbase);
+				EntityGaiaBanshee.this.setCharging(false);
+			} else {
+				double d0 = EntityGaiaBanshee.this.getDistanceSq(entitylivingbase);
+
+				if (d0 < 9.0D) {
+					Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+					EntityGaiaBanshee.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
+				}
+			}
+		}
+	}
+
+	class AIMoveControl extends EntityMoveHelper {
+		public AIMoveControl(EntityGaiaBanshee vex) {
+			super(vex);
+		}
+
+		public void onUpdateMoveHelper() {
+			if (this.action == EntityMoveHelper.Action.MOVE_TO) {
+				double d0 = this.posX - EntityGaiaBanshee.this.posX;
+				double d1 = this.posY - EntityGaiaBanshee.this.posY;
+				double d2 = this.posZ - EntityGaiaBanshee.this.posZ;
+				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+				d3 = (double) MathHelper.sqrt(d3);
+
+				if (d3 < EntityGaiaBanshee.this.getEntityBoundingBox().getAverageEdgeLength()) {
+					this.action = EntityMoveHelper.Action.WAIT;
+					EntityGaiaBanshee.this.motionX *= 0.5D;
+					EntityGaiaBanshee.this.motionY *= 0.5D;
+					EntityGaiaBanshee.this.motionZ *= 0.5D;
+				} else {
+					EntityGaiaBanshee.this.motionX += d0 / d3 * 0.05D * this.speed;
+					EntityGaiaBanshee.this.motionY += d1 / d3 * 0.05D * this.speed;
+					EntityGaiaBanshee.this.motionZ += d2 / d3 * 0.05D * this.speed;
+
+					if (EntityGaiaBanshee.this.getAttackTarget() == null) {
+						EntityGaiaBanshee.this.rotationYaw = -((float) MathHelper.atan2(EntityGaiaBanshee.this.motionX, EntityGaiaBanshee.this.motionZ)) * (180F / (float) Math.PI);
+						EntityGaiaBanshee.this.renderYawOffset = EntityGaiaBanshee.this.rotationYaw;
+					} else {
+						double d4 = EntityGaiaBanshee.this.getAttackTarget().posX - EntityGaiaBanshee.this.posX;
+						double d5 = EntityGaiaBanshee.this.getAttackTarget().posZ - EntityGaiaBanshee.this.posZ;
+						EntityGaiaBanshee.this.rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
+						EntityGaiaBanshee.this.renderYawOffset = EntityGaiaBanshee.this.rotationYaw;
+					}
+				}
+			}
+		}
+	}
+
+	class AIMoveRandom extends EntityAIBase {
+		public AIMoveRandom() {
+			this.setMutexBits(1);
+		}
+
+		/**
+		 * Returns whether the EntityAIBase should begin execution.
+		 */
+		public boolean shouldExecute() {
+			return !EntityGaiaBanshee.this.getMoveHelper().isUpdating() && EntityGaiaBanshee.this.rand.nextInt(7) == 0;
+		}
+
+		/**
+		 * Returns whether an in-progress EntityAIBase should continue executing
+		 */
+		public boolean shouldContinueExecuting() {
+			return false;
+		}
+
+		/**
+		 * Keep ticking a continuous task that has already been started
+		 */
+		public void updateTask() {
+			BlockPos blockpos = EntityGaiaBanshee.this.getBoundOrigin();
+
+			if (blockpos == null) {
+				blockpos = new BlockPos(EntityGaiaBanshee.this);
+			}
+
+			for (int i = 0; i < 3; ++i) {
+				BlockPos blockpos1 = blockpos.add(EntityGaiaBanshee.this.rand.nextInt(15) - 7, EntityGaiaBanshee.this.rand.nextInt(11) - 5, EntityGaiaBanshee.this.rand.nextInt(15) - 7);
+
+				if (EntityGaiaBanshee.this.world.isAirBlock(blockpos1)) {
+					EntityGaiaBanshee.this.moveHelper.setMoveTo((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 0.25D);
+
+					if (EntityGaiaBanshee.this.getAttackTarget() == null) {
+						EntityGaiaBanshee.this.getLookHelper().setLookPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+					}
+
+					break;
+				}
+			}
+		}
+	}
+	/* VEX CODE */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -164,16 +416,6 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
-
-	/* IMMUNITIES */
-	@Override
-	public void fall(float distance, float damageMultiplier) {
-	}
-
-	@Override
-	public void setInWeb() {
-	}
-	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

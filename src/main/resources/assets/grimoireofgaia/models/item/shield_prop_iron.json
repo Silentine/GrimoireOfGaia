@@ -1,6 +1,6 @@
 {
     "parent": "grimoireofgaia:item/shield_prop",
     "textures": {
-        "0": "grimoireofgaia:items/models/shield/shield_prop_plate_iron"
+        "0": "grimoireofgaia:items/models/shield/shield_prop_iron"
     }
 }

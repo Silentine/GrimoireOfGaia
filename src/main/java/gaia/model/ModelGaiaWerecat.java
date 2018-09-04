@@ -132,25 +132,25 @@ public class ModelGaiaWerecat extends ModelGaia {
 		leash.setTextureSize(128, 64);
 		setRotation(leash, 0.2617994F, 0F, 0F);
 		ModelRenderer rightarmlower = new ModelRenderer(this, 64, 0);
-		rightarmlower.addBox(-2.5F, 2F, -1.5F, 2, 8, 3);
+		rightarmlower.addBox(-4.5F, 2F, -1.5F, 2, 8, 3);
 		rightarmlower.setRotationPoint(-2.5F, 2.5F, -2.5F);
-		rightarmlower.setTextureSize(64, 32);
-		setRotation(rightarmlower, -0.1745329F, 0F, 0.1745329F);
+		rightarmlower.setTextureSize(128, 64);
+		setRotation(rightarmlower, -0.1745329F, 0F, -0.0872665F);
 		ModelRenderer leftarmlower = new ModelRenderer(this, 74, 0);
-		leftarmlower.addBox(0.5F, 2F, -1.5F, 2, 8, 3);
+		leftarmlower.addBox(2.5F, 2F, -1.5F, 2, 8, 3);
 		leftarmlower.setRotationPoint(2.5F, 2.5F, -2.5F);
-		leftarmlower.setTextureSize(64, 32);
-		setRotation(leftarmlower, -0.1745329F, 0F, -0.1745329F);
+		leftarmlower.setTextureSize(128, 64);
+		setRotation(leftarmlower, -0.1745329F, 0F, 0.0872665F);
 		ModelRenderer righthand = new ModelRenderer(this, 64, 11);
-		righthand.addBox(-2.5F, 8F, -2F, 2, 4, 4);
+		righthand.addBox(-1.5F, 8F, -2F, 2, 4, 4);
 		righthand.setRotationPoint(-2.5F, 2.5F, -2.5F);
-		righthand.setTextureSize(64, 32);
-		setRotation(righthand, -0.1745329F, 0F, 0.0872665F);
+		righthand.setTextureSize(128, 64);
+		setRotation(righthand, -0.1745329F, 0F, 0.1745329F);
 		ModelRenderer lefthand = new ModelRenderer(this, 76, 11);
-		lefthand.addBox(0.5F, 8F, -2F, 2, 4, 4);
+		lefthand.addBox(-0.5F, 8F, -2F, 2, 4, 4);
 		lefthand.setRotationPoint(2.5F, 2.5F, -2.5F);
-		lefthand.setTextureSize(64, 32);
-		setRotation(lefthand, -0.1745329F, 0F, -0.0872665F);
+		lefthand.setTextureSize(128, 64);
+		setRotation(lefthand, -0.1745329F, 0F, -0.1745329F);
 		waist = new ModelRenderer(this, 64, 19);
 		waist.addBox(-3.5F, 7.5F, -3F, 7, 4, 4);
 		waist.setRotationPoint(0F, 1F, -3F);
@@ -302,7 +302,7 @@ public class ModelGaiaWerecat extends ModelGaia {
 		leftarm.rotateAngleY += (bodytop.rotateAngleY * 2.0F);
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
-	
+
 	private float defaultRotateAngleX = -0.4363323F;
 
 	private void animationFlee() {

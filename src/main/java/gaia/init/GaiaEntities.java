@@ -17,7 +17,6 @@ import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaCyclops;
-import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
@@ -39,6 +38,7 @@ import gaia.entity.monster.EntityGaiaMinotaurus;
 import gaia.entity.monster.EntityGaiaMummy;
 import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaNineTails;
+import gaia.entity.monster.EntityGaiaOrc;
 import gaia.entity.monster.EntityGaiaSahuagin;
 import gaia.entity.monster.EntityGaiaSatyress;
 import gaia.entity.monster.EntityGaiaSelkie;
@@ -51,6 +51,7 @@ import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
 import gaia.entity.monster.EntityGaiaSummonSporeling;
+import gaia.entity.monster.EntityGaiaSummonWoodenGolem;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -118,6 +119,7 @@ public class GaiaEntities {
 			createEntityEntry("mummy", EntityGaiaMummy.class, 0xdcd7c1, 0xc9b161),
 			createEntityEntry("naga", EntityGaiaNaga.class, 0x29bc55, 0xccb63f),
 			createEntityEntry("nine_tails", EntityGaiaNineTails.class, 11809844, 13218145),
+//			createEntityEntry("orc", EntityGaiaOrc.class, 0x718a60, 0xc0d696),
 			createEntityEntry("sahuagin", EntityGaiaSahuagin.class, 0x5c70b1, 0x84a498),
 			createEntityEntry("satyress", EntityGaiaSatyress.class, 0x707b4f, 0xa4452d),
 			createEntityEntry("selkie", EntityGaiaSelkie.class, 9082818, 13488612),
@@ -184,6 +186,7 @@ public class GaiaEntities {
 			createEntityEntry("mimic", EntityGaiaMimic.class, registry);
 			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
 			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
+			createEntityEntry("wooden_golem", EntityGaiaSummonWoodenGolem.class, registry);
 
 			// Projectiles
 			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);

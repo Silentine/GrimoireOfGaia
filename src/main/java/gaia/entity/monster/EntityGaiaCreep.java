@@ -155,7 +155,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			}
 		} else {
 			if (!isPotionActive(MobEffects.INVISIBILITY)) {
-				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 320 * 20, 0));
+				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
 			}
 		}
 		

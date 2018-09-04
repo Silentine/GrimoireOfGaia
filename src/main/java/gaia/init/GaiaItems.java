@@ -62,11 +62,12 @@ import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
 import gaia.items.ItemWeaponBookWither;
+import gaia.items.ItemWeaponDebug;
 import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
-import gaia.items.ItemWeaponPropMinecraft;
+import gaia.items.ItemWeaponPropItemSword;
 import gaia.items.ItemWeaponPropProjectile;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
@@ -84,7 +85,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
 	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
-	// 	A
+	// A
 	public static final Item ACCESSORY_CURSED = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
 	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
@@ -94,7 +95,7 @@ public class GaiaItems {
 	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_POISON = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_WITHER = Items.AIR;
-	// 	B
+	// B
 	public static final Item BOX = Items.AIR;
 	public static final Item BAG_ARROW = Items.AIR;
 	public static final Item BAG_BOOK = Items.AIR;
@@ -104,9 +105,9 @@ public class GaiaItems {
 	public static final Item BOX_GOLD = Items.AIR;
 	public static final Item BOX_IRON = Items.AIR;
 	public static final Item BOX_OLD = Items.AIR;
-	// 	C
+	// C
 	public static final Item CHEST = Items.AIR;
-	//	F
+	// F
 	public static final Item FOOD_COALFISH = Items.AIR;
 	public static final Item FOOD_MANDRAKE = Items.AIR;
 	public static final Item FOOD_MEAT = Items.AIR;
@@ -118,7 +119,7 @@ public class GaiaItems {
 	public static final Item FOOD_ROTTEN_HEART = Items.AIR;
 	public static final Item FOOD_SMALL_APPLE_GOLD = Items.AIR;
 	public static final Item FOOD_WITHER = Items.AIR;
-	// 	M
+	// M
 	public static final Item MISC_BOOK = Items.AIR;
 	public static final Item MISC_CURRENCY = Items.AIR;
 	public static final Item MISC_EXPERIENCE = Items.AIR;
@@ -129,7 +130,7 @@ public class GaiaItems {
 	public static final Item MISC_RING = Items.AIR;
 	public static final Item MISC_SOUL_FIRE = Items.AIR;
 	public static final Item MISC_SOUL_FIERY = Items.AIR;
-	//	S
+	// S
 	public static final Item SHARD = Items.AIR;
 	public static final Item SHARD_MISC = Items.AIR;
 	public static final Item SHIELD_PROP = Items.AIR;
@@ -141,7 +142,7 @@ public class GaiaItems {
 	public static final Item SPAWN_SLIME_GIRL = Items.AIR;
 	public static final Item SPAWN_TAME = Items.AIR;
 	public static final Item SPAWN_TRADER = Items.AIR;
-	//	W
+	// W
 	public static final Item WEAPON_BOOK = Items.AIR;
 	public static final Item WEAPON_BOOK_BATTLE = Items.AIR;
 	public static final Item WEAPON_BOOK_BUFF = Items.AIR;
@@ -166,17 +167,17 @@ public class GaiaItems {
 	public static final Item WEAPON_PROP_AXE_STONE = Items.AIR;
 	public static final Item WEAPON_PROP_AXE_IRON = Items.AIR;
 	public static final Item WEAPON_PROP_AXE_GOLD = Items.AIR;
-	
+
 	public static ToolMaterial MATERIAL_PROP = EnumHelper.addToolMaterial("material_prop", 0, 250, 6.0F, -3.0F, 36);
 	public static ToolMaterial MATERIAL_BOOK = EnumHelper.addToolMaterial("material_book", 2, 780, 6.0F, 2.0F, 22);
-	
+
 	private GaiaItems() {
 	}
 
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	@SuppressWarnings("unused")
 	public static class RegistrationHandler {
-		
+
 		private RegistrationHandler() {
 		}
 
@@ -252,14 +253,14 @@ public class GaiaItems {
 			registry.register(new ItemAccessoryTrinketLevitation());
 			registry.register(new ItemAccessoryCursed());
 			registry.register(new ItemAccessoryHeadgear());
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_wood"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_stone"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_iron"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_sword_gold"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_wood"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_stone"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_iron"));
-			registry.register(new ItemWeaponPropMinecraft(MATERIAL_PROP, "weapon_prop_axe_gold"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_wood"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_stone"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_iron"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_gold"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_wood"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_stone"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_iron"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_gold"));
 
 			Gaia.LOGGER.info("Item registration complete.");
 		}

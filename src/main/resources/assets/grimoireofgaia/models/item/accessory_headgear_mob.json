@@ -1,0 +1,49 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+	"ambientocclusion": false,
+    "textures": {
+        "1": "grimoireofgaia:items/models/bauble/accessory_headgear_mob"
+    },
+	"display": {
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1.0, 1.0, 1.0 ]
+        },
+		"head": {
+            "rotation": [ 180, 180, 180 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1.6, 1.6, 1.6 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1, 1, 1 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 45, 45, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "body1",
+            "from": [ 3.50, 3.50, 3.50 ], 
+            "to": [ 12.50, 12.50, 12.50 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 4.00, 4.00, 8.00, 8.00 ] },
+                "east": { "texture": "#1", "uv": [ 0.00, 4.00, 4.00, 8.00 ] },
+                "south": { "texture": "#1", "uv": [ 12.00, 4.00, 16.00, 8.00 ] },
+                "west": { "texture": "#1", "uv": [ 8.00, 4.00, 12.00, 8.00 ] },
+                "up": { "texture": "#1", "uv": [ 4.00, 0.00, 8.00, 4.00 ], "rotation": 180 },
+                "down": { "texture": "#1", "uv": [ 8.00, 0.00, 12.00, 4.00 ] }
+            }
+        }
+    ]
+}

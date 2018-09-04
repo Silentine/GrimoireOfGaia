@@ -24,19 +24,26 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -95,7 +102,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.magic(target, this, distanceFactor);
+		Ranged.potion(target, this, distanceFactor, PotionTypes.POISON);
 	}
 
 	@Override
@@ -145,6 +152,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			SetEquipment((byte) 1);
+			SetEquipment((byte) 2);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -206,6 +214,10 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
+
+		if (id == 2) {
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
+		}
 	}
 
 	private void SetSpawn(byte id) {
@@ -215,7 +227,13 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Blocks.PUMPKIN));
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
+			zombie.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
 			world.spawnEntity(zombie);
 		}
 	}
@@ -310,15 +328,34 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
+		PotionType potiontype = PotionTypes.POISON;
+		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+
 		return ret;
 	}
 
 	/* IMMUNITIES */
 	@Override
-	public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-		return par1PotionEffect.getPotion() != MobEffects.POISON && super.isPotionApplicable(par1PotionEffect);
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 
+	/**
+	 * @see EntityWitch
+	 */
+	protected float applyPotionDamageCalculations(DamageSource source, float damage) {
+		damage = super.applyPotionDamageCalculations(source, damage);
+
+		if (source.getTrueSource() == this) {
+			damage = 0.0F;
+		}
+
+		if (source.isMagicDamage()) {
+			damage = (float) ((double) damage * 0.15D);
+		}
+
+		return damage;
+	}
 	/* IMMUNITIES */
 
 	@Override

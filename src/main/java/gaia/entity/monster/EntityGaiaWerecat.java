@@ -42,6 +42,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaWerecat extends EntityMobHostileBase {
+	
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaWerecat.AILeapAttack(this);
@@ -264,18 +265,18 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
-		if (par1NBTTagCompound.hasKey(MOB_TYPE_TAG)) {
-			byte b0 = par1NBTTagCompound.getByte(MOB_TYPE_TAG);
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
-	}
-
-	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
 	/* ALTERNATE SKIN */
 

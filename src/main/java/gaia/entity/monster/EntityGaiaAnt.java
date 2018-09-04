@@ -167,22 +167,22 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	private void setMobType(int par1) {
 		dataManager.set(SKIN, par1);
 	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getMobType());
+	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
-		if (par1NBTTagCompound.hasKey(MOB_TYPE_TAG)) {
-			byte b0 = par1NBTTagCompound.getByte(MOB_TYPE_TAG);
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setMobType(b0);
 		}
 
 		setCombatTask();
-	}
-
-	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
 	/* CLASS TYPE */
 
@@ -347,7 +347,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
 

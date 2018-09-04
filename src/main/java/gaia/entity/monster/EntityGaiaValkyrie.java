@@ -227,7 +227,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		if (id == 2) {
-			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
+			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		}
 	}

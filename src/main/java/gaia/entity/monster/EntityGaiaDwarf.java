@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
+import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
@@ -32,9 +33,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -45,8 +48,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
+
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+	private final EntityAIGaiaBreakDoor breakDoor = new EntityAIGaiaBreakDoor(this);
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDwarf.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaDwarf.class, DataSerializers.BOOLEAN);
@@ -79,11 +84,24 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(3, new EntityAILookIdle(this));
+		tasks.addTask(3, new EntityAIWander(this, 1.0D));
+		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(4, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAIGaiaValidateTargetPlayer(this));
+	}
+
+	/**
+	 * Sets or removes EntityAIBreakDoor task
+	 */
+	public void setBreakDoorsAItask(boolean enabled) {
+		((PathNavigateGround) this.getNavigator()).setBreakDoors(enabled);
+
+		if (enabled) {
+			this.tasks.addTask(1, this.breakDoor);
+		} else {
+			this.tasks.removeTask(this.breakDoor);
+		}
 	}
 
 	@Override
@@ -104,7 +122,21 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			}
 		}
 
-		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+		if (hasShield()) {
+			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+		}
+	}
+
+	private boolean hasShield() {
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -200,9 +232,9 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		tasks.removeTask(aiArrowAttack);
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == Items.BOW) {
-			tasks.addTask(1, aiArrowAttack);
+			tasks.addTask(2, aiArrowAttack);
 		} else {
-			tasks.addTask(1, aiAttackOnCollide);
+			tasks.addTask(2, aiAttackOnCollide);
 		}
 	}
 
@@ -223,19 +255,20 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
-		if (par1NBTTagCompound.hasKey(MOB_TYPE_TAG)) {
-			byte b0 = par1NBTTagCompound.getByte(MOB_TYPE_TAG);
-			setMobType(b0);
-		}
-		setCombatTask();
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getMobType());
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setMobType(b0);
+		}
+
+		setCombatTask();
 	}
 	/* CLASS TYPE */
 
@@ -355,7 +388,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(2) == 0) {
-			tasks.addTask(1, aiArrowAttack);
+			tasks.addTask(2, aiArrowAttack);
 
 			ItemStack bowCustom = new ItemStack(Items.BOW);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, bowCustom);
@@ -371,13 +404,15 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setTextureType(1);
 			mobClass = 1;
 		} else {
-			tasks.addTask(1, aiAttackOnCollide);
+			tasks.addTask(2, aiAttackOnCollide);
 
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
 			setEnchantmentBasedOnDifficulty(difficulty);
 
-			ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
-			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
+			if (world.rand.nextInt(2) == 0) {
+				ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
+			}
 
 			setMobType(1);
 			getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
@@ -388,6 +423,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
 			canSpawnLevel3 = true;
 		}
+
+		setBreakDoorsAItask(true);
 
 		return ret;
 	}

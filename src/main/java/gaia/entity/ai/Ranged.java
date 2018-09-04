@@ -1,11 +1,19 @@
 package gaia.entity.ai;
 
+import static net.minecraft.world.EnumDifficulty.HARD;
+
+import java.util.Random;
+
 import gaia.GaiaConfig;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -13,23 +21,22 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Random;
-
-import static net.minecraft.world.EnumDifficulty.HARD;
-
 public class Ranged {
-	private Ranged() {}
+	private Ranged() {
+	}
 
 	/**
-	 * Shortcut Method for entities using ranged attacks.
-	 * Use this to replace entity [attackEntityWithRangedAttack].
+	 * Shortcut Method for entities using ranged attacks. Use this to replace entity [attackEntityWithRangedAttack].
 	 *
 	 * @param target      the entity to fire at
 	 * @param host        the entity that is shooting
-	 * @param bonusdamage
+	 * @param bonusdamage bonus damage
+	 * 
 	 * @see EntitySkeleton
 	 */
 	public static void rangedAttack(EntityLivingBase target, EntityLivingBase host, float bonusdamage) {
@@ -74,24 +81,42 @@ public class Ranged {
 		host.world.spawnEntity(entitytippedarrow);
 	}
 
-	public static void fireball(EntityLivingBase target, EntityLivingBase host, float par2) {
+	/**
+	 * Shortcut Method for entities using blaze attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see EntityBlaze
+	 */
+	public static void fireball(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
 
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
+
 		double d0 = target.posX - host.posX;
 		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
-		double f1 = MathHelper.sqrt(par2) * 0.5D;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int var10 = 0; var10 < 1; ++var10) {
-			EntityGaiaProjectileSmallFireball var11 = new EntityGaiaProjectileSmallFireball(host.world, host,
-					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			var11.posY = host.posY + host.height / 2.0D + 0.5D;
-			host.world.spawnEntity(var11);
+			EntityGaiaProjectileSmallFireball entitygaiaprojectilesmallfireball = new EntityGaiaProjectileSmallFireball(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectilesmallfireball.posY = host.posY + host.height / 2.0D + 0.5D;
+			host.world.spawnEntity(entitygaiaprojectilesmallfireball);
 		}
 	}
 
-	public static void magic(EntityLivingBase target, EntityLivingBase host, float par2) {
+	/**
+	 * Shortcut Method for entities using blaze attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see EntityBlaze
+	 */
+	public static void magic(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
 
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
@@ -99,13 +124,39 @@ public class Ranged {
 		double d0 = target.posX - host.posX;
 		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
-		double f1 = MathHelper.sqrt(par2) * 0.5D;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int var10 = 0; var10 < 1; ++var10) {
-			EntityGaiaProjectileMagic var11 = new EntityGaiaProjectileMagic(host.world, host,
-					d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			var11.posY = host.posY + host.height / 2.0D + 0.5D;
-			host.world.spawnEntity(var11);
+			EntityGaiaProjectileMagic entitygaiaprojectilemagic = new EntityGaiaProjectileMagic(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectilemagic.posY = host.posY + host.height / 2.0D + 0.5D;
+			host.world.spawnEntity(entitygaiaprojectilemagic);
 		}
+	}
+
+	/**
+	 * Shortcut Method for entities using potion attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * @param potiontype     PotionType
+	 * 
+	 * @see EntityWitch
+	 */
+	public static void potion(EntityLivingBase target, EntityLivingBase host, float distanceFactor, PotionType potiontype) {
+		Random rand = new Random();
+
+		double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+		double d1 = target.posX + target.motionX - host.posX;
+		double d2 = d0 - host.posY;
+		double d3 = target.posZ + target.motionZ - host.posZ;
+		float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
+
+		EntityPotion entitypotion = new EntityPotion(host.world, host, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+		entitypotion.rotationPitch -= -20.0F;
+		entitypotion.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
+
+		host.world.playSound((EntityPlayer) null, host.posX, host.posY, host.posZ, SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+		host.world.spawnEntity(entitypotion);
 	}
 }

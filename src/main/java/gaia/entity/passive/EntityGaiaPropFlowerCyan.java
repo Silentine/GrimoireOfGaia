@@ -177,10 +177,12 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		setDead();
 	}
 
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return false;
 	}
+	/* IMMUNITIES */
 
 	@Override
 	protected void collideWithEntity(Entity entityIn) {

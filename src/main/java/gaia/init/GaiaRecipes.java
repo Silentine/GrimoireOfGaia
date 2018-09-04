@@ -17,14 +17,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@SuppressWarnings("unused") //used through reflection code
+@SuppressWarnings("unused") // used through reflection code
 @ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaRecipes {
-	private GaiaRecipes() {}
+	private GaiaRecipes() {
+	}
 
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	public static class RegistrationHandler {
-		private RegistrationHandler() {}
+		private RegistrationHandler() {
+		}
 
 		@SubscribeEvent
 		public static void registerRecipes(final RegistryEvent.Register<IRecipe> event) {
@@ -59,5 +61,4 @@ public class GaiaRecipes {
 			BrewingRecipeRegistry.addRecipe(getType(PotionTypes.WATER), new ItemStack(GaiaItems.FOOD_NETHER_WART, 1, 0), getType(PotionTypes.AWKWARD));
 		}
 	}
-
 }

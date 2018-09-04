@@ -179,9 +179,14 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		/* FLEE DATA */
 
 		/*
+		 * STAMINA
+		 * 
 		 * TODO Eventually implement stamina system to all mobs
+		 * 
+		 * @see EntityIronGolem
 		 */
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
 			if (staminaTimer > 0) {
 				staminaTimer = 0;
@@ -205,6 +210,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 				}
 			}
 		}
+		/* STAMINA */
 
 		super.onLivingUpdate();
 	}
@@ -346,19 +352,20 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
-		if (par1NBTTagCompound.hasKey(MOB_TYPE_TAG)) {
-			byte b0 = par1NBTTagCompound.getByte(MOB_TYPE_TAG);
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
 	}
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
-	}
 	/* ALTERNATE SKIN */
 
 	@Override

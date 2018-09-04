@@ -9,6 +9,8 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -52,6 +54,13 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 	public boolean isAIDisabled() {
 		return false;
 	}
+	
+	/* IMMUNITIES */
+	@Override
+	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
+	}
+	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {

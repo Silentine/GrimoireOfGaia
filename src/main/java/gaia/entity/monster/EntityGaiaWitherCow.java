@@ -177,7 +177,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
 }

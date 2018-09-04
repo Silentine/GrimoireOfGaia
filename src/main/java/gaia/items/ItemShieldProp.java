@@ -52,7 +52,7 @@ public class ItemShieldProp extends ItemBase {
 			return;
 		}
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -61,6 +61,7 @@ public class ItemShieldProp extends ItemBase {
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
 		ModelLoaderHelper.registerItem(this,
+				ModelLoaderHelper.getSuffixedLocation(this, "_stone"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_iron"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_gold")
 		);

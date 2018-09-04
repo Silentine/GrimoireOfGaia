@@ -35,8 +35,6 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		super("accessory_headgear");
 		setHasSubtypes(true);
 		setMaxStackSize(1);
-
-//		setCreativeTab(null);
 	}
 
 	@Override
@@ -44,13 +42,15 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(TextFormatting.BOLD + I18n.format("text.grimoireofgaia.WIP.tag"));
 		tooltip.add(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.Headgear.tag"));
-//		tooltip.add(I18n.format("text.grimoireofgaia.RightClickEquip"));
+		if (stack.getItemDamage() == 0) {
+			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Prop.tag")));
+		}
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 	@SideOnly(Side.CLIENT)
 	public void registerClient() {
 		ModelLoaderHelper.registerItem(this,
-				ModelLoaderHelper.getSuffixedLocation(this, "_head"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_doll")
 		);

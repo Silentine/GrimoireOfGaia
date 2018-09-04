@@ -3,6 +3,7 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaSpriggan;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
+import gaia.renderer.entity.layers.LayerGlowing;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,12 +14,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSpriggan extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation SprigganEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_spriggan.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/spriggan.png");
 
 	public RenderGaiaSpriggan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSpriggan(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+		addLayer(new LayerGlowing(this, SprigganEyesTexture));
 	}
 
 	private ModelGaiaSpriggan getModel() {

@@ -3,11 +3,15 @@ package gaia.entity.ai;
 import gaia.GaiaConfig;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.EnumHand;
 
+/**
+ * @see EntityAIAttackRangedBow
+ */
 public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 
 	private GaiaIRangedAttackMob archer;
@@ -76,8 +80,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 
 		if (entitylivingbase != null) {
 			double d0 = entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
-			boolean flag = entity.getEntitySenses()
-					.canSee(entitylivingbase);
+			boolean flag = entity.getEntitySenses().canSee(entitylivingbase);
 			boolean flag1 = seeTime > 0;
 
 			if (flag != flag1) {
@@ -94,8 +97,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 				entity.getNavigator().clearPath();
 				++strafingTime;
 			} else {
-				entity.getNavigator()
-						.tryMoveToEntityLiving(entitylivingbase, moveSpeedAmp * 0.8);
+				entity.getNavigator().tryMoveToEntityLiving(entitylivingbase, moveSpeedAmp * 0.8);
 				strafingTime = -1;
 			}
 
@@ -126,13 +128,11 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 									? 0.4F
 									: -0.4F);
 				} else {
-					entity.getMoveHelper()
-							.strafe(0.01F, 0.01F);
+					entity.getMoveHelper().strafe(0.01F, 0.01F);
 				}
 				entity.faceEntity(entitylivingbase, 10.0F, 10.0F);
 			} else {
-				entity.getLookHelper()
-						.setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+				entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
 			}
 
 			if (entity.isHandActive()) {

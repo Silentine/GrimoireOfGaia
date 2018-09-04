@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -24,11 +26,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSpriggan extends EntityMobHostileBase {
+	
+	private static final int DETECTION_RANGE = 6;
 
 	private int axeAttack;
 
@@ -90,6 +95,16 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (playerDetection(DETECTION_RANGE)) {
+			if (isPotionActive(MobEffects.INVISIBILITY)) {
+				removePotionEffect(MobEffects.INVISIBILITY);
+			}
+		} else {
+			if (!isPotionActive(MobEffects.INVISIBILITY)) {
+				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
+			}
+		}
+		
 		if (isInWater()) {
 			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
 		}
@@ -104,6 +119,17 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+	
+
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	private boolean playerDetection(int range) {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+
+		return !list.isEmpty();
 	}
 
 	@Override
