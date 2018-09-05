@@ -72,8 +72,9 @@ item.grimoireofgaia.weapon_prop_axe_iron.name=铁斧
 item.grimoireofgaia.weapon_prop_axe_gold.name=金斧
 item.grimoireofgaia.weapon_prop_projectile.name=魔法弹
 item.grimoireofgaia.weapon_prop_enchanted.name=附魔弹丸
-item.grimoireofgaia.shield_prop_0.name=铁盾牌
-item.grimoireofgaia.shield_prop_1.name=金盾牌
+item.grimoireofgaia.shield_prop_0.name=石盾牌
+item.grimoireofgaia.shield_prop_1.name=铁盾牌
+item.grimoireofgaia.shield_prop_2.name=金盾牌
 item.grimoireofgaia.weapon_fan_ice.name=华丽冰扇
 item.grimoireofgaia.weapon_fan_fire.name=华丽焰扇
 item.grimoireofgaia.weapon_book.name=书
@@ -98,7 +99,7 @@ item.grimoireofgaia.accessory_trinket_wither.name=凋零的心
 item.grimoireofgaia.accessory_trinket_levitation.name=铁球脚镣
 item.grimoireofgaia.accessory_cursed.name=沉重杠铃
 
-item.grimoireofgaia.accessory_headgear_0.name=木精灵面具
+item.grimoireofgaia.accessory_headgear_0.name=铁笼
 item.grimoireofgaia.accessory_headgear_1.name=脑袋穿箭
 item.grimoireofgaia.accessory_headgear_2.name=趴趴女仆
 
@@ -112,6 +113,7 @@ tile.grimoireofgaia.doll_ender_girl.name=末影女孩玩偶
 tile.grimoireofgaia.doll_slime_girl.name=史莱姆女孩玩偶
 tile.grimoireofgaia.doll_maid.name=女仆玩偶
 tile.grimoireofgaia.spawn_guard.name=护符
+
 entity.grimoireofgaia.debug_mob.name=除错怪物
 entity.grimoireofgaia.ant.name=工蚁
 entity.grimoireofgaia.anubis.name=阿努比斯
@@ -166,6 +168,7 @@ entity.grimoireofgaia.vampire.name=吸血鬼
 entity.grimoireofgaia.werecat.name=猫又
 entity.grimoireofgaia.witch.name=魔女
 entity.grimoireofgaia.wither_cow.name=凋零牛
+entity.grimoireofgaia.wooden_golem.name=木魔像
 entity.grimoireofgaia.yeti.name=雪怪
 entity.grimoireofgaia.yuki-onna.name=雪女
 entity.grimoireofgaia.creeper_girl.name=爬行者女孩
