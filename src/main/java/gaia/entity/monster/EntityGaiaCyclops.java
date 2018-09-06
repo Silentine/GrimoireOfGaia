@@ -112,7 +112,7 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	public void onLivingUpdate() {
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 2);
+			SetEquipment((byte) 1);
 			animationPlay = true;
 
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -121,6 +121,7 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		}
 
 		if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
+		
 			buffEffect = 0;
 			animationPlay = false;
 			animationTimer = 0;
@@ -130,7 +131,7 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 			if (animationTimer != 30) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 1);
+				SetEquipment((byte) 0);
 				animationPlay = false;
 			}
 		}
@@ -140,14 +141,10 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	private void SetEquipment(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
-		}
-
-		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
-
-		if (id == 2) {
+		
+		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
@@ -175,16 +172,16 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -219,8 +216,15 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+	
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

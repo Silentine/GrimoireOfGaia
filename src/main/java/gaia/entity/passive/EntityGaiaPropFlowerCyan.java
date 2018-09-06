@@ -199,6 +199,11 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
+	
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
 
 	@Override
@@ -217,11 +222,6 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		}
 
 		return false;
-	}
-
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 1;
 	}
 	/* SPAWN CONDITIONS */
 

@@ -25,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -107,7 +108,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				}
 
 				if (byte0 > 0 && getHealth() < EntityAttributes.MAX_HEALTH_3 * 0.75F) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 20, 0));
 
 					world.setEntityState(this, (byte) 9);
 
@@ -246,28 +247,27 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
-			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			// Nuggets/Shards
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				ItemShard.dropNugget(this, 2);
 			}
 
-			int var13 = rand.nextInt(3) + 1;
+			int dropNuggetAlt = rand.nextInt(3) + 1;
 
-			for (int var14 = 0; var14 < var13; ++var14) {
+			for (int i = 0; i < dropNuggetAlt; ++i) {
 				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
-
-				} else if (i == 2) {
+				case 2:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 3), 0.0F);
 				}
 			}
@@ -317,7 +317,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 1;
+		return EntityAttributes.CHUNK_LIMIT_3;
 	}
 
 	@Override

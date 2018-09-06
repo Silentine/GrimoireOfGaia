@@ -232,7 +232,7 @@ public class ModelGaiaCyclops extends ModelGaia {
 			animationBuff();
 		}
 
-		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+		if (itemstack.getItem() == Items.EGG) {
 			animationReset();
 		}
 

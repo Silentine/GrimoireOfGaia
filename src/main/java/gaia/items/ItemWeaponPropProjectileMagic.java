@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,9 +18,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemWeaponPropProjectile extends ItemBase {
-	public ItemWeaponPropProjectile() {
-		super("weapon_prop_projectile");
+public class ItemWeaponPropProjectileMagic extends ItemBase {
+	public ItemWeaponPropProjectileMagic() {
+		super("weapon_prop_projectile_magic");
 		maxStackSize = 1;
 	}
 
@@ -47,16 +48,5 @@ public class ItemWeaponPropProjectile extends ItemBase {
 	@Override
 	public boolean isFull3D() {
 		return true;
-	}
-
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		for (int i = 0; i < 1; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
 	}
 }

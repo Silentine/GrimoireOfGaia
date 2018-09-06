@@ -34,6 +34,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -110,19 +111,15 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
 				byte byte0 = 0;
-				byte byte1 = 0;
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
 					byte0 = 5;
-					byte1 = 10;
 				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 10;
-					byte1 = 20;
 				}
 
 				if (byte0 > 0) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte1 * 20, 0));
 				}
 			}
 
@@ -281,35 +278,35 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(GaiaItems.FOOD_ROTTEN_HEART, 1);
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(GaiaItems.MISC_BOOK, 1);
 				}
 			}
@@ -358,8 +355,15 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

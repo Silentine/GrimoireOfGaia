@@ -167,7 +167,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	private void setMobType(int par1) {
 		dataManager.set(SKIN, par1);
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
@@ -187,6 +187,11 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	/* CLASS TYPE */
 
 	/* ARCHER DATA */
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaAnt.class;
+	}
+
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
@@ -200,11 +205,6 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 		super.entityInit();
 		dataManager.register(SKIN, 0);
 		dataManager.register(HOLDING_BOW, false);
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaAnt.class;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -251,16 +251,16 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -268,18 +268,14 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				if (mobClass == 1) {
-					int i = rand.nextInt(2);
-					if (i == 0) {
+					switch (rand.nextInt(2)) {
+					case 0:
 						dropItem(GaiaItems.BOX_IRON, 1);
-
-					} else if (i == 1) {
+					case 1:
 						dropItem(GaiaItems.BAG_ARROW, 1);
 					}
 				} else {
-					if (rand.nextInt(1) == 0) {
-						dropItem(GaiaItems.BOX_IRON, 1);
-
-					}
+					dropItem(GaiaItems.BOX_IRON, 1);
 				}
 			}
 		}
@@ -351,8 +347,15 @@ public class EntityGaiaAnt extends EntityMobHostileDay implements GaiaIRangedAtt
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

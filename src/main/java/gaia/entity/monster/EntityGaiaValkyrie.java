@@ -24,6 +24,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -123,7 +124,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 				if (byte0 > 0) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, byte1 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte1 * 20, 0));
 				}
 			}
 
@@ -287,27 +288,27 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
-			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			// Nuggets/Shards
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				ItemShard.dropNugget(this, 2);
 			}
 
-			int var13 = rand.nextInt(3) + 1;
+			int dropNuggetAlt = rand.nextInt(3) + 1;
 
-			for (int var14 = 0; var14 < var13; ++var14) {
+			for (int i = 0; i < dropNuggetAlt; ++i) {
 				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
-				} else if (i == 2) {
+				case 2:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 0), 0.0F);
 				}
 			}
@@ -321,14 +322,14 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_IRON));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
-		
+
 		return ret;
 	}
 
@@ -355,7 +356,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 1;
+		return EntityAttributes.CHUNK_LIMIT_3;
 	}
 
 	@Override

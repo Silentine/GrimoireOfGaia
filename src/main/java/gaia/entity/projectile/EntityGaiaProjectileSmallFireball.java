@@ -6,12 +6,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-//Same as EntitySmallFireball, except it does not spawn a fire block on impact
+/**
+ * Same as EntitySmallFireball, except it does not spawn a fire block on impact
+ * 
+ * @see EntitySmallFireball
+ *
+ */
 public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 
-	@SuppressWarnings("unused") //used in reflection
-	public EntityGaiaProjectileSmallFireball(World par1World) {
-		super(par1World);
+	@SuppressWarnings("unused") // used in reflection
+	public EntityGaiaProjectileSmallFireball(World worldIn) {
+		super(worldIn);
 		setSize(0.3125F, 0.3125F);
 	}
 
@@ -21,11 +26,10 @@ public class EntityGaiaProjectileSmallFireball extends EntitySmallFireball {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult par1MovingObjectPosition) {
+	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
-			if (par1MovingObjectPosition.entityHit != null && !par1MovingObjectPosition.entityHit.isImmuneToFire() &&
-					par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F)) {
-				par1MovingObjectPosition.entityHit.setFire(4);
+			if (result.entityHit != null && !result.entityHit.isImmuneToFire() && result.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 5.0F)) {
+				result.entityHit.setFire(4);
 			}
 			setDead();
 		}

@@ -15,6 +15,7 @@ import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
@@ -48,8 +49,8 @@ import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
+import gaia.entity.monster.EntityGaiaSummonSpider;
 import gaia.entity.monster.EntityGaiaSummonSporeling;
-import gaia.entity.monster.EntityGaiaSummonWoodenGolem;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -67,8 +68,9 @@ import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.entity.passive.EntityGaiaPropChestMimic;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
+import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import gaia.init.GaiaItems;
-import gaia.renderer.RenderGaiaProjectileMagic;
+import gaia.renderer.RenderGaiaProjectile;
 import gaia.renderer.entity.RenderGaiaAnt;
 import gaia.renderer.entity.RenderGaiaAnubis;
 import gaia.renderer.entity.RenderGaiaArachne;
@@ -80,6 +82,7 @@ import gaia.renderer.entity.RenderGaiaCobbleGolem;
 import gaia.renderer.entity.RenderGaiaCobblestoneGolem;
 import gaia.renderer.entity.RenderGaiaCreep;
 import gaia.renderer.entity.RenderGaiaCyclops;
+import gaia.renderer.entity.RenderGaiaDeathword;
 import gaia.renderer.entity.RenderGaiaDhampir;
 import gaia.renderer.entity.RenderGaiaDryad;
 import gaia.renderer.entity.RenderGaiaDullahan;
@@ -121,8 +124,8 @@ import gaia.renderer.entity.RenderGaiaSphinx;
 import gaia.renderer.entity.RenderGaiaSpriggan;
 import gaia.renderer.entity.RenderGaiaSuccubus;
 import gaia.renderer.entity.RenderGaiaSummonButler;
+import gaia.renderer.entity.RenderGaiaSummonSpider;
 import gaia.renderer.entity.RenderGaiaSummonSporeling;
-import gaia.renderer.entity.RenderGaiaSummonWoodenGolem;
 import gaia.renderer.entity.RenderGaiaToad;
 import gaia.renderer.entity.RenderGaiaValkyrie;
 import gaia.renderer.entity.RenderGaiaVampire;
@@ -235,8 +238,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSpriggan.class, renderManager -> new RenderGaiaSpriggan(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSuccubus.class, renderManager -> new RenderGaiaSuccubus(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonButler.class, renderManager -> new RenderGaiaSummonButler(renderManager, small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonSpider.class, renderManager -> new RenderGaiaSummonSpider(renderManager, tiny));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonSporeling.class, renderManager -> new RenderGaiaSummonSporeling(renderManager, tiny));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSummonWoodenGolem.class, renderManager -> new RenderGaiaSummonWoodenGolem(renderManager, tiny));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaToad.class, renderManager -> new RenderGaiaToad(renderManager, med));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaValkyrie.class, renderManager -> new RenderGaiaValkyrie(renderManager, med));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaVampire.class, renderManager -> new RenderGaiaVampire(renderManager, med));
@@ -246,7 +249,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYeti.class, renderManager -> new RenderGaiaYeti(renderManager, large));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaYukiOnna.class, renderManager -> new RenderGaiaYukiOnna(renderManager, small));
 		// Projectile
-		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectileMagic(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileMagic.class, renderManager -> new RenderGaiaProjectile(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE_MAGIC));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaProjectileWeb.class, renderManager -> new RenderGaiaProjectile(renderManager, GaiaItems.WEAPON_PROP_PROJECTILE_WEB));
 	}
 
 	@Override

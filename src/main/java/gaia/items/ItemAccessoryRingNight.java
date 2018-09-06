@@ -52,7 +52,7 @@ public class ItemAccessoryRingNight extends ItemAccessoryBauble {
 		if (player.getActivePotionEffect(MobEffects.NIGHT_VISION) != null) {
 			player.removePotionEffect(MobEffects.NIGHT_VISION);
 		}
-
-		player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 20 * 10, 1, true, true));
+		
+		player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 15 * 20, 1, true, false));
 	}
 }

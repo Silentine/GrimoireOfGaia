@@ -159,6 +159,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		}
 	}
 
+	/* SPAWN CONDITIONS */
 	public boolean daysPassed() {
 		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
 
@@ -173,6 +174,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 			return super.getCanSpawnHere();
 		}
 	}
+	/* SPAWN CONDITIONS */
 
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {

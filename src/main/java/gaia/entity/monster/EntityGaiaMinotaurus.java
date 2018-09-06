@@ -223,7 +223,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	private void setMobType(int par1) {
 		dataManager.set(SKIN, par1);
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
@@ -244,6 +244,11 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	/* ARCHER DATA */
 	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaMinotaurus.class;
+	}
+
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
@@ -253,11 +258,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		super.entityInit();
 		dataManager.register(SKIN, 0);
 		dataManager.register(HOLDING_BOW, false);
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaMinotaurus.class;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -305,42 +305,41 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
 			if (mobClass == 1) {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(Items.ARROW, 1);
 				}
 			} else {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(Items.LEATHER, 1);
 				}
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-
-				} else if (i == 2) {
+				case 2:
 					dropItem(mobClass == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
 				}
 			}
@@ -410,8 +409,15 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		}
 	}
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

@@ -42,7 +42,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaWerecat extends EntityMobHostileBase {
-	
+
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaWerecat.AILeapAttack(this);
@@ -195,16 +195,16 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -269,7 +269,7 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		super.writeEntityToNBT(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
@@ -280,8 +280,15 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	}
 	/* ALTERNATE SKIN */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

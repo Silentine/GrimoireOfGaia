@@ -240,7 +240,7 @@ public class ModelGaiaShaman extends ModelGaia {
 			animationCasting();
 		}
 
-		if (itemstack.getItem() == Items.EGG || itemstack.isEmpty()) {
+		if (itemstack.getItem() == Items.EGG) {
 			animationReset();
 		}
 

@@ -7,6 +7,7 @@ import java.util.Random;
 import gaia.GaiaConfig;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
+import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -100,9 +101,9 @@ public class Ranged {
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
-		for (int var10 = 0; var10 < 1; ++var10) {
+		for (int i = 0; i < 1; ++i) {
 			EntityGaiaProjectileSmallFireball entitygaiaprojectilesmallfireball = new EntityGaiaProjectileSmallFireball(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectilesmallfireball.posY = host.posY + host.height / 2.0D + 0.5D;
+			entitygaiaprojectilesmallfireball.posY = host.posY + host.height / 2.0D;
 			host.world.spawnEntity(entitygaiaprojectilesmallfireball);
 		}
 	}
@@ -126,10 +127,36 @@ public class Ranged {
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
-		for (int var10 = 0; var10 < 1; ++var10) {
+		for (int i = 0; i < 1; ++i) {
 			EntityGaiaProjectileMagic entitygaiaprojectilemagic = new EntityGaiaProjectileMagic(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectilemagic.posY = host.posY + host.height / 2.0D + 0.5D;
+			entitygaiaprojectilemagic.posY = host.posY + host.height / 2.0D;
 			host.world.spawnEntity(entitygaiaprojectilemagic);
+		}
+	}
+
+	/**
+	 * Shortcut Method for entities using web attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see EntityBlaze
+	 */
+	public static void web(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
+		Random rand = new Random();
+
+		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
+
+		double d0 = target.posX - host.posX;
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d2 = target.posZ - host.posZ;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
+
+		for (int i = 0; i < 1; ++i) {
+			EntityGaiaProjectileWeb entitygaiaprojectileweb = new EntityGaiaProjectileWeb(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectileweb.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(entitygaiaprojectileweb);
 		}
 	}
 

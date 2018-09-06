@@ -53,6 +53,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
 
+	private boolean debuffWeakness;
+	
 	private int switchHealth;
 	private int axeAttack;
 
@@ -95,6 +97,12 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
+		if (damage > EntityAttributes.BASE_DEFENSE_1) {
+			if (!debuffWeakness) {
+				debuffWeakness = true;
+			}
+		}
+		
 		float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
 		Entity entity = source.getTrueSource();
 
@@ -130,6 +138,10 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 				if (byte0 > 0) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
+				}
+				
+				if (debuffWeakness) {
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 10 * 20, 0));
 				}
 			}
 
@@ -268,16 +280,16 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -365,11 +377,17 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			setTextureType(b0);
 		}
 	}
-
 	/* ALTERNATE SKIN */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+	
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

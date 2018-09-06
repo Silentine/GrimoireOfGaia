@@ -34,6 +34,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -43,7 +44,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
 	
-	private static final int DETECTION_RANGE = 6;
+	private static final int DETECTION_RANGE = 8;
 
 	private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
 	private int lastActiveTime;
@@ -241,26 +242,26 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
 				}
 			}
@@ -291,9 +292,16 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 		super.onStruckByLightning(lightningBolt);
 		dataManager.set(POWERED, true);
 	}
+	
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
+	}
 
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

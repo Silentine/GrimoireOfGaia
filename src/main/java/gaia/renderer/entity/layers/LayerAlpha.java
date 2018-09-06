@@ -27,8 +27,7 @@ public class LayerAlpha implements LayerRenderer<EntityLiving> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(770, 771);
 
-		livingEntityRenderer.getMainModel()
-				.render(entity, f1, f2, f4, f5, f6, scale);
+		livingEntityRenderer.getMainModel().render(entity, f1, f2, f4, f5, f6, scale);
 		livingEntityRenderer.setLightmap(entity);
 
 		GlStateManager.disableBlend();

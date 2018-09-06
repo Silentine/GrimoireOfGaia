@@ -59,6 +59,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		/* Server data setup */
 		sitting = false;
 		
+		System.out.println("Spawned.");
+		
 		this.setCanPickUpLoot(true);
 	}
 

@@ -68,7 +68,8 @@ import gaia.items.ItemWeaponFanIce;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropItemSword;
-import gaia.items.ItemWeaponPropProjectile;
+import gaia.items.ItemWeaponPropProjectileMagic;
+import gaia.items.ItemWeaponPropProjectileWeb;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -158,7 +159,8 @@ public class GaiaItems {
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
 	public static final Item WEAPON_PROP = Items.AIR;
 	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
-	public static final Item WEAPON_PROP_PROJECTILE = Items.AIR;
+	public static final Item WEAPON_PROP_PROJECTILE_MAGIC = Items.AIR;
+	public static final Item WEAPON_PROP_PROJECTILE_WEB = Items.AIR;
 	public static final Item WEAPON_PROP_SWORD_WOOD = Items.AIR;
 	public static final Item WEAPON_PROP_SWORD_STONE = Items.AIR;
 	public static final Item WEAPON_PROP_SWORD_IRON = Items.AIR;
@@ -187,6 +189,7 @@ public class GaiaItems {
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 
+//			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemShard());
 			registry.register(new ItemShardMisc());
 			registry.register(new ItemFoodBase("food_meat", 6, 0.6F, true));
@@ -228,7 +231,8 @@ public class GaiaItems {
 			registry.register(new ItemBoxOld());
 			registry.register(new ItemChest());
 			registry.register(new ItemWeaponProp());
-			registry.register(new ItemWeaponPropProjectile());
+			registry.register(new ItemWeaponPropProjectileMagic());
+			registry.register(new ItemWeaponPropProjectileWeb());
 			registry.register(new ItemWeaponPropEnchanted());
 			registry.register(new ItemShieldProp());
 			registry.register(new ItemWeaponFanIce());
@@ -243,7 +247,6 @@ public class GaiaItems {
 			registry.register(new ItemWeaponBookNature(MATERIAL_BOOK, "weapon_book_nature"));
 			registry.register(new ItemWeaponBookWither(MATERIAL_BOOK, "weapon_book_wither"));
 			registry.register(new ItemWeaponBookBuff());
-//			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemAccessoryRingSpeed());
 			registry.register(new ItemAccessoryRingHaste());
 			registry.register(new ItemAccessoryRingJump());

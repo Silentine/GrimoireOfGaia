@@ -1,28 +1,19 @@
 package gaia.entity.monster;
 
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -32,26 +23,24 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
 /**
  * @see EntityEnderman
@@ -61,11 +50,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
 	private static final AttributeModifier ATTACKING_SPEED_BOOST = (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
-	private static final Set<Block> CARRIABLE_BLOCKS = Sets.newIdentityHashSet();
-	private static final DataParameter<Optional<IBlockState>> CARRIED_BLOCK = EntityDataManager.createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.OPTIONAL_BLOCK_STATE);
 	private static final DataParameter<Boolean> SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaEnderDragonGirl.class, DataSerializers.BOOLEAN);
-	private static final String CARRIED_TAG = "carried";
-	private static final String CARRIED_DATA_TAG = "carriedData";
 
 	private int targetChangeTime;
 
@@ -75,6 +60,12 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		setSize(0.6F, 2.2F);
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
+		setPathPriority(PathNodeType.WATER, -1.0F);
+	}
+	
+	@Override
+	public float getEyeHeight() {
+		return 1.90F;
 	}
 
 	@Override
@@ -84,11 +75,8 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		tasks.addTask(7, new EntityAIWander(this, 1.0D));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
-		tasks.addTask(10, new EntityGaiaEnderDragonGirl.AIPlaceBlock(this));
-		tasks.addTask(11, new EntityGaiaEnderDragonGirl.AITakeBlock(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntityGaiaEnderDragonGirl.AIFindPlayer(this));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
 	}
 
 	@Override
@@ -119,10 +107,15 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			}
 		}
 	}
-
+	
 	@Override
-	public float getEyeHeight() {
-		return 1.90F;
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(SCREAMING, Boolean.valueOf(false));
+	}
+
+	public boolean isScreaming() {
+		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
 	}
 
 	@Override
@@ -152,45 +145,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
 	}
-
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(CARRIED_BLOCK, Optional.absent());
-		this.dataManager.set(SCREAMING, Boolean.valueOf(false));
-	}
-
-	/**
-	 * (abstract) Protected helper method to write subclass entity data to NBT.
-	 */
-	@Override
-	public void writeEntityToNBT(NBTTagCompound tag) {
-		super.writeEntityToNBT(tag);
-		IBlockState iblockstate = getHeldBlockState();
-
-		if (iblockstate != null) {
-			tag.setShort(CARRIED_TAG, (short) Block.getIdFromBlock(iblockstate.getBlock()));
-			tag.setShort(CARRIED_DATA_TAG, (short) iblockstate.getBlock().getMetaFromState(iblockstate));
-		}
-	}
-
-	/**
-	 * (abstract) Protected helper method to read subclass entity data from NBT.
-	 */
-	@Override
-	public void readEntityFromNBT(NBTTagCompound tagCompund) {
-		super.readEntityFromNBT(tagCompund);
-		IBlockState iblockstate;
-
-		if (tagCompund.hasKey(CARRIED_TAG, 8)) {
-			iblockstate = Block.getBlockFromName(tagCompund.getString(CARRIED_TAG)).getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
-		} else {
-			iblockstate = Block.getBlockById(tagCompund.getShort(CARRIED_TAG)).getStateFromMeta(tagCompund.getShort(CARRIED_DATA_TAG) & 65535);
-		}
-
-		setHeldBlockState(iblockstate);
-	}
-
+	
 	/**
 	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
@@ -282,61 +237,49 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(Items.ENDER_PEARL, 1);
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 1);
+			for (int i = 0; i < dropNugget; ++i) {
+				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 2), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
 				}
 			}
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
-			}
-
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(Items.ELYTRA, 1);
+				switch (rand.nextInt(2)) {
+				case 0:
+					dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
+				case 1:
+					dropItem(Items.ELYTRA, 1);
+				}
 			}
 		}
-	}
-
-	void setHeldBlockState(@Nullable IBlockState state) {
-		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
-	}
-
-	@Nullable
-	public IBlockState getHeldBlockState() {
-		return dataManager.get(CARRIED_BLOCK).orNull();
-	}
-
-	public boolean isScreaming() {
-		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
 	}
 
 	/* IMMUNITIES */
@@ -348,24 +291,6 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
-
-	static {
-		CARRIABLE_BLOCKS.add(Blocks.GRASS);
-		CARRIABLE_BLOCKS.add(Blocks.DIRT);
-		CARRIABLE_BLOCKS.add(Blocks.SAND);
-		CARRIABLE_BLOCKS.add(Blocks.GRAVEL);
-		CARRIABLE_BLOCKS.add(Blocks.YELLOW_FLOWER);
-		CARRIABLE_BLOCKS.add(Blocks.RED_FLOWER);
-		CARRIABLE_BLOCKS.add(Blocks.BROWN_MUSHROOM);
-		CARRIABLE_BLOCKS.add(Blocks.RED_MUSHROOM);
-		CARRIABLE_BLOCKS.add(Blocks.TNT);
-		CARRIABLE_BLOCKS.add(Blocks.CACTUS);
-		CARRIABLE_BLOCKS.add(Blocks.CLAY);
-		CARRIABLE_BLOCKS.add(Blocks.PUMPKIN);
-		CARRIABLE_BLOCKS.add(Blocks.MELON_BLOCK);
-		CARRIABLE_BLOCKS.add(Blocks.MYCELIUM);
-		CARRIABLE_BLOCKS.add(Blocks.NETHERRACK);
-	}
 
 	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 
@@ -388,15 +313,8 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		@Override
 		public boolean shouldExecute() {
 			double d0 = getTargetDistance();
-			List<EntityPlayer> list = taskOwner.world.getEntitiesWithinAABB(EntityPlayer.class, taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), targetEntitySelector);
-			list.sort(sorter);
-
-			if (list.isEmpty()) {
-				return false;
-			} else {
-				player = list.get(0);
-				return true;
-			}
+			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, null, p -> p != null && shouldAttackPlayer(p));
+			return player != null;
 		}
 
 		/**
@@ -466,7 +384,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		 * Checks to see if this enderman should be attacking this player
 		 */
 		private boolean shouldAttackPlayer(EntityPlayer player) {
-			ItemStack itemstack = player.inventory.armorInventory.get(3);
+			ItemStack itemstack = player.inventory.armorInventory.get(0);
 
 			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
 				return false;
@@ -481,86 +399,8 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		}
 	}
 
-	static class AIPlaceBlock extends EntityAIBase {
-
-		private EntityGaiaEnderDragonGirl enderman;
-
-		AIPlaceBlock(EntityGaiaEnderDragonGirl enderDragonGirl) {
-			enderman = enderDragonGirl;
-		}
-
-		/**
-		 * Returns whether the EntityAIBase should begin execution.
-		 */
-		public boolean shouldExecute() {
-			return enderman.getHeldBlockState() != null && (enderman.world.getGameRules().getBoolean("mobGriefing") && enderman.getRNG().nextInt(2000) == 0);
-		}
-
-		/**
-		 * Updates the task
-		 */
-		public void updateTask() {
-			Random random = enderman.getRNG();
-			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 1.0D + random.nextDouble() * 2.0D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2.0D);
-			int k = MathHelper.floor(enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
-			BlockPos blockpos = new BlockPos(i, j, k);
-			IBlockState iblockstate = world.getBlockState(blockpos);
-			IBlockState iblockstate1 = world.getBlockState(blockpos.down());
-			IBlockState iblockstate2 = enderman.getHeldBlockState();
-
-			if (iblockstate2 != null && canPlaceBlock(world, blockpos, iblockstate2.getBlock(), iblockstate, iblockstate1)) {
-				world.setBlockState(blockpos, iblockstate2, 3);
-				enderman.setHeldBlockState(null);
-			}
-		}
-
-		private boolean canPlaceBlock(World world, BlockPos pos, Block block, IBlockState state, IBlockState stateBelow) {
-			return block.canPlaceBlockAt(world, pos) && (state.getMaterial() == Material.AIR && (stateBelow.getMaterial() != Material.AIR && stateBelow.isFullCube()));
-		}
-	}
-
-	static class AITakeBlock extends EntityAIBase {
-
-		private EntityGaiaEnderDragonGirl enderman;
-
-		AITakeBlock(EntityGaiaEnderDragonGirl enderDragonGirl) {
-			enderman = enderDragonGirl;
-		}
-
-		/**
-		 * Returns whether the EntityAIBase should begin execution.
-		 */
-		public boolean shouldExecute() {
-			return enderman.getHeldBlockState() == null && (enderman.world.getGameRules().getBoolean("mobGriefing") && enderman.getRNG().nextInt(200) == 0);
-		}
-
-		/**
-		 * Updates the task
-		 */
-		@Override
-		public void updateTask() {
-			Random random = enderman.getRNG();
-			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 2.0D + random.nextDouble() * 4.0D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3.0D);
-			int k = MathHelper.floor(enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
-			BlockPos blockpos = new BlockPos(i, j, k);
-			IBlockState iblockstate = world.getBlockState(blockpos);
-			Block block = iblockstate.getBlock();
-			RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d(MathHelper.floor(enderman.posX) + 0.5D, j + 0.5D, MathHelper.floor(enderman.posZ) + 0.5D), new Vec3d(i + 0.5D, j + 0.5D, k + 0.5D), false, true, false);
-			boolean flag = raytraceresult != null && raytraceresult.getBlockPos().equals(blockpos);
-
-			if (EntityGaiaEnderDragonGirl.CARRIABLE_BLOCKS.contains(block) && flag) {
-				enderman.setHeldBlockState(iblockstate);
-				world.setBlockToAir(blockpos);
-			}
-		}
-	}
-
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 1;
+		return EntityAttributes.CHUNK_LIMIT_2;
 	}
 }

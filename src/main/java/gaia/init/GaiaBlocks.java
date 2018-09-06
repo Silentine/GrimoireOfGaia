@@ -4,6 +4,7 @@ import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.block.BlockBust;
 import gaia.block.BlockSpawnGuard;
+import gaia.block.BlockWebTemp;
 import gaia.tileentity.TileEntityBust;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,7 +20,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaBlocks {
-	private GaiaBlocks() {}
+	private GaiaBlocks() {
+	}
 
 	public static final Block BUST_SPHINX = Blocks.AIR;
 	public static final Block BUST_VALKYRIE = Blocks.AIR;
@@ -29,11 +31,13 @@ public class GaiaBlocks {
 	public static final Block DOLL_SLIME_GIRL = Blocks.AIR;
 	public static final Block DOLL_MAID = Blocks.AIR;
 	public static final Block SPAWN_GUARD = Blocks.AIR;
+	public static final Block WEB_TEMP = Blocks.AIR;
 
 	@SuppressWarnings("unused")
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	public static class RegistrationHandler {
-		private RegistrationHandler() {}
+		private RegistrationHandler() {
+		}
 
 		@SubscribeEvent
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
@@ -48,6 +52,7 @@ public class GaiaBlocks {
 			registry.register(new BlockBust(Material.ROCK, "doll_slime_girl"));
 			registry.register(new BlockBust(Material.ROCK, "doll_maid"));
 			registry.register(new BlockSpawnGuard());
+			registry.register(new BlockWebTemp());
 
 			GameRegistry.registerTileEntity(TileEntityBust.class, new ResourceLocation(GaiaReference.MOD_ID, "tile_bust"));
 			Gaia.LOGGER.info("Block registration complete.");
@@ -66,6 +71,7 @@ public class GaiaBlocks {
 			registerItemBlock(registry, DOLL_SLIME_GIRL);
 			registerItemBlock(registry, DOLL_MAID);
 			registerItemBlock(registry, SPAWN_GUARD);
+			registerItemBlock(registry, WEB_TEMP);
 
 			Gaia.LOGGER.info("Item block registration complete.");
 		}
@@ -73,7 +79,7 @@ public class GaiaBlocks {
 		private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {
 			Item item = new ItemBlock(block);
 			ResourceLocation registryName = block.getRegistryName();
-			//noinspection ConstantConditions
+			// noinspection ConstantConditions
 			registry.register(item.setRegistryName(registryName));
 		}
 	}

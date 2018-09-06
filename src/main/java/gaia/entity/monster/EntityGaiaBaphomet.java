@@ -164,14 +164,14 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1) > 0)) {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(GaiaItems.MISC_SOUL_FIERY, 1);
 				}
 			} else {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(Items.BLAZE_POWDER, 1);
 				}
 			}
@@ -181,27 +181,28 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
+				case 2:
 				}
 			}
 
@@ -232,4 +233,11 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
+	
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+	/* SPAWN CONDITIONS */
 }

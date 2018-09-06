@@ -12,9 +12,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+/**
+ * Apply all changes made here to EntityMobPassiveDay (except for AI and processInteract).
+ *
+ * @see EntityMobPassiveDay
+ */
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
-	private static final int TORCH_RADIUS = 8;
+	
+	private static final int SPAWN_GUARD_RADIUS = 8;
+	
 	private static Set<Block> spawnBlocks = 
 			Sets.newHashSet
 			(
@@ -57,7 +64,7 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	 * It inputs the radius and feeds it to the sphere shape method. After it gets the block position map it scans every block in that map. Then returns depending if the match triggers.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
-		for (BlockPos location : BlockPosHelper.sphereShape(pos, TORCH_RADIUS)) {
+		for (BlockPos location : BlockPosHelper.sphereShape(pos, SPAWN_GUARD_RADIUS)) {
 			if (blackList.contains(world.getBlockState(location).getBlock())) {
 				return true;
 			}

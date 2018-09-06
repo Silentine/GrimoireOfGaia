@@ -140,7 +140,9 @@ public class GaiaSpawning {
 
 	private static void addBeachSPAWN(Map<Type, Set<Biome>> biomeMap) {
 		for (Biome biome : biomeMap.get(Type.BEACH)) {
-			aquatic(biome);
+			if (!BiomeDictionary.hasType(biome, Type.MUSHROOM)) {
+				aquatic(biome);
+			}
 		}
 	}
 

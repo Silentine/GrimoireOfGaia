@@ -58,6 +58,6 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.SLOWNESS);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, false));
 	}
 }

@@ -53,6 +53,6 @@ public class ItemAccessoryRingSpeed extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.SPEED);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 10, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5 * 20, 1, true, false));
 	}
 }

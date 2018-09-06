@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -37,6 +38,10 @@ import net.minecraft.world.World;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
 
+	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
+
 	private boolean canSpawnLevel3;
 	private boolean spawned;
 	private int spawnLevel3;
@@ -47,6 +52,10 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+
+		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 
 		spawnLevel3 = 0;
 		spawnLevel3Chance = 0;
@@ -118,6 +127,33 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			SetEquipment((byte) 1);
+			animationPlay = true;
+
+			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
+			addPotionEffect(new PotionEffect(MobEffects.HASTE, 20 * 60, 0));
+
+			buffEffect = 1;
+		}
+
+		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 30) {
+				animationTimer += 1;
+			} else {
+				SetEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+		/* BUFF */
+
 		/* LEVEL 3 SPAWN DATA */
 		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
 			canSpawnLevel3 = true;
@@ -146,6 +182,16 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		/* LEVEL 3 SPAWN DATA */
 
 		super.onLivingUpdate();
+	}
+
+	private void SetEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
 	}
 
 	private void SetSpawn(byte id) {
@@ -190,35 +236,35 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(GaiaItems.MISC_SOUL_FIRE, 1);
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
 				}
 			}
@@ -238,7 +284,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
@@ -253,8 +299,15 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

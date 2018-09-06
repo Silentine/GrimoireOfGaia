@@ -105,16 +105,6 @@ public class ModelGaiaMinotaurus extends ModelGaia {
 		leftleg.setRotationPoint(2F, 11F, -0.5F);
 		leftleg.setTextureSize(128, 64);
 		setRotation(leftleg, -0.1745329F, 0F, 0F);
-		ModelRenderer headnose = new ModelRenderer(this, 36, 14);
-		headnose.addBox(-1.5F, -6.5F, -5.5F, 3, 2, 2);
-		headnose.setRotationPoint(0F, 1F, 0F);
-		headnose.setTextureSize(128, 64);
-		setRotation(headnose, 0F, 0F, 0F);
-		ModelRenderer headnosering = new ModelRenderer(this, 36, 28);
-		headnosering.addBox(-1.5F, -5.5F, -6.5F, 3, 3, 1);
-		headnosering.setRotationPoint(0F, 1F, 0F);
-		headnosering.setTextureSize(128, 64);
-		setRotation(headnosering, 0F, 0F, 0F);
 		ModelRenderer righthorn1 = new ModelRenderer(this, 36, 18);
 		righthorn1.addBox(-5F, -7F, -2F, 2, 2, 2);
 		righthorn1.setRotationPoint(0F, 1F, 0F);
@@ -126,7 +116,7 @@ public class ModelGaiaMinotaurus extends ModelGaia {
 		righthorn2.setTextureSize(128, 64);
 		setRotation(righthorn2, 0F, 0F, 0F);
 		ModelRenderer righthorn3 = new ModelRenderer(this, 36, 26);
-		righthorn3.addBox(-2.5F, -8.5F, -2.5F, 1, 1, 1);
+		righthorn3.addBox(-2.5F, -8.5F, -1.5F, 1, 1, 1);
 		righthorn3.setRotationPoint(0F, 1F, 0F);
 		righthorn3.setTextureSize(128, 64);
 		setRotation(righthorn3, 0F, 0F, 0F);
@@ -145,7 +135,7 @@ public class ModelGaiaMinotaurus extends ModelGaia {
 		setRotation(lefthorn2, 0F, 0F, 0F);
 		ModelRenderer lefthorn3 = new ModelRenderer(this, 36, 26);
 		lefthorn3.mirror = true;
-		lefthorn3.addBox(1.5F, -8.5F, -2.5F, 1, 1, 1);
+		lefthorn3.addBox(1.5F, -8.5F, -1.5F, 1, 1, 1);
 		lefthorn3.setRotationPoint(0F, 1F, 0F);
 		lefthorn3.setTextureSize(128, 64);
 		setRotation(lefthorn3, 0F, 0F, 0F);
@@ -217,8 +207,6 @@ public class ModelGaiaMinotaurus extends ModelGaia {
 		leftfoot.setTextureSize(128, 64);
 		setRotation(leftfoot, 0F, 0F, 0F);
 
-		convertToChild(head, headnose);
-		convertToChild(head, headnosering);
 		convertToChild(head, righthorn1);
 		convertToChild(head, righthorn2);
 		convertToChild(head, righthorn3);

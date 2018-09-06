@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 /**
  * This is a direct copy of EntityMob used by assist mobs to not trigger the warning message when using a bed. No additional changes have been made aside from the class name.
  *
- * @see EntityMobPassive
+ * @see EntityMob
  */
 public abstract class EntityMobPassive extends EntityCreature implements IMob {
 

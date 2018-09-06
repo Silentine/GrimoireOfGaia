@@ -48,7 +48,7 @@ public class ItemAccessoryRingJump extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.JUMP_BOOST);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 20 * 10, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 5 * 20, 1, true, false));
 	}
 
 	@Override

@@ -153,8 +153,7 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 			double d0 = this.rand.nextGaussian() * 0.02D;
 			double d1 = this.rand.nextGaussian() * 0.02D;
 			double d2 = this.rand.nextGaussian() * 0.02D;
-			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
-					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
 		}
 	}
 
@@ -180,27 +179,27 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
-			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			// Nuggets/Shards
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				ItemShard.dropNugget(this, 2);
 			}
 
-			int var13 = rand.nextInt(3) + 1;
+			int dropNuggetAlt = rand.nextInt(3) + 1;
 
-			for (int var14 = 0; var14 < var13; ++var14) {
+			for (int i = 0; i < dropNuggetAlt; ++i) {
 				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_SPHINX), 1);
-				} else if (i == 2) {
+				case 2:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 2), 0.0F);
 				}
 			}
@@ -250,7 +249,7 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 1;
+		return EntityAttributes.CHUNK_LIMIT_3;
 	}
 
 	@Override

@@ -207,6 +207,11 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	/* ARCHER DATA */
 	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaSiren.class;
+	}
+
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
@@ -215,11 +220,6 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(HOLDING_BOW, false);
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaSiren.class;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -260,26 +260,26 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					dropItem(GaiaItems.BOX_IRON, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_ARROW, 1);
 				}
 			}
@@ -325,8 +325,15 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

@@ -17,6 +17,7 @@ import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
 import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
@@ -50,8 +51,8 @@ import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
+import gaia.entity.monster.EntityGaiaSummonSpider;
 import gaia.entity.monster.EntityGaiaSummonSporeling;
-import gaia.entity.monster.EntityGaiaSummonWoodenGolem;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -70,6 +71,7 @@ import gaia.entity.passive.EntityGaiaPropChestMimic;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
+import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -173,7 +175,7 @@ public class GaiaEntities {
 		}
 
 		private static void initNoSpawnEggEntities(IForgeRegistry<EntityEntry> registry) {
-			// NPC
+			/* VILLAGER */
 			createEntityEntry("creeper_girl", EntityGaiaNPCCreeperGirl.class, registry);
 			createEntityEntry("slime_girl", EntityGaiaNPCSlimeGirl.class, registry);
 			createEntityEntry("ender_girl", EntityGaiaNPCEnderGirl.class, registry);
@@ -181,16 +183,19 @@ public class GaiaEntities {
 			createEntityEntry("holstaurus", EntityGaiaNPCHolstaurus.class, registry);
 			createEntityEntry("weresheep", EntityGaiaNPCWeresheep.class, registry);
 
-			// Spawn
+			/* SPAWN */
 			createEntityEntry("mandragora", EntityGaiaMandragora.class, registry);
 			createEntityEntry("mimic", EntityGaiaMimic.class, registry);
+			
+			/* SUMMON */
 			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
+			createEntityEntry("spiderling", EntityGaiaSummonSpider.class, registry);
 			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
-			createEntityEntry("wooden_golem", EntityGaiaSummonWoodenGolem.class, registry);
 
-			// Projectiles
+			/* PROJECTILE */
 			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
 			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry, 3);
+			createEntityEntry("web", EntityGaiaProjectileWeb.class, registry, 3);
 		}
 
 		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry) {

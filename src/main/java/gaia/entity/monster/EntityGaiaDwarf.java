@@ -273,6 +273,11 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	/* CLASS TYPE */
 
 	/* ARCHER DATA */
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaDwarf.class;
+	}
+
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
@@ -286,11 +291,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		super.entityInit();
 		dataManager.register(SKIN, 0);
 		dataManager.register(HOLDING_BOW, Boolean.FALSE);
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaDwarf.class;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -317,29 +317,29 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
 			if (mobClass == 1) {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(Items.ARROW, 1);
 				}
 			} else {
-				for (int var4 = 0; var4 < var3; ++var4) {
+				for (int i = 0; i < drop; ++i) {
 					dropItem(Items.IRON_NUGGET, 1);
 				}
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
@@ -350,24 +350,17 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 					switch (rand.nextInt(3)) {
 					case 0:
 						dropItem(GaiaItems.BOX_GOLD, 1);
-						break;
 					case 1:
 						dropItem(GaiaItems.BAG_BOOK, 1);
-						break;
 					case 2:
 						dropItem(GaiaItems.BAG_ARROW, 1);
-						break;
-					default:
 					}
 				} else {
 					switch (rand.nextInt(2)) {
 					case 0:
 						dropItem(GaiaItems.BOX_GOLD, 1);
-						break;
 					case 1:
 						dropItem(GaiaItems.BAG_BOOK, 1);
-						break;
-					default:
 					}
 				}
 			}
@@ -429,8 +422,15 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		return ret;
 	}
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

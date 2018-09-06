@@ -135,9 +135,9 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
@@ -146,26 +146,26 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
@@ -187,7 +187,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
-		
+
 		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 2);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
@@ -214,8 +214,15 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 60.0D && super.getCanSpawnHere();
+		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

@@ -106,7 +106,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
-		
+
 		if (isBurning()) {
 			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
@@ -161,39 +161,42 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int drop = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNugget = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNugget; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.SPAWN_TAME, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 				}
 			}
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SPAWN_TRADER, 1);
-			}
-
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.BAG_RECORD, 1);
+				switch (rand.nextInt(3)) {
+				case 0:
+					dropItem(GaiaItems.SPAWN_TRADER, 1);
+				case 1:
+					dropItem(GaiaItems.BAG_RECORD, 1);
+				case 2:
+					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
+				}
 			}
 		}
 	}

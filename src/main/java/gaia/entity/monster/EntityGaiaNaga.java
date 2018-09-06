@@ -120,7 +120,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		if (isWet()) {
 			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 		}
-		
+
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
 			SetEquipment((byte) 1);
@@ -130,13 +130,13 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 			buffEffect = 1;
 		}
-		
+
 		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
 			buffEffect = 0;
 			animationPlay = false;
 			animationTimer = 0;
-		} 
-		
+		}
+
 		if (animationPlay) {
 			if (animationTimer != 30) {
 				animationTimer += 1;
@@ -163,9 +163,9 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				if (isBurning()) {
 					dropItem(Items.COOKED_FISH, 1);
 				} else {
@@ -174,28 +174,28 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(GaiaItems.SPAWN_SLIME_GIRL, 1);
 				}
 			}
@@ -212,7 +212,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
-		
+
 		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 2);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
@@ -223,7 +223,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		return ret;
 	}
 
-	/* ARCHER DATA */
+	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
@@ -233,10 +233,17 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	public boolean isPushedByWater() {
 		return false;
 	}
-	/* ARCHER DATA */
+	/* IMMUNITIES */
+
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
 
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

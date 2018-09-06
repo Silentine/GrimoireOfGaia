@@ -29,11 +29,13 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -55,8 +57,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Copied code from EntityWitch.
- * isAIDisabled has been removed.
+ * Copied code from EntityWitch. isAIDisabled has been removed.
  * 
  * @see EntityWitch
  */
@@ -109,7 +110,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
 	}
-	
+
 	/* WITCH CODE */
 	@Override
 	protected void entityInit() {
@@ -152,6 +153,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
+				SetSpawn((byte) 0);
 				SetSpawn((byte) 0);
 			}
 			spawn = 2;
@@ -268,13 +270,13 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	/* WITCH CODE */
 
 	private void SetSpawn(byte id) {
-		EntityGaiaSummonWoodenGolem spider;
+		EntityGaiaSummonSpider spiderling;
 
 		if (id == 0) {
-			spider = new EntityGaiaSummonWoodenGolem(world);
-			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
-			world.spawnEntity(spider);
+			spiderling = new EntityGaiaSummonSpider(world);
+			spiderling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			spiderling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spiderling)), null);
+			world.spawnEntity(spiderling);
 		}
 	}
 
@@ -284,7 +286,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
-				if (mob instanceof EntityGaiaSummonWoodenGolem) {
+				if (mob instanceof EntityGaiaSummonSpider) {
 					mob.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 1, true, true));
 				}
 			}
@@ -326,35 +328,35 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			int var3 = rand.nextInt(3 + lootingModifier);
+			int drop = rand.nextInt(3 + lootingModifier);
 
-			for (int var4 = 0; var4 < var3; ++var4) {
+			for (int i = 0; i < drop; ++i) {
 				dropItem(GaiaItems.FOOD_NETHER_WART, 1);
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
+				case 2:
 					dropItem(GaiaItems.MISC_BOOK, 1);
 				}
 			}
@@ -385,8 +387,15 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

@@ -70,7 +70,8 @@ item.grimoireofgaia.weapon_prop_axe_wood.name=Wooden Axe
 item.grimoireofgaia.weapon_prop_axe_stone.name=Stone Axe
 item.grimoireofgaia.weapon_prop_axe_iron.name=Iron Axe
 item.grimoireofgaia.weapon_prop_axe_gold.name=Gold Axe
-item.grimoireofgaia.weapon_prop_projectile.name=Magic Projectile
+item.grimoireofgaia.weapon_prop_projectile_magic.name=Magic Projectile
+item.grimoireofgaia.weapon_prop_projectile_web.name=Web Projectile
 item.grimoireofgaia.weapon_prop_enchanted.name=Enchanted Bearing
 item.grimoireofgaia.shield_prop_0.name=Stone Shield
 item.grimoireofgaia.shield_prop_1.name=Iron Shield
@@ -113,6 +114,7 @@ tile.grimoireofgaia.doll_ender_girl.name=Ender Girl Doll
 tile.grimoireofgaia.doll_slime_girl.name=Slime Girl Doll
 tile.grimoireofgaia.doll_maid.name=Maid Doll
 tile.grimoireofgaia.spawn_guard.name=Protection Talisman
+tile.grimoireofgaia.web_temp.name=Decaying Cobweb
 
 entity.grimoireofgaia.debug_mob.name=DEBUG MOB
 entity.grimoireofgaia.ant.name=Ant Worker
@@ -168,16 +170,18 @@ entity.grimoireofgaia.vampire.name=Vampire
 entity.grimoireofgaia.werecat.name=Werecat
 entity.grimoireofgaia.witch.name=Witch
 entity.grimoireofgaia.wither_cow.name=Wither Cow
-entity.grimoireofgaia.wooden_golem.name=Wooden Golem
 entity.grimoireofgaia.yeti.name=Yeti
 entity.grimoireofgaia.yuki-onna.name=Yuki-Onna
+#VILLAGER
 entity.grimoireofgaia.creeper_girl.name=Creeper Girl
 entity.grimoireofgaia.ender_girl.name=Ender Girl
 entity.grimoireofgaia.holstaurus.name=Holstaurus
 entity.grimoireofgaia.slime_girl.name=Slime Girl
 entity.grimoireofgaia.trader.name=Trader
 entity.grimoireofgaia.weresheep.name=Weresheep
+#SUMMON
 entity.grimoireofgaia.butler.name=Butler
+entity.grimoireofgaia.spiderling.name=Spiderling
 entity.grimoireofgaia.sporeling.name=Sporeling
 
 text.grimoireofgaia.grimoireofgaia.desc=Solely effects Grimoire of Gaia mobs
@@ -224,7 +228,7 @@ item.grimoireofgaia.weapon_debug.desc=Used for testing
 block.grimoireofgaia.spawn_guard.desc=Prevents day mobs from spawning within %d blocks
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=Spawn Rates
-configgui.grimoireofgaia.category.Menu0.general.tooltip=(REQUIRES RESTART)\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)
+configgui.grimoireofgaia.category.Menu0.general.tooltip=(REQUIRES RESTART)\nSet to 0 to disable the mob from spawning.\nDay: (<30 Rare, >60 Common)\nNight: (<60 Rare, >100 Common)\n(WARNING: Setting the values too high will prevent other mobs from spawning.
 configgui.grimoireofgaia.category.Menu1.spawns=Spawn Options
 configgui.grimoireofgaia.category.Menu1.spawns.tooltip=\nSetup spawn.
 configgui.grimoireofgaia.category.Menu2.attributes=Attributes

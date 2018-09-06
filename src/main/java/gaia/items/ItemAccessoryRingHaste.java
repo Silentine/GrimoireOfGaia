@@ -53,6 +53,6 @@ public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
 			player.removePotionEffect(MobEffects.HASTE);
 		}
 
-		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 20 * 10, 1, true, true));
+		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 5 * 20, 1, true, false));
 	}
 }

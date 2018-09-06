@@ -1,6 +1,9 @@
 package gaia.datafixes;
 
+import java.util.Map;
+
 import com.google.common.collect.ImmutableMap;
+
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -11,8 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Map;
-
 public class BlockIdFixer implements IFixableData {
 	private final Map<String, Tuple<String, Block>> mapping = new ImmutableMap.Builder<String, Tuple<String, Block>>()
 			.put("grimoireofgaia:bustsphinx", new Tuple<>("grimoireofgaia:bust_sphinx", GaiaBlocks.BUST_SPHINX))
@@ -22,6 +23,7 @@ public class BlockIdFixer implements IFixableData {
 			.put("grimoireofgaia:dollendergirl", new Tuple<>("grimoireofgaia:doll_ender_girl", GaiaBlocks.DOLL_ENDER_GIRL))
 			.put("grimoireofgaia:dollslimegirl", new Tuple<>("grimoireofgaia:doll_slime_girl", GaiaBlocks.DOLL_SLIME_GIRL))
 			.put("grimoireofgaia:dollmaid", new Tuple<>("grimoireofgaia:doll_maid", GaiaBlocks.DOLL_MAID))
+			.put("grimoireofgaia:webtemp", new Tuple<>("grimoireofgaia:web_temp", GaiaBlocks.WEB_TEMP))
 			.build();
 
 	public BlockIdFixer() {

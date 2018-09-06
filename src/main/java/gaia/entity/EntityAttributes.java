@@ -3,7 +3,7 @@ package gaia.entity;
 import gaia.GaiaConfig;
 
 public class EntityAttributes {
-	
+
 	private EntityAttributes() {
 	}
 
@@ -42,6 +42,11 @@ public class EntityAttributes {
 	public static final double KNOCKBACK_1 = 0.30D;
 	public static final double KNOCKBACK_2 = 0.25D;
 	public static final double KNOCKBACK_3 = 0.20D;
+
+	public static final int CHUNK_LIMIT_1 = 4;
+	public static final int CHUNK_LIMIT_2 = 2;
+	public static final int CHUNK_LIMIT_3 = 1;
+	public static final int CHUNK_LIMIT_UNDERGROUND = 2;
 
 	public static final int RATE_RARE_DROP = 40;
 	public static final double FOLLOW_RANGE = 40.0D;

@@ -14,11 +14,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGaiaProjectileMagic extends Render<Entity> {
+public class RenderGaiaProjectile extends Render<Entity> {
 	private final float scale;
 	protected final Item item;
 
-	public RenderGaiaProjectileMagic(RenderManager renderManager, Item item) {
+	public RenderGaiaProjectile(RenderManager renderManager, Item item) {
 		super(renderManager);
 		this.item = item;
 		this.scale = 2.0F;

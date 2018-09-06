@@ -58,12 +58,11 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
 						i = 10;
 					} else if (world.getDifficulty() == EnumDifficulty.HARD) {
-						i = 40;
+						i = 20;
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) movingObject.entityHit)
-								.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * i, 0));
+						((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i * 20, 1));
 					}
 				}
 			}
@@ -78,7 +77,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 		return false;
 	}
 

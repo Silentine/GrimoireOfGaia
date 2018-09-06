@@ -182,7 +182,7 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void SetAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
@@ -207,6 +207,11 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 
 	/* ARCHER DATA */
 	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaSahuagin.class;
+	}
+
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
 	}
@@ -215,11 +220,6 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(HOLDING_BOW, false);
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaSahuagin.class;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -260,26 +260,26 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_ARROW, 1);
 				}
 			}
@@ -325,8 +325,15 @@ public class EntityGaiaSahuagin extends EntityMobHostileBase implements GaiaIRan
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

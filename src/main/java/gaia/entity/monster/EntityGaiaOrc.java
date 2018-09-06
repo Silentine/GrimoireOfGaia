@@ -172,20 +172,20 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_ROOT, 1);
+				dropItem(GaiaItems.FOOD_MEAT, 1);
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -205,7 +205,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		if (world.rand.nextInt(4) == 0) {
+		if (world.rand.nextInt(2) == 0) {
 			setTextureType(1);
 		}
 
@@ -246,8 +246,8 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		setItemStackToSlot(EntityEquipmentSlot.LEGS, armor_leggings);
 		setItemStackToSlot(EntityEquipmentSlot.CHEST, armor_chestplate);
-		
-        setBreakDoorsAItask(true);
+
+		setBreakDoorsAItask(true);
 
 		/* WIP */
 		setCustomNameTag("WIP");
@@ -274,8 +274,15 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 	}
 	/* ALTERNATE SKIN */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

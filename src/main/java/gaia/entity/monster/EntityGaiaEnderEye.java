@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
@@ -59,6 +60,12 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
 		setSize(1.0F, 2.4F);
 		stepHeight = 1.0F;
+		setPathPriority(PathNodeType.WATER, -1.0F);
+	}
+	
+	@Override
+	public float getEyeHeight() {
+		return 2.05F;
 	}
 
 	@Override
@@ -70,11 +77,6 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 		tasks.addTask(8, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		targetTasks.addTask(2, new EntityGaiaEnderEye.AIFindPlayer(this));
-	}
-
-	@Override
-	public float getEyeHeight() {
-		return 2.05F;
 	}
 
 	@Override
@@ -105,6 +107,16 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 			}
 		}
 	}
+	
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(SCREAMING, Boolean.valueOf(false));
+	}
+
+	public boolean isScreaming() {
+		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
+	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
@@ -132,12 +144,6 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
-	}
-
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		this.dataManager.register(SCREAMING, Boolean.valueOf(false));
 	}
 
 	/**
@@ -241,34 +247,30 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int drop_nugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
-				ItemShard.dropNugget(this, 0);
+			for (int i = 0; i < drop_nugget; ++i) {
+				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int drop_nugget_alt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < drop_nugget_alt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_ENDER_GIRL), 1);
 				}
 			}
 		}
-	}
-
-	public boolean isScreaming() {
-		return ((Boolean) this.dataManager.get(SCREAMING)).booleanValue();
 	}
 
 	/* IMMUNITIES */
@@ -283,10 +285,10 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 
 	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 
-		private final EntityGaiaEnderEye enderman;
 		/**
 		 * The player
 		 */
+		private final EntityGaiaEnderEye enderman;
 		private EntityPlayer player;
 		private int aggroTime;
 		private int teleportTime;
@@ -388,13 +390,15 @@ public class EntityGaiaEnderEye extends EntityMobPassiveBase {
 		}
 	}
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
 	}
-
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 2;
-	}
+	/* SPAWN CONDITIONS */
 }

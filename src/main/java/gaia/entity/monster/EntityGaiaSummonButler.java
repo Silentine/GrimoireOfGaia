@@ -1,8 +1,12 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -11,6 +15,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
@@ -47,6 +52,11 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 	}
+	
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaDhampir.class || cls != EntityGaiaVampire.class;
+	}
 
 	@Override
 	public boolean isAIDisabled() {
@@ -56,6 +66,15 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
+	}
+	
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		return livingdata;
+	}
+
+	public float getEyeHeight() {
+		return 0.45F;
 	}
 
 	@Override

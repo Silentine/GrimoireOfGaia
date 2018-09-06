@@ -8,6 +8,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
+import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -16,8 +17,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -49,7 +52,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaArachne extends EntityMobHostileBase {
+public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAttackMob {
+	
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
 	private int switchHealth;
 	private int spawn;
@@ -70,10 +76,9 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIGaiaLeapAtTarget(this, 0.4F));
-		tasks.addTask(2, new EntityGaiaArachne.AILeapAttack(this));
-		tasks.addTask(3, new EntityAIWander(this, 1.0D));
-		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(4, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 	}
@@ -99,11 +104,26 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	}
 
 	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		Ranged.web(target, this, distanceFactor);
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLivingBase && (world.getDifficulty() == EnumDifficulty.NORMAL || world.getDifficulty() == EnumDifficulty.HARD)) {
-				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 5 * 20, 0));
-				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 5 * 20, 0));
+			if (entityIn instanceof EntityLivingBase) {
+				byte byte0 = 0;
+				byte byte1 = 0;
+
+				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					byte0 = 5;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 10;
+				}
+
+				if (byte0 > 0) {
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
+				}
 			}
 
 			return true;
@@ -120,6 +140,16 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	@Override
 	public void onLivingUpdate() {
 		beaconMonster();
+		
+		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 0)) {
+			SetAI((byte) 1);
+			switchHealth = 1;
+		}
+
+		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 1)) {
+			SetAI((byte) 0);
+			switchHealth = 0;
+		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			SetEquipment((byte) 1);
@@ -133,6 +163,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 				SetEquipment((byte) 0);
 
 				if (!world.isRemote) {
+					SetSpawn((byte) 0);
 					SetSpawn((byte) 0);
 				}
 
@@ -167,6 +198,18 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
+	
+	private void SetAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(2, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
 
 	private void SetEquipment(byte id) {
 		if (id == 0) {
@@ -179,16 +222,16 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	}
 
 	private void SetSpawn(byte id) {
-		EntitySpider spider;
+		EntityGaiaSummonSpider spiderling;
 		EntityCaveSpider caveSpider;
 
 		if (id == 0) {
-			spider = new EntitySpider(world);
-			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
-			world.spawnEntity(spider);
+			spiderling = new EntityGaiaSummonSpider(world);
+			spiderling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			spiderling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spiderling)), null);
+			world.spawnEntity(spiderling);
 		}
-		
+
 		if (id == 1) {
 			caveSpider = new EntityCaveSpider(world);
 			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
@@ -287,27 +330,26 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(2);
-				if (i == 0) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.MISC_BOOK, 1);
 				}
 			}
@@ -321,24 +363,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		SetAI((byte) 0);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP, 1, 0);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 
 		return ret;
-	}
-
-	static class AILeapAttack extends EntityAIAttackMelee {
-
-		AILeapAttack(EntityGaiaArachne entity) {
-			super(entity, EntityAttributes.ATTACK_SPEED_1, true);
-		}
-
-		@Override
-		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-			return 4.0D + attackTarget.width;
-		}
 	}
 
 	@Override
@@ -357,8 +388,15 @@ public class EntityGaiaArachne extends EntityMobHostileBase {
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 32.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

@@ -199,13 +199,13 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	/* SPAWN CONDITIONS */
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
-	}
-
-	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
+	}
+	
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 

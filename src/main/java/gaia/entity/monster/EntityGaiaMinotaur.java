@@ -22,11 +22,13 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -177,7 +179,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
-
+		
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
@@ -232,26 +234,26 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 			}
 
 			// Nuggets/Shards
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				ItemShard.dropNugget(this, 2);
 			}
 
-			int var13 = rand.nextInt(3) + 1;
+			int dropNuggetAlt = rand.nextInt(3) + 1;
 
-			for (int var14 = 0; var14 < var13; ++var14) {
+			for (int i = 0; i < dropNuggetAlt; ++i) {
 				ItemShard.dropNugget(this, 3);
 			}
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+				switch (rand.nextInt(3)) {
+				case 0:
 					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.ACCESSORY_CURSED, 1);
-				} else if (i == 2) {
+				case 2:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 1), 0.0F);
 				}
 			}
@@ -299,7 +301,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 1;
+		return EntityAttributes.CHUNK_LIMIT_3;
 	}
 
 	@Override

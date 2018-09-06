@@ -1,7 +1,11 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -12,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
@@ -49,6 +54,11 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 	}
+	
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaMatango.class;
+	}
 
 	@Override
 	public boolean isAIDisabled() {
@@ -61,6 +71,15 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
+	
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		return livingdata;
+	}
+
+	public float getEyeHeight() {
+		return 0.45F;
+	}
 
 	@Override
 	public boolean getCanSpawnHere() {

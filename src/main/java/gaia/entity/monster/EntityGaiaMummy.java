@@ -144,25 +144,25 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			for (int var4 = 0; var4 < 1; ++var4) {
-				Item var6 = mummyDrops[rand.nextInt(mummyDrops.length)];
+			for (int i = 0; i < 1; ++i) {
+				Item drop = mummyDrops[rand.nextInt(mummyDrops.length)];
 
-				for (int var7 = 0; var7 < 1; ++var7) {
-					dropItem(var6, 1);
+				for (int j = 0; j < 1; ++j) {
+					dropItem(drop, 1);
 				}
 			}
 
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 4);
 				}
 			}
@@ -179,8 +179,15 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 		return EnumCreatureAttribute.UNDEAD;
 	}
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_1;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

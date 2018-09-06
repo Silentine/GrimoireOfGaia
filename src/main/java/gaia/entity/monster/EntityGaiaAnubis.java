@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.ai.EntityAIGaiaStrafe;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
@@ -43,7 +44,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
-	
+
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
@@ -120,10 +121,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
 					byte0 = 5;
-					byte1 = 10;
+					byte1 = 5;
 				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 10;
-					byte1 = 20;
+					byte1 = 10;
 				}
 
 				if (byte0 > 0) {
@@ -232,7 +233,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	private void SetAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
-			tasks.addTask(1, aiArrowAttack);
+			tasks.addTask(2, aiArrowAttack);
 		}
 
 		if (id == 1) {
@@ -336,16 +337,16 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			// Nuggets/Fragments
-			int var11 = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(3) + 1;
 
-			for (int var12 = 0; var12 < var11; ++var12) {
+			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
 			if (GaiaConfig.OPTIONS.additionalOre) {
-				int var13 = rand.nextInt(3) + 1;
+				int dropNuggetAlt = rand.nextInt(3) + 1;
 
-				for (int var14 = 0; var14 < var13; ++var14) {
+				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);
 				}
 			}
@@ -396,8 +397,15 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 	/* IMMUNITIES */
 
+	/* SPAWN CONDITIONS */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return EntityAttributes.CHUNK_LIMIT_2;
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();
 	}
+	/* SPAWN CONDITIONS */
 }

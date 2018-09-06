@@ -12,10 +12,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+/**
+ * Apply all changes made here to EntityMobHostileDay (except for AI and processInteract).
+ *
+ * @see EntityMobHostileDay
+ */
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
+	
+	private static final int SPAWN_GUARD_RADIUS = 8;
 
-	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW_LAYER);
+	private static Set<Block> spawnBlocks = 
+			Sets.newHashSet
+			(
+					Blocks.GRASS, 
+					Blocks.DIRT, 
+					Blocks.GRAVEL, 
+					Blocks.SAND, 
+					Blocks.SNOW_LAYER
+			);
 
 	public EntityMobPassiveDay(World worldIn) {
 		super(worldIn);
@@ -46,12 +61,10 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);
 
 	/**
-	 * The actual check. It inputs the radius and feeds it to the sphere shape
-	 * method. After it gets the block position map it scans every block in that
-	 * map. Then returns depending if the match triggers.
+	 * The actual check. It inputs the radius and feeds it to the sphere shape method. After it gets the block position map it scans every block in that map. Then returns depending if the match triggers.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
-		for (BlockPos location : BlockPosHelper.sphereShape(pos, 8)) {
+		for (BlockPos location : BlockPosHelper.sphereShape(pos, SPAWN_GUARD_RADIUS)) {
 			if (blackList.contains(world.getBlockState(location).getBlock())) {
 				return true;
 			}

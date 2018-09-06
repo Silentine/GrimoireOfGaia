@@ -38,7 +38,7 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 	 *
 	 * @param livingEntityRendererIn The entity holding the item
 	 * @param limb                   The limb to render the item at
-	 * @param slot                   The item to render, based on the equipmentslot
+	 * @param slot                   The item to render, based on the equipment slot
 	 */
 	public LayerGaiaHeldItem(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb, EntityEquipmentSlot slot) {
 		livingEntityRenderer = livingEntityRendererIn;

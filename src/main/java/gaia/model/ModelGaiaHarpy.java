@@ -317,7 +317,7 @@ public class ModelGaiaHarpy extends ModelGaia {
 			animationFlee();
 		}
 
-		if (itemstack.isEmpty() || itemstack.getItem() == Items.EGG) {
+		if (itemstack.getItem() == Items.EGG) {
 			animationReset();
 		}
 
