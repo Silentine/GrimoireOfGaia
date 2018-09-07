@@ -70,7 +70,8 @@ item.grimoireofgaia.weapon_prop_axe_wood.name=木斧
 item.grimoireofgaia.weapon_prop_axe_stone.name=石斧
 item.grimoireofgaia.weapon_prop_axe_iron.name=铁斧
 item.grimoireofgaia.weapon_prop_axe_gold.name=金斧
-item.grimoireofgaia.weapon_prop_projectile.name=魔法弹
+item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法弹
+item.grimoireofgaia.weapon_prop_projectile_web.name=蛛丝弹
 item.grimoireofgaia.weapon_prop_enchanted.name=附魔弹丸
 item.grimoireofgaia.shield_prop_0.name=石盾牌
 item.grimoireofgaia.shield_prop_1.name=铁盾牌
@@ -113,6 +114,7 @@ tile.grimoireofgaia.doll_ender_girl.name=末影女孩玩偶
 tile.grimoireofgaia.doll_slime_girl.name=史莱姆女孩玩偶
 tile.grimoireofgaia.doll_maid.name=女仆玩偶
 tile.grimoireofgaia.spawn_guard.name=护符
+tile.grimoireofgaia.web_temp.name=腐朽的蜘蛛网
 
 entity.grimoireofgaia.debug_mob.name=除错怪物
 entity.grimoireofgaia.ant.name=工蚁
@@ -168,16 +170,18 @@ entity.grimoireofgaia.vampire.name=吸血鬼
 entity.grimoireofgaia.werecat.name=猫又
 entity.grimoireofgaia.witch.name=魔女
 entity.grimoireofgaia.wither_cow.name=凋零牛
-entity.grimoireofgaia.wooden_golem.name=木魔像
 entity.grimoireofgaia.yeti.name=雪怪
 entity.grimoireofgaia.yuki-onna.name=雪女
+#VILLAGER
 entity.grimoireofgaia.creeper_girl.name=爬行者女孩
 entity.grimoireofgaia.ender_girl.name=末影女孩
 entity.grimoireofgaia.holstaurus.name=荷斯陶洛斯
 entity.grimoireofgaia.slime_girl.name=史莱姆女孩
 entity.grimoireofgaia.trader.name=贸易商人
 entity.grimoireofgaia.weresheep.name=绵羊人
+#SUMMON
 entity.grimoireofgaia.butler.name=管家
+entity.grimoireofgaia.spiderling.name=小蜘蛛
 entity.grimoireofgaia.sporeling.name=蘑菇精灵
 
 text.grimoireofgaia.grimoireofgaia.desc=只影响盖亚魔典的怪物
@@ -224,7 +228,7 @@ item.grimoireofgaia.weapon_debug.desc=测试用
 block.grimoireofgaia.spawn_guard.desc=防止白天出现的怪物生成于 %d 格内
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=生成机率
-configgui.grimoireofgaia.category.Menu0.general.tooltip=(需要重启游戏)\n设置0关闭怪物生成.\n白天: (<30 稀有, >60 普遍)\n夜晚: (<60 稀有, >100 普遍)
+configgui.grimoireofgaia.category.Menu0.general.tooltip=(需要重启游戏)\n设置0关闭怪物生成.\n白天: (<30 稀有, >60 普遍)\n夜晚: (<60 稀有, >100 普遍)\n(WARNING: 数值设定过高会抑制其他怪物生成.
 configgui.grimoireofgaia.category.Menu1.spawns=生成设定
 configgui.grimoireofgaia.category.Menu1.spawns.tooltip=\n设定怪物生成.
 configgui.grimoireofgaia.category.Menu2.attributes=属性
