@@ -70,7 +70,8 @@ item.grimoireofgaia.weapon_prop_axe_wood.name=木の斧
 item.grimoireofgaia.weapon_prop_axe_stone.name=石の斧
 item.grimoireofgaia.weapon_prop_axe_iron.name=鉄の斧
 item.grimoireofgaia.weapon_prop_axe_gold.name=金の斧
-item.grimoireofgaia.weapon_prop_projectile.name=魔法
+item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法
+item.grimoireofgaia.weapon_prop_projectile_web.name=網
 item.grimoireofgaia.weapon_prop_enchanted.name=魔法のベアリング
 item.grimoireofgaia.shield_prop_0.name=石の盾
 item.grimoireofgaia.shield_prop_1.name=鉄の盾
@@ -113,6 +114,7 @@ tile.grimoireofgaia.doll_ender_girl.name=エンダーガールの人形
 tile.grimoireofgaia.doll_slime_girl.name=スライムガールの人形
 tile.grimoireofgaia.doll_maid.name=メイドの人形
 tile.grimoireofgaia.spawn_guard.name=防御の護符
+tile.grimoireofgaia.web_temp.name=腐りかけの蜘蛛の巣
 
 entity.grimoireofgaia.debug_mob.name=[DEBUG]
 entity.grimoireofgaia.ant.name=働きアリ
@@ -168,16 +170,18 @@ entity.grimoireofgaia.vampire.name=ヴァンパイア
 entity.grimoireofgaia.werecat.name=ウェアキャット
 entity.grimoireofgaia.witch.name=魔女
 entity.grimoireofgaia.wither_cow.name=ウィザー牛
-entity.grimoireofgaia.wooden_golem.name=ウッドゴーレム
 entity.grimoireofgaia.yeti.name=イェティ
 entity.grimoireofgaia.yuki-onna.name=雪女
+#VILLAGER
 entity.grimoireofgaia.creeper_girl.name=クリーパーガール
 entity.grimoireofgaia.ender_girl.name=エンダーガール
 entity.grimoireofgaia.holstaurus.name=ホルスタウルス
 entity.grimoireofgaia.slime_girl.name=スライムガール
 entity.grimoireofgaia.trader.name=トレーダー
 entity.grimoireofgaia.weresheep.name=ウェアシープ
+#SUMMON
 entity.grimoireofgaia.butler.name=執事
+entity.grimoireofgaia.spiderling.name=子グモ
 entity.grimoireofgaia.sporeling.name=胞子の小人
 
 text.grimoireofgaia.grimoireofgaia.desc=Grimoire of Gaiaのモブにのみ効果があります。
@@ -224,15 +228,15 @@ item.grimoireofgaia.weapon_debug.desc=テスト用
 block.grimoireofgaia.SpawnGuard.desc=%d ブロック内の日中のモブのスポーンを抑制します
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=スポーン率
-configgui.grimoireofgaia.category.Menu0.general.tooltip=\nモブのスポーンを無効化するには0に設定してください\n日中: (<30 まれ, >60 普通)\夜間: (<60 まれ, >100 普通)
+configgui.grimoireofgaia.category.Menu0.general.tooltip=\nモブのスポーンを無効化するには0に設定してください\n日中: (<30 まれ, >60 普通)\夜間: (<60 まれ, >100 普通)\n(注意: 値を非常に高く設定すると他のモブのスポーンを妨げる虞があります)
 configgui.grimoireofgaia.category.Menu1.spawns=スポーン設定
 configgui.grimoireofgaia.category.Menu1.spawns.tooltip=\nスポーンを設定します。
 configgui.grimoireofgaia.category.Menu2.attributes=属性
-configgui.grimoireofgaia.category.Menu2.attributes.tooltip=(要再起動)\n100分率に基づく属性\n(注意: 50未満に設定厳禁)
+configgui.grimoireofgaia.category.Menu2.attributes.tooltip=(要再起動)\n100分率に基づく属性\n(注意: 50未満に設定しないでください)
 configgui.grimoireofgaia.category.Menu3.damage=基底攻撃力
 configgui.grimoireofgaia.category.Menu3.damage.tooltip=(要再起動)\n防具を貫通する魔法ダメージをすべてのモブの攻撃に追加します
 configgui.grimoireofgaia.category.Menu4.defense=基底守備力
-configgui.grimoireofgaia.category.Menu4.defense.tooltip=(要再起動)\n100分率に基づいた受けるダメージ量を設定します\n(注意: 0に設定厳禁)
+configgui.grimoireofgaia.category.Menu4.defense.tooltip=(要再起動)\n100分率に基づいた受けるダメージ量を設定します\n(注意: 0に設定しないでください)
 configgui.grimoireofgaia.category.Menu5.options=オプション
 configgui.grimoireofgaia.category.Menu5.options.tooltip=\n特徴の有効/無効の設定
 configgui.grimoireofgaia.category.Menu6.debug=デバッグ
