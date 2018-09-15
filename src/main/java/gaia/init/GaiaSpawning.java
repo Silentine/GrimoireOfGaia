@@ -11,6 +11,10 @@ import java.util.Set;
 import com.google.common.collect.ImmutableSet;
 
 import gaia.Gaia;
+import gaia.GaiaConfig;
+import gaia.GaiaReference;
+import gaia.entity.EntityMobHostileBase;
+import gaia.entity.EntityMobPassive;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -68,6 +72,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Streamlined Spawning Registry, Tried to keep structure as similar, but cleaned up methods and repetitive code to save time and fingers.
@@ -308,5 +316,24 @@ public class GaiaSpawning {
 		}
 
 		return biomesAndTypes;
+	}
+	
+	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
+	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
+	public static class DimensionHandler {
+		@SubscribeEvent
+		public static void onSpawn(final LivingSpawnEvent.CheckSpawn event) {
+			if (event.getEntity() instanceof EntityMobPassive || event.getEntity() instanceof EntityMobHostileBase) {
+				if(GaiaConfig.DIMENSIONS.dimensionBlacklist.length > 0)
+				{
+					event.setResult(Event.Result.DEFAULT);
+					for (int i : GaiaConfig.DIMENSIONS.dimensionBlacklist) {
+						if (i == event.getWorld().provider.getDimension()) {
+							event.setResult(Event.Result.DENY);
+						}
+					}
+				}
+			}
+		}
 	}
 }

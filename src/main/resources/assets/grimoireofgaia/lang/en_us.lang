@@ -241,6 +241,8 @@ configgui.grimoireofgaia.category.Menu5.options=Options
 configgui.grimoireofgaia.category.Menu5.options.tooltip=\nEnable/disable features.
 configgui.grimoireofgaia.category.Menu6.debug=Debug
 configgui.grimoireofgaia.category.Menu6.debug.tooltip=\nCompatibility and debugging options.
+configgui.grimoireofgaia.category.Menu7.dimensions=Dimensional Settings
+configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nSetup Dimensional settings.
 
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=Spawn Day Delay
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=(WIP)\nMobs only spawn after a certain amount of days have passed.
@@ -295,6 +297,9 @@ configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
+
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Debug Commands
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Disables Gaia mobs from spawning in the specified dimension ids.
 
 #JEI
 gaia.box.loot=Box Loot
