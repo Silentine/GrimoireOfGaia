@@ -1,11 +1,14 @@
 package gaia.entity.passive;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
 
+import gaia.GaiaConfig;
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
@@ -216,8 +219,12 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 				int k = MathHelper.floor(posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
 				Block var1 = world.getBlockState(blockpos.down()).getBlock();
-
-				return world.getDifficulty() != EnumDifficulty.PEACEFUL && spawnBlocks.contains(var1) && !world.containsAnyLiquid(getEntityBoundingBox());
+				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalFlowerSpawnBlocks));
+				
+				boolean defaultFlag = spawnBlocks.contains(var1);
+				boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
+				
+				return world.getDifficulty() != EnumDifficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getEntityBoundingBox());
 			}
 		}
 

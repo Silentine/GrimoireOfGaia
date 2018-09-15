@@ -1,9 +1,12 @@
 package gaia.entity;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import gaia.GaiaConfig;
 import gaia.helpers.BlockPosHelper;
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
@@ -50,8 +53,12 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 				int k = MathHelper.floor(this.posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
 				Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
+				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalSpawnBlocks));
 
-				return spawnBlocks.contains(var1) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
+				boolean defaultFlag = spawnBlocks.contains(var1);
+				boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
+				
+				return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
 			}
 		}
 

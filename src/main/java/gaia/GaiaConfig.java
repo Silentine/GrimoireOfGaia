@@ -1,5 +1,6 @@
 package gaia;
 
+import net.minecraft.init.Blocks;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -217,6 +218,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance")
 		@Config.Comment("Chance that Level 3 mobs spawn from specific mobs. ((1/value)*100)")
 		public int spawnLevel3Chance = 20;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks")
+		@Config.Comment("Additional Blocks Gaia mobs can spawn on")
+		public String[] additionalSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks")
+		@Config.Comment("Additional Blocks Gaia flower can spawn on")
+		public String[] additionalFlowerSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
 	}
 	
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu2.attributes")

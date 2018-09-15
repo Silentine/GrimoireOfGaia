@@ -254,6 +254,10 @@ configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(Level 3) Disable natu
 configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nLevel 3 mobs do not spawn naturally but instead spawn from specific mobs.
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(Level 3) Chance of spawning
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nChance that Level 3 mobs spawn from specific mobs.\n((1/value)*100)
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Additional Spawn Blocks
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nAdditional Blocks Gaia mobs can spawn on.
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Additional Flower Spawn Blocks
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nAdditional Blocks Gaia flower can spawn on.
 
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Base Damage
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nMelee attacks deal an additional 2.0 (1 heart) of damage.
