@@ -38,12 +38,12 @@ public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
 
 	private ResourceLocation getTexture(EntityGaiaDwarf entity) {
 		switch (entity.getTextureType()) {
-			case 0:
-				return texture01;
-			case 1:
-				return texture02;
-			default:
-				return texture01;
+		case 0:
+			return texture01;
+		case 1:
+			return texture02;
+		default:
+			return texture01;
 		}
 	}
 }

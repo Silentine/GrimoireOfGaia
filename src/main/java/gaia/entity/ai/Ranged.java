@@ -5,7 +5,9 @@ import static net.minecraft.world.EnumDifficulty.HARD;
 import java.util.Random;
 
 import gaia.GaiaConfig;
+import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
+import gaia.entity.projectile.EntityGaiaProjectilePoison;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -140,10 +142,11 @@ public class Ranged {
 	 * @param target         the entity to fire at
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
+	 * @param height		 height from which the projectile spawns from
 	 * 
 	 * @see EntityBlaze
 	 */
-	public static void web(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
+	public static void web(EntityLivingBase target, EntityLivingBase host, float distanceFactor, double height) {
 		Random rand = new Random();
 
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
@@ -155,8 +158,56 @@ public class Ranged {
 
 		for (int i = 0; i < 1; ++i) {
 			EntityGaiaProjectileWeb entitygaiaprojectileweb = new EntityGaiaProjectileWeb(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectileweb.posY = host.posY + host.height / 2.0D;
+			entitygaiaprojectileweb.posY = host.posY + host.height / 2.0D + height;
 			host.world.spawnEntity(entitygaiaprojectileweb);
+		}
+	}
+
+	/**
+	 * Shortcut Method for entities using bubble attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see EntityBlaze
+	 */
+	public static void bubble(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
+		Random rand = new Random();
+
+		double d0 = target.posX - host.posX;
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d2 = target.posZ - host.posZ;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
+
+		for (int i = 0; i < 1; ++i) {
+			EntityGaiaProjectileBubble entitygaiaprojectilebubble = new EntityGaiaProjectileBubble(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectilebubble.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(entitygaiaprojectilebubble);
+		}
+	}
+	
+	/**
+	 * Shortcut Method for entities using bubble attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see EntityBlaze
+	 */
+	public static void poison(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
+		Random rand = new Random();
+
+		double d0 = target.posX - host.posX;
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d2 = target.posZ - host.posZ;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
+
+		for (int i = 0; i < 1; ++i) {
+			EntityGaiaProjectilePoison entitygaiaprojectile = new EntityGaiaProjectilePoison(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectile.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(entitygaiaprojectile);
 		}
 	}
 

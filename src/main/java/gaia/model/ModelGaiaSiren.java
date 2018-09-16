@@ -41,12 +41,12 @@ public class ModelGaiaSiren extends ModelGaia {
 	private static final double CYCLES_PER_BLOCK = 1.0D;
 	private float[][] undulationCycle = new float[][]
 			{
-					{10F	, -10F	, -10F	, 0F	, 10F	, 10F	, 0F	, -10F	},
-					{5F		, 10F	, -10F	, -10F	, 0F	, 10F	, 10F	, 0F	},
-					{0F		, 25F	, 0F	, -10F	, -10F	, 0F	, 10F	, 10F	},
-					{-10F	, 10F	, 10F	, 0F	, -10F	, -10F	, 0F	, 10F	},
-					{-5F	, -10F	, 10F	, 10F	, 0F	, -10F	, -10F	, 0F	},
-					{0F		, -25F	, 0F	, 10F	, 10F	, 0F	, -10F	, -10F	},
+				{10F	, -10F	, -10F	, 0F	, 10F	, 10F	, 0F	, -10F	},
+				{5F		, 10F	, -10F	, -10F	, 0F	, 10F	, 10F	, 0F	},
+				{0F		, 25F	, 0F	, -10F	, -10F	, 0F	, 10F	, 10F	},
+				{-10F	, 10F	, 10F	, 0F	, -10F	, -10F	, 0F	, 10F	},
+				{-5F	, -10F	, 10F	, 10F	, 0F	, -10F	, -10F	, 0F	},
+				{0F		, -25F	, 0F	, 10F	, 10F	, 0F	, -10F	, -10F	},
 			};
 
 	public ModelGaiaSiren() {

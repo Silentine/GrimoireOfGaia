@@ -192,10 +192,6 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 

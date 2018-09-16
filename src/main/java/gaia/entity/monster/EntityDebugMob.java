@@ -8,6 +8,8 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -18,9 +20,12 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -209,27 +214,33 @@ public class EntityDebugMob extends EntityMobHostileDay {
 //		ParticleExample newEffect3 = new ParticleExample(world, pos3.getX() + 0.5, pos3.getY() + 2.2, pos3.getZ() + 0.5, 0, 0.0025, 0);
 //		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
 
-//		// IDs found @Enchantment.registerEnchantments();
-//		ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-//		// Special method that gives books a unique NBT they need
-//		Items.ENCHANTED_BOOK.addEnchantment(book, new EnchantmentData(Enchantment.getEnchantmentByID(35), 2));
-//		Items.ENCHANTED_BOOK.addEnchantment(book, new EnchantmentData(Enchantment.getEnchantmentByID(70), 1));
-//		book.setStackDisplayName("Mysterious Tome");
-//		this.entityDropItem(book, 2);
-//
-//		ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
-//		// Stack version is usable for other things
-//		shirt.addEnchantment(Enchantment.getEnchantmentByID(0), 2);
-//		ItemArmor itemarmor = (ItemArmor) shirt.getItem();
-//		itemarmor.setColor(shirt, 5681460);
-//		shirt.setStackDisplayName("Dusty Shirt");
-//		this.entityDropItem(shirt, 1);
-//
-//		ItemStack rod = new ItemStack(Items.FISHING_ROD);
-//		// Stack version is usable for other things
-//		rod.addEnchantment(Enchantment.getEnchantmentByID(62), 2);
-//		rod.setStackDisplayName("Arctic Fishing Rod");
-//		this.entityDropItem(rod, 1);
+		/**
+		 * IDs found @Enchantment.registerEnchantments();
+		 */
+		ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+		/**
+		 * Special method that gives books a unique NBT they need.
+		 * Note; avoid using IDs
+		 */
+		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.KNOCKBACK, 1));
+		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantment.getEnchantmentByID(70), 1));
+		enchantmentBook.setStackDisplayName("Mysterious Tome");
+		this.entityDropItem(enchantmentBook, 1);
+
+		ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
+		// Add enchantment
+		shirt.addEnchantment(Enchantments.PROTECTION, 1);
+		// Add color
+		ItemArmor itemArmor = (ItemArmor) shirt.getItem();
+		itemArmor.setColor(shirt, 5681460);
+		// Add name
+		shirt.setStackDisplayName("Dusty Shirt");
+		this.entityDropItem(shirt, 1);
+
+		ItemStack rod = new ItemStack(Items.FISHING_ROD);
+		rod.addEnchantment(Enchantments.LURE, 1);
+		rod.setStackDisplayName("Arctic Fishing Rod");
+		this.entityDropItem(rod, 1);
 	}
 
 	/**

@@ -1,19 +1,26 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
+import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -22,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -29,21 +37,26 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
-/**
- * UNDER CONSTRUCTION
- * 
- * Disable mob in GaiaEntities and ClientProxy before release.
- */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaOrc extends EntityMobHostileBase {
-
+public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 
-	private final EntityAIGaiaBreakDoor breakDoor = new EntityAIGaiaBreakDoor(this);
+	private final EntityAIGaiaBreakDoor aiBreakDoor = new EntityAIGaiaBreakDoor(this);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.VARINT);
+
+	private int mobClass;
+	// MobType_1
+	private int switchHealth;
+	// MobType_0
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
@@ -55,32 +68,40 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 		setCanPickUpLoot(true);
-
+		// MobType_1
+		switchHealth = 0;
+		// MobType_0
 		buffEffect = 0;
 		animationPlay = false;
 		animationTimer = 0;
+
+		if (!worldIn.isRemote) {
+			setCombatTask();
+		}
 	}
 
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(2, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true));
+
 		tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(4, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityGaiaDwarf.class, true));
 	}
 
 	/**
-	 * Sets or removes EntityAIBreakDoor task
+	 * sets or removes EntityAIBreakDoor task
 	 */
 	public void setBreakDoorsAItask(boolean enabled) {
 		((PathNavigateGround) this.getNavigator()).setBreakDoors(enabled);
 
 		if (enabled) {
-			this.tasks.addTask(1, this.breakDoor);
+			this.tasks.addTask(1, this.aiBreakDoor);
 		} else {
-			this.tasks.removeTask(this.breakDoor);
+			this.tasks.removeTask(this.aiBreakDoor);
 		}
 	}
 
@@ -118,6 +139,22 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
 
+	/* RANGED DATA */
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		Ranged.magic(target, this, distanceFactor);
+
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
+	}
+
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaOrc.class;
+	}
+	/* RANGED DATA */
+
 	@Override
 	public boolean isAIDisabled() {
 		return false;
@@ -125,47 +162,174 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		/* BUFF */
-		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 2);
-			animationPlay = true;
+		if (getMobType() == 0) {
+			/* BUFF */
+			if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+				setAI((byte) 2);
+				setEquipment((byte) 2);
+				buffEffect = 1;
+				animationPlay = true;
+			}
 
-			addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
-
-			buffEffect = 1;
-		}
-
-		if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
-			buffEffect = 0;
-			animationPlay = false;
-			animationTimer = 0;
-		}
-
-		if (animationPlay) {
-			if (animationTimer != 30) {
-				animationTimer += 1;
-			} else {
-				SetEquipment((byte) 1);
+			if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
+				buffEffect = 0;
 				animationPlay = false;
+				animationTimer = 0;
+			}
+
+			if (animationPlay) {
+				if (animationTimer != 20) {
+					animationTimer += 1;
+				} else {
+					setBuff();
+					setAI((byte) 1);
+					setEquipment((byte) 0);
+					animationPlay = false;
+				}
+			}
+			/* BUFF */
+		} else if (getMobType() == 1) {
+			beaconMonster(6D);
+
+			if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 0)) {
+				setAI((byte) 1);
+				switchHealth = 1;
+			}
+
+			if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 1)) {
+				setAI((byte) 0);
+				switchHealth = 0;
+			}
+
+			if (animationPlay) {
+				if (animationTimer != 30) {
+					animationTimer += 1;
+				} else {
+					setEquipment((byte) 0);
+					animationPlay = false;
+				}
 			}
 		}
-		/* BUFF */
 
 		super.onLivingUpdate();
 	}
 
-	private void SetEquipment(byte id) {
+	private void setAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiBreakDoor);
+			tasks.removeTask(aiAttackOnCollide);
+			tasks.addTask(2, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiBreakDoor);
+			tasks.addTask(2, aiAttackOnCollide);
+		}
+
+		if (id == 2) {
+			tasks.removeTask(aiBreakDoor);
+			tasks.removeTask(aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
 
 		if (id == 2) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
+	}
+
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
+	}
+
+	private void beaconMonster(double range) {
+		if (!world.isRemote) {
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+
+			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+
+			for (EntityLivingBase mob : moblist) {
+				if (mob instanceof EntityGaiaOrc) {
+					mob.addPotionEffect(new PotionEffect(MobEffects.HASTE, 300, 1, true, true));
+				}
+			}
+		}
+	}
+
+	/* CLASS TYPE */
+	@Override
+	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
+		super.setItemStackToSlot(slotIn, stack);
+		if (!world.isRemote && slotIn.getIndex() == 0) {
+			setCombatTask();
+		}
+	}
+
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiArrowAttack);
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
+		}
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	private int getMobType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setMobType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getMobType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setMobType(b0);
+		}
+
+		setCombatTask();
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SKIN, 0);
+	}
+	/* CLASS TYPE */
+
+	@Nullable
+	@Override
+	protected ResourceLocation getLootTable() {
+		return LootTableList.ENTITIES_WITCH;
 	}
 
 	@Override
@@ -198,81 +362,98 @@ public class EntityGaiaOrc extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		if (world.rand.nextInt(2) == 0) {
-			setTextureType(1);
+		if (world.rand.nextInt(4) == 0) {
+			setAI((byte) 0);
+
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+
+			setTextureType(2);
+			mobClass = 1;
+		} else {
+			setAI((byte) 1);
+
+			switch (rand.nextInt(2)) {
+			case 0:
+				setTextureType(0);
+				break;
+			case 1:
+				setTextureType(1);
+				break;
+			}
+
+			switch (getTextureType()) {
+			case 0:
+				switch (rand.nextInt(2)) {
+				case 0:
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+					setEnchantmentBasedOnDifficulty(difficulty);
+					break;
+				case 1:
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+					setEnchantmentBasedOnDifficulty(difficulty);
+					break;
+				}
+				break;
+			case 1:
+				switch (rand.nextInt(2)) {
+				case 0:
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
+					setEnchantmentBasedOnDifficulty(difficulty);
+					break;
+				case 1:
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+					setEnchantmentBasedOnDifficulty(difficulty);
+					break;
+				}
+				break;
+			}
+
+			ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+
+			ItemStack shield = ItemStack.EMPTY;
+			ItemStack armor_leggings = ItemStack.EMPTY;
+			ItemStack armor_chestplate = ItemStack.EMPTY;
+
+			switch (getTextureType()) {
+			case 0:
+				if (itemstack.getItem() == Items.STONE_AXE) {
+					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
+				}
+
+				if (itemstack.getItem() == Items.IRON_AXE) {
+					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
+					armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+				}
+				break;
+			case 1:
+				if (itemstack.getItem() == Items.WOODEN_AXE) {
+					shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
+					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
+					armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+				}
+
+				if (itemstack.getItem() == Items.STONE_AXE) {
+					shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
+					armor_chestplate = new ItemStack(Items.IRON_CHESTPLATE);
+				}
+				break;
+			}
+
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
+			setItemStackToSlot(EntityEquipmentSlot.LEGS, armor_leggings);
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, armor_chestplate);
+
+			setBreakDoorsAItask(true);
+
+			mobClass = 0;
 		}
 
-		switch (rand.nextInt(3)) {
-		case 0:
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-			setEnchantmentBasedOnDifficulty(difficulty);
-			break;
-		case 1:
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-			setEnchantmentBasedOnDifficulty(difficulty);
-			break;
-		case 2:
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
-			setEnchantmentBasedOnDifficulty(difficulty);
-			break;
-		default:
-		}
-
-		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-
-		ItemStack shield = ItemStack.EMPTY;
-		ItemStack armor_leggings = ItemStack.EMPTY;
-		ItemStack armor_chestplate = ItemStack.EMPTY;
-
-		if (itemstack.getItem() == Items.WOODEN_AXE) {
-			armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
-		} else if (itemstack.getItem() == Items.STONE_AXE) {
-			shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
-			armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
-			armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
-		} else if (itemstack.getItem() == Items.IRON_AXE) {
-			shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
-			armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
-			armor_chestplate = new ItemStack(Items.IRON_CHESTPLATE);
-		}
-
-		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
-		setItemStackToSlot(EntityEquipmentSlot.LEGS, armor_leggings);
-		setItemStackToSlot(EntityEquipmentSlot.CHEST, armor_chestplate);
-
-		setBreakDoorsAItask(true);
-
-		/* WIP */
-		setCustomNameTag("WIP");
-		setAlwaysRenderNameTag(true);
-		/* WIP */
 		return ret;
 	}
-
-	/* ALTERNATE SKIN */
-	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaOrc.class, DataSerializers.VARINT);
-
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SKIN, 0);
-	}
-
-	public int getTextureType() {
-		return dataManager.get(SKIN);
-	}
-
-	private void setTextureType(int par1) {
-		dataManager.set(SKIN, par1);
-	}
-	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

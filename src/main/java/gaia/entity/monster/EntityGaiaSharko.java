@@ -18,13 +18,12 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
@@ -33,6 +32,8 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
+	
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int buffEffect;
 	private boolean animationPlay;
@@ -40,9 +41,11 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	public EntityGaiaSharko(World worldIn) {
 		super(worldIn);
+		
 		setSize(1.4F, 2.0F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+        setPathPriority(PathNodeType.WATER, 8.0F);
 
 		buffEffect = 0;
 		animationPlay = false;
@@ -57,7 +60,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true));
+
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -125,12 +128,10 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 1);
-			animationPlay = true;
-
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
-
+			setAI((byte) 1);
+			setEquipment((byte) 1);
 			buffEffect = 1;
+			animationPlay = true;
 		}
 
 		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
@@ -140,10 +141,12 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 30) {
+			if (animationTimer != 20) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 0);
+				setBuff();
+				setAI((byte) 0);
+				setEquipment((byte) 0);
 				animationPlay = false;
 			}
 		}
@@ -151,15 +154,30 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-
-	private void SetEquipment(byte id) {
+	
+	private void setAI(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
+	}
+	
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 	}
 
 	@Override
@@ -205,12 +223,9 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		setAI((byte) 0);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);

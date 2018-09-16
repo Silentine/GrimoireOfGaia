@@ -42,6 +42,9 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	private int switchHealth;
 
+	private boolean animationPlay;
+	private int animationTimer;
+
 	public EntityGaiaBaphomet(World worldIn) {
 		super(worldIn);
 
@@ -50,6 +53,9 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		isImmuneToFire = true;
 
 		switchHealth = 0;
+
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -84,6 +90,10 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.fireball(target, this, distanceFactor);
+
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -118,19 +128,28 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	public void onLivingUpdate() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			SetAI((byte) 1);
+			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
+			setAI((byte) 0);
 			switchHealth = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
 		}
 
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
@@ -139,6 +158,16 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		if (id == 1) {
 			tasks.removeTask(aiArrowAttack);
 			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
 	}
 
@@ -214,13 +243,9 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
 
@@ -233,7 +258,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
-	
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {

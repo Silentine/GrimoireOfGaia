@@ -1,7 +1,7 @@
 package gaia.renderer.entity;
 
 import gaia.GaiaReference;
-import gaia.model.ModelGaiaSahuagin;
+import gaia.model.ModelGaiaCecaelia;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,17 +12,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGaiaSahuagin extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/sahuagin.png");
+public class RenderGaiaCecaelia extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/cecaelia.png");
 
-	public RenderGaiaSahuagin(RenderManager renderManager, float shadowSize) {
-		super(renderManager, new ModelGaiaSahuagin(), shadowSize);
+	public RenderGaiaCecaelia(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaCecaelia(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
 	}
 
-	private ModelGaiaSahuagin getModel() {
-		return (ModelGaiaSahuagin) getMainModel();
+	private ModelGaiaCecaelia getModel() {
+		return (ModelGaiaCecaelia) getMainModel();
 	}
 
 	@Override

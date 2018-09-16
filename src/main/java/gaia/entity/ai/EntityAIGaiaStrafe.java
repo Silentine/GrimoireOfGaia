@@ -141,28 +141,6 @@ public class EntityAIGaiaStrafe extends EntityAIBase {
             {
                 this.entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
             }
-
-            if (this.entity.isHandActive())
-            {
-                if (!flag && this.seeTime < -60)
-                {
-                    this.entity.resetActiveHand();
-                }
-                else if (flag)
-                {
-                    int i = this.entity.getItemInUseMaxCount();
-
-                    if (i >= 20)
-                    {
-                        this.entity.resetActiveHand();
-                        this.attackTime = this.attackCooldown;
-                    }
-                }
-            }
-            else if (--this.attackTime <= 0 && this.seeTime >= -60)
-            {
-                this.entity.setActiveHand(EnumHand.MAIN_HAND);
-            }
         }
     }
 }

@@ -99,6 +99,14 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 	}
 
 	@Override
+	public void onDeath(DamageSource cause) {
+		if (!this.world.isRemote) {
+			spawnLingeringCloud(this, MobEffects.POISON, 10 * 20, 0);
+		}
+		super.onDeath(cause);
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.AGGRESSIVE_SAY;
 	}
@@ -116,14 +124,6 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_SLIME_JUMP, 1.0F, 1.0F);
-	}
-
-	@Override
-	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			spawnLingeringCloud(this, MobEffects.POISON);
-		}
-		super.onDeath(cause);
 	}
 
 	@Override
@@ -150,12 +150,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BOX_IRON, 1);
-				case 1:
-					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_SLIME_GIRL), 1);
-				}
+				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}

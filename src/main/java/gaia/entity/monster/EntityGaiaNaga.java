@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobHostileBase;
+import gaia.entity.EntityMobHostileDay;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -23,6 +23,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -31,7 +32,9 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaNaga extends EntityMobHostileBase {
+public class EntityGaiaNaga extends EntityMobHostileDay {
+	
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int buffEffect;
 	private boolean animationPlay;
@@ -43,6 +46,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		setSize(1.0F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
+        setPathPriority(PathNodeType.WATER, 8.0F);
 		isImmuneToFire = true;
 
 		buffEffect = 0;
@@ -53,7 +57,7 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true));
+
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -123,12 +127,10 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 1);
-			animationPlay = true;
-
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
-
+			setAI((byte) 1);
+			setEquipment((byte) 1);
 			buffEffect = 1;
+			animationPlay = true;
 		}
 
 		if (getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F && buffEffect == 1) {
@@ -138,10 +140,12 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 30) {
+			if (animationTimer != 20) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 0);
+				setBuff();
+				setAI((byte) 0);
+				setEquipment((byte) 0);
 				animationPlay = false;
 			}
 		}
@@ -149,15 +153,30 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-
-	private void SetEquipment(byte id) {
+	
+	private void setAI(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
+	}
+
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 	}
 
 	@Override
@@ -203,12 +222,9 @@ public class EntityGaiaNaga extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);

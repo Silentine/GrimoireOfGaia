@@ -1,6 +1,6 @@
 {
-    "parent": "item/handheld",
+    "parent": "grimoireofgaia:item/weapon_fan",
     "textures": {
-        "layer0": "grimoireofgaia:items/weapon_fan_fire"
-    }  
+        "0": "grimoireofgaia:items/models/weapon_fan_fire"
+    }
 }

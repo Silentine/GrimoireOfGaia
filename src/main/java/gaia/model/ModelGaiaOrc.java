@@ -126,7 +126,7 @@ public class ModelGaiaOrc extends ModelGaia {
 		leftlegboot.setTextureSize(64, 32);
 		setRotation(leftlegboot, 0F, 0F, 0F);
 		ModelRenderer righthorn1 = new ModelRenderer(this, 64, 25);
-		righthorn1.addBox(-5.5F, -8.5F, -1F, 2, 2, 2);
+		righthorn1.addBox(-5.5F, -8.5F, -2.5F, 2, 2, 2);
 		righthorn1.setRotationPoint(0F, -2F, 0F);
 		righthorn1.setTextureSize(64, 32);
 		setRotation(righthorn1, 0F, 0F, 0F);
@@ -136,13 +136,13 @@ public class ModelGaiaOrc extends ModelGaia {
 		righthorn2.setTextureSize(64, 32);
 		setRotation(righthorn2, 0F, 0F, 0F);
 		ModelRenderer righthorn3 = new ModelRenderer(this, 64, 35);
-		righthorn3.addBox(-4.5F, -11.5F, -1F, 2, 2, 2);
+		righthorn3.addBox(-4.5F, -11.5F, -2.5F, 2, 2, 2);
 		righthorn3.setRotationPoint(0F, -2F, 0F);
 		righthorn3.setTextureSize(64, 32);
 		setRotation(righthorn3, 0F, 0F, 0F);
 		ModelRenderer lefthorn1 = new ModelRenderer(this, 64, 25);
 		lefthorn1.mirror = true;
-		lefthorn1.addBox(4.5F, -8.5F, -1F, 2, 2, 2);
+		lefthorn1.addBox(4.5F, -8.5F, -2.5F, 2, 2, 2);
 		lefthorn1.setRotationPoint(0F, -2F, 0F);
 		lefthorn1.setTextureSize(64, 32);
 		setRotation(lefthorn1, 0F, 0F, 0F);
@@ -154,7 +154,7 @@ public class ModelGaiaOrc extends ModelGaia {
 		setRotation(lefthorn2, 0F, 0F, 0F);
 		ModelRenderer lefthorn3 = new ModelRenderer(this, 64, 35);
 		lefthorn3.mirror = true;
-		lefthorn3.addBox(3.5F, -11.5F, -1F, 2, 2, 2);
+		lefthorn3.addBox(3.5F, -11.5F, -2.5F, 2, 2, 2);
 		lefthorn3.setRotationPoint(0F, -2F, 0F);
 		lefthorn3.setTextureSize(64, 32);
 		setRotation(lefthorn3, 0F, 0F, 0F);
@@ -200,7 +200,7 @@ public class ModelGaiaOrc extends ModelGaia {
 		head.rotateAngleX = headPitch / 57.295776F;
 
 		// arms
-		if (itemstack.getItem() != Items.STICK) {
+		if (itemstack.isEmpty()) {
 			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -217,12 +217,12 @@ public class ModelGaiaOrc extends ModelGaia {
 			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		}
 
-		if (itemstack.getItem() == Items.STICK) {
-			animationBuff();
+		if (itemstack.getItem() == Items.ARROW) {
+			animationThrow();
 		}
 
-		if (itemstack.getItem() == Items.EGG) {
-			animationReset();
+		if (itemstack.getItem() == Items.STICK) {
+			animationBuff();
 		}
 
 		// legs
@@ -246,16 +246,15 @@ public class ModelGaiaOrc extends ModelGaia {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	private void animationBuff() {
-		rightarm.rotateAngleX = -0.698132F;
-		leftarm.rotateAngleX = -0.698132F;
-		rightarm.rotateAngleY = 0.698132F;
-		leftarm.rotateAngleY = -0.698132F;
+	private void animationThrow() {
+		rightarm.rotateAngleX = -1.0472F;
 	}
 
-	private void animationReset() {
-		rightarm.rotateAngleY = 0.0F;
-		leftarm.rotateAngleY = 0.0F;
+	private void animationBuff() {
+		rightarm.rotateAngleX = 0.0F;
+		leftarm.rotateAngleX = 0.0F;
+		rightarm.rotateAngleZ = +0.785398F;
+		leftarm.rotateAngleZ = -0.785398F;
 	}
 
 	public ModelRenderer getRightArm() {

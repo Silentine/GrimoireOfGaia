@@ -178,7 +178,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				int i = rand.nextInt(3);
 				if (i == 0) {
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				} else if (i == 1) {
 					dropItem(GaiaItems.BAG_BOOK, 1);
 				} else if (i == 2) {

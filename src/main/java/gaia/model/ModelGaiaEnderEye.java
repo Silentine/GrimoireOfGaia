@@ -86,8 +86,8 @@ public class ModelGaiaEnderEye extends ModelGaia {
 		anchor.addChild(rightwing);
 		anchor.addChild(leftwing);
 		anchor.addChild(tail1);
-		anchor.addChild(tail2);
-		anchor.addChild(tail3);
+		convertToChild(tail1, tail2);
+		convertToChild(tail1, tail3);
 	}
 
 	@Override
@@ -102,24 +102,34 @@ public class ModelGaiaEnderEye extends ModelGaia {
 	 */
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		float floatSpeed = 0.5F;
+		float floatRange = 3.0F;
+
 		// anchor
-		anchor.rotationPointY = -2.0F + MathHelper.cos((ageInTicks + 1.5F) * 0.5F) * 0.5F;
+		anchor.rotationPointY = -2.0F + MathHelper.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
 
 		// body
 		body.rotateAngleY = netHeadYaw / 57.295776F;
-		eyelid1.rotateAngleX = MathHelper.cos(ageInTicks * 0.4F + (float) Math.PI) * 0.2F * 0.5F;
-		eyelid1.rotateAngleX += 0.0349066F;
-		eyelid2.rotateAngleX = MathHelper.cos(ageInTicks * 0.4F) * 0.08F * 0.5F;
-		eyelid2.rotateAngleX += 0.3490659F;
-		rightwing.rotateAngleZ = MathHelper.cos(ageInTicks * 0.6F + (float) Math.PI) * 1.6F * 0.5F;
-		rightwing.rotateAngleZ = rightwing.rotateAngleZ + 1.570796F;
-		leftwing.rotateAngleZ = MathHelper.cos(ageInTicks * 0.6F) * 1.6F * 0.5F;
-		leftwing.rotateAngleZ = leftwing.rotateAngleZ - 1.570796F;
-		tail1.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float) Math.PI) * 0.2F * 0.5F;
-		tail1.rotateAngleX += 0.7853982F;
-		tail2.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float) Math.PI) * 0.2F * 0.5F;
-		tail2.rotateAngleX += 0.6108652F;
-		tail3.rotateAngleX = MathHelper.cos(ageInTicks * 1.2F + (float) Math.PI) * 0.2F * 0.5F;
-		tail3.rotateAngleX += 0.4363323F;
+		
+		float swingSpeed = 0.5F;
+		float angleRange = 0.2F;
+
+		eyelid1.rotateAngleX = MathHelper.cos(ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
+		eyelid2.rotateAngleX = MathHelper.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
+		eyelid2.rotateAngleX = degToRad(20);
+
+		float swingSpeed2 = 0.5F;
+		float angleRange2 = 1.0F;
+		float wingDefaultAngleZ = 1.570796F;
+		
+		rightwing.rotateAngleZ = MathHelper.cos(ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * 0.5F;
+		rightwing.rotateAngleZ += wingDefaultAngleZ;
+		leftwing.rotateAngleZ = MathHelper.cos(ageInTicks * swingSpeed2) * angleRange2 * 0.5F;
+		leftwing.rotateAngleZ -= wingDefaultAngleZ;
+		
+		float tailDefaultAngleX = 0.7853982F;
+		
+		tail1.rotateAngleX = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(5);
+		tail1.rotateAngleX += tailDefaultAngleX;
 	}
 }

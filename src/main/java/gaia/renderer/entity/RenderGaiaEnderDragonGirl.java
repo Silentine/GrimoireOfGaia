@@ -3,6 +3,8 @@ package gaia.renderer.entity;
 import java.util.Random;
 
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaEnderDragonGirl;
+import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.model.ModelGaiaEnderDragonGirl;
 import gaia.renderer.entity.layers.LayerGlowing;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -27,20 +29,23 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
 		return (ModelGaiaEnderDragonGirl) getMainModel();
 	}
 
-//	private void renderEnderDragonGirl(EntityGaiaEnderDragonGirl entity, double x, double y, double z, float entityYaw, float partialTicks) {
-//		ModelGaiaEnderDragonGirl model = getModel();
-//
-//		if (entity.isScreaming()) {
-//			super.doRender(entity, x + rnd.nextGaussian() * 0.02D, y, z + rnd.nextGaussian() * 0.02D, entityYaw, partialTicks);
-//		}
-//
-//		super.doRender(entity, x, y, z, entityYaw, partialTicks);
-//	}
-//
-//	@Override
-//	public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
-//		renderEnderDragonGirl((EntityGaiaEnderDragonGirl) entity, x, y, z, entityYaw, partialTicks);
-//	}
+	@Override
+	public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		doRender((EntityGaiaEnderDragonGirl) entity, x, y, z, entityYaw, partialTicks);
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+	}
+
+	public void doRender(EntityGaiaEnderDragonGirl entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		ModelGaiaEnderDragonGirl modelenderman = getModel();
+
+		if (entity.isScreaming()) {
+			double d0 = 0.02D;
+			x += this.rnd.nextGaussian() * 0.02D;
+			z += this.rnd.nextGaussian() * 0.02D;
+		}
+
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {

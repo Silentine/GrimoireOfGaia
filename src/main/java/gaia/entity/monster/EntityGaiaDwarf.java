@@ -19,6 +19,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -89,10 +90,11 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		tasks.addTask(4, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAIGaiaValidateTargetPlayer(this));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityGaiaOrc.class, true));
 	}
 
 	/**
-	 * Sets or removes EntityAIBreakDoor task
+	 * sets or removes EntityAIBreakDoor task
 	 */
 	public void setBreakDoorsAItask(boolean enabled) {
 		((PathNavigateGround) this.getNavigator()).setBreakDoors(enabled);
@@ -205,7 +207,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		super.onLivingUpdate();
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaValkyrie valyrie;
 
 		if (id == 1) {
@@ -220,9 +222,9 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 	/* CLASS TYPE */
 	@Override
-	public void setItemStackToSlot(EntityEquipmentSlot par1, ItemStack par2ItemStack) {
-		super.setItemStackToSlot(par1, par2ItemStack);
-		if (!world.isRemote && par1.getIndex() == 0) {
+	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
+		super.setItemStackToSlot(slotIn, stack);
+		if (!world.isRemote && slotIn.getIndex() == 0) {
 			setCombatTask();
 		}
 	}
@@ -368,12 +370,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 		// Boss
 		if (spawnLevel3 == 1) {
-			SetSpawn((byte) 1);
+			setSpawn((byte) 1);
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

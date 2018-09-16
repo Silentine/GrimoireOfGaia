@@ -45,6 +45,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMinotaur extends EntityMobHostileBase {
+	
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
 
 	private int buffEffect;
 	private boolean animationPlay;
@@ -67,7 +69,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true));
+
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -136,20 +138,16 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D,
-						(rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
 
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 1);
-			animationPlay = true;
-
-			addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
-			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 100, 0));
-
+			setAI((byte) 1);
+			setEquipment((byte) 1);
 			buffEffect = 1;
+			animationPlay = true;
 		}
 
 		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
@@ -159,51 +157,50 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 30) {
+			if (animationTimer != 20) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 0);
+				setBuff();
+				setAI((byte) 0);
+				setEquipment((byte) 0);
 				animationPlay = false;
 			}
 		}
 		/* BUFF */
 
 		if (getHealth() <= 0.0F) {
-			world.setEntityState(this, (byte) 13);
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			}
 		} else {
 			super.onLivingUpdate();
 		}
 	}
-
-	private void SetEquipment(byte id) {
+	
+	private void setAI(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			tasks.addTask(1, aiAttackOnCollide);
 		}
-		
+
+		if (id == 1) {
+			tasks.removeTask(aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			this.spawnParticles(EnumParticleTypes.EXPLOSION_LARGE);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = this.rand.nextGaussian() * 0.02D;
-			double d1 = this.rand.nextGaussian() * 0.02D;
-			double d2 = this.rand.nextGaussian() * 0.02D;
-			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
-					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
-		}
+	
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
+		addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 100, 0));
 	}
 
 	@Override
@@ -261,16 +258,13 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_IRON));
 		setEnchantmentBasedOnDifficulty(difficulty);
-		
+
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
@@ -297,7 +291,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
-	
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {

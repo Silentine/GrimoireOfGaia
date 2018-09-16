@@ -47,6 +47,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	private static final double DETECTION_RANGE = 6D;
+	
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
 	private int equipItems;
@@ -78,7 +80,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true));
+
 		tasks.addTask(2, new EntityAIWander(this, 0.8D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -146,8 +148,6 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		/* AGGRESSION */
-//		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-//		if (equipItems == 0 && itemstack.isEmpty()) {	
 		if (equipItems == 0) {
 			if (aggressive <= 4) {
 				if (playerDetection(DETECTION_RANGE)) {
@@ -159,20 +159,20 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 					}
 
 					if (aggression >= 50) {
-						world.setEntityState(this, (byte) 13);
+						world.setEntityState(this, (byte) 11);
 					}
 				}
 			} else {
-				SetAI((byte) 0);
-				SetEquipment((byte) 2);
+				setAI((byte) 0);
+				setEquipment((byte) 2);
 
 				equipItems = 1;
 			}
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && equipItems == 0) {
-			SetAI((byte) 0);
-			SetEquipment((byte) 2);
+			setAI((byte) 0);
+			setEquipment((byte) 2);
 
 			equipItems = 1;
 		}
@@ -180,13 +180,10 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 		/* BUFF */
 		if (getHealth() <= EntityAttributes.MAX_HEALTH_3 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
-			SetEquipment((byte) 1);
-			animationPlay = true;
-
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
-			addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
-
+			setAI((byte) 2);
+			setEquipment((byte) 1);
 			buffEffect = 1;
+			animationPlay = true;
 		}
 
 		if (getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F && buffEffect == 1) {
@@ -196,31 +193,43 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 30) {
+			if (animationTimer != 20) {
 				animationTimer += 1;
 			} else {
-				SetEquipment((byte) 0);
+				setBuff();
+				setAI((byte) 1);
+				setEquipment((byte) 0);
 				animationPlay = false;
 			}
 		}
 		/* BUFF */
 
 		if (getHealth() <= 0.0F) {
-			world.setEntityState(this, (byte) 14);
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			}
 		} else {
 			super.onLivingUpdate();
 		}
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
 		}
+		
+		if (id == 1) {
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+
+		if (id == 2) {
+			tasks.removeTask(aiAttackOnCollide);
+		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
@@ -232,27 +241,11 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		}
 	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			this.spawnParticles(EnumParticleTypes.VILLAGER_ANGRY);
-		} else if (id == 14) {
-			this.spawnParticles(EnumParticleTypes.EXPLOSION_LARGE);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = this.rand.nextGaussian() * 0.02D;
-			double d1 = this.rand.nextGaussian() * 0.02D;
-			double d2 = this.rand.nextGaussian() * 0.02D;
-			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
-		}
+	
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
 	}
 
 	/**
@@ -316,12 +309,9 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		setAI((byte) 1);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_IRON));
 		setEnchantmentBasedOnDifficulty(difficulty);

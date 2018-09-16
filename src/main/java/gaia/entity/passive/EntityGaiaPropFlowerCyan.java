@@ -111,7 +111,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		}
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaMandragora mandragora;
 
 		if (id == 0) {
@@ -166,7 +166,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 					break;
 				}
 			} else {
-				SetSpawn((byte) 0);
+				setSpawn((byte) 0);
 			}
 
 			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {
@@ -219,6 +219,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 				int k = MathHelper.floor(posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
 				Block var1 = world.getBlockState(blockpos.down()).getBlock();
+
 				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalFlowerSpawnBlocks));
 				
 				boolean defaultFlag = spawnBlocks.contains(var1);

@@ -263,11 +263,9 @@ public class ModelGaiaWerecat extends ModelGaia {
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		if (itemstack.getItem() == Items.FEATHER) {
-			animationFlee();
-		}
-
-		if (itemstack.getItem() == Items.EGG) {
-			animationReset();
+			if (entityIn.motionX * entityIn.motionX + entityIn.motionZ * entityIn.motionZ > 2.500000277905201E-7D) {
+				animationFlee();
+			}
 		}
 
 		// body
@@ -303,22 +301,8 @@ public class ModelGaiaWerecat extends ModelGaia {
 		leftarm.rotateAngleZ -= (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	private float defaultRotateAngleX = -0.4363323F;
-
 	private void animationFlee() {
-		if ((rightleg.rotateAngleX >= defaultRotateAngleX + degToRad(5)) || (rightleg.rotateAngleX <= defaultRotateAngleX + degToRad(-5))) {
-			rightarm.rotateAngleX += 1.0472F;
-			leftarm.rotateAngleX += 1.0472F;
-			rightarm.rotateAngleY = -0.523599F;
-			leftarm.rotateAngleY = 0.523599F;
-		} else {
-			rightarm.rotateAngleY = 0.0F;
-			leftarm.rotateAngleY = 0.0F;
-		}
-	}
-
-	private void animationReset() {
-		rightarm.rotateAngleY = 0.0F;
-		leftarm.rotateAngleY = 0.0F;
+		rightarm.rotateAngleX += 1.0472F;
+		leftarm.rotateAngleX += 1.0472F;
 	}
 }

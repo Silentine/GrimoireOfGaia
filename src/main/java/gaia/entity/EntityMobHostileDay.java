@@ -10,6 +10,8 @@ import gaia.GaiaConfig;
 import gaia.helpers.BlockPosHelper;
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -23,7 +25,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	
-	private static final int SPAWN_GUARD_RADIUS = 8;
+	private static final int SPAWN_GUARD_RADIUS = GaiaConfig.SPAWN.spawnGuardRadius;
 	
 	private static Set<Block> spawnBlocks = 
 			Sets.newHashSet
@@ -32,11 +34,16 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 					Blocks.DIRT, 
 					Blocks.GRAVEL, 
 					Blocks.SAND, 
-					Blocks.SNOW_LAYER
+					Blocks.SNOW_LAYER,
+					Blocks.SNOW
 			);
 
 	public EntityMobHostileDay(World worldIn) {
 		super(worldIn);
+		
+		if (GaiaConfig.OPTIONS.passiveHostileMobs) {
+			targetTasks.removeTask(new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+		}
 	}
 
 	@Override

@@ -131,29 +131,11 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 		}
 
 		if (getHealth() <= 0.0F) {
-			world.setEntityState(this, (byte) 13);
+			for (int i = 0; i < 2; ++i) {
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			}
 		} else {
 			super.onLivingUpdate();
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 13) {
-			this.spawnParticles(EnumParticleTypes.EXPLOSION_LARGE);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = this.rand.nextGaussian() * 0.02D;
-			double d1 = this.rand.nextGaussian() * 0.02D;
-			double d2 = this.rand.nextGaussian() * 0.02D;
-			this.world.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
 		}
 	}
 
@@ -209,10 +191,6 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 				entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 2), 0.0F);
 			}
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

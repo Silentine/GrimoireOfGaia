@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderGaiaHarpy extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/harpy01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Harpy02.png");
+	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Harpy03.png");
 
 	public RenderGaiaHarpy(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaHarpy(), shadowSize);
@@ -26,12 +27,14 @@ public class RenderGaiaHarpy extends RenderLiving<EntityLiving> {
 
 	private ResourceLocation getTexture(EntityGaiaHarpy entity) {
 		switch (entity.getTextureType()) {
-			case 0:
-				return texture01;
-			case 1:
-				return texture02;
-			default:
-				return texture01;
+		case 0:
+			return texture01;
+		case 1:
+			return texture02;
+		case 2:
+			return texture03;
+		default:
+			return texture01;
 		}
 	}
 }

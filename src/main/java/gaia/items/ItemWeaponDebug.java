@@ -10,15 +10,18 @@ import com.google.common.collect.Multimap;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,8 +51,7 @@ public class ItemWeaponDebug extends ItemBase {
 	}
 
 	/**
-	 * @reference 
-	 * https://github.com/Flaxbeard/Cyberware/blob/master/src/main/java/flaxbeard/cyberware/common/handler/CyberwareMenuHandler.java
+	 * @reference https://github.com/Flaxbeard/Cyberware/blob/master/src/main/java/flaxbeard/cyberware/common/handler/CyberwareMenuHandler.java
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -91,6 +93,17 @@ public class ItemWeaponDebug extends ItemBase {
 			}
 		}
 	}
+
+//	@Override
+//	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+//		if (!isInCreativeTab(tab)) {
+//			return;
+//		}
+//
+//		ItemStack stack = new ItemStack(this, 1, 0);
+//		stack.addEnchantment(Enchantments.LOOTING, 10);
+//		items.add(stack);
+//	}
 
 	public void doEffect(EntityPlayer player) {
 		if (!player.isPotionActive(MobEffects.REGENERATION)) {

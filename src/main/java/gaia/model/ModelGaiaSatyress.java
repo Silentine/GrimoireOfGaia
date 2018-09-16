@@ -264,9 +264,10 @@ public class ModelGaiaSatyress extends ModelGaia {
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		if (itemstack.getItem() == Items.FEATHER) {
-			animationPotion();
+			if (entityIn.motionX * entityIn.motionX + entityIn.motionZ * entityIn.motionZ > 2.500000277905201E-7D) {
+				animationFlee();
+			}
 		}
-
 		// body
 		tail.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(10);
 
@@ -293,13 +294,8 @@ public class ModelGaiaSatyress extends ModelGaia {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	private void animationPotion() {
-		if ((rightleg.rotateAngleX != -0.1745329F) || (leftleg.rotateAngleX != -0.1745329F)) {
-			rightarm.rotateAngleX += 1.0472F;
-			leftarm.rotateAngleX += 1.0472F;
-			rightarm.rotateAngleY = -0.523599F;
-			leftarm.rotateAngleY = +0.523599F;
-		}
+	private void animationFlee() {
+		leftarm.rotateAngleX += 1.0472F;
 	}
 
 	public ModelRenderer getRightArm() {

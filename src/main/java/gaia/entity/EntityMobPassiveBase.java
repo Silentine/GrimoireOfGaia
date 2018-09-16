@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,9 +32,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveBase extends EntityMobPassive {
+	
+	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
 	public EntityMobPassiveBase(World worldIn) {
 		super(worldIn);
+		
+		if (GaiaConfig.OPTIONS.passiveHostileAllMobs) {
+			targetTasks.addTask(2, aiNearestAttackableTarget);
+		}
 	}
 
 	/* SHARED CODE */
@@ -67,9 +74,11 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
-		if (id == 8) {
+		if (id == 7) {
+			spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
+		} else if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else if (id == 9) {
 			spawnParticles(EnumParticleTypes.FLAME);
@@ -77,6 +86,8 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 			spawnParticles(EnumParticleTypes.SPELL_WITCH);
 		} else if (id == 11) {
 			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
+		} else if (id == 12) {
+			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -102,14 +113,14 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	 * @param duration Duration of potion effect in ticks (20 ticks = 1 second)
 	 * @see TileEntityBeacon
 	 */
-	protected void beaconDebuff(Potion effect, int duration) {
-		if (!this.world.isRemote) {
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(2);
-			List<EntityLivingBase> moblist = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+	protected void beaconDebuff(double range, Potion effect, int duration, int amplifier) {
+		if (!world.isRemote) {
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
 				if (!(mob instanceof EntityMob) && (mob instanceof IMob || mob instanceof EntityPlayer)) {
-					mob.addPotionEffect(new PotionEffect(effect, duration, 0, true, true));
+					mob.addPotionEffect(new PotionEffect(effect, duration, amplifier, true, true));
 				}
 			}
 		}
@@ -119,23 +130,27 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	 * Adapted from @EntityCreeper
 	 *
 	 * @param sourceMob Entity creating the cloud
-	 * @param effect    Potion Effect to Implement (@MobEffects.class)
+	 * @param potionIn Potion effect
+	 * @param durationIn Potion duration
+	 * @param amplifierIn Potion level
 	 * @see EntityAreaEffectCloud
 	 */
-	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion effect) {
+	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion potionIn, int durationIn, int amplifierIn) {
 
-		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, this.posX, this.posY, this.posZ);
+		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
+		
 		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
 		entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
-		entityareaeffectcloud.addEffect(new PotionEffect(effect));
+		
+        entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
 
-		this.world.spawnEntity(entityareaeffectcloud);
+		world.spawnEntity(entityareaeffectcloud);
 	}
-
+	
 	/**
 	 * Used to adjust the motionY when a mob is hit.
 	 * 
@@ -175,6 +190,10 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		}
 	}
 	/* SPAWN CONDITIONS */
+	
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+	}
 
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {

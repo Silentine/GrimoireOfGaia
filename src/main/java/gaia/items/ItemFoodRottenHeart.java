@@ -19,8 +19,8 @@ public class ItemFoodRottenHeart extends ItemFoodGaia {
 		setAlwaysEdible();
 		maxStackSize = 1;
 
-		setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10, 0), 1.0F);
-		setSecondPotionEffect(new PotionEffect(MobEffects.HUNGER, 30, 0), 0.8F);
+		setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0), 1.0F);
+		setSecondPotionEffect(new PotionEffect(MobEffects.HUNGER, 30 * 20, 0), 0.8F);
 	}
 
 	@Override

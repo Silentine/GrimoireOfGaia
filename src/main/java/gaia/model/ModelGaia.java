@@ -28,7 +28,7 @@ public class ModelGaia extends ModelBase {
 
 	/**
 	 * Helper functions
-	 **/
+	 */
 	void updateDistanceMovedTotal(Entity parEntity) {
 		distanceMovedTotal += parEntity.getDistance(parEntity.prevPosX, parEntity.prevPosY, parEntity.prevPosZ);
 	}

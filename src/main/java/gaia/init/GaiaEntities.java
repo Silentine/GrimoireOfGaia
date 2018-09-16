@@ -7,11 +7,14 @@ import com.google.common.collect.ImmutableSet;
 import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaAnt;
+import gaia.entity.monster.EntityGaiaAntRanger;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
+import gaia.entity.monster.EntityGaiaBee;
 import gaia.entity.monster.EntityGaiaBoneKnight;
+import gaia.entity.monster.EntityGaiaCecaelia;
 import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
@@ -25,7 +28,7 @@ import gaia.entity.monster.EntityGaiaDwarf;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaFutakuchiOnna;
+import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
@@ -39,8 +42,8 @@ import gaia.entity.monster.EntityGaiaMinotaurus;
 import gaia.entity.monster.EntityGaiaMummy;
 import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaNineTails;
+import gaia.entity.monster.EntityGaiaOni;
 import gaia.entity.monster.EntityGaiaOrc;
-import gaia.entity.monster.EntityGaiaSahuagin;
 import gaia.entity.monster.EntityGaiaSatyress;
 import gaia.entity.monster.EntityGaiaSelkie;
 import gaia.entity.monster.EntityGaiaShaman;
@@ -69,7 +72,9 @@ import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.entity.passive.EntityGaiaPropChestMimic;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
+import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
+import gaia.entity.projectile.EntityGaiaProjectilePoison;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import net.minecraft.entity.Entity;
@@ -89,11 +94,14 @@ public class GaiaEntities {
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
 //			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
+			createEntityEntry("ant_ranger", EntityGaiaAntRanger.class, 0x8a7264, 0x303030),
 			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
 			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646),
 			createEntityEntry("banshee", EntityGaiaBanshee.class, 0xeed2e8, 0xc6b0ed),
 			createEntityEntry("baphomet", EntityGaiaBaphomet.class, 3559756, 14197864),
+			createEntityEntry("bee", EntityGaiaBee.class, 0xc9b161, 0x353535),
 			createEntityEntry("bone_knight", EntityGaiaBoneKnight.class, 4602533, 13619151),
+			createEntityEntry("cecaelia", EntityGaiaCecaelia.class, 0xdb5760, 0xd893a9),
 			createEntityEntry("centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535),
 			createEntityEntry("chest", EntityGaiaPropChestMimic.class, 11237677, 4274991, false),
 			createEntityEntry("cobble_golem", EntityGaiaCobbleGolem.class, 11513775, 11513775),
@@ -101,15 +109,15 @@ public class GaiaEntities {
 			createEntityEntry("creep", EntityGaiaCreep.class, 7917159, 2053400),
 			createEntityEntry("cyclops", EntityGaiaCyclops.class, 4936602, 3487029),
 			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287, false),
-//			createEntityEntry("deathword", EntityGaiaDeathword.class, 0xb77a35, 0xffd800),
+			createEntityEntry("deathword", EntityGaiaDeathword.class, 0xb77a35, 0xffd800),
 			createEntityEntry("dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161),
 			createEntityEntry("dryad", EntityGaiaDryad.class, 10255437, 5681460),
 			createEntityEntry("dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d),
 			createEntityEntry("dwarf", EntityGaiaDwarf.class, 0x969696, 0xf09942),
 			createEntityEntry("ender_dragon_girl", EntityGaiaEnderDragonGirl.class, 3158064, 14711290),
-			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 3158064),
+			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 0x3158064),
 			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
-			createEntityEntry("futakuchi_onna", EntityGaiaFutakuchiOnna.class, 0x4e3738, 0xb43434),
+			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151),
 			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
 			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
 			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),
@@ -121,8 +129,8 @@ public class GaiaEntities {
 			createEntityEntry("mummy", EntityGaiaMummy.class, 0xdcd7c1, 0xc9b161),
 			createEntityEntry("naga", EntityGaiaNaga.class, 0x29bc55, 0xccb63f),
 			createEntityEntry("nine_tails", EntityGaiaNineTails.class, 11809844, 13218145),
-//			createEntityEntry("orc", EntityGaiaOrc.class, 0x718a60, 0xc0d696),
-			createEntityEntry("sahuagin", EntityGaiaSahuagin.class, 0x5c70b1, 0x84a498),
+			createEntityEntry("oni", EntityGaiaOni.class, 0x8b302d, 0xc9b161),
+			createEntityEntry("orc", EntityGaiaOrc.class, 0x718a60, 0xc0d696),
 			createEntityEntry("satyress", EntityGaiaSatyress.class, 0x707b4f, 0xa4452d),
 			createEntityEntry("selkie", EntityGaiaSelkie.class, 9082818, 13488612),
 			createEntityEntry("shaman", EntityGaiaShaman.class, 0xae6b3c, 0x56b134),
@@ -193,8 +201,10 @@ public class GaiaEntities {
 			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
 
 			/* PROJECTILE */
-			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
+			createEntityEntry("bubble", EntityGaiaProjectileBubble.class, registry, 3);
 			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry, 3);
+			createEntityEntry("poison", EntityGaiaProjectilePoison.class, registry, 3);
+			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
 			createEntityEntry("web", EntityGaiaProjectileWeb.class, registry, 3);
 		}
 

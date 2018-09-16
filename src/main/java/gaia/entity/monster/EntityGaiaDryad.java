@@ -12,7 +12,6 @@ import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -23,7 +22,6 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -40,21 +38,16 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDryad extends EntityMobPassiveDay {
-
-	private static final UUID MODIFIER_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
-	private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Attacking speed penalty", -0.05D, 0)).setSaved(false);
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 
-	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
 
-	private boolean debuffWeakness;
-	
 	private int switchHealth;
 	private int axeAttack;
 
@@ -97,12 +90,6 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.BASE_DEFENSE_1) {
-			if (!debuffWeakness) {
-				debuffWeakness = true;
-			}
-		}
-		
 		float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
 		Entity entity = source.getTrueSource();
 
@@ -122,33 +109,6 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity entityIn) {
-		if (super.attackEntityAsMob(entityIn)) {
-			if (entityIn instanceof EntityLivingBase) {
-				byte byte0 = 0;
-
-				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 5;
-				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
-					byte0 = 10;
-				}
-
-				if (byte0 > 0) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 20, 0));
-				}
-				
-				if (debuffWeakness) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 10 * 20, 0));
-				}
-			}
-
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
@@ -173,18 +133,21 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(2) == 0) {
-				SetAI((byte) 1);
-				SetEquipment((byte) 1);
+			switch (rand.nextInt(2)) {
+			case 0:
+				setAI((byte) 1);
+				setEquipment((byte) 1);
 				switchHealth = 1;
-			} else {
+				break;
+			case 1:
 				switchHealth = 2;
+				break;
 			}
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
-			SetEquipment((byte) 0);
+			setAI((byte) 0);
+			setEquipment((byte) 0);
 
 			switchHealth = 0;
 		}
@@ -197,37 +160,37 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		 * 
 		 * @see EntityIronGolem
 		 */
-		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-
-		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
-			if (staminaTimer > 0) {
-				staminaTimer = 0;
-			}
-
-			if (stamina > 0) {
-				stamina -= 1;
-			}
-
-			if ((stamina <= 0) && (!iattributeinstance.hasModifier(MODIFIER))) {
-				iattributeinstance.applyModifier(MODIFIER);
-			}
-		} else if (stamina < (30 * 4)) {
-			if (staminaTimer < (10 * 4)) {
-				staminaTimer += 1;
-			} else {
-				stamina = (30 * 4);
-
-				if (iattributeinstance.hasModifier(MODIFIER)) {
-					iattributeinstance.removeModifier(MODIFIER);
-				}
-			}
-		}
+//		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+//
+//		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D)) {
+//			if (staminaTimer > 0) {
+//				staminaTimer = 0;
+//			}
+//
+//			if (stamina > 0) {
+//				stamina -= 1;
+//			}
+//
+//			if ((stamina <= 0) && (!iattributeinstance.hasModifier(MODIFIER))) {
+//				iattributeinstance.applyModifier(MODIFIER);
+//			}
+//		} else if (stamina < (30 * 4)) {
+//			if (staminaTimer < (10 * 4)) {
+//				staminaTimer += 1;
+//			} else {
+//				stamina = (30 * 4);
+//
+//				if (iattributeinstance.hasModifier(MODIFIER)) {
+//					iattributeinstance.removeModifier(MODIFIER);
+//				}
+//			}
+//		}
 		/* STAMINA */
 
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
@@ -239,9 +202,9 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
@@ -302,31 +265,27 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
 		}
 
-		SetChild(true, 10);
+		setChild(true, 10);
 
 		return ret;
 	}
 
 	/* CHILD CODE */
-	private void SetChild(boolean isRandom, int chance) {
+	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				SetEquipment((byte) 2);
+				setEquipment((byte) 2);
 			}
 		} else {
-			SetEquipment((byte) 2);
+			setEquipment((byte) 2);
 		}
 	}
 
@@ -347,8 +306,6 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	/* CHILD CODE */
 
 	/* ALTERNATE SKIN */
-	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
-
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -384,7 +341,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	public int getMaxSpawnedInChunk() {
 		return EntityAttributes.CHUNK_LIMIT_1;
 	}
-	
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY > 60.0D && super.getCanSpawnHere();

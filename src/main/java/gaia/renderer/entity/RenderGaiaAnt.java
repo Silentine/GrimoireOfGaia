@@ -32,17 +32,18 @@ public class RenderGaiaAnt extends RenderLiving<EntityLiving> {
 		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
 	}
 
-	@Override
-	protected boolean canRenderName(EntityLiving entity) {
-		return false;
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return getTexture((EntityGaiaAnt) entity);
 	}
 
-	@Override
-	protected ResourceLocation getEntityTexture(EntityLiving entity) {
-		if (((EntityGaiaAnt) entity).getTextureType() == 1) {
+	private ResourceLocation getTexture(EntityGaiaAnt entity) {
+		switch (entity.getTextureType()) {
+		case 0:
+			return texture01;
+		case 1:
 			return texture02;
+		default:
+			return texture01;
 		}
-
-		return texture01;
 	}
 }

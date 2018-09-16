@@ -299,10 +299,13 @@ public class ModelGaiaSuccubus extends ModelGaia {
 		leftwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.3F) * 1.0F * limbSwingAmount * 0.5F;
 		--rightwing.rotateAngleY;
 		++leftwing.rotateAngleY;
-		tail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-
-		rightchest.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount) + 0.7853982F;
+		
+		float chestDefaultRotateAngleX = 0.7853982F;
+		
+		rightchest.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount) + chestDefaultRotateAngleX;
 		leftchest.rotateAngleX = rightchest.rotateAngleX;
+		
+		tail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;

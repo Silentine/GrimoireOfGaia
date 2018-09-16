@@ -1,6 +1,6 @@
 package gaia.entity.monster;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
@@ -8,8 +8,10 @@ import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -18,22 +20,29 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemEnchantedBook;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
+public class EntityGaiaOni extends EntityMobHostileBase {
+	
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
-	private static final int DETECTION_RANGE = 6;
+	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
-	public EntityGaiaFutakuchiOnna(World worldIn) {
+	public EntityGaiaOni(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
@@ -43,7 +52,7 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true));
+
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -83,7 +92,7 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, byte0 * 20, 0));
 				}
 			}
 
@@ -99,28 +108,59 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onUpdate() {
-		if (playerDetection(DETECTION_RANGE)) {
-			if (isPotionActive(MobEffects.INVISIBILITY)) {
-				removePotionEffect(MobEffects.INVISIBILITY);
-			}
-		} else {
-			if (!isPotionActive(MobEffects.INVISIBILITY)) {
-				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
-			}
+	public void onLivingUpdate() {
+		/* BUFF */
+		if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			setAI((byte) 1);
+			setEquipment((byte) 1);
+			buffEffect = 1;
+			animationPlay = true;
 		}
 
-		super.onUpdate();
+		if (getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setBuff();
+				setAI((byte) 0);
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+		/* BUFF */
+
+		super.onLivingUpdate();
+	}
+	
+	private void setAI(byte id) {
+		if (id == 0) {
+			tasks.addTask(1, aiAttackOnCollide);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiAttackOnCollide);
+		}
 	}
 
-	/**
-	 * Detects if there are any EntityPlayer nearby
-	 */
-	private boolean playerDetection(int range) {
-		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
-		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
 
-		return !list.isEmpty();
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+	}
+
+	private void setBuff() {
+		world.setEntityState(this, (byte) 7);
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
 	}
 
 	@Override
@@ -141,7 +181,7 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
-			if ((rand.nextInt(10) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				dropItem(GaiaItems.MISC_SOUL_FIRE, 1);
 			}
 
@@ -162,7 +202,14 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				switch (rand.nextInt(2)) {
+				case 0:
+					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				case 1:
+					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+		            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
+					this.entityDropItem(enchantmentBook, 1);
+				}
 			}
 
 			// Very Rare
@@ -170,6 +217,16 @@ public class EntityGaiaFutakuchiOnna extends EntityMobHostileBase {
 				dropItem(GaiaItems.SPAWN_TAME, 1);
 			}
 		}
+	}
+
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		setAI((byte) 0);
+
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
+
+		return ret;
 	}
 
 	/* SPAWN CONDITIONS */

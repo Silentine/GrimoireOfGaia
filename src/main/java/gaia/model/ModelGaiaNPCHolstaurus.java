@@ -112,35 +112,35 @@ public class ModelGaiaNPCHolstaurus extends ModelGaia {
 		hair2.setTextureSize(128, 64);
 		setRotation(hair2, 0F, 0F, 0F);
 		ModelRenderer righthorn1 = new ModelRenderer(this, 36, 28);
-		righthorn1.addBox(-5F, -7F, -2F, 2, 2, 2);
+		righthorn1.addBox(-5F, -6F, -1F, 2, 2, 2);
 		righthorn1.setRotationPoint(0F, 1F, 0F);
 		righthorn1.setTextureSize(128, 64);
 		setRotation(righthorn1, 0F, 0F, 0F);
 		ModelRenderer righthorn2 = new ModelRenderer(this, 36, 32);
-		righthorn2.addBox(-4F, -8F, -3F, 2, 2, 2);
+		righthorn2.addBox(-6F, -7F, -2F, 2, 2, 2);
 		righthorn2.setRotationPoint(0F, 1F, 0F);
 		righthorn2.setTextureSize(128, 64);
 		setRotation(righthorn2, 0F, 0F, 0F);
 		ModelRenderer righthorn3 = new ModelRenderer(this, 36, 36);
-		righthorn3.addBox(-2.5F, -8.5F, -2.5F, 1, 1, 1);
+		righthorn3.addBox(-4.5F, -7.5F, -0.5F, 1, 1, 1);
 		righthorn3.setRotationPoint(0F, 1F, 0F);
 		righthorn3.setTextureSize(128, 64);
 		setRotation(righthorn3, 0F, 0F, 0F);
 		ModelRenderer lefthorn1 = new ModelRenderer(this, 36, 28);
 		lefthorn1.mirror = true;
-		lefthorn1.addBox(3F, -7F, -2F, 2, 2, 2);
+		lefthorn1.addBox(3F, -6F, -1F, 2, 2, 2);
 		lefthorn1.setRotationPoint(0F, 1F, 0F);
 		lefthorn1.setTextureSize(128, 64);
 		setRotation(lefthorn1, 0F, 0F, 0F);
 		ModelRenderer lefthorn2 = new ModelRenderer(this, 36, 32);
 		lefthorn2.mirror = true;
-		lefthorn2.addBox(2F, -8F, -3F, 2, 2, 2);
+		lefthorn2.addBox(4F, -7F, -2F, 2, 2, 2);
 		lefthorn2.setRotationPoint(0F, 1F, 0F);
 		lefthorn2.setTextureSize(128, 64);
 		setRotation(lefthorn2, 0F, 0F, 0F);
 		ModelRenderer lefthorn3 = new ModelRenderer(this, 36, 36);
 		lefthorn3.mirror = true;
-		lefthorn3.addBox(1.5F, -8.5F, -2.5F, 1, 1, 1);
+		lefthorn3.addBox(3.5F, -7.5F, -0.5F, 1, 1, 1);
 		lefthorn3.setRotationPoint(0F, 1F, 0F);
 		lefthorn3.setTextureSize(128, 64);
 		setRotation(lefthorn3, 0F, 0F, 0F);
@@ -268,8 +268,11 @@ public class ModelGaiaNPCHolstaurus extends ModelGaia {
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
-		rightchest.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount + 0.7853982F;
+		float chestDefaultRotateAngleX = 0.7853982F;
+		
+		rightchest.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount + chestDefaultRotateAngleX;
 		leftchest.rotateAngleX = rightchest.rotateAngleX;
+		
 		tail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 
 		// legs

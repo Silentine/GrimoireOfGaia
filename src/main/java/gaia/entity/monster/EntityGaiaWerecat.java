@@ -122,19 +122,21 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	public void onLivingUpdate() {
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(2) == 0) {
-				SetAI((byte) 1);
-				SetEquipment((byte) 1);
+			switch (rand.nextInt(2)) {
+			case 0:
+				setAI((byte) 1);
+				setEquipment((byte) 1);
 				switchHealth = 1;
-				System.out.println("FLEE!");
-			} else {
+				break;
+			case 1:
 				switchHealth = 2;
+				break;
 			}
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
-			SetEquipment((byte) 0);
+			setAI((byte) 0);
+			setEquipment((byte) 0);
 
 			switchHealth = 0;
 		}
@@ -143,7 +145,7 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiGaiaLeapAtTarget);
 			tasks.addTask(2, aiMeleeAttack);
@@ -157,7 +159,7 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
@@ -217,13 +219,9 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);

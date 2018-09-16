@@ -194,7 +194,7 @@ public class ModelGaiaValkyrie extends ModelGaia {
 		rightwing.setTextureSize(64, 32);
 		setRotation(rightwing, 0.6981317F, -0.5235988F, 0F);
 		leftwing = new ModelRenderer(this, 92, 34);
-		leftwing.addBox(-1F, 0F, 0.5F, 0, 12, 18);
+		leftwing.addBox(0F, 0F, 0.5F, 0, 12, 18);
 		leftwing.setRotationPoint(2F, 2F, 1F);
 		leftwing.setTextureSize(64, 32);
 		setRotation(leftwing, 0.6981317F, 0.5235988F, 0F);
@@ -268,7 +268,7 @@ public class ModelGaiaValkyrie extends ModelGaia {
 		hair2.rotateAngleY = (head.rotateAngleY) * 0.75F;
 
 		// arms
-		if (itemstack.getItem() != Items.STICK) {
+		if (itemstack.isEmpty()) {
 			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -279,9 +279,11 @@ public class ModelGaiaValkyrie extends ModelGaia {
 				holdingMelee();
 			}
 
-			rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+			float armDefaultAngleZ = 0.1745329F;
+
+			rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
 			rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-			leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+			leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
 			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		}
 
@@ -289,15 +291,13 @@ public class ModelGaiaValkyrie extends ModelGaia {
 			animationBuff();
 		}
 
-		if (itemstack.getItem() == Items.EGG) {
-			animationReset();
-		}
-
 		// body
+		float wingDefaultAngleY = 0.5235988F;
+
 		rightwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
 		leftwing.rotateAngleY = MathHelper.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
-		rightwing.rotateAngleY -= 0.5235988F;
-		leftwing.rotateAngleY += 0.5235988F;
+		rightwing.rotateAngleY -= wingDefaultAngleY;
+		leftwing.rotateAngleY += wingDefaultAngleY;
 
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.35F * limbSwingAmount;
@@ -321,15 +321,10 @@ public class ModelGaiaValkyrie extends ModelGaia {
 	}
 
 	private void animationBuff() {
-		rightarm.rotateAngleX = -0.698132F;
-		leftarm.rotateAngleX = -0.698132F;
-		rightarm.rotateAngleY = 0.698132F;
-		leftarm.rotateAngleY = -0.698132F;
-	}
-
-	private void animationReset() {
-		rightarm.rotateAngleY = 0.0F;
-		leftarm.rotateAngleY = 0.0F;
+		rightarm.rotateAngleX = 0.0F;
+		leftarm.rotateAngleX = 0.0F;
+		rightarm.rotateAngleZ = +0.785398F;
+		leftarm.rotateAngleZ = -0.785398F;
 	}
 
 	public ModelRenderer getRightArm() {

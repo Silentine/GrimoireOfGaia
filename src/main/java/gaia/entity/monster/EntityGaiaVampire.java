@@ -47,8 +47,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaVampire extends EntityMobHostileBase {
 
+	private int spawnLimit;
 	private int spawnTime;
-	private int spawnTime2;
+	private boolean canSpawn;
+	private boolean spawnOnDeath;
 
 	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaVampire(World worldIn) {
@@ -59,8 +61,10 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 		stepHeight = 6.0F;
 		isImmuneToFire = true;
 
+		spawnLimit = 0;
 		spawnTime = 0;
-		spawnTime2 = 0;
+		canSpawn = true;
+		spawnOnDeath = false;
 	}
 
 	@Override
@@ -110,8 +114,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				if (byte0 > 0 && getHealth() < EntityAttributes.MAX_HEALTH_3 * 0.75F) {
 					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 20, 0));
 
-					world.setEntityState(this, (byte) 9);
-
+					world.setEntityState(this, (byte) 8);
 					heal(EntityAttributes.MAX_HEALTH_3 * 0.10F);
 				}
 			}
@@ -137,26 +140,29 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			float f = getBrightness();
 
 			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(getPosition())) {
-				world.setEntityState(this, (byte) 13);
+				world.setEntityState(this, (byte) 11);
 				attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_3 * 0.25F);
 			}
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 0.75F && getHealth() > EntityAttributes.MAX_HEALTH_3 * 0.25F) {
-			if ((spawnTime > 0) && (spawnTime <= 200)) {
-				++spawnTime;
-			} else {
-				world.setEntityState(this, (byte) 12);
+			if (canSpawn) {
+				if (spawnLimit < 5) {
+					if ((spawnTime >= 0) && (spawnTime <= 200)) {
+						++spawnTime;
+					} else {
+						world.setEntityState(this, (byte) 9);
 
-				if (!world.isRemote) {
-					SetSpawn((byte) 0);
+						if (!world.isRemote) {
+							setSpawn((byte) 0);
+						}
+
+						spawnLimit += 1;
+						spawnTime = 0;
+					}
+				} else {
+					canSpawn = false;
 				}
-
-				world.setEntityState(this, (byte) 9);
-
-				heal(EntityAttributes.MAX_HEALTH_3 * 0.10F);
-
-				spawnTime = 1;
 			}
 		}
 
@@ -165,21 +171,19 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 
-			if (spawnTime2 == 0 && !world.isRemote) {
-				spawnTime2 = 1;
-			} else if (spawnTime2 == 1) {
+			if (!spawnOnDeath) {
 				if (!world.isRemote) {
-					SetSpawn((byte) 1);
+					setSpawn((byte) 1);
 				}
 
-				spawnTime2 = 2;
+				spawnOnDeath = true;
 			}
 		} else {
 			super.onLivingUpdate();
 		}
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaSummonButler butler;
 		EntityBat bat;
 
@@ -195,28 +199,6 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			bat.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
 			bat.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(bat)), null);
 			world.spawnEntity(bat);
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 12) {
-			spawnParticles(EnumParticleTypes.FLAME);
-		} else if (id == 13) {
-			spawnParticles(EnumParticleTypes.SMOKE_LARGE);
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
-		for (int i = 0; i < 5; ++i) {
-			double d0 = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, posX + (rand.nextDouble() * width * 2.0D) - width, posY + 1.0D + (rand.nextDouble() * height), posZ + (rand.nextDouble() * width * 2.0D) - width, d0, d1, d2);
 		}
 	}
 
@@ -272,10 +254,6 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

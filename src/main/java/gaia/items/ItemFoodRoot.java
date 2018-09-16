@@ -26,7 +26,7 @@ public class ItemFoodRoot extends ItemFoodBase {
 	}
 
 	public ItemFoodRoot() {
-		super("food_root", 4, 0.0F, false);
+		super("food_root", 0, 0.0F, false);
 		setAlwaysEdible();
 		setMaxStackSize(16);
 	}

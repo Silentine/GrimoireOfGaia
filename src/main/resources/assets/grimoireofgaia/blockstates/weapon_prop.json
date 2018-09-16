@@ -21,9 +21,9 @@
                     "layer0": "grimoireofgaia:items/weapon_prop_dagger"
                 }
             },
-            "fan": {
+            "club": {
                 "textures": {
-                    "layer0": "grimoireofgaia:items/weapon_prop_fan"
+                    "layer0": "grimoireofgaia:items/weapon_prop_club"
                 }
             }
         }

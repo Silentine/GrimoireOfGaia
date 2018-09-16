@@ -112,19 +112,19 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	public void onLivingUpdate() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			SetAI((byte) 1);
+			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
+			setAI((byte) 0);
 			switchHealth = 0;
 		}
 
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
@@ -193,19 +193,15 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setLeftHanded(false);
 		ItemStack weapon;
 
 		if (rand.nextInt(4) == 0) {
-			weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 3);
+			weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
 			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
 		} else {
 			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);

@@ -92,7 +92,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	public void onLivingUpdate() {
 		if (playerDetection() && canSpawn) {
 			attackEntityFrom(DamageSource.GENERIC, 2.0F);
-			SetSpawn((byte) 0);
+			setSpawn((byte) 0);
 		}
 
 		if (getHealth() <= 0.0F) {
@@ -104,7 +104,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 		}
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaMimic mimic;
 
 		if (id == 0) {
@@ -143,7 +143,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
 		if (canSpawnDrop) {
-			SetSpawn((byte) 0);
+			setSpawn((byte) 0);
 		} else if (canDrop) {
 			LootHelper.dropRandomLootAtEntityPos(world, attackingPlayer, this, wasRecentlyHit, LootTableList.CHESTS_SIMPLE_DUNGEON, 2);
 		}

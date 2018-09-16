@@ -17,7 +17,7 @@ public class ModelGaiaMimic extends ModelGaia {
 	private ModelRenderer teeth1;
 	private ModelRenderer teeth2;
 
-	private Random rnd = new Random();
+//	private Random rnd = new Random();
 
 	public ModelGaiaMimic() {
 		textureWidth = 128;
@@ -81,8 +81,8 @@ public class ModelGaiaMimic extends ModelGaia {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		// anchor
-		anchor.rotationPointX = (float) (this.rnd.nextGaussian());
-		anchor.rotationPointZ = (float) (this.rnd.nextGaussian());
+//		anchor.rotationPointX = (float) (this.rnd.nextGaussian());
+//		anchor.rotationPointZ = (float) (this.rnd.nextGaussian());
 
 		anchor.rotationPointY = -2.0F + MathHelper.cos((ageInTicks + 1.5F) * 0.5F) * 0.5F;
 

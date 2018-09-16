@@ -144,7 +144,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
-				SetSpawn((byte) 0);
+				setSpawn((byte) 0);
 			}
 			spawn = 1;
 		}
@@ -153,8 +153,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
-				SetSpawn((byte) 0);
-				SetSpawn((byte) 0);
+				setSpawn((byte) 0);
+				setSpawn((byte) 0);
 			}
 			spawn = 2;
 		}
@@ -269,7 +269,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	}
 	/* WITCH CODE */
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaSummonSpider spiderling;
 
 		if (id == 0) {
@@ -361,10 +361,6 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

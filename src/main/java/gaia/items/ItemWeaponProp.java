@@ -71,7 +71,7 @@ public class ItemWeaponProp extends ItemBase {
 				"variant=ender", 
 				"variant=blaze", 
 				"variant=dagger", 
-				"variant=fan"
+				"variant=club"
 				);
 	}
 	/* SUBITEMS */

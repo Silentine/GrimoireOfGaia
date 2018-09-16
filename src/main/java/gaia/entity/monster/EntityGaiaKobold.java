@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobHostileBase;
+import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
@@ -44,7 +44,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRangedAttackMob {
+public class EntityGaiaKobold extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
@@ -151,7 +151,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
-				SetAI((byte) 1);
+				setAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;
 			}
@@ -165,7 +165,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 					removePotionEffect(MobEffects.SPEED);
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				SetAI((byte) 0);
+				setAI((byte) 0);
 				timer = 0;
 				switchEquip = 0;
 			}
@@ -174,7 +174,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
@@ -274,13 +274,9 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);

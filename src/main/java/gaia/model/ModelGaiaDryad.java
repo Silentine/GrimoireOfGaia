@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -113,6 +114,11 @@ public class ModelGaiaDryad extends ModelGaia {
 		leftleg.setRotationPoint(2F, 11F, 0F);
 		leftleg.setTextureSize(64, 32);
 		setRotation(leftleg, 0F, 0F, 0.0349066F);
+		ModelRenderer headflower = new ModelRenderer(this, 36, 39);
+		headflower.addBox(0F, -7.5F, -2F, 4, 2, 4);
+		headflower.setRotationPoint(0F, 1F, 0F);
+		headflower.setTextureSize(64, 32);
+		setRotation(headflower, 0F, 0F, -0.7853982F);
 		hair1 = new ModelRenderer(this, 36, 14);
 		hair1.addBox(-4F, -6F, 1F, 8, 8, 3);
 		hair1.setRotationPoint(0F, 1F, 0F);
@@ -146,6 +152,7 @@ public class ModelGaiaDryad extends ModelGaia {
 		waist2.setTextureSize(64, 32);
 		setRotation(waist2, 0.1745329F, 0F, 0F);
 
+		convertToChild(head, headflower);
 		convertToChild(head, rightear);
 		convertToChild(head, leftear);
 	}
@@ -240,11 +247,9 @@ public class ModelGaiaDryad extends ModelGaia {
 		}
 
 		if (itemstack.getItem() == Items.FEATHER) {
-			animationFlee();
-		}
-
-		if (itemstack.getItem() == Items.EGG) {
-			animationReset();
+			if (entityIn.motionX * entityIn.motionX + entityIn.motionZ * entityIn.motionZ > 2.500000277905201E-7D) {
+				animationFlee();
+			}
 		}
 
 		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
@@ -274,20 +279,8 @@ public class ModelGaiaDryad extends ModelGaia {
 	}
 
 	private void animationFlee() {
-		if ((rightleg.rotateAngleX >= degToRad(5)) || (rightleg.rotateAngleX <= degToRad(-5))) {
-			rightarm.rotateAngleX += 1.0472F;
-			leftarm.rotateAngleX += 1.0472F;
-			rightarm.rotateAngleY = -0.523599F;
-			leftarm.rotateAngleY = 0.523599F;
-		} else {
-			rightarm.rotateAngleY = 0.0F;
-			leftarm.rotateAngleY = 0.0F;
-		}
-	}
-
-	private void animationReset() {
-		rightarm.rotateAngleY = 0.0F;
-		leftarm.rotateAngleY = 0.0F;
+		rightarm.rotateAngleX += 1.0472F;
+		leftarm.rotateAngleX += 1.0472F;
 	}
 
 	public ModelRenderer getRightArm() {

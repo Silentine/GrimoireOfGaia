@@ -119,19 +119,21 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	public void onLivingUpdate() {
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(2) == 0) {
-				SetAI((byte) 1);
-				SetEquipment((byte) 1);
+			switch (rand.nextInt(2)) {
+			case 0:
+				setAI((byte) 1);
+				setEquipment((byte) 1);
 				switchHealth = 1;
-				System.out.println("FLEE!");
-			} else {
+				break;
+			case 1:
 				switchHealth = 2;
+				break;
 			}
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.25F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
-			SetEquipment((byte) 0);
+			setAI((byte) 0);
+			setEquipment((byte) 0);
 
 			switchHealth = 0;
 		}
@@ -149,7 +151,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
@@ -161,7 +163,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
@@ -236,23 +238,19 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setLeftHanded(false);
 
 		ItemStack weapon;
 
-		SetChild(true, 10);
+		setChild(true, 10);
 
 		if (!isChild) {
 			if (rand.nextInt(4) == 0) {
-				weapon = new ItemStack(GaiaItems.WEAPON_PROP, 1, 3);
+				weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
 				weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
 			} else {
 				weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
@@ -266,14 +264,14 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	/* CHILD CODE */
-	private void SetChild(boolean isRandom, int chance) {
+	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				SetEquipment((byte) 2);
+				setEquipment((byte) 2);
 				isChild = true;
 			}
 		} else {
-			SetEquipment((byte) 2);
+			setEquipment((byte) 2);
 			isChild = true;
 		}
 	}

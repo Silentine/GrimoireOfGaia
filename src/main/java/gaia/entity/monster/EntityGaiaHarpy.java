@@ -36,6 +36,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -43,6 +44,8 @@ import net.minecraft.world.World;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
+
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaHarpy.AILeapAttack(this);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
@@ -121,19 +124,21 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	public void onLivingUpdate() {
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
-			if (rand.nextInt(2) == 0) {
-				SetAI((byte) 1);
-				SetEquipment((byte) 1);
+			switch (rand.nextInt(2)) {
+			case 0:
+				setAI((byte) 1);
+				setEquipment((byte) 1);
 				switchHealth = 1;
-				System.out.println("FLEE!");
-			} else {
+				break;
+			case 1:
 				switchHealth = 2;
+				break;
 			}
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
-			SetEquipment((byte) 0);
+			setAI((byte) 0);
+			setEquipment((byte) 0);
 
 			switchHealth = 0;
 		}
@@ -146,7 +151,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiGaiaLeapAtTarget);
 			tasks.addTask(2, aiMeleeAttack);
@@ -160,7 +165,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
@@ -224,21 +229,23 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
-		if (world.rand.nextInt(4) == 0) {
+		int i = MathHelper.floor(posX);
+		int j = MathHelper.floor(posZ);
+		int k = MathHelper.floor(posY);
+		BlockPos pos = new BlockPos(i, j, k);
+		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
+			setTextureType(2);
+		} else if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
 		}
 
 		// TEMP Method used instead of isChild
-		SetChild(true, 10);
-		
+		setChild(true, 10);
+
 		if (!isChild) {
 			ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 			weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
@@ -249,14 +256,14 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	}
 
 	/* CHILD CODE */
-	private void SetChild(boolean isRandom, int chance) {
+	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				SetEquipment((byte) 2);
+				setEquipment((byte) 2);
 				isChild = true;
 			}
 		} else {
-			SetEquipment((byte) 2);
+			setEquipment((byte) 2);
 			isChild = true;
 		}
 	}
@@ -290,8 +297,6 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	}
 
 	/* ALTERNATE SKIN */
-	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
-
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -311,7 +316,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		super.writeEntityToNBT(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);

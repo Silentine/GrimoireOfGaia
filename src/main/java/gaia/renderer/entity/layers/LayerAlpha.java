@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerAlpha implements LayerRenderer<EntityLiving> {
+	
 	private ResourceLocation alphaTexture;
 	private RenderLiving<EntityLiving> livingEntityRenderer;
 

@@ -41,11 +41,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-/**
- * UNDER CONSTRUCTION
- * 
- * Disable mob in GaiaEntities and ClientProxy before release.
- */
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaDeathword extends EntityMobHostileBase {
 
@@ -145,20 +140,20 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 						case 0:
 							boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
 							if (!flag) {
-								SetSpawn((byte) 0);
+								setSpawn((byte) 0);
 							} else {
-								SetSpawn((byte) 1);
+								setSpawn((byte) 1);
 							}
 
 							break;
 						case 1:
-							SetSpawn((byte) 1);
+							setSpawn((byte) 1);
 							break;
 						case 2:
-							SetSpawn((byte) 2);
+							setSpawn((byte) 2);
 							break;
 						case 3:
-							SetSpawn((byte) 3);
+							setSpawn((byte) 3);
 							break;
 						default:
 						}
@@ -170,7 +165,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 			}
 
 			if (spawnLimit >= 4 && canSpawn) {
-				SetAI((byte) 1);
+				setAI((byte) 1);
 
 				canSpawn = false;
 			}
@@ -188,7 +183,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiMeleeAttack);
 			tasks.addTask(1, aiStrafe);
@@ -200,7 +195,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		}
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityCreeper creeper;
 		EntitySkeleton skeleton;
 		EntitySpider spider;
@@ -317,27 +312,27 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.BAG_BOOK, 1);
+				switch (rand.nextInt(3)) {
+				case 0:
+					dropItem(GaiaItems.BOX_IRON, 1);
+				case 1:
+					dropItem(GaiaItems.BAG_BOOK, 1);
+				case 2:
+					dropItem(GaiaItems.WEAPON_BOOK, 1);
+				}
 			}
 		}
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
-		/* WIP */
-		setCustomNameTag("WIP");
-		setAlwaysRenderNameTag(true);
-		/* WIP */
+
 		return ret;
 	}
 
@@ -355,7 +350,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+		return posY < 16.0D && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -21,7 +21,7 @@ public class ItemFoodCoalfish extends ItemFoodBase {
 	private int fuelTimeSeconds = fuelTimeTicks / 20;
 
 	public ItemFoodCoalfish() {
-		super("food_coalfish", 4, 0.4F, true);
+		super("food_coalfish", 120 * 20, 0.4F, true);
 	}
 
 	@Override

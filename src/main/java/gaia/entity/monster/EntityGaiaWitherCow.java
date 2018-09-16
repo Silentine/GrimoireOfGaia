@@ -101,12 +101,20 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		beaconDebuff(MobEffects.SLOWNESS, 5 * 10);
+		beaconDebuff(2, MobEffects.SLOWNESS, 100, 0);
 
 		for (int i = 0; i < 2; ++i) {
 			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 		}
 		super.onLivingUpdate();
+	}
+	
+	@Override
+	public void onDeath(DamageSource cause) {
+		if (!this.world.isRemote) {
+			spawnLingeringCloud(this, MobEffects.WITHER, 10 * 20, 0);
+		}
+		super.onDeath(cause);
 	}
 
 	@Override
@@ -127,14 +135,6 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
-	}
-
-	@Override
-	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			spawnLingeringCloud(this, MobEffects.WITHER);
-		}
-		super.onDeath(cause);
 	}
 
 	@Override

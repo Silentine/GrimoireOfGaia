@@ -46,7 +46,9 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	private static final Item[] matangoDrops = new Item[] { Item.getItemFromBlock(Blocks.RED_MUSHROOM), Item.getItemFromBlock(Blocks.BROWN_MUSHROOM) };
 
+	private int spawnLimit;
 	private int spawnTime;
+	private boolean canSpawn;
 
 	public EntityGaiaMatango(World worldIn) {
 		super(worldIn);
@@ -54,7 +56,9 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 
+		spawnLimit = 0;
 		spawnTime = 0;
+		canSpawn = true;
 	}
 
 	@Override
@@ -106,13 +110,13 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 				byte byte0 = 0;
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 5;
-				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 20;
 				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, byte0 * 60, 3));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
 				}
 			}
 
@@ -151,20 +155,27 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.90F && getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.10F) {
-			if ((spawnTime > 0) && (spawnTime <= 140)) {
-				++spawnTime;
-			} else {
-				world.setEntityState(this, (byte) 9);
+			if (canSpawn) {
+				if (spawnLimit < 5) {
+					if ((spawnTime >= 0) && (spawnTime <= 140)) {
+						++spawnTime;
+					} else {
+						world.setEntityState(this, (byte) 9);
 
-				if (!world.isRemote) {
-					SetSpawn((byte) 0);
+						if (!world.isRemote) {
+							setSpawn((byte) 0);
+						}
+
+						world.setEntityState(this, (byte) 8);
+						heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
+
+						spawnLimit += 1;
+						spawnTime = 0;
+
+					}
+				} else {
+					canSpawn = false;
 				}
-
-				world.setEntityState(this, (byte) 8);
-
-				heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
-
-				spawnTime = 1;
 			}
 		}
 
@@ -176,7 +187,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		super.onLivingUpdate();
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityGaiaSummonSporeling sporeling;
 
 		if (id == 0) {
@@ -198,6 +209,14 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onDeath(DamageSource cause) {
+		if (!this.world.isRemote) {
+			spawnLingeringCloud(this, MobEffects.NAUSEA, 10 * 20, 0);
+		}
+		super.onDeath(cause);
 	}
 
 	@Override
@@ -246,10 +265,6 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

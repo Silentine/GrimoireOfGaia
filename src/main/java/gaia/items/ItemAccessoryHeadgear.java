@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import gaia.CreativeTabGaia;
 import gaia.helpers.ModelLoaderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -35,6 +36,8 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		super("accessory_headgear");
 		setHasSubtypes(true);
 		setMaxStackSize(1);
+		
+		setCreativeTab(null);
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		if (!isInCreativeTab(tab)) {
 			return;
 		}
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -89,7 +92,9 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		ModelLoaderHelper.registerItem(this,
 				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_doll")
+				ModelLoaderHelper.getSuffixedLocation(this, "_doll"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_cauldron"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_crown_iron")
 		);
 	}
 	/* SUBITEMS */

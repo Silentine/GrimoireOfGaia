@@ -139,10 +139,6 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 			}
 		}
 	}
-	
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {

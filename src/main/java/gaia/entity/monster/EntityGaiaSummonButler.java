@@ -47,11 +47,6 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
-	}
 	
 	@Override
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {

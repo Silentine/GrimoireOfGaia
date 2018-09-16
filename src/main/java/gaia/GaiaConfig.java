@@ -7,16 +7,18 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@SuppressWarnings("WeakerAccess") //forge needs public access to fields here to write values from config
+@SuppressWarnings("WeakerAccess") // forge needs public access to fields here to write values from config
 @Config(modid = GaiaReference.MOD_ID, category = "")
 public class GaiaConfig {
-	private GaiaConfig() {}
+	private GaiaConfig() {
+	}
 
-	@SuppressWarnings({"unused", "squid:S3985"})
+	@SuppressWarnings({ "unused", "squid:S3985" })
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	private static class EventHandler {
 
-		private EventHandler() {}
+		private EventHandler() {
+		}
 
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -31,36 +33,54 @@ public class GaiaConfig {
 	public static final General GENERAL = new General();
 
 	public static class General {
-		// closed; taiga, taigaHills, megaTaiga, megaTaigaHills
+		/* 
+		 * TAIGA
+		 * REDWOOD_TAIGA,
+		 * REDWOOD_TAIGA_HILLS
+		 */
 		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
 		@Config.Comment("Cyclops")
 		public int spawnCyclops = 60;
 		@Config.LangKey("entity.grimoireofgaia.yuki-onna.name")
 		@Config.Comment("Yuki-Onna")
 		public int spawnYukiOnna = 60;
-		@Config.LangKey("entity.grimoireofgaia.futakuchi_onna.name")
-		@Config.Comment("Futakuchi-Onna")
-		public int spawnFutakuchiOnna = 80;
+		@Config.LangKey("entity.grimoireofgaia.Oni.name")
+		@Config.Comment("Oni")
+		public int spawnOni = 80;
 		@Config.LangKey("entity.grimoireofgaia.nine_tails.name")
 		@Config.Comment("Nine Tails")
 		public int spawnNineTails = 40;
-		// closed; forest, forestHills, birchForest, birchForestHills
-		@Config.LangKey("entity.grimoireofgaia.mandragora.name")
-		@Config.Comment("Mandragora")
-		public int spawnMandragora = 60;
+		/* 
+		 * FOREST, 
+		 * FOREST_HILLS, 
+		 * BIRCH_FOREST, 
+		 * BIRCH_FOREST_HILLS
+		 */
 		@Config.LangKey("entity.grimoireofgaia.dryad.name")
 		@Config.Comment("Dryad")
 		public int spawnDryad = 60;
+		@Config.LangKey("entity.grimoireofgaia.bee.name")
+		@Config.Comment("Bee")
+		public int spawnBee = 40;
+		@Config.LangKey("entity.grimoireofgaia.mandragora.name")
+		@Config.Comment("Mandragora")
+		public int spawnMandragora = 60;
 		@Config.LangKey("entity.grimoireofgaia.werecat.name")
 		@Config.Comment("Werecat")
 		public int spawnWerecat = 80;
 		@Config.LangKey("entity.grimoireofgaia.spriggan.name")
 		@Config.Comment("Spriggan")
 		public int spawnSpriggan = 40;
-		// open; desert, desertHills, mesa, mesaPlateau, mesaPlateau_F
+		/* 
+		 * DESERT,
+		 * DESERT_HILLS
+		 */
 		@Config.LangKey("entity.grimoireofgaia.ant.name")
 		@Config.Comment("Ant Worker")
 		public int spawnAnt = 30;
+		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
+		@Config.Comment("Ant Salvager")
+		public int spawnAntRanger = 30;
 		@Config.LangKey("entity.grimoireofgaia.mummy.name")
 		@Config.Comment("Mummy")
 		public int spawnMummy = 100;
@@ -68,9 +88,13 @@ public class GaiaConfig {
 		@Config.Comment("Anubis")
 		public int spawnAnubis = 80;
 		@Config.LangKey("entity.grimoireofgaia.sphinx.name")
-		@Config.Comment("Spriggan")
+		@Config.Comment("Sphinx")
 		public int spawnSphinx = 40;
-		// open; plains, savanna, savannaPlateau
+		/*
+		 * PLAINS,
+		 * SAVANNA,
+		 * SAVANNA_PLATEAU
+		 */
 		@Config.LangKey("entity.grimoireofgaia.satyress.name")
 		@Config.Comment("Satyress")
 		public int spawnSatyress = 30;
@@ -86,17 +110,33 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.minotaur.name")
 		@Config.Comment("Minotaur")
 		public int spawnMinotaur = 40;
-		// closed; swamp
+		/*
+		 * MESA,
+		 * MESA_ROCK,
+		 * MESA_CLEAR_ROCK
+		 */
+		@Config.LangKey("entity.grimoireofgaia.orc.name")
+		@Config.Comment("Orc")
+		public int spawnOrc = 30;
+		/* 
+		 * SWAMP 
+		 */
 		@Config.LangKey("entity.grimoireofgaia.siren.name")
 		@Config.Comment("Siren")
 		public int spawnSiren = 60;
-		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
-		@Config.Comment("sludge_girl")
-		public int spawnSludgeGirl = 100;
 		@Config.LangKey("entity.grimoireofgaia.naga.name")
 		@Config.Comment("Naga")
-		public int spawnNaga = 80;
-		// closed; roofedForest
+		public int spawnNaga = 40;
+		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
+		@Config.Comment("Sludge Girl")
+		public int spawnSludgeGirl = 100;
+		@Config.LangKey("entity.grimoireofgaia.gelatinous_slime.name")
+		@Config.Comment("Gelatinous Slime")
+		public int spawnGelatinousSlime = 80;
+
+		/*
+		 * ROOFED_FOREST
+		 */
 		@Config.LangKey("entity.grimoireofgaia.matango.name")
 		@Config.Comment("Matango")
 		public int spawnMatango = 60;
@@ -106,7 +146,11 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.witch.name")
 		@Config.Comment("Witch")
 		public int spawnWitch = 60;
-		// closed; jungle
+		/*
+		 * JUNGLE,
+		 * JUNGLE_HILLS,
+		 * JUNGLE_EDGE
+		 */
 		@Config.LangKey("entity.grimoireofgaia.hunter.name")
 		@Config.Comment("Hunter")
 		public int spawnHunter = 60;
@@ -119,24 +163,36 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.cobblestone_golem.name")
 		@Config.Comment("Cobblestone Golem")
 		public int spawnCobblestoneGolem = 60;
-		// open; icePlains, iceMountains
+		/*
+		 * ICE_PLAINS,
+		 * ICE_MOUNTAINS
+		 */
 		@Config.LangKey("entity.grimoireofgaia.selkie.name")
 		@Config.Comment("Selkie")
 		public int spawnSelkie = 60;
 		@Config.LangKey("entity.grimoireofgaia.kobold.name")
 		@Config.Comment("Kobold")
-		public int spawnKobold = 100;
+		public int spawnKobold = 60;
 		@Config.LangKey("entity.grimoireofgaia.yeti.name")
 		@Config.Comment("Yeti")
 		public int spawnYeti = 80;
-		// closed; coldTaiga, coldTaigaHills
+		/* 
+		 * COLD_TAIGA, 
+		 * COLD_TAIGA_HILLS, 
+		 * REDWOOD_TAIGA,
+		 * REDWOOD_TAIGA_HILLS 
+		 */
 		@Config.LangKey("entity.grimoireofgaia.dhampir.name")
 		@Config.Comment("Dhampir")
 		public int spawnDhampir = 80;
 		@Config.LangKey("entity.grimoireofgaia.vampire.name")
 		@Config.Comment("Vampire")
 		public int spawnVampire = 40;
-		// open; extremeHills, extremeHillsPlus
+		/*
+		 * EXTREME_HILLS,
+		 * EXTREME_HILLS_EDGE,
+		 * EXTREME_HILLS_WITH_TREES
+		 */
 		@Config.LangKey("entity.grimoireofgaia.dwarf.name")
 		@Config.Comment("Dwarf")
 		public int spawnDwarf = 30;
@@ -152,18 +208,25 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.banshee.name")
 		@Config.Comment("Banshee")
 		public int spawnBanshee = 80;
-		// closed; frozenRiver, coldBeach, stoneBeach, river, beach, ocean,
-		// deepOcean
-		@Config.LangKey("entity.grimoireofgaia.sahuagin.name")
-		@Config.Comment("Sahuagin")
-		public int spawnSahuagin = 80;
+		/*
+		 * OCEAN,
+		 * RIVER,
+		 * FROZEN_OCEAN,
+		 * FROZEN_RIVER,
+		 * DEEP_OCEAN
+		 */
+		@Config.LangKey("entity.grimoireofgaia.cecaelia.name")
+		@Config.Comment("Cecaelia")
+		public int spawnCecaelia = 80;
 		@Config.LangKey("entity.grimoireofgaia.mermaid.name")
 		@Config.Comment("Mermaid")
 		public int spawnMermaid = 40;
 		@Config.LangKey("entity.grimoireofgaia.sharko.name")
 		@Config.Comment("Sharko")
 		public int spawnSharko = 40;
-		// closed; underground
+		/*
+		 * UNDERGROUND
+		 */
 		@Config.LangKey("entity.grimoireofgaia.creep.name")
 		@Config.Comment("Creep")
 		public int spawnCreep = 80;
@@ -176,13 +239,18 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.mimic.name")
 		@Config.Comment("Mimic")
 		public int spawnMimic = 80;
+		@Config.LangKey("entity.grimoireofgaia.deathword.name")
+		@Config.Comment("Deathword")
+		public int spawnDeathword = 40;
 		@Config.LangKey("entity.grimoireofgaia.bone_knight.name")
 		@Config.Comment("Bone Knight")
 		public int spawnBoneKnight = 40;
 		@Config.LangKey("entity.grimoireofgaia.flesh_lich.name")
 		@Config.Comment("Flesh Lich")
 		public int spawnFleshLich = 40;
-		// closed; hell
+		/* 
+		 * NETHER 
+		 */
 		@Config.LangKey("entity.grimoireofgaia.succubus.name")
 		@Config.Comment("Succubus")
 		public int spawnSuccubus = 16;
@@ -192,25 +260,27 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.baphomet.name")
 		@Config.Comment("Baphomet")
 		public int spawnBaphomet = 8;
-		// open; sky
+		/* 
+		 * SKY 
+		 */
 		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
 		@Config.Comment("Ender Dragon Girl")
 		public int spawnEnderDragonGirl = 4;
 	}
-	
+
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu1.spawns")
 	@Config.Comment("Spawn Options")
 	public static final Spawn SPAWN = new Spawn();
 
 	public static class Spawn {
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed")
-		@Config.Comment("(WIP) Mobs only spawn after a certain amount of days have passed")
+		@Config.Comment("Mobs only spawn after a certain amount of days have passed")
 		public boolean spawnDaysPassed = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet")
-		@Config.Comment("(WIP) Amount of days required to have passed before they can start spawning")
+		@Config.Comment("Amount of days required to have passed before they can start spawning")
 		public int spawnDaysSet = 3;
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain")
-		@Config.Comment("(WIP) Level 3 mobs only spawn when it is raining/snowing.")
+		@Config.Comment("Level 3 mobs only spawn when it is raining/snowing.")
 		public boolean spawnLevel3Rain = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3")
 		@Config.Comment("Level 3 mobs do not spawn naturally but instead spawn from specific mobs.")
@@ -224,8 +294,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks")
 		@Config.Comment("Additional Blocks Gaia flower can spawn on")
 		public String[] additionalFlowerSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius")
+		@Config.Comment("(WIP) Adjust the effect radius of the Talisman of Protection")
+		public int spawnGuardRadius = 8;
 	}
-	
+
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu2.attributes")
 	@Config.Comment("Attributes")
 	public static final Attributes ATTRIBUTES = new Attributes();
@@ -284,7 +357,6 @@ public class GaiaConfig {
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu5.options")
-	@Config.Comment("Options")
 	public static final Options OPTIONS = new Options();
 
 	public static class Options {
@@ -292,10 +364,16 @@ public class GaiaConfig {
 		@Config.Comment("Enable Gaia mobs to spawn")
 		@Config.RequiresMcRestart
 		public boolean enableSpawn = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu1.AdditionalOre")
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs")
+		@Config.Comment("(WIP) Hostile day mobs will no longer attack players on sight")
+		public boolean passiveHostileMobs = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs")
+		@Config.Comment("(WIP) All mobs are now hostile")
+		public boolean passiveHostileAllMobs = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu3.AdditionalOre")
 		@Config.Comment("Gaia mobs can now drop Copper and Silver Nuggets")
 		public boolean additionalOre = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu2.StrafingArchers")
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu4.StrafingArchers")
 		@Config.Comment("Archers will strafe and avoid attacks (like Skeletons)")
 		public boolean strafingArchers = true;
 	}
@@ -322,7 +400,6 @@ public class GaiaConfig {
 		public boolean debugSpawn = false;
 	}
 	
-
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu7.dimensions")
 	@Config.Comment("Dimensional Settings")
 	public static final Dimensions DIMENSIONS = new Dimensions();

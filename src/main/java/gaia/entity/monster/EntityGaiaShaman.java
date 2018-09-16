@@ -27,14 +27,10 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -44,7 +40,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -60,6 +55,9 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	private int spawn;
 	private int spawnTimer;
 
+	private boolean animationPlay;
+	private int animationTimer;
+
 	public EntityGaiaShaman(World worldIn) {
 		super(worldIn);
 
@@ -69,6 +67,9 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		switchHealth = 0;
 		spawn = 0;
 		spawnTimer = 0;
+
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -104,6 +105,10 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.potion(target, this, distanceFactor, PotionTypes.POISON);
+
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -138,18 +143,17 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		this.beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-			SetAI((byte) 1);
+			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			SetAI((byte) 0);
+			setAI((byte) 0);
 			switchHealth = 0;
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			SetEquipment((byte) 1);
-			SetEquipment((byte) 2);
+			setEquipment((byte) 2);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -157,10 +161,10 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 			if (spawnTimer == 30) {
 				world.setEntityState(this, (byte) 9);
-				SetEquipment((byte) 0);
+				setEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					SetSpawn((byte) 0);
+					setSpawn((byte) 0);
 				}
 
 				spawnTimer = 0;
@@ -169,7 +173,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			SetEquipment((byte) 1);
+			setEquipment((byte) 2);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -177,21 +181,30 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 			if (spawnTimer == 30) {
 				world.setEntityState(this, (byte) 9);
-				SetEquipment((byte) 0);
+				setEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					SetSpawn((byte) 0);
+					setSpawn((byte) 0);
 				}
 
 				spawnTimer = 0;
 				spawn = 2;
 			}
 		}
+		
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
 
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
@@ -203,21 +216,21 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 
 		if (id == 1) {
-			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
 
 		if (id == 2) {
-			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
 
-	private void SetSpawn(byte id) {
+	private void setSpawn(byte id) {
 		EntityZombie zombie;
 
 		if (id == 0) {
@@ -314,13 +327,9 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 		setEnchantmentBasedOnDifficulty(difficulty);

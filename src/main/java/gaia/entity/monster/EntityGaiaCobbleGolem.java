@@ -24,6 +24,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -45,6 +46,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
+        setPathPriority(PathNodeType.WATER, -1.0F);
 	}
 
 	@Override

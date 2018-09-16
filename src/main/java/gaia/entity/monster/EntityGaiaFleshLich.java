@@ -37,12 +37,18 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRangedAttackMob {
 
+	private boolean animationPlay;
+	private int animationTimer;
+
 	public EntityGaiaFleshLich(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
+
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -78,6 +84,10 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.fireball(target, this, distanceFactor);
+
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -97,7 +107,26 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 			}
 		}
 
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+
 		super.onLivingUpdate();
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
+		}
 	}
 
 	@Override
@@ -156,10 +185,6 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
 	@Override

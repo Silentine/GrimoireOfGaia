@@ -92,7 +92,9 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
-		if (id == 8) {
+		if (id == 7) {
+			spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
+		} else if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
 				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 			}
@@ -102,6 +104,8 @@ public abstract class EntityMobHostileBase extends EntityMob {
 			spawnParticles(EnumParticleTypes.SPELL_WITCH);
 		} else if (id == 11) {
 			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
+		} else if (id == 12) {
+			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -127,14 +131,14 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	 * @param duration Duration of potion effect in ticks (20 ticks = 1 second)
 	 * @see TileEntityBeacon
 	 */
-	protected void beaconDebuff(Potion effect, int duration) {
+	protected void beaconDebuff(double range, Potion effect, int duration, int amplifier) {
 		if (!world.isRemote) {
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(2);
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
 				if (!(mob instanceof EntityMob) && (mob instanceof IMob || mob instanceof EntityPlayer)) {
-					mob.addPotionEffect(new PotionEffect(effect, duration, 0, true, true));
+					mob.addPotionEffect(new PotionEffect(effect, duration, amplifier, true, true));
 				}
 			}
 		}
@@ -144,19 +148,23 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	 * Adapted from @EntityCreeper
 	 *
 	 * @param sourceMob Entity creating the cloud
-	 * @param effect    Potion Effect to Implement (@MobEffects.class)
+	 * @param potionIn Potion effect
+	 * @param durationIn Potion duration
+	 * @param amplifierIn Potion level
 	 * @see EntityAreaEffectCloud
 	 */
-	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion effect) {
+	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion potionIn, int durationIn, int amplifierIn) {
 
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
+		
 		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
 		entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
-		entityareaeffectcloud.addEffect(new PotionEffect(effect));
+		
+        entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
 
 		world.spawnEntity(entityareaeffectcloud);
 	}
@@ -200,6 +208,10 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		}
 	}
 	/* SPAWN CONDITIONS */
+	
+	@Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+	}
 
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {

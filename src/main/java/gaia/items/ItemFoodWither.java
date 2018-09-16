@@ -15,7 +15,7 @@ import java.util.List;
 public class ItemFoodWither extends ItemFoodBase {
 	public ItemFoodWither() {
 		super("food_wither", 8, 0.8F, true);
-		setPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 0), 0.6F);
+		setPotionEffect(new PotionEffect(MobEffects.WITHER, 10 * 20, 0), 0.6F);
 	}
 
 	@Override

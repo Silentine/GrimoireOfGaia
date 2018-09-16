@@ -308,9 +308,7 @@ public class ModelGaiaAnt extends ModelGaia {
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		EntityGaiaAnt entity = (EntityGaiaAnt) entityIn;
 
-		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)) {
-			holdingBow(ageInTicks);
-		} else if (swingProgress > -9990.0F) {
+		if (swingProgress > -9990.0F) {
 			holdingMelee();
 		}
 
@@ -320,8 +318,10 @@ public class ModelGaiaAnt extends ModelGaia {
 		getLeftarm().rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
+		float thoraxDefaultAngleX = 1.047198F;
+
 		thorax1.rotateAngleX = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(2);
-		thorax1.rotateAngleX += 1.047198F;
+		thorax1.rotateAngleX += thoraxDefaultAngleX;
 
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
@@ -331,23 +331,6 @@ public class ModelGaiaAnt extends ModelGaia {
 		leftleg.rotateAngleX -= 0.1745329F;
 	}
 
-	private void holdingBow(float ageInTicks) {
-		float f = MathHelper.sin(swingProgress * (float) Math.PI);
-		float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float) Math.PI);
-
-		getRightarm().rotateAngleZ = -0.3F;
-		getLeftarm().rotateAngleZ = 0.3F;
-		getRightarm().rotateAngleY = -(0.1F - f * 0.6F);
-		getLeftarm().rotateAngleY = 0.3F - f * 0.6F;
-		getRightarm().rotateAngleX = -((float) Math.PI / 2F);
-		getLeftarm().rotateAngleX = -((float) Math.PI / 2F);
-		getRightarm().rotateAngleX -= f * 1.2F - f1 * 0.4F;
-		getLeftarm().rotateAngleX -= f * 1.2F - f1 * 0.4F;
-		getRightarm().rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		getLeftarm().rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		getRightarm().rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-		getLeftarm().rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-	}
 
 	public void holdingMelee() {
 		float f6;

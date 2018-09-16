@@ -1,7 +1,5 @@
 package gaia.entity;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -23,7 +21,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	
-	private static final int SPAWN_GUARD_RADIUS = 8;
+	private static final int SPAWN_GUARD_RADIUS = GaiaConfig.SPAWN.spawnGuardRadius;
 
 	private static Set<Block> spawnBlocks = 
 			Sets.newHashSet
@@ -32,7 +30,8 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 					Blocks.DIRT, 
 					Blocks.GRAVEL, 
 					Blocks.SAND, 
-					Blocks.SNOW_LAYER
+					Blocks.SNOW_LAYER,
+					Blocks.SNOW
 			);
 
 	public EntityMobPassiveDay(World worldIn) {
@@ -53,12 +52,8 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 				int k = MathHelper.floor(this.posZ);
 				BlockPos blockpos = new BlockPos(i, j, k);
 				Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
-				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalSpawnBlocks));
 
-				boolean defaultFlag = spawnBlocks.contains(var1);
-				boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
-				
-				return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
+				return spawnBlocks.contains(var1) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
 			}
 		}
 

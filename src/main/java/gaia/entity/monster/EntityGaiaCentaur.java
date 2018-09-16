@@ -30,6 +30,7 @@ import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -38,6 +39,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -45,6 +47,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.VARINT);
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
@@ -107,8 +111,8 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
 			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stacky);
-			SetAI((byte) 1);
-			SetEquipment((byte) 1);
+			setAI((byte) 1);
+			setEquipment((byte) 1);
 
 			fullHealth = 1;
 		}
@@ -124,8 +128,8 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		} else if ((getHealth() >= EntityAttributes.MAX_HEALTH_1) && (fullHealth == 1)) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			removePotionEffect(MobEffects.REGENERATION);
-			SetAI((byte) 0);
-			SetEquipment((byte) 0);
+			setAI((byte) 0);
+			setEquipment((byte) 0);
 
 			fullHealth = 0;
 			regenerateHealth = 0;
@@ -135,7 +139,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAvoid);
 			tasks.addTask(1, aiArrowAttack);
@@ -147,7 +151,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		}
 	}
 
-	private void SetEquipment(byte id) {
+	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.EGG));
 		}
@@ -162,7 +166,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
 		return super.canAttackClass(cls) && cls != EntityGaiaCentaur.class;
 	}
-	
+
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.rangedAttack(target, this, distanceFactor);
@@ -176,6 +180,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(HOLDING_BOW, false);
+		dataManager.register(SKIN, 0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -240,20 +245,23 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 				case 1:
 					dropItem(GaiaItems.BAG_ARROW, 1);
 					break;
-				default:
 				}
 			}
 		}
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingData) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingData);
-		SetAI((byte) 0);
+		setAI((byte) 0);
+
+		int i = MathHelper.floor(posX);
+		int j = MathHelper.floor(posZ);
+		int k = MathHelper.floor(posY);
+		BlockPos pos = new BlockPos(i, j, k);
+		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
+			setTextureType(1);
+		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -268,7 +276,32 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 		return ret;
 	}
-	
+
+	/* ALTERNATE SKIN */
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+	}
+	/* ALTERNATE SKIN */
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {

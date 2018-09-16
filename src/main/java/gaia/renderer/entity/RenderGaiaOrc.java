@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderGaiaOrc extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/orc01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/orc02.png");
+	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/orc03.png");
 
 	public RenderGaiaOrc(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaOrc(), shadowSize);
@@ -31,20 +32,22 @@ public class RenderGaiaOrc extends RenderLiving<EntityLiving> {
 	public void transformHeldFull3DItemLayer() {
 		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
 	}
+	
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return getTexture((EntityGaiaOrc) entity);
+	}
 
-	private ResourceLocation getTexture(EntityGaiaOrc entityGaiaOrc) {
-		switch (entityGaiaOrc.getTextureType()) {
+	private ResourceLocation getTexture(EntityGaiaOrc entity) {
+		switch (entity.getTextureType()) {
 		case 0:
 			return texture01;
 		case 1:
 			return texture02;
+		case 2:
+			return texture03;
 		default:
 			return texture01;
 		}
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(EntityLiving entity) {
-		return getTexture((EntityGaiaOrc) entity);
 	}
 }

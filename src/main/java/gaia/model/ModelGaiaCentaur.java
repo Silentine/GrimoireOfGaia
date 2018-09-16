@@ -335,8 +335,15 @@ public class ModelGaiaCentaur extends ModelGaia {
 		}
 
 		if (itemstack.getItem() == Items.FEATHER) {
-			animationPotion();
+			if (entityIn.motionX * entityIn.motionX + entityIn.motionZ * entityIn.motionZ > 2.500000277905201E-7D) {
+				animationFlee();
+			}
 		}
+		
+		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
+		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
 		rightsaddlestrap1.rotateAngleX = MathHelper.cos(limbSwing * 0.7862F) * 0.4F * limbSwingAmount;
@@ -386,13 +393,8 @@ public class ModelGaiaCentaur extends ModelGaia {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	private void animationPotion() {
-		if ((rightlegupper.rotateAngleX != 0.0F) || (leftlegupper.rotateAngleX != 0.0F)) {
-			rightarm.rotateAngleX += 1.0472F;
-			leftarm.rotateAngleX += 1.0472F;
-			rightarm.rotateAngleY = -0.523599F;
-			leftarm.rotateAngleY = +0.523599F;
-		}
+	private void animationFlee() {
+		leftarm.rotateAngleX += 1.0472F;
 	}
 
 	public ModelRenderer getRightArm() {

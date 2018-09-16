@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -37,6 +38,8 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 6.0F;
+		
+		this.setCanPickUpLoot(true);
 	}
 
 	@Override
@@ -101,10 +104,19 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		beaconDebuff(MobEffects.HUNGER, 100);
+		beaconDebuff(2, MobEffects.HUNGER, 100, 0);
 
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
+		}
+		
+		if (getHealth() < EntityAttributes.MAX_HEALTH_1) {
+			if (hasItem()) {
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+
+				world.setEntityState(this, (byte) 8);
+				heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
+			}
 		}
 
 		if (isBurning()) {
@@ -113,6 +125,14 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+	
+	private boolean hasItem() {
+		if (!this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -189,13 +209,11 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 			// Very Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				switch (rand.nextInt(3)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.SPAWN_TRADER, 1);
 				case 1:
 					dropItem(GaiaItems.BAG_RECORD, 1);
-				case 2:
-					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 				}
 			}
 		}

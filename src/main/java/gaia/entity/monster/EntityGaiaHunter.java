@@ -151,7 +151,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
-				SetAI((byte) 1);
+				setAI((byte) 1);
 
 				timer = 0;
 				switchEquip = 1;
@@ -166,7 +166,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 					removePotionEffect(MobEffects.SPEED);
 				}
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				SetAI((byte) 0);
+				setAI((byte) 0);
 
 				timer = 0;
 				switchEquip = 0;
@@ -176,7 +176,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 		super.onLivingUpdate();
 	}
 
-	private void SetAI(byte id) {
+	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
@@ -278,13 +278,9 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	}
 
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-	}
-
-	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		SetAI((byte) 0);
+		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);

@@ -8,15 +8,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaDeathword extends ModelGaia {
-	// fields
-	private ModelRenderer anchor;
-	private ModelRenderer rightcover;
-	private ModelRenderer leftcover;
-	private ModelRenderer rightpage;
-	private ModelRenderer leftpage;
-	private ModelRenderer rightmiddlepage;
-	private ModelRenderer leftmiddlepage;
-	private ModelRenderer binder;
+
+	ModelRenderer anchor;
+	ModelRenderer rightcover;
+	ModelRenderer leftcover;
+	ModelRenderer rightpage;
+	ModelRenderer leftpage;
+	ModelRenderer rightmiddlepage;
+	ModelRenderer leftmiddlepage;
+	ModelRenderer binder;
 
 	public ModelGaiaDeathword() {
 		textureWidth = 64;

@@ -51,7 +51,7 @@ public class EntityGaiaProjectileWeb extends EntityFireball {
 	protected void onImpact(RayTraceResult result) {
 		if (!this.world.isRemote) {
 			if (result.entityHit != null) {
-				result.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_1 / 2));
+				result.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
 				
 				double x = result.entityHit.posX;
 				double y = result.entityHit.posY;

@@ -211,7 +211,7 @@ public class ModelGaiaCyclops extends ModelGaia {
 		hair.rotateAngleY = head.rotateAngleY;
 
 		// arms
-		if (itemstack.getItem() != Items.STICK) {
+		if (itemstack.isEmpty()) {
 			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -230,10 +230,6 @@ public class ModelGaiaCyclops extends ModelGaia {
 
 		if (itemstack.getItem() == Items.STICK) {
 			animationBuff();
-		}
-
-		if (itemstack.getItem() == Items.EGG) {
-			animationReset();
 		}
 
 		// legs
@@ -264,15 +260,10 @@ public class ModelGaiaCyclops extends ModelGaia {
 	}
 
 	private void animationBuff() {
-		rightarm.rotateAngleX = -0.698132F;
-		leftarm.rotateAngleX = -0.698132F;
-		rightarm.rotateAngleY = 0.698132F;
-		leftarm.rotateAngleY = -0.698132F;
-	}
-
-	private void animationReset() {
-		rightarm.rotateAngleY = 0.0F;
-		leftarm.rotateAngleY = 0.0F;
+		rightarm.rotateAngleX = 0.0F;
+		leftarm.rotateAngleX = 0.0F;
+		rightarm.rotateAngleZ = +0.785398F;
+		leftarm.rotateAngleZ = -0.785398F;
 	}
 
 	public ModelRenderer getRightArm() {

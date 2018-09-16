@@ -77,16 +77,15 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 				byte byte0 = 0;
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
-					byte0 = 5;
-				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
 					byte0 = 10;
+				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					byte0 = 20;
 				}
 
 				if (byte0 > 0) {
-					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, byte0 * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, byte0 * 20, 0));
 
 					world.setEntityState(this, (byte) 8);
-
 					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
 				}
 			}

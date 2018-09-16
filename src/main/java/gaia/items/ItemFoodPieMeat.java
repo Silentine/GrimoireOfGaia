@@ -17,7 +17,7 @@ public class ItemFoodPieMeat extends ItemFoodGaia {
 	public ItemFoodPieMeat() {
 		super("food_pie_meat", 8, 0.8F, true);
 		maxStackSize = 1;
-		setPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30, 0), 1.0F);
+		setPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 30 * 20, 0), 1.0F);
 	}
 
 	@Override
