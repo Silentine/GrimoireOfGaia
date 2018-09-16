@@ -1,5 +1,5 @@
 itemGroup.grimoireofgaia=蓋亞魔典3
-
+#ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鐵粒
 item.grimoireofgaia.shard_1.name=金粒
 item.grimoireofgaia.shard_2.name=鑽石碎片
@@ -70,12 +70,15 @@ item.grimoireofgaia.weapon_prop_axe_wood.name=木斧
 item.grimoireofgaia.weapon_prop_axe_stone.name=石斧
 item.grimoireofgaia.weapon_prop_axe_iron.name=鐵斧
 item.grimoireofgaia.weapon_prop_axe_gold.name=金斧
+item.grimoireofgaia.weapon_prop_projectile_bubble.name=泡泡彈
 item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法彈
+item.grimoireofgaia.weapon_prop_projectile_poison.name=毒彈
 item.grimoireofgaia.weapon_prop_projectile_web.name=蛛絲彈
 item.grimoireofgaia.weapon_prop_enchanted.name=附魔彈丸
 item.grimoireofgaia.shield_prop_0.name=石盾牌
 item.grimoireofgaia.shield_prop_1.name=鐵盾牌
 item.grimoireofgaia.shield_prop_2.name=金盾牌
+item.grimoireofgaia.weapon_fan.name=摺扇
 item.grimoireofgaia.weapon_fan_ice.name=華麗冰扇
 item.grimoireofgaia.weapon_fan_fire.name=華麗焰扇
 item.grimoireofgaia.weapon_book.name=書
@@ -90,7 +93,7 @@ item.grimoireofgaia.weapon_book_wither.name=凋零之書
 item.grimoireofgaia.weapon_book_buff.name=實戰手冊
 item.grimoireofgaia.weapon_battle_axe.name=鐵戰斧
 item.grimoireofgaia.weapon_debug.name=除錯武器
-
+#ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_ring_speed.name=速度之戒
 item.grimoireofgaia.accessory_ring_haste.name=急迫之戒
 item.grimoireofgaia.accessory_ring_jump.name=跳躍之戒
@@ -99,13 +102,15 @@ item.grimoireofgaia.accessory_trinket_poison.name=蟾蜍石
 item.grimoireofgaia.accessory_trinket_wither.name=凋零的心
 item.grimoireofgaia.accessory_trinket_levitation.name=鐵球腳鐐
 item.grimoireofgaia.accessory_cursed.name=沉重槓鈴
-
+#ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_0.name=鐵籠
 item.grimoireofgaia.accessory_headgear_1.name=腦袋穿箭
 item.grimoireofgaia.accessory_headgear_2.name=趴趴女僕
-
+item.grimoireofgaia.accessory_headgear_3.name=鍋釜
+item.grimoireofgaia.accessory_headgear_4.name=鐵王冠
+#ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=生成
-
+#BLOCK_NAMES
 tile.grimoireofgaia.bust_valkyrie.name=女武神像
 tile.grimoireofgaia.bust_vampire.name=吸血鬼像
 tile.grimoireofgaia.bust_sphinx.name=斯芬克斯像
@@ -115,15 +120,18 @@ tile.grimoireofgaia.doll_slime_girl.name=史萊姆女孩玩偶
 tile.grimoireofgaia.doll_maid.name=女僕玩偶
 tile.grimoireofgaia.spawn_guard.name=護符
 tile.grimoireofgaia.web_temp.name=腐朽的蜘蛛網
-
+#ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=除錯怪物
-entity.grimoireofgaia.ant.name=工蟻
+entity.grimoireofgaia.ant.name=工兵蟻
+entity.grimoireofgaia.ant_ranger.name=拾荒蟻
 entity.grimoireofgaia.anubis.name=阿努比斯
 entity.grimoireofgaia.arachne.name=阿剌克涅
 entity.grimoireofgaia.banshee.name=報喪女妖
 entity.grimoireofgaia.baphomet.name=巴風特
+entity.grimoireofgaia.bee.name=蜜蜂人
 entity.grimoireofgaia.bone_knight.name=骷髏騎士
-entity.grimoireofgaia.butler.name=管家
+entity.grimoireofgaia.butler.name=男僕
+entity.grimoireofgaia.cecaelia.name=賽卡利亞
 entity.grimoireofgaia.centaur.name=半人馬
 entity.grimoireofgaia.cobble_golem.name=鵝卵石魔像
 entity.grimoireofgaia.cobblestone_golem.name=鵝卵石巨魔像
@@ -139,7 +147,7 @@ entity.grimoireofgaia.dwarf.name=矮人
 entity.grimoireofgaia.ender_dragon_girl.name=終界龍女孩
 entity.grimoireofgaia.ender_eye.name=終界眼
 entity.grimoireofgaia.flesh_lich.name=屍巫
-entity.grimoireofgaia.futakuchi_onna.name=二口女
+entity.grimoireofgaia.gelatinous_slime.name=膠質史萊姆
 entity.grimoireofgaia.gryphon.name=獅鷲
 entity.grimoireofgaia.harpy.name=哈比
 entity.grimoireofgaia.hunter.name=獵人
@@ -153,8 +161,8 @@ entity.grimoireofgaia.minotaurus.name=米諾陶洛斯
 entity.grimoireofgaia.mummy.name=木乃伊
 entity.grimoireofgaia.naga.name=娜迦
 entity.grimoireofgaia.nine_tails.name=九尾
+entity.grimoireofgaia.oni.name=赤鬼
 entity.grimoireofgaia.orc.name=歐克
-entity.grimoireofgaia.sahuagin.name=沙華魚人
 entity.grimoireofgaia.satyress.name=薩提爾
 entity.grimoireofgaia.selkie.name=海豹人
 entity.grimoireofgaia.shaman.name=薩滿
@@ -172,18 +180,18 @@ entity.grimoireofgaia.witch.name=魔女
 entity.grimoireofgaia.wither_cow.name=凋零牛
 entity.grimoireofgaia.yeti.name=雪怪
 entity.grimoireofgaia.yuki-onna.name=雪女
-#VILLAGER
+#ENTITY_VILLAGER_NAMES
 entity.grimoireofgaia.creeper_girl.name=苦力怕女孩
 entity.grimoireofgaia.ender_girl.name=終界女孩
 entity.grimoireofgaia.holstaurus.name=荷斯陶洛斯
 entity.grimoireofgaia.slime_girl.name=史萊姆女孩
 entity.grimoireofgaia.trader.name=貿易商人
 entity.grimoireofgaia.weresheep.name=綿羊人
-#SUMMON
-entity.grimoireofgaia.butler.name=管家
+#ENTITY_SUMMON_NAMES
+entity.grimoireofgaia.butler.name=男僕
 entity.grimoireofgaia.spiderling.name=小蜘蛛
 entity.grimoireofgaia.sporeling.name=蘑菇精靈
-
+#ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=只影響蓋亞魔典的怪物
 text.grimoireofgaia.NegativeStatus.desc=消除負面狀態
 text.grimoireofgaia.HeartsGain=恢復 %d 生命
@@ -199,16 +207,16 @@ text.grimoireofgaia.InventoryCurse=在物品欄時:
 text.grimoireofgaia.InventoryAccessory=在工具欄第一格和第二格時:
 text.grimoireofgaia.InventoryTrinket=在工具欄最後一格時:
 text.grimoireofgaia.InventoryImmunity=免疫
-
+#TAGS
 text.grimoireofgaia.Accessory.tag=附件
 text.grimoireofgaia.Trinket.tag=飾品
 text.grimoireofgaia.Headgear.tag=帽子
 text.grimoireofgaia.Prop.tag=裝飾道具
 text.grimoireofgaia.WIP.tag=WIP
 text.grimoireofgaia.Debug.tag=除錯
-
+#KEYBOARD
 text.grimoireofgaia.HoldShift=<按住 Shift>
-
+#ITEMS_DESC
 item.grimoireofgaia.FoodExperienceIron.desc=獲得 1 等級
 item.grimoireofgaia.misc_soul_fire.desc=右鍵生成火焰
 item.grimoireofgaia.misc_soul_fiery.desc=右鍵生成岩漿
@@ -224,7 +232,7 @@ item.grimoireofgaia.spawn_tame.desc=消除一開始的敵意
 item.grimoireofgaia.spawn_tame2.desc=對已經受傷的怪物不起作用
 item.grimoireofgaia.WeaponBookEnder.desc=右鍵射出終界珍珠
 item.grimoireofgaia.weapon_debug.desc=測試用
-
+#BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=防止白天出現的怪物生成於 %d 格內
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=生成機率
@@ -241,7 +249,9 @@ configgui.grimoireofgaia.category.Menu5.options=設置
 configgui.grimoireofgaia.category.Menu5.options.tooltip=\n開啟/關閉 功能.
 configgui.grimoireofgaia.category.Menu6.debug=除錯
 configgui.grimoireofgaia.category.Menu6.debug.tooltip=\n相容和除錯項目.
-
+configgui.grimoireofgaia.category.Menu7.dimensions=世界設定
+configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nSetup 世界設定.
+#CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=生成日延遲
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=(WIP)\n怪物在經過一定天數後才會開始生成.
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=設置生成日
@@ -252,21 +262,27 @@ configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(等級 3) 關閉自�
 configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\n等級3的怪物不會自然生成 但是會被特定怪物召喚.
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(等級 3) 生成機率
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\n等級3怪物被特定怪物召喚的機率.\n((1/value)*100)
-
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=額外方塊出生設定
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\n額外設定蓋亞怪物是否能生成於特定方塊上.
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=額外花類方塊出生設定
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\n額外設定蓋亞花類是否能生成於特定方塊上.
+configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius=護符範圍
+configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius.tooltip=(WIP)\n調整護符的效果範圍.
+#CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=基礎傷害
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\n近戰傷害追加2.0(1心)傷害.
 configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers=基礎傷害 (弓箭手)
 configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers.tooltip=\n弓箭手的箭矢追加1.0(0.5心)傷害.
 configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing=盾牌阻擋穿透傷害
 configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\n基礎傷害(近戰)不會穿透盾牌.
-
+#CONFIG_DEFENSE
 configgui.grimoireofgaia.category.defense.Tier1baseDefense=等級 1 傷害次數底線
 configgui.grimoireofgaia.category.defense.Tier1baseDefense.tooltip=\n最少需要傷害的次數.\n(0 = 關閉)
 configgui.grimoireofgaia.category.defense.Tier2baseDefense=等級 2 傷害次數底線
 configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\n最少需要傷害的次數.\n(0 = 關閉)
 configgui.grimoireofgaia.category.defense.Tier3baseDefense=等級 3 傷害次數底線
 configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\n最少需要傷害的次數.\n(0 = 關閉)
-
+#CONFIG_ATTRIBUTES
 configgui.grimoireofgaia.category.attributes.Tier1maxHealth=等級 1 生命
 configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\n生命: 40 (20 心).\n(50 = 一半, 200 = 加倍)
 configgui.grimoireofgaia.category.attributes.Tier1attackDamage=等級 1 攻擊力
@@ -279,14 +295,18 @@ configgui.grimoireofgaia.category.attributes.Tier3maxHealth=等級 3 生命
 configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\n生命: 160 (80 心).\n(50 = 一半, 200 = 加倍)
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage=等級 3 攻擊力
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\n攻擊力: 8 (4 心).\n(50 = 一半, 200 = 加倍)
-
+#CONFIG_OPTIONS
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=開啟生成
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=\n開啟蓋亞怪物生成.
-configgui.grimoireofgaia.category.options.Menu1.AdditionalOre=額外礦粒
-configgui.grimoireofgaia.category.options.Menu1.AdditionalOre.tooltip=\n蓋亞怪物可以掉落銅粒和銀粒.
-configgui.grimoireofgaia.category.options.Menu2.StrafingArchers=掃射弓箭手
-configgui.grimoireofgaia.category.options.Menu2.StrafingArchers.tooltip=\n弓箭手會掃射和閃躲攻擊 (像骷髏一樣).
-
+configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=設定白天的敵對怪物變成被動
+configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=(WIP)\n白天的敵對怪物不會在看到玩家時攻擊.
+configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=設定全怪物變成敵對
+configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=(WIP)\n全怪物變成主動敵對.
+configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=額外礦粒
+configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\n蓋亞怪物可以掉落銅粒和銀粒.
+configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=掃射弓箭手
+configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\n弓箭手會掃射和閃躲攻擊 (像骷髏一樣).
+#CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=生態調整
 configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=\n為一些"M"的生態調整字典.\n(關閉這個假如你碰到問題)
 configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=統一礦物碎片掉落
@@ -295,7 +315,9 @@ configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=生成除錯
 configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=\n關閉所有非蓋亞怪物的生成.
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=除錯指令
 configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=開啟開發人員指令. 
-
+#CONFIG_DIMENSIONS
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=世界ID黑名單
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=關閉蓋亞怪物生成於指定世界ID.
 #JEI
 gaia.box.loot=箱子開出
 gui.gaia.box.loot=箱子開出
