@@ -19,7 +19,7 @@ public class ItemFoodMandrake extends ItemFoodBase {
 		super("food_mandrake", 0, 0.0F, false);
 		setAlwaysEdible();
 		maxStackSize = 16;
-		setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.8F);
+		setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 20 * 20, 0), 0.8F);
 	}
 
 	@Override

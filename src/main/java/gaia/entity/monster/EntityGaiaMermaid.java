@@ -36,6 +36,8 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMermaid extends EntityMobPassiveBase {
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaMermaid(World worldIn) {
 		super(worldIn);
@@ -43,6 +45,8 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
         setPathPriority(PathNodeType.WATER, 8.0F);
+        
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -108,12 +112,17 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_2 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		super.onLivingUpdate();
@@ -163,7 +172,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
@@ -172,8 +181,8 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 				}
 			}
 
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_OLD, 1);
 			}
 		}

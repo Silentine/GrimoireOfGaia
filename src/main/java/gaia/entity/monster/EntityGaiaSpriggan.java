@@ -37,6 +37,8 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 
 	private int axeAttack;
 
+	private byte inWaterTimer;
+	
 	public EntityGaiaSpriggan(World worldIn) {
 		super(worldIn);
 
@@ -44,6 +46,8 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 		stepHeight = 1.0F;
 
 		axeAttack = 0;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -105,12 +109,17 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			}
 		}
 
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_2 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		if (isBurning()) {
@@ -175,15 +184,18 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				} else if (i == 1) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
+				case 0:
+					dropItem(GaiaItems.BOX_GOLD, 1);
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				} else if (i == 2) {
-					dropItem(GaiaItems.WEAPON_BOOK_NATURE, 1);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.WEAPON_BOOK_NATURE, 1);
 			}
 		}
 	}

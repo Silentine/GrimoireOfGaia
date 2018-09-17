@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -25,6 +26,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -38,7 +40,7 @@ import net.minecraft.world.World;
 public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
-	
+
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
@@ -142,7 +144,7 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		/* BUFF */
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -206,20 +208,20 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				case 1:
-					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-		            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
-					this.entityDropItem(enchantmentBook, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SPAWN_TAME, 1);
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
+				case 0:
+					dropItem(GaiaItems.SPAWN_TAME, 1);
+				case 1:
+					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+					ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
+					this.entityDropItem(enchantmentBook, 1);
+				}
 			}
 		}
 	}

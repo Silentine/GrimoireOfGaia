@@ -58,17 +58,21 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	private int timer;
 	private int switchDetect;
 	private int switchEquip;
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaSiren(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-        setPathPriority(PathNodeType.WATER, 8.0F);
+		setPathPriority(PathNodeType.WATER, 8.0F);
 
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -136,12 +140,17 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		if (playerDetection()) {
@@ -277,13 +286,13 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BOX_IRON, 1);
-				case 1:
-					dropItem(GaiaItems.BAG_ARROW, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
 	}

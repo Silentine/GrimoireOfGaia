@@ -135,14 +135,6 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	public void onLivingUpdate() {
 		beaconMonster();
 
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
-		}
-
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
 			int i = MathHelper.floor(posX);
 			int j = MathHelper.floor(posY - 0.20000000298023224D);
@@ -261,7 +253,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}

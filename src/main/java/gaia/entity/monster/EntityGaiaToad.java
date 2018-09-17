@@ -36,12 +36,16 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaToad extends EntityMobHostileBase {
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaToad(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -110,12 +114,17 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		int i = MathHelper.floor(posX);
@@ -180,12 +189,12 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.ACCESSORY_TRINKET_POISON, 1);
 			}
 		}

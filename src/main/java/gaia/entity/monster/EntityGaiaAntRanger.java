@@ -242,7 +242,7 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.BOX_IRON, 1);

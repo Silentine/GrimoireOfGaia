@@ -32,20 +32,22 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
-	
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaSharko(World worldIn) {
 		super(worldIn);
-		
+
 		setSize(1.4F, 2.0F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-        setPathPriority(PathNodeType.WATER, 8.0F);
+		setPathPriority(PathNodeType.WATER, 8.0F);
 
 		buffEffect = 0;
 		animationPlay = false;
@@ -118,12 +120,17 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_2 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		/* BUFF */
@@ -154,7 +161,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -174,7 +181,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
-	
+
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -209,15 +216,18 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
-					dropItem(GaiaItems.BOOK_BUFF, 1);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOOK_BUFF, 1);
 			}
 		}
 	}

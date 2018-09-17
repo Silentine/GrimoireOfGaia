@@ -355,8 +355,15 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				if (mobClass == 1) {
+					dropItem(GaiaItems.BAG_BOOK, 1);
+				}
 			}
 		}
 	}

@@ -43,7 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
-	
+
 	private static final int DETECTION_RANGE = 8;
 
 	private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
@@ -159,7 +159,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
 			}
 		}
-		
+
 		if (isEntityAlive()) {
 			lastActiveTime = timeSinceIgnited;
 
@@ -187,7 +187,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 		super.onUpdate();
 	}
-	
+
 	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
@@ -257,18 +257,18 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+					dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
 				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
 				}
-			}
-
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
 			}
 		}
 	}
@@ -292,7 +292,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 		super.onStruckByLightning(lightningBolt);
 		dataManager.set(POWERED, true);
 	}
-	
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {

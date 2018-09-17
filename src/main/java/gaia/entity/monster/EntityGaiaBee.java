@@ -1,15 +1,23 @@
 package gaia.entity.monster;
 
+import java.util.List;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
+import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -19,21 +27,44 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaBee extends EntityMobPassiveDay {
+public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackMob {
+	
+	private static final int DETECTION_RANGE = 3;
+
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
+	private EntityAILeapAtTarget aiAttackLeapAtTarget = new EntityAILeapAtTarget(this, 0.4F);
+	private AILeapAttack aiAttackLeapAtTargetAI = new EntityGaiaBee.AILeapAttack(this);
+	
+	private int timer;
+	private int switchDetect;
+	private int switchEquip;
+	
+	private boolean animationPlay;
+	private int animationTimer;
 
 	public EntityGaiaBee(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
+		
+		timer = 0;
+		switchDetect = 0;
+		switchEquip = 0;
+		
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -44,7 +75,8 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 		tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(5, new EntityAILookIdle(this));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+		targetTasks.addTask(2, new EntityAIGaiaValidateTargetPlayer(this));
 	}
 
 	@Override
@@ -66,6 +98,22 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
+	
+	/* RANGED DATA */
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		Ranged.poison(target, this, distanceFactor);
+		
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
+	}
+
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		return super.canAttackClass(cls) && cls != EntityGaiaBee.class;
+	}
+	/* RANGED DATA */
 
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
@@ -100,8 +148,71 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
+		
+		if (playerDetection()) {
+			if (switchDetect == 0) {
+				switchDetect = 1;
+			}
+		} else {
+			if (switchDetect == 1) {
+				switchDetect = 0;
+			}
+		}
+
+		if (switchDetect == 1 && switchEquip == 0) {
+			if (timer <= 20) {
+				++timer;
+			} else {
+				setAI((byte) 1);
+				timer = 0;
+				switchEquip = 1;
+			}
+		}
+
+		if (switchDetect == 0 && switchEquip == 1) {
+			if (timer <= 20) {
+				++timer;
+			} else {
+				setAI((byte) 0);
+				timer = 0;
+				switchEquip = 0;
+			}
+		}
+		
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
 
 		super.onLivingUpdate();
+	}
+	
+	private void setAI(byte id) {
+		if (id == 0) {
+			tasks.removeTask(aiAttackLeapAtTarget);
+			tasks.removeTask(aiAttackLeapAtTargetAI);
+			tasks.addTask(1, aiArrowAttack);
+		}
+
+		if (id == 1) {
+			tasks.removeTask(aiArrowAttack);
+			tasks.addTask(1, aiAttackLeapAtTarget);
+			tasks.addTask(2, aiAttackLeapAtTargetAI);
+		}
+	}
+	
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
+		}
 	}
 
 	static class AILeapAttack extends EntityAIAttackMelee {
@@ -113,6 +224,16 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 			return 4.0D + attackTarget.width;
 		}
+	}
+	
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	private boolean playerDetection() {
+		AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1).grow(DETECTION_RANGE);
+		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+
+		return !list.isEmpty();
 	}
 
 	@Override
@@ -129,12 +250,21 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 	protected SoundEvent getDeathSound() {
 		return Sounds.AGGRESSIVE_DEATH;
 	}
+	
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		playSound(Sounds.NONE, 1.0F, 1.0F);
+	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				entityDropItem(new ItemStack(Items.DYE, 1, 15), 0.0F);
+			}
+			
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(GaiaItems.FOOD_HONEY, 1);
 			}
 
 			// Nuggets/Fragments
@@ -153,7 +283,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}

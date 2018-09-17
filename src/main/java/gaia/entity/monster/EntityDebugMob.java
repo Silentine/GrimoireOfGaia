@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
+import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -207,7 +208,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	/**
 	 * Our legacy method for dropping items In the newest versions, this is a fallback
 	 **/
-	protected void dropFewItems(boolean flag, int par) {
+	@Override
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		System.out.println("I died!");
 		
 //		BlockPos pos3 = getPosition();
@@ -241,6 +243,10 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		rod.addEnchantment(Enchantments.LURE, 1);
 		rod.setStackDisplayName("Arctic Fishing Rod");
 		this.entityDropItem(rod, 1);
+		
+		if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			dropItem(GaiaItems.BOX_IRON, 1);
+		}
 	}
 
 	/**

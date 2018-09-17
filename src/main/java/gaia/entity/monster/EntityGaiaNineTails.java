@@ -22,12 +22,10 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -176,18 +174,21 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
-					ItemStack fanFire = new ItemStack(GaiaItems.WEAPON_FAN_FIRE);
-					fanFire.addEnchantment(Enchantments.FIRE_ASPECT, 2);
-					fanFire.addEnchantment(Enchantments.KNOCKBACK, 1);
-					entityDropItem(fanFire, 1);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				ItemStack fanFire = new ItemStack(GaiaItems.WEAPON_FAN_FIRE);
+				fanFire.addEnchantment(Enchantments.FIRE_ASPECT, 2);
+				fanFire.addEnchantment(Enchantments.KNOCKBACK, 1);
+				entityDropItem(fanFire, 1);
 			}
 		}
 	}

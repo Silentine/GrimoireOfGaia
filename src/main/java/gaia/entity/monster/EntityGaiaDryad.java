@@ -54,6 +54,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	private byte stamina;
 	private byte staminaTimer;
 
+	private byte inWaterTimer;
+
 	public EntityGaiaDryad(World worldIn) {
 		super(worldIn);
 
@@ -65,6 +67,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 		stamina = (30 * 4);
 		staminaTimer = 0;
+
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -118,12 +122,17 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		if (isBurning()) {
@@ -258,7 +267,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}

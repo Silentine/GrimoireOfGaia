@@ -139,10 +139,9 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 				entityDropItem(new ItemStack(Items.DYE, 1, 2), 0.0F);
 			}
 			
-			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Item.getItemFromBlock(Blocks.CACTUS), 1);
+			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+				dropItem(GaiaItems.FOOD_HONEY, 1);
 			}
-
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
@@ -160,7 +159,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}

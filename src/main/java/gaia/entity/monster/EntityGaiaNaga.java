@@ -39,6 +39,8 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaNaga(World worldIn) {
 		super(worldIn);
@@ -52,6 +54,8 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		buffEffect = 0;
 		animationPlay = false;
 		animationTimer = 0;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -117,12 +121,17 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_2 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		/* BUFF */
@@ -208,14 +217,12 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
-					dropItem(GaiaItems.SPAWN_SLIME_GIRL, 1);
 				}
 			}
 		}

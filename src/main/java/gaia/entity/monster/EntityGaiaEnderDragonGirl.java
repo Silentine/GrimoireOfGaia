@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -62,7 +63,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 		isImmuneToFire = true;
 		setPathPriority(PathNodeType.WATER, -1.0F);
 	}
-	
+
 	@Override
 	public float getEyeHeight() {
 		return 1.90F;
@@ -107,7 +108,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			}
 		}
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		super.entityInit();
@@ -145,7 +146,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_2);
 	}
-	
+
 	/**
 	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
@@ -259,23 +260,23 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 2), 0.0F);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
-					dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
 				}
 			}
 
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				switch (rand.nextInt(2)) {
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(3)) {
 				case 0:
-					dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
+					dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
 				case 1:
+					dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
+				case 2:
 					dropItem(Items.ELYTRA, 1);
 				}
 			}

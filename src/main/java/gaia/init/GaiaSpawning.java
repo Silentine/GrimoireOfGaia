@@ -192,7 +192,8 @@ public class GaiaSpawning {
 		 * EXTREME_HILLS_WITH_TREES
 		 */
 		for (Biome biome : biomeMap.get(Type.MOUNTAIN)) {
-			if (!BiomeDictionary.hasType(biome, Type.SNOWY)) {
+			if (!BiomeDictionary.hasType(biome, Type.SNOWY) && 
+					!BiomeDictionary.hasType(biome, Type.SANDY)) {
 				add(GENERAL.spawnGryphon, EntityGaiaGryphon.class, 1, 2, biome);
 				add(GENERAL.spawnDwarf, EntityGaiaDwarf.class, 4, 6, biome);
 

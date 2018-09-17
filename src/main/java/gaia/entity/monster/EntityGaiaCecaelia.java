@@ -42,6 +42,8 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
+	
+	private static final int DETECTION_RANGE = 3;
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
@@ -52,6 +54,8 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	
 	private boolean animationPlay;
 	private int animationTimer;
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaCecaelia(World worldIn) {
 		super(worldIn);
@@ -66,6 +70,8 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 		
 		animationPlay = false;
 		animationTimer = 0;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -144,12 +150,17 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		if (playerDetection()) {
@@ -228,7 +239,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	 * Detects if there are any EntityPlayer nearby
 	 */
 	private boolean playerDetection() {
-		AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1).grow(3);
+		AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1).grow(DETECTION_RANGE);
 		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 		return !list.isEmpty();
@@ -276,15 +287,15 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				case 1:
-					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-		            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LUCK_OF_THE_SEA, 1));
-					this.entityDropItem(enchantmentBook, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+	            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LUCK_OF_THE_SEA, 1));
+				this.entityDropItem(enchantmentBook, 1);
 			}
 		}
 	}

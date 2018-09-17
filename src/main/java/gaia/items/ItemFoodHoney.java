@@ -13,14 +13,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemFoodNetherWart extends ItemFoodGaia {
+public class ItemFoodHoney extends ItemFoodGaia {
 
-	public ItemFoodNetherWart() {
-		super("food_nether_wart", 4, 0.4F, false);
-		setPotionEffect(new PotionEffect(MobEffects.SPEED, 30 * 20, 0), 0.4F);
-		setSecondPotionEffect(new PotionEffect(MobEffects.HASTE, 30 * 20, 0), 0.4F);
+	public ItemFoodHoney() {
+		super("food_honey", 4, 0.4F, false);
+		setPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0), 0.2F);
+		setSecondPotionEffect(new PotionEffect(MobEffects.HASTE, 10 * 20, 0), 0.2F);
 	}
-
+	
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.DRINK;
@@ -29,7 +29,7 @@ public class ItemFoodNetherWart extends ItemFoodGaia {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("(40%) " + I18n.format("effect.moveSpeed") + " (0:30)");
-		tooltip.add("(40%) " + I18n.format("effect.digSpeed") + " (0:30)");
+		tooltip.add("(20%) " + I18n.format("effect.moveSpeed") + " (0:10)");
+		tooltip.add("(20%) " + I18n.format("effect.digSpeed") + " (0:10)");
 	}
 }

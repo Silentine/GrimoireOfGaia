@@ -24,7 +24,6 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -40,14 +39,12 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	private static final double DETECTION_RANGE = 6D;
-	
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
@@ -217,7 +214,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		if (id == 0) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
 		}
-		
+
 		if (id == 1) {
 			tasks.addTask(1, aiAttackOnCollide);
 		}
@@ -241,7 +238,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 		}
 	}
-	
+
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -295,13 +292,16 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_DIAMOND, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
-				case 2:
+				case 1:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 0), 0.0F);
 				}
 			}

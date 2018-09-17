@@ -59,7 +59,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	private int switchHealth;
 	private int spawn;
 	private int spawnTimer;
-	
+
 	private boolean animationPlay;
 	private int animationTimer;
 
@@ -73,7 +73,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		switchHealth = 0;
 		spawn = 0;
 		spawnTimer = 0;
-		
+
 		animationPlay = false;
 		animationTimer = 0;
 	}
@@ -112,7 +112,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.web(target, this, distanceFactor, 0.0D);
-		
+
 		setEquipment((byte) 1);
 		animationPlay = true;
 		animationTimer = 0;
@@ -207,7 +207,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 				spawn = 2;
 			}
 		}
-		
+
 		if (animationPlay) {
 			if (animationTimer != 20) {
 				animationTimer += 1;
@@ -240,7 +240,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
-		
+
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
@@ -374,13 +374,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				case 1:
-					dropItem(GaiaItems.MISC_BOOK, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.MISC_BOOK, 1);
 			}
 		}
 	}

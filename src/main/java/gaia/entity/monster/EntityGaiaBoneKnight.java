@@ -165,15 +165,18 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				case 1:
 					dropItem(Item.getItemFromBlock(Blocks.REDSTONE_BLOCK), 1);
-				case 2:
-					entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
 			}
 		}
 	}
@@ -184,7 +187,7 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
 		setEnchantmentBasedOnDifficulty(difficulty);
-		
+
 		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
@@ -195,13 +198,13 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
-	
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return EntityAttributes.CHUNK_LIMIT_UNDERGROUND;
 	}
-	
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return posY < 32.0D && super.getCanSpawnHere();

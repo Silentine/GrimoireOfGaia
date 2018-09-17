@@ -11,6 +11,7 @@ import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -266,13 +267,13 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BOX_IRON, 1);
-				case 1:
-					dropItem(GaiaItems.BAG_ARROW, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
 	}

@@ -94,16 +94,16 @@ public class ItemWeaponDebug extends ItemBase {
 		}
 	}
 
-//	@Override
-//	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-//		if (!isInCreativeTab(tab)) {
-//			return;
-//		}
-//
-//		ItemStack stack = new ItemStack(this, 1, 0);
-//		stack.addEnchantment(Enchantments.LOOTING, 10);
-//		items.add(stack);
-//	}
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) {
+			return;
+		}
+
+		ItemStack stack = new ItemStack(this, 1, 0);
+		stack.addEnchantment(Enchantments.LOOTING, 10);
+		items.add(stack);
+	}
 
 	public void doEffect(EntityPlayer player) {
 		if (!player.isPotionActive(MobEffects.REGENERATION)) {

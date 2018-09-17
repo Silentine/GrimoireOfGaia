@@ -29,6 +29,7 @@ import gaia.items.ItemBoxOld;
 import gaia.items.ItemChest;
 import gaia.items.ItemFoodBase;
 import gaia.items.ItemFoodCoalfish;
+import gaia.items.ItemFoodHoney;
 import gaia.items.ItemFoodMandrake;
 import gaia.items.ItemFoodNetherWart;
 import gaia.items.ItemFoodPieAppleGold;
@@ -110,6 +111,7 @@ public class GaiaItems {
 	public static final Item CHEST = Items.AIR;
 	// F
 	public static final Item FOOD_COALFISH = Items.AIR;
+	public static final Item FOOD_HONEY = Items.AIR;
 	public static final Item FOOD_MANDRAKE = Items.AIR;
 	public static final Item FOOD_MEAT = Items.AIR;
 	public static final Item FOOD_NETHER_WART = Items.AIR;
@@ -192,7 +194,7 @@ public class GaiaItems {
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 
-//			registry.register(new ItemWeaponDebug());
+			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemShard());
 			registry.register(new ItemShardMisc());
 			registry.register(new ItemFoodBase("food_meat", 6, 1.2F, true));
@@ -200,6 +202,7 @@ public class GaiaItems {
 			registry.register(new ItemFoodRoot());
 			registry.register(new ItemFoodCoalfish());
 			registry.register(new ItemFoodNetherWart());
+			registry.register(new ItemFoodHoney());
 			registry.register(new ItemFoodSmallAppleGold());
 			registry.register(new ItemFoodMandrake());
 			registry.register(new ItemFoodWither());

@@ -161,7 +161,7 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
 			}
 		}

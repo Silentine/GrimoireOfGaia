@@ -39,6 +39,8 @@ import net.minecraft.world.World;
 public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	private int shovelAttack;
+	
+	private byte inWaterTimer;
 
 	public EntityGaiaMandragora(World worldIn) {
 		super(worldIn);
@@ -48,6 +50,8 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		stepHeight = 1.0F;
 
 		shovelAttack = 0;
+		
+		inWaterTimer = 0;
 	}
 
 	@Override
@@ -128,12 +132,17 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	@Override
 	public void onLivingUpdate() {
-		if (isInWater()) {
-			addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0));
-		}
-
-		if (isWet()) {
-			addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 10 * 20, 0));
+		if (!world.isRemote) {
+			if (isWet()) {
+				if (inWaterTimer <= 100) {
+					++inWaterTimer;
+				} else {
+					world.setEntityState(this, (byte) 8);
+					heal(EntityAttributes.MAX_HEALTH_1 * 0.10F);
+					addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 5 * 20, 0));
+					inWaterTimer = 0;
+				}
+			}
 		}
 
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
@@ -203,7 +212,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}

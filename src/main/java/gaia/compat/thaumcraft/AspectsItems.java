@@ -25,6 +25,7 @@ import static gaia.init.GaiaItems.BOX_IRON;
 import static gaia.init.GaiaItems.BOX_OLD;
 import static gaia.init.GaiaItems.CHEST;
 import static gaia.init.GaiaItems.FOOD_COALFISH;
+import static gaia.init.GaiaItems.FOOD_HONEY;
 import static gaia.init.GaiaItems.FOOD_MANDRAKE;
 import static gaia.init.GaiaItems.FOOD_MEAT;
 import static gaia.init.GaiaItems.FOOD_NETHER_WART;
@@ -197,6 +198,10 @@ public class AspectsItems {
 				.add(Aspect.BEAST, 2)
 				.add(Aspect.LIFE, 1)
 				.add(Aspect.FIRE, 1));
+		
+		event.register.registerObjectTag(new ItemStack(FOOD_HONEY), (new AspectList())
+				.add(Aspect.PLANT, 2)
+				.add(Aspect.LIFE, 1));
 
 		event.register.registerObjectTag(new ItemStack(FOOD_MANDRAKE), (new AspectList())
 				.add(Aspect.PLANT, 1)

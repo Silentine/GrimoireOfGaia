@@ -38,7 +38,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 6.0F;
-		
+
 		this.setCanPickUpLoot(true);
 	}
 
@@ -109,7 +109,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
-		
+
 		if (getHealth() < EntityAttributes.MAX_HEALTH_1) {
 			if (hasItem()) {
 				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
@@ -126,7 +126,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private boolean hasItem() {
 		if (!this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty()) {
 			return true;
@@ -196,24 +196,21 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
-				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
-				case 1:
-					dropItem(GaiaItems.SPAWN_TAME, 1);
-				case 2:
-					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 			}
 
-			// Very Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1) > 0)) {
-				switch (rand.nextInt(2)) {
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(4)) {
 				case 0:
-					dropItem(GaiaItems.SPAWN_TRADER, 1);
+					dropItem(GaiaItems.SPAWN_TAME, 1);
 				case 1:
+					dropItem(GaiaItems.SPAWN_TRADER, 1);
+				case 2:
 					dropItem(GaiaItems.BAG_RECORD, 1);
+				case 3:
+					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 				}
 			}
 		}

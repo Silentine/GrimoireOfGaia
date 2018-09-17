@@ -50,7 +50,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	private int switchHealth;
 	private int spawn;
 	private int spawnTimer;
-	
+
 	private boolean animationPlay;
 	private int animationTimer;
 
@@ -68,10 +68,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		switchHealth = 0;
 		spawn = 0;
 		spawnTimer = 0;
-		
+
 		animationPlay = false;
 		animationTimer = 0;
-		
+
 		canSpawnLevel3 = false;
 		spawned = false;
 		spawnLevel3 = 0;
@@ -118,12 +118,12 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.magic(target, this, distanceFactor);
-		
+
 		setEquipment((byte) 1);
 		animationPlay = true;
 		animationTimer = 0;
 	}
-	
+
 	@Override
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
 		return super.canAttackClass(cls) && cls != EntityGaiaAnubis.class;
@@ -232,7 +232,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 				spawn = 2;
 			}
 		}
-		
+
 		if (animationPlay) {
 			if (animationTimer != 20) {
 				animationTimer += 1;
@@ -273,7 +273,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
-		
+
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
@@ -383,17 +383,18 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				int i = rand.nextInt(3);
-				if (i == 0) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
-
-				} else if (i == 1) {
+				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-
-				} else if (i == 2) {
-					dropItem(GaiaItems.MISC_BOOK, 1);
 				}
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.MISC_BOOK, 1);
 			}
 		}
 

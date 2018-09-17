@@ -25,7 +25,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -41,8 +40,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaVampire extends EntityMobHostileBase {
@@ -243,13 +240,16 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_DIAMOND, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_DIAMOND, 1);
-				case 1:
 					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
-				case 2:
+				case 1:
 					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 3), 0.0F);
 				}
 			}

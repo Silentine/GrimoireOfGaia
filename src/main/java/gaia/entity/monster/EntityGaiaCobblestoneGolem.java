@@ -43,12 +43,12 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 	public EntityGaiaCobblestoneGolem(World worldIn) {
 		super(worldIn);
-		
+
 		setSize(1.4F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
-        setPathPriority(PathNodeType.WATER, -1.0F);
+		setPathPriority(PathNodeType.WATER, -1.0F);
 	}
 
 	@Override
@@ -194,15 +194,21 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(4)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
+				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
+				case 0:
 					entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 1), 0.0F);
-				case 3:
+				case 1:
 					entityDropItem(new ItemStack(GaiaItems.SHARD_MISC, 1, 0), 0.0F);
 				}
 			}

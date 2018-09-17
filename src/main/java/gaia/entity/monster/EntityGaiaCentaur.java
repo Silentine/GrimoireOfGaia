@@ -237,15 +237,13 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BOX_IRON, 1);
-					break;
-				case 1:
-					dropItem(GaiaItems.BAG_ARROW, 1);
-					break;
-				}
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
 	}

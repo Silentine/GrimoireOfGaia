@@ -174,15 +174,18 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 				case 1:
 					dropItem(Item.getItemFromBlock(Blocks.LAPIS_BLOCK), 1);
-				case 2:
-					entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
 			}
 		}
 	}

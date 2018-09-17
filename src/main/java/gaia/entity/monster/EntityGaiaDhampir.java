@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
-	
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int buffEffect;
@@ -183,7 +183,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -203,7 +203,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
 		}
 	}
-	
+
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
@@ -274,15 +274,18 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 			}
 
 			// Rare
-			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				switch (rand.nextInt(3)) {
+			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
+				switch (rand.nextInt(2)) {
 				case 0:
 					dropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
 					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 2:
-					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
 				}
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
 			}
 		}
 
