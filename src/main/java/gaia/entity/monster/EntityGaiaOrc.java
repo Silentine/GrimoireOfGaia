@@ -329,7 +329,14 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	@Nullable
 	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (mobClass) {
+		case 0:
+			return LootTableList.EMPTY;
+		case 1:
+			return LootTableList.ENTITIES_WITCH;
+		default:
+			return LootTableList.EMPTY;
+		}
 	}
 
 	@Override

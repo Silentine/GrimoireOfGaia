@@ -93,6 +93,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
+		
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 	}
 
@@ -298,12 +299,11 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
-				case 1:
-					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 0), 0.0F);
-				}
+				dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VALKYRIE), 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 0), 0.0F);
 			}
 		}
 	}

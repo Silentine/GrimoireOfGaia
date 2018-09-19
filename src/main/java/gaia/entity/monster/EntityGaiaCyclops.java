@@ -214,14 +214,14 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.SPAWN_TAME, 1);
-				case 1:
-					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-					ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
-					this.entityDropItem(enchantmentBook, 1);
-				}
+				dropItem(GaiaItems.SPAWN_TAME, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
+				this.entityDropItem(enchantmentBook, 1);
 			}
 		}
 	}

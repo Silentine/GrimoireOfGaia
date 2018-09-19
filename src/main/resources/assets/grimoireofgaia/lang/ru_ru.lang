@@ -12,6 +12,7 @@ item.grimoireofgaia.food_rotten_heart.name=Гнилое Сердце
 item.grimoireofgaia.food_root.name=Корень
 item.grimoireofgaia.food_coalfish.name=Углерыба
 item.grimoireofgaia.food_nether_wart.name=Варенье из Адского Нароста
+item.grimoireofgaia.food_honey.name=Пчелиный Нектар
 item.grimoireofgaia.food_small_apple_gold.name=Кусочек Золотого Яблочного Пирога
 item.grimoireofgaia.food_mandrake.name=Корень Мандрагоры
 item.grimoireofgaia.food_wither.name=Иссохшийся Мозг
@@ -68,9 +69,9 @@ item.grimoireofgaia.weapon_prop_sword_iron.name=Железный Меч
 item.grimoireofgaia.weapon_prop_sword_gold.name=Золотой Меч
 item.grimoireofgaia.weapon_prop_axe_wood.name=Деревянный Топор
 item.grimoireofgaia.weapon_prop_axe_stone.name=Каменный Топор
-item.grimoireofgaia.weapon_prop_axe_iron.name=Железный  Топор
+item.grimoireofgaia.weapon_prop_axe_iron.name=Железный Топор
 item.grimoireofgaia.weapon_prop_axe_gold.name=Золотой Топор
-item.grimoireofgaia.weapon_prop_projectile_bubble.name=Пузырьковый Снаряд
+item.grimoireofgaia.weapon_prop_projectile_bubble.name=Пузырь-Снаряд
 item.grimoireofgaia.weapon_prop_projectile_magic.name=Магический Снаряд
 item.grimoireofgaia.weapon_prop_projectile_poison.name=Ядовитый Снаряд
 item.grimoireofgaia.weapon_prop_projectile_web.name=Паутинный Снаряд
@@ -91,7 +92,6 @@ item.grimoireofgaia.weapon_book_battle.name=Боевая Книга
 item.grimoireofgaia.weapon_book_nature.name=Книга Природы
 item.grimoireofgaia.weapon_book_wither.name=Книга Иссушения
 item.grimoireofgaia.weapon_book_buff.name=Учебник Боевых Искусств
-item.grimoireofgaia.weapon_battle_axe.name=Железный Боевой Топор
 item.grimoireofgaia.weapon_debug.name=Отладочное Оружие
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_ring_speed.name=Кольцо Скорости
@@ -104,10 +104,9 @@ item.grimoireofgaia.accessory_trinket_levitation.name=Путы
 item.grimoireofgaia.accessory_cursed.name=Тяжеленная Гантель
 #ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_0.name=Клетка
-item.grimoireofgaia.accessory_headgear_1.name=Стрела в голове
-item.grimoireofgaia.accessory_headgear_2.name=Слюнявая горничная
-item.grimoireofgaia.accessory_headgear_3.name=Котёл
-item.grimoireofgaia.accessory_headgear_4.name=Железная Корона
+item.grimoireofgaia.accessory_headgear_1.name=Железные Штыри
+item.grimoireofgaia.accessory_headgear_2.name=Стрела в голове
+item.grimoireofgaia.accessory_headgear_3.name=Усталая горничная
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Яйцо Призыва: 
 #BLOCK_NAMES
@@ -130,7 +129,6 @@ entity.grimoireofgaia.banshee.name=Банши
 entity.grimoireofgaia.baphomet.name=Бафомет
 entity.grimoireofgaia.bee.name=Медоносная Пчела
 entity.grimoireofgaia.bone_knight.name=Закостенелый Рыцарь
-entity.grimoireofgaia.butler.name=Дворецкий
 entity.grimoireofgaia.cecaelia.name=Сцила
 entity.grimoireofgaia.centaur.name=Кентарв
 entity.grimoireofgaia.cobble_golem.name=каменный Голлем
@@ -149,6 +147,7 @@ entity.grimoireofgaia.ender_eye.name=Глаз Края
 entity.grimoireofgaia.flesh_lich.name=Лич Плоти
 entity.grimoireofgaia.gelatinous_slime.name=Желатиновый Куб
 entity.grimoireofgaia.gryphon.name=Грифон
+entity.grimoireofgaia.goblin.name=Гоблин
 entity.grimoireofgaia.harpy.name=Гарпия
 entity.grimoireofgaia.hunter.name=Охотница
 entity.grimoireofgaia.kobold.name=Кобольд
@@ -189,8 +188,7 @@ entity.grimoireofgaia.trader.name=Торговка
 entity.grimoireofgaia.weresheep.name=Девушка-Овечка
 #ENTITY_SUMMON_NAMES
 entity.grimoireofgaia.butler.name=Дворецкий
-entity.grimoireofgaia.spiderling.name=Паук-Миньон
-entity.grimoireofgaia.sporeling.name=Спора-Миньон
+entity.grimoireofgaia.sporeling.name=Спора
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Действует только на мобов из Гримуара Гайи
 text.grimoireofgaia.NegativeStatus.desc=Очищает от негативных статус-эффектов
@@ -253,21 +251,19 @@ configgui.grimoireofgaia.category.Menu7.dimensions=Настройки Измер
 configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nНастройки, связанные с измерениями.
 #CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=Задержка Спавна в днях
-configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=(В РАЗРАБОТКЕ)\nМобы будут спавниться только по прошествии определённого количества дней.
+configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=(В РАЗРАБОТКЕ)\nМобы будут спавниться только по прошествии\nопределённого количества дней.
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=Установить задержку в днях
-configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=(В РАЗРАБОТКЕ)\nКоличество дней, по прошествии которого мобы начнут спавниться.
+configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=(В РАЗРАБОТКЕ)\nКоличество дней, по прошествии которого\nмобы начнут спавниться.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=(Ур. 3) Спавн только в непогоду.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=(В РАЗРАБОТКЕ)\nМобы 3-го уровня спавняться только в непогоду.
 configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(Ур. 3) Отключить естественный спавн
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nМобы 3-го уровня не спавняться естественно, а только из определённых мобов.
+configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nМобы 3-го уровня не спавняться естественно,\nа только из определённых мобов.
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(Ур. 3) Шанс Спавна
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nШанс того, что моб 3-го уровня заспавнится из определённого моба.\n((1/<значение>)*100)
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Дополнительные Блоки для Спавна
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nДополнительные Блоки, на которых могут спавнится Мобы Гайи.
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Дополнительные Блоки для Спавна Цветка
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nДополнительные Блоки, на которых могеж спавнится Бирюзовый Цветок.
-configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius=Радиус Талисмана Защиты
-configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius.tooltip=(В РАЗРАБОТКЕ)\nЗадаёт радиус действия (в блоках) Талисману Защиты.
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Базовый Урон
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nБлижние атаки наносят дополнительно 2.0 еденицы (1 сердечко) урона.
@@ -307,16 +303,14 @@ configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nПозв
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Умные Лучники
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nЛучники будут вести себя подобно скелетам (уровачиваться и отходить).
 #CONFIG_DEBUG
-configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=Правка, связанная с биомами
-configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=Правит словарь по-умолчанию для некоторых "M" биомов.\n(Отключите, если возникают ошибки)
-configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=Унифицировать Выпадение Осколков
-configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nПозволяет самородкам/осколкам из других модов выпадать из мобов.\n(Отключите, если возникают ошибки)
-configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Настройки спавна для отладки
-configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Запрещает спавнится всем мобам не Гайи.
-configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Команды отлалки
-configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Включает команды для разработчиков.
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Унифицировать Выпадение Осколков
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nПозволяет самородкам/осколкам из других модов выпадать из мобов.\n(Отключите, если возникают ошибки)
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn=Настройки спавна для отладки
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn.tooltip=Запрещает спавнится всем мобам не Гайи.
+configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands=Команды отлалки
+configgui.grimoireofgaia.category.debug.Menu3.Debug_Commands.tooltip=Включает команды для разработчиков.
 #CONFIG_DIMENSIONS
-configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Команды отлалдки
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Чёрный Список Биомов
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Запрещает мобам Гайи спавниться в перечисленных измерениях.
 #JEI
 gaia.box.loot=Лут из Коробок

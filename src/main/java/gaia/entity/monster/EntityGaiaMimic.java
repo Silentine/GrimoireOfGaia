@@ -202,16 +202,19 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(4)) {
-				case 0:
-					dropItem(GaiaItems.SPAWN_TAME, 1);
-				case 1:
-					dropItem(GaiaItems.SPAWN_TRADER, 1);
-				case 2:
-					dropItem(GaiaItems.BAG_RECORD, 1);
-				case 3:
-					dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
-				}
+				dropItem(GaiaItems.SPAWN_TAME, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.SPAWN_TRADER, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.BAG_RECORD, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 			}
 		}
 	}

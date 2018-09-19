@@ -83,7 +83,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 	}
 
 	@Override
@@ -174,14 +174,15 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 			}
 		}
 
-		// Detects biome and inflicts buff/debuff
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posZ);
-		int k = MathHelper.floor(posY);
-		BlockPos pos = new BlockPos(i, j, k);
-		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
-			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
-			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+		if (!this.world.isRemote) {
+            int i = MathHelper.floor(this.posX);
+            int j = MathHelper.floor(this.posY);
+            int k = MathHelper.floor(this.posZ);
+            
+            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+			}
 		}
 
 		super.onLivingUpdate();

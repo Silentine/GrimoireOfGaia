@@ -26,16 +26,16 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -153,8 +153,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			world.setEntityState(this, (byte) 9);
 
 			if (!world.isRemote) {
-				setSpawn((byte) 0);
-				setSpawn((byte) 0);
+				setSpawn((byte) 1);
 			}
 			spawn = 2;
 		}
@@ -270,13 +269,35 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	/* WITCH CODE */
 
 	private void setSpawn(byte id) {
-		EntityGaiaSummonSpider spiderling;
+		EntityZombie zombie;
+		EntitySkeleton skeleton;
 
 		if (id == 0) {
-			spiderling = new EntityGaiaSummonSpider(world);
-			spiderling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spiderling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spiderling)), null);
-			world.spawnEntity(spiderling);
+			zombie = new EntityZombie(world);
+			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
+			zombie.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			world.spawnEntity(zombie);
+		}
+
+		if (id == 1) {
+			skeleton = new EntitySkeleton(world);
+			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			skeleton.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			world.spawnEntity(skeleton);
 		}
 	}
 
@@ -286,7 +307,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
-				if (mob instanceof EntityGaiaSummonSpider) {
+				if (mob instanceof EntityZombie || mob instanceof EntitySkeleton) {
 					mob.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 1, true, true));
 				}
 			}

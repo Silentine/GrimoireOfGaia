@@ -194,7 +194,7 @@ public class GaiaItems {
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 
-			registry.register(new ItemWeaponDebug());
+//			registry.register(new ItemWeaponDebug());
 			registry.register(new ItemShard());
 			registry.register(new ItemShardMisc());
 			registry.register(new ItemFoodBase("food_meat", 6, 1.2F, true));

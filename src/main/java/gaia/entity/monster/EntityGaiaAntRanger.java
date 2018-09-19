@@ -71,7 +71,7 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 	protected void initEntityAI() {
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 	}
 
 	@Override
@@ -243,14 +243,14 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BOX_IRON, 1);
-				case 1:
-					ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-					ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LOOTING, 1));
-					this.entityDropItem(enchantmentBook, 1);
-				}
+				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LOOTING, 1));
+				this.entityDropItem(enchantmentBook, 1);
 			}
 		}
 	}

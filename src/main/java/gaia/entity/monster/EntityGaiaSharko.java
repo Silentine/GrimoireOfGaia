@@ -55,11 +55,6 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
-	}
-
-	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
 
@@ -253,6 +248,11 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	@Override
 	public boolean isPushedByWater() {
 		return false;
+	}
+	
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
 	}
 	/* IMMUNITIES */
 

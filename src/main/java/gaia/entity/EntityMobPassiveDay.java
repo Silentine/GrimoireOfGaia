@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	
-	private static final int SPAWN_GUARD_RADIUS = GaiaConfig.SPAWN.spawnGuardRadius;
+	private static final int SPAWN_GUARD_RADIUS = 16;
 
 	private static Set<Block> spawnBlocks = 
 			Sets.newHashSet
@@ -70,6 +70,7 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 
 	/**
 	 * The actual check. It inputs the radius and feeds it to the sphere shape method. After it gets the block position map it scans every block in that map. Then returns depending if the match triggers.
+	 * TODO Needs fixing.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
 		for (BlockPos location : BlockPosHelper.sphereShape(pos, SPAWN_GUARD_RADIUS)) {

@@ -5,6 +5,7 @@ import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaDwarf;
+import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMinotaur;
@@ -96,7 +97,11 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		}
 
 		if (living instanceof EntityGaiaDwarf) {
-			GlStateManager.translate(0.0F, -0.02F, 0.0F);
+			GlStateManager.translate(0.0F, -0.04F, 0.0F);
+		}
+		
+		if (living instanceof EntityGaiaGoblin) {
+			GlStateManager.translate(0.0F, -0.12F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaKobold) {

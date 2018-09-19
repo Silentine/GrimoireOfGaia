@@ -344,12 +344,11 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.SPAWN_HOLSTAURUS, 1);
-				case 1:
-					dropItem(mobClass == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
-				}
+				dropItem(GaiaItems.SPAWN_HOLSTAURUS, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(mobClass == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
 			}
 		}
 
@@ -386,6 +385,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			setEnchantmentBasedOnDifficulty(difficulty);
 			setMobType(1);
 			getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+			
 			setTextureType(0);
 			mobClass = 0;
 		}

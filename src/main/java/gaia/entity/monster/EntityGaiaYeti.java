@@ -103,13 +103,15 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 	// Detects biome and inflicts buff/debuff
 	@Override
 	public void onLivingUpdate() {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posZ);
-		int k = MathHelper.floor(posY);
-		BlockPos pos = new BlockPos(i, j, k);
-		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
-			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
-			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+		if (!this.world.isRemote) {
+            int i = MathHelper.floor(this.posX);
+            int j = MathHelper.floor(this.posY);
+            int k = MathHelper.floor(this.posZ);
+            
+            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+			}
 		}
 
 		super.onLivingUpdate();

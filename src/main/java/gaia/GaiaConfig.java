@@ -34,180 +34,27 @@ public class GaiaConfig {
 
 	public static class General {
 		/* 
-		 * TAIGA
-		 * REDWOOD_TAIGA,
-		 * REDWOOD_TAIGA_HILLS
+		 * SKY 
 		 */
-		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
-		@Config.Comment("Cyclops")
-		public int spawnCyclops = 60;
-		@Config.LangKey("entity.grimoireofgaia.yuki-onna.name")
-		@Config.Comment("Yuki-Onna")
-		public int spawnYukiOnna = 60;
-		@Config.LangKey("entity.grimoireofgaia.Oni.name")
-		@Config.Comment("Oni")
-		public int spawnOni = 80;
-		@Config.LangKey("entity.grimoireofgaia.nine_tails.name")
-		@Config.Comment("Nine Tails")
-		public int spawnNineTails = 40;
+		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
+		@Config.Comment("Ender Dragon Girl")
+		@Config.RequiresMcRestart
+		public int spawnEnderDragonGirl = 4;
 		/* 
-		 * FOREST, 
-		 * FOREST_HILLS, 
-		 * BIRCH_FOREST, 
-		 * BIRCH_FOREST_HILLS
+		 * NETHER 
 		 */
-		@Config.LangKey("entity.grimoireofgaia.dryad.name")
-		@Config.Comment("Dryad")
-		public int spawnDryad = 60;
-		@Config.LangKey("entity.grimoireofgaia.bee.name")
-		@Config.Comment("Bee")
-		public int spawnBee = 40;
-		@Config.LangKey("entity.grimoireofgaia.mandragora.name")
-		@Config.Comment("Mandragora")
-		public int spawnMandragora = 60;
-		@Config.LangKey("entity.grimoireofgaia.werecat.name")
-		@Config.Comment("Werecat")
-		public int spawnWerecat = 80;
-		@Config.LangKey("entity.grimoireofgaia.spriggan.name")
-		@Config.Comment("Spriggan")
-		public int spawnSpriggan = 40;
-		/* 
-		 * DESERT,
-		 * DESERT_HILLS
-		 */
-		@Config.LangKey("entity.grimoireofgaia.ant.name")
-		@Config.Comment("Ant Worker")
-		public int spawnAnt = 30;
-		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
-		@Config.Comment("Ant Salvager")
-		public int spawnAntRanger = 30;
-		@Config.LangKey("entity.grimoireofgaia.mummy.name")
-		@Config.Comment("Mummy")
-		public int spawnMummy = 100;
-		@Config.LangKey("entity.grimoireofgaia.anubis.name")
-		@Config.Comment("Anubis")
-		public int spawnAnubis = 80;
-		@Config.LangKey("entity.grimoireofgaia.sphinx.name")
-		@Config.Comment("Sphinx")
-		public int spawnSphinx = 40;
-		/*
-		 * PLAINS,
-		 * SAVANNA,
-		 * SAVANNA_PLATEAU
-		 */
-		@Config.LangKey("entity.grimoireofgaia.satyress.name")
-		@Config.Comment("Satyress")
-		public int spawnSatyress = 30;
-		@Config.LangKey("entity.grimoireofgaia.centaur.name")
-		@Config.Comment("Centaur")
-		public int spawnCentaur = 30;
-		@Config.LangKey("entity.grimoireofgaia.harpy.name")
-		@Config.Comment("Harpy")
-		public int spawnHarpy = 100;
-		@Config.LangKey("entity.grimoireofgaia.minotaurus.name")
-		@Config.Comment("Minotaurus")
-		public int spawnMinotaurus = 80;
-		@Config.LangKey("entity.grimoireofgaia.minotaur.name")
-		@Config.Comment("Minotaur")
-		public int spawnMinotaur = 40;
-		/*
-		 * MESA,
-		 * MESA_ROCK,
-		 * MESA_CLEAR_ROCK
-		 */
-		@Config.LangKey("entity.grimoireofgaia.orc.name")
-		@Config.Comment("Orc")
-		public int spawnOrc = 30;
-		/* 
-		 * SWAMP 
-		 */
-		@Config.LangKey("entity.grimoireofgaia.siren.name")
-		@Config.Comment("Siren")
-		public int spawnSiren = 60;
-		@Config.LangKey("entity.grimoireofgaia.naga.name")
-		@Config.Comment("Naga")
-		public int spawnNaga = 40;
-		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
-		@Config.Comment("Sludge Girl")
-		public int spawnSludgeGirl = 100;
-		@Config.LangKey("entity.grimoireofgaia.gelatinous_slime.name")
-		@Config.Comment("Gelatinous Slime")
-		public int spawnGelatinousSlime = 80;
-
-		/*
-		 * ROOFED_FOREST
-		 */
-		@Config.LangKey("entity.grimoireofgaia.matango.name")
-		@Config.Comment("Matango")
-		public int spawnMatango = 60;
-		@Config.LangKey("entity.grimoireofgaia.toad.name")
-		@Config.Comment("Toad")
-		public int spawnToad = 80;
-		@Config.LangKey("entity.grimoireofgaia.witch.name")
-		@Config.Comment("Witch")
-		public int spawnWitch = 60;
-		/*
-		 * JUNGLE,
-		 * JUNGLE_HILLS,
-		 * JUNGLE_EDGE
-		 */
-		@Config.LangKey("entity.grimoireofgaia.hunter.name")
-		@Config.Comment("Hunter")
-		public int spawnHunter = 60;
-		@Config.LangKey("entity.grimoireofgaia.cobble_golem.name")
-		@Config.Comment("Cobble Golem")
-		public int spawnCobbleGolem = 60;
-		@Config.LangKey("entity.grimoireofgaia.shaman.name")
-		@Config.Comment("Shaman")
-		public int spawnShaman = 60;
-		@Config.LangKey("entity.grimoireofgaia.cobblestone_golem.name")
-		@Config.Comment("Cobblestone Golem")
-		public int spawnCobblestoneGolem = 60;
-		/*
-		 * ICE_PLAINS,
-		 * ICE_MOUNTAINS
-		 */
-		@Config.LangKey("entity.grimoireofgaia.selkie.name")
-		@Config.Comment("Selkie")
-		public int spawnSelkie = 60;
-		@Config.LangKey("entity.grimoireofgaia.kobold.name")
-		@Config.Comment("Kobold")
-		public int spawnKobold = 60;
-		@Config.LangKey("entity.grimoireofgaia.yeti.name")
-		@Config.Comment("Yeti")
-		public int spawnYeti = 80;
-		/* 
-		 * COLD_TAIGA, 
-		 * COLD_TAIGA_HILLS, 
-		 * REDWOOD_TAIGA,
-		 * REDWOOD_TAIGA_HILLS 
-		 */
-		@Config.LangKey("entity.grimoireofgaia.dhampir.name")
-		@Config.Comment("Dhampir")
-		public int spawnDhampir = 80;
-		@Config.LangKey("entity.grimoireofgaia.vampire.name")
-		@Config.Comment("Vampire")
-		public int spawnVampire = 40;
-		/*
-		 * EXTREME_HILLS,
-		 * EXTREME_HILLS_EDGE,
-		 * EXTREME_HILLS_WITH_TREES
-		 */
-		@Config.LangKey("entity.grimoireofgaia.dwarf.name")
-		@Config.Comment("Dwarf")
-		public int spawnDwarf = 30;
-		@Config.LangKey("entity.grimoireofgaia.gryphon.name")
-		@Config.Comment("Gryphon")
-		public int spawnGryphon = 60;
-		@Config.LangKey("entity.grimoireofgaia.valkyrie.name")
-		@Config.Comment("Valkyrie")
-		public int spawnValkyrie = 40;
-		@Config.LangKey("entity.grimoireofgaia.dullahan.name")
-		@Config.Comment("Dullahan")
-		public int spawnDullahan = 100;
-		@Config.LangKey("entity.grimoireofgaia.banshee.name")
-		@Config.Comment("Banshee")
-		public int spawnBanshee = 80;
+		@Config.LangKey("entity.grimoireofgaia.succubus.name")
+		@Config.Comment("Succubus")
+		@Config.RequiresMcRestart
+		public int spawnSuccubus = 16;
+		@Config.LangKey("entity.grimoireofgaia.wither_cow.name")
+		@Config.Comment("Wither Cow")
+		@Config.RequiresMcRestart
+		public int spawnWitherCow = 8;
+		@Config.LangKey("entity.grimoireofgaia.baphomet.name")
+		@Config.Comment("Baphomet")
+		@Config.RequiresMcRestart
+		public int spawnBaphomet = 8;
 		/*
 		 * OCEAN,
 		 * RIVER,
@@ -217,55 +64,269 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("entity.grimoireofgaia.cecaelia.name")
 		@Config.Comment("Cecaelia")
+		@Config.RequiresMcRestart
 		public int spawnCecaelia = 80;
 		@Config.LangKey("entity.grimoireofgaia.mermaid.name")
 		@Config.Comment("Mermaid")
+		@Config.RequiresMcRestart
 		public int spawnMermaid = 40;
 		@Config.LangKey("entity.grimoireofgaia.sharko.name")
 		@Config.Comment("Sharko")
+		@Config.RequiresMcRestart
 		public int spawnSharko = 40;
+		/*
+		 * EXTREME_HILLS,
+		 * EXTREME_HILLS_EDGE,
+		 * EXTREME_HILLS_WITH_TREES,
+		 * MUTATED_EXTREME_HILLS
+		 */
+		@Config.LangKey("entity.grimoireofgaia.dwarf.name")
+		@Config.Comment("Dwarf")
+		@Config.RequiresMcRestart
+		public int spawnDwarf = 30;
+		@Config.LangKey("entity.grimoireofgaia.gryphon.name")
+		@Config.Comment("Gryphon")
+		@Config.RequiresMcRestart
+		public int spawnGryphon = 60;
+		@Config.LangKey("entity.grimoireofgaia.valkyrie.name")
+		@Config.Comment("Valkyrie")
+		@Config.RequiresMcRestart
+		public int spawnValkyrie = 40;
+		@Config.LangKey("entity.grimoireofgaia.dullahan.name")
+		@Config.Comment("Dullahan")
+		@Config.RequiresMcRestart
+		public int spawnDullahan = 100;
+		@Config.LangKey("entity.grimoireofgaia.banshee.name")
+		@Config.Comment("Banshee")
+		@Config.RequiresMcRestart
+		public int spawnBanshee = 80;
+		/*
+		 * ICE_PLAINS,
+		 * ICE_MOUNTAINS
+		 */
+		@Config.LangKey("entity.grimoireofgaia.selkie.name")
+		@Config.Comment("Selkie")
+		@Config.RequiresMcRestart
+		public int spawnSelkie = 60;
+		@Config.LangKey("entity.grimoireofgaia.kobold.name")
+		@Config.Comment("Kobold")
+		@Config.RequiresMcRestart
+		public int spawnKobold = 60;
+		@Config.LangKey("entity.grimoireofgaia.yeti.name")
+		@Config.Comment("Yeti")
+		@Config.RequiresMcRestart
+		public int spawnYeti = 80;
+		/*
+		 * JUNGLE,
+		 * JUNGLE_HILLS,
+		 * JUNGLE_EDGE,
+		 * MUTATED_JUNGLE,
+		 * MUTATED_JUNGLE_EDGE
+		 */
+		@Config.LangKey("entity.grimoireofgaia.hunter.name")
+		@Config.Comment("Hunter")
+		@Config.RequiresMcRestart
+		public int spawnHunter = 60;
+		@Config.LangKey("entity.grimoireofgaia.cobble_golem.name")
+		@Config.Comment("Cobble Golem")
+		@Config.RequiresMcRestart
+		public int spawnCobbleGolem = 60;
+		@Config.LangKey("entity.grimoireofgaia.shaman.name")
+		@Config.Comment("Shaman")
+		@Config.RequiresMcRestart
+		public int spawnShaman = 60;
+		@Config.LangKey("entity.grimoireofgaia.cobblestone_golem.name")
+		@Config.Comment("Cobblestone Golem")
+		@Config.RequiresMcRestart
+		public int spawnCobblestoneGolem = 60;
+		/* 
+		 * SWAMPLAND 
+		 * MUTATED_SWAMPLAND
+		 */
+		@Config.LangKey("entity.grimoireofgaia.siren.name")
+		@Config.Comment("Siren")
+		@Config.RequiresMcRestart
+		public int spawnSiren = 60;
+		@Config.LangKey("entity.grimoireofgaia.naga.name")
+		@Config.Comment("Naga")
+		@Config.RequiresMcRestart
+		public int spawnNaga = 30;
+		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
+		@Config.Comment("Sludge Girl")
+		@Config.RequiresMcRestart
+		public int spawnSludgeGirl = 100;
+		@Config.LangKey("entity.grimoireofgaia.gelatinous_slime.name")
+		@Config.Comment("Gelatinous Slime")
+		@Config.RequiresMcRestart
+		public int spawnGelatinousSlime = 80;
+		/*
+		 * PLAINS
+		 * MUTATED_PLAINS
+		 */
+		@Config.LangKey("entity.grimoireofgaia.satyress.name")
+		@Config.Comment("Satyress")
+		@Config.RequiresMcRestart
+		public int spawnSatyress = 30;
+		@Config.LangKey("entity.grimoireofgaia.centaur.name")
+		@Config.Comment("Centaur")
+		@Config.RequiresMcRestart
+		public int spawnCentaur = 30;
+		@Config.LangKey("entity.grimoireofgaia.harpy.name")
+		@Config.Comment("Harpy")
+		@Config.RequiresMcRestart
+		public int spawnHarpy = 100;
+		@Config.LangKey("entity.grimoireofgaia.minotaurus.name")
+		@Config.Comment("Minotaurus")
+		@Config.RequiresMcRestart
+		public int spawnMinotaurus = 80;
+		@Config.LangKey("entity.grimoireofgaia.minotaur.name")
+		@Config.Comment("Minotaur")
+		@Config.RequiresMcRestart
+		public int spawnMinotaur = 40;
+		/*
+		 * SAVANNA,
+		 * SAVANNA_PLATEAU,
+		 * MUTATED_SAVANNA,
+		 * MUTATED_SAVANNA_ROCK,
+		 * MUTATED_MESA,
+		 * MUTATED_MESA_CLEAR_ROCK
+		 */
+		@Config.LangKey("entity.grimoireofgaia.orc.name")
+		@Config.Comment("Orc")
+		public int spawnOrc = 30;
+		/* 
+		 * DESERT,
+		 * DESERT_HILLS,
+		 * MUTATED_DESERT
+		 */
+		@Config.LangKey("entity.grimoireofgaia.ant.name")
+		@Config.Comment("Ant Worker")
+		@Config.RequiresMcRestart
+		public int spawnAnt = 30;
+		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
+		@Config.Comment("Ant Salvager")
+		@Config.RequiresMcRestart
+		public int spawnAntRanger = 30;
+		@Config.LangKey("entity.grimoireofgaia.mummy.name")
+		@Config.Comment("Mummy")
+		@Config.RequiresMcRestart
+		public int spawnMummy = 100;
+		@Config.LangKey("entity.grimoireofgaia.anubis.name")
+		@Config.Comment("Anubis")
+		@Config.RequiresMcRestart
+		public int spawnAnubis = 80;
+		@Config.LangKey("entity.grimoireofgaia.sphinx.name")
+		@Config.Comment("Sphinx")
+		@Config.RequiresMcRestart
+		public int spawnSphinx = 40;
+		/* 
+		 * FOREST, 
+		 * FOREST_HILLS, 
+		 * BIRCH_FOREST, 
+		 * BIRCH_FOREST_HILLS
+		 */
+		@Config.LangKey("entity.grimoireofgaia.dryad.name")
+		@Config.Comment("Dryad")
+		@Config.RequiresMcRestart
+		public int spawnDryad = 60;
+		@Config.LangKey("entity.grimoireofgaia.bee.name")
+		@Config.Comment("Bee")
+		@Config.RequiresMcRestart
+		public int spawnBee = 40;
+		@Config.LangKey("entity.grimoireofgaia.mandragora.name")
+		@Config.Comment("Mandragora")
+		@Config.RequiresMcRestart
+		public int spawnMandragora = 60;
+		@Config.LangKey("entity.grimoireofgaia.werecat.name")
+		@Config.Comment("Werecat")
+		@Config.RequiresMcRestart
+		public int spawnWerecat = 80;
+		@Config.LangKey("entity.grimoireofgaia.spriggan.name")
+		@Config.Comment("Spriggan")
+		@Config.RequiresMcRestart
+		public int spawnSpriggan = 40;
+		/* 
+		 * TAIGA
+		 * REDWOOD_TAIGA,
+		 * REDWOOD_TAIGA_HILLS
+		 */
+		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
+		@Config.Comment("Cyclops")
+		@Config.RequiresMcRestart
+		public int spawnCyclops = 60;
+		@Config.LangKey("entity.grimoireofgaia.yuki-onna.name")
+		@Config.Comment("Yuki-Onna")
+		@Config.RequiresMcRestart
+		public int spawnYukiOnna = 60;
+		@Config.LangKey("entity.grimoireofgaia.Oni.name")
+		@Config.Comment("Oni")
+		@Config.RequiresMcRestart
+		public int spawnOni = 80;
+		@Config.LangKey("entity.grimoireofgaia.nine_tails.name")
+		@Config.Comment("Nine Tails")
+		@Config.RequiresMcRestart
+		public int spawnNineTails = 40;
+		/* 
+		 * COLD_TAIGA, 
+		 * COLD_TAIGA_HILLS, 
+		 * REDWOOD_TAIGA,
+		 * REDWOOD_TAIGA_HILLS 
+		 */
+		@Config.LangKey("entity.grimoireofgaia.dhampir.name")
+		@Config.Comment("Dhampir")
+		@Config.RequiresMcRestart
+		public int spawnDhampir = 80;
+		@Config.LangKey("entity.grimoireofgaia.vampire.name")
+		@Config.Comment("Vampire")
+		@Config.RequiresMcRestart
+		public int spawnVampire = 40;
+		/*
+		 * ROOFED_FOREST
+		 * MUTATED_ROOFED_FOREST
+		 */
+		@Config.LangKey("entity.grimoireofgaia.matango.name")
+		@Config.Comment("Matango")
+		@Config.RequiresMcRestart
+		public int spawnMatango = 60;
+		@Config.LangKey("entity.grimoireofgaia.toad.name")
+		@Config.Comment("Toad")
+		@Config.RequiresMcRestart
+		public int spawnToad = 80;
+		@Config.LangKey("entity.grimoireofgaia.witch.name")
+		@Config.Comment("Witch")
+		@Config.RequiresMcRestart
+		public int spawnWitch = 60;
 		/*
 		 * UNDERGROUND
 		 */
 		@Config.LangKey("entity.grimoireofgaia.creep.name")
 		@Config.Comment("Creep")
+		@Config.RequiresMcRestart
 		public int spawnCreep = 80;
 		@Config.LangKey("entity.grimoireofgaia.ender_eye.name")
 		@Config.Comment("Ender Eye")
+		@Config.RequiresMcRestart
 		public int spawnEnderEye = 40;
 		@Config.LangKey("entity.grimoireofgaia.arachne.name")
 		@Config.Comment("Arachne")
+		@Config.RequiresMcRestart
 		public int spawnArachne = 80;
 		@Config.LangKey("entity.grimoireofgaia.mimic.name")
 		@Config.Comment("Mimic")
+		@Config.RequiresMcRestart
 		public int spawnMimic = 80;
 		@Config.LangKey("entity.grimoireofgaia.deathword.name")
 		@Config.Comment("Deathword")
+		@Config.RequiresMcRestart
 		public int spawnDeathword = 40;
 		@Config.LangKey("entity.grimoireofgaia.bone_knight.name")
 		@Config.Comment("Bone Knight")
+		@Config.RequiresMcRestart
 		public int spawnBoneKnight = 40;
 		@Config.LangKey("entity.grimoireofgaia.flesh_lich.name")
 		@Config.Comment("Flesh Lich")
+		@Config.RequiresMcRestart
 		public int spawnFleshLich = 40;
-		/* 
-		 * NETHER 
-		 */
-		@Config.LangKey("entity.grimoireofgaia.succubus.name")
-		@Config.Comment("Succubus")
-		public int spawnSuccubus = 16;
-		@Config.LangKey("entity.grimoireofgaia.wither_cow.name")
-		@Config.Comment("Wither Cow")
-		public int spawnWitherCow = 8;
-		@Config.LangKey("entity.grimoireofgaia.baphomet.name")
-		@Config.Comment("Baphomet")
-		public int spawnBaphomet = 8;
-		/* 
-		 * SKY 
-		 */
-		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
-		@Config.Comment("Ender Dragon Girl")
-		public int spawnEnderDragonGirl = 4;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu1.spawns")
@@ -294,9 +355,6 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks")
 		@Config.Comment("Additional Blocks Gaia flower can spawn on")
 		public String[] additionalFlowerSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
-		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius")
-		@Config.Comment("(WIP) Adjust the effect radius of the Talisman of Protection")
-		public int spawnGuardRadius = 8;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu2.attributes")
@@ -383,18 +441,14 @@ public class GaiaConfig {
 	public static final Debug DEBUG = new Debug();
 
 	public static class Debug {
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks")
-		@Config.Comment("Tweaks the default dictionary for some \"M\" biomes. (Disable if you encounter issues)")
-		@Config.RequiresMcRestart
-		public boolean biomeTweaks = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity")
+		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity")
 		@Config.Comment("Mobs can drop nuggets/shards from other mods. (Disable if you encounter issues)")
 		public boolean oreUnity = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands")
+		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu1.Debug_Commands")
 		@Config.Comment("Disables all non-Gaia mobs from spawning")
 		@Config.RequiresMcRestart
 		public boolean debugCommands = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn")
+		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu2.Debug_Spawn")
 		@Config.Comment("Enables developer commands")
 		@Config.RequiresMcRestart
 		public boolean debugSpawn = false;

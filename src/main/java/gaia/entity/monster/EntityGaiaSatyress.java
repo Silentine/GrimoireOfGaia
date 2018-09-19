@@ -232,14 +232,16 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 		setAI((byte) 0);
 
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posZ);
-		int k = MathHelper.floor(posY);
-		BlockPos pos = new BlockPos(i, j, k);
-		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
-			setTextureType(1);
-		}
+		if (!this.world.isRemote) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
 
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				setTextureType(1);
+			}
+		}
+		
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 

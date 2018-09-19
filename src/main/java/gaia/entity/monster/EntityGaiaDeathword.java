@@ -180,6 +180,12 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 				world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		}
+
+		if (isBurning()) {
+			addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
+			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
+		}
+
 		super.onLivingUpdate();
 	}
 
@@ -317,12 +323,12 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.BAG_BOOK, 1);
-				case 1:
-					dropItem(GaiaItems.WEAPON_BOOK, 1);
-				}
+				dropItem(GaiaItems.BAG_BOOK, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.WEAPON_BOOK, 1);
 			}
 		}
 	}

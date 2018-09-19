@@ -168,14 +168,14 @@ public class ModelGaiaOrc extends ModelGaia {
 		convertToChild(head, lefthorn3);
 		convertToChild(head, headjaw);
 		convertToChild(rightarm, rightarmpauldron);
-		convertToChild(rightarm, rightarmhorn);
-		convertToChild(rightarm, rightarmgauntlet);
 		convertToChild(leftarm, leftarmpauldron);
+		convertToChild(rightarm, rightarmhorn);
 		convertToChild(leftarm, leftarmhorn);
+		convertToChild(rightarm, rightarmgauntlet);
 		convertToChild(leftarm, leftarmgauntlet);
 		convertToChild(rightleg, rightlegupper);
-		convertToChild(rightleg, rightlegboot);
 		convertToChild(leftleg, leftlegupper);
+		convertToChild(rightleg, rightlegboot);
 		convertToChild(leftleg, leftlegboot);
 	}
 

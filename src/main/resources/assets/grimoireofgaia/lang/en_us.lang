@@ -92,7 +92,6 @@ item.grimoireofgaia.weapon_book_battle.name=Book of Combat
 item.grimoireofgaia.weapon_book_nature.name=Book of Nature
 item.grimoireofgaia.weapon_book_wither.name=Book of Withering
 item.grimoireofgaia.weapon_book_buff.name=Combat Manual
-item.grimoireofgaia.weapon_battle_axe.name=Iron Battle Axe
 item.grimoireofgaia.weapon_debug.name=Debug Weapon
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_ring_speed.name=Ring of Speed
@@ -105,10 +104,9 @@ item.grimoireofgaia.accessory_trinket_levitation.name=Ball and Chain
 item.grimoireofgaia.accessory_cursed.name=Heavy Barbell
 #ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_0.name=Cage
-item.grimoireofgaia.accessory_headgear_1.name=Arrow Through Head
-item.grimoireofgaia.accessory_headgear_2.name=Drooping Maid
-item.grimoireofgaia.accessory_headgear_3.name=Cauldron
-item.grimoireofgaia.accessory_headgear_4.name=Iron Crown
+item.grimoireofgaia.accessory_headgear_1.name=Bolts
+item.grimoireofgaia.accessory_headgear_2.name=Arrow Through Head
+item.grimoireofgaia.accessory_headgear_3.name=Drooping Maid
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Spawn
 #BLOCK_NAMES
@@ -149,6 +147,7 @@ entity.grimoireofgaia.ender_eye.name=Ender Eye
 entity.grimoireofgaia.flesh_lich.name=Flesh Lich
 entity.grimoireofgaia.gelatinous_slime.name=Gelatinous Slime
 entity.grimoireofgaia.gryphon.name=Gryphon
+entity.grimoireofgaia.goblin.name=Goblin
 entity.grimoireofgaia.harpy.name=Harpy
 entity.grimoireofgaia.hunter.name=Hunter
 entity.grimoireofgaia.kobold.name=Kobold
@@ -189,7 +188,6 @@ entity.grimoireofgaia.trader.name=Trader
 entity.grimoireofgaia.weresheep.name=Weresheep
 #ENTITY_SUMMON_NAMES
 entity.grimoireofgaia.butler.name=Butler
-entity.grimoireofgaia.spiderling.name=Spiderling
 entity.grimoireofgaia.sporeling.name=Sporeling
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Solely effects Grimoire of Gaia mobs
@@ -266,8 +264,6 @@ configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Additional S
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nAdditional Blocks Gaia mobs can spawn on.
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Additional Flower Spawn Blocks
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nAdditional Blocks Gaia flower can spawn on.
-configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius=Talisman of Protection radius
-configgui.grimoireofgaia.category.spawn.Menu7.Spawn_Guard_Radius.tooltip=(WIP)\nAdjust the effect radius of the Talisman of Protection.
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Base Damage
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nMelee attacks deal an additional 2.0 (1 heart) of damage.
@@ -299,22 +295,20 @@ configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nDamage:
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Enable Spawns
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=Enable Gaia mobs to spawn.
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=Sets hostile day mobs to be passive
-configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=(WIP)\nHostile day mobs will no longer attack players on sight.
+configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=Hostile day mobs will no longer attack players on sight.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=Sets all mobs to be hostile
-configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=(WIP)\nAll mobs are now hostile.
+configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=All mobs are now hostile.
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Additional Nuggets
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Strafing Archers
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
 #CONFIG_DEBUG
-configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks=Biome Tweaks
-configgui.grimoireofgaia.category.debug.Menu1.Biome_Tweaks.tooltip=Tweaks the default dictionary for some "M" biomes.\n(Disable if you encounter issues)
-configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity=Unify Shard Drops
-configgui.grimoireofgaia.category.debug.Menu2.Ore_Unity.tooltip=\nMobs can drop nuggets/shards from other mods.\n(Disable if you encounter issues)
-configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn=Debug Spawns
-configgui.grimoireofgaia.category.debug.Menu3.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
-configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands=Debug Commands
-configgui.grimoireofgaia.category.debug.Menu4.Debug_Commands.tooltip=Enables developer commands.
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Unify Shard Drops
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nMobs can drop nuggets/shards from other mods.\n(Disable if you encounter issues)
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn=Debug Spawns
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn.tooltip=Disables all non-Gaia mobs from spawning.
+configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands=Debug Commands
+configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=Enables developer commands.
 #CONFIG_DIMENSIONS
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Dimension ID blacklist
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Disables Gaia mobs from spawning in the specified dimension ids.

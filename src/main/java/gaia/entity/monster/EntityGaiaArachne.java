@@ -180,7 +180,6 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 
 				if (!world.isRemote) {
 					setSpawn((byte) 0);
-					setSpawn((byte) 0);
 				}
 
 				spawnTimer = 0;
@@ -200,7 +199,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 				setEquipment((byte) 0);
 
 				if (!world.isRemote) {
-					setSpawn((byte) 1);
+					setSpawn((byte) 0);
 				}
 
 				spawnTimer = 0;
@@ -251,17 +250,9 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	private void setSpawn(byte id) {
-		EntityGaiaSummonSpider spiderling;
 		EntityCaveSpider caveSpider;
 
 		if (id == 0) {
-			spiderling = new EntityGaiaSummonSpider(world);
-			spiderling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spiderling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spiderling)), null);
-			world.spawnEntity(spiderling);
-		}
-
-		if (id == 1) {
 			caveSpider = new EntityCaveSpider(world);
 			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);

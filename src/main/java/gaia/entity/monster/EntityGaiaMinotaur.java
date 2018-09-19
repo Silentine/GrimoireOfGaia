@@ -195,8 +195,8 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
-		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100, 0));
-		addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 100, 0));
+		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
+		addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 20 * 60, 0));
 	}
 
 	@Override
@@ -246,12 +246,12 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.ACCESSORY_CURSED, 1);
-				case 1:
-					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 1), 0.0F);
-				}
+				dropItem(GaiaItems.ACCESSORY_CURSED, 1);
+			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 1), 0.0F);
 			}
 		}
 	}

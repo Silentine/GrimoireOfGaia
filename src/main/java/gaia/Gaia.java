@@ -57,9 +57,9 @@ public class Gaia {
 
 		MinecraftForge.EVENT_BUS.register(this);
 
-		if (GaiaConfig.DEBUG.biomeTweaks) {
-			GaiaSpawning.biomeTweaks();
-		}
+//		if (GaiaConfig.DEBUG.biomeTweaks) {
+//			GaiaSpawning.biomeTweaks();
+//		}
 
 		proxy.registerTileRenders();
 		proxy.registerLayerRenders();

@@ -240,7 +240,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
-			
+
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BAG_ARROW, 1);
@@ -253,12 +253,14 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingData);
 		setAI((byte) 0);
 
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posZ);
-		int k = MathHelper.floor(posY);
-		BlockPos pos = new BlockPos(i, j, k);
-		if (world.getBiome(new BlockPos(i, j, k)).getTemperature(pos) > 1.0F) {
-			setTextureType(1);
+		if (!this.world.isRemote) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				setTextureType(1);
+			}
 		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));

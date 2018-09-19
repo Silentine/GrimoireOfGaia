@@ -263,12 +263,11 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
-				case 1:
-					dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
-				}
+				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
+			}
+			
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
 			}
 		}
 	}

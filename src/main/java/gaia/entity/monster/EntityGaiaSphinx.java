@@ -181,14 +181,15 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 			
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(3)) {
-				case 0:
-					dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_SPHINX), 1);
-				case 1:
-					entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 2), 0.0F);
-				case 2:
-					entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 2), 0.0F);
-				}
+				dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_SPHINX), 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 2), 0.0F);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 2), 0.0F);
 			}
 		}
 	}

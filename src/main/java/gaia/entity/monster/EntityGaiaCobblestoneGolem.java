@@ -205,12 +205,11 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(2)) {
-				case 0:
-					entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 1), 0.0F);
-				case 1:
-					entityDropItem(new ItemStack(GaiaItems.SHARD_MISC, 1, 0), 0.0F);
-				}
+				entityDropItem(new ItemStack(GaiaItems.CHEST, 1, 1), 0.0F);
+			}
+	
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.SHARD_MISC, 1, 0), 0.0F);
 			}
 		}
 	}

@@ -65,7 +65,7 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 	}
 
 	@Override

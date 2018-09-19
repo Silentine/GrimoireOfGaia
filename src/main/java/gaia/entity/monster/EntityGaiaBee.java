@@ -14,6 +14,7 @@ import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -287,6 +288,11 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
+	}
+	
+	@Override
+	public EnumCreatureAttribute getCreatureAttribute() {
+		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
 	/* IMMUNITIES */

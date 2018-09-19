@@ -271,14 +271,15 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				switch (rand.nextInt(3)) {
-				case 0:
-					dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
-				case 1:
-					dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
-				case 2:
-					dropItem(Items.ELYTRA, 1);
-				}
+				dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
+			}
+
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Items.ELYTRA, 1);
 			}
 		}
 	}

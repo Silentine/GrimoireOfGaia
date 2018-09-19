@@ -29,6 +29,7 @@ import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaGelatinousSlime;
+import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
@@ -54,7 +55,6 @@ import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaSummonButler;
-import gaia.entity.monster.EntityGaiaSummonSpider;
 import gaia.entity.monster.EntityGaiaSummonSporeling;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
@@ -92,6 +92,7 @@ public class GaiaEntities {
 	private static int modEntityId = 0;
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
+//			createEntityEntry("example", Entity.class, bodyDarkestColor, spotsLightestColor),
 //			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
 			createEntityEntry("ant_ranger", EntityGaiaAntRanger.class, 0x8a7264, 0x303030),
@@ -118,6 +119,7 @@ public class GaiaEntities {
 			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 0x3158064),
 			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
 			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151),
+//			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
 			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
 			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
 			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),
@@ -197,7 +199,6 @@ public class GaiaEntities {
 			
 			/* SUMMON */
 			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
-			createEntityEntry("spiderling", EntityGaiaSummonSpider.class, registry);
 			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
 
 			/* PROJECTILE */
