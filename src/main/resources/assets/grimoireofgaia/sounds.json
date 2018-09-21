@@ -8,8 +8,19 @@
   "aggressive_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},
   "aggressive_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
   "aggressive_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
+  
+  "vampire_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},
+  "vampire_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
+  "vampire_death": {"category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
+  
+  "sphinx_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},
+  "sphinx_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
+  "sphinx_death": {"category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
+  
   "minotaur_say": { "category": "neutral", "sounds": ["grimoireofgaia:minotaur_say1","grimoireofgaia:minotaur_say2","grimoireofgaia:minotaur_say3","grimoireofgaia:minotaur_say4"]},
   "minotaur_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:minotaur_hurt1","grimoireofgaia:minotaur_hurt2","grimoireofgaia:minotaur_hurt3"]},
+  "minotaur_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
+  
   "box_open1": { "category": "neutral", "sounds": ["grimoireofgaia:box_open1"]},
   "box_open2": { "category": "neutral", "sounds": ["grimoireofgaia:box_open2"]},
   "bag_open": { "category": "neutral", "sounds": ["grimoireofgaia:bag_open"]},

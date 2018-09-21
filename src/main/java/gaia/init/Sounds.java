@@ -1,5 +1,10 @@
 package gaia.init;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import gaia.Gaia;
 import gaia.GaiaReference;
 import net.minecraft.init.SoundEvents;
@@ -13,7 +18,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class Sounds {
 	private Sounds() {}
-
+	
+	//Mob Sounds
 	public static final SoundEvent PASSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent PASSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent PASSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -26,9 +32,19 @@ public class Sounds {
 	public static final SoundEvent AGGRESSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent AGGRESSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
+	public static final SoundEvent VAMPIRE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent VAMPIRE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent VAMPIRE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent SPHINX_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent SPHINX_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent SPHINX_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
 	public static final SoundEvent MINOTAUR_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent MINOTAUR_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent MINOTAUR_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
+	//Other Sounds
 	public static final SoundEvent BOX_OPEN_1 = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BOX_OPEN_2 = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BAG_OPEN = SoundEvents.BLOCK_GRASS_STEP;
@@ -43,22 +59,22 @@ public class Sounds {
 		@SubscribeEvent
 		public static void registerSoundEvents(final RegistryEvent.Register<SoundEvent> event) {
 			Gaia.LOGGER.info("Registering Sounds");
+		
+			//Register mob sounds
+			String[] mobs = new String[]{
+					"passive", "assist", "aggressive", "vampire", "sphinx",
+					"minotaur"
+			};
+			for (int i=0; i < mobs.length; i++) {
+				event.getRegistry().registerAll(
+					createSoundEvent(mobs[i] + "_say"),
+					createSoundEvent(mobs[i] + "_hurt"),
+					createSoundEvent(mobs[i] + "_death")
+				);
+			}
+			
+			//Register misc sounds
 			event.getRegistry().registerAll(
-					createSoundEvent("passive_say"),
-					createSoundEvent("passive_hurt"),
-					createSoundEvent("passive_death"),
-
-					createSoundEvent("assist_say"),
-					createSoundEvent("assist_hurt"),
-					createSoundEvent("assist_death"),
-
-					createSoundEvent("aggressive_say"),
-					createSoundEvent("aggressive_hurt"),
-					createSoundEvent("aggressive_death"),
-
-					createSoundEvent("minotaur_say"),
-					createSoundEvent("minotaur_hurt"),
-
 					createSoundEvent("box_open1"),
 					createSoundEvent("box_open2"),
 					createSoundEvent("bag_open"),
@@ -66,6 +82,7 @@ public class Sounds {
 
 					createSoundEvent("none")
 			);
+			
 			Gaia.LOGGER.info("Sounds Finished");
 		}
 
