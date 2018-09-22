@@ -1,10 +1,5 @@
 package gaia.init;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import gaia.Gaia;
 import gaia.GaiaReference;
 import net.minecraft.init.SoundEvents;
@@ -297,7 +292,6 @@ public class Sounds {
 
 					createSoundEvent("none")
 			);
-			
 			Gaia.LOGGER.info("Sounds Finished");
 		}
 
