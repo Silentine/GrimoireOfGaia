@@ -226,17 +226,17 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.KOBOLD_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.KOBOLD_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.KOBOLD_DEATH;
 	}
 
 	@Override

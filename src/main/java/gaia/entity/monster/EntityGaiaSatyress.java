@@ -180,17 +180,17 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ASSIST_SAY;
+		return Sounds.SATYRESS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ASSIST_HURT;
+		return Sounds.SATYRESS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ASSIST_DEATH;
+		return Sounds.SATYRESS_DEATH;
 	}
 
 	@Override

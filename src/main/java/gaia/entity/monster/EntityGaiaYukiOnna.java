@@ -181,17 +181,17 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ASSIST_SAY;
+		return Sounds.YUKIONNA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ASSIST_HURT;
+		return Sounds.YUKIONNA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ASSIST_DEATH;
+		return Sounds.YUKIONNA_DEATH;
 	}
 
 	@Override

@@ -246,17 +246,17 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.SIREN_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.SIREN_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.SIREN_DEATH;
 	}
 
 	@Override

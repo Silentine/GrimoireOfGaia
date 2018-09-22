@@ -240,17 +240,17 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.SELKIE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.SELKIE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.SELKIE_DEATH;
 	}
 
 	@Override

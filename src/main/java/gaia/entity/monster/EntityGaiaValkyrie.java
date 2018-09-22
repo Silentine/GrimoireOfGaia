@@ -259,17 +259,17 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.VALKYRIE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.VALKYRIE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.VALKYRIE_DEATH;
 	}
 
 	@Override

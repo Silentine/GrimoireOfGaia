@@ -20,17 +20,17 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.PASSIVE_SAY;
+		return Sounds.CREEPERGIRL_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.PASSIVE_HURT;
+		return Sounds.CREEPERGIRL_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.PASSIVE_DEATH;
+		return Sounds.CREEPERGIRL_DEATH;
 	}
 
 	@Override

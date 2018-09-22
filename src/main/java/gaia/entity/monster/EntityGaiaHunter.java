@@ -231,17 +231,17 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ASSIST_SAY;
+		return Sounds.HUNTER_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ASSIST_HURT;
+		return Sounds.HUNTER_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ASSIST_DEATH;
+		return Sounds.HUNTER_DEATH;
 	}
 
 	@Override

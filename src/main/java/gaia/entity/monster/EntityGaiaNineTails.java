@@ -136,17 +136,17 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.NINETAILS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.NINETAILS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.NINETAILS_DEATH;
 	}
 
 	@Override

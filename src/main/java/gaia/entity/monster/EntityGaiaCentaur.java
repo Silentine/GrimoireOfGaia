@@ -196,17 +196,17 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ASSIST_SAY;
+		return Sounds.CENTAUR_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ASSIST_HURT;
+		return Sounds.CENTAUR_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ASSIST_DEATH;
+		return Sounds.CENTAUR_DEATH;
 	}
 
 	@Override
