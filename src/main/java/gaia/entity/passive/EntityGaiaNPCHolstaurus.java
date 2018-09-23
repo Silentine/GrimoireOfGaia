@@ -21,17 +21,17 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.PASSIVE_SAY;
+		return Sounds.HOLSTAURUS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.PASSIVE_HURT;
+		return Sounds.HOLSTAURUS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.PASSIVE_DEATH;
+		return Sounds.HOLSTAURUS_DEATH;
 	}
 
 	@Override

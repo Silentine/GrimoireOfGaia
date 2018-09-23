@@ -211,7 +211,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MINOTAUR_HURT;
+		return Sounds.MINOTAUR_DEATH;
 	}
 
 	@Override

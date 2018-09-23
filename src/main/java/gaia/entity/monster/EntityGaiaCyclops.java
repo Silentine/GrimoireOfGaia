@@ -172,17 +172,17 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ASSIST_SAY;
+		return Sounds.CYCLOPS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ASSIST_HURT;
+		return Sounds.CYCLOPS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ASSIST_DEATH;
+		return Sounds.CYCLOPS_DEATH;
 	}
 
 	@Override

@@ -173,17 +173,17 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return Sounds.BAPHOMET_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.AGGRESSIVE_HURT;
+		return Sounds.BAPHOMET_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.AGGRESSIVE_DEATH;
+		return Sounds.BAPHOMET_DEATH;
 	}
 
 	protected void playStepSound() {
