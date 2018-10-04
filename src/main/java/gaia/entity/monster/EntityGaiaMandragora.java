@@ -166,17 +166,17 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MUMMY_SAY;
+		return Sounds.MANDRAGORA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MUMMY_HURT;
+		return Sounds.MANDRAGORA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MUMMY_DEATH;
+		return Sounds.MANDRAGORA_DEATH;
 	}
 
 	@Override
