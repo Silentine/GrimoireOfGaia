@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +28,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -115,6 +117,21 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.YETI_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.YETI_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.YETI_DEATH;
 	}
 
 	@Override

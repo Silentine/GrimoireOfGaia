@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +28,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -186,6 +188,21 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
+	}
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.NAGA_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.NAGA_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.NAGA_DEATH;
 	}
 
 	@Override
