@@ -27,6 +27,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -128,11 +129,13 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	@Override
 	public void onLivingUpdate() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -153,6 +156,10 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
+			
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -168,6 +175,15 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
+		}
+	}
+	
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -258,6 +274,13 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -25,9 +24,9 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -37,7 +36,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaOni extends EntityMobHostileBase {
-	
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
 	private int buffEffect;
@@ -139,7 +138,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -163,6 +162,12 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 	private void setBuff() {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
+	}
+
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+
+		setAI((byte) 0);
 	}
 
 	@Override
@@ -206,11 +211,11 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
-			
+
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-	            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
+				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
 				this.entityDropItem(enchantmentBook, 1);
 			}
 		}
@@ -219,11 +224,19 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+
+		setCombatTask();
 
 		return ret;
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
 	}
 
 	/* SPAWN CONDITIONS */

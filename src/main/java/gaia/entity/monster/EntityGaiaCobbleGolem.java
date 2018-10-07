@@ -103,6 +103,16 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 		playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
 		return var2;
 	}
+	
+	@Override
+	public boolean isTameable() {
+		return true;
+	}
+	
+	@Override
+	public boolean isAIDisabled() {
+		return false;
+	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -118,11 +128,6 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	@SideOnly(Side.CLIENT)
 	public int getAttackTimer() {
 		return attackTimer;
-	}
-
-	@Override
-	public boolean isAIDisabled() {
-		return false;
 	}
 
 	@Override

@@ -48,8 +48,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+	
 	private static final String MOB_TYPE_TAG = "MobType";
-
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 	private final EntityAIGaiaBreakDoor breakDoor = new EntityAIGaiaBreakDoor(this);
@@ -232,6 +232,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
+		
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == Items.BOW) {
 			tasks.addTask(2, aiArrowAttack);
@@ -375,8 +376,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(2) == 0) {
-			tasks.addTask(2, aiArrowAttack);
-
 			ItemStack bowCustom = new ItemStack(Items.BOW);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, bowCustom);
 			bowCustom.addEnchantment(Enchantments.PUNCH, 1);
@@ -391,8 +390,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setTextureType(1);
 			mobClass = 1;
 		} else {
-			tasks.addTask(2, aiAttackOnCollide);
-
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
 			setEnchantmentBasedOnDifficulty(difficulty);
 
@@ -406,6 +403,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setTextureType(0);
 			mobClass = 0;
 		}
+		
+		setCombatTask();
 
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
 			canSpawnLevel3 = true;

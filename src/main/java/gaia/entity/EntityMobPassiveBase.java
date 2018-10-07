@@ -2,21 +2,33 @@ package gaia.entity;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Predicate;
+
 import gaia.GaiaConfig;
+import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -25,21 +37,93 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * This is a direct copy of EntityMobHostileBase. No additional changes have been made aside from the class name and extension.
+ * This is a direct copy of EntityMobHostileBase.
  *
  * @see EntityMobPassive
  */
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveBase extends EntityMobPassive {
-	
+
+	private static final DataParameter<Boolean> FRIENDLY = EntityDataManager.<Boolean>createKey(EntityMobPassiveBase.class, DataSerializers.BOOLEAN);
+
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
+
+	private EntityAINearestAttackableTarget aiNearestAttackableHostileTarget = new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
+		public boolean apply(@Nullable EntityLiving p_apply_1_) {
+			return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper);
+		}
+	});
 
 	public EntityMobPassiveBase(World worldIn) {
 		super(worldIn);
-		
+
 		if (GaiaConfig.OPTIONS.passiveHostileAllMobs) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
+		}
+	}
+
+	/**
+	 * Used to set if the mob can be tamed or not
+	 */
+	public boolean isTameable() {
+		return false;
+	}
+
+	@Override
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED && !isFriendly() && isTameable()) {
+
+			world.setEntityState(this, (byte) 8);
+
+			if (!player.capabilities.isCreativeMode) {
+				stack.shrink(1);
+			}
+
+			dataManager.set(FRIENDLY, Boolean.valueOf(true));
+			targetTasks.addTask(3, aiNearestAttackableHostileTarget);
+
+			return true;
+		} else {
+			return super.processInteract(player, hand);
+		}
+	}
+
+	@Override
+	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
+		if (EntityMobPassiveBase.class.isAssignableFrom(cls)) {
+			return false;
+		} else {
+			return cls == EntityCreeper.class ? false : super.canAttackClass(cls);
+		}
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(FRIENDLY, Boolean.valueOf(false));
+	}
+
+	public boolean isFriendly() {
+		return ((Boolean) this.dataManager.get(FRIENDLY)).booleanValue();
+	}
+
+	public void setFriendly() {
+		targetTasks.addTask(3, aiNearestAttackableHostileTarget);
+	}
+
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("friendly", isFriendly());
+	}
+
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		dataManager.set(FRIENDLY, Boolean.valueOf(compound.getBoolean("friendly")));
+
+		if (compound.getBoolean("friendly")) {
+			setFriendly();
 		}
 	}
 
@@ -56,7 +140,9 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 					}
 				}
 
-				((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 2, 0));
+				if (!isFriendly()) {
+					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 2, 0));
+				}
 			}
 			return true;
 		} else {
@@ -129,9 +215,9 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	/**
 	 * Adapted from @EntityCreeper
 	 *
-	 * @param sourceMob Entity creating the cloud
-	 * @param potionIn Potion effect
-	 * @param durationIn Potion duration
+	 * @param sourceMob   Entity creating the cloud
+	 * @param potionIn    Potion effect
+	 * @param durationIn  Potion duration
 	 * @param amplifierIn Potion level
 	 * @see EntityAreaEffectCloud
 	 */
@@ -139,18 +225,18 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
-		
+
 		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
 		entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
-		
-        entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
+
+		entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
 
 		world.spawnEntity(entityareaeffectcloud);
 	}
-	
+
 	/**
 	 * Used to adjust the motionY when a mob is hit.
 	 * 
@@ -167,7 +253,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 			motionX -= xRatio / (double) f1 * (double) f2;
 			motionY += (double) f2;
 			motionZ -= zRatio / (double) f1 * (double) f2;
-			
+
 			if (motionY > power) {
 				motionY = power;
 			}
@@ -190,7 +276,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		}
 	}
 	/* SPAWN CONDITIONS */
-	
+
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}

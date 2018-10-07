@@ -202,7 +202,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.SPAWN_TAME, 1);
+				dropItem(GaiaItems.FOOD_MONSTER_FEED_PREMIUM, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {

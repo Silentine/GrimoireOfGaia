@@ -59,7 +59,7 @@ public class ItemWeaponProp extends ItemBase {
 			return;
 		}
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -69,8 +69,7 @@ public class ItemWeaponProp extends ItemBase {
 	public void registerClient() {
 		ModelLoaderHelper.registerItem(this, 
 				"variant=ender", 
-				"variant=blaze", 
-				"variant=dagger", 
+				"variant=blaze",
 				"variant=club"
 				);
 	}

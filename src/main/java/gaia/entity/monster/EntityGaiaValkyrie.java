@@ -30,6 +30,10 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -45,10 +49,11 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	private static final double DETECTION_RANGE = 6D;
 
+	private static final DataParameter<Boolean> ANNOYED = EntityDataManager.<Boolean>createKey(EntityGaiaValkyrie.class, DataSerializers.BOOLEAN);
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
-	private int equipItems;
 	private int aggression;
 	private int aggressive;
 
@@ -65,7 +70,6 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		stepHeight = 1.0F;
 		isImmuneToFire = true;
 
-		equipItems = 0;
 		aggression = 0;
 		aggressive = 0;
 
@@ -93,7 +97,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
-		
+
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 	}
 
@@ -146,7 +150,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		/* AGGRESSION */
-		if (equipItems == 0) {
+		if (!isAnnoyed()) {
 			if (aggressive <= 4) {
 				if (playerDetection(DETECTION_RANGE)) {
 					if (aggression <= 60) {
@@ -161,18 +165,18 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 					}
 				}
 			} else {
+				dataManager.set(ANNOYED, Boolean.valueOf(true));
+
 				setAI((byte) 0);
 				setEquipment((byte) 2);
-
-				equipItems = 1;
 			}
 		}
 
-		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && equipItems == 0) {
+		if (getHealth() < EntityAttributes.MAX_HEALTH_3 * 1.00F && !isAnnoyed()) {
+			dataManager.set(ANNOYED, Boolean.valueOf(true));
+
 			setAI((byte) 0);
 			setEquipment((byte) 2);
-
-			equipItems = 1;
 		}
 		/* AGGRESSION */
 
@@ -246,6 +250,16 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 60, 0));
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+		targetTasks.removeTask(aiNearestAttackableTarget);
+
+		if (isAnnoyed()) {
+			setAI((byte) 0);
+			setAI((byte) 1);
+		}
+	}
+
 	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
@@ -255,6 +269,30 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 		return !list.isEmpty();
 
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(ANNOYED, Boolean.valueOf(false));
+	}
+
+	public boolean isAnnoyed() {
+		return ((Boolean) this.dataManager.get(ANNOYED)).booleanValue();
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		dataManager.set(ANNOYED, Boolean.valueOf(compound.getBoolean("annoyed")));
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		compound.setBoolean("annoyed", isAnnoyed());
+
+		setCombatTask();
 	}
 
 	@Override

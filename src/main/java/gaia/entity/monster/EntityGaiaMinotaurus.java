@@ -200,6 +200,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
+
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == Items.BOW) {
 			tasks.addTask(1, aiArrowAttack);
@@ -363,8 +364,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(4) == 0) {
-			tasks.addTask(1, aiArrowAttack);
-
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			setEnchantmentBasedOnDifficulty(difficulty);
 
@@ -379,16 +378,16 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			setTextureType(1);
 			mobClass = 1;
 		} else {
-			tasks.addTask(1, aiAttackOnCollide);
-
 			setEquipmentBasedOnDifficulty(difficulty);
 			setEnchantmentBasedOnDifficulty(difficulty);
 			setMobType(1);
 			getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-			
+
 			setTextureType(0);
 			mobClass = 0;
 		}
+
+		setCombatTask();
 
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
 			canSpawnLevel3 = true;

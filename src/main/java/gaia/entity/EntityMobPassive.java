@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -21,7 +21,7 @@ import net.minecraft.world.World;
  *
  * @see EntityMob
  */
-public abstract class EntityMobPassive extends EntityCreature implements IMob {
+public abstract class EntityMobPassive extends EntityCreature implements IAnimals {
 
 	EntityMobPassive(World worldIn) {
 		super(worldIn);

@@ -34,6 +34,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -158,11 +159,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 0)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 1)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -227,6 +230,10 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(2, aiArrowAttack);
+
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -257,6 +264,15 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);
 			world.spawnEntity(caveSpider);
+		}
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -379,11 +395,12 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP, 1, 0);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -403,6 +420,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

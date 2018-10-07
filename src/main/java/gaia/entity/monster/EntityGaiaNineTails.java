@@ -27,6 +27,10 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -36,10 +40,15 @@ import net.minecraft.world.World;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNineTails extends EntityMobHostileBase implements IRangedAttackMob {
 
+	private static final DataParameter<Integer> WEAPON_TYPE = EntityDataManager.createKey(EntityGaiaNineTails.class, DataSerializers.VARINT);
+
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int switchHealth;
+
+	private boolean animationPlay;
+	private int animationTimer;
 
 	public EntityGaiaNineTails(World worldIn) {
 		super(worldIn);
@@ -48,6 +57,9 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 		stepHeight = 1.0F;
 		switchHealth = 0;
 		isImmuneToFire = true;
+
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -93,6 +105,10 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 			var11.posY = posY + height / 2.0D + 0.5D;
 			world.spawnEntity(var11);
 		}
+
+		setEquipment((byte) 1);
+		animationPlay = true;
+		animationTimer = 0;
 	}
 
 	@Override
@@ -110,11 +126,22 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	public void onLivingUpdate() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
+			if (getWeaponType() == 0) {
+				if (rand.nextInt(4) == 0) {
+					setWeaponType(2);
+				} else {
+					setWeaponType(1);
+				}
+			}
+
+			setEquipmentEnchanted(getWeaponType());
+
 			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -126,11 +153,34 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
+
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
 			tasks.removeTask(aiArrowAttack);
 			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+
+	private void setEquipment(byte id) {
+		if (id == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+
+		if (id == 1) {
+			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
+		}
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.isEmpty()) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -196,22 +246,56 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
-		setLeftHanded(false);
-		ItemStack weapon;
-
-		if (rand.nextInt(4) == 0) {
-			weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
-			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
-		} else {
-			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
-			weapon.addEnchantment(Enchantments.KNOCKBACK, 1);
-		}
-
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+		setCombatTask();
 
 		return ret;
+	}
+
+	private void setEquipmentEnchanted(int id) {
+		ItemStack weapon;
+
+		switch (id) {
+		case 1:
+			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 1);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+			break;
+		case 2:
+			weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+			break;
+		}
+	}
+
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(WEAPON_TYPE, 0);
+	}
+
+	public int getWeaponType() {
+		return dataManager.get(WEAPON_TYPE);
+	}
+
+	private void setWeaponType(int par1) {
+		dataManager.set(WEAPON_TYPE, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setInteger("WeaponType", getWeaponType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		setWeaponType(compound.getInteger("WeaponType"));
+
+		setCombatTask();
 	}
 
 	/* SPAWN CONDITIONS */

@@ -16,11 +16,6 @@
                     "layer0": "grimoireofgaia:items/weapon_prop_blaze"
                 }
             },
-            "dagger": {
-                "textures": {
-                    "layer0": "grimoireofgaia:items/weapon_prop_dagger"
-                }
-            },
             "club": {
                 "textures": {
                     "layer0": "grimoireofgaia:items/weapon_prop_club"

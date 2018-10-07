@@ -28,15 +28,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * DEBUG item
+ * DEBUG weapon
  * 
  * Disable item in GaiaItems before release.
  */
-public class ItemWeaponDebug extends ItemBase {
+public class ItemDebugWeapon extends ItemBase {
 	private int attackDamage;
 
-	public ItemWeaponDebug() {
-		super("weapon_debug");
+	public ItemDebugWeapon() {
+		super("debug_weapon");
 		maxStackSize = 1;
 		setMaxDamage(780);
 		attackDamage = 256;

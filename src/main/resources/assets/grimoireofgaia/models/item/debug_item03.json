@@ -1,0 +1,6 @@
+{
+    "parent": "grimoireofgaia:item/debug_item01",
+    "textures": {
+		"0": "grimoireofgaia:items/models/debug/lance_iron"
+    }
+}

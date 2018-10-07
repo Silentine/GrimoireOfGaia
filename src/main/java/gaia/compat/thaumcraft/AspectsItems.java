@@ -28,6 +28,8 @@ import static gaia.init.GaiaItems.FOOD_COALFISH;
 import static gaia.init.GaiaItems.FOOD_HONEY;
 import static gaia.init.GaiaItems.FOOD_MANDRAKE;
 import static gaia.init.GaiaItems.FOOD_MEAT;
+import static gaia.init.GaiaItems.FOOD_MONSTER_FEED;
+import static gaia.init.GaiaItems.FOOD_MONSTER_FEED_PREMIUM;
 import static gaia.init.GaiaItems.FOOD_NETHER_WART;
 import static gaia.init.GaiaItems.FOOD_PIE_APPLE_GOLD;
 import static gaia.init.GaiaItems.FOOD_PIE_MANDRAKE;
@@ -212,6 +214,16 @@ public class AspectsItems {
 				.add(Aspect.LIFE, 2)
 				.add(Aspect.CRAFT, 1)
 				.add(Aspect.BEAST, 1));
+		
+		event.register.registerObjectTag(new ItemStack(FOOD_MONSTER_FEED), (new AspectList())
+				.add(Aspect.BEAST, 1)
+				.add(Aspect.LIFE, 1)
+				.add(Aspect.DESIRE, 2));
+		
+		event.register.registerObjectTag(new ItemStack(FOOD_MONSTER_FEED_PREMIUM), (new AspectList())
+				.add(Aspect.BEAST, 16)
+				.add(Aspect.LIFE, 16)
+				.add(Aspect.DESIRE, 8));
 
 		event.register.registerObjectTag(new ItemStack(FOOD_NETHER_WART), (new AspectList())
 				.add(Aspect.ALCHEMY, 4)

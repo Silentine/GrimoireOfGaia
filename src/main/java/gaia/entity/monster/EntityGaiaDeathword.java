@@ -31,6 +31,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -250,6 +251,13 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		}
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiStrafe);
+
+		setAI((byte) 1);
+	}
+
 	private void beaconMonster() {
 		if (!world.isRemote) {
 			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(6);
@@ -336,11 +344,12 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -350,6 +359,13 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

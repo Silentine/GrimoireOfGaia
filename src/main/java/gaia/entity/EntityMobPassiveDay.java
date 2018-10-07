@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 /**
- * Apply all changes made here to EntityMobHostileDay (except for AI and processInteract).
+ * Apply all changes made here to EntityMobHostileDay (except for AI).
  *
  * @see EntityMobHostileDay
  */
@@ -47,19 +47,19 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 			if (f > 0.5F && this.world.canSeeSky(this.getPosition())) {
 				if (torchCheck(this.world, this.getPosition())) {
 					return false;
+				} else {
+					int i = MathHelper.floor(this.posX);
+					int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+					int k = MathHelper.floor(this.posZ);
+					BlockPos blockpos = new BlockPos(i, j, k);
+					Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
+					Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalSpawnBlocks));
+
+					boolean defaultFlag = spawnBlocks.contains(var1);
+					boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
+
+					return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
 				}
-
-				int i = MathHelper.floor(this.posX);
-				int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-				int k = MathHelper.floor(this.posZ);
-				BlockPos blockpos = new BlockPos(i, j, k);
-				Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
-				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalSpawnBlocks));
-
-				boolean defaultFlag = spawnBlocks.contains(var1);
-				boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
-
-				return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
 			}
 		}
 
@@ -73,7 +73,13 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	 * TODO Needs fixing.
 	 */
 	private static boolean torchCheck(World world, BlockPos pos) {
-		for (BlockPos location : BlockPosHelper.sphereShape(pos, SPAWN_GUARD_RADIUS)) {
+//		for (BlockPos location : BlockPosHelper.sphereShape(pos, SPAWN_GUARD_RADIUS)) {
+//			if (blackList.contains(world.getBlockState(location).getBlock())) {
+//				return true;
+//			}
+//		}
+		
+		for (BlockPos location : BlockPos.getAllInBox(pos.add(-8, -8, -8), pos.add(8, 8, 8))) {
 			if (blackList.contains(world.getBlockState(location).getBlock())) {
 				return true;
 			}

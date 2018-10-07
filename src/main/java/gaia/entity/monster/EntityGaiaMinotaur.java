@@ -28,6 +28,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -199,6 +200,12 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 20 * 60, 0));
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+
+		setAI((byte) 0);
+	}
+
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.MINOTAUR_SAY;
@@ -259,7 +266,6 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_IRON));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -267,6 +273,8 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -290,6 +298,13 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

@@ -1,16 +1,18 @@
 package gaia.helpers;
 
-import net.minecraft.util.math.BlockPos;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import net.minecraft.util.math.BlockPos;
+
 public class BlockPosHelper {
-	private BlockPosHelper() {}
+	private BlockPosHelper() {
+	}
 
 	/**
-	 * Basic Sphere shape to create This is creating a map of coordinates to
-	 * use. This in particular is designed to create a sphere shape.
+	 * Basic Sphere shape
+	 * 
+	 * This is creating a map of coordinates to use. This in particular is designed to create a sphere shape.
 	 *
 	 * @param pos    The starting point we feed it
 	 * @param radius the size to iterate for

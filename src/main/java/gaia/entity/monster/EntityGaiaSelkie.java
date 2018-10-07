@@ -30,6 +30,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -153,7 +154,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 				if (!isPotionActive(MobEffects.SPEED)) {
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 				setAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;
@@ -197,6 +198,15 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		if (id == 1) {
 			tasks.removeTask(aiArrowAttack);
 			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+	
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == Items.BOW) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -290,7 +300,6 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -306,6 +315,8 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM_2);
 			}
 		}
+		
+		setCombatTask();
 
 		return ret;
 	}
@@ -316,6 +327,13 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		return false;
 	}
 	/* ARCHER DATA */
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

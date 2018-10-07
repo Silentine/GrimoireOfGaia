@@ -20,6 +20,7 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 	public RenderGaiaDryad(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDryad(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
+		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
 	}
 
 	private ModelGaiaDryad getModel() {
@@ -30,9 +31,14 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 	public void transformHeldFull3DItemLayer() {
 		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
 	}
+	
+	@Override
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
+		return getTexture((EntityGaiaDryad) entity);
+	}
 
-	private ResourceLocation getTexture(EntityGaiaDryad entityGaiaDryad) {
-		switch (entityGaiaDryad.getTextureType()) {
+	private ResourceLocation getTexture(EntityGaiaDryad entity) {
+		switch (entity.getTextureType()) {
 		case 0:
 			return texture01;
 		case 1:
@@ -40,10 +46,5 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 		default:
 			return texture01;
 		}
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(EntityLiving entity) {
-		return getTexture((EntityGaiaDryad) entity);
 	}
 }

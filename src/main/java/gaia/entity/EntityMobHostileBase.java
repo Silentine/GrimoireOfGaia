@@ -15,6 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -27,36 +31,65 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Apply all changes made here to EntityMobPassiveBase (except for AI and processInteract).
+ * Apply all changes made here to EntityMobPassiveBase (except for AI).
  *
  * @see EntityMobPassiveBase
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobHostileBase extends EntityMob {
 
+	private static final DataParameter<Boolean> NEUTRAL = EntityDataManager.<Boolean>createKey(EntityMobHostileBase.class, DataSerializers.BOOLEAN);
+
 	public EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
 	public EntityMobHostileBase(World worldIn) {
 		super(worldIn);
-
-		targetTasks.addTask(2, aiNearestAttackableTarget);
 	}
 
 	@Override
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getItem() == GaiaItems.SPAWN_TAME) {
-			world.setEntityState(this, (byte) 11);
+		if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED_PREMIUM && !isNeutral()) {
+			world.setEntityState(this, (byte) 8);
 
 			if (!player.capabilities.isCreativeMode) {
 				stack.shrink(1);
 			}
 
+			dataManager.set(NEUTRAL, Boolean.valueOf(true));
 			targetTasks.removeTask(aiNearestAttackableTarget);
 
 			return true;
 		} else {
 			return super.processInteract(player, hand);
+		}
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(NEUTRAL, Boolean.valueOf(false));
+	}
+
+	public boolean isNeutral() {
+		return ((Boolean) this.dataManager.get(NEUTRAL)).booleanValue();
+	}
+
+	public void setHostile() {
+		targetTasks.addTask(2, aiNearestAttackableTarget);
+	}
+	
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("neutral", isNeutral());
+	}
+
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		dataManager.set(NEUTRAL, Boolean.valueOf(compound.getBoolean("neutral")));
+
+		if (!compound.getBoolean("neutral")) {
+			setHostile();
 		}
 	}
 
@@ -147,9 +180,9 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	/**
 	 * Adapted from @EntityCreeper
 	 *
-	 * @param sourceMob Entity creating the cloud
-	 * @param potionIn Potion effect
-	 * @param durationIn Potion duration
+	 * @param sourceMob   Entity creating the cloud
+	 * @param potionIn    Potion effect
+	 * @param durationIn  Potion duration
 	 * @param amplifierIn Potion level
 	 * @see EntityAreaEffectCloud
 	 */
@@ -157,14 +190,14 @@ public abstract class EntityMobHostileBase extends EntityMob {
 
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(sourceMob.world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(sourceMob);
-		
+
 		entityareaeffectcloud.setRadius(2.5F);
 		entityareaeffectcloud.setRadiusOnUse(-0.5F);
 		entityareaeffectcloud.setWaitTime(10);
 		entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
 		entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float) entityareaeffectcloud.getDuration());
-		
-        entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
+
+		entityareaeffectcloud.addEffect(new PotionEffect(potionIn, durationIn, amplifierIn));
 
 		world.spawnEntity(entityareaeffectcloud);
 	}
@@ -185,13 +218,13 @@ public abstract class EntityMobHostileBase extends EntityMob {
 			motionX -= xRatio / (double) f1 * (double) f2;
 			motionY += (double) f2;
 			motionZ -= zRatio / (double) f1 * (double) f2;
-			
+
 			if (motionY > power) {
 				motionY = power;
 			}
 		}
 	}
-	
+
 	/* SPAWN CONDITIONS */
 	public boolean daysPassed() {
 		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
@@ -208,7 +241,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		}
 	}
 	/* SPAWN CONDITIONS */
-	
+
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}

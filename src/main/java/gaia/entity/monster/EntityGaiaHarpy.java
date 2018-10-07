@@ -178,6 +178,23 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 		}
 	}
+	
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "baby") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
+	}
+	
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiAvoid);
+		
+		setAI((byte) 0);
+	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -231,7 +248,6 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		if (!this.world.isRemote) {
             int i = MathHelper.floor(this.posX);
@@ -253,6 +269,8 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 		}
+		
+		setCombatTask();
 
 		return ret;
 	}
@@ -261,12 +279,10 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setEquipment((byte) 2);
-				isChild = true;
+				setBodyType("baby");
 			}
 		} else {
-			setEquipment((byte) 2);
-			isChild = true;
+			setBodyType("baby");
 		}
 	}
 
@@ -326,6 +342,8 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
+		
+		setCombatTask();
 	}
 	/* ALTERNATE SKIN */
 

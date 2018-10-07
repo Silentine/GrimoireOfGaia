@@ -8,12 +8,10 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.Ranged;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,7 +39,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -188,6 +185,12 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 		}
 	}
 
+	private void setCombatTask() {
+		if (!getHidding()) {
+			setAI((byte) 0);
+		}
+	}
+
 	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
@@ -258,7 +261,8 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -270,6 +274,8 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 		if (tag.hasKey("Hidding")) {
 			hidding = tag.getBoolean("Hidding");
 		}
+
+		setCombatTask();
 	}
 
 	public void writeEntityToNBT(NBTTagCompound tag) {

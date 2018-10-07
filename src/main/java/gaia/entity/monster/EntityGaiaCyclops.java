@@ -6,7 +6,6 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -26,9 +25,9 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -111,6 +110,11 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	}
 
 	@Override
+	public boolean isTameable() {
+		return true;
+	}
+	
+	@Override
 	public boolean isAIDisabled() {
 		return false;
 	}
@@ -170,6 +174,12 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+
+		setAI((byte) 0);
+	}
+
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.CYCLOPS_SAY;
@@ -214,11 +224,6 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.SPAWN_TAME, 1);
-			}
-			
-			// Unique Rare
-			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
 				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
 				this.entityDropItem(enchantmentBook, 1);
@@ -229,12 +234,13 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 		setEnchantmentBasedOnDifficulty(difficulty);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -245,6 +251,13 @@ public class EntityGaiaCyclops extends EntityMobPassiveDay {
 		return 10;
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

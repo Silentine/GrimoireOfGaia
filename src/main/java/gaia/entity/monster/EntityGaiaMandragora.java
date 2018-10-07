@@ -163,6 +163,16 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 		super.onLivingUpdate();
 	}
+	
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "baby") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
+	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -221,7 +231,9 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-
+		
+		setBodyType("baby");
+		
 		return ret;
 	}
 

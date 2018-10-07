@@ -188,12 +188,10 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	protected SoundEvent getAmbientSound() {
 		return Sounds.SHARKO_SAY;
 	}
-
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return Sounds.SHARKO_HURT;
 	}
-
 	@Override
 	protected SoundEvent getDeathSound() {
 		return Sounds.SHARKO_DEATH;
@@ -266,7 +264,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	public boolean isPushedByWater() {
 		return false;
 	}
-	
+
 	@Override
 	protected int getFireImmuneTicks() {
 		return 10;

@@ -26,9 +26,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -106,11 +106,11 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 	@Override
 	public void onLivingUpdate() {
 		if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
-            
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
 				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
 				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 			}
@@ -118,7 +118,7 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.YETI_SAY;

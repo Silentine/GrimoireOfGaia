@@ -169,6 +169,13 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		}
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiAvoid);
+
+		setAI((byte) 0);
+	}
+
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.WERECAT_SAY;
@@ -221,7 +228,6 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
@@ -230,6 +236,9 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
+
+		setCombatTask();
+
 		return ret;
 	}
 
@@ -275,6 +284,8 @@ public class EntityGaiaWerecat extends EntityMobHostileBase {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
+
+		setCombatTask();
 	}
 	/* ALTERNATE SKIN */
 

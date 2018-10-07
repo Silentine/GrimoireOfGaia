@@ -29,6 +29,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -66,11 +67,6 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
-	}
-
-	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
 	}
 
 	@Override
@@ -150,7 +146,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 				if (!isPotionActive(MobEffects.SPEED)) {
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 				setAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;
@@ -183,6 +179,15 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		if (id == 1) {
 			tasks.removeTask(aiArrowAttack);
 			tasks.addTask(1, aiAttackOnCollide);
+		}
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == Items.BOW) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -276,7 +281,6 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -289,7 +293,23 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 			}
 		}
 
+		setCombatTask();
+
 		return ret;
+	}
+
+	/* IMMUNITIES */
+	@Override
+	protected int getFireImmuneTicks() {
+		return 10;
+	}
+	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
 	}
 
 	/* SPAWN CONDITIONS */

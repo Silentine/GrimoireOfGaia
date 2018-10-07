@@ -12,7 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaBaphomet extends ModelGaia {
-
 	private ModelRenderer head;
 	private ModelRenderer headeyes;
 	private ModelRenderer headaccessory;

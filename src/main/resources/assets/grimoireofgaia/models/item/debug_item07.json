@@ -1,0 +1,6 @@
+{
+    "parent": "grimoireofgaia:item/debug_item06",
+    "textures": {
+		"0": "grimoireofgaia:items/models/debug/javelin_stone"
+    }
+}

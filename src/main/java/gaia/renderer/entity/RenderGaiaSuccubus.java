@@ -1,6 +1,7 @@
 package gaia.renderer.entity;
 
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.model.ModelGaiaSuccubus;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSuccubus extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/succubus.png");
+	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/succubus_male.png");
 
 	public RenderGaiaSuccubus(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSuccubus(), shadowSize);
@@ -24,8 +26,16 @@ public class RenderGaiaSuccubus extends RenderLiving<EntityLiving> {
 		return (ModelGaiaSuccubus) getMainModel();
 	}
 
+	private ResourceLocation getTexture(EntityGaiaSuccubus entity) {
+		if (!entity.isMale()) {
+			return texture;
+		} else {
+			return textureMale;
+		}
+	}
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {
-		return texture;
+		return getTexture((EntityGaiaSuccubus) entity);
 	}
 }

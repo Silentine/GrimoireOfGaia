@@ -219,6 +219,10 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			tasks.removeTask(aiBreakDoor);
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(2, aiArrowAttack);
+
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -278,6 +282,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
+
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
 			setAI((byte) 0);
@@ -380,15 +385,11 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(4) == 0) {
-			setAI((byte) 0);
-
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 
 			setTextureType(2);
 			mobClass = 1;
 		} else {
-			setAI((byte) 1);
-
 			switch (rand.nextInt(2)) {
 			case 0:
 				setTextureType(0);
@@ -465,6 +466,8 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 
 			mobClass = 0;
 		}
+
+		setCombatTask();
 
 		return ret;
 	}

@@ -1,7 +1,5 @@
 package gaia.entity.monster;
 
-import java.util.UUID;
-
 import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
@@ -12,6 +10,7 @@ import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -21,7 +20,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -42,17 +41,17 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDryad extends EntityMobPassiveDay {
+
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
-	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityCreature> aiAvoidCreature = new EntityAIAvoidEntity<>(this, EntityCreature.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityMob> aiAvoidMob = new EntityAIAvoidEntity<>(this, EntityMob.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
 	private int axeAttack;
-
-	private byte stamina;
-	private byte staminaTimer;
 
 	private byte inWaterTimer;
 
@@ -65,16 +64,13 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		switchHealth = 0;
 		axeAttack = 0;
 
-		stamina = (30 * 4);
-		staminaTimer = 0;
-
 		inWaterTimer = 0;
 	}
 
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-
+		tasks.addTask(1, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true));
 		tasks.addTask(2, new EntityAIWander(this, 1.0D));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(3, new EntityAILookIdle(this));
@@ -113,6 +109,11 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
+	}
+
+	@Override
+	public boolean isTameable() {
+		return true;
 	}
 
 	@Override
@@ -162,52 +163,22 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		}
 		/* FLEE DATA */
 
-		/*
-		 * STAMINA
-		 * 
-		 * TODO Eventually implement stamina system to all mobs
-		 * 
-		 * @see EntityIronGolem
-		 */
-//		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-//
-//		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D)) {
-//			if (staminaTimer > 0) {
-//				staminaTimer = 0;
-//			}
-//
-//			if (stamina > 0) {
-//				stamina -= 1;
-//			}
-//
-//			if ((stamina <= 0) && (!iattributeinstance.hasModifier(MODIFIER))) {
-//				iattributeinstance.applyModifier(MODIFIER);
-//			}
-//		} else if (stamina < (30 * 4)) {
-//			if (staminaTimer < (10 * 4)) {
-//				staminaTimer += 1;
-//			} else {
-//				stamina = (30 * 4);
-//
-//				if (iattributeinstance.hasModifier(MODIFIER)) {
-//					iattributeinstance.removeModifier(MODIFIER);
-//				}
-//			}
-//		}
-		/* STAMINA */
-
 		super.onLivingUpdate();
 	}
 
 	private void setAI(byte id) {
 		if (id == 0) {
-			tasks.addTask(1, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
+			tasks.removeTask(aiAvoidCreature);
+			tasks.removeTask(aiAvoidMob);
+			tasks.addTask(1, aiMeleeAttack);
 		}
 
 		if (id == 1) {
 			tasks.removeTask(aiMeleeAttack);
 			tasks.addTask(1, aiAvoid);
+			tasks.addTask(1, aiAvoidCreature);
+			tasks.addTask(1, aiAvoidMob);
 		}
 	}
 
@@ -219,8 +190,21 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
 		}
+	}
 
-		if (id == 2) {
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiAvoid);
+
+		setAI((byte) 0);
+	}
+
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "baby") {
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 		}
 	}
@@ -276,13 +260,14 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
 		}
 
 		setChild(true, 10);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -291,10 +276,10 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setEquipment((byte) 2);
+				setBodyType("baby");
 			}
 		} else {
-			setEquipment((byte) 2);
+			setBodyType("baby");
 		}
 	}
 

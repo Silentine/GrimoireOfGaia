@@ -31,6 +31,8 @@ import gaia.items.ItemFoodBase;
 import gaia.items.ItemFoodCoalfish;
 import gaia.items.ItemFoodHoney;
 import gaia.items.ItemFoodMandrake;
+import gaia.items.ItemFoodMonsterFeed;
+import gaia.items.ItemFoodMonsterFeedPremium;
 import gaia.items.ItemFoodNetherWart;
 import gaia.items.ItemFoodPieAppleGold;
 import gaia.items.ItemFoodPieMandrake;
@@ -63,7 +65,6 @@ import gaia.items.ItemWeaponBookMetal;
 import gaia.items.ItemWeaponBookNature;
 import gaia.items.ItemWeaponBookNightmare;
 import gaia.items.ItemWeaponBookWither;
-import gaia.items.ItemWeaponDebug;
 import gaia.items.ItemWeaponFan;
 import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
@@ -109,11 +110,16 @@ public class GaiaItems {
 	public static final Item BOX_OLD = Items.AIR;
 	// C
 	public static final Item CHEST = Items.AIR;
+	// D
+	public static final Item DEBUG_ITEM = Items.AIR;
+	public static final Item DEBUG_WEAPON = Items.AIR;
 	// F
 	public static final Item FOOD_COALFISH = Items.AIR;
 	public static final Item FOOD_HONEY = Items.AIR;
 	public static final Item FOOD_MANDRAKE = Items.AIR;
 	public static final Item FOOD_MEAT = Items.AIR;
+	public static final Item FOOD_MONSTER_FEED = Items.AIR;
+	public static final Item FOOD_MONSTER_FEED_PREMIUM = Items.AIR;
 	public static final Item FOOD_NETHER_WART = Items.AIR;
 	public static final Item FOOD_PIE_APPLE_GOLD = Items.AIR;
 	public static final Item FOOD_PIE_MANDRAKE = Items.AIR;
@@ -156,7 +162,6 @@ public class GaiaItems {
 	public static final Item WEAPON_BOOK_NATURE = Items.AIR;
 	public static final Item WEAPON_BOOK_NIGHTMARE = Items.AIR;
 	public static final Item WEAPON_BOOK_WITHER = Items.AIR;
-	public static final Item WEAPON_DEBUG = Items.AIR;
 	public static final Item WEAPON_FAN = Items.AIR;
 	public static final Item WEAPON_FAN_FIRE = Items.AIR;
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
@@ -174,6 +179,7 @@ public class GaiaItems {
 	public static final Item WEAPON_PROP_AXE_STONE = Items.AIR;
 	public static final Item WEAPON_PROP_AXE_IRON = Items.AIR;
 	public static final Item WEAPON_PROP_AXE_GOLD = Items.AIR;
+	public static final Item WEAPON_PROP_DAGGER_METAL = Items.AIR;
 
 	public static ToolMaterial MATERIAL_PROP = EnumHelper.addToolMaterial("material_prop", 0, 250, 6.0F, -3.0F, 36);
 	public static ToolMaterial MATERIAL_BOOK = EnumHelper.addToolMaterial("material_book", 2, 780, 6.0F, 2.0F, 22);
@@ -194,7 +200,8 @@ public class GaiaItems {
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 
-//			registry.register(new ItemWeaponDebug());
+//			registry.register(new ItemDebugItem());
+//			registry.register(new ItemDebugWeapon());
 			registry.register(new ItemShard());
 			registry.register(new ItemShardMisc());
 			registry.register(new ItemFoodBase("food_meat", 6, 1.2F, true));
@@ -206,6 +213,8 @@ public class GaiaItems {
 			registry.register(new ItemFoodSmallAppleGold());
 			registry.register(new ItemFoodMandrake());
 			registry.register(new ItemFoodWither());
+			registry.register(new ItemFoodMonsterFeed());
+			registry.register(new ItemFoodMonsterFeedPremium());
 			registry.register(new ItemFoodPieMandrake());
 			registry.register(new ItemFoodPieMeat());
 			registry.register(new ItemFoodPieAppleGold());
@@ -273,6 +282,7 @@ public class GaiaItems {
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_stone"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_iron"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_gold"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_dagger_metal"));
 
 			Gaia.LOGGER.info("Item registration complete.");
 		}

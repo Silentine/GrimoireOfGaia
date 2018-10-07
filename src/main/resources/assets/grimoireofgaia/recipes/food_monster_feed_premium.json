@@ -1,0 +1,11 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "grimoireofgaia:spawn_tame"
+        }
+    ],
+    "result": {
+        "item": "grimoireofgaia:food_monster_feed_premium"
+    }
+}

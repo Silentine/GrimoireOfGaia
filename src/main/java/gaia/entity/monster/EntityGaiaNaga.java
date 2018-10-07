@@ -35,13 +35,13 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaNaga extends EntityMobHostileDay {
-	
+
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
-	
+
 	private byte inWaterTimer;
 
 	public EntityGaiaNaga(World worldIn) {
@@ -50,13 +50,13 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		setSize(1.0F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-        setPathPriority(PathNodeType.WATER, 8.0F);
+		setPathPriority(PathNodeType.WATER, 8.0F);
 		isImmuneToFire = true;
 
 		buffEffect = 0;
 		animationPlay = false;
 		animationTimer = 0;
-		
+
 		inWaterTimer = 0;
 	}
 
@@ -164,7 +164,7 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -189,7 +189,7 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 	}
-	
+
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return Sounds.NAGA_SAY;

@@ -31,6 +31,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -42,7 +43,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
-	
+
 	private static final int DETECTION_RANGE = 3;
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
@@ -51,10 +52,10 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	private int timer;
 	private int switchDetect;
 	private int switchEquip;
-	
+
 	private boolean animationPlay;
 	private int animationTimer;
-	
+
 	private byte inWaterTimer;
 
 	public EntityGaiaCecaelia(World worldIn) {
@@ -62,15 +63,15 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-        setPathPriority(PathNodeType.WATER, 8.0F);
+		setPathPriority(PathNodeType.WATER, 8.0F);
 
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
-		
+
 		animationPlay = false;
 		animationTimer = 0;
-		
+
 		inWaterTimer = 0;
 	}
 
@@ -108,7 +109,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.bubble(target, this, distanceFactor);
-		
+
 		setEquipment((byte) 1);
 		animationPlay = true;
 		animationTimer = 0;
@@ -180,7 +181,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 				if (!isPotionActive(MobEffects.SPEED)) {
 					addPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0));
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 				setAI((byte) 1);
 				timer = 0;
 				switchEquip = 1;
@@ -200,7 +201,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 				switchEquip = 0;
 			}
 		}
-		
+
 		if (animationPlay) {
 			if (animationTimer != 20) {
 				animationTimer += 1;
@@ -217,6 +218,10 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
+
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -224,7 +229,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 			tasks.addTask(1, aiAttackOnCollide);
 		}
 	}
-	
+
 	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -232,6 +237,15 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
+		}
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.isEmpty()) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -290,11 +304,11 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
 			}
-			
+
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
-	            ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LUCK_OF_THE_SEA, 1));
+				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LUCK_OF_THE_SEA, 1));
 				this.entityDropItem(enchantmentBook, 1);
 			}
 		}
@@ -303,11 +317,13 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 3);
+
+		setCombatTask();
+
 		return ret;
 	}
 
@@ -327,6 +343,13 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 		return false;
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

@@ -146,6 +146,7 @@ public class EntityGaiaGoblin extends EntityMobHostileDay implements GaiaIRanged
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
+		
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == Items.BOW) {
 			tasks.addTask(1, aiArrowAttack);
@@ -251,8 +252,6 @@ public class EntityGaiaGoblin extends EntityMobHostileDay implements GaiaIRanged
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(4) == 0) {
-			tasks.addTask(1, aiArrowAttack);
-
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			setEnchantmentBasedOnDifficulty(difficulty);
 
@@ -263,8 +262,6 @@ public class EntityGaiaGoblin extends EntityMobHostileDay implements GaiaIRanged
 			setTextureType(1);
 			mobClass = 1;
 		} else {
-			tasks.addTask(1, aiAttackOnCollide);
-
 			setEquipmentBasedOnDifficulty(difficulty);
 			setEnchantmentBasedOnDifficulty(difficulty);
 			setMobType(1);
@@ -273,6 +270,8 @@ public class EntityGaiaGoblin extends EntityMobHostileDay implements GaiaIRanged
 			setTextureType(0);
 			mobClass = 0;
 		}
+		
+		setCombatTask();
 		
 		return ret;
 	}

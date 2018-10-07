@@ -96,6 +96,11 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean isTameable() {
+		return true;
+	}
 
 	@Override
 	public boolean isAIDisabled() {

@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:wheat_seeds"
+        },
+		{
+            "item": "minecraft:wheat_seeds"
+        },
+		{
+			"item": "grimoireofgaia:misc_experience",
+			"data": 2
+		}
+    ],
+    "result": {
+        "item": "grimoireofgaia:food_monster_feed",
+        "count": 4
+    }
+}

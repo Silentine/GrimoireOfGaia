@@ -229,7 +229,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY < 60.0D && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

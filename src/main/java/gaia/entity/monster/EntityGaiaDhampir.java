@@ -26,6 +26,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -223,6 +224,12 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		}
 	}
 
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+
+		setAI((byte) 0);
+	}
+
 	private void explode() {
 		if (!this.world.isRemote) {
 			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
@@ -298,7 +305,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -307,12 +313,21 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 			canSpawnLevel3 = true;
 		}
 
+		setCombatTask();
+
 		return ret;
 	}
 
 	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
 	}
 
 	/* SPAWN CONDITIONS */

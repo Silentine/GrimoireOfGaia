@@ -28,6 +28,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -140,11 +141,11 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		/* FLEE DATA */
 
 		if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
-            
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
 				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
 				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 			}
@@ -177,6 +178,23 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		if (id == 2) {
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 		}
+	}
+
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "baby") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
+		}
+	}
+
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiAvoid);
+
+		setAI((byte) 0);
 	}
 
 	@Override
@@ -245,39 +263,38 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
-
-		setLeftHanded(false);
-
-		ItemStack weapon;
-
-		setChild(true, 10);
 
 		if (!isChild) {
-			if (rand.nextInt(4) == 0) {
-				weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
-				weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
-			} else {
-				weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
-				weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
-			}
-
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
+			setEquipmentEnchanted();
 		}
 
+		setCombatTask();
+
 		return ret;
+	}
+
+	protected void setEquipmentEnchanted() {
+		ItemStack weapon;
+
+		if (rand.nextInt(4) == 0) {
+			weapon = new ItemStack(GaiaItems.WEAPON_FAN, 1);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 3);
+		} else {
+			weapon = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+			weapon.addEnchantment(Enchantments.KNOCKBACK, 2);
+		}
+
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weapon);
 	}
 
 	/* CHILD CODE */
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setEquipment((byte) 2);
-				isChild = true;
+				setBodyType("baby");
 			}
 		} else {
-			setEquipment((byte) 2);
-			isChild = true;
+			setBodyType("baby");
 		}
 	}
 
@@ -316,6 +333,13 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	private boolean isSnowing() {

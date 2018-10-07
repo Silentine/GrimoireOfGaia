@@ -5,7 +5,6 @@ import java.util.List;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
-import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
@@ -30,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -40,32 +40,36 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackMob {
-	
+
 	private static final int DETECTION_RANGE = 3;
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
-	private EntityAILeapAtTarget aiAttackLeapAtTarget = new EntityAILeapAtTarget(this, 0.4F);
+	private EntityAILeapAtTarget aiAttackLeapAtTarget = new EntityAILeapAtTarget(this, 0.2F);
 	private AILeapAttack aiAttackLeapAtTargetAI = new EntityGaiaBee.AILeapAttack(this);
-	
+
 	private int timer;
 	private int switchDetect;
 	private int switchEquip;
-	
+
 	private boolean animationPlay;
 	private int animationTimer;
+
+	private boolean isFriendly;
 
 	public EntityGaiaBee(World worldIn) {
 		super(worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-		
+
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
-		
+
 		animationPlay = false;
 		animationTimer = 0;
+
+		isFriendly = false;
 	}
 
 	@Override
@@ -99,20 +103,15 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
 	}
-	
+
 	/* RANGED DATA */
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		Ranged.poison(target, this, distanceFactor);
-		
+
 		setEquipment((byte) 1);
 		animationPlay = true;
 		animationTimer = 0;
-	}
-
-	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-		return super.canAttackClass(cls) && cls != EntityGaiaBee.class;
 	}
 	/* RANGED DATA */
 
@@ -140,6 +139,11 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	}
 
 	@Override
+	public boolean isTameable() {
+		return true;
+	}
+
+	@Override
 	public boolean isAIDisabled() {
 		return false;
 	}
@@ -149,7 +153,15 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
-		
+
+		if (isFriendly() && !isFriendly) {
+			setAI((byte) 1);
+			timer = 0;
+			switchEquip = 1;
+
+			isFriendly = true;
+		}
+
 		if (playerDetection()) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
@@ -179,7 +191,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 				switchEquip = 0;
 			}
 		}
-		
+
 		if (animationPlay) {
 			if (animationTimer != 20) {
 				animationTimer += 1;
@@ -191,12 +203,18 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setAI(byte id) {
 		if (id == 0) {
-			tasks.removeTask(aiAttackLeapAtTarget);
-			tasks.removeTask(aiAttackLeapAtTargetAI);
-			tasks.addTask(1, aiArrowAttack);
+			if (!isFriendly()) {
+				tasks.removeTask(aiAttackLeapAtTarget);
+				tasks.removeTask(aiAttackLeapAtTargetAI);
+				tasks.addTask(1, aiArrowAttack);
+
+				setEquipment((byte) 0);
+				animationPlay = false;
+				animationTimer = 0;
+			}
 		}
 
 		if (id == 1) {
@@ -205,7 +223,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			tasks.addTask(2, aiAttackLeapAtTargetAI);
 		}
 	}
-	
+
 	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -214,6 +232,10 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
+	}
+
+	private void setCombatTask() {
+		setAI((byte) 0);
 	}
 
 	static class AILeapAttack extends EntityAIAttackMelee {
@@ -226,7 +248,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			return 4.0D + attackTarget.width;
 		}
 	}
-	
+
 	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
@@ -251,7 +273,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	protected SoundEvent getDeathSound() {
 		return Sounds.BEE_DEATH;
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(Sounds.NONE, 1.0F, 1.0F);
@@ -263,7 +285,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				entityDropItem(new ItemStack(Items.DYE, 1, 15), 0.0F);
 			}
-			
+
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				dropItem(GaiaItems.FOOD_HONEY, 1);
 			}
@@ -289,7 +311,7 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			}
 		}
 	}
-	
+
 	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.ARTHROPOD;
@@ -305,6 +327,13 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

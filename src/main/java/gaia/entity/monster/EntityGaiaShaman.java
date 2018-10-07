@@ -32,6 +32,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
@@ -143,11 +144,13 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		this.beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -208,6 +211,10 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
+
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -245,6 +252,15 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
 			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
 			world.spawnEntity(zombie);
+		}
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -332,13 +348,14 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		PotionType potiontype = PotionTypes.POISON;
 		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -366,6 +383,13 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		return damage;
 	}
 	/* IMMUNITIES */
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
 
 	/* SPAWN CONDITIONS */
 	@Override

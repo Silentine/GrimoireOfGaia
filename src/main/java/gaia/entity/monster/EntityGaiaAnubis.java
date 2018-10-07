@@ -30,6 +30,10 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -43,6 +47,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
+	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaSuccubus.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
@@ -167,11 +172,13 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 			setAI((byte) 1);
 			switchHealth = 1;
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -261,6 +268,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(2, aiArrowAttack);
+			
+			setEquipment((byte) 0);
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
 		if (id == 1) {
@@ -280,6 +291,16 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 		if (id == 2) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+		}
+	}
+	
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "male") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
 		}
 	}
 
@@ -308,6 +329,18 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
 			world.spawnEntity(sphinx);
+		}
+	}
+	
+	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiArrowAttack);
+		
+		ItemStack itemstack = getHeldItemMainhand();
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+			setAI((byte) 0);
+		} else {
+			setAI((byte) 1);
 		}
 	}
 
@@ -396,6 +429,11 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.MISC_BOOK, 1);
 			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.SPAWN_WERESHEEP, 1);
+			}
 		}
 
 		// Boss
@@ -407,13 +445,19 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
+
+		if (world.rand.nextInt(4) == 0) {
+			dataManager.set(MALE, Boolean.valueOf(true));
+			setBodyType("male");
+		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
 
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
 			canSpawnLevel3 = true;
 		}
+		
+		setCombatTask();
 
 		return ret;
 	}
@@ -424,6 +468,30 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		return 10;
 	}
 	/* IMMUNITIES */
+	
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(MALE, Boolean.valueOf(false));
+	}
+	
+	public boolean isMale() {
+		return ((Boolean) this.dataManager.get(MALE)).booleanValue();
+	}
+	
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		dataManager.set(MALE, Boolean.valueOf(compound.getBoolean("male")));
+		
+		setCombatTask();
+	}
+
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("male", isMale());
+	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

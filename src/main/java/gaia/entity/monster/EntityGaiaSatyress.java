@@ -11,6 +11,7 @@ import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -21,6 +22,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -49,6 +51,8 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityCreature> aiAvoidCreature = new EntityAIAvoidEntity<>(this, EntityCreature.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
+	private EntityAIAvoidEntity<EntityMob> aiAvoidMob = new EntityAIAvoidEntity<>(this, EntityMob.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int fullHealth;
 	private int regenerateHealth;
@@ -118,6 +122,11 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	}
 
 	@Override
+	public boolean isTameable() {
+		return true;
+	}
+
+	@Override
 	public boolean isAIDisabled() {
 		return false;
 	}
@@ -158,13 +167,17 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	private void setAI(byte id) {
 		if (id == 0) {
-			tasks.addTask(1, aiMeleeAttack);
 			tasks.removeTask(aiAvoid);
+			tasks.removeTask(aiAvoidCreature);
+			tasks.removeTask(aiAvoidMob);
+			tasks.addTask(1, aiMeleeAttack);
 		}
 
 		if (id == 1) {
 			tasks.removeTask(aiMeleeAttack);
 			tasks.addTask(1, aiAvoid);
+			tasks.addTask(1, aiAvoidCreature);
+			tasks.addTask(1, aiAvoidMob);
 		}
 	}
 
@@ -176,6 +189,13 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.FEATHER));
 		}
+	}
+
+	private void setCombatTask() {
+		tasks.removeTask(aiMeleeAttack);
+		tasks.removeTask(aiAvoid);
+
+		setAI((byte) 0);
 	}
 
 	@Override
@@ -230,7 +250,6 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		setAI((byte) 0);
 
 		if (!this.world.isRemote) {
 			int i = MathHelper.floor(this.posX);
@@ -241,9 +260,11 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 				setTextureType(1);
 			}
 		}
-		
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 		setEnchantmentBasedOnDifficulty(difficulty);
+
+		setCombatTask();
 
 		return ret;
 	}
@@ -276,6 +297,8 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
+
+		setCombatTask();
 	}
 	/* ALTERNATE SKIN */
 
