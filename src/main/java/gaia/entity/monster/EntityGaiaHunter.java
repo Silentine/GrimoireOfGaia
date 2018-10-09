@@ -60,6 +60,8 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	private int switchDetect;
 	private int switchEquip;
 
+	private boolean isFriendly;
+
 	public EntityGaiaHunter(World worldIn) {
 		super(worldIn);
 
@@ -69,6 +71,8 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 		timer = 0;
 		switchDetect = 0;
 		switchEquip = 0;
+
+		isFriendly = false;
 	}
 
 	@Override
@@ -129,7 +133,7 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	public boolean isTameable() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isAIDisabled() {
 		return false;
@@ -137,6 +141,17 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 
 	@Override
 	public void onLivingUpdate() {
+		/* TODO Fix archers from attacking same spot despite target already being eliminated */
+		if (isFriendly() && !isFriendly) {
+			setAI((byte) 1);
+			timer = 0;
+			switchEquip = 1;
+
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
+			isFriendly = true;
+		}
+
 		if (playerDetection(DETECTION_RANGE)) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
@@ -169,8 +184,14 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 				if (isPotionActive(MobEffects.SPEED)) {
 					removePotionEffect(MobEffects.SPEED);
 				}
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				setAI((byte) 0);
+				
+				if (!isFriendly()) {
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+					setAI((byte) 0);
+				} else {
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+					setAI((byte) 1);
+				}
 
 				timer = 0;
 				switchEquip = 0;
@@ -182,8 +203,10 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 
 	private void setAI(byte id) {
 		if (id == 0) {
-			tasks.removeTask(aiAttackOnCollide);
-			tasks.addTask(1, aiArrowAttack);
+			if (!isFriendly()) {
+				tasks.removeTask(aiAttackOnCollide);
+				tasks.addTask(1, aiArrowAttack);
+			}
 		}
 
 		if (id == 1) {

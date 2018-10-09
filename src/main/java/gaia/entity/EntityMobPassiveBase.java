@@ -123,7 +123,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 		dataManager.set(FRIENDLY, Boolean.valueOf(compound.getBoolean("friendly")));
 
 		if (compound.getBoolean("friendly")) {
-			setFriendly();
+			this.setFriendly();
 		}
 	}
 

@@ -44,6 +44,8 @@ public abstract class EntityMobHostileBase extends EntityMob {
 
 	public EntityMobHostileBase(World worldIn) {
 		super(worldIn);
+		
+		targetTasks.addTask(2, aiNearestAttackableTarget);
 	}
 
 	@Override
@@ -75,8 +77,8 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		return ((Boolean) this.dataManager.get(NEUTRAL)).booleanValue();
 	}
 
-	public void setHostile() {
-		targetTasks.addTask(2, aiNearestAttackableTarget);
+	public void setNeutral() {
+		targetTasks.removeTask(aiNearestAttackableTarget);
 	}
 	
 	public void writeEntityToNBT(NBTTagCompound compound) {
@@ -88,8 +90,8 @@ public abstract class EntityMobHostileBase extends EntityMob {
 		super.readEntityFromNBT(compound);
 		dataManager.set(NEUTRAL, Boolean.valueOf(compound.getBoolean("neutral")));
 
-		if (!compound.getBoolean("neutral")) {
-			setHostile();
+		if (compound.getBoolean("neutral")) {
+			this.setNeutral();
 		}
 	}
 

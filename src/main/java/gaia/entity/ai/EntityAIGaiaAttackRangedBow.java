@@ -3,6 +3,7 @@ package gaia.entity.ai;
 import gaia.GaiaConfig;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Items;
@@ -39,7 +40,11 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	 */
 	@Override
 	public boolean shouldExecute() {
-		return entity.getAttackTarget() != null && entity.getHeldItemMainhand().getItem() == Items.BOW;
+		return this.entity.getAttackTarget() == null ? false : this.isBowInMainhand();
+	}
+
+	protected boolean isBowInMainhand() {
+		return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == Items.BOW;
 	}
 
 	/**
@@ -47,7 +52,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	 */
 	@Override
 	public boolean shouldContinueExecuting() {
-		return seeTime != -60 && (shouldExecute() || !entity.getNavigator().noPath()) && entity.getHeldItemMainhand().getItem() == Items.BOW;
+		return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isBowInMainhand();
 	}
 
 	/**
@@ -56,6 +61,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	@Override
 	public void startExecuting() {
 		super.startExecuting();
+        ((IRangedAttackMob)this.entity).setSwingingArms(true);
 		archer.setHoldingBow(true);
 	}
 
@@ -65,9 +71,10 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	@Override
 	public void resetTask() {
 		super.resetTask();
+        ((IRangedAttackMob)this.entity).setSwingingArms(false);
 		archer.setHoldingBow(false);
 		seeTime = 0;
-		attackTime = -1;
+//		attackTime = -1;
 		entity.resetActiveHand();
 	}
 
@@ -121,12 +128,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 				}
 
 				if (GaiaConfig.OPTIONS.strafingArchers) {
-					entity.getMoveHelper()
-							.strafe(strafingBackwards
-									? -0.4F
-									: 0.4F, strafingClockwise
-									? 0.4F
-									: -0.4F);
+					entity.getMoveHelper().strafe(strafingBackwards ? -0.4F : 0.4F, strafingClockwise ? 0.4F : -0.4F);
 				} else {
 					entity.getMoveHelper().strafe(0.01F, 0.01F);
 				}
