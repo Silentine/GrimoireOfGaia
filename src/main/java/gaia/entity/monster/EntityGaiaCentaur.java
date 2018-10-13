@@ -44,6 +44,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,18 +55,29 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.VARINT);
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true) {
+		public void resetTask() {
+			super.resetTask();
+			EntityGaiaCentaur.this.setSwingingArms(false);
+		}
+
+		public void startExecuting() {
+			super.startExecuting();
+			EntityGaiaCentaur.this.setSwingingArms(true);
+		}
+	};
+
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 	private EntityAIAvoidEntity<EntityCreature> aiAvoidCreature = new EntityAIAvoidEntity<>(this, EntityCreature.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 	private EntityAIAvoidEntity<EntityMob> aiAvoidMob = new EntityAIAvoidEntity<>(this, EntityMob.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
-	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
 	private int fullHealth;
 	private int regenerateHealth;
-
+	
 	private boolean isFriendly;
 
 	public EntityGaiaCentaur(World worldIn) {
@@ -75,8 +87,6 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		stepHeight = 1.0F;
 		fullHealth = 0;
 		regenerateHealth = 0;
-
-		isFriendly = false;
 	}
 
 	@Override
@@ -125,12 +135,11 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		/* TODO Fix archers from attacking same spot despite target already being eliminated */
 		if (isFriendly() && !isFriendly) {
 			setAI((byte) 2);
-
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
 			isFriendly = true;
 		}
-
+		
 		/* REGENERATE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
 			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
@@ -186,7 +195,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 			tasks.addTask(1, aiAvoidCreature);
 			tasks.addTask(1, aiAvoidMob);
 		}
-		
+
 		if (id == 2) {
 			tasks.removeTask(aiAvoid);
 			tasks.removeTask(aiAvoidCreature);
@@ -206,8 +215,18 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	}
 
 	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiArrowAttack);
 		ItemStack itemstack = getHeldItemMainhand();
+
 		if (itemstack.getItem() == Items.BOW) {
+			int i = 20;
+
+			if (this.world.getDifficulty() != EnumDifficulty.HARD) {
+				i = 40;
+			}
+
+			aiArrowAttack.setAttackCooldown(i);
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 2);
@@ -222,28 +241,30 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.rangedAttack(target, this, distanceFactor);
-	}
-
-	@Override
-	public void setSwingingArms(boolean swingingArms) {
+		if (!target.isDead) {
+			Ranged.rangedAttack(target, this, distanceFactor);
+		}
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataManager.register(HOLDING_BOW, false);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
 		dataManager.register(SKIN, 0);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isHoldingBow() {
-		return dataManager.get(HOLDING_BOW);
+	public boolean isSwingingArms() {
+		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
 
-	@Override
-	public void setHoldingBow(boolean swingingArms) {
-		dataManager.set(HOLDING_BOW, swingingArms);
+	public void setSwingingArms(boolean swingingArms) {
+		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isTarget() {
+		return true;
 	}
 	/* ARCHER DATA */
 

@@ -258,7 +258,7 @@ public class ModelGaiaKobold extends ModelGaia {
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		EntityGaiaKobold entity = (EntityGaiaKobold) entityIn;
 
-		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)) {
+		if (entity.isSwingingArms() && (itemstack.getItem() == Items.BOW)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

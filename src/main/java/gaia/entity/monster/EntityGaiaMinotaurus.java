@@ -49,10 +49,20 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true) {
+		public void resetTask() {
+			super.resetTask();
+			EntityGaiaMinotaurus.this.setSwingingArms(false);
+		}
+
+		public void startExecuting() {
+			super.startExecuting();
+			EntityGaiaMinotaurus.this.setSwingingArms(true);
+		}
+	};
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
@@ -200,9 +210,16 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
-
 		ItemStack itemstack = getHeldItemMainhand();
+
 		if (itemstack.getItem() == Items.BOW) {
+			int i = 20;
+
+			if (this.world.getDifficulty() != EnumDifficulty.HARD) {
+				i = 40;
+			}
+
+			aiArrowAttack.setAttackCooldown(i);
 			tasks.addTask(1, aiArrowAttack);
 		} else {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -251,24 +268,30 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.rangedAttack(target, this, distanceFactor);
+		if (!target.isDead) {
+			Ranged.rangedAttack(target, this, distanceFactor);
+		}
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);
-		dataManager.register(HOLDING_BOW, false);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isHoldingBow() {
-		return dataManager.get(HOLDING_BOW);
+	public boolean isSwingingArms() {
+		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
 
-	@Override
-	public void setHoldingBow(boolean swingingArms) {
-		dataManager.set(HOLDING_BOW, swingingArms);
+	public void setSwingingArms(boolean swingingArms) {
+		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isTarget() {
+		return true;
 	}
 	/* ARCHER DATA */
 

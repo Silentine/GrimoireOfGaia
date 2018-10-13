@@ -244,7 +244,7 @@ public class ModelGaiaSelkie extends ModelGaia {
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		EntityGaiaSelkie entity = (EntityGaiaSelkie) entityIn;
 
-		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)) {
+		if (entity.isSwingingArms() && (itemstack.getItem() == Items.BOW)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

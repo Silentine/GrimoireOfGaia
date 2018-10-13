@@ -328,7 +328,7 @@ public class ModelGaiaCentaur extends ModelGaia {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		if (entity.isHoldingBow() && (equipstack.getItem() == Items.BOW)) {
+		if (entity.isSwingingArms() && (equipstack.getItem() == Items.BOW)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

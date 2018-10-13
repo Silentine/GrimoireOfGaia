@@ -271,7 +271,7 @@ public class ModelGaiaMinotaurus extends ModelGaia {
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		EntityGaiaMinotaurus entity = (EntityGaiaMinotaurus) entityIn;
 
-		if (entity.isHoldingBow() && (itemstack.getItem() == Items.BOW)) {
+		if (entity.isSwingingArms() && (itemstack.getItem() == Items.BOW)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

@@ -50,10 +50,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
-	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
+	private static final int DETECTION_RANGE = 3;
 
-	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaSelkie.class, DataSerializers.BOOLEAN);
+	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true) {
+		public void resetTask() {
+			super.resetTask();
+			EntityGaiaSelkie.this.setSwingingArms(false);
+		}
+
+		public void startExecuting() {
+			super.startExecuting();
+			EntityGaiaSelkie.this.setSwingingArms(true);
+		}
+	};
+
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaSelkie.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
@@ -137,7 +149,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 
 	@Override
 	public void onLivingUpdate() {
-		if (playerDetection()) {
+		if (playerDetection(DETECTION_RANGE)) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
 			}
@@ -176,11 +188,11 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		}
 
 		if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
-            
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
 				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
 				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 			}
@@ -200,10 +212,20 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 			tasks.addTask(1, aiAttackOnCollide);
 		}
 	}
-	
+
 	private void setCombatTask() {
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiArrowAttack);
 		ItemStack itemstack = getHeldItemMainhand();
+
 		if (itemstack.getItem() == Items.BOW) {
+			int i = 20;
+
+			if (this.world.getDifficulty() != EnumDifficulty.HARD) {
+				i = 40;
+			}
+
+			aiArrowAttack.setAttackCooldown(i);
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 1);
@@ -213,8 +235,8 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 	/**
 	 * Detects if there are any EntityPlayer nearby
 	 */
-	private boolean playerDetection() {
-		AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1).grow(3);
+	private boolean playerDetection(int range) {
+		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
 		List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 		return !list.isEmpty();
@@ -228,23 +250,29 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.rangedAttack(target, this, distanceFactor);
+		if (!target.isDead) {
+			Ranged.rangedAttack(target, this, distanceFactor);
+		}
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataManager.register(HOLDING_BOW, false);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isHoldingBow() {
-		return dataManager.get(HOLDING_BOW);
+	public boolean isSwingingArms() {
+		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
 
-	@Override
-	public void setHoldingBow(boolean swingingArms) {
-		dataManager.set(HOLDING_BOW, swingingArms);
+	public void setSwingingArms(boolean swingingArms) {
+		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isTarget() {
+		return true;
 	}
 	/* ARCHER DATA */
 
@@ -315,7 +343,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM_2);
 			}
 		}
-		
+
 		setCombatTask();
 
 		return ret;
@@ -327,7 +355,7 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 		return false;
 	}
 	/* ARCHER DATA */
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);

@@ -51,11 +51,21 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
-	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
+	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true) {
+		public void resetTask() {
+			super.resetTask();
+			EntityGaiaDwarf.this.setSwingingArms(false);
+		}
+
+		public void startExecuting() {
+			super.startExecuting();
+			EntityGaiaDwarf.this.setSwingingArms(true);
+		}
+	};
 	private final EntityAIGaiaBreakDoor breakDoor = new EntityAIGaiaBreakDoor(this);
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDwarf.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> HOLDING_BOW = EntityDataManager.createKey(EntityGaiaDwarf.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaDwarf.class, DataSerializers.BOOLEAN);
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
@@ -282,27 +292,30 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		Ranged.rangedAttack(target, this, distanceFactor);
-	}
-
-	@Override
-	public void setSwingingArms(boolean swingingArms) {
+		if (!target.isDead) {
+			Ranged.rangedAttack(target, this, distanceFactor);
+		}
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);
-		dataManager.register(HOLDING_BOW, Boolean.FALSE);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isHoldingBow() {
-		return dataManager.get(HOLDING_BOW);
+	public boolean isSwingingArms() {
+		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
 
-	public void setHoldingBow(boolean swingingArms) {
-		dataManager.set(HOLDING_BOW, swingingArms);
+	public void setSwingingArms(boolean swingingArms) {
+		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isTarget() {
+		return true;
 	}
 	/* ARCHER DATA */
 

@@ -35,16 +35,24 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 		setMutexBits(3);
 	}
 
+	public void setAttackCooldown(int p_189428_1_) {
+		this.attackCooldown = p_189428_1_;
+	}
+
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
 	public boolean shouldExecute() {
-		return this.entity.getAttackTarget() == null ? false : this.isBowInMainhand();
+		return this.entity.getAttackTarget() == null ? false : this.isBowInMainhand() && isTarget();
 	}
 
 	protected boolean isBowInMainhand() {
 		return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == Items.BOW;
+	}
+
+	protected boolean isTarget() {
+		return ((GaiaIRangedAttackMob) this.entity).isTarget();
 	}
 
 	/**
@@ -52,7 +60,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	 */
 	@Override
 	public boolean shouldContinueExecuting() {
-		return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isBowInMainhand();
+		return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isBowInMainhand() && isTarget();
 	}
 
 	/**
@@ -61,8 +69,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	@Override
 	public void startExecuting() {
 		super.startExecuting();
-        ((IRangedAttackMob)this.entity).setSwingingArms(true);
-		archer.setHoldingBow(true);
+		((IRangedAttackMob) this.entity).setSwingingArms(true);
 	}
 
 	/**
@@ -71,11 +78,10 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	@Override
 	public void resetTask() {
 		super.resetTask();
-        ((IRangedAttackMob)this.entity).setSwingingArms(false);
-		archer.setHoldingBow(false);
-		seeTime = 0;
-//		attackTime = -1;
-		entity.resetActiveHand();
+		((IRangedAttackMob) this.entity).setSwingingArms(false);
+		this.seeTime = 0;
+		this.attackTime = -1;
+		this.entity.resetActiveHand();
 	}
 
 	/**
