@@ -317,7 +317,7 @@ configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=(要再起�
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=ディメンションブラックリスト
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=指定したIDのディメンションで当Modのモブがスポーンしなくなります。
 #JEI
-gaia.box.loot=Box Loot
-gui.gaia.box.loot=Box Loot
-gaia.satchel.loot=Bag Loot
-gui.gaia.satchel.loot=Bag Loot
+gaia.box.loot=箱の開封
+gui.gaia.box.loot=箱の開封
+gaia.satchel.loot=バッグの開封
+gui.gaia.satchel.loot=バッグの開封
