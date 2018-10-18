@@ -119,7 +119,7 @@ public class GaiaEntities {
 			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 0x3158064),
 			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
 			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151),
-//			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
+			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
 			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
 			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
 			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),

@@ -288,11 +288,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	public void setSwingingArms(boolean swingingArms) {
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
-	
-	@SideOnly(Side.CLIENT)
-	public boolean isTarget() {
-		return true;
-	}
 	/* ARCHER DATA */
 
 	private void explode() {

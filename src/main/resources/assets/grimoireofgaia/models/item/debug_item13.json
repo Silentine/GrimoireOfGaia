@@ -1,6 +1,0 @@
-{
-    "parent": "grimoireofgaia:item/debug_item11",
-    "textures": {
-		"0": "grimoireofgaia:items/models/debug/halberd_iron"
-    }
-}

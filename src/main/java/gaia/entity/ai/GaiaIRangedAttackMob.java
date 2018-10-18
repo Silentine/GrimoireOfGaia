@@ -18,5 +18,5 @@ public interface GaiaIRangedAttackMob extends IRangedAttackMob {
 	 */
 	void setSwingingArms(boolean swingingArms);
 	
-	boolean isTarget();
+//	boolean isTarget();
 }

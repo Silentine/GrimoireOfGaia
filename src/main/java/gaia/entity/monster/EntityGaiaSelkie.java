@@ -269,11 +269,6 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 	public void setSwingingArms(boolean swingingArms) {
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
-	
-	@SideOnly(Side.CLIENT)
-	public boolean isTarget() {
-		return true;
-	}
 	/* ARCHER DATA */
 
 	@Override

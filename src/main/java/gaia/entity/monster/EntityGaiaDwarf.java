@@ -312,11 +312,6 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	public void setSwingingArms(boolean swingingArms) {
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
-	
-	@SideOnly(Side.CLIENT)
-	public boolean isTarget() {
-		return true;
-	}
 	/* ARCHER DATA */
 
 	private void explode() {
@@ -392,6 +387,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			ItemStack bowCustom = new ItemStack(Items.BOW);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, bowCustom);
 			bowCustom.addEnchantment(Enchantments.PUNCH, 1);
+			
 			if (world.rand.nextInt(2) == 0) {
 				if (world.rand.nextInt(2) == 0) {
 					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);

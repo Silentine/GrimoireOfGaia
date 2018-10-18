@@ -212,7 +212,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaEnderEye.class, renderManager -> new RenderGaiaEnderEye(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaFleshLich.class, renderManager -> new RenderGaiaFleshLich(renderManager, med));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaGelatinousSlime.class, renderManager -> new RenderGaiaGelatinousSlime(renderManager, large));
-//		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaGoblin.class, renderManager -> new RenderGaiaGoblin(renderManager, tiny));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaGoblin.class, renderManager -> new RenderGaiaGoblin(renderManager, tiny));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaGryphon.class, renderManager -> new RenderGaiaGryphon(renderManager, med));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaHarpy.class, renderManager -> new RenderGaiaHarpy(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaHunter.class, renderManager -> new RenderGaiaHunter(renderManager, small));

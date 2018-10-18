@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -23,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -39,7 +41,7 @@ import net.minecraft.world.World;
 public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	private int shovelAttack;
-	
+
 	private byte inWaterTimer;
 
 	public EntityGaiaMandragora(World worldIn) {
@@ -50,7 +52,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		stepHeight = 1.0F;
 
 		shovelAttack = 0;
-		
+
 		inWaterTimer = 0;
 	}
 
@@ -163,7 +165,7 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 		super.onLivingUpdate();
 	}
-	
+
 	private void setBodyType(String id) {
 		if (id == "none") {
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
@@ -225,15 +227,20 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_GARDEN_GNOME), 1);
+			}
 		}
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		setBodyType("baby");
-		
+
 		return ret;
 	}
 

@@ -119,6 +119,7 @@ tile.grimoireofgaia.doll_creeper_girl.name=苦力怕女孩玩偶
 tile.grimoireofgaia.doll_ender_girl.name=終界女孩玩偶
 tile.grimoireofgaia.doll_slime_girl.name=史萊姆女孩玩偶
 tile.grimoireofgaia.doll_maid.name=女僕玩偶
+tile.grimoireofgaia.deco_garden_gnome.name=花園地精
 tile.grimoireofgaia.spawn_guard.name=護符
 tile.grimoireofgaia.web_temp.name=腐朽的蜘蛛網
 #ENTITY_NAMES
@@ -254,11 +255,11 @@ configgui.grimoireofgaia.category.Menu7.dimensions=世界設定
 configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nSetup 世界設定.
 #CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=生成日延遲
-configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=(WIP)\n怪物在經過一定天數後才會開始生成.
+configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=\n怪物在經過一定天數後才會開始生成.
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=設置生成日
-configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=(WIP)\n他們需要經過多少天數才會開始生成.
+configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=\n他們需要經過多少天數才會開始生成.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=(等級 3) 只生成在下雨/下雪.
-configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=(WIP)\n等級3怪物只在下雨/下雪時生成.
+configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=\n等級3怪物只在下雨/下雪時生成.
 configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(等級 3) 關閉自然生成
 configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\n等級3的怪物不會自然生成 但是會被特定怪物召喚.
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(等級 3) 生成機率

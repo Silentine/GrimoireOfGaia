@@ -3,6 +3,7 @@ package gaia.init;
 import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.block.BlockBust;
+import gaia.block.BlockDecoration;
 import gaia.block.BlockSpawnGuard;
 import gaia.block.BlockWebTemp;
 import gaia.tileentity.TileEntityBust;
@@ -30,6 +31,7 @@ public class GaiaBlocks {
 	public static final Block DOLL_ENDER_GIRL = Blocks.AIR;
 	public static final Block DOLL_SLIME_GIRL = Blocks.AIR;
 	public static final Block DOLL_MAID = Blocks.AIR;
+	public static final Block DECO_GARDEN_GNOME = Blocks.AIR;
 	public static final Block SPAWN_GUARD = Blocks.AIR;
 	public static final Block WEB_TEMP = Blocks.AIR;
 
@@ -51,6 +53,7 @@ public class GaiaBlocks {
 			registry.register(new BlockBust(Material.ROCK, "doll_ender_girl"));
 			registry.register(new BlockBust(Material.ROCK, "doll_slime_girl"));
 			registry.register(new BlockBust(Material.ROCK, "doll_maid"));
+			registry.register(new BlockDecoration(Material.CLOTH, "deco_garden_gnome"));
 			registry.register(new BlockSpawnGuard());
 			registry.register(new BlockWebTemp());
 
@@ -70,6 +73,7 @@ public class GaiaBlocks {
 			registerItemBlock(registry, DOLL_ENDER_GIRL);
 			registerItemBlock(registry, DOLL_SLIME_GIRL);
 			registerItemBlock(registry, DOLL_MAID);
+			registerItemBlock(registry, DECO_GARDEN_GNOME);
 			registerItemBlock(registry, SPAWN_GUARD);
 			registerItemBlock(registry, WEB_TEMP);
 

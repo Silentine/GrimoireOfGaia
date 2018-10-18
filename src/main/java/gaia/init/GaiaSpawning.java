@@ -10,7 +10,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 
-import gaia.Gaia;
 import gaia.GaiaConfig;
 import gaia.GaiaReference;
 import gaia.entity.EntityMobHostileBase;
@@ -37,6 +36,7 @@ import gaia.entity.monster.EntityGaiaDwarf;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
+import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
@@ -71,7 +71,6 @@ import gaia.entity.passive.EntityGaiaPropChestMimic;
 import gaia.entity.passive.EntityGaiaPropFlowerCyan;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
@@ -304,7 +303,8 @@ public class GaiaSpawning {
 		 * MUTATED_MESA_CLEAR_ROCK
 		 */
 		for (Biome biome : biomeMap.get(Type.SAVANNA)) {
-			add(GENERAL.spawnOrc, EntityGaiaOrc.class, 2, 4, biome);
+			add(GENERAL.spawnGoblin, EntityGaiaGoblin.class, 2, 6, biome);
+			add(GENERAL.spawnOrc, EntityGaiaOrc.class, 2, 6, biome);
 
 			underground(biome);
 		}

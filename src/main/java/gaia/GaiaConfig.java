@@ -191,9 +191,12 @@ public class GaiaConfig {
 		 * MUTATED_MESA,
 		 * MUTATED_MESA_CLEAR_ROCK
 		 */
+		@Config.LangKey("entity.grimoireofgaia.goblin.name")
+		@Config.Comment("Goblin")
+		public int spawnGoblin = 30;
 		@Config.LangKey("entity.grimoireofgaia.orc.name")
 		@Config.Comment("Orc")
-		public int spawnOrc = 30;
+		public int spawnOrc = 80;
 		/* 
 		 * DESERT,
 		 * DESERT_HILLS,
@@ -423,10 +426,10 @@ public class GaiaConfig {
 		@Config.RequiresMcRestart
 		public boolean enableSpawn = true;
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs")
-		@Config.Comment("(WIP) Hostile day mobs will no longer attack players on sight")
+		@Config.Comment("Hostile day mobs will no longer attack players on sight")
 		public boolean passiveHostileMobs = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs")
-		@Config.Comment("(WIP) All mobs are now hostile")
+		@Config.Comment("All mobs are now hostile")
 		public boolean passiveHostileAllMobs = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu3.AdditionalOre")
 		@Config.Comment("Gaia mobs can now drop Copper and Silver Nuggets")

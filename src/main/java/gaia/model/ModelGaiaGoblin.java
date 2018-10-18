@@ -1,7 +1,11 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaGoblin;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -169,7 +173,12 @@ public class ModelGaiaGoblin extends ModelGaia {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		if (swingProgress > -9990.0F) {
+		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
+		EntityGaiaGoblin entity = (EntityGaiaGoblin) entityIn;
+
+		if (entity.isSwingingArms() && (itemstack.getItem() == Items.BOW)) {
+			holdingBow(ageInTicks);
+		} else if (swingProgress > -9990.0F) {
 			holdingMelee();
 		}
 
@@ -181,6 +190,24 @@ public class ModelGaiaGoblin extends ModelGaia {
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+	}
+
+	private void holdingBow(float ageInTicks) {
+		float f = MathHelper.sin(swingProgress * (float) Math.PI);
+		float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float) Math.PI);
+
+		rightarm.rotateAngleZ = -0.3F;
+		leftarm.rotateAngleZ = 0.3F;
+		rightarm.rotateAngleY = -(0.1F - f * 0.6F);
+		leftarm.rotateAngleY = 0.3F - f * 0.6F;
+		rightarm.rotateAngleX = -((float) Math.PI / 2F);
+		leftarm.rotateAngleX = -((float) Math.PI / 2F);
+		rightarm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+		leftarm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
+		rightarm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+		leftarm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 	}
 
 	public void holdingMelee() {

@@ -248,7 +248,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
 			}
-			
+
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 3), 0.0F);
 			}

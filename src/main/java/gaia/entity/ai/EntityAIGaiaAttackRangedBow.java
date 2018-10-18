@@ -44,23 +44,23 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	 */
 	@Override
 	public boolean shouldExecute() {
-		return this.entity.getAttackTarget() == null ? false : this.isBowInMainhand() && isTarget();
+		return this.entity.getAttackTarget() == null ? false : this.isBowInMainhand();
 	}
 
 	protected boolean isBowInMainhand() {
 		return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == Items.BOW;
 	}
 
-	protected boolean isTarget() {
-		return ((GaiaIRangedAttackMob) this.entity).isTarget();
-	}
+//	protected boolean isTarget() {
+//		return ((GaiaIRangedAttackMob) this.entity).isTarget();
+//	}
 
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
 	public boolean shouldContinueExecuting() {
-		return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isBowInMainhand() && isTarget();
+		return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isBowInMainhand();
 	}
 
 	/**
