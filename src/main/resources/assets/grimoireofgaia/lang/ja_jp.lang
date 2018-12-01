@@ -1,5 +1,12 @@
 itemGroup.tabGaia=Grimoire of Gaia 3
 
+item.grimoireofgaia.weapon_prop_3.name=箒
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=ミノトーアのハンマー
+tile.grimoireofgaia.deco_mandragora_pot.name=マンドラゴラの鉢植え
+entity.grimoireofgaia.kikimora.name=キキーモラ
+entity.grimoireofgaia.goblin_feral.name=野生のゴブリン
+
+#ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鉄塊
 item.grimoireofgaia.shard_1.name=金塊
 item.grimoireofgaia.shard_2.name=ダイヤモンドの欠片
