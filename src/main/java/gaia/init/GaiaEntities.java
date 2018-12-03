@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAntRanger;
 import gaia.entity.monster.EntityGaiaAnubis;
@@ -30,9 +31,11 @@ import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.entity.monster.EntityGaiaGoblin;
+import gaia.entity.monster.EntityGaiaGoblinFeral;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
+import gaia.entity.monster.EntityGaiaKikimora;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.entity.monster.EntityGaiaMatango;
@@ -93,7 +96,7 @@ public class GaiaEntities {
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
 //			createEntityEntry("example", Entity.class, bodyDarkestColor, spotsLightestColor),
-//			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
+			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741),
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264),
 			createEntityEntry("ant_ranger", EntityGaiaAntRanger.class, 0x8a7264, 0x303030),
 			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534),
@@ -120,9 +123,11 @@ public class GaiaEntities {
 			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65),
 			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151),
 			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
+			createEntityEntry("goblin_feral", EntityGaiaGoblinFeral.class, 0x718a60, 0x8a1d3e),
 			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2),
 			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
 			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535),
+			createEntityEntry("kikimora", EntityGaiaKikimora.class, 0x191919, 0xd3bdac),
 			createEntityEntry("kobold", EntityGaiaKobold.class, 0x938dab, 0xafa7c1),
 			createEntityEntry("matango", EntityGaiaMatango.class, 0xab1311, 0xd8d8d8),
 			createEntityEntry("mermaid", EntityGaiaMermaid.class, 0x5c70b1, 0xa4452d),

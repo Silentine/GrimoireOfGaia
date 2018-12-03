@@ -205,11 +205,11 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.ant.name")
 		@Config.Comment("Ant Worker")
 		@Config.RequiresMcRestart
-		public int spawnAnt = 30;
+		public int spawnAnt = 20;
 		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
 		@Config.Comment("Ant Salvager")
 		@Config.RequiresMcRestart
-		public int spawnAntRanger = 30;
+		public int spawnAntRanger = 20;
 		@Config.LangKey("entity.grimoireofgaia.mummy.name")
 		@Config.Comment("Mummy")
 		@Config.RequiresMcRestart
@@ -227,6 +227,8 @@ public class GaiaConfig {
 		 * FOREST_HILLS, 
 		 * BIRCH_FOREST, 
 		 * BIRCH_FOREST_HILLS
+		 * MUTATED_BIRCH_FOREST 
+		 * MUTATED_BIRCH_FOREST_HILLS
 		 */
 		@Config.LangKey("entity.grimoireofgaia.dryad.name")
 		@Config.Comment("Dryad")
@@ -261,7 +263,7 @@ public class GaiaConfig {
 		@Config.Comment("Yuki-Onna")
 		@Config.RequiresMcRestart
 		public int spawnYukiOnna = 60;
-		@Config.LangKey("entity.grimoireofgaia.Oni.name")
+		@Config.LangKey("entity.grimoireofgaia.oni.name")
 		@Config.Comment("Oni")
 		@Config.RequiresMcRestart
 		public int spawnOni = 80;
@@ -275,6 +277,10 @@ public class GaiaConfig {
 		 * REDWOOD_TAIGA,
 		 * REDWOOD_TAIGA_HILLS 
 		 */
+		@Config.LangKey("entity.grimoireofgaia.kikimora.name")
+		@Config.Comment("Kikimora")
+		@Config.RequiresMcRestart
+		public int spawnKikimora = 40;
 		@Config.LangKey("entity.grimoireofgaia.dhampir.name")
 		@Config.Comment("Dhampir")
 		@Config.RequiresMcRestart
@@ -447,11 +453,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity")
 		@Config.Comment("Mobs can drop nuggets/shards from other mods. (Disable if you encounter issues)")
 		public boolean oreUnity = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu1.Debug_Commands")
+		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn")
 		@Config.Comment("Disables all non-Gaia mobs from spawning")
 		@Config.RequiresMcRestart
 		public boolean debugCommands = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu2.Debug_Spawn")
+		@Config.LangKey("configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands")
 		@Config.Comment("Enables developer commands")
 		@Config.RequiresMcRestart
 		public boolean debugSpawn = false;

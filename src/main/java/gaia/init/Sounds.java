@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class Sounds {
 	private Sounds() {}
 	
-	//Generic Mob Sounds
+	// GENERAL
 	public static final SoundEvent PASSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent PASSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent PASSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -26,11 +26,19 @@ public class Sounds {
 	public static final SoundEvent AGGRESSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent AGGRESSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent AGGRESSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent DEBUG_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent DEBUG_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent DEBUG_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	// A
 	public static final SoundEvent ANT_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANT_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANT_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent ANTRANGER_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANTRANGER_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANTRANGER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent ANUBIS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANUBIS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -59,14 +67,6 @@ public class Sounds {
 	public static final SoundEvent CENTAUR_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CENTAUR_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CENTAUR_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-
-	public static final SoundEvent COBBLEGOLEM_SAY = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent COBBLEGOLEM_HURT = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent COBBLEGOLEM_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-
-	public static final SoundEvent COBBLESTONEGOLEM_SAY = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent COBBLESTONEGOLEM_HURT = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent COBBLESTONEGOLEM_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent CYCLOPS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CYCLOPS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -104,6 +104,10 @@ public class Sounds {
 	public static final SoundEvent HUNTER_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HUNTER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 	// K
+	public static final SoundEvent KIKIMORA_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent KIKIMORA_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent KIKIMORA_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
 	public static final SoundEvent KOBOLD_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KOBOLD_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KOBOLD_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -211,14 +215,7 @@ public class Sounds {
 	public static final SoundEvent YUKIONNA_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent YUKIONNA_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent YUKIONNA_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	// 	SUMMON
-	public static final SoundEvent SUMMONBUTLER_SAY = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent SUMMONBUTLER_HURT = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent SUMMONBUTLER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-
-	public static final SoundEvent SUMMONSPORELING_SAY = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent SUMMONSPORELING_HURT = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent SUMMONSPORELING_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
 	// 	PASSIVE
 	public static final SoundEvent HOLSTAURUS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HOLSTAURUS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -243,7 +240,11 @@ public class Sounds {
 	public static final SoundEvent SLIMEGIRL_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SLIMEGIRL_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SLIMEGIRL_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-
+	
+	// 	GENERIC
+	public static final SoundEvent STEP_SANDALS = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent STEP_WEBBED = SoundEvents.BLOCK_GRASS_STEP;
+	
 	//	OTHER
 	public static final SoundEvent BOX_OPEN_1 = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BOX_OPEN_2 = SoundEvents.BLOCK_GRASS_STEP;
@@ -262,14 +263,16 @@ public class Sounds {
 		
 			//Register mob sounds
 			String[] mobs = new String[]{
-					"passive", "assist", "aggressive",
-					"ant", "anubis", "arachne", 
+					// GENERAL
+					"passive", "assist", "aggressive", "debug",
+					// SPECIFIC
+					"ant", "ant_ranger", "anubis", "arachne", 
 					"banshee", "baphomet", "bee", 
-					"cecaelia", "centaur", "cobblegolem", "cobblestonegolem", "cyclops", 
+					"cecaelia", "centaur", "cyclops", 
 					"dhampir", "dryad", "dullahan", "dwarf",
 					"goblin", "gryphon", 
 					"harpy", "hunter", 
-					"kobold", 
+					"kikimora", "kobold", 
 					"mandragora", "matango", "mermaid", "minotaur", "minotaurus", "mummy", 
 					"naga", "ninetails", 
 					"oni", "orc", 
@@ -277,8 +280,8 @@ public class Sounds {
 					"toad", 
 					"valkyrie", "vampire", 
 					"werecat", "witch", 
-					"yeti", "yukionna", 
-					"summonbutler", "summonsporeling", 
+					"yeti", "yukionna",
+					// PASSIVE
 					"holstaurus", "trader", "weresheep",
 					"creepergirl", "endergirl", "slimegirl"
 			};
@@ -292,6 +295,10 @@ public class Sounds {
 			
 			//Register misc sounds
 			event.getRegistry().registerAll(
+					// 	GENERIC
+					createSoundEvent("step_sandals"),
+					createSoundEvent("step_webbed"),
+					//	OTHER
 					createSoundEvent("box_open1"),
 					createSoundEvent("box_open2"),
 					createSoundEvent("bag_open"),

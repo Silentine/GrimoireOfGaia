@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
@@ -36,6 +37,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -383,6 +385,10 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.MISC_BOOK, 1);
+			}
+			
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_MANDRAGORA_POT), 1);
 			}
 		}
 	}

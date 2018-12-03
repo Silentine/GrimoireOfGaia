@@ -47,7 +47,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
-	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaSuccubus.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaAnubis.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);

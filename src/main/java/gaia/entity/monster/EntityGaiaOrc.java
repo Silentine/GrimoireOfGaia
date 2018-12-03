@@ -10,6 +10,7 @@ import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,6 +26,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -38,6 +40,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -118,7 +121,8 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		if (hasShield()) {
-			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+			Entity entity = source.getImmediateSource();
+			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 		} else {
 			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 		}
@@ -330,6 +334,21 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 		dataManager.register(SKIN, 0);
 	}
 	/* CLASS TYPE */
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.ORC_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.ORC_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.ORC_DEATH;
+	}
 
 	@Nullable
 	@Override

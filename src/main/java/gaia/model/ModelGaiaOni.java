@@ -122,13 +122,13 @@ public class ModelGaiaOni extends ModelGaia {
 		lefthorn.setTextureSize(64, 32);
 		setRotation(lefthorn, 0.2617994F, 0F, 0F);
 		ModelRenderer rightarmupper = new ModelRenderer(this, 64, 0);
-		rightarmupper.addBox(-4F, 0F, -2F, 4, 4, 4);
+		rightarmupper.addBox(-3.5F, 0F, -2F, 4, 4, 4);
 		rightarmupper.setRotationPoint(-2.5F, 2.5F, 0F);
 		rightarmupper.setTextureSize(64, 32);
 		setRotation(rightarmupper, 0F, 0F, 0.1745329F);
 		ModelRenderer leftarmupper = new ModelRenderer(this, 64, 0);
 		leftarmupper.mirror = true;
-		leftarmupper.addBox(0F, 0F, -2F, 4, 4, 4);
+		leftarmupper.addBox(-0.5F, 0F, -2F, 4, 4, 4);
 		leftarmupper.setRotationPoint(2.5F, 2.5F, 0F);
 		leftarmupper.setTextureSize(64, 32);
 		setRotation(leftarmupper, 0F, 0F, -0.1745329F);

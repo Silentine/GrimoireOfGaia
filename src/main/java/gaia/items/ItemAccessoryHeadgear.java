@@ -81,7 +81,7 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 		if (!isInCreativeTab(tab)) {
 			return;
 		}
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -93,7 +93,8 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_bolt"),
 				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_doll")
+				ModelLoaderHelper.getSuffixedLocation(this, "_doll"),
+				ModelLoaderHelper.getSuffixedLocation(this, "_ears_elf")
 		);
 	}
 	/* SUBITEMS */

@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 
 import gaia.GaiaConfig;
 import gaia.entity.monster.EntityGaiaMandragora;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -206,7 +207,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	public int getMaxSpawnedInChunk() {
 		return 1;
 	}
-	
+
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
 
 	@Override
@@ -214,18 +215,36 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		if (world.isDaytime()) {
 			float f = getBrightness();
 			if (f > 0.5F && world.canSeeSky(getPosition())) {
-				int i = MathHelper.floor(posX);
-				int j = MathHelper.floor(getEntityBoundingBox().minY);
-				int k = MathHelper.floor(posZ);
-				BlockPos blockpos = new BlockPos(i, j, k);
-				Block var1 = world.getBlockState(blockpos.down()).getBlock();
+				if (torchCheck(this.world, this.getPosition())) {
+					return false;
+				} else {
+					int i = MathHelper.floor(posX);
+					int j = MathHelper.floor(getEntityBoundingBox().minY);
+					int k = MathHelper.floor(posZ);
+					BlockPos blockpos = new BlockPos(i, j, k);
+					Block var1 = world.getBlockState(blockpos.down()).getBlock();
 
-				Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalFlowerSpawnBlocks));
-				
-				boolean defaultFlag = spawnBlocks.contains(var1);
-				boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
-				
-				return world.getDifficulty() != EnumDifficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getEntityBoundingBox());
+					Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalFlowerSpawnBlocks));
+
+					boolean defaultFlag = spawnBlocks.contains(var1);
+					boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
+
+					return world.getDifficulty() != EnumDifficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getEntityBoundingBox());
+				}
+			}
+		}
+		return false;
+	}
+
+	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);
+
+	/**
+	 * The actual check. It inputs the radius and feeds it to the sphere shape method. After it gets the block position map it scans every block in that map. Then returns depending if the match triggers.
+	 */
+	private static boolean torchCheck(World world, BlockPos pos) {
+		for (BlockPos location : BlockPos.getAllInBox(pos.add(-8, -8, -8), pos.add(8, 8, 8))) {
+			if (blackList.contains(world.getBlockState(location).getBlock())) {
+				return true;
 			}
 		}
 

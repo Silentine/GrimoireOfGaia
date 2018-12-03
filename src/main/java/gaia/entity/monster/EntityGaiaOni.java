@@ -27,6 +27,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -36,6 +39,9 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaOni extends EntityMobHostileBase {
+	
+	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaOni.class, DataSerializers.VARINT);
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
@@ -224,6 +230,10 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		
+		if (world.rand.nextInt(4) == 0) {
+			setTextureType(1);
+		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 2));
 
@@ -231,13 +241,39 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 		return ret;
 	}
+	
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SKIN, 0);
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
-
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+		
 		setCombatTask();
 	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

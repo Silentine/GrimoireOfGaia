@@ -123,6 +123,14 @@ public class AspectsEntities {
 				.add(Aspect.ELDRITCH, 2)
 				.add(Aspect.WATER, 2)));
 		
+		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "goblin", (new AspectList())
+				.add(Aspect.MAN, 1)
+				.add(Aspect.EARTH, 1)));
+		
+		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "goblin_feral", (new AspectList())
+				.add(Aspect.BEAST, 1)
+				.add(Aspect.EARTH, 1)));
+		
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "gryphon", (new AspectList())
 				.add(Aspect.BEAST, 1)
 				.add(Aspect.FLIGHT, 1)));
@@ -134,6 +142,10 @@ public class AspectsEntities {
 				.add(Aspect.MAN, 1)
 				.add(Aspect.EARTH, 1)));
 		// K
+		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "kikimora", (new AspectList())
+				.add(Aspect.FLIGHT, 1)
+				.add(Aspect.AIR, 1)));
+		
 		CommonInternals.scanEntities.add(new ThaumcraftApi.EntityTags(ref + "kobold", (new AspectList())
 				.add(Aspect.BEAST, 1)
 				.add(Aspect.COLD, 1)));

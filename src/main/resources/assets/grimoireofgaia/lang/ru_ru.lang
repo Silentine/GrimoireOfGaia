@@ -1,4 +1,7 @@
 itemGroup.grimoireofgaia=Гримуар Гайи 3
+#NEW
+
+
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Железный Самородок
 item.grimoireofgaia.shard_1.name=Золотой Самородок
@@ -81,6 +84,8 @@ item.grimoireofgaia.weapon_prop_enchanted.name=Зачарованный подш
 item.grimoireofgaia.shield_prop_0.name=Каменный Щит
 item.grimoireofgaia.shield_prop_1.name=Железный Щит
 item.grimoireofgaia.shield_prop_2.name=Золотой Щит
+item.grimoireofgaia.weapon_prop_broom.name=Метла
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот Минотавра
 item.grimoireofgaia.weapon_fan.name=Опахало
 item.grimoireofgaia.weapon_fan_ice.name=Изысканное Ледяное Опахало
 item.grimoireofgaia.weapon_fan_fire.name=Изысканное Пламенное Опахало
@@ -109,6 +114,7 @@ item.grimoireofgaia.accessory_headgear_0.name=Клетка
 item.grimoireofgaia.accessory_headgear_1.name=Железные Штыри
 item.grimoireofgaia.accessory_headgear_2.name=Стрела в голове
 item.grimoireofgaia.accessory_headgear_3.name=Усталая горничная
+item.grimoireofgaia.accessory_headgear_4.name=Уши Эльфа
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Яйцо Призыва: 
 #BLOCK_NAMES
@@ -120,6 +126,7 @@ tile.grimoireofgaia.doll_ender_girl.name=Кукла Девушки Края
 tile.grimoireofgaia.doll_slime_girl.name=Кукла Слизняшки
 tile.grimoireofgaia.doll_maid.name=Кукла Горничной
 tile.grimoireofgaia.deco_garden_gnome.name=Садовый Гном
+tile.grimoireofgaia.deco_mandragora_pot.name=Мандрагора в Горшке
 tile.grimoireofgaia.spawn_guard.name=Талисман Защиты
 tile.grimoireofgaia.web_temp.name=Увядающая Паутина
 #ENTITY_NAMES
@@ -151,8 +158,10 @@ entity.grimoireofgaia.flesh_lich.name=Лич Плоти
 entity.grimoireofgaia.gelatinous_slime.name=Желатиновый Куб
 entity.grimoireofgaia.gryphon.name=Грифон
 entity.grimoireofgaia.goblin.name=Гоблин
+entity.grimoireofgaia.goblin_feral.name=Дикий Гоблин
 entity.grimoireofgaia.harpy.name=Гарпия
 entity.grimoireofgaia.hunter.name=Охотница
+entity.grimoireofgaia.kikimora.name=Кикимора
 entity.grimoireofgaia.kobold.name=Кобольд
 entity.grimoireofgaia.mandragora.name=Мандрагора
 entity.grimoireofgaia.matango.name=Матанго

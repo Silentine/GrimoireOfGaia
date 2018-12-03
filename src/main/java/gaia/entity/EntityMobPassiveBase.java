@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -43,7 +44,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public abstract class EntityMobPassiveBase extends EntityMobPassive {
+public abstract class EntityMobPassiveBase extends EntityMobPassive implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> FRIENDLY = EntityDataManager.<Boolean>createKey(EntityMobPassiveBase.class, DataSerializers.BOOLEAN);
 
@@ -281,8 +282,16 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive {
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
+	@SideOnly(Side.CLIENT)
+	public boolean isSwingingArms() {
+		return false;
+	}
+
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {
+	}
+
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 	}
 	/* SHARED CODE */
 }

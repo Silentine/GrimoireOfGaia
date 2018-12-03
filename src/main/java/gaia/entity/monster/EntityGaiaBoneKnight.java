@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -71,7 +72,22 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+		if (hasShield()) {
+			Entity entity = source.getImmediateSource();
+			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+		}
+	}
+
+	private boolean hasShield() {
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

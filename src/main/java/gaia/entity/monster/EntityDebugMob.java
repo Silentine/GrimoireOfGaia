@@ -8,7 +8,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
 import gaia.init.GaiaItems;
-import net.minecraft.block.Block;
+import gaia.init.Sounds;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +23,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemEnchantedBook;
@@ -35,7 +34,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -46,14 +45,17 @@ import net.minecraft.world.storage.loot.LootTableList;
 /**
  * DEBUG mob
  * 
- * Disable mob in GaiaEntities and ClientProxy before release.
+ * Disable mob in GaiaEntities and ClientProxy.
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityDebugMob extends EntityMobHostileDay {
-	private static int manual_clock;
 
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityDebugMob.AILeapAttack(this);
+
+	private static int manual_clock;
+	private boolean debugMode;
+	private boolean enableAnimation;
 
 	public EntityDebugMob(World worldIn) {
 		super(worldIn);
@@ -64,10 +66,10 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		manual_clock = 0;
 		/* Server data setup */
 		sitting = false;
-		
-		System.out.println("Spawned.");
-		
-		this.setCanPickUpLoot(true);
+
+		/* Set to true when in development environment, otherwise, set to false to execute setDead() */
+		debugMode = false;
+		enableAnimation = false;
 	}
 
 	@Override
@@ -126,21 +128,29 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		/** Testing modifying server and client nbt data **/
 		if (clock()) {
 			if (sitting == true) {
-				// Server data
-				sitting = false;
-				// Client Data
-				setSitting(false);
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
-				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
-				getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 0.9);
-				tasks.removeTask(aiGaiaLeapAtTarget);
+				if (enableAnimation) {
+					// Server data
+					sitting = false;
+					// Client Data
+					setSitting(false);
+
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
+					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
+					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 0.9);
+					tasks.removeTask(aiGaiaLeapAtTarget);
+				}
 			} else if (sitting == false) {
-				sitting = true;
-				setSitting(true);
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
-				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
-				getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 1.5);
-				tasks.addTask(0, aiGaiaLeapAtTarget);
+				if (enableAnimation) {
+					// Server data
+					sitting = true;
+					// Client Data
+					setSitting(true);
+
+					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
+					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 1.5);
+					tasks.addTask(0, aiGaiaLeapAtTarget);
+				}
 			}
 		}
 		// Example of generating a custom particle
@@ -211,7 +221,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		System.out.println("I died!");
-		
+
 //		BlockPos pos3 = getPosition();
 //		ParticleExample newEffect3 = new ParticleExample(world, pos3.getX() + 0.5, pos3.getY() + 2.2, pos3.getZ() + 0.5, 0, 0.0025, 0);
 //		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
@@ -221,8 +231,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		 */
 		ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
 		/**
-		 * Special method that gives books a unique NBT they need.
-		 * Note; avoid using IDs
+		 * Special method that gives books a unique NBT they need. Note; avoid using IDs
 		 */
 		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.KNOCKBACK, 1));
 		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantment.getEnchantmentByID(70), 1));
@@ -243,7 +252,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		rod.addEnchantment(Enchantments.LURE, 1);
 		rod.setStackDisplayName("Arctic Fishing Rod");
 		this.entityDropItem(rod, 1);
-		
+
 		if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
 			dropItem(GaiaItems.BOX_IRON, 1);
 		}
@@ -307,27 +316,19 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	}
 	/* SITTING ANIMATION */
 
-	/**
-	 * Common Code
-	 */
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.ENTITY_CHICKEN_AMBIENT;
+		return Sounds.DEBUG_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_CHICKEN_HURT;
+		return Sounds.DEBUG_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_CHICKEN_DEATH;
-	}
-
-	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+		return Sounds.DEBUG_DEATH;
 	}
 
 	@Override
@@ -336,12 +337,17 @@ public class EntityDebugMob extends EntityMobHostileDay {
 
 		tasks.addTask(1, aiGaiaLeapAtTarget);
 		tasks.addTask(2, aiMeleeAttack);
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
-		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
-		
+//		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
+//		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
+
 		setCustomNameTag("Debug Mob");
 		setAlwaysRenderNameTag(true);
-		
+
+		if (!debugMode) {
+			System.out.println("Disabled.");
+			setDead();
+		}
+
 		return ret;
 	}
 

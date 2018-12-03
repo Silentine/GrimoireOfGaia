@@ -1,0 +1,351 @@
+﻿itemGroup.grimoireofgaia=Grimoire der Gaia 3
+#NEW
+
+
+#ITEM_NAMES
+item.grimoireofgaia.shard_0.name=Eisenklumpen
+item.grimoireofgaia.shard_1.name=Goldklumpen
+item.grimoireofgaia.shard_2.name=Diamantsplitter
+item.grimoireofgaia.shard_3.name=Smaragdsplitter
+item.grimoireofgaia.shard_4.name=Kupferklumpen
+item.grimoireofgaia.shard_5.name=Silberklumpen
+item.grimoireofgaia.shard_misc_0.name=Totem-der-Unsterblichkeit-Stück
+item.grimoireofgaia.food_meat.name=Fleisch
+item.grimoireofgaia.food_rotten_heart.name=Verrottetes Herz
+item.grimoireofgaia.food_root.name=Pfahlwurzel
+item.grimoireofgaia.food_coalfish.name=Kohlfisch
+item.grimoireofgaia.food_nether_wart.name=Netherwarzenkonfitüre
+item.grimoireofgaia.food_honey.name=Honigtau
+item.grimoireofgaia.food_small_apple_gold.name=Goldener-Apfel-Kuchen-Stück
+item.grimoireofgaia.food_mandrake.name=Alraune
+item.grimoireofgaia.food_wither.name=Dörrhirn
+item.grimoireofgaia.food_monster_feed.name=Ungeheuerfutter
+item.grimoireofgaia.food_monster_feed_premium.name=Erlesenes Ungeheuerfutter
+item.grimoireofgaia.food_pie_mandrake.name=Alraunenkuchen
+item.grimoireofgaia.food_pie_meat.name=Fischkuchen
+item.grimoireofgaia.food_pie_apple_gold.name=Goldener-Apfel-Kuchen
+item.grimoireofgaia.misc_soul_fire.name=Seelenfeuer
+item.grimoireofgaia.misc_soul_fiery.name=Feuersplitter
+item.grimoireofgaia.misc_giga_gear.name=Herz eines Giga-Ritters
+item.grimoireofgaia.misc_fur.name=Pelz
+item.grimoireofgaia.misc_experience_0.name=Kristallisierte Erfahrung (Klein)
+item.grimoireofgaia.misc_experience_1.name=Kristallisierte Erfahrung (Mittel)
+item.grimoireofgaia.misc_experience_2.name=Kristallisierte Erfahrung (Groß)
+item.grimoireofgaia.misc_book.name=Buch der Erinnerungen
+item.grimoireofgaia.misc_quill.name=Diamantspitzenfeder
+item.grimoireofgaia.misc_ring_0.name=Inaktiver Ring der Schnelligkeit
+item.grimoireofgaia.misc_ring_1.name=Inaktiver Ring der Eile
+item.grimoireofgaia.misc_ring_2.name=Inaktiver Ring der Sprungkraft
+item.grimoireofgaia.misc_ring_3.name=Inaktiver Ring der Nachtsicht
+item.grimoireofgaia.misc_furnace_fuel.name=Steinkohle
+item.grimoireofgaia.misc_currency_0.name=Verkaufen
+item.grimoireofgaia.misc_currency_1.name=Hausierierinnenmarke
+item.grimoireofgaia.misc_currency_2.name=Holstaurmarke
+item.grimoireofgaia.misc_currency_3.name=Wiefschafmarke
+item.grimoireofgaia.spawn.name=Eierkarton
+item.grimoireofgaia.spawn_creeper_girl.name=Creepermädchenei
+item.grimoireofgaia.spawn_slime_girl.name=Schleimmädchenei
+item.grimoireofgaia.spawn_ender_girl.name=Endermädchenei
+item.grimoireofgaia.spawn_trader.name=Hausiererinnenei
+item.grimoireofgaia.spawn_holstaurus.name=Holstaurei
+item.grimoireofgaia.spawn_weresheep.name=Wiefschafei
+item.grimoireofgaia.spawn_tame.name=Brotdose
+item.grimoireofgaia.box_iron.name=Eisenkiste
+item.grimoireofgaia.box_gold.name=Goldkiste
+item.grimoireofgaia.box_diamond.name=Diamantkiste
+item.grimoireofgaia.box_0.name=Erzkiste
+item.grimoireofgaia.box_1.name=Netherkiste
+item.grimoireofgaia.box_2.name=Endenkiste
+item.grimoireofgaia.bag_ore.name=Erztasche
+item.grimoireofgaia.bag_book.name=Büchertasche
+item.grimoireofgaia.bag_record.name=Schallplattenkiste
+item.grimoireofgaia.bag_arrow.name=Versiegelter Köcher
+item.grimoireofgaia.box_old.name=Altes Gepäck
+item.grimoireofgaia.chest_0.name=Verliestruhe
+item.grimoireofgaia.chest_1.name=Dschungeltruhe
+item.grimoireofgaia.chest_2.name=Wüstentruhe
+item.grimoireofgaia.weapon_prop_0.name=Enderstab
+item.grimoireofgaia.weapon_prop_1.name=Lohenstab
+item.grimoireofgaia.weapon_prop_2.name=Metallkeule
+item.grimoireofgaia.weapon_prop_sword_wood.name=Holzschwert
+item.grimoireofgaia.weapon_prop_sword_stone.name=Steinschwert
+item.grimoireofgaia.weapon_prop_sword_iron.name=Eisenschwert
+item.grimoireofgaia.weapon_prop_sword_gold.name=Goldschwert
+item.grimoireofgaia.weapon_prop_axe_wood.name=Holzaxt
+item.grimoireofgaia.weapon_prop_axe_stone.name=Steinaxt
+item.grimoireofgaia.weapon_prop_axe_iron.name=Eisenaxt
+item.grimoireofgaia.weapon_prop_axe_gold.name=Goldaxt
+item.grimoireofgaia.weapon_prop_dagger_metal.name=Metalldolch
+item.grimoireofgaia.weapon_prop_projectile_bubble.name=Blasenprojektil
+item.grimoireofgaia.weapon_prop_projectile_magic.name=Magieprojektil
+item.grimoireofgaia.weapon_prop_projectile_poison.name=Giftprojektil
+item.grimoireofgaia.weapon_prop_projectile_web.name=Netzprojektil
+item.grimoireofgaia.weapon_prop_enchanted.name=Verzaubertes Lager
+item.grimoireofgaia.weapon_prop_broom.name=Besen
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Minotaur-Hammer
+item.grimoireofgaia.shield_prop_0.name=Steinschild
+item.grimoireofgaia.shield_prop_1.name=Eisenschild
+item.grimoireofgaia.shield_prop_2.name=Goldschild
+item.grimoireofgaia.weapon_fan.name=Fächer
+item.grimoireofgaia.weapon_fan_ice.name=Kunstvoller Eisfächer
+item.grimoireofgaia.weapon_fan_fire.name=Kunstvoller Feuerfächer
+item.grimoireofgaia.weapon_book.name=Buch
+item.grimoireofgaia.weapon_book_freezing.name=Frostbuch
+item.grimoireofgaia.weapon_book_nightmare.name=Albtraumbuch
+item.grimoireofgaia.weapon_book_metal.name=Metallbuch
+item.grimoireofgaia.weapon_book_ender.name=Enderbuch
+item.grimoireofgaia.weapon_book_hunger.name=Buch des Hungers
+item.grimoireofgaia.weapon_book_battle.name=Buch des Kampfes
+item.grimoireofgaia.weapon_book_nature.name=Buch der Natur
+item.grimoireofgaia.weapon_book_wither.name=Buch des Ausdörrens
+item.grimoireofgaia.weapon_book_buff.name=Fechtbuch
+item.grimoireofgaia.weapon_debug.name=Debug-Waffe
+
+#ITEM_BAUBLES_NAMES
+item.grimoireofgaia.accessory_ring_speed.name=Ring der Schnelligkeit
+item.grimoireofgaia.accessory_ring_haste.name=Ring der Eile
+item.grimoireofgaia.accessory_ring_jump.name=Ring der Sprungkraft
+item.grimoireofgaia.accessory_ring_night.name=Ring der Nachtsicht
+item.grimoireofgaia.accessory_trinket_poison.name=Krötenstein
+item.grimoireofgaia.accessory_trinket_wither.name=Dörrherz
+item.grimoireofgaia.accessory_trinket_levitation.name=Fußfessel
+item.grimoireofgaia.accessory_cursed.name=Schwere Hantel
+
+#ITEM_HEADGEAR
+item.grimoireofgaia.accessory_headgear_0.name=Käfig
+item.grimoireofgaia.accessory_headgear_1.name=Bolzen
+item.grimoireofgaia.accessory_headgear_2.name=Pfeil durch Kopf
+item.grimoireofgaia.accessory_headgear_3.name=Hängende Magd
+item.grimoireofgaia.accessory_headgear_4.name=Elfenohren
+
+#ITEM_SPAWNEGG
+item.grimoireofgaia.spawnegg.name=Beschwöre
+
+#BLOCK_NAMES
+tile.grimoireofgaia.bust_valkyrie.name=Die Walküre
+tile.grimoireofgaia.bust_vampire.name=Der Vampir
+tile.grimoireofgaia.bust_sphinx.name=Die Sphinx
+tile.grimoireofgaia.doll_creeper_girl.name=Creepermädchenpuppe
+tile.grimoireofgaia.doll_ender_girl.name=Endermädchenpuppe
+tile.grimoireofgaia.doll_slime_girl.name=Schleimmädchenpuppe
+tile.grimoireofgaia.doll_maid.name=Magdpuppe
+tile.grimoireofgaia.deco_garden_gnome.name=Gartenzwerg
+tile.grimoireofgaia.deco_mandragora_pot.name=Alraunentopf
+tile.grimoireofgaia.spawn_guard.name=Schutztalisman
+tile.grimoireofgaia.web_temp.name=Zerfallendes Spinnennetz
+
+#ENTITY_NAMES
+entity.grimoireofgaia.debug_mob.name=DEBUG MOB
+entity.grimoireofgaia.ant.name=Ameisenarbeiterin
+entity.grimoireofgaia.ant_ranger.name=Ameisensammler
+entity.grimoireofgaia.anubis.name=Anubis
+entity.grimoireofgaia.arachne.name=Arachne
+entity.grimoireofgaia.banshee.name=Banshee
+entity.grimoireofgaia.baphomet.name=Baphomet
+entity.grimoireofgaia.bee.name=Honigbiene
+entity.grimoireofgaia.bone_knight.name=Knochenritter
+entity.grimoireofgaia.cecaelia.name=Cecaelia
+entity.grimoireofgaia.centaur.name=Zentaur
+entity.grimoireofgaia.cobble_golem.name=Feldsteingolem
+entity.grimoireofgaia.cobblestone_golem.name=Bruchsteingolem
+entity.grimoireofgaia.creep.name=Creep
+entity.grimoireofgaia.cyclops.name=Zyklop
+entity.grimoireofgaia.chest.name=Truhe
+entity.grimoireofgaia.cyan_flower.name=Türkise Blume
+entity.grimoireofgaia.deathword.name=Todeswort
+entity.grimoireofgaia.dhampir.name=Dhampir
+entity.grimoireofgaia.dryad.name=Dryade
+entity.grimoireofgaia.dullahan.name=Dullahan
+entity.grimoireofgaia.dwarf.name=Zwerg
+entity.grimoireofgaia.ender_dragon_girl.name=Enderdrachenmädchen
+entity.grimoireofgaia.ender_eye.name=Enderauge
+entity.grimoireofgaia.flesh_lich.name=Fleisch-Lich
+entity.grimoireofgaia.gelatinous_slime.name=Gallertiger Schleim
+entity.grimoireofgaia.gryphon.name=Greif
+entity.grimoireofgaia.goblin.name=Goblin
+entity.grimoireofgaia.goblin_feral.name=Wilder Goblin
+entity.grimoireofgaia.harpy.name=Harpyie
+entity.grimoireofgaia.hunter.name=Jägerin
+entity.grimoireofgaia.kikimora.name=Kikimora
+entity.grimoireofgaia.kobold.name=Fernöstl. Kobold
+entity.grimoireofgaia.mandragora.name=Alraune
+entity.grimoireofgaia.matango.name=Matango
+entity.grimoireofgaia.mermaid.name=Meerjungfrau
+entity.grimoireofgaia.mimic.name=Mimic
+entity.grimoireofgaia.minotaur.name=Minotaur
+entity.grimoireofgaia.minotaurus.name=Minotauros
+entity.grimoireofgaia.mummy.name=Mumie
+entity.grimoireofgaia.naga.name=Naga
+entity.grimoireofgaia.nine_tails.name=Kitsune
+entity.grimoireofgaia.oni.name=Oni
+entity.grimoireofgaia.orc.name=Ork
+entity.grimoireofgaia.satyress.name=Satyrin
+entity.grimoireofgaia.selkie.name=Selkie
+entity.grimoireofgaia.shaman.name=Schamanin
+entity.grimoireofgaia.sharko.name=Haimann
+entity.grimoireofgaia.siren.name=Sirene
+entity.grimoireofgaia.sludge_girl.name=Schlammädchen
+entity.grimoireofgaia.sphinx.name=Sphinx
+entity.grimoireofgaia.spriggan.name=Spriggan
+entity.grimoireofgaia.succubus.name=Sukkubus
+entity.grimoireofgaia.toad.name=Kröte
+entity.grimoireofgaia.valkyrie.name=Walküre
+entity.grimoireofgaia.vampire.name=Vampir
+entity.grimoireofgaia.werecat.name=Wiefkatze
+entity.grimoireofgaia.witch.name=Hexe
+entity.grimoireofgaia.wither_cow.name=Dörrkuh
+entity.grimoireofgaia.yeti.name=Yeti
+entity.grimoireofgaia.yuki-onna.name=Yuki-Onna
+
+#ENTITY_VILLAGER_NAMES
+entity.grimoireofgaia.creeper_girl.name=Creepermädchen
+entity.grimoireofgaia.ender_girl.name=Endermädchen
+entity.grimoireofgaia.holstaurus.name=Holstaur
+entity.grimoireofgaia.slime_girl.name=Schleimmädchen
+entity.grimoireofgaia.trader.name=Hausiererin
+entity.grimoireofgaia.weresheep.name=Wiefschaf
+
+#ENTITY_SUMMON_NAMES
+entity.grimoireofgaia.butler.name=Butler
+entity.grimoireofgaia.sporeling.name=Sporling
+#ACTIONS
+text.grimoireofgaia.grimoireofgaia.desc=Betrifft nur Grimoire-der-Gaia-Kreaturen
+text.grimoireofgaia.NegativeStatus.desc=Entfernt negative Statuseffekte
+text.grimoireofgaia.HeartsGain=%d Herzen zurückgewinnen
+text.grimoireofgaia.HungerLose=%d Hunger verlieren
+text.grimoireofgaia.GainExperience=Erfahrung hinzugewinnen
+text.grimoireofgaia.GainLevels=%d Level hinzugewinnen
+text.grimoireofgaia.RightClickUse=Rechtsklicken zum Benutzen
+text.grimoireofgaia.RightClickEquip=Rechtsklicken zum Ausrüsten
+text.grimoireofgaia.FuelForSeconds=Brennstoff für %d Sekunden
+text.grimoireofgaia.BlessMainhand=Wenn in der Haupthand:
+text.grimoireofgaia.BlessOffhand=Wenn in der Zweithand, Haupthand:
+text.grimoireofgaia.InventoryCurse=Wenn im Inventar:
+text.grimoireofgaia.InventoryAccessory=Wenn im 1. oder 2. Feld der Schnellzugriffskeiste:
+text.grimoireofgaia.InventoryTrinket=Wenn im letzten Feld der Schnellzugriffsleiste:
+text.grimoireofgaia.InventoryImmunity=Immunität gegen
+
+#TAGS
+text.grimoireofgaia.Accessory.tag=Accessoire
+text.grimoireofgaia.Trinket.tag=Schmuck
+text.grimoireofgaia.Headgear.tag=Kopfbedeckung
+text.grimoireofgaia.Prop.tag=Requisite
+text.grimoireofgaia.WIP.tag=in Arbeit
+text.grimoireofgaia.Debug.tag=Debug
+
+#KEYBOARD
+text.grimoireofgaia.HoldShift=<Umschalttaste gedrückt halten>
+
+#ITEMS_DESC
+item.grimoireofgaia.FoodExperienceIron.desc=Einen Level hinzugewinnen
+item.grimoireofgaia.food_monster_feed.desc=Stimmt Rang-1-Unterstützerkreaturen freundlich
+item.grimoireofgaia.misc_soul_fire.desc=Rechtsklicken um Feuer zu beschwören
+item.grimoireofgaia.misc_soul_fiery.desc=Rechtsklicken um Lava zu beschwören
+item.grimoireofgaia.misc_giga_gear.desc=Alles, was von einem Giga-Ritter übrig blieb
+item.grimoireofgaia.misc_currency.desc=Gegenstände in diesem Feld verkaufen
+item.grimoireofgaia.spawn_creeper_girl.desc=Beschwört ein Creepermädchen
+item.grimoireofgaia.spawn_slime_girl.desc=Beschwört ein Schleimmädchen
+item.grimoireofgaia.spawn_ender_girl.desc=Beschwört ein Endermädchen
+item.grimoireofgaia.spawn_trader.desc=Beschwört eine Hausiererin
+item.grimoireofgaia.spawn_holstaurus.desc=Beschwört einen Holstaur
+item.grimoireofgaia.spawn_weresheep.desc=Beschwört ein Wiefschaf
+item.grimoireofgaia.spawn_tame.desc=Beschwichtigt anfängliche Feindseligkeit
+item.grimoireofgaia.spawn_tame2.desc=Hat keinen Einfluß auf verletzte Kreaturen
+item.grimoireofgaia.WeaponBookEnder.desc=Rechtsklicken um eine Enderperle abzufeuern
+item.grimoireofgaia.weapon_debug.desc=Dient Testzwecken
+
+#BLOCK_DESC
+block.grimoireofgaia.spawn_guard.desc=Verhindert das Spawnen von TAGAKTIVEN Kreaturen innerhalb von %d Blöcken
+
+#CONFIG
+configgui.grimoireofgaia.category.Menu0.general=Spawnraten
+configgui.grimoireofgaia.category.Menu0.general.tooltip=(ERFORDERT NEUSTART)\nAuf 0 setzen um die Kreatur am Spawnen zu hindern.\nTag: (<30 Selten, >60 Häufig)\nNacht: (<60 Selten, >100 Häufig)\n(ACHTUNG: Diese Werte zu hoch einzustellen behindert das Spawnen anderer Kreaturen.
+configgui.grimoireofgaia.category.Menu1.spawns=Spawn-Optionen
+configgui.grimoireofgaia.category.Menu1.spawns.tooltip=\nSpawnen einrichten..
+configgui.grimoireofgaia.category.Menu2.attributes=Attribute
+configgui.grimoireofgaia.category.Menu2.attributes.tooltip=(ERFORDERT NEUSTART)\nAttribute sind prozentual.\n(ACHTUNG: NICHT unter 50 setzen)
+configgui.grimoireofgaia.category.Menu3.damage=Basisschaden
+configgui.grimoireofgaia.category.Menu3.damage.tooltip=(ERFORDERT NEUSTART)\nAlle Kreaturen verursachen zusätzlichen Magieschaden der Rüstungen durchdringt.
+configgui.grimoireofgaia.category.Menu4.defense=Basisschadensobergrenze
+
+configgui.grimoireofgaia.category.Menu4.defense.tooltip=(ERFORDERT NEUSTART)\nHöchstgrenze an Schaden den Kreaturen erleiden bevor sie besiegt sind.
+configgui.grimoireofgaia.category.Menu5.options=Optionen
+configgui.grimoireofgaia.category.Menu5.options.tooltip=\nFunktionen ein-/ausschalten.
+configgui.grimoireofgaia.category.Menu6.debug=Debug
+configgui.grimoireofgaia.category.Menu6.debug.tooltip=\nKompatibilitäts- und Debugging-Optionen.
+configgui.grimoireofgaia.category.Menu7.dimensions=Dimensionseinstellungen
+configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nDimensionseinstellungen einrichten.
+
+#CONFIG_SPAWN
+configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=Spawn-Hemmung in Tagen
+configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=\nKreaturen spawnen erst, nachdem eine gewisse Anzahl Tage vergangen ist.
+configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=Spawn-Tag festlegen
+configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=\nAnzahl Tage die vergangen sein müssen, bevor sie anfangen zu spawnen.
+configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=(Rang 3) Spawnt nur bei Regen/Schnee.
+configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=\nRang 3-Kreaturen spawnen nur wenn es regnet/schneit.
+configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(Rang 3) Natürliches Spawnen deaktivieren
+configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nRang 3-Kreaturen spawnen nicht frei in der Wildnis, sondern spawnen nur von spezifischen Kreaturen.
+configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(Rang 3) Spawnwahrscheinlichkeit
+configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nWahrscheinlichkeit, daß Rang-3-Kreaturen von spezifischen anderen Kreaturen spawnen.\n((1/Wert)*100)
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Zusätzliche Spawnblöcke
+configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nZusätzliche Blöcke auf denen Gaia-Kreaturen spawnen können.
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Zusätzliche Blumen-Spawnblöcke
+configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nZusätzliche Blöcke auf denen Gaia-Blumen spawnen können.
+
+#CONFIG_DAMAGE
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Basisschaden
+configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nNahkampfangriffe verursachen 2.0 (1 Herz) zusätzlichen Schaden.
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers=Basisschaden (Bogenschützen)
+configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nPfeile von Bogenschützen verursachen 1 (0,5 Herzen) zusätzlichen Schaden.
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing=Schilde blockieren durchdringenden Schaden
+configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\nBasisschaden (Nahkampf) durchdringt keine Schilde.
+
+#CONFIG_DEFENSE
+configgui.grimoireofgaia.category.defense.Tier1baseDefense=Rang 1 Schadensobergrenze
+configgui.grimoireofgaia.category.defense.Tier1baseDefense.tooltip=\nHöchstgrenze an benötigten Treffern.\n(0 = deaktivieren)
+configgui.grimoireofgaia.category.defense.Tier2baseDefense=Rang 2 Schadensobergrenze
+configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\nHöchstgrenze an benötigten Treffern.\n(0 = deaktivieren)
+configgui.grimoireofgaia.category.defense.Tier3baseDefense=Rang 3 Schadensobergrenze
+configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\nHöchstgrenze an benötigten Treffern.\n(0 = deaktivieren)
+
+#CONFIG_ATTRIBUTES
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Rang 1 Gesundheit
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\nGesundheit: 40 (20 Herzen).\n(50 = halb, 200 = doppelt)
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage=Rang 1 Schaden
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage.tooltip=\nSchaden: 4 (2 Herzen).\n(50 = halb, 200 = doppelt)
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth=Rang 2 Gesundheit
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth.tooltip=\nGesundheit: 80 (40 Herzen).\n(50 = halb, 200 = doppelt)
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage=Rang 2 Schaden
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage.tooltip=\nSchaden: 6 (3 Herzen).\n(50 = halb, 200 = doppelt)
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Rang 3 Gesundheit
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\nGesundheit: 160 (80 Herzen).\n(50 = halb, 200 = doppelt)
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Rang 3 Schaden
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nSchaden: 8 (4 Herzen).\n(50 = halb, 200 = doppelt)#CONFIG_OPTIONS
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Aktiviert Spawnen
+configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=Aktiviert das Spawnen von Gaia-Kreaturen.
+configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=Macht aggressive tagaktive Kreaturen passiv
+configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=Aggressive tagaktive Kreaturen greifen Spieler bei Sichtkontakt nicht mehr an.
+configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=Macht alle Kreaturen aggressiv
+configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=Alle Kreaturen sind nun aggressiv.
+configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Zusätzliche Klumpen
+configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nGaia-Kreaturen können nun Kupfer- und Silberklumpen hinterlassen.
+configgui.grimoireofgaia.category.options.Menu4.StrafingArchers= Bogenschützen-Strafing
+configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nBogenschützen verwenden Strafing und weichen Angriffen aus (wie Skelette).
+
+#CONFIG_DEBUG
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Splitter-Drops vereinen
+configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nKreaturen können Splitter/Klumpen aus anderen Mods hinterlassen.\n(Deaktivieren bei Problemen)
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn=Debug-Spawns
+configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn.tooltip=Deaktiviert das Spawnen aller nicht-Gaia-Kreaturen.
+configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands=Debug-Befehle
+configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=Aktiviert Entwicklerbefehle.
+
+#CONFIG_DIMENSIONS
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Dimension-ID-Schwarze-Liste
+configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Deaktiviert das Spawnen von Gaia-Kreaturen in den angegebenen Dimensions-IDs.
+
+#JEI
+gaia.box.loot=Kistenbeute
+gui.gaia.box.loot=KIstenbeute
+gaia.satchel.loot=Bag Loot
+gui.gaia.satchel.loot=Taschenbeute

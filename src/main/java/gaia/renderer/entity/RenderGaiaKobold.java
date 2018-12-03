@@ -1,6 +1,7 @@
 package gaia.renderer.entity;
 
 import gaia.GaiaReference;
+import gaia.entity.monster.EntityGaiaKobold;
 import gaia.model.ModelGaiaKobold;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,7 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaKobold extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/kobold.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/kobold01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/kobold02.png");
 
 	public RenderGaiaKobold(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaKobold(), shadowSize);
@@ -32,6 +34,17 @@ public class RenderGaiaKobold extends RenderLiving<EntityLiving> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {
-		return texture;
+		return getTexture((EntityGaiaKobold) entity);
+	}
+
+	private ResourceLocation getTexture(EntityGaiaKobold entity) {
+		switch (entity.getTextureType()) {
+		case 0:
+			return texture01;
+		case 1:
+			return texture02;
+		default:
+			return texture01;
+		}
 	}
 }

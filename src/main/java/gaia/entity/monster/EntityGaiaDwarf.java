@@ -11,6 +11,7 @@ import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -38,7 +40,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -48,7 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
-	
+
 	private static final String MOB_TYPE_TAG = "MobType";
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_2, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true) {
@@ -135,7 +137,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		}
 
 		if (hasShield()) {
-			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
+			Entity entity = source.getImmediateSource();
+			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 		} else {
 			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 		}
@@ -242,7 +245,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
-		
+
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == Items.BOW) {
 			tasks.addTask(2, aiArrowAttack);
@@ -324,6 +327,22 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			this.setDead();
 		}
 	}
+	
+
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.DWARF_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.DWARF_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.DWARF_DEATH;
+	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -369,7 +388,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				if (mobClass == 1) {
 					dropItem(GaiaItems.BAG_ARROW, 1);
-				} 
+				}
 			}
 		}
 
@@ -387,7 +406,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			ItemStack bowCustom = new ItemStack(Items.BOW);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, bowCustom);
 			bowCustom.addEnchantment(Enchantments.PUNCH, 1);
-			
+
 			if (world.rand.nextInt(2) == 0) {
 				if (world.rand.nextInt(2) == 0) {
 					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
@@ -412,7 +431,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setTextureType(0);
 			mobClass = 0;
 		}
-		
+
 		setCombatTask();
 
 		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {

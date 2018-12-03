@@ -31,7 +31,7 @@ public class RenderGaiaDryad extends RenderLiving<EntityLiving> {
 	public void transformHeldFull3DItemLayer() {
 		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
 	}
-	
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {
 		return getTexture((EntityGaiaDryad) entity);

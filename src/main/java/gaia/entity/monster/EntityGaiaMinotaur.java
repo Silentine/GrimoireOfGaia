@@ -44,6 +44,8 @@ import net.minecraft.world.World;
 public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
+	
+	private ItemStack mainWeapon;
 
 	private int buffEffect;
 	private boolean animationPlay;
@@ -187,10 +189,12 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	private void setEquipment(byte id) {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_HAMMER_MINOTAUR));
 		}
 
 		if (id == 1) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.STICK));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
 		}
 	}
 
@@ -267,7 +271,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_IRON));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_HAMMER_MINOTAUR));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);

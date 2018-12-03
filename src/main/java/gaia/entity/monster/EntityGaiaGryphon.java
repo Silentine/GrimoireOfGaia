@@ -7,6 +7,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +28,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -115,6 +117,23 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 
 		super.onLivingUpdate();
 	}
+	
+
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.GRYPHON_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.GRYPHON_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.GRYPHON_DEATH;
+	}
+
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {

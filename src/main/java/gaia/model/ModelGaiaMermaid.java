@@ -25,13 +25,15 @@ public class ModelGaiaMermaid extends ModelGaia {
 	private ModelRenderer waist;
 	private ModelRenderer fin1;
 	private ModelRenderer fin2;
+	private ModelRenderer fin2right;
+	private ModelRenderer fin2left;
 	private ModelRenderer fin3;
 	private ModelRenderer fin4;
 	private ModelRenderer fin5;
 	private ModelRenderer fin6;
 	private ModelRenderer fintail;
 
-	private static final double CYCLES_PER_BLOCK = 1.0D;
+	private static final double CYCLES_PER_BLOCK = 0.75D;
 	private float[][] undulationCycle = new float[][]
 			{
 					{-2.5F, -5F, -10F, -15F, -20F, -25F, -30F},
@@ -157,37 +159,47 @@ public class ModelGaiaMermaid extends ModelGaia {
 		fin1.addBox(-3.5F, -1F, -2F, 7, 4, 4);
 		fin1.setRotationPoint(0F, 11F, 0.5F);
 		fin1.setTextureSize(128, 64);
-		setRotation(fin1, 0F, undulationCycle[0][0], 0F);
+		setRotation(fin1, 0F, 0F, 0F);
 		fin2 = new ModelRenderer(this, 100, 8);
-		fin2.addBox(-2.5F, 2F, -2.5F, 5, 4, 3);
-		fin2.setRotationPoint(0F, 11F, 1F);
+		fin2.addBox(-3F, 0F, 0F, 6, 4, 4);
+		fin2.setRotationPoint(0F, 14F, -1.5F);
 		fin2.setTextureSize(128, 64);
-		setRotation(fin2, 0.0872665F, undulationCycle[0][1], 0F);
-		fin3 = new ModelRenderer(this, 100, 15);
-		fin3.addBox(-2F, 5F, -2F, 4, 4, 3);
-		fin3.setRotationPoint(0F, 11F, 1F);
+		setRotation(fin2, 0F, 0F, 0F);
+		fin2right = new ModelRenderer(this, 120, 5);
+		fin2right.addBox(0F, 0F, -1.5F, 0, 3, 3);
+		fin2right.setRotationPoint(-3F, 16F, 0.5F);
+		fin2right.setTextureSize(128, 64);
+		setRotation(fin2right, 0F, 0F, 0.7853982F);
+		fin2left = new ModelRenderer(this, 120, 5);
+		fin2left.addBox(0F, 0F, -1.5F, 0, 3, 3);
+		fin2left.setRotationPoint(3F, 16F, 0.5F);
+		fin2left.setTextureSize(128, 64);
+		setRotation(fin2left, 0F, 0F, -0.7853982F);
+		fin3 = new ModelRenderer(this, 100, 16);
+		fin3.addBox(-2.5F, 0F, 0F, 5, 4, 4);
+		fin3.setRotationPoint(0F, 18F, -1.5F);
 		fin3.setTextureSize(128, 64);
-		setRotation(fin3, 0.1308997F, undulationCycle[0][2], 0F);
-		fin4 = new ModelRenderer(this, 100, 22);
-		fin4.addBox(-2F, 7F, -1F, 4, 4, 3);
-		fin4.setRotationPoint(0F, 11F, 1F);
+		setRotation(fin3, 0F, 0F, 0F);
+		fin4 = new ModelRenderer(this, 100, 24);
+		fin4.addBox(-2F, 0F, 0.5F, 4, 4, 3);
+		fin4.setRotationPoint(0F, 22F, -1.5F);
 		fin4.setTextureSize(128, 64);
-		setRotation(fin4, 0.1308997F, undulationCycle[0][3], 0F);
-		fin5 = new ModelRenderer(this, 100, 29);
-		fin5.addBox(-1.5F, 9F, 0F, 3, 3, 3);
-		fin5.setRotationPoint(0F, 11F, 1F);
+		setRotation(fin4, 0F, 0F, 0F);
+		fin5 = new ModelRenderer(this, 100, 31);
+		fin5.addBox(-1.5F, 0F, 0F, 3, 3, 3);
+		fin5.setRotationPoint(0F, 26F, -1F);
 		fin5.setTextureSize(128, 64);
-		setRotation(fin5, 0.1745329F, undulationCycle[0][4], 0F);
-		fin6 = new ModelRenderer(this, 100, 36);
-		fin6.addBox(-0.5F, 11F, 1F, 1, 2, 3);
-		fin6.setRotationPoint(0F, 11F, 1F);
+		setRotation(fin5, 0F, 0F, 0F);
+		fin6 = new ModelRenderer(this, 100, 37);
+		fin6.addBox(-1F, 0F, 0.5F, 2, 2, 2);
+		fin6.setRotationPoint(0F, 29F, -1F);
 		fin6.setTextureSize(128, 64);
-		setRotation(fin6, 0.1745329F, undulationCycle[0][5], 0F);
+		setRotation(fin6, 0F, 0F, 0F);
 		fintail = new ModelRenderer(this, 100, 41);
-		fintail.addBox(-3F, 5F, -12F, 7, 7, 0);
-		fintail.setRotationPoint(-0.5F, 11F, 1F);
+		fintail.addBox(-3.5F, -1F, 0F, 7, 7, 0);
+		fintail.setRotationPoint(0F, 31F, 0.5F);
 		fintail.setTextureSize(128, 64);
-		setRotation(fintail, 1.570796F, undulationCycle[0][6], 0F);
+		setRotation(fintail, 0F, 0F, 0F);
 
 		convertToChild(head, finright);
 		convertToChild(head, finleft);
@@ -195,12 +207,15 @@ public class ModelGaiaMermaid extends ModelGaia {
 		convertToChild(head, headhelmet);
 		convertToChild(rightarm, rightpauldron);
 		convertToChild(leftarm, leftpauldron);
+		
+		convertToChild(fin6, fintail);
+		convertToChild(fin5, fin6);
+		convertToChild(fin4, fin5);
+		convertToChild(fin3, fin4);
+		convertToChild(fin2, fin2right);
+		convertToChild(fin2, fin2left);
+		convertToChild(fin2, fin3);
 		convertToChild(fin1, fin2);
-		convertToChild(fin1, fin3);
-		convertToChild(fin1, fin4);
-		convertToChild(fin1, fin5);
-		convertToChild(fin1, fin6);
-		convertToChild(fin1, fintail);
 	}
 
 	@Override
@@ -257,16 +272,22 @@ public class ModelGaiaMermaid extends ModelGaia {
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// legs
+		fin1.rotateAngleX = -0.1308997F;
+		fin2.rotateAngleX = +0.3926991F;
+		fin3.rotateAngleX = +0.3926991F;
+		fin4.rotateAngleX = +0.785398F;
+		fintail.rotateAngleX = +0.3926991F;
+		
 		updateDistanceMovedTotal(entityIn);
 		int cycleIndex = (int) ((getDistanceMovedTotal() * CYCLES_PER_BLOCK) % undulationCycle.length);
 
-		fin1.rotateAngleY = degToRad(undulationCycle[cycleIndex][0]);
-		fin2.rotateAngleY = degToRad(undulationCycle[cycleIndex][1]);
-		fin3.rotateAngleY = degToRad(undulationCycle[cycleIndex][2]);
-		fin4.rotateAngleY = degToRad(undulationCycle[cycleIndex][3]);
-		fin5.rotateAngleY = degToRad(undulationCycle[cycleIndex][4]);
-		fin6.rotateAngleY = degToRad(undulationCycle[cycleIndex][5]);
-		fintail.rotateAngleY = degToRad(undulationCycle[cycleIndex][6]);
+		fin1.rotateAngleZ = degToRad(undulationCycle[cycleIndex][0]);
+		fin2.rotateAngleZ = degToRad(undulationCycle[cycleIndex][1]);
+		fin3.rotateAngleZ = degToRad(undulationCycle[cycleIndex][2]);
+		fin4.rotateAngleZ = degToRad(undulationCycle[cycleIndex][3]);
+		fin5.rotateAngleZ = degToRad(undulationCycle[cycleIndex][4]);
+		fin6.rotateAngleZ = degToRad(undulationCycle[cycleIndex][5]);
+		fintail.rotateAngleZ = degToRad(undulationCycle[cycleIndex][6]);
 	}
 
 	public void holdingMelee() {

@@ -47,6 +47,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
+	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaKobold.class, DataSerializers.VARINT);
+
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true) {
 		public void resetTask() {
@@ -234,12 +237,6 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 		}
 	}
 
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
-	}
-
 	@SideOnly(Side.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
@@ -303,6 +300,10 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
+		if (world.rand.nextInt(4) == 0) {
+			setTextureType(1);
+		}
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
@@ -326,12 +327,39 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 	/* IMMUNITIES */
 
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SKIN, 0);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
 
 		setCombatTask();
 	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

@@ -40,6 +40,7 @@ import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
 import gaia.entity.monster.EntityGaiaHunter;
+import gaia.entity.monster.EntityGaiaKikimora;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMatango;
 import gaia.entity.monster.EntityGaiaMermaid;
@@ -139,8 +140,6 @@ public class GaiaSpawning {
 	/*
 	 * List of missing Biomes;
 	 * 
-	 * MUTATED_BIRCH_FOREST
-	 * MUTATED_BIRCH_FOREST_HILLS
 	 * MUTATED_REDWOOD_TAIGA
 	 * MUTATED_REDWOOD_TAIGA_HILLS
 	 * MUTATED_MESA_ROCK
@@ -377,6 +376,26 @@ public class GaiaSpawning {
 
 				underground(biome);
 			}
+			
+			/*
+			 * MUTATED_BIRCH_FOREST 
+			 * MUTATED_BIRCH_FOREST_HILLS
+			 */
+			if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
+					!BiomeDictionary.hasType(biome, Type.COLD) &&
+					!BiomeDictionary.hasType(biome, Type.HOT) && 
+					!BiomeDictionary.hasType(biome, Type.SPARSE) &&
+					!BiomeDictionary.hasType(biome, Type.SPOOKY) &&
+					BiomeDictionary.hasType(biome, Type.DENSE) && 
+					BiomeDictionary.hasType(biome, Type.RARE)) {
+				add(GENERAL.spawnDryad, EntityGaiaDryad.class, 4, 6, biome);
+				add(GENERAL.spawnBee, EntityGaiaBee.class, 2, 4, biome);
+				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
+				add(GENERAL.spawnWerecat, EntityGaiaWerecat.class, 4, 6, biome);
+				add(GENERAL.spawnSpriggan, EntityGaiaSpriggan.class, 2, 4, biome);
+
+				underground(biome);
+			}
 
 			/* 
 			 * TAIGA
@@ -399,6 +418,7 @@ public class GaiaSpawning {
 			 * MUTATED_TAIGA_COLD
 			 */
 			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && (BiomeDictionary.hasType(biome, Type.SNOWY))) {
+				add(GENERAL.spawnKikimora, EntityGaiaKikimora.class, 2, 4, biome);
 				add(GENERAL.spawnDhampir, EntityGaiaDhampir.class, 2, 4, biome);
 
 				if (!SPAWN.spawnLevel3) {

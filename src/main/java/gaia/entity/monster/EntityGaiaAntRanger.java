@@ -203,17 +203,17 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ANT_SAY;
+		return Sounds.ANTRANGER_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ANT_HURT;
+		return Sounds.ANTRANGER_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ANT_DEATH;
+		return Sounds.ANTRANGER_DEATH;
 	}
 
 	@Override

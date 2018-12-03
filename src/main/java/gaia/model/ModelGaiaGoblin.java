@@ -10,6 +10,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Apply all changes made here to ModelGaiaGoblinFeral.
+ *
+ * @see ModelGaiaGoblinFeral
+ */
 @SideOnly(Side.CLIENT)
 public class ModelGaiaGoblin extends ModelGaia {
 	ModelRenderer head;
@@ -233,5 +238,4 @@ public class ModelGaiaGoblin extends ModelGaia {
 	public ModelRenderer getLeftArm() {
 		return leftarm;
 	}
-
 }

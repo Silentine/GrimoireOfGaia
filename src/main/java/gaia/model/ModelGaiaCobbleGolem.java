@@ -111,9 +111,9 @@ public class ModelGaiaCobbleGolem extends ModelGaia {
 		// arms
 
 		// legs
-		rightlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		rightlegupper.rotateAngleX = -1.5F * this.triangleWave(limbSwing, 13.0F) * limbSwingAmount;
 		rightlegupper.rotateAngleX -= 0.1745329F;
-		leftlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leftlegupper.rotateAngleX = 1.5F * this.triangleWave(limbSwing, 13.0F) * limbSwingAmount;
 		leftlegupper.rotateAngleX -= 0.1745329F;
 	}
 
@@ -123,12 +123,15 @@ public class ModelGaiaCobbleGolem extends ModelGaia {
 		int i = entitygaiacobblegolem.getAttackTimer();
 
 		if (i > 0) {
-			rightarmupper.rotateAngleX = -2.0F + 1.5F * getArmRotation((float) i - partialTickTime);
-			leftarmupper.rotateAngleX = -2.0F + 1.5F * getArmRotation((float) i - partialTickTime);
+			rightarmupper.rotateAngleX = -2.0F + 1.5F * triangleWave((float) i - partialTickTime, 10.0F);
+			leftarmupper.rotateAngleX = -2.0F + 1.5F * triangleWave((float) i - partialTickTime, 10.0F);
+		} else {
+			rightarmupper.rotateAngleX = 0F;
+			leftarmupper.rotateAngleX = 0F;
 		}
 	}
 
-	private float getArmRotation(float tickTime) {
-		return (Math.abs(tickTime % 10.0F - 10.0F * 0.5F) - 10.0F * 0.25F) / (10.0F * 0.25F);
+	private float triangleWave(float p_78172_1_, float p_78172_2_) {
+		return (Math.abs(p_78172_1_ % p_78172_2_ - p_78172_2_ * 0.5F) - p_78172_2_ * 0.25F) / (p_78172_2_ * 0.25F);
 	}
 }

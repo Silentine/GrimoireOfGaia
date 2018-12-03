@@ -180,6 +180,8 @@ public class GaiaItems {
 	public static final Item WEAPON_PROP_AXE_IRON = Items.AIR;
 	public static final Item WEAPON_PROP_AXE_GOLD = Items.AIR;
 	public static final Item WEAPON_PROP_DAGGER_METAL = Items.AIR;
+	public static final Item WEAPON_PROP_BROOM = Items.AIR;
+	public static final Item WEAPON_PROP_HAMMER_MINOTAUR = Items.AIR;
 
 	public static ToolMaterial MATERIAL_PROP = EnumHelper.addToolMaterial("material_prop", 0, 250, 6.0F, -3.0F, 36);
 	public static ToolMaterial MATERIAL_BOOK = EnumHelper.addToolMaterial("material_book", 2, 780, 6.0F, 2.0F, 22);
@@ -283,6 +285,8 @@ public class GaiaItems {
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_iron"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_axe_gold"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_dagger_metal"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_broom"));
+			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_hammer_minotaur"));
 
 			Gaia.LOGGER.info("Item registration complete.");
 		}

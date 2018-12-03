@@ -327,6 +327,8 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
+		
+		setCombatTask();
 	}
 	/* ALTERNATE SKIN */
 

@@ -1,15 +1,17 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -21,16 +23,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
+	
+	private static final String MOB_TYPE_TAG = "MobType";
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaSludgeGirl.class, DataSerializers.VARINT);
 
 	public EntityGaiaSludgeGirl(World worldIn) {
 		super(worldIn);
@@ -154,6 +163,17 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 			}
 		}
 	}
+	
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+
+		if (world.rand.nextInt(8) == 0) {
+			setTextureType(1);
+		}
+
+		return ret;
+	}
 
 	/* IMMUNITIES */
 	@Override
@@ -166,6 +186,37 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
+	
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SKIN, 0);
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

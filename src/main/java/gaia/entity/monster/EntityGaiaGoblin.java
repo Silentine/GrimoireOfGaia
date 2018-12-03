@@ -9,6 +9,7 @@ import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.Sounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,6 +22,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -32,6 +34,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -97,7 +100,22 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+		if (hasShield()) {
+			Entity entity = source.getImmediateSource();
+			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+		}
+	}
+
+	private boolean hasShield() {
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -211,6 +229,21 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
 	/* ARCHER DATA */
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return Sounds.GOBLIN_SAY;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return Sounds.GOBLIN_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return Sounds.GOBLIN_DEATH;
+	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {

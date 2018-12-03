@@ -141,10 +141,10 @@ public class ModelGaiaSludgeGirl extends ModelGaia {
 		lefteye.setTextureSize(128, 64);
 		setRotation(lefteye, 0F, 0F, 0F);
 		waist = new ModelRenderer(this, 84, 4);
-		waist.addBox(-4F, 8.5F, -3F, 8, 8, 4);
+		waist.addBox(-4F, 8.5F, -2F, 8, 8, 4);
 		waist.setRotationPoint(0F, 1F, 0F);
 		waist.setTextureSize(128, 64);
-		setRotation(waist, 0.0872665F, 0F, 0F);
+		setRotation(waist, 0F, 0F, 0F);
 
 		convertToChild(head, headtop1);
 		convertToChild(headtop1, headtop2);

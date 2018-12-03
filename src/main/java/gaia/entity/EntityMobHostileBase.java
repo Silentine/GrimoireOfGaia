@@ -7,6 +7,7 @@ import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
@@ -36,7 +37,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @see EntityMobPassiveBase
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public abstract class EntityMobHostileBase extends EntityMob {
+public abstract class EntityMobHostileBase extends EntityMob implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> NEUTRAL = EntityDataManager.<Boolean>createKey(EntityMobHostileBase.class, DataSerializers.BOOLEAN);
 
@@ -44,7 +45,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 
 	public EntityMobHostileBase(World worldIn) {
 		super(worldIn);
-		
+
 		targetTasks.addTask(2, aiNearestAttackableTarget);
 	}
 
@@ -80,7 +81,7 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	public void setNeutral() {
 		targetTasks.removeTask(aiNearestAttackableTarget);
 	}
-	
+
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("neutral", isNeutral());
@@ -248,8 +249,16 @@ public abstract class EntityMobHostileBase extends EntityMob {
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
+	@SideOnly(Side.CLIENT)
+	public boolean isSwingingArms() {
+		return false;
+	}
+
 	@SuppressWarnings("unused")
 	public void setSwingingArms(boolean swingingArms) {
+	}
+
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 	}
 	/* SHARED CODE */
 }

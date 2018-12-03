@@ -1,10 +1,6 @@
 itemGroup.tabGaia=Grimoire of Gaia 3
+#NEW
 
-item.grimoireofgaia.weapon_prop_3.name=箒
-item.grimoireofgaia.weapon_prop_hammer_minotaur.name=ミノトーアのハンマー
-tile.grimoireofgaia.deco_mandragora_pot.name=マンドラゴラの鉢植え
-entity.grimoireofgaia.kikimora.name=キキーモラ
-entity.grimoireofgaia.goblin_feral.name=野生のゴブリン
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鉄塊
@@ -88,6 +84,8 @@ item.grimoireofgaia.weapon_prop_enchanted.name=魔法のベアリング
 item.grimoireofgaia.shield_prop_0.name=石の盾
 item.grimoireofgaia.shield_prop_1.name=鉄の盾
 item.grimoireofgaia.shield_prop_2.name=金の盾
+item.grimoireofgaia.weapon_prop_broom.name=箒
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=ミノトーアのハンマー
 item.grimoireofgaia.weapon_fan.name=扇
 item.grimoireofgaia.weapon_fan_ice.name=豪奢な氷の扇
 item.grimoireofgaia.weapon_fan_fire.name=豪奢な炎の扇
@@ -128,6 +126,7 @@ tile.grimoireofgaia.doll_ender_girl.name=エンダーガールの人形
 tile.grimoireofgaia.doll_slime_girl.name=スライムガールの人形
 tile.grimoireofgaia.doll_maid.name=メイドの人形
 tile.grimoireofgaia.deco_garden_gnome.name=ガーデン・ノーム
+tile.grimoireofgaia.deco_mandragora_pot.name=マンドラゴラの鉢植え
 tile.grimoireofgaia.spawn_guard.name=防御の護符
 tile.grimoireofgaia.web_temp.name=腐りかけの蜘蛛の巣
 
@@ -159,8 +158,10 @@ entity.grimoireofgaia.flesh_lich.name=フレッシュリッチ
 entity.grimoireofgaia.gelatinous_slime.name=ゼラチナススライム
 entity.grimoireofgaia.gryphon.name=グリフォン
 entity.grimoireofgaia.goblin.name=ゴブリン
+entity.grimoireofgaia.goblin_feral.name=野生のゴブリン
 entity.grimoireofgaia.harpy.name=ハーピー
 entity.grimoireofgaia.hunter.name=狩人
+entity.grimoireofgaia.kikimora.name=キキーモラ
 entity.grimoireofgaia.kobold.name=コボルド
 entity.grimoireofgaia.mandragora.name=マンドラゴラ
 entity.grimoireofgaia.matango.name=マタンゴ
