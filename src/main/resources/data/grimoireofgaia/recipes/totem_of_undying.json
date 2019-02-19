@@ -3,16 +3,16 @@
     "group": "minecraft:totem_of_undying",
     "ingredients": [
         {
-          "item": "grimoireofgaia:shard_misc_totem",
+          "item": "grimoireofgaia:shard_misc_totem"
         },
         {
-          "item": "grimoireofgaia:shard_misc_totem",
+          "item": "grimoireofgaia:shard_misc_totem"
         },
         {
-          "item": "grimoireofgaia:shard_misc_totem",
+          "item": "grimoireofgaia:shard_misc_totem"
         },
         {
-          "item": "grimoireofgaia:shard_misc_totem",
+          "item": "grimoireofgaia:shard_misc_totem"
         },
     	{
           "item": "minecraft:totem_of_undying"
