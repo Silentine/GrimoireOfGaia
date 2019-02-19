@@ -4,10 +4,10 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -21,27 +21,28 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 	private int attackTimer;
 
 	public EntityGaiaCobbleGolem(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.COBBLE_GOLEM, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -60,14 +61,14 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
 	@Override
@@ -100,7 +101,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 			entityIn.motionY += 0.2D;
 		}
 
-		playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+		playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
 		return var2;
 	}
 	
@@ -115,24 +116,24 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 4) {
 			attackTimer = 10;
-			playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
 		} else {
 			super.handleStatusUpdate(id);
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int getAttackTimer() {
 		return attackTimer;
 	}
 
 	@Override
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
+	public void livingTick() {
+		super.livingTick();
 
 		if (attackTimer > 0) {
 			--attackTimer;
@@ -145,14 +146,14 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(new BlockParticleData(Particles.BLOCK, iblockstate), posX + (rand.nextDouble() - 0.5D) * width, getBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D);
 			}
 		}
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.NONE;
+		return GaiaSounds.NONE;
 	}
 
 	@Override
@@ -162,29 +163,29 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_IRONGOLEM_DEATH;
+		return SoundEvents.ENTITY_IRON_GOLEM_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(SoundEvents.ENTITY_IRON_GOLEM_STEP, 1.0F, 1.0F);
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -194,7 +195,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}
@@ -230,8 +231,8 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

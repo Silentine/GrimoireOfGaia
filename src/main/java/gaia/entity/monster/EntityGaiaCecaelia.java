@@ -2,14 +2,13 @@ package gaia.entity.monster;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.Entity;
@@ -39,9 +38,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -59,7 +58,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	private byte inWaterTimer;
 
 	public EntityGaiaCecaelia(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.CECEALIA, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -86,13 +85,13 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -150,7 +149,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -211,7 +210,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -261,38 +260,38 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.CECAELIA_SAY;
+		return GaiaSounds.CECAELIA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.CECAELIA_HURT;
+		return GaiaSounds.CECAELIA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.CECAELIA_DEATH;
+		return GaiaSounds.CECAELIA_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				entityDropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.CLAY_BALL, 1);
+				entityDropItem(Items.CLAY_BALL, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -302,7 +301,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 			}
 
 			// Unique Rare
@@ -315,8 +314,8 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
@@ -345,8 +344,8 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	/* IMMUNITIES */
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}
@@ -358,8 +357,8 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

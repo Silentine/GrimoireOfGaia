@@ -4,17 +4,16 @@ import java.util.Random;
 
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.model.ModelGaiaEnderDragonGirl;
 import gaia.renderer.entity.layers.LayerGlowing;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation enderdragongirlEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_ender_dragon_girl.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/ender_dragon_girl.png");
@@ -24,11 +23,7 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
 		super(renderManager, new ModelGaiaEnderDragonGirl(), shadowSize);
 		addLayer(new LayerGlowing(this, enderdragongirlEyesTexture));
 	}
-
-	private ModelGaiaEnderDragonGirl getModel() {
-		return (ModelGaiaEnderDragonGirl) getMainModel();
-	}
-
+	
 	@Override
 	public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		doRender((EntityGaiaEnderDragonGirl) entity, x, y, z, entityYaw, partialTicks);
@@ -36,12 +31,11 @@ public class RenderGaiaEnderDragonGirl extends RenderLiving<EntityLiving> {
 	}
 
 	public void doRender(EntityGaiaEnderDragonGirl entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		ModelGaiaEnderDragonGirl modelenderman = getModel();
-
+		
 		if (entity.isScreaming()) {
 			double d0 = 0.02D;
-			x += this.rnd.nextGaussian() * 0.02D;
-			z += this.rnd.nextGaussian() * 0.02D;
+			x += this.rnd.nextGaussian() * d0;
+			z += this.rnd.nextGaussian() * d0;
 		}
 
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);

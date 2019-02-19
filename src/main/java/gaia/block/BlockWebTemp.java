@@ -1,33 +1,32 @@
 package gaia.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.BlockWeb;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @see BlockFire
@@ -35,11 +34,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockWebTemp extends BlockBase implements net.minecraftforge.common.IShearable {
 
-	public BlockWebTemp() {
-		super(Material.WEB, "web_temp");
-		this.setLightOpacity(1);
-		this.setHardness(0.2F);
-		this.setTickRandomly(true);
+	public BlockWebTemp(Block.Properties builder) {
+		super(builder.lightValue(1).hardnessAndResistance(0.2F).needsRandomTick().doesNotBlockMovement());
 	}
 
 	/**
@@ -55,10 +51,10 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
-
-	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		return NULL_AABB;
+	
+	@Override
+	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	    return VoxelShapes.fullCube();
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -69,7 +65,7 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
@@ -79,21 +75,21 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
-			player.addStat(StatList.getBlockStats(this));
-			spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1));
+			player.addStat(StatList.BLOCK_MINED.get(this));
+			spawnAsEntity(worldIn, pos, new ItemStack(this));
 		} else {
 			super.harvestBlock(worldIn, player, pos, state, te, stack);
 		}
 	}
-
+	
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+	public boolean isShearable(ItemStack item, IWorldReader world, BlockPos pos) {
 		return true;
 	}
 
 	@Override
-	public java.util.List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-		return com.google.common.collect.Lists.newArrayList(new ItemStack(Item.getItemFromBlock(this)));
+	public List<ItemStack> onSheared(ItemStack item, IWorld world, BlockPos pos, int fortune) {
+		return com.google.common.collect.Lists.newArrayList(new ItemStack(this));
 	}
 
 	/**
@@ -103,20 +99,22 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 	 * 
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 		return BlockFaceShape.UNDEFINED;
 	}
-
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		worldIn.setBlockToAir(pos);
+	
+	public void tick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		worldIn.destroyBlock(pos, false);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		super.randomDisplayTick(stateIn, worldIn, pos, rand);
-
+	@SuppressWarnings("deprecation")
+	@Override
+	public void randomTick(IBlockState state, World worldIn, BlockPos pos, Random rand) {
+		super.randomTick(state, worldIn, pos, rand);
+		
 		if (rand.nextInt(10) == 0) {
-			worldIn.spawnParticle(EnumParticleTypes.TOWN_AURA, (double) ((float) pos.getX() + rand.nextFloat()), (double) ((float) pos.getY() + 1.1F), (double) ((float) pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(Particles.MYCELIUM, (double) ((float) pos.getX() + rand.nextFloat()), (double) ((float) pos.getY() + 1.1F), (double) ((float) pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D);
 		}
 	}
 }

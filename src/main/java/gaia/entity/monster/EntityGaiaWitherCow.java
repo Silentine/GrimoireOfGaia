@@ -3,9 +3,10 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -18,21 +19,21 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
+
 public class EntityGaiaWitherCow extends EntityMobHostileBase {
 
 	public EntityGaiaWitherCow(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.WITHER_COW, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -50,15 +51,15 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
 	@Override
@@ -100,13 +101,13 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconDebuff(2, MobEffects.SLOWNESS, 100, 0);
 
 		for (int i = 0; i < 2; ++i) {
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(Particles.SMOKE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 		}
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 	
 	@Override
@@ -133,7 +134,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
@@ -141,14 +142,14 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(8) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_WITHER, 1);
+				entityDropItem(GaiaItems.FOOD_WITHER, 1);
 			}
 
 			if ((rand.nextInt(8) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				if ((rand.nextInt(2) == 0)) {
-					dropItem(Items.QUARTZ, 1);
+					entityDropItem(Items.QUARTZ, 1);
 				} else {
-					dropItem(Items.GLOWSTONE_DUST, 1);
+					entityDropItem(Items.GLOWSTONE_DUST, 1);
 				}
 			}
 
@@ -156,10 +157,10 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -169,7 +170,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_NETHER, 1), 0.0F);
 			}
 		}
 	}

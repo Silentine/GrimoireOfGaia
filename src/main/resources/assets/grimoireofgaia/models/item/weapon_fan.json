@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "grimoireofgaia:items/models/weapon_fan"
+		"0": "grimoireofgaia:item/models/weapon_fan"
 	},
 	"elements": [
 		{

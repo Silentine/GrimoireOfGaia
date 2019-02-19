@@ -1,14 +1,13 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -23,9 +22,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -33,9 +32,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
@@ -47,7 +46,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	private byte inWaterTimer;
 
 	public EntityGaiaSharko(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.SHARKO, worldIn);
 
 		setSize(1.4F, 2.0F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
@@ -70,13 +69,13 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
@@ -119,7 +118,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -159,7 +158,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 		}
 		/* BUFF */
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -189,20 +188,20 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SHARKO_SAY;
+		return GaiaSounds.SHARKO_SAY;
 	}
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SHARKO_HURT;
+		return GaiaSounds.SHARKO_HURT;
 	}
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SHARKO_DEATH;
+		return GaiaSounds.SHARKO_DEATH;
 	}
 	
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.STEP_WEBBED, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(GaiaSounds.STEP_WEBBED, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -211,21 +210,21 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				entityDropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.PRISMARINE_SHARD, 1);
+				entityDropItem(Items.PRISMARINE_SHARD, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -237,22 +236,22 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOOK_BUFF, 1);
+				entityDropItem(GaiaItems.BOOK_BUFF, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 		setAI((byte) 0);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
@@ -286,8 +285,8 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 32.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

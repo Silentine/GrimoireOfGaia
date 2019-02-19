@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/Silentine/GrimoireOfGaia/issues"
+
+[[mods]]
+modId="grimoireofgaia"
+version="${file.jarVersion}"
+displayName="Grimoire of Gaia 3"
+displayURL="https://minecraft.curseforge.com/projects/grimoire-of-gaia"
+authors="Silentine, Mrbysco"
+credits="Made possible by the combined effort of [Akjosch], [nidefawl], [bloodmc], [DoctorWiggles], [P3pp3rF1y]."
+logoFile="GrimoireOfGaia.png"
+description='''
+Adds mobs, monsters and monster girls.
+'''
+
+ [[dependencies.grimoireofgaia]]
+modId="forge"
+mandatory=true
+versionRange="[25,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.grimoireofgaia]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.13.2]"
+ordering="NONE"
+side="BOTH"

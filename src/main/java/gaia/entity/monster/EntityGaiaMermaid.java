@@ -1,14 +1,14 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveBase;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import gaia.items.ItemShieldProp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -26,22 +26,23 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
+
 public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	
 	private byte inWaterTimer;
 
 	public EntityGaiaMermaid(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.MERMAID, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
@@ -62,14 +63,14 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	private boolean hasShield() {
 		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
-		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
 			return true;
 		} else {
 			return false;
@@ -127,7 +128,7 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -141,22 +142,22 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MERMAID_SAY;
+		return GaiaSounds.MERMAID_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MERMAID_HURT;
+		return GaiaSounds.MERMAID_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MERMAID_DEATH;
+		return GaiaSounds.MERMAID_DEATH;
 	}
 
 	@Override
@@ -165,21 +166,21 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				entityDropItem(GaiaItems.FOOD_COALFISH, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.PRISMARINE_SHARD, 1);
+				entityDropItem(Items.PRISMARINE_SHARD, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -191,27 +192,27 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_OLD, 1);
+				entityDropItem(GaiaItems.BOX_OLD, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
-		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 2);
+		ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_GOLD, 1);
 		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
@@ -244,8 +245,8 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

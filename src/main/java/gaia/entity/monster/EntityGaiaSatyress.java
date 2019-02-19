@@ -1,15 +1,14 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,9 +41,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaSatyress.class, DataSerializers.VARINT);
@@ -58,7 +57,7 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	private int regenerateHealth;
 
 	public EntityGaiaSatyress(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.SATYRESS, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -79,13 +78,13 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -132,10 +131,10 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		/* REGENERATE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
-			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
+			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION, 1), PotionTypes.REGENERATION);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stacky);
 			setAI((byte) 1);
 			setEquipment((byte) 1);
@@ -162,7 +161,7 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 		}
 		/* REGENERATE DATA */
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -200,21 +199,21 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SATYRESS_SAY;
+		return GaiaSounds.SATYRESS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SATYRESS_HURT;
+		return GaiaSounds.SATYRESS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SATYRESS_DEATH;
+		return GaiaSounds.SATYRESS_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
 	}
 
@@ -222,17 +221,17 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_MEAT, 1);
+				entityDropItem(GaiaItems.FOOD_MEAT, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -242,14 +241,14 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (!this.world.isRemote) {
 			int i = MathHelper.floor(this.posX);
@@ -271,9 +270,9 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 
 	/* ALTERNATE SKIN */
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SKIN, 0);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SKIN, 0);
 	}
 
 	public int getTextureType() {
@@ -285,14 +284,14 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
@@ -309,8 +308,8 @@ public class EntityGaiaSatyress extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

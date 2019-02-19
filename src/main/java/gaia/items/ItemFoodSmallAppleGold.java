@@ -1,40 +1,41 @@
 package gaia.items;
 
-import net.minecraft.client.resources.I18n;
+import java.util.List;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodSmallAppleGold extends ItemFoodBase {
 
-	public ItemFoodSmallAppleGold() {
-		super("food_small_apple_gold", 1, 0.4F, false);
+	public ItemFoodSmallAppleGold(Item.Properties builder) {
+		super(builder.maxStackSize(64), 1, 0.4F, false); //"food_small_apple_gold"
 		setAlwaysEdible();
-		maxStackSize = 64;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("effect.absorption") + " (2:00)");
-		tooltip.add(I18n.format("effect.regeneration") + " (IV)" + " (0:04)");
-		tooltip.add(I18n.format("effect.resistance") + " (0:50)");
-		tooltip.add(I18n.format("effect.fireResistance") + " (0:50)");
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("effect.minecraft.absorption").appendSibling(new TextComponentString(" (2:00)")));
+		tooltip.add(new TextComponentTranslation("effect.minecraft.regeneration").appendSibling(new TextComponentString(" (IV)").appendSibling(new TextComponentString(" (0:04)"))));
+		tooltip.add(new TextComponentTranslation("effect.minecraft.resistance").appendSibling(new TextComponentString(" (0:50)")));
+		tooltip.add(new TextComponentTranslation("effect.minecraft.fire_resistance").appendSibling(new TextComponentString(" (0:50)")));
 	}
 
 	@Override

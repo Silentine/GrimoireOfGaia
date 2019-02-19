@@ -1,55 +1,26 @@
 package gaia.items;
 
 import gaia.entity.GaiaLootTableList;
-import gaia.helpers.LootHelper;
-import gaia.init.Sounds;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-public class ItemBoxGold extends ItemBase {
-	public ItemBoxGold() {
-		super("box_gold");
-		setMaxStackSize(1);
+public class ItemBoxGold extends ItemBoxBase {
+	public ItemBoxGold(Item.Properties builder) {
+		super(builder); //"box_gold");
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
-	}
-
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
-		final ItemStack stack = player.getHeldItem(handIn);
-
-		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-
-		if (!player.capabilities.isCreativeMode) {
-			stack.shrink(1);
-		}
-
-		if (!world.isRemote) {
-			LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_GOLD);
-		}
-
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+	public ResourceLocation getBoxLoot() {
+		return GaiaLootTableList.BOXES_GOLD;
 	}
 }

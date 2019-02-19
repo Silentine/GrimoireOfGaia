@@ -7,14 +7,14 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaHarpy extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/harpy01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Harpy02.png");
-	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/Harpy03.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/harpy02.png");
+	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/harpy03.png");
 
 	public RenderGaiaHarpy(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaHarpy(), shadowSize);

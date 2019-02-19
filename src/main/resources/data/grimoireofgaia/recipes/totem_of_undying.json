@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:totem_of_undying",
+    "ingredients": [
+        {
+          "item": "grimoireofgaia:shard_misc_totem",
+        },
+        {
+          "item": "grimoireofgaia:shard_misc_totem",
+        },
+        {
+          "item": "grimoireofgaia:shard_misc_totem",
+        },
+        {
+          "item": "grimoireofgaia:shard_misc_totem",
+        },
+    	{
+          "item": "minecraft:totem_of_undying"
+        }
+      ],
+      "result": {
+        "item": "minecraft:totem_of_undying",
+        "count": 2
+      }
+}

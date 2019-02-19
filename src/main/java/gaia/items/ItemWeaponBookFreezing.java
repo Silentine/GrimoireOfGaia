@@ -1,52 +1,53 @@
 package gaia.items;
 
-import gaia.init.Sounds;
+import java.util.List;
+
+import gaia.ItemGroupGaia;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemWeaponBookFreezing extends ItemWeaponBook {
 	
-	public ItemWeaponBookFreezing(ToolMaterial material, String name) {
-		super(material, name);
+	public ItemWeaponBookFreezing(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+		super(tier, attackDamageIn, attackSpeedIn, builder.group(ItemGroupGaia.INSTANCE));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		final EntityPlayer player = Minecraft.getMinecraft().player;
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		final EntityPlayer player = Minecraft.getInstance().player;
 		if (player == null) {
 			return;
 		}
 		if (player.getHeldItemOffhand() == stack) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.BlessOffhand")));
+			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.BlessOffhand").applyTextStyle(TextFormatting.YELLOW));
 		} else {
-			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.BlessMainhand")));
+			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.BlessMainhand").applyTextStyle(TextFormatting.YELLOW));
 		}
 
-		tooltip.add(I18n.format("effect.moveSlowdown") + " II" + " (0:04)");
+		tooltip.add(new TextComponentTranslation("effect.minecraft.slowness").appendSibling(new TextComponentString( " II")).appendSibling(new TextComponentString( " (0:04)")));
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class ItemWeaponBookFreezing extends ItemWeaponBook {
 		player.addExhaustion(5.0F);
 
 		world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F,
-				0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+				0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		player.getCooldownTracker().setCooldown(this, 60);
 
 		if (!world.isRemote) {
@@ -66,11 +67,8 @@ public class ItemWeaponBookFreezing extends ItemWeaponBook {
 			world.spawnEntity(snowball);
 		}
 
-		StatBase statBase = StatList.getObjectUseStats(this);
-		if (statBase != null) {
-			player.addStat(statBase);
-		}
-
+		player.addStat(StatList.ITEM_USED.get(this));
+		
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 
@@ -78,7 +76,7 @@ public class ItemWeaponBookFreezing extends ItemWeaponBook {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		super.hitEntity(stack, target, attacker);
 
-		attacker.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
+		attacker.playSound(GaiaSounds.BOOK_HIT, 1.0F, 1.0F);
 		target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80, 1));
 
 		return true;

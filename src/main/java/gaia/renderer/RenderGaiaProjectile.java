@@ -2,18 +2,19 @@ package gaia.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@SuppressWarnings("deprecation")
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaProjectile extends Render<Entity> {
 	private final float scale;
 	protected final Item item;
@@ -27,15 +28,15 @@ public class RenderGaiaProjectile extends Render<Entity> {
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GlStateManager.translatef((float) x, (float) y, (float) z);
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(scale, scale, scale);
-		GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+		GlStateManager.scalef(scale, scale, scale);
+		GlStateManager.rotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-		Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(item),
+		Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(item),
 				ItemCameraTransforms.TransformType.GROUND);
 
 		GlStateManager.disableRescaleNormal();

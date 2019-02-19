@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaSphinx extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/sphinx.png");
 
@@ -20,7 +20,7 @@ public class RenderGaiaSphinx extends RenderLiving<EntityLiving> {
 
 	@Override
 	protected void preRenderCallback(EntityLiving living, float par2) {
-		GlStateManager.scale(1.25F, 1.25F, 1.25F);
+		GlStateManager.scalef(1.25F, 1.25F, 1.25F);
 	}
 
 	@Override

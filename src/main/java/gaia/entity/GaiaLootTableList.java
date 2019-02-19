@@ -14,6 +14,7 @@ public class GaiaLootTableList {
 	public static final ResourceLocation BOXES_OVERWORLD = register("loot_table_box");
 	public static final ResourceLocation BOXES_NETHER = register("loot_table_boxnether");
 	public static final ResourceLocation BOXES_END = register("loot_table_boxend");
+	public static final ResourceLocation BOXES_OLD = register("loot_table_boxold");
 
 	private static ResourceLocation register(String id) {
 		return LootTableList.register(new ResourceLocation(GaiaReference.MOD_ID, id));

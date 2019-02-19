@@ -3,13 +3,14 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -27,15 +28,16 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
+
 public class EntityGaiaMummy extends EntityMobHostileBase {
 
 	private static final Item[] mummyDrops = new Item[] { Items.BONE, Items.ROTTEN_FLESH };
 
 	public EntityGaiaMummy(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.MUMMY, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -52,15 +54,15 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.50D);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.50D);
 	}
 
 	@Override
@@ -108,7 +110,7 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (world.isDaytime() && !world.isRemote) {
 			float f = getBrightness();
 
@@ -118,26 +120,26 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MUMMY_SAY;
+		return GaiaSounds.MUMMY_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MUMMY_HURT;
+		return GaiaSounds.MUMMY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MUMMY_DEATH;
+		return GaiaSounds.MUMMY_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
 	}
 
@@ -148,7 +150,7 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 				Item drop = mummyDrops[rand.nextInt(mummyDrops.length)];
 
 				for (int j = 0; j < 1; ++j) {
-					dropItem(drop, 1);
+					entityDropItem(drop, 1);
 				}
 			}
 
@@ -156,10 +158,10 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -169,14 +171,14 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}
 
 	@Override
-	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.UNDEAD;
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/* SPAWN CONDITIONS */
@@ -186,8 +188,8 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

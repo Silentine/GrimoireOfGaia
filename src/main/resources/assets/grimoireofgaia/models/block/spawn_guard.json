@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/spawn_guard",
-		"particle": "grimoireofgaia:blocks/models/spawn_guard"
+		"0": "grimoireofgaia:block/models/spawn_guard",
+		"particle": "grimoireofgaia:block/models/spawn_guard"
 	},
 	"elements": [
 		{

@@ -4,16 +4,18 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.IAnimals;
+import net.minecraft.entity.passive.IAnimal;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.EnumLightType;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 /**
@@ -21,10 +23,10 @@ import net.minecraft.world.World;
  *
  * @see EntityMob
  */
-public abstract class EntityMobPassive extends EntityCreature implements IAnimals {
+public abstract class EntityMobPassive extends EntityCreature implements IAnimal {
 
-	EntityMobPassive(World worldIn) {
-		super(worldIn);
+	EntityMobPassive(EntityType<?> type, World worldIn) {
+		super(type, worldIn);
 		this.experienceValue = 5;
 	}
 
@@ -32,7 +34,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		this.updateArmSwingProgress();
 		float f = this.getBrightness();
 
@@ -40,18 +42,18 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 			this.idleTime += 2;
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	/**
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		if (!this.world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL) {
-			this.setDead();
+			this.remove();
 		}
 	}
 
@@ -72,7 +74,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 	// TODO updated attack line
 
 //	public boolean attackEntityFrom(DamageSource source, float amount) {
-//		if (this.isEntityInvulnerable(source)) {
+//		if (this.isInvulnerableTo(source)) {
 //			return false;
 //		} else if (super.attackEntityFrom(source, amount)) {
 //			Entity entity = source.getTrueSource();
@@ -87,7 +89,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 	 */
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float inputDamage) {
-		return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, inputDamage);
+		return !this.isInvulnerableTo(source) && super.attackEntityFrom(source, inputDamage);
 	}
 
 	/**
@@ -108,7 +110,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+		float f = (float) this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue();
 		int i = 0;
 
 		if (entityIn instanceof EntityLivingBase) {
@@ -139,42 +141,34 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 
 	@Override
 	public float getBlockPathWeight(BlockPos pos) {
-		return 0.5F - this.world.getLightBrightness(pos);
+		return 0.5F - this.world.getLight(pos);
 	}
 
 	/**
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
 	private boolean isValidLightLevel() {
-		BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+		BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
 
-		if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+		if (this.world.getLightFor(EnumLightType.SKY, blockpos) > this.rand.nextInt(32)) {
 			return false;
 		} else {
-			int i = this.world.getLightFromNeighbors(blockpos);
-
-			if (this.world.isThundering()) {
-				int j = this.world.getSkylightSubtracted();
-				this.world.setSkylightSubtracted(10);
-				i = this.world.getLightFromNeighbors(blockpos);
-				this.world.setSkylightSubtracted(j);
-			}
-
-			return i <= this.rand.nextInt(8);
-		}
+	         int i = this.world.isThundering() ? this.world.getNeighborAwareLightSubtracted(blockpos, 10) : this.world.getLight(blockpos);
+	         return i <= this.rand.nextInt(8);
+	    }
 	}
 
 	/**
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	@Override
-	public boolean getCanSpawnHere() {
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld worldIn, boolean value) {
+		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.canSpawn(world, value);
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
+	protected void registerAttributes() {
+		super.registerAttributes();
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 	}
 

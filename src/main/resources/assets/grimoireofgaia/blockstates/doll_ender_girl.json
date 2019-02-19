@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:doll_ender_girl" }
+        "": { "model": "grimoireofgaia:block/doll_ender_girl" }
     }
 }

@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:gold_ingot",
+    "ingredients": [
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        },
+        {
+			"tag": "forge:nuggets/gold"
+        }
+    ],
+    "result": {
+        "item": "minecraft:gold_ingot"
+    }
+}

@@ -36,7 +36,7 @@ public class EntityAIGaiaCreepSwell extends EntityAIBase {
 	}
 
 	@Override
-	public void updateTask() {
+	public void tick() {
 		if (creepAttackTarget == null) {
 			swellingCreep.setCreeperState(-1);
 		} else if (swellingCreep.getDistanceSq(creepAttackTarget) > 49.0D) {

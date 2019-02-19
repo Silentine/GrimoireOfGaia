@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:bust_sphinx" }
+        "": { "model": "grimoireofgaia:block/bust_sphinx" }
     }
 }

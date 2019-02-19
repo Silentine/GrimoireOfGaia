@@ -1,13 +1,12 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,7 +34,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
@@ -47,7 +45,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	private int animationTimer;
 
 	public EntityGaiaBaphomet(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.BAPHOMET, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
@@ -70,13 +68,13 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
@@ -127,7 +125,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
 			setAI((byte) 1);
@@ -135,8 +133,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
-			setAI((byte) 0);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 			switchHealth = 0;
 		}
 
@@ -149,7 +146,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -180,7 +177,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	
 	private void setCombatTask() {
 		ItemStack itemstack = getHeldItemMainhand();
-		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER) {
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 1);
@@ -189,17 +186,17 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BAPHOMET_SAY;
+		return GaiaSounds.BAPHOMET_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BAPHOMET_HURT;
+		return GaiaSounds.BAPHOMET_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BAPHOMET_DEATH;
+		return GaiaSounds.BAPHOMET_DEATH;
 	}
 
 	protected void playStepSound() {
@@ -213,26 +210,26 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1) > 0)) {
 				for (int i = 0; i < drop; ++i) {
-					dropItem(GaiaItems.MISC_SOUL_FIERY, 1);
+					entityDropItem(GaiaItems.MISC_SOUL_FIERY, 1);
 				}
 			} else {
 				for (int i = 0; i < drop; ++i) {
-					dropItem(Items.BLAZE_POWDER, 1);
+					entityDropItem(Items.BLAZE_POWDER, 1);
 				}
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_NETHER_WART, 1);
+				entityDropItem(GaiaItems.FOOD_NETHER_WART, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -244,26 +241,26 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
+					entityDropItem(new ItemStack(GaiaItems.BOX_GOLD, 1), 0.0F);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				case 2:
 				}
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.ACCESSORY_TRINKET_WITHER, 1);
+				entityDropItem(GaiaItems.ACCESSORY_TRINKET_WITHER, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 		setAI((byte) 0);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 1));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 
 		return ret;
 	}
@@ -276,8 +273,8 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	/* IMMUNITIES */
 	
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}

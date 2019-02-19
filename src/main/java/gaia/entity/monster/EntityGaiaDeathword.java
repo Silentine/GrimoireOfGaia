@@ -2,14 +2,13 @@ package gaia.entity.monster;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaStrafe;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,20 +28,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 6;
@@ -55,7 +54,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	private int spawnLimit;
 
 	public EntityGaiaDeathword(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.DEATHWORD, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -76,13 +75,13 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -124,7 +123,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconMonster();
 
 		if (playerDetection(DETECTION_RANGE)) {
@@ -178,7 +177,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 		if (motionX > 0 || motionY > 0 || motionZ > 0) {
 			for (int var5 = 0; var5 < 2; ++var5) {
-				world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.ENCHANT, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -187,7 +186,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -211,15 +210,15 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		if (id == 0) {
 			creeper = new EntityCreeper(world);
 			creeper.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			creeper.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(creeper)), null);
+			creeper.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(creeper)), null, null);
 			world.spawnEntity(creeper);
 		}
 
 		if (id == 1) {
 			skeleton = new EntitySkeleton(world);
 			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null, null);
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
 			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -232,15 +231,15 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 		if (id == 2) {
 			spider = new EntitySpider(world);
 			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
+			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null, null);
 			world.spawnEntity(spider);
 		}
 
 		if (id == 3) {
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null, null);
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
 			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -283,17 +282,17 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BOOK_HIT;
+		return GaiaSounds.BOOK_HIT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BOOK_HIT;
+		return GaiaSounds.BOOK_HIT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BOOK_HIT;
+		return GaiaSounds.BOOK_HIT;
 	}
 
 	@Override
@@ -302,21 +301,21 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 			int drop = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(Items.PAPER, 1);
+				entityDropItem(Items.PAPER, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.BOOK, 1);
+				entityDropItem(Items.BOOK, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -326,24 +325,24 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BAG_BOOK, 1);
+				entityDropItem(GaiaItems.BAG_BOOK, 1);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.WEAPON_BOOK, 1);
+				entityDropItem(GaiaItems.WEAPON_BOOK, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
@@ -361,8 +360,8 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	/* IMMUNITIES */
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}
@@ -374,8 +373,8 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 16.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 16.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

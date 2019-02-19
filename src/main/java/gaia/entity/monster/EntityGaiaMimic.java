@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -27,14 +28,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
+
 public class EntityGaiaMimic extends EntityMobHostileBase {
 
 	public EntityGaiaMimic(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.MIMIC, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 6.0F;
@@ -53,15 +55,15 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconDebuff(2, MobEffects.HUNGER, 100, 0);
 
 		if (!onGround && motionY < 0.0D) {
@@ -124,7 +126,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private boolean hasItem() {
@@ -184,10 +186,10 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 			int drop = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNugget = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNugget; ++i) {
@@ -197,24 +199,24 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.FOOD_MONSTER_FEED_PREMIUM, 1);
+				entityDropItem(GaiaItems.FOOD_MONSTER_FEED_PREMIUM, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.SPAWN_TRADER, 1);
+				entityDropItem(GaiaItems.SPAWN_TRADER, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BAG_RECORD, 1);
+				entityDropItem(GaiaItems.BAG_RECORD, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
+				entityDropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
 			}
 		}
 	}
@@ -226,7 +228,7 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	/* IMMUNITIES */
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 0.0D && super.canSpawn(world, p_205020_2_);
 	}
 }

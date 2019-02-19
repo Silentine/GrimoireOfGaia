@@ -4,15 +4,14 @@ import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaMinotaurus;
 import gaia.model.ModelGaiaMinotaurus;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaMinotaurus extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/minotaurus01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/minotaurus02.png");
@@ -27,10 +26,10 @@ public class RenderGaiaMinotaurus extends RenderLiving<EntityLiving> {
 		return (ModelGaiaMinotaurus) getMainModel();
 	}
 
-	@Override
-	public void transformHeldFull3DItemLayer() {
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
-	}
+//	@Override
+//	public void transformHeldFull3DItemLayer() {
+//		GlStateManager.translatef(0.0F, 0.1875F, 0.0F);
+//	}
 
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {
 		return getTexture((EntityGaiaMinotaurus) entity);

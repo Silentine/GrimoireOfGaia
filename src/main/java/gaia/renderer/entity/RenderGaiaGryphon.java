@@ -18,7 +18,7 @@ public class RenderGaiaGryphon extends RenderLiving<EntityLiving> {
 
 	@Override
 	protected void preRenderCallback(EntityLiving par1EntityLiving, float par2) {
-		GlStateManager.scale(SCALE_AMOUNT, SCALE_AMOUNT, SCALE_AMOUNT);
+		GlStateManager.scalef(SCALE_AMOUNT, SCALE_AMOUNT, SCALE_AMOUNT);
 	}
 
 	@Override

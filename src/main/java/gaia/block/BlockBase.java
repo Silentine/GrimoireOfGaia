@@ -1,28 +1,20 @@
 package gaia.block;
 
-import gaia.CreativeTabGaia;
-import gaia.Gaia;
-import gaia.GaiaReference;
-import gaia.helpers.ModelLoaderHelper;
-import gaia.proxy.IClientRegister;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.block.state.IBlockState;
 
-class BlockBase extends Block implements IClientRegister {
-	BlockBase(Material materialIn, String blockName) {
-		super(materialIn);
-		setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, blockName));
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + blockName);
-		setCreativeTab(CreativeTabGaia.INSTANCE);
-		Gaia.proxy.addClientRegister(this);
+class BlockBase extends Block {
+	BlockBase(Block.Properties builder) {
+		super(builder);
+//		setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, blockName));
+//		setUnlocalizedName(GaiaReference.MOD_ID + "." + blockName);
+//		setCreativeTab(CreativeTabGaia.INSTANCE);
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this);
-	}
+	//
+//	@Override
+//	@OnlyIn(Dist.CLIENT)
+//	public void registerClient() {
+//		ModelLoaderHelper.registerItem(this);
+//	}
 }

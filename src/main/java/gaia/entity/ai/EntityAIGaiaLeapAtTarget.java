@@ -42,9 +42,9 @@ public class EntityAIGaiaLeapAtTarget extends EntityAIBase {
 		}
 	}
 
-	private boolean leaperCanAttack(double distance) {
-		return (distance >= 4.0D && distance <= 16.0D) && (leaper.onGround && leaper.getRNG().nextInt(5) == 0);
-	}
+//	private boolean leaperCanAttack(double distance) {
+//		return (distance >= 4.0D && distance <= 16.0D) && (leaper.onGround && leaper.getRNG().nextInt(5) == 0);
+//	}
 
 	@Override
 	public boolean shouldContinueExecuting() {

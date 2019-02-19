@@ -1,6 +1,5 @@
 package gaia.entity;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,9 +8,11 @@ import com.google.common.collect.Sets;
 import gaia.GaiaConfig;
 import gaia.init.GaiaBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 /**
@@ -19,17 +20,16 @@ import net.minecraft.world.World;
  *
  * @see EntityMobHostileDay
  */
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 
-	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW_LAYER, Blocks.SNOW);
+	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW, Blocks.SNOW);
 
-	public EntityMobPassiveDay(World worldIn) {
-		super(worldIn);
+	public EntityMobPassiveDay(EntityType<?> type, World worldIn) {
+		super(type, worldIn);
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
 		if (this.world.isDaytime()) {
 			float f = this.getBrightness();
 			if (f > 0.5F && this.world.canSeeSky(this.getPosition())) {
@@ -37,16 +37,16 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 					return false;
 				} else {
 					int i = MathHelper.floor(this.posX);
-					int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+					int j = MathHelper.floor(this.getBoundingBox().minY);
 					int k = MathHelper.floor(this.posZ);
 					BlockPos blockpos = new BlockPos(i, j, k);
 					Block var1 = this.world.getBlockState(blockpos.down()).getBlock();
-					Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalSpawnBlocks));
+					Set<String> additionalBlocks = new HashSet<String>(GaiaConfig.COMMON.additionalSpawnBlocks.get());
 
 					boolean defaultFlag = spawnBlocks.contains(var1);
 					boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
 
-					return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getEntityBoundingBox());
+					return (defaultFlag || additionalFlag) && !this.world.containsAnyLiquid(this.getBoundingBox());
 				}
 			}
 		}

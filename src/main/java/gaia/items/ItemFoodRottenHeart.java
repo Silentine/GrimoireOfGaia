@@ -1,32 +1,33 @@
 package gaia.items;
 
-import net.minecraft.client.resources.I18n;
+import java.util.List;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodRottenHeart extends ItemFoodGaia {
 
-	public ItemFoodRottenHeart() {
-		super("food_rotten_heart", 4, 0.0F, true);
+	public ItemFoodRottenHeart(Item.Properties builder) {
+		super(builder.maxStackSize(1), 4, 0.0F, true); //"food_rotten_heart"
 		setAlwaysEdible();
-		maxStackSize = 1;
 
 		setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10 * 20, 0), 1.0F);
 		setSecondPotionEffect(new PotionEffect(MobEffects.HUNGER, 30 * 20, 0), 0.8F);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("effect.regeneration") + " (0:10)");
-		tooltip.add("(80%) " + I18n.format("effect.hunger") + " (0:30)");
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("effect.minecraft.regeneration").appendSibling(new TextComponentString(" (0:10)")));
+		tooltip.add(new TextComponentTranslation("effect.minecraft.hunger").appendSibling(new TextComponentString(" (0:30)")));
 	}
 }

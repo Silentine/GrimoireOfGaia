@@ -1,18 +1,17 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -36,9 +35,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
@@ -48,7 +47,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	private boolean isChild;
 
 	public EntityGaiaYukiOnna(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.YUKI_ONNA, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
@@ -69,13 +68,13 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
@@ -117,7 +116,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F) && (switchHealth == 0)) {
 			switch (rand.nextInt(2)) {
@@ -151,7 +150,7 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -199,22 +198,22 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.YUKIONNA_SAY;
+		return GaiaSounds.YUKIONNA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.YUKIONNA_HURT;
+		return GaiaSounds.YUKIONNA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.YUKIONNA_DEATH;
+		return GaiaSounds.YUKIONNA_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -223,17 +222,17 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.MISC_FUR, 1);
+				entityDropItem(GaiaItems.MISC_FUR, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -245,9 +244,9 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
@@ -261,8 +260,8 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (!isChild) {
 			setEquipmentEnchanted();
@@ -315,8 +314,8 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	/* CHILD CODE */
 
 	@Override
-	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.UNDEAD;
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/* IMMUNITIES */
@@ -335,8 +334,8 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	/* IMMUNITIES */
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}
@@ -352,8 +351,8 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && isSnowing() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && isSnowing() && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

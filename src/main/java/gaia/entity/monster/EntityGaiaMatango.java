@@ -2,15 +2,13 @@ package gaia.entity.monster;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -26,32 +24,34 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMatango extends EntityMobHostileDay {
 
-	private static final Item[] matangoDrops = new Item[] { Item.getItemFromBlock(Blocks.RED_MUSHROOM), Item.getItemFromBlock(Blocks.BROWN_MUSHROOM) };
+	private static final Item[] matangoDrops = new Item[] { Blocks.RED_MUSHROOM.asItem(), Blocks.BROWN_MUSHROOM.asItem() };
 
 	private int spawnLimit;
 	private int spawnTime;
 	private boolean canSpawn;
 
 	public EntityGaiaMatango(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.MATANGO, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -70,15 +70,15 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconMonster();
 
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
@@ -142,7 +142,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
-				world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextDouble() - 0.5D) * width, getEntityBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+				world.spawnParticle(new BlockParticleData(Particles.BLOCK, iblockstate), posX + (rand.nextDouble() - 0.5D) * width, getBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * width, 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D);
 			}
 		}
 
@@ -176,7 +176,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setSpawn(byte id) {
@@ -185,7 +185,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		if (id == 0) {
 			sporeling = new EntityGaiaSummonSporeling(world);
 			sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
+			sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null, null);
 			world.spawnEntity(sporeling);
 		}
 	}
@@ -213,17 +213,17 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MATANGO_SAY;
+		return GaiaSounds.MATANGO_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MATANGO_HURT;
+		return GaiaSounds.MATANGO_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MATANGO_DEATH;
+		return GaiaSounds.MATANGO_DEATH;
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 				Item dropList = matangoDrops[rand.nextInt(matangoDrops.length)];
 
 				for (int j = 0; j < 1; ++j) {
-					dropItem(dropList, 1);
+					entityDropItem(dropList, 1);
 				}
 			}
 
@@ -241,10 +241,10 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -254,14 +254,14 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
@@ -284,8 +284,8 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

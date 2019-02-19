@@ -1,48 +1,48 @@
 package gaia.items;
 
+import java.util.List;
+
 import gaia.entity.GaiaLootTableList;
 import gaia.helpers.LootHelper;
-import gaia.init.Sounds;
-import net.minecraft.client.resources.I18n;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemBagArrow extends ItemBase {
-	public ItemBagArrow() {
-		super("bag_arrow");
-		setMaxStackSize(1);
+	public ItemBagArrow(Item.Properties builder) {
+		super(builder.maxStackSize(1)); //"bag_arrow");
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.RightClickUse"));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.RightClickUse"));
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(GaiaSounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-		if (!player.capabilities.isCreativeMode) {
+		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 

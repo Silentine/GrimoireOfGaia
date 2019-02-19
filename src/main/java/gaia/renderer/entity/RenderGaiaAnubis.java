@@ -2,19 +2,16 @@ package gaia.renderer.entity;
 
 import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.model.ModelGaiaAnubis;
-import gaia.model.ModelGaiaSuccubus;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/anubis.png");
 	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/anubis_male.png");
@@ -29,10 +26,10 @@ public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
 		return (ModelGaiaAnubis) getMainModel();
 	}
 
-	@Override
-	public void transformHeldFull3DItemLayer() {
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
-	}
+//	@Override
+//	public void transformHeldFull3DItemLayer() {
+//		GlStateManager.translatef(0.0F, 0.1875F, 0.0F);
+//	}
 
 	private ResourceLocation getTexture(EntityGaiaAnubis entity) {
 		if (!entity.isMale()) {

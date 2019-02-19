@@ -7,6 +7,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemSpawnEgg;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
@@ -17,10 +18,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 //Adapted from DivineRPG code
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {
 	private static final String OFFERS_TAG = "Offers";
 	private static final int MAX_RECIPES_TO_ADD = 75;
@@ -29,34 +30,33 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 
 	public EntityMobMerchant(World worldIn) {
 		super(worldIn);
-
 	}
-
+	
 	@Override
 	public ITextComponent getDisplayName() {
 		if (hasCustomName()) {
 			return super.getDisplayName();
 		}
 
-		TextComponentString nameString = new TextComponentString(getName());
+		TextComponentString nameString = new TextComponentString(getName().getString());
 		nameString.getStyle().setHoverEvent(getHoverEvent());
 		nameString.getStyle().setInsertion(getCachedUniqueIdString());
 		return nameString;
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
+	protected void registerAttributes() {
+		super.registerAttributes();
 
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
 	}
-
-	@Override
-	protected boolean canDespawn() {
-		return false;
-	}
+	
+//	@Override
+//	protected boolean canDespawn() {
+//		return false;
+//	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -76,9 +76,9 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		final boolean flag = stack != ItemStack.EMPTY && stack.getItem() == Items.SPAWN_EGG;
+		final boolean flag = stack != ItemStack.EMPTY && stack.getItem() instanceof ItemSpawnEgg;
 
-		if (!flag && isEntityAlive() && !isTrading() && !isChild() && !player.isSneaking()) {
+		if (!flag && isAlive() && !isTrading() && !isChild() && !player.isSneaking()) {
 			if (!world.isRemote && (buyingList == null || !buyingList.isEmpty())) {
 				setCustomer(player);
 				player.displayVillagerTradeGui(this);
@@ -94,24 +94,24 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	public abstract void addRecipies(MerchantRecipeList list);
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 
-		compound.setInteger("Riches", wealth);
+		compound.setInt("Riches", wealth);
 
 		if (buyingList != null) {
-			compound.setTag(OFFERS_TAG, buyingList.getRecipiesAsTags());
+			compound.setTag(OFFERS_TAG, buyingList.write());
 		}
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
-		wealth = compound.getInteger("Riches");
+		wealth = compound.getInt("Riches");
 
 		if (compound.hasKey(OFFERS_TAG)) {
-			NBTTagCompound offerCompound = compound.getCompoundTag(OFFERS_TAG);
+			NBTTagCompound offerCompound = compound.getCompound(OFFERS_TAG);
 			buyingList = new GaiaTradeList(offerCompound);
 		}
 	}
@@ -162,7 +162,7 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld worldIn, boolean value) {
+		return posY < 0.0D && super.canSpawn(world, value);
 	}
 }

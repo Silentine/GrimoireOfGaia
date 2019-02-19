@@ -2,16 +2,15 @@ package gaia.entity.monster;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,11 +41,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -75,7 +74,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	private byte inWaterTimer;
 
 	public EntityGaiaSiren(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.SIREN, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -104,13 +103,13 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -152,7 +151,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -204,7 +203,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -255,18 +254,18 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		if (!target.isDead) {
+		if (target.isAlive()) {
 			Ranged.rangedAttack(target, this, distanceFactor);
 		}
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
@@ -278,17 +277,17 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SIREN_SAY;
+		return GaiaSounds.SIREN_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SIREN_HURT;
+		return GaiaSounds.SIREN_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SIREN_DEATH;
+		return GaiaSounds.SIREN_DEATH;
 	}
 
 	@Override
@@ -296,9 +295,9 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				if (isBurning()) {
-					dropItem(Items.COOKED_FISH, 1);
+					entityDropItem(Items.COOKED_COD, 1);
 				} else {
-					dropItem(Items.FISH, 1);
+					entityDropItem(Items.COD, 1);
 				}
 			}
 
@@ -306,10 +305,10 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -319,19 +318,19 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BAG_ARROW, 1);
+				entityDropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -366,8 +365,8 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	/* IMMUNITIES */
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}
@@ -379,8 +378,8 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

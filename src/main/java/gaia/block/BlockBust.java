@@ -1,43 +1,37 @@
 package gaia.block;
 
-import javax.annotation.Nullable;
-
 import gaia.helpers.WorldHelper;
 import gaia.tileentity.TileEntityBust;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowerPot;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 public class BlockBust extends BlockBase {
 
-	public BlockBust(Material material, String blockName) {
-		super(material, blockName);
-		this.setLightOpacity(0);
-		this.setHardness(3.0F);
-		this.setResistance(6.0F);
+	public BlockBust(Block.Properties builder) {
+		super(builder.lightValue(0).hardnessAndResistance(3.0f, 6.0F));
 	}
 
-	private static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.25F, 1.0F);
+	private static final VoxelShape BOUNDING_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
 
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}
-
-	@Nullable
+	
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
 		return new TileEntityBust();
 	}
 
@@ -52,17 +46,17 @@ public class BlockBust extends BlockBase {
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
+	public boolean propagatesSkylightDown(IBlockState state, IBlockReader reader, BlockPos pos) {
 		return false;
 	}
-
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-		WorldHelper.getTile(world, pos, TileEntityBust.class).ifPresent(t -> t.setDirection(entity.getHorizontalFacing().getOpposite()));
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		WorldHelper.getTile(worldIn, pos, TileEntityBust.class).ifPresent(t -> t.setDirection(placer.getHorizontalFacing().getOpposite()));
 	}
-
+	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
 		return BOUNDING_BOX;
 	}
 
@@ -73,30 +67,14 @@ public class BlockBust extends BlockBase {
 	 * 
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 		return BlockFaceShape.UNDEFINED;
 	}
-
-	/**
-	 * Checks if this block can be placed exactly at the given position.
-	 * 
-	 * @see BlockFlowerPot
-	 */
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		IBlockState downState = worldIn.getBlockState(pos.down());
-		return super.canPlaceBlockAt(worldIn, pos) && (downState.isTopSolid() || downState.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID);
-	}
-
-	/**
-	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid block, etc.
-	 * 
-	 * @see BlockFlowerPot
-	 */
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		IBlockState downState = worldIn.getBlockState(pos.down());
-		if (!downState.isTopSolid() && downState.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) != BlockFaceShape.SOLID) {
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			worldIn.setBlockToAir(pos);
-		}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public IBlockState updatePostPlacement(IBlockState stateIn, EnumFacing facing, IBlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		return facing == EnumFacing.DOWN && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 	}
 }

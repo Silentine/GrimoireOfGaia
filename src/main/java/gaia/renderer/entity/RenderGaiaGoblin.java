@@ -4,15 +4,14 @@ import gaia.GaiaReference;
 import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.model.ModelGaiaGoblin;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaGoblin extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/goblin01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/goblin02.png");
@@ -27,10 +26,10 @@ public class RenderGaiaGoblin extends RenderLiving<EntityLiving> {
 		return (ModelGaiaGoblin) getMainModel();
 	}
 
-	@Override
-	public void transformHeldFull3DItemLayer() {
-		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
-	}
+//	@Override
+//	public void transformHeldFull3DItemLayer() {
+//		GlStateManager.translatef(0.0F, 0.1875F, 0.0F);
+//	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {

@@ -5,10 +5,10 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class LayerAlpha implements LayerRenderer<EntityLiving> {
 	private ResourceLocation alphaTexture;
 	private RenderLiving<EntityLiving> livingEntityRenderer;
@@ -19,10 +19,10 @@ public class LayerAlpha implements LayerRenderer<EntityLiving> {
 	}
 
 	@Override
-	public void doRenderLayer(EntityLiving entity, float f1, float f2, float partialTicks, float f4, float f5, float f6, float scale) {
+	public void render(EntityLiving entity, float f1, float f2, float partialTicks, float f4, float f5, float f6, float scale) {
 		livingEntityRenderer.bindTexture(alphaTexture);
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.enableNormalize();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(770, 771);

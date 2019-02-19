@@ -8,8 +8,9 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,10 +43,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAttackMob {
 	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaAnubis.class, DataSerializers.BOOLEAN);
 
@@ -65,7 +66,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	private int spawnLevel3Chance;
 
 	public EntityGaiaAnubis(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.ANUBIS, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
@@ -94,20 +95,20 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		if (damage > EntityAttributes.BASE_DEFENSE_2) {
 			if (canSpawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
+				spawnLevel3Chance += (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.05);
 			}
 		}
 
@@ -168,7 +169,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
@@ -178,7 +179,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE, 1));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -222,11 +223,11 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 				if (canSpawnLevel3) {
 					if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
 
-						if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
-							spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
+						if (spawnLevel3Chance > (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.5)) {
+							spawnLevel3Chance = (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.5);
 						}
 
-						if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+						if ((rand.nextInt(GaiaConfig.COMMON.spawnLevel3Chance.get() - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 							spawnLevel3 = 1;
 						}
 
@@ -250,7 +251,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 
 		/* LEVEL 3 SPAWN DATA */
-		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
+		if ((GaiaConfig.COMMON.spawnLevel3.get() && (GaiaConfig.COMMON.spawnLevel3Chance.get() != 0)) && !canSpawnLevel3) {
 			canSpawnLevel3 = true;
 		}
 
@@ -261,7 +262,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		}
 		/* LEVEL 3 SPAWN DATA */
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -311,8 +312,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		if (id == 0) {
 			skeleton = new EntitySkeleton(world);
 			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null, null);
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
 			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -327,7 +328,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			sphinx = new EntityGaiaSphinx(world);
 			sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null);
+			sphinx.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sphinx)), null, null);
 			world.spawnEntity(sphinx);
 		}
 	}
@@ -337,7 +338,7 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		tasks.removeTask(aiArrowAttack);
 		
 		ItemStack itemstack = getHeldItemMainhand();
-		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_BLAZE) {
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 1);
@@ -365,23 +366,23 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 
 			this.dead = true;
 			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
-			this.setDead();
+			this.remove();
 		}
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ANUBIS_SAY;
+		return GaiaSounds.ANUBIS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ANUBIS_HURT;
+		return GaiaSounds.ANUBIS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ANUBIS_DEATH;
+		return GaiaSounds.ANUBIS_DEATH;
 	}
 
 	@Override
@@ -404,10 +405,10 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -419,20 +420,20 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 			
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.MISC_BOOK, 1);
+				entityDropItem(GaiaItems.MISC_BOOK, 1);
 			}
 			
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.SPAWN_WERESHEEP, 1);
+				entityDropItem(GaiaItems.SPAWN_WERESHEEP, 1);
 			}
 		}
 
@@ -443,17 +444,17 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(4) == 0) {
 			dataManager.set(MALE, Boolean.valueOf(true));
 			setBodyType("male");
 		}
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE, 1));
 
-		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
+		if (GaiaConfig.COMMON.spawnLevel3.get() && (GaiaConfig.COMMON.spawnLevel3Chance.get() != 0)) {
 			canSpawnLevel3 = true;
 		}
 		
@@ -471,24 +472,24 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	
 	/* ALTERNATE SKIN */
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(MALE, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(MALE, Boolean.valueOf(false));
 	}
 	
 	public boolean isMale() {
 		return ((Boolean) this.dataManager.get(MALE)).booleanValue();
 	}
 	
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		dataManager.set(MALE, Boolean.valueOf(compound.getBoolean("male")));
 		
 		setCombatTask();
 	}
 
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setBoolean("male", isMale());
 	}
 	/* ALTERNATE SKIN */
@@ -500,8 +501,8 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

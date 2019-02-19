@@ -2,53 +2,49 @@ package gaia.block;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BlockSpawnGuard extends BlockBase {
 
-	private static final PropertyEnum<BlockSpawnGuard.EnumType> TYPE = PropertyEnum.create("type", BlockSpawnGuard.EnumType.class);
+	private static final EnumProperty<BlockSpawnGuard.EnumType> TYPE = EnumProperty.create("type", BlockSpawnGuard.EnumType.class);
 
-	public BlockSpawnGuard() {
-		super(Material.CLOTH, "spawn_guard");
-		this.setLightOpacity(0);
-		this.setHardness(0.0F);
-		this.setResistance(6.0F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.NORTH));
+	public BlockSpawnGuard(Block.Properties builder) {
+		super(builder.lightValue(0).hardnessAndResistance(0.0F,6.0F).doesNotBlockMovement());
+//		super(Material.CLOTH, "spawn_guard");
+	    this.setDefaultState((IBlockState)((IBlockState)(this.stateContainer.getBaseState()).with(TYPE, EnumType.NORTH)));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.grimoireofgaia.desc")));
-		tooltip.add(I18n.format("block.grimoireofgaia.spawn_guard.desc", 8));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, net.minecraft.world.IBlockReader worldIn, List<ITextComponent> tooltip,
+			net.minecraft.client.util.ITooltipFlag flagIn) {
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.grimoireofgaia.desc").applyTextStyle(TextFormatting.YELLOW));
+		tooltip.add(new TextComponentTranslation("block.grimoireofgaia.spawn_guard.desc", 8));
 	}
-
-	private static final AxisAlignedBB DOWN_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.06F, 1.0F);
-	private static final AxisAlignedBB UP_BOX = new AxisAlignedBB(0.0F, 0.94F, 0.0F, 1.0F, 1.0F, 1.0F);
-	private static final AxisAlignedBB NORTH_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.94F, 1.0F, 1.0F, 1.0F);
-	private static final AxisAlignedBB WEST_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.06F);
-	private static final AxisAlignedBB EAST_BOX = new AxisAlignedBB(0.94F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-	private static final AxisAlignedBB SOUTH_BOX = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.06F, 1.0F, 1.0F);
+	
+	private static final VoxelShape DOWN_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 0.06F, 16.0F);
+	private static final VoxelShape UP_BOX = Block.makeCuboidShape(0.0F, 15.04F, 0.0F, 16.0F, 16.0F, 16.0F);
+	private static final VoxelShape NORTH_BOX = Block.makeCuboidShape(0.0F, 0.0F, 15.04F, 16.0F, 16.0F, 16.0F);
+	private static final VoxelShape WEST_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 0.96F);
+	private static final VoxelShape EAST_BOX = Block.makeCuboidShape(15.04F, 0.0F, 0.0F, 16.0F, 16.0F, 16.0F);
+	private static final VoxelShape SOUTH_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 0.96F, 16.0F, 16.0F);
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
@@ -56,12 +52,7 @@ public class BlockSpawnGuard extends BlockBase {
 	}
 
 	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
+	public boolean propagatesSkylightDown(IBlockState state, IBlockReader reader, BlockPos pos) {
 		return false;
 	}
 
@@ -69,10 +60,10 @@ public class BlockSpawnGuard extends BlockBase {
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
-
+	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		EnumType type = state.getValue(TYPE);
+	public VoxelShape getShape(IBlockState state, net.minecraft.world.IBlockReader worldIn, BlockPos pos) {
+		EnumType type = state.get(TYPE);
 		switch (type) {
 			case UP_NORTH:
 			case UP_SOUTH:
@@ -93,23 +84,15 @@ public class BlockSpawnGuard extends BlockBase {
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(TYPE, EnumType.getConstant(meta));
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		EnumFacing facing = context.getFace();
+		EnumFacing horizontalFacing = context.getPlacementHorizontalFacing();
+		return getDefaultState().with(TYPE, EnumType.getFromFacings(facing.getAxis() != EnumFacing.Axis.Y ? facing.getOpposite() : horizontalFacing, facing.getOpposite()));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(TYPE).getId();
-	}
-
-	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getDefaultState().withProperty(TYPE, EnumType.getFromFacings(facing.getAxis() != EnumFacing.Axis.Y ? facing.getOpposite() : placer.getHorizontalFacing(), facing.getOpposite()));
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, TYPE);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	    builder.add(TYPE);
 	}
 
 	public enum EnumType implements IStringSerializable {

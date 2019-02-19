@@ -1,33 +1,23 @@
 package gaia.items;
 
-import com.google.common.collect.Multimap;
-
-import gaia.init.GaiaItems;
+import gaia.ItemGroupGaia;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemWeaponFan extends ItemBase {
-	public ItemWeaponFan(String name) {
-		super(name);
-		maxStackSize = 1;
-		setMaxDamage(780);
+	public ItemWeaponFan(Item.Properties builder) {
+		super(builder.maxStackSize(1).defaultMaxDamage(780).group(ItemGroupGaia.INSTANCE));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}

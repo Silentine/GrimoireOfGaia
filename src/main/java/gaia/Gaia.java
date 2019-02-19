@@ -1,90 +1,110 @@
 package gaia;
 
-import gaia.command.CommandBiome;
-import gaia.command.CommandSpawn;
-import gaia.compat.thaumcraft.AspectsEntities;
-import gaia.compat.thaumcraft.AspectsItems;
-import gaia.datafixes.BlockIdFixer;
-import gaia.datafixes.BustTileIdFixer;
-import gaia.datafixes.EntityIdFixer;
-import gaia.datafixes.ItemIdFixer;
-import gaia.init.GaiaItems;
+import gaia.entity.EntityMobHostileBase;
+import gaia.entity.EntityMobPassive;
+import gaia.init.GaiaRecipes;
 import gaia.init.GaiaSpawning;
-import gaia.proxy.CommonProxy;
-import net.minecraft.util.datafix.FixTypes;
+import gaia.proxy.ClientHandler;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ModFixs;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static gaia.GaiaReference.MOD_ID;
-
-@Mod(modid = MOD_ID, name = GaiaReference.MOD_NAME, version = GaiaReference.VERSION, acceptedMinecraftVersions = GaiaReference.MC_VERSIONS, dependencies = GaiaReference.DEPENDENCIES)
+@Mod(GaiaReference.MOD_ID)
 public class Gaia {
 
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final Logger LOGGER = LogManager.getLogger();
 
-	@SidedProxy(clientSide = GaiaReference.CLIENT_PROXY_CLASS, serverSide = GaiaReference.SERVER_PROXY_CLASS)
-	@SuppressWarnings("squid:S1444")
-	public static CommonProxy proxy;
+	public Gaia() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GaiaConfig.commonSpec, "grimoireofgaia.toml");
+        FMLJavaModLoadingContext.get().getModEventBus().register(GaiaConfig.class);
 
-	private static final int DATA_FIXER_VERSION = 3;
+		 // Register the setup method for modloading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // Register the enqueueIMC method for modloading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        // Register the processIMC method for modloading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+		// Register the serverStarting method for modloading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStarting);
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		proxy.registerHandlers();
-
-		proxy.registerRenders();
-
-		if (Loader.isModLoaded("thaumcraft")) {
-			MinecraftForge.EVENT_BUS.register(AspectsItems.class);
-			MinecraftForge.EVENT_BUS.register(AspectsEntities.class);
-		}
+        // Register ourselves for server, registry and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+        
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerRenders);
+		});
 	}
-
-	@EventHandler
-	public void load(FMLInitializationEvent event) {
-		GaiaItems.RegistrationHandler.registerOres();
-
-		MinecraftForge.EVENT_BUS.register(this);
-
-//		if (GaiaConfig.DEBUG.biomeTweaks) {
-//			GaiaSpawning.biomeTweaks();
-//		}
-
-		proxy.registerTileRenders();
-		proxy.registerLayerRenders();
-
-		ModFixs fixes = FMLCommonHandler.instance().getDataFixer().init(MOD_ID, DATA_FIXER_VERSION);
-		fixes.registerFix(FixTypes.BLOCK_ENTITY, new BustTileIdFixer());
-		fixes.registerFix(FixTypes.ITEM_INSTANCE, new ItemIdFixer());
-		fixes.registerFix(FixTypes.ENTITY, new EntityIdFixer());
-		fixes.registerFix(FixTypes.ITEM_INSTANCE, new BlockIdFixer());
-	}
-
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event) {
-		if (GaiaConfig.DEBUG.debugCommands) {
-			event.registerServerCommand(new CommandBiome());
-			event.registerServerCommand(new CommandSpawn());
-		}
-	}
-
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		// Moved Spawning registry to last since forge doesn't auto-generate sub
-		// "M' biomes until late
-		if (GaiaConfig.OPTIONS.enableSpawn) {
+	
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        // some preinit code
+		Gaia.LOGGER.info("Registering brewing recipe");
+        GaiaRecipes.addBrews();
+        
+		if (GaiaConfig.COMMON.enableSpawn.get()) {
 			GaiaSpawning.register();
 		}
+    }
+    
+    private void enqueueIMC(final InterModEnqueueEvent event)
+    {
+        // some example code to dispatch IMC to another mod
+    	//InterModComms.sendTo("forge", "helloworld", () -> { LOGGER.info("Hello world"); return "Hello world";});
+    	
+//		GaiaItems.RegistrationHandler.registerOres(); // Not implemented
+
+//		if (ModList.get().isLoaded("thaumcraft")) {
+//			MinecraftForge.EVENT_BUS.register(AspectsItems.class);
+//			MinecraftForge.EVENT_BUS.register(AspectsEntities.class);
+//		}
+    }
+
+    private void processIMC(final InterModProcessEvent event)
+    {
+    	//some example code to receive and process InterModComms from other mods
+    	//LOGGER.info("Got IMC", event.getIMCStream().
+    	//         map(m->m.getMessageSupplier().get()).
+    	//         collect(Collectors.toList()));
+    }
+
+	public void serverStarting(final FMLServerStartingEvent event) {
+		// TODO: Check if this should be re-implemented
+//		if (GaiaConfig.COMMON.debugCommands.get()) { 
+//			event.registerServerCommand(new CommandBiome());
+//			event.registerServerCommand(new CommandSpawn());
+//		}
 	}
+
+    @SubscribeEvent
+    public void onSpawn(final LivingSpawnEvent.CheckSpawn event)
+    {
+        if (event.getEntity() instanceof EntityMobPassive || event.getEntity() instanceof EntityMobHostileBase) {
+            Gaia.LOGGER.debug(event.getEntity().getName().getString() + " is trying to spawn.");
+            Gaia.LOGGER.debug(GaiaConfig.COMMON.dimensionBlacklist.get());
+            if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty())
+            {
+                event.setResult(Event.Result.DEFAULT);
+                for (String id : GaiaConfig.COMMON.dimensionBlacklist.get()) {
+                    int i = Integer.valueOf(id);
+                    if (i == event.getWorld().getDimension().getType().getId()) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                }
+            }
+        }
+    }
 }

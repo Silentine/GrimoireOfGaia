@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/bag_book"
+        "layer0": "grimoireofgaia:item/bag_book"
     } 
 }

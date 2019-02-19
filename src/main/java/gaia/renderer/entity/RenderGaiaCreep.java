@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/creep.png");
 
@@ -37,7 +37,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 		f1 *= f1;
 		float f3 = (1.0F + f1 * 0.4F) * f2;
 		float f4 = (1.0F + f1 * 0.1F) / f2;
-		GlStateManager.scale(f3, f4, f3);
+		GlStateManager.scalef(f3, f4, f3);
 	}
 
 	private int updateCreepColorMultiplier(EntityGaiaCreep entity, float par3) {
@@ -76,7 +76,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 		return texture;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static class LayerCreepCharge implements LayerRenderer<EntityGaiaCreep> {
 
 		private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
@@ -87,7 +87,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 			creeperRenderer = creeperRendererIn;
 		}
 
-		public void doRenderLayer(EntityGaiaCreep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+		public void render(EntityGaiaCreep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
 				float netHeadYaw, float headPitch, float scale) {
 			if (entitylivingbaseIn.getPowered()) {
 				boolean flag = entitylivingbaseIn.isInvisible();
@@ -96,10 +96,10 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 				GlStateManager.matrixMode(5890);
 				GlStateManager.loadIdentity();
 				float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
-				GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
+				GlStateManager.translatef(f * 0.01F, f * 0.01F, 0.0F);
 				GlStateManager.matrixMode(5888);
 				GlStateManager.enableBlend();
-				GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
+				GlStateManager.color4f(0.5F, 0.5F, 0.5F, 1.0F);
 				GlStateManager.disableLighting();
 				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 				creeperModel.setModelAttributes(creeperRenderer.getMainModel());

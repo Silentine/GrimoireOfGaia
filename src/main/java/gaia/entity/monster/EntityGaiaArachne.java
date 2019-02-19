@@ -8,13 +8,14 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -48,10 +49,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
@@ -65,7 +66,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	private int animationTimer;
 
 	public EntityGaiaArachne(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.ARACHNE, worldIn);
 
 		setSize(1.4F, 1.6F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
@@ -90,13 +91,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
 				byte byte0 = 0;
-				byte byte1 = 0;
+//				byte byte1 = 0;
 
 				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
 					byte0 = 5;
@@ -155,7 +156,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconMonster();
 
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 0)) {
@@ -165,7 +166,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		}
 
 		if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 1)) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 			setAI((byte) 0);
 			switchHealth = 0;
 		}
@@ -223,7 +224,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 			setBesideClimbableBlock(collidedHorizontally);
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -262,14 +263,14 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		if (id == 0) {
 			caveSpider = new EntityCaveSpider(world);
 			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);
+			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null, null);
 			world.spawnEntity(caveSpider);
 		}
 	}
 
 	private void setCombatTask() {
 		ItemStack itemstack = getHeldItemMainhand();
-		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER) {
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 1);
@@ -292,9 +293,9 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	// TODO Entity does not climb wall unless AI is disabled. This may be due to pathfinding.
 	/** CLIMBER DATA **/
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(CLIMBING, (byte) 0);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(CLIMBING, (byte) 0);
 	}
 
 	protected PathNavigate getNewNavigator(World worldIn) {
@@ -328,21 +329,21 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ARACHNE_SAY;
+		return GaiaSounds.ARACHNE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ARACHNE_HURT;
+		return GaiaSounds.ARACHNE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ARACHNE_DEATH;
+		return GaiaSounds.ARACHNE_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
 	}
 
@@ -362,17 +363,17 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.MISC_FURNACE_FUEL, 1);
+				entityDropItem(GaiaItems.MISC_FURNACE_FUEL, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -382,21 +383,21 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.MISC_BOOK, 1);
+				entityDropItem(GaiaItems.MISC_BOOK, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
-		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP, 1, 0);
+		ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1);
 		weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 
@@ -406,8 +407,8 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	@Override
-	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.ARTHROPOD;
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.ARTHROPOD;
 	}
 
 	/* IMMUNITIES */
@@ -422,8 +423,8 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	/* IMMUNITIES */
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		setCombatTask();
 	}
@@ -435,8 +436,8 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 32.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

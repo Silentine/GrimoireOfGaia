@@ -2,76 +2,43 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import gaia.helpers.ModelLoaderHelper;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemWeaponProp extends ItemBase {
 
-	public ItemWeaponProp() {
-		super("weapon_prop");
-		maxStackSize = 1;
-		setHasSubtypes(true);
+	public ItemWeaponProp(Item.Properties builder) {
+		super(builder.maxStackSize(1)); //"weapon_prop");
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Prop.tag")));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.Prop.tag").applyTextStyle(TextFormatting.YELLOW));
 	}
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
-		if (!(host instanceof EntityPlayer) || !((EntityPlayer) host).capabilities.isCreativeMode) {
+		if (!(host instanceof EntityPlayer) || !((EntityPlayer) host).abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 
 		return true;
 	}
-
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		for (int i = 0; i < 3; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, 
-				"variant=ender", 
-				"variant=blaze",
-				"variant=club"
-				);
-	}
-	/* SUBITEMS */
 }

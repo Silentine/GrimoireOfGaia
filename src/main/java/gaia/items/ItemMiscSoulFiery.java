@@ -2,56 +2,54 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMiscSoulFiery extends ItemBase {
 
 	private int fuelTimeTicks = 20000;
 	private int fuelTimeSeconds = fuelTimeTicks / 20;
 
-	public ItemMiscSoulFiery() {
-		super("misc_soul_fiery");
+	public ItemMiscSoulFiery(Item.Properties builder) {
+		super(builder); //"misc_soul_fiery");
 	}
-
+	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
-		tooltip.add(TextFormatting.ITALIC + I18n.format("item.grimoireofgaia.misc_soul_fiery.desc"));
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
+		tooltip.add(new TextComponentTranslation("item.grimoireofgaia.misc_soul_fiery.desc").applyTextStyle(TextFormatting.ITALIC));
 	}
-
+	
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		EntityPlayer player = context.getPlayer();
+		World world = context.getWorld();
+		ItemStack stack = context.getItem();
 
-		if (!player.capabilities.isCreativeMode) {
+		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 
-		BlockPos offsetPos = pos.offset(facing);
+		BlockPos offsetPos = context.getPos().offset(context.getFace());
 
-		if (!player.canPlayerEdit(offsetPos, facing, stack)) {
+		if (!player.canPlayerEdit(offsetPos, context.getFace(), stack)) {
 			return EnumActionResult.FAIL;
 		} else {
 			if (world.isAirBlock(offsetPos)) {
 				world.playSound(player, player.getPosition(), SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.PLAYERS, 0.4F, 0.8F);
-				world.setBlockState(offsetPos, Blocks.FLOWING_LAVA.getDefaultState());
+				world.setBlockState(offsetPos, Blocks.LAVA.getDefaultState());
 			}
 
 			stack.damageItem(1, player);
@@ -61,7 +59,7 @@ public class ItemMiscSoulFiery extends ItemBase {
 	}
 
 	@Override
-	public int getItemBurnTime(ItemStack itemStack) {
+	public int getBurnTime(ItemStack itemStack) {
 		return fuelTimeTicks;
 	}
 }

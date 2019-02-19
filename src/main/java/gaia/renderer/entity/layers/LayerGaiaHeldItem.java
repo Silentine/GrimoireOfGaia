@@ -15,20 +15,21 @@ import gaia.entity.monster.EntityGaiaOrc;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaWerecat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@SuppressWarnings("deprecation")
+@OnlyIn(Dist.CLIENT)
 public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 	private ModelRenderer limb;
 	private EntityEquipmentSlot slot;
@@ -61,17 +62,17 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 	public static LayerGaiaHeldItem right(RenderLiving<EntityLiving> livingEntityRendererIn, ModelRenderer limb) {
 		return new LayerGaiaHeldItem(livingEntityRendererIn, limb, EntityEquipmentSlot.MAINHAND);
 	}
-
+	
 	@Override
-	public void doRenderLayer(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack stack = living.getItemStackFromSlot(slot);
 
 		GlStateManager.pushMatrix();
 
 		if (livingEntityRenderer.getMainModel().isChild) {
-			GlStateManager.translate(0.0F, 0.625F, 0.0F);
-			GlStateManager.rotate(-20.0F, -1.0F, 0.0F, 0.0F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translatef(0.0F, 0.625F, 0.0F);
+			GlStateManager.rotatef(-20.0F, -1.0F, 0.0F, 0.0F);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 		}
 
 		/**
@@ -82,61 +83,61 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		 */
 
 		if (living instanceof EntityGaiaAnt) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaAnubis) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaArachne) {
-			GlStateManager.translate(0.0F, -0.02F, 0.0F);
+			GlStateManager.translatef(0.0F, -0.02F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaDullahan) {
-			GlStateManager.translate(0.0F, -0.02F, 0.0F);
+			GlStateManager.translatef(0.0F, -0.02F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaDwarf) {
-			GlStateManager.translate(0.0F, -0.04F, 0.0F);
+			GlStateManager.translatef(0.0F, -0.04F, 0.0F);
 		}
 		
 		if (living instanceof EntityGaiaGoblin) {
-			GlStateManager.translate(0.0F, -0.12F, 0.0F);
+			GlStateManager.translatef(0.0F, -0.12F, 0.0F);
 		}
 		
 		if (living instanceof EntityGaiaGoblinFeral) {
-			GlStateManager.translate(0.0F, -0.12F, 0.0F);
+			GlStateManager.translatef(0.0F, -0.12F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaKobold) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaMermaid) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaMinotaur) {
-			GlStateManager.translate(0.0F, 0.2F, -0.01F);
-			GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.2F, -0.01F);
+			GlStateManager.rotatef(12.0F, -1.0F, 0.0F, 0.0F);
 		}
 		
 		if (living instanceof EntityGaiaOrc) {
-			GlStateManager.translate(0.0F, 0.20F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.20F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaNaga) {
-			GlStateManager.translate(0.04F, 0.25F, -0.01F);
-			GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
+			GlStateManager.translatef(0.04F, 0.25F, -0.01F);
+			GlStateManager.rotatef(12.0F, -1.0F, 0.0F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaValkyrie) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaWerecat) {
-			GlStateManager.translate(0.0F, 0.08F, 0.0F);
+			GlStateManager.translatef(0.0F, 0.08F, 0.0F);
 		}
 
 		if (slot == EntityEquipmentSlot.MAINHAND) {
@@ -153,17 +154,18 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.pushMatrix();
 
 			if (living.isSneaking()) {
-				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+				GlStateManager.translatef(0.0F, 0.2F, 0.0F);
 			}
 
 			limb.postRender(0.0625F);
 
-			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
 
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
-			Minecraft.getMinecraft().getItemRenderer().renderItemSide(living, stack, camera, flag);
+			GlStateManager.translatef((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
+
+	        Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(living, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}
 	}

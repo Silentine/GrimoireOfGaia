@@ -7,6 +7,7 @@ import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -15,36 +16,37 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Apply all changes made here to EntityMobPassiveBase (except for AI).
  *
  * @see EntityMobPassiveBase
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobHostileBase extends EntityMob implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> NEUTRAL = EntityDataManager.<Boolean>createKey(EntityMobHostileBase.class, DataSerializers.BOOLEAN);
 
 	public EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
 
-	public EntityMobHostileBase(World worldIn) {
-		super(worldIn);
+	public EntityMobHostileBase(EntityType<?> type, World worldIn) {
+		super(type, worldIn);
 
 		targetTasks.addTask(2, aiNearestAttackableTarget);
 	}
@@ -55,11 +57,11 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 		if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED_PREMIUM && !isNeutral()) {
 			world.setEntityState(this, (byte) 8);
 
-			if (!player.capabilities.isCreativeMode) {
+			if (!player.abilities.isCreativeMode) {
 				stack.shrink(1);
 			}
 
-			dataManager.set(NEUTRAL, Boolean.valueOf(true));
+			this.getDataManager().set(NEUTRAL, Boolean.valueOf(true));
 			targetTasks.removeTask(aiNearestAttackableTarget);
 
 			return true;
@@ -69,26 +71,26 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(NEUTRAL, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(NEUTRAL, Boolean.valueOf(false));
 	}
 
 	public boolean isNeutral() {
-		return ((Boolean) this.dataManager.get(NEUTRAL)).booleanValue();
+		return ((Boolean) this.getDataManager().get(NEUTRAL)).booleanValue();
 	}
 
 	public void setNeutral() {
 		targetTasks.removeTask(aiNearestAttackableTarget);
 	}
 
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setBoolean("neutral", isNeutral());
 	}
 
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		dataManager.set(NEUTRAL, Boolean.valueOf(compound.getBoolean("neutral")));
 
 		if (compound.getBoolean("neutral")) {
@@ -100,8 +102,8 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
-			if (GaiaConfig.DAMAGE.baseDamage) {
-				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
+			if (GaiaConfig.COMMON.baseDamage.get()) {
+				if (entity instanceof EntityPlayer && GaiaConfig.COMMON.shieldsBlockPiercing.get()) {
 					EntityPlayer player = (EntityPlayer) entity;
 					ItemStack itemstack = player.getActiveItemStack();
 
@@ -126,22 +128,22 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	 * @param id_11 ParticleType.SMOKE_NORMAL
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 7) {
-			spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
+			spawnParticles(Particles.HAPPY_VILLAGER);
 		} else if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else if (id == 9) {
-			spawnParticles(EnumParticleTypes.FLAME);
+			spawnParticles(Particles.FLAME);
 		} else if (id == 10) {
-			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+			spawnParticles(Particles.WITCH);
 		} else if (id == 11) {
-			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
+			spawnParticles(Particles.SMOKE);
 		} else if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(Particles.EXPLOSION);
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -150,8 +152,8 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	/**
 	 * Adapted from @EntityVillager
 	 */
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
+	@OnlyIn(Dist.CLIENT)
+	private void spawnParticles(IParticleData particleType) {
 		for (int i = 0; i < 5; ++i) {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
@@ -211,7 +213,7 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	 * @see EntityLivingBase
 	 */
 	public void knockBack(double xRatio, double zRatio, double power) {
-		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
+		if (rand.nextDouble() >= getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getValue()) {
 			isAirBorne = true;
 			float f1 = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
 			float f2 = 0.4F;
@@ -230,26 +232,27 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 
 	/* SPAWN CONDITIONS */
 	public boolean daysPassed() {
-		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
+		int daysPassedClientInt = (int) (world.getGameTime() / 24000);
 
-		return GaiaConfig.SPAWN.spawnDaysSet <= daysPassedClientInt;
+		return GaiaConfig.COMMON.spawnDaysSet.get() <= daysPassedClientInt;
 	}
-
+	
 	@Override
-	public boolean getCanSpawnHere() {
-		if (GaiaConfig.SPAWN.spawnDaysPassed) {
-			return daysPassed() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld worldIn, boolean value) {
+		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
+			return daysPassed() && super.canSpawn(world, value);
 		} else {
-			return super.getCanSpawnHere();
+			return super.canSpawn(worldIn, value);
 		}
 	}
+
 	/* SPAWN CONDITIONS */
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return false;
 	}

@@ -1,16 +1,12 @@
 package gaia.model;
 
-import gaia.entity.monster.EntityGaiaAnt;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelGaiaAnt extends ModelGaia {
 	// fields
 	private ModelRenderer head;
@@ -305,8 +301,8 @@ public class ModelGaiaAnt extends ModelGaia {
 		getRightarm().rotateAngleZ = 0.0F;
 		getLeftarm().rotateAngleZ = 0.0F;
 
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
-		EntityGaiaAnt entity = (EntityGaiaAnt) entityIn;
+//		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
+//		EntityGaiaAnt entity = (EntityGaiaAnt) entityIn;
 
 		if (swingProgress > -9990.0F) {
 			holdingMelee();

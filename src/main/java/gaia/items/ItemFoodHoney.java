@@ -1,35 +1,37 @@
 package gaia.items;
 
-import net.minecraft.client.resources.I18n;
+import java.util.List;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodHoney extends ItemFoodGaia {
 
-	public ItemFoodHoney() {
-		super("food_honey", 4, 0.4F, false);
+	public ItemFoodHoney(Item.Properties builder) {
+		super(builder, 4, 0.4F, false); //"food_honey"
 		setPotionEffect(new PotionEffect(MobEffects.SPEED, 10 * 20, 0), 0.2F);
 		setSecondPotionEffect(new PotionEffect(MobEffects.HASTE, 10 * 20, 0), 0.2F);
 	}
 	
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public EnumAction getUseAction(ItemStack stack) {
 		return EnumAction.DRINK;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("(20%) " + I18n.format("effect.moveSpeed") + " (0:10)");
-		tooltip.add("(20%) " + I18n.format("effect.digSpeed") + " (0:10)");
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentString("(20%) ").appendSibling(new TextComponentTranslation("effect.minecraft.speed")).appendSibling(new TextComponentString(" (0:10)")));
+		tooltip.add(new TextComponentString("(20%) ").appendSibling(new TextComponentTranslation("effect.minecraft.haste")).appendSibling(new TextComponentString(" (0:10)")));
 	}
 }

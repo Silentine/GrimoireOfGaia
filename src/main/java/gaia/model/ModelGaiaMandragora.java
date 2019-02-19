@@ -1,17 +1,17 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelGaiaMandragora extends ModelGaia {
 	private ModelRenderer head;
 	private ModelRenderer headeyes;
@@ -241,8 +241,8 @@ public class ModelGaiaMandragora extends ModelGaia {
 		} else {
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
-			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
+			GlStateManager.scalef(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
+			GlStateManager.translatef(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
 			head.render(scale);
 
 			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
@@ -253,8 +253,8 @@ public class ModelGaiaMandragora extends ModelGaia {
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
-			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
+			GlStateManager.scalef(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
+			GlStateManager.translatef(0.0F, Y_OFFSET_BODY * scale, 0.0F);
 			neck.render(scale);
 			bodytop.render(scale);
 			bodymiddle.render(scale);

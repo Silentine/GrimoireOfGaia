@@ -1,21 +1,18 @@
 package gaia.items;
 
-import gaia.helpers.ModelLoaderHelper;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * DEBUG item
@@ -26,31 +23,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class ItemDebugItem extends ItemBase {
 
-	public ItemDebugItem() {
-		super("debug_item");
-		maxStackSize = 1;
-		setHasSubtypes(true);
-		
-//		setCreativeTab(null);
+	public ItemDebugItem(Item.Properties builder) {
+		super(builder.maxStackSize(1).group(null)); //"debug_item");
+//		setHasSubtypes(true);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.UNCOMMON;
 	}
 	
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		EntityPlayer player = context.getPlayer();
+		World world = context.getWorld();
+		ItemStack stack = context.getItem();
 
-		if (!player.capabilities.isCreativeMode) {
+		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 
-		BlockPos offsetPos = pos.offset(facing);
+		BlockPos offsetPos = context.getPos().offset(context.getFace());
 
-		if (!player.canPlayerEdit(offsetPos, facing, stack)) {
+		if (!player.canPlayerEdit(offsetPos, context.getFace(), stack)) {
 			return EnumActionResult.FAIL;
 		} else {
 			if (world.isAirBlock(offsetPos)) {
@@ -64,24 +60,13 @@ public class ItemDebugItem extends ItemBase {
 		}
 	}
 	
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		for (int i = 0; i < 1; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this, 
-				ModelLoaderHelper.getSuffixedLocation(this, "01")
-		);
-	}
+//
+//	@Override
+//	@OnlyIn(Dist.CLIENT)
+//	public void registerClient() {
+//		ModelLoaderHelper.registerItem(this, 
+//				ModelLoaderHelper.getSuffixedLocation(this, "01")
+//		);
+//	}
 	/* SUBITEMS */
 }

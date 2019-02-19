@@ -1,14 +1,13 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -37,12 +36,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
+
 public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaSuccubus.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaSuccubus(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.SUCCUBUS, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -60,13 +59,13 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -112,12 +111,12 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setBodyType(String id) {
@@ -132,21 +131,21 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SUCCUBUS_SAY;
+		return GaiaSounds.SUCCUBUS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SUCCUBUS_HURT;
+		return GaiaSounds.SUCCUBUS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SUCCUBUS_DEATH;
+		return GaiaSounds.SUCCUBUS_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
@@ -154,14 +153,14 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.MISC_SOUL_FIERY, 1);
+				entityDropItem(GaiaItems.MISC_SOUL_FIERY, 1);
 			}
 
 			if ((rand.nextInt(8) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				if ((rand.nextInt(2) == 0)) {
-					dropItem(Items.QUARTZ, 1);
+					entityDropItem(Items.QUARTZ, 1);
 				} else {
-					dropItem(Items.GLOWSTONE_DUST, 1);
+					entityDropItem(Items.GLOWSTONE_DUST, 1);
 				}
 			}
 
@@ -169,10 +168,10 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -182,14 +181,14 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 1), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_NETHER, 1), 0.0F);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(2) == 0) {
 			dataManager.set(MALE, Boolean.valueOf(true));
@@ -207,22 +206,22 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
 	/* ALTERNATE SKIN */
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(MALE, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(MALE, Boolean.valueOf(false));
 	}
 
 	public boolean isMale() {
 		return ((Boolean) this.dataManager.get(MALE)).booleanValue();
 	}
 
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		dataManager.set(MALE, Boolean.valueOf(compound.getBoolean("male")));
 	}
 
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setBoolean("male", isMale());
 	}
 	/* ALTERNATE SKIN */

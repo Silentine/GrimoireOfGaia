@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/deco_garden_gnome",
-		"particle": "grimoireofgaia:blocks/models/deco_garden_gnome"
+		"0": "grimoireofgaia:block/models/deco_garden_gnome",
+		"particle": "grimoireofgaia:block/models/deco_garden_gnome"
 	},
 	"elements": [
 		{

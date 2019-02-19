@@ -2,16 +2,15 @@ package gaia.entity.monster;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,11 +39,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
 	private static final String MOB_TYPE_TAG = "MobType";
@@ -72,7 +71,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	private int switchEquip;
 
 	public EntityGaiaKobold(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.KOBOLD, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -93,13 +92,13 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -141,7 +140,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (playerDetection()) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
@@ -180,7 +179,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -232,12 +231,12 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		if (!target.isDead) {
+		if (target.isAlive()) {
 			Ranged.rangedAttack(target, this, distanceFactor);
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
@@ -249,34 +248,34 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.KOBOLD_SAY;
+		return GaiaSounds.KOBOLD_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.KOBOLD_HURT;
+		return GaiaSounds.KOBOLD_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.KOBOLD_DEATH;
+		return GaiaSounds.KOBOLD_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.MISC_FUR, 1);
+				entityDropItem(GaiaItems.MISC_FUR, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -286,19 +285,19 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BAG_ARROW, 1);
+				entityDropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
@@ -329,10 +328,10 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	/* ALTERNATE SKIN */
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SKIN, 0);
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SKIN, 0);
+		this.getDataManager().register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
 	public int getTextureType() {
@@ -344,14 +343,14 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
@@ -368,8 +367,8 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

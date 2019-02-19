@@ -1,44 +1,36 @@
 package gaia.items;
 
-import net.minecraft.client.resources.I18n;
+import java.util.List;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodRoot extends ItemFoodBase {
 
-	private void clearNegativePotions(EntityPlayer entityplayer) {
-		entityplayer.removePotionEffect(MobEffects.SLOWNESS);
-		entityplayer.removePotionEffect(MobEffects.MINING_FATIGUE);
-		entityplayer.removePotionEffect(MobEffects.NAUSEA);
-		entityplayer.removePotionEffect(MobEffects.BLINDNESS);
-		entityplayer.removePotionEffect(MobEffects.HUNGER);
-		entityplayer.removePotionEffect(MobEffects.WEAKNESS);
-		entityplayer.removePotionEffect(MobEffects.POISON);
-		entityplayer.removePotionEffect(MobEffects.WITHER);
-	}
-
-	public ItemFoodRoot() {
-		super("food_root", 0, 0.0F, false);
+	public ItemFoodRoot(Item.Properties builder) {
+		super(builder.maxStackSize(16), 0, 0.0F, false); //"food_root"
 		setAlwaysEdible();
-		setMaxStackSize(16);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.NegativeStatus.desc"));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.NegativeStatus.desc"));
 	}
 
 	@Override
 	protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
-		clearNegativePotions(player);
+		if(!world.isRemote)
+		{
+			player.func_195061_cb();
+		}
+		super.onFoodEaten(stack, world, player);
 	}
 }

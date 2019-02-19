@@ -1,16 +1,14 @@
 package gaia.entity.passive;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
 
 import gaia.GaiaConfig;
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaBlocks;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -20,29 +18,29 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 //TODO Missing model
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 	private int shovelAttack;
 
 	public EntityGaiaPropFlowerCyan(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.CYAN_FLOWER, worldIn);
 		setSize(0.8F, 0.8F);
 		experienceValue = 0;
 		prevRenderYawOffset = 180.0F;
@@ -50,17 +48,17 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 
 		shovelAttack = 0;
 	}
-
+	
 	@Override
-	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData,
+			NBTTagCompound itemNbt) {
 		renderYawOffset = 180.0F;
 		prevRenderYawOffset = 180.0F;
 		rotationYaw = 180.0F;
 		prevRotationYaw = 180.0F;
 		rotationYawHead = 180.0F;
 		prevRotationYawHead = 180.0F;
-		return super.onInitialSpawn(difficulty, livingdata);
+		return super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 	}
 
 	@Override
@@ -69,9 +67,9 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
 	}
 
 	@Override
@@ -102,13 +100,13 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.EXPLOSION, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
-			super.onLivingUpdate();
+			super.livingTick();
 		}
 	}
 
@@ -118,7 +116,7 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 		if (id == 0) {
 			mandragora = new EntityGaiaMandragora(world);
 			mandragora.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			mandragora.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mandragora)), null);
+			mandragora.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mandragora)), null, null);
 			mandragora.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 			world.spawnEntity(mandragora);
 		}
@@ -135,35 +133,35 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				switch (rand.nextInt(10)) {
 				case 0:
-					dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
+					entityDropItem(new ItemStack(Blocks.DANDELION, 1), 0.0F);
 					break;
 				case 1:
-					dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
+					entityDropItem(new ItemStack(Blocks.POPPY, 1), 0.0F);
 					break;
 				case 2:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
+					entityDropItem(new ItemStack(Blocks.BLUE_ORCHID, 1), 0.0F);
 					break;
 				case 3:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
+					entityDropItem(new ItemStack(Blocks.AZURE_BLUET, 1), 0.0F);
 					break;
 				case 4:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
+					entityDropItem(new ItemStack(Blocks.ALLIUM, 1), 0.0F);
 					break;
 				case 5:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
+					entityDropItem(new ItemStack(Blocks.RED_TULIP, 1), 0.0F);
 					break;
 				case 6:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
+					entityDropItem(new ItemStack(Blocks.ORANGE_TULIP, 1), 0.0F);
 					break;
 				case 7:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
+					entityDropItem(new ItemStack(Blocks.WHITE_TULIP, 1), 0.0F);
 					break;
 				case 8:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
+					entityDropItem(new ItemStack(Blocks.PINK_TULIP, 1), 0.0F);
 					break;
 				case 9:
 				default:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
+					entityDropItem(new ItemStack(Blocks.OXEYE_DAISY, 1), 0.0F);
 					break;
 				}
 			} else {
@@ -171,14 +169,14 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 			}
 
 			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {
-				dropItem(GaiaItems.FOOD_MANDRAKE, 1);
+				entityDropItem(GaiaItems.FOOD_MANDRAKE, 1);
 			}
 		}
 	}
 
 	@Override
 	protected void onDeathUpdate() {
-		setDead();
+		remove();
 	}
 
 	/* IMMUNITIES */
@@ -211,25 +209,25 @@ public class EntityGaiaPropFlowerCyan extends EntityAgeable {
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
 
 	@Override
-	public boolean getCanSpawnHere() {
-		if (world.isDaytime()) {
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		if (world.getWorld().isDaytime()) {
 			float f = getBrightness();
 			if (f > 0.5F && world.canSeeSky(getPosition())) {
 				if (torchCheck(this.world, this.getPosition())) {
 					return false;
 				} else {
 					int i = MathHelper.floor(posX);
-					int j = MathHelper.floor(getEntityBoundingBox().minY);
+					int j = MathHelper.floor(getBoundingBox().minY);
 					int k = MathHelper.floor(posZ);
 					BlockPos blockpos = new BlockPos(i, j, k);
 					Block var1 = world.getBlockState(blockpos.down()).getBlock();
 
-					Set<String> additionalBlocks = new HashSet<String>(Arrays.asList(GaiaConfig.SPAWN.additionalFlowerSpawnBlocks));
+					Set<String> additionalBlocks = new HashSet<String>(GaiaConfig.COMMON.additionalFlowerSpawnBlocks.get());
 
 					boolean defaultFlag = spawnBlocks.contains(var1);
 					boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
 
-					return world.getDifficulty() != EnumDifficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getEntityBoundingBox());
+					return world.getDifficulty() != EnumDifficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getBoundingBox());
 				}
 			}
 		}

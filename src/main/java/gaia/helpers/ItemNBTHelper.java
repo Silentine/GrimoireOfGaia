@@ -26,10 +26,10 @@ public final class ItemNBTHelper {
 	 * Gets the NBTTagCompound in an ItemStack. Tries to init it previously in case there isn't one present
 	 **/
 	public static NBTTagCompound getNBT(ItemStack stack) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
+		if (!stack.hasTag()) {
+			stack.setTag(new NBTTagCompound());
 		}
-		return stack.getTagCompound();
+		return stack.getTag();
 	}
 
 	// SETTERS
@@ -48,7 +48,7 @@ public final class ItemNBTHelper {
 	}
 
 	public static void setInt(ItemStack stack, String tag, int i) {
-		getNBT(stack).setInteger(tag, i);
+		getNBT(stack).setInt(tag, i);
 	}
 
 	public static void setIntArray(ItemStack stack, String tag, int[] val) {
@@ -113,7 +113,7 @@ public final class ItemNBTHelper {
 
 	public static int getInt(ItemStack stack, String tag, int defaultExpected) {
 		return verifyExistance(stack, tag)
-				? getNBT(stack).getInteger(tag)
+				? getNBT(stack).getInt(tag)
 				: defaultExpected;
 	}
 
@@ -147,7 +147,7 @@ public final class ItemNBTHelper {
 	 **/
 	public static NBTTagCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag)
-				? getNBT(stack).getCompoundTag(tag)
+				? getNBT(stack).getCompound(tag)
 				: nullifyOnFail
 				? null
 				: new NBTTagCompound();
@@ -161,7 +161,7 @@ public final class ItemNBTHelper {
 
 	public static NBTTagList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag)
-				? getNBT(stack).getTagList(tag, objtype)
+				? getNBT(stack).getList(tag, objtype)
 				: nullifyOnFail
 				? null
 				: new NBTTagList();

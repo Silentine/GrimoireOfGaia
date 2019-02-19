@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/deco_mandragora_pot",
+		"0": "grimoireofgaia:block/models/deco_mandragora_pot",
 		"particle": "blocks/flower_pot"
 	},
     "elements": [

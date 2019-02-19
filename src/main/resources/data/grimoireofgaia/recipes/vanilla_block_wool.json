@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:misc_fur"
+    }
+  ],
+  "result": {
+    "item": "minecraft:white_wool"
+  }
+}

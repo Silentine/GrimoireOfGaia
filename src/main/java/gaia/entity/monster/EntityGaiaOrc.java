@@ -9,9 +9,11 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import gaia.items.ItemShieldProp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -38,15 +40,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 
@@ -65,7 +66,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	private int animationTimer;
 
 	public EntityGaiaOrc(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.ORC, worldIn);
 
 		setSize(0.8F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
@@ -109,13 +110,13 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -131,7 +132,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	private boolean hasShield() {
 		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
-		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
 			return true;
 		} else {
 			return false;
@@ -165,7 +166,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (getMobType() == 0) {
 			/* BUFF */
 			if (getHealth() <= EntityAttributes.MAX_HEALTH_1 * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
@@ -215,7 +216,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			}
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setAI(byte id) {
@@ -288,7 +289,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 		tasks.removeTask(aiArrowAttack);
 
 		ItemStack itemstack = getHeldItemMainhand();
-		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER) {
 			setAI((byte) 0);
 		} else {
 			setAI((byte) 1);
@@ -312,14 +313,14 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setMobType(b0);
@@ -329,25 +330,25 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SKIN, 0);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SKIN, 0);
 	}
 	/* CLASS TYPE */
 	
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ORC_SAY;
+		return GaiaSounds.ORC_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ORC_HURT;
+		return GaiaSounds.ORC_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ORC_DEATH;
+		return GaiaSounds.ORC_DEATH;
 	}
 
 	@Nullable
@@ -367,17 +368,17 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_MEAT, 1);
+				entityDropItem(GaiaItems.FOOD_MEAT, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -387,24 +388,24 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_IRON, 1);
+				entityDropItem(GaiaItems.BOX_IRON, 1);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				if (mobClass == 1) {
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(4) == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 
 			setTextureType(2);
 			mobClass = 1;
@@ -464,13 +465,13 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 				break;
 			case 1:
 				if (itemstack.getItem() == Items.WOODEN_AXE) {
-					shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 0);
+					shield = new ItemStack(GaiaItems.SHIELD_PROP_STONE, 1);
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 					armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
 				}
 
 				if (itemstack.getItem() == Items.STONE_AXE) {
-					shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+					shield = new ItemStack(GaiaItems.SHIELD_PROP_IRON, 1);
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 					armor_chestplate = new ItemStack(Items.IRON_CHESTPLATE);
 				}
@@ -498,8 +499,8 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

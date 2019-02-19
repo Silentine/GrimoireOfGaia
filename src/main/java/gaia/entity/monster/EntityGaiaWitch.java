@@ -9,11 +9,11 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaBlocks;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -34,36 +34,37 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Copied code from EntityWitch. isAIDisabled has been removed.
  * 
  * @see EntityWitch
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private int spawn;
@@ -74,8 +75,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	private int potionUseTimer;
 
-	public EntityGaiaWitch(World par1World) {
-		super(par1World);
+	public EntityGaiaWitch(World worldIn) {
+		super(GaiaEntities.WITCH, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
@@ -94,13 +95,13 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
@@ -115,8 +116,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	/* WITCH CODE */
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		this.getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
 	}
 
@@ -129,7 +130,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		beaconMonster();
 
 		if (!onGround && motionY < 0.0D) {
@@ -138,7 +139,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 		if (motionX > 0 || motionY > 0 || motionZ > 0) {
 			for (int var5 = 0; var5 < 2; ++var5) {
-				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.WITCH, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -166,9 +167,9 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 				if (this.potionUseTimer-- <= 0) {
 					this.setDrinkingPotion(false);
 					ItemStack itemstack = this.getHeldItemMainhand();
-					this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+					this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 
-					if (itemstack.getItem() == Items.POTIONITEM) {
+					if (itemstack.getItem() == Items.POTION) {
 						List<PotionEffect> list = PotionUtils.getEffectsFromStack(itemstack);
 
 						if (list != null) {
@@ -178,12 +179,12 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 						}
 					}
 
-					this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
+					this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
 				}
 			} else {
 				PotionType potiontype = null;
 
-				if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(MobEffects.WATER_BREATHING)) {
+				if (this.rand.nextFloat() < 0.15F && this.areEyesInFluid(FluidTags.WATER) && !this.isPotionActive(MobEffects.WATER_BREATHING)) {
 					potiontype = PotionTypes.WATER_BREATHING;
 				} else if (this.rand.nextFloat() < 0.15F && (this.isBurning() || this.getLastDamageSource() != null && this.getLastDamageSource().isFireDamage()) && !this.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
 					potiontype = PotionTypes.FIRE_RESISTANCE;
@@ -194,11 +195,11 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 				}
 
 				if (potiontype != null) {
-					this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype));
-					this.potionUseTimer = this.getHeldItemMainhand().getMaxItemUseDuration();
+					this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), potiontype));
+					this.potionUseTimer = this.getHeldItemMainhand().getUseDuration();
 					this.setDrinkingPotion(true);
 					this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_WITCH_DRINK, this.getSoundCategory(), 1.0F, 0.8F + this.rand.nextFloat() * 0.4F);
-					IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+					IAttributeInstance iattributeinstance = this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 					iattributeinstance.removeModifier(MODIFIER);
 					iattributeinstance.applyModifier(MODIFIER);
 				}
@@ -210,15 +211,15 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		}
 		/* WITCH CODE */
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 13) {
 			for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
-				world.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.13D, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.13D, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.handleStatusUpdate(id);
@@ -277,8 +278,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		if (id == 0) {
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null, null);
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT, 1));
 			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -291,8 +292,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		if (id == 1) {
 			skeleton = new EntitySkeleton(world);
 			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null, null);
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT, 1));
 			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -318,22 +319,22 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.WITCH_SAY;
+		return GaiaSounds.WITCH_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.WITCH_HURT;
+		return GaiaSounds.WITCH_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.WITCH_DEATH;
+		return GaiaSounds.WITCH_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -354,17 +355,17 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.FOOD_NETHER_WART, 1);
+				entityDropItem(GaiaItems.FOOD_NETHER_WART, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -376,28 +377,28 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.MISC_BOOK, 1);
+				entityDropItem(GaiaItems.MISC_BOOK, 1);
 			}
 			
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_MANDRAGORA_POT), 1);
+				entityDropItem(GaiaBlocks.DECO_MANDRAGORA_POT, 1);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 
 		return ret;
 	}
@@ -420,8 +421,8 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

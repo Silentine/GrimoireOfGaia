@@ -2,33 +2,33 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodCoalfish extends ItemFoodBase {
 
 	private int fuelTimeTicks = 3600;
 	private int fuelTimeSeconds = fuelTimeTicks / 20;
 
-	public ItemFoodCoalfish() {
-		super("food_coalfish", 4, 0.4F, true);
+	public ItemFoodCoalfish(Item.Properties builder) {
+		super(builder, 4, 0.4F, true); //"food_coalfish"
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
-		tooltip.add(I18n.format("effect.waterBreathing") + " (2:00)");
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.FuelForSeconds", fuelTimeSeconds));
+		tooltip.add(new TextComponentTranslation("effect.minecraft.water_breathing").appendSibling(new TextComponentString(" (2:00)")));
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class ItemFoodCoalfish extends ItemFoodBase {
 	}
 
 	@Override
-	public int getItemBurnTime(ItemStack itemStack) {
+	public int getBurnTime(ItemStack itemStack) {
 		return fuelTimeTicks;
 	}
 }

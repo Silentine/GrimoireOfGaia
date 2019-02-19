@@ -7,6 +7,7 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
 import gaia.init.GaiaBlocks;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -18,12 +19,11 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -33,15 +33,14 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * @see EntityCreeper
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 8;
@@ -57,7 +56,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityGaiaCreep.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaCreep(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.CREEP, worldIn);
 
 		setSize(0.75F, 0.75F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
@@ -76,13 +75,13 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -110,16 +109,16 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(STATE, -1);
-		dataManager.register(POWERED, Boolean.FALSE);
-		dataManager.register(IGNITED, Boolean.FALSE);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(STATE, -1);
+		this.getDataManager().register(POWERED, Boolean.FALSE);
+		this.getDataManager().register(IGNITED, Boolean.FALSE);
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 
 		if (dataManager.get(POWERED)) {
 			compound.setBoolean("powered", true);
@@ -131,15 +130,15 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		dataManager.set(POWERED, compound.getBoolean("powered"));
 
-		if (compound.hasKey("Fuse", 99)) {
+		if (compound.contains("Fuse", 99)) {
 			fuseTime = compound.getShort("Fuse");
 		}
 
-		if (compound.hasKey(EXPLOSION_RADIUS_TAG, 99)) {
+		if (compound.contains(EXPLOSION_RADIUS_TAG, 99)) {
 			explosionRadius = compound.getByte(EXPLOSION_RADIUS_TAG);
 		}
 
@@ -149,7 +148,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		if (playerDetection(DETECTION_RANGE)) {
 			if (isPotionActive(MobEffects.INVISIBILITY)) {
 				removePotionEffect(MobEffects.INVISIBILITY);
@@ -160,7 +159,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			}
 		}
 
-		if (isEntityAlive()) {
+		if (isAlive()) {
 			lastActiveTime = timeSinceIgnited;
 
 			if (hasIgnited()) {
@@ -185,7 +184,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			}
 		}
 
-		super.onUpdate();
+		super.tick();
 	}
 
 	/**
@@ -212,7 +211,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			float f = getPowered() ? 2.0F : 1.0F;
 			dead = true;
 			world.createExplosion(this, posX, posY, posZ, explosionRadius * f, flag);
-			setDead();
+			remove();
 		}
 	}
 
@@ -238,17 +237,17 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(Items.GUNPOWDER, 1);
+				entityDropItem(Items.GUNPOWDER, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.IRON_NUGGET, 1);
+				entityDropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -258,16 +257,16 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.BOX, 1, 0), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
+				entityDropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
 			}
 			
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
+				entityDropItem(GaiaBlocks.DOLL_CREEPER_GIRL, 1);
 			}
 		}
 	}
@@ -281,7 +280,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 		return dataManager.get(POWERED);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public float getCreeperFlashIntensity(float par1) {
 		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * par1) / (fuseTime - 2);
 	}
@@ -299,8 +298,8 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 60.0D && posY > 32.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -1,14 +1,14 @@
 package gaia.model;
 
 import gaia.entity.monster.EntityDebugMob;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelDebugMob extends ModelGaia {
 
 	ModelRenderer head;
@@ -257,8 +257,8 @@ public class ModelDebugMob extends ModelGaia {
 		EntityDebugMob mob = (EntityDebugMob) entityIn;
 		if (mob.getSitting()) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 10.0F * scale, 0.0F);
-			GlStateManager.rotate(70F, 70, 0, 0);
+			GlStateManager.translatef(0.0F, 10.0F * scale, 0.0F);
+			GlStateManager.rotatef(70F, 70, 0, 0);
 		}
 
 		head.render(scale);

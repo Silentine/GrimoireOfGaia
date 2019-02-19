@@ -8,8 +8,8 @@ import net.minecraft.util.EnumActionResult;
 
 public class ItemGaiaLootable extends ItemBase {
 
-	ItemGaiaLootable(String name) {
-		super(name);
+	ItemGaiaLootable(Item.Properties builder) {
+		super(builder);
 	}
 
 	public ActionResult<ItemStack> loot(ItemStack stack) {

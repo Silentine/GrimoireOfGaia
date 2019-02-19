@@ -1,10 +1,7 @@
 package gaia.entity;
 
 import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.google.common.base.Predicate;
+import java.util.function.Predicate;
 
 import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
@@ -12,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -21,45 +19,47 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * This is a direct copy of EntityMobHostileBase.
  *
  * @see EntityMobPassive
  */
-
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobPassiveBase extends EntityMobPassive implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> FRIENDLY = EntityDataManager.<Boolean>createKey(EntityMobPassiveBase.class, DataSerializers.BOOLEAN);
 
 	private EntityAINearestAttackableTarget<EntityPlayer> aiNearestAttackableTarget = new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true);
+	
+//	private EntityAINearestAttackableTarget aiNearestAttackableHostileTarget = new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
+//		public boolean apply(@Nullable EntityLiving p_apply_1_) {
+//			return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper);
+//		}
+//	});
 
-	private EntityAINearestAttackableTarget aiNearestAttackableHostileTarget = new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
-		public boolean apply(@Nullable EntityLiving p_apply_1_) {
-			return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_) && !(p_apply_1_ instanceof EntityCreeper);
-		}
-	});
+	public EntityMobPassiveBase(EntityType<?> type, World worldIn) {
+		super(type, worldIn);
 
-	public EntityMobPassiveBase(World worldIn) {
-		super(worldIn);
-
-		if (GaiaConfig.OPTIONS.passiveHostileAllMobs) {
+		if (GaiaConfig.COMMON.passiveHostileAllMobs.get()) {
 			targetTasks.addTask(2, aiNearestAttackableTarget);
 		}
 	}
@@ -72,22 +72,22 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	}
 
 	@Override
-	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED && !isFriendly() && isTameable()) {
 
-			world.setEntityState(this, (byte) 8);
+			getEntityWorld().setEntityState(this, (byte) 8);
 
-			if (!player.capabilities.isCreativeMode) {
+			if (!player.abilities.isCreativeMode) {
 				stack.shrink(1);
 			}
 
 			dataManager.set(FRIENDLY, Boolean.valueOf(true));
-			targetTasks.addTask(3, aiNearestAttackableHostileTarget);
+			targetTasks.addTask(3, new AINearestAttackableHostileTarget(this));
 
-			return true;
+			return EnumActionResult.SUCCESS;
 		} else {
-			return super.processInteract(player, hand);
+			return super.applyPlayerInteraction(player, vec, hand);
 		}
 	}
 
@@ -101,9 +101,9 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(FRIENDLY, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(FRIENDLY, Boolean.valueOf(false));
 	}
 
 	public boolean isFriendly() {
@@ -111,16 +111,16 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	}
 
 	public void setFriendly() {
-		targetTasks.addTask(3, aiNearestAttackableHostileTarget);
+		targetTasks.addTask(3, new AINearestAttackableHostileTarget(this));
 	}
 
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setBoolean("friendly", isFriendly());
 	}
 
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		dataManager.set(FRIENDLY, Boolean.valueOf(compound.getBoolean("friendly")));
 
 		if (compound.getBoolean("friendly")) {
@@ -132,8 +132,8 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
-			if (GaiaConfig.DAMAGE.baseDamage) {
-				if (entity instanceof EntityPlayer && GaiaConfig.DAMAGE.shieldsBlockPiercing) {
+			if (GaiaConfig.COMMON.baseDamage.get()) {
+				if (entity instanceof EntityPlayer && GaiaConfig.COMMON.shieldsBlockPiercing.get()) {
 					EntityPlayer player = (EntityPlayer) entity;
 					ItemStack itemstack = player.isHandActive() ? player.getActiveItemStack() : ItemStack.EMPTY;
 					if (itemstack.getItem() == Items.SHIELD) {
@@ -159,22 +159,22 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	 * @param id_11 ParticleType.SMOKE_NORMAL
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 7) {
-			spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
+			spawnParticles(Particles.HAPPY_VILLAGER);
 		} else if (id == 8) {
 			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else if (id == 9) {
-			spawnParticles(EnumParticleTypes.FLAME);
+			spawnParticles(Particles.FLAME);
 		} else if (id == 10) {
-			spawnParticles(EnumParticleTypes.SPELL_WITCH);
+			spawnParticles(Particles.WITCH);
 		} else if (id == 11) {
-			spawnParticles(EnumParticleTypes.SMOKE_NORMAL);
+			spawnParticles(Particles.SMOKE);
 		} else if (id == 12) {
-			spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL);
+			spawnParticles(Particles.EXPLOSION);
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -183,8 +183,8 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	/**
 	 * Adapted from @EntityVillager
 	 */
-	@SideOnly(Side.CLIENT)
-	private void spawnParticles(EnumParticleTypes particleType) {
+	@OnlyIn(Dist.CLIENT)
+	private void spawnParticles(IParticleData particleType) {
 		for (int i = 0; i < 5; ++i) {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
@@ -244,7 +244,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	 * @see EntityLivingBase
 	 */
 	public void knockBack(double xRatio, double zRatio, double power) {
-		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
+		if (rand.nextDouble() >= getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getValue()) {
 			isAirBorne = true;
 			float f1 = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
 			float f2 = 0.4F;
@@ -263,17 +263,17 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 
 	/* SPAWN CONDITIONS */
 	public boolean daysPassed() {
-		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);
+		int daysPassedClientInt = (int) (world.getGameTime() / 24000);
 
-		return GaiaConfig.SPAWN.spawnDaysSet <= daysPassedClientInt;
+		return GaiaConfig.COMMON.spawnDaysSet.get() <= daysPassedClientInt;
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		if (GaiaConfig.SPAWN.spawnDaysPassed) {
-			return daysPassed() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
+			return daysPassed() && super.canSpawn(world, p_205020_2_);
 		} else {
-			return super.getCanSpawnHere();
+			return super.canSpawn(world, p_205020_2_);
 		}
 	}
 	/* SPAWN CONDITIONS */
@@ -282,7 +282,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return false;
 	}
@@ -294,4 +294,14 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 	}
 	/* SHARED CODE */
+	
+	private static final Predicate<Entity> PASSIVE_SELECTOR = (p_210136_0_) -> {
+		return p_210136_0_ != null && IMob.VISIBLE_MOB_SELECTOR.test(p_210136_0_) && !(p_210136_0_ instanceof EntityCreeper);
+	};
+	
+	static class AINearestAttackableHostileTarget extends EntityAINearestAttackableTarget<EntityLiving> {
+		public AINearestAttackableHostileTarget(EntityMobPassiveBase passive) {
+			super(passive, EntityLiving.class, 10, false, true, EntityMobPassiveBase.PASSIVE_SELECTOR);
+		}
+	}
 }

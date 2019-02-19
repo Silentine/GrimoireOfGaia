@@ -6,28 +6,30 @@ import javax.annotation.Nullable;
 
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.helpers.LootHelper;
+import gaia.init.GaiaEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.EnumLightType;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
 //TODO Missing model
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	private boolean canSpawn;
@@ -35,7 +37,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	private boolean canDrop;
 
 	public EntityGaiaPropChestMimic(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.CHEST, worldIn);
 		setSize(0.8F, 0.8F);
 		experienceValue = 0;
 		prevRenderYawOffset = 180.0F;
@@ -44,10 +46,10 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 		canSpawnDrop = false;
 		canDrop = false;
 	}
-
+	
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		renderYawOffset = 180.0F;
 		prevRenderYawOffset = 180.0F;
 		rotationYaw = 180.0F;
@@ -65,7 +67,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 			canDrop = true;
 		}
 
-		return super.onInitialSpawn(difficulty, livingdata);
+		return super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 	}
 
 	@Override
@@ -74,9 +76,9 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0F);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0F);
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (playerDetection() && canSpawn) {
 			attackEntityFrom(DamageSource.GENERIC, 2.0F);
 			setSpawn((byte) 0);
@@ -97,10 +99,10 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.EXPLOSION, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
-			super.onLivingUpdate();
+			super.livingTick();
 		}
 	}
 
@@ -110,7 +112,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 		if (id == 0) {
 			mimic = new EntityGaiaMimic(world);
 			mimic.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			mimic.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mimic)), null);
+			mimic.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mimic)), null, null);
 			world.spawnEntity(mimic);
 
 			canSpawn = false;
@@ -151,7 +153,7 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 
 	@Override
 	protected void onDeathUpdate() {
-		setDead();
+		remove();
 	}
 
 	/* IMMUNITIES */
@@ -179,21 +181,12 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	 * @see EntityMob
 	 */
 	private boolean isValidLightLevel() {
-		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
-
-		if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
+		BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
+		if (this.world.getLightFor(EnumLightType.SKY, blockpos) > this.rand.nextInt(32)) {
 			return false;
 		} else {
-			int i = world.getLightFromNeighbors(blockpos);
-
-			if (world.isThundering()) {
-				int j = world.getSkylightSubtracted();
-				world.setSkylightSubtracted(10);
-				i = world.getLightFromNeighbors(blockpos);
-				world.setSkylightSubtracted(j);
-			}
-
-			return i <= rand.nextInt(8);
+			int i = this.world.isThundering() ? this.world.getNeighborAwareLightSubtracted(blockpos, 10) : this.world.getLight(blockpos);
+			return i <= this.rand.nextInt(8);
 		}
 	}
 
@@ -204,15 +197,15 @@ public class EntityGaiaPropChestMimic extends EntityAgeable {
 	}
 	
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 
 	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return isEntityAlive() ? getEntityBoundingBox() : null;
+		return isAlive() ? getBoundingBox() : null;
 	}
 
 	@Override

@@ -3,24 +3,23 @@ package gaia.items;
 import com.google.common.collect.Multimap;
 
 import gaia.init.GaiaItems;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemWeaponFanFire extends ItemWeaponFan {
 	private int attackDamage;
 
-	public ItemWeaponFanFire() {
-		super("weapon_fan_fire");
+	public ItemWeaponFanFire(Item.Properties builder) {
+		super(builder); //"weapon_fan_fire");
 		attackDamage = 7;
 	}
 
@@ -49,23 +48,11 @@ public class ItemWeaponFanFire extends ItemWeaponFan {
 	}
 
 	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		ItemStack stack = new ItemStack(this, 1, 0);
-		stack.addEnchantment(Enchantments.FIRE_ASPECT, 2);
-		stack.addEnchantment(Enchantments.KNOCKBACK, 1);
-		items.add(stack);
-	}
-
-	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		return GaiaItems.MISC_SOUL_FIERY == repair.getItem() && super.getIsRepairable(toRepair, repair);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean hasEffect(ItemStack stack) {
 		return false;
 	}

@@ -2,62 +2,51 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-import gaia.CreativeTabGaia;
-import gaia.helpers.ModelLoaderHelper;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * UNDER CONSTRUCTION
  */
-@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
-public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
+//@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
+public class ItemAccessoryHeadgear extends ItemBase { //implements IBauble {
 
-	public ItemAccessoryHeadgear() {
-		super("accessory_headgear");
-		setHasSubtypes(true);
-		setMaxStackSize(1);
-		
-//		setCreativeTab(null);
+	public ItemAccessoryHeadgear(Item.Properties builder) {
+		super(builder); //"accessory_headgear"
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
-	
+
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.BOLD + I18n.format("text.grimoireofgaia.WIP.tag"));
-		tooltip.add(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.Headgear.tag"));
-		if (stack.getItemDamage() == 0) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Prop.tag")));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.WIP.tag").applyTextStyle(TextFormatting.BOLD));
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.Headgear.tag").applyTextStyle(TextFormatting.YELLOW));
+		if (stack.getDamage() == 0) {
+			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.Prop.tag").applyTextStyle(TextFormatting.YELLOW));
 		}
 	}
 
 	@Override
-	public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
+	public boolean canEquip(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
 		return armorType == EntityEquipmentSlot.HEAD;
 	}
 
@@ -74,35 +63,24 @@ public class ItemAccessoryHeadgear extends ItemBase implements IBauble {
 			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
-
-	/* SUBITEMS */
-	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-		for (int i = 0; i < 5; i++) {
-			items.add(new ItemStack(this, 1, i));
-		}
-	}
 	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this,
-				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_bolt"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_doll"),
-				ModelLoaderHelper.getSuffixedLocation(this, "_ears_elf")
-		);
-	}
+//	@Override
+//	@OnlyIn(Dist.CLIENT)
+//	public void registerClient() {
+//		ModelLoaderHelper.registerItem(this,
+//				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
+//				ModelLoaderHelper.getSuffixedLocation(this, "_bolt"),
+//				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
+//				ModelLoaderHelper.getSuffixedLocation(this, "_doll"),
+//				ModelLoaderHelper.getSuffixedLocation(this, "_ears_elf")
+//		);
+//	}
 	/* SUBITEMS */
 
 	/* BAUBLES */
-	@Override
-	public BaubleType getBaubleType(ItemStack itemStack) {
-		return BaubleType.HEAD;
-	}
+//	@Override
+//	public BaubleType getBaubleType(ItemStack itemStack) {
+//		return BaubleType.HEAD;
+//	}
 	/* BAUBLES */
 }

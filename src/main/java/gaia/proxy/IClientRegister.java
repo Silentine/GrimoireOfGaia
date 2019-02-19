@@ -1,5 +1,5 @@
 package gaia.proxy;
 
 public interface IClientRegister {
-	void registerClient();
+	//void registerClient();
 }

@@ -2,6 +2,7 @@ package gaia.entity.ai;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIDoorInteract;
@@ -23,13 +24,14 @@ public class EntityAIGaiaBreakDoor extends EntityAIDoorInteract {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
+        IBlockState iblockstate = this.entity.world.getBlockState(this.doorPosition);
+
 		if (!super.shouldExecute()) {
 			return false;
 		} else if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.entity.world, this.entity) || !this.entity.world.getBlockState(this.doorPosition).getBlock().canEntityDestroy(this.entity.world.getBlockState(this.doorPosition), this.entity.world, this.doorPosition, this.entity) || !net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this.entity, this.doorPosition, this.entity.world.getBlockState(this.doorPosition))) {
 			return false;
 		} else {
-			BlockDoor blockdoor = this.doorBlock;
-			return !BlockDoor.isOpen(this.entity.world, this.doorPosition);
+			return !iblockstate.get(BlockDoor.OPEN);
 		}
 	}
 
@@ -45,13 +47,13 @@ public class EntityAIGaiaBreakDoor extends EntityAIDoorInteract {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
+        IBlockState iblockstate = this.entity.world.getBlockState(this.doorPosition);
+
 		double d0 = this.entity.getDistanceSq(this.doorPosition);
 		boolean flag;
 
 		if (this.breakingTime <= 240) {
-			BlockDoor blockdoor = this.doorBlock;
-
-			if (!BlockDoor.isOpen(this.entity.world, this.doorPosition) && d0 < 4.0D) {
+			if (!iblockstate.get(BlockDoor.OPEN) && d0 < 4.0D) {
 				flag = true;
 				return flag;
 			}
@@ -72,9 +74,11 @@ public class EntityAIGaiaBreakDoor extends EntityAIDoorInteract {
 	/**
 	 * Keep ticking a continuous task that has already been started
 	 */
-	public void updateTask() {
-		super.updateTask();
+	public void tick() {
+		super.tick();
 
+        IBlockState iblockstate = this.entity.world.getBlockState(this.doorPosition);
+        
 		if (this.entity.getRNG().nextInt(20) == 0) {
 			this.entity.world.playEvent(1019, this.doorPosition, 0);
 		}
@@ -88,9 +92,9 @@ public class EntityAIGaiaBreakDoor extends EntityAIDoorInteract {
 		}
 
 		if (this.breakingTime == 240 && this.entity.world.getDifficulty() != EnumDifficulty.EASY) {
-			this.entity.world.setBlockToAir(this.doorPosition);
+			this.entity.world.destroyBlock(this.doorPosition, false);
 			this.entity.world.playEvent(1021, this.doorPosition, 0);
-			this.entity.world.playEvent(2001, this.doorPosition, Block.getIdFromBlock(this.doorBlock));
+			this.entity.world.playEvent(2001, this.doorPosition, Block.getStateId(iblockstate));
 		}
 	}
 }

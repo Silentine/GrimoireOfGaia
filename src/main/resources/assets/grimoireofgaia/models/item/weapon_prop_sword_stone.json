@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "grimoireofgaia:items/weapon_prop_sword_stone"
+        "layer0": "grimoireofgaia:item/weapon_prop_sword_stone"
     }  
 }

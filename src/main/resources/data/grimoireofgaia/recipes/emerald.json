@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:emerald",
+    "ingredients": [
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        },
+        {
+            "item": "grimoireofgaia:shard_emerald"
+        }
+    ],
+    "result": {
+        "item": "minecraft:emerald"
+    }
+}

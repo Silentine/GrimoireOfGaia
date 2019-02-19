@@ -88,11 +88,11 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 	 * Updates the task
 	 */
 	@Override
-	public void updateTask() {
+	public void tick() {
 		EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
 		if (entitylivingbase != null) {
-			double d0 = entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+			double d0 = entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getBoundingBox().minY, entitylivingbase.posZ);
 			boolean flag = entity.getEntitySenses().canSee(entitylivingbase);
 			boolean flag1 = seeTime > 0;
 
@@ -133,7 +133,7 @@ public class EntityAIGaiaAttackRangedBow extends EntityAIBase {
 					strafingBackwards = true;
 				}
 
-				if (GaiaConfig.OPTIONS.strafingArchers) {
+				if (GaiaConfig.COMMON.strafingArchers.get()) {
 					entity.getMoveHelper().strafe(strafingBackwards ? -0.4F : 0.4F, strafingClockwise ? 0.4F : -0.4F);
 				} else {
 					entity.getMoveHelper().strafe(0.01F, 0.01F);

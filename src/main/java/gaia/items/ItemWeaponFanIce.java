@@ -2,14 +2,10 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Multimap;
 
 import gaia.init.GaiaItems;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -17,18 +13,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemWeaponFanIce extends ItemWeaponFan {
 	private int attackDamage;
 
-	public ItemWeaponFanIce() {
-		super("weapon_fan_ice");
+	public ItemWeaponFanIce(Item.Properties builder) {
+		super(builder); //"weapon_fan_ice");
 		attackDamage = 0;
 	}
 
@@ -40,9 +39,9 @@ public class ItemWeaponFanIce extends ItemWeaponFan {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.format("effect.moveSlowdown") + " IV" + " (0:05)");
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("effect.minecraft.slowness").appendSibling(new TextComponentString(" IV")).appendSibling(new TextComponentString(" (0:05)")));
 	}
 
 	@Override
@@ -63,22 +62,11 @@ public class ItemWeaponFanIce extends ItemWeaponFan {
 	}
 
 	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if (!isInCreativeTab(tab)) {
-			return;
-		}
-
-		ItemStack stack = new ItemStack(this, 1, 0);
-		stack.addEnchantment(Enchantments.KNOCKBACK, 4);
-		items.add(stack);
-	}
-
-	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		return GaiaItems.MISC_SOUL_FIRE != repair.getItem() && super.getIsRepairable(toRepair, repair);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean hasEffect(ItemStack stack) {
 		return false;
 	}

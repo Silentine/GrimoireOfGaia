@@ -5,14 +5,15 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -25,18 +26,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySpectralArrow;
 import net.minecraft.init.Items;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 /**
@@ -44,17 +45,16 @@ import net.minecraft.world.World;
  * 
  * @see EntityVex
  */
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBanshee extends EntityMobHostileBase {
 
-	private static final int DETECTION_RANGE = 8;
+//	private static final int DETECTION_RANGE = 8;
 
 	protected static final DataParameter<Byte> VEX_FLAGS = EntityDataManager.<Byte>createKey(EntityGaiaBanshee.class, DataSerializers.BYTE);
 	@Nullable
 	private BlockPos boundOrigin;
 
 	public EntityGaiaBanshee(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.BANSHEE, worldIn);
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		isImmuneToFire = true;
@@ -74,14 +74,14 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
+	protected void registerAttributes() {
+		super.registerAttributes();
 
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (world.isDaytime() && !world.isRemote) {
 			float f = getBrightness();
 
@@ -125,10 +125,10 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		}
 
 		for (int var2 = 0; var2 < 2; ++var2) {
-			world.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(Particles.PORTAL, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 		}
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	/* VEX CODE */
@@ -143,43 +143,39 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
-	public void onUpdate() {
+	public void tick() {
 		this.noClip = true;
-		super.onUpdate();
+		super.tick();
 		this.noClip = false;
 		this.setNoGravity(true);
 	}
 
-	protected void entityInit() {
-		super.entityInit();
-		this.dataManager.register(VEX_FLAGS, Byte.valueOf((byte) 0));
-	}
-
-	public static void registerFixesVex(DataFixer fixer) {
-		EntityLiving.registerFixesMob(fixer, EntityGaiaBanshee.class);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(VEX_FLAGS, Byte.valueOf((byte) 0));
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 
 		if (compound.hasKey("BoundX")) {
-			this.boundOrigin = new BlockPos(compound.getInteger("BoundX"), compound.getInteger("BoundY"), compound.getInteger("BoundZ"));
+			this.boundOrigin = new BlockPos(compound.getInt("BoundX"), compound.getInt("BoundY"), compound.getInt("BoundZ"));
 		}
 	}
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 
 		if (this.boundOrigin != null) {
-			compound.setInteger("BoundX", this.boundOrigin.getX());
-			compound.setInteger("BoundY", this.boundOrigin.getY());
-			compound.setInteger("BoundZ", this.boundOrigin.getZ());
+			compound.setInt("BoundX", this.boundOrigin.getX());
+			compound.setInt("BoundY", this.boundOrigin.getY());
+			compound.setInt("BoundZ", this.boundOrigin.getZ());
 		}
 	}
 
@@ -237,7 +233,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		 * Returns whether an in-progress EntityAIBase should continue executing
 		 */
 		public boolean shouldContinueExecuting() {
-			return EntityGaiaBanshee.this.getMoveHelper().isUpdating() && EntityGaiaBanshee.this.isCharging() && EntityGaiaBanshee.this.getAttackTarget() != null && EntityGaiaBanshee.this.getAttackTarget().isEntityAlive();
+			return EntityGaiaBanshee.this.getMoveHelper().isUpdating() && EntityGaiaBanshee.this.isCharging() && EntityGaiaBanshee.this.getAttackTarget() != null && EntityGaiaBanshee.this.getAttackTarget().isAlive();
 		}
 
 		/**
@@ -245,7 +241,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		 */
 		public void startExecuting() {
 			EntityLivingBase entitylivingbase = EntityGaiaBanshee.this.getAttackTarget();
-			Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+			Vec3d vec3d = entitylivingbase.getEyePosition(1.0F);
 			EntityGaiaBanshee.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
 			EntityGaiaBanshee.this.setCharging(true);
 			EntityGaiaBanshee.this.playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
@@ -261,17 +257,17 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		/**
 		 * Keep ticking a continuous task that has already been started
 		 */
-		public void updateTask() {
+		public void tick() {
 			EntityLivingBase entitylivingbase = EntityGaiaBanshee.this.getAttackTarget();
 
-			if (EntityGaiaBanshee.this.getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox())) {
+			if (EntityGaiaBanshee.this.getBoundingBox().intersects(entitylivingbase.getBoundingBox())) {
 				EntityGaiaBanshee.this.attackEntityAsMob(entitylivingbase);
 				EntityGaiaBanshee.this.setCharging(false);
 			} else {
 				double d0 = EntityGaiaBanshee.this.getDistanceSq(entitylivingbase);
 
 				if (d0 < 9.0D) {
-					Vec3d vec3d = entitylivingbase.getPositionEyes(1.0F);
+					Vec3d vec3d = entitylivingbase.getEyePosition(1.0F);
 					EntityGaiaBanshee.this.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 1.0D);
 				}
 			}
@@ -283,7 +279,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			super(vex);
 		}
 
-		public void onUpdateMoveHelper() {
+		public void tickMoveHelper() {
 			if (this.action == EntityMoveHelper.Action.MOVE_TO) {
 				double d0 = this.posX - EntityGaiaBanshee.this.posX;
 				double d1 = this.posY - EntityGaiaBanshee.this.posY;
@@ -291,7 +287,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 				d3 = (double) MathHelper.sqrt(d3);
 
-				if (d3 < EntityGaiaBanshee.this.getEntityBoundingBox().getAverageEdgeLength()) {
+				if (d3 < EntityGaiaBanshee.this.getBoundingBox().getAverageEdgeLength()) {
 					this.action = EntityMoveHelper.Action.WAIT;
 					EntityGaiaBanshee.this.motionX *= 0.5D;
 					EntityGaiaBanshee.this.motionY *= 0.5D;
@@ -337,7 +333,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 		/**
 		 * Keep ticking a continuous task that has already been started
 		 */
-		public void updateTask() {
+		public void tick() {
 			BlockPos blockpos = EntityGaiaBanshee.this.getBoundOrigin();
 
 			if (blockpos == null) {
@@ -363,22 +359,22 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BANSHEE_SAY;
+		return GaiaSounds.BANSHEE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BANSHEE_HURT;
+		return GaiaSounds.BANSHEE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BANSHEE_DEATH;
+		return GaiaSounds.BANSHEE_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -387,17 +383,17 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.MISC_SOUL_FIRE, 1);
+				entityDropItem(GaiaItems.MISC_SOUL_FIRE, 1);
 			}
 
 			// Nuggets/Fragments
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -409,22 +405,22 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 			
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1);
+				entityDropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1);
 			}
 		}
 	}
 
 	@Override
-	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.UNDEAD;
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/* SPAWN CONDITIONS */
@@ -434,8 +430,8 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

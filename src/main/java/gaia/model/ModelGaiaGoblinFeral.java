@@ -1,21 +1,21 @@
 package gaia.model;
 
 import gaia.entity.monster.EntityGaiaGoblinFeral;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Direct copy of ModelGaiaGoblin with the only difference being that under 'setRotationAngles' entity makes reference to EntityGaiaGoblinFeral.
  * 
  * @see ModelGaiaGoblin
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelGaiaGoblinFeral extends ModelGaia {
 	ModelRenderer head;
 	ModelRenderer body;

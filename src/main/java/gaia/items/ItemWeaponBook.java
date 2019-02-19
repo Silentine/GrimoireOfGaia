@@ -1,32 +1,23 @@
 package gaia.items;
 
-import gaia.CreativeTabGaia;
-import gaia.Gaia;
-import gaia.GaiaReference;
-import gaia.helpers.ModelLoaderHelper;
+import gaia.ItemGroupGaia;
 import gaia.init.GaiaItems;
-import gaia.proxy.IClientRegister;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ItemWeaponBook extends ItemSword implements IClientRegister {
+public class ItemWeaponBook extends ItemSword {
 
-	public ItemWeaponBook(ToolMaterial material, String name) {
-		super(material);
-
-		setCreativeTab(CreativeTabGaia.INSTANCE);
-		setRegistryName(GaiaReference.MOD_ID, name);
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + name);
-		Gaia.proxy.addClientRegister(this);
+	public ItemWeaponBook(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+		super(tier, attackDamageIn, attackSpeedIn, builder.group(ItemGroupGaia.INSTANCE));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.RARE;
 	}
@@ -34,11 +25,5 @@ public class ItemWeaponBook extends ItemSword implements IClientRegister {
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		return repair.getItem() == GaiaItems.MISC_QUILL;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this);
 	}
 }

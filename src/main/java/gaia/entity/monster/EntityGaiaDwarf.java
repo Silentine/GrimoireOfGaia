@@ -1,7 +1,5 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobPassiveDay;
@@ -10,9 +8,11 @@ import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import gaia.items.ItemShieldProp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -44,11 +44,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
 
 	private static final String MOB_TYPE_TAG = "MobType";
@@ -79,7 +79,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	private int spawnLevel3Chance;
 
 	public EntityGaiaDwarf(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.DWARF, worldIn);
 
 		setSize(0.5F, 1.5F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
@@ -119,20 +119,20 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_2);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_2);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		if (damage > EntityAttributes.BASE_DEFENSE_2) {
 			if (canSpawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
+				spawnLevel3Chance += (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.05);
 			}
 		}
 
@@ -147,7 +147,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	private boolean hasShield() {
 		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
-		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() == GaiaItems.SHIELD_PROP) {
+		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
 			return true;
 		} else {
 			return false;
@@ -189,20 +189,20 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		/* LEVEL 3 SPAWN DATA */
-		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
+		if ((GaiaConfig.COMMON.spawnLevel3.get() && (GaiaConfig.COMMON.spawnLevel3Chance.get() != 0)) && !canSpawnLevel3) {
 			canSpawnLevel3 = true;
 		}
 
 		if (canSpawnLevel3) {
 			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
 
-				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
+				if (spawnLevel3Chance > (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.5)) {
+					spawnLevel3Chance = (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.5);
 				}
 
-				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+				if ((rand.nextInt(GaiaConfig.COMMON.spawnLevel3Chance.get() - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
 					spawnLevel3 = 1;
 				}
 
@@ -217,7 +217,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 		}
 		/* LEVEL 3 SPAWN DATA */
 
-		super.onLivingUpdate();
+		super.livingTick();
 	}
 
 	private void setSpawn(byte id) {
@@ -228,7 +228,7 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			valyrie = new EntityGaiaValkyrie(world);
 			valyrie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null);
+			valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null, null);
 			world.spawnEntity(valyrie);
 		}
 	}
@@ -271,14 +271,14 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getMobType());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setMobType(b0);
@@ -295,19 +295,19 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		if (!target.isDead) {
+		if (target.isAlive()) {
 			Ranged.rangedAttack(target, this, distanceFactor);
 		}
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SKIN, 0);
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SKIN, 0);
+		this.getDataManager().register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	}
@@ -324,24 +324,24 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			this.dead = true;
 			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
-			this.setDead();
+			this.remove();
 		}
 	}
 	
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.DWARF_SAY;
+		return GaiaSounds.DWARF_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.DWARF_HURT;
+		return GaiaSounds.DWARF_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.DWARF_DEATH;
+		return GaiaSounds.DWARF_DEATH;
 	}
 
 	@Override
@@ -351,11 +351,11 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 
 			if (mobClass == 1) {
 				for (int i = 0; i < drop; ++i) {
-					dropItem(Items.ARROW, 1);
+					entityDropItem(Items.ARROW, 1);
 				}
 			} else {
 				for (int i = 0; i < drop; ++i) {
-					dropItem(Items.IRON_NUGGET, 1);
+					entityDropItem(Items.IRON_NUGGET, 1);
 				}
 			}
 
@@ -363,10 +363,10 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			int dropNugget = rand.nextInt(3) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
-				dropItem(Items.GOLD_NUGGET, 1);
+				entityDropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.COMMON.additionalOre.get()) {
 				int dropNuggetAlt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
@@ -378,16 +378,16 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				switch (rand.nextInt(2)) {
 				case 0:
-					dropItem(GaiaItems.BOX_GOLD, 1);
+					entityDropItem(GaiaItems.BOX_GOLD, 1);
 				case 1:
-					dropItem(GaiaItems.BAG_BOOK, 1);
+					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				if (mobClass == 1) {
-					dropItem(GaiaItems.BAG_ARROW, 1);
+					entityDropItem(GaiaItems.BAG_ARROW, 1);
 				}
 			}
 		}
@@ -399,8 +399,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(2) == 0) {
 			ItemStack bowCustom = new ItemStack(Items.BOW);
@@ -422,19 +422,19 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 			setEnchantmentBasedOnDifficulty(difficulty);
 
 			if (world.rand.nextInt(2) == 0) {
-				ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP, 1, 1);
+				ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_IRON, 1);
 				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, shield);
 			}
 
 			setMobType(1);
-			getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
+			getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
 			setTextureType(0);
 			mobClass = 0;
 		}
 
 		setCombatTask();
 
-		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
+		if (GaiaConfig.COMMON.spawnLevel3.get() && (GaiaConfig.COMMON.spawnLevel3Chance.get() != 0)) {
 			canSpawnLevel3 = true;
 		}
 
@@ -450,8 +450,8 @@ public class EntityGaiaDwarf extends EntityMobPassiveDay implements GaiaIRangedA
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 	}
 	/* SPAWN CONDITIONS */
 }

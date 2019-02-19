@@ -2,22 +2,21 @@ package gaia.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemFoodMonsterFeedPremium extends ItemFoodBase {
 
-	public ItemFoodMonsterFeedPremium() {
-		super("food_monster_feed_premium", 4, 0.6F, true);
-		setMaxStackSize(1);
+	public ItemFoodMonsterFeedPremium(Item.Properties builder) {
+		super(builder.maxStackSize(1), 4, 0.6F, true); //"food_monster_feed_premium"
 	}
 
 	@Override
@@ -26,10 +25,10 @@ public class ItemFoodMonsterFeedPremium extends ItemFoodBase {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.grimoireofgaia.desc")));
-		tooltip.add(I18n.format("item.grimoireofgaia.spawn_tame.desc"));
-		tooltip.add(TextFormatting.ITALIC + I18n.format("item.grimoireofgaia.spawn_tame2.desc"));
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.grimoireofgaia.desc").applyTextStyle(TextFormatting.YELLOW));
+		tooltip.add(new TextComponentTranslation("item.grimoireofgaia.spawn_tame.desc"));
+		tooltip.add(new TextComponentTranslation("item.grimoireofgaia.spawn_tame2.desc").applyTextStyle(TextFormatting.ITALIC));
 	}
 }

@@ -1,16 +1,21 @@
 package gaia.tileentity;
 
+import javax.annotation.Nullable;
+
+import gaia.init.GaiaTileType;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class TileEntityBust extends TileEntity {
+	public TileEntityBust() {
+		super(GaiaTileType.GAIA_BUST);
+	}
+
 	private EnumFacing direction;
 
 	public void setDirection(EnumFacing direction) {
@@ -18,30 +23,30 @@ public class TileEntityBust extends TileEntity {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.getNbtCompound());
+		read(pkt.getNbtCompound());
 	}
 
 	@Override
 	public void handleUpdateTag(NBTTagCompound tag) {
 		super.handleUpdateTag(tag);
-		readFromNBT(tag);
+		read(tag);
 	}
-
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-
-		direction = EnumFacing.getHorizontal(nbt.getInteger("direction"));
+	public void read(NBTTagCompound compound) {
+		super.read(compound);
+		
+		direction = EnumFacing.byHorizontalIndex(compound.getInt("direction"));
 	}
-
+	
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		nbt.setInteger("direction", direction.getHorizontalIndex());
-		return nbt;
+	public NBTTagCompound write(NBTTagCompound compound) {
+		super.write(compound);
+		compound.setInt("direction", direction.getHorizontalIndex());
+		return compound;
 	}
+
 
 	@Override
 	@Nullable
@@ -51,7 +56,7 @@ public class TileEntityBust extends TileEntity {
 
 	@Override
 	public NBTTagCompound getUpdateTag() {
-		return writeToNBT(new NBTTagCompound());
+		return write(new NBTTagCompound());
 	}
 
 	public EnumFacing getDirection() {

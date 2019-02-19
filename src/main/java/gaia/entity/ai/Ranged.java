@@ -46,16 +46,16 @@ public class Ranged {
 		Random rand = new Random();
 		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(host.world, host);
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 3.0D - entitytippedarrow.posY;
+		double d1 = target.getBoundingBox().minY + target.height / 3.0D - entitytippedarrow.posY;
 		double d2 = target.posZ - host.posZ;
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		entitytippedarrow.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getDifficultyId() * 4));
+		entitytippedarrow.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getId() * 4));
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, host);
 		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, host);
 
-		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getDifficultyId() * 0.11D);
+		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getId() * 0.11D);
 
-		if (host.world.getDifficulty() == HARD && GaiaConfig.DAMAGE.baseDamageArchers) {
+		if (host.world.getDifficulty() == HARD && GaiaConfig.COMMON.baseDamageArchers.get()) {
 			entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));
 		}
 
@@ -99,7 +99,7 @@ public class Ranged {
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d1 = target.getBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
@@ -125,14 +125,14 @@ public class Ranged {
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d1 = target.getBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int i = 0; i < 1; ++i) {
-			EntityGaiaProjectileMagic entitygaiaprojectilemagic = new EntityGaiaProjectileMagic(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectilemagic.posY = host.posY + host.height / 2.0D;
-			host.world.spawnEntity(entitygaiaprojectilemagic);
+			EntityGaiaProjectileMagic projectileMagic = new EntityGaiaProjectileMagic(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			projectileMagic.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(projectileMagic);
 		}
 	}
 
@@ -152,14 +152,14 @@ public class Ranged {
 		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d1 = target.getBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int i = 0; i < 1; ++i) {
-			EntityGaiaProjectileWeb entitygaiaprojectileweb = new EntityGaiaProjectileWeb(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectileweb.posY = host.posY + host.height / 2.0D + height;
-			host.world.spawnEntity(entitygaiaprojectileweb);
+			EntityGaiaProjectileWeb projectileWeb = new EntityGaiaProjectileWeb(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			projectileWeb.posY = host.posY + host.height / 2.0D + height;
+			host.world.spawnEntity(projectileWeb);
 		}
 	}
 
@@ -176,14 +176,14 @@ public class Ranged {
 		Random rand = new Random();
 
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d1 = target.getBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int i = 0; i < 1; ++i) {
-			EntityGaiaProjectileBubble entitygaiaprojectilebubble = new EntityGaiaProjectileBubble(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectilebubble.posY = host.posY + host.height / 2.0D;
-			host.world.spawnEntity(entitygaiaprojectilebubble);
+			EntityGaiaProjectileBubble projectileBubble = new EntityGaiaProjectileBubble(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			projectileBubble.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(projectileBubble);
 		}
 	}
 	
@@ -200,14 +200,14 @@ public class Ranged {
 		Random rand = new Random();
 
 		double d0 = target.posX - host.posX;
-		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d1 = target.getBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
 		double d2 = target.posZ - host.posZ;
 		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
 		for (int i = 0; i < 1; ++i) {
-			EntityGaiaProjectilePoison entitygaiaprojectile = new EntityGaiaProjectilePoison(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-			entitygaiaprojectile.posY = host.posY + host.height / 2.0D;
-			host.world.spawnEntity(entitygaiaprojectile);
+			EntityGaiaProjectilePoison projectilePoison = new EntityGaiaProjectilePoison(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			projectilePoison.posY = host.posY + host.height / 2.0D;
+			host.world.spawnEntity(projectilePoison);
 		}
 	}
 

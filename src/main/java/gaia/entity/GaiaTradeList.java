@@ -6,15 +6,20 @@ import net.minecraft.village.MerchantRecipeList;
 
 public class GaiaTradeList extends MerchantRecipeList {
 
+	/**
+	 * generated serial UID
+	 */
+	private static final long serialVersionUID = -5377825160709018713L;
+
 	GaiaTradeList(NBTTagCompound tag) {
 		super(tag);
 	}
-
+	
 	@Override
-	public void readRecipiesFromTags(NBTTagCompound tag) {
-		NBTTagList list = tag.getTagList("Recipes", 10);
-		for (int i = 0; i < list.tagCount(); ++i) {
-			NBTTagCompound nbttagcompound1 = list.getCompoundTagAt(i);
+	public void read(NBTTagCompound compound) {
+		NBTTagList list = compound.getList("Recipes", 10);
+		for (int i = 0; i < list.size(); ++i) {
+			NBTTagCompound nbttagcompound1 = list.getCompound(i);
 			this.add(new GaiaTrade(nbttagcompound1));
 		}
 	}

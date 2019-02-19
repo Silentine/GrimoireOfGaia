@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/stone"
+		"0": "grimoireofgaia:block/models/stone"
 	},
 	"elements": [
 		{

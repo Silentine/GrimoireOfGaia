@@ -2,39 +2,36 @@ package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.init.GaiaBlocks;
-import net.minecraft.entity.EntityLiving;
+import gaia.init.GaiaEntities;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityGaiaProjectilePoison extends EntityFireball {
 
-	@SuppressWarnings("unused") // used in reflection
 	public EntityGaiaProjectilePoison(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.POISON_PROJECTILE, worldIn, 0.3125F, 0.3125F);
 		setSize(0.3125F, 0.3125F);
 	}
 
 	public EntityGaiaProjectilePoison(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-		super(worldIn, shooter, accelX, accelY, accelZ);
-		setSize(0.3125F, 0.3125F);
+	    this(worldIn);
 	}
 
 	@Override
-	protected EnumParticleTypes getParticleType() {
-		return EnumParticleTypes.SLIME;
+	protected IParticleData func_195057_f() {
+	    return Particles.ITEM_SLIME;
 	}
 
 	@Override
@@ -53,10 +50,10 @@ public class EntityGaiaProjectilePoison extends EntityFireball {
 	@Override
 	protected void onImpact(RayTraceResult movingObject) {
 		if (!world.isRemote) {
-			if (movingObject.entityHit != null) {
-				movingObject.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
+			if (movingObject.entity != null) {
+				movingObject.entity.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
 
-				if (movingObject.entityHit instanceof EntityLivingBase) {
+				if (movingObject.entity instanceof EntityLivingBase) {
 					int i = 0;
 
 					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
@@ -66,12 +63,12 @@ public class EntityGaiaProjectilePoison extends EntityFireball {
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, 1));
+						((EntityLivingBase) movingObject.entity).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, 1));
 					}
 				}
 			}
 
-			setDead();
+			remove();
 		}
 	}
 
@@ -88,12 +85,13 @@ public class EntityGaiaProjectilePoison extends EntityFireball {
 	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(Vuln, 0);
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(Vuln, 0);
 	}
 
-	private boolean isInvulnerable() {
+	@Override
+	public boolean isInvulnerable() {
 		return dataManager.get(Vuln) == 1;
 	}
 }

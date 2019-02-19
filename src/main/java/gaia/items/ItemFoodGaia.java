@@ -1,20 +1,20 @@
 package gaia.items;
 
-import gaia.proxy.IClientRegister;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemFoodGaia extends ItemFoodBase implements IClientRegister {
+public class ItemFoodGaia extends ItemFoodBase {
 
 	/**
 	 * Base class for food Items that rely on multiple potion effects <p>I
 	 * didn't check but I'm pretty sure the previous codebase didn't work
 	 */
-	ItemFoodGaia(String name, int amount, float saturation, boolean isWolfFood) {
-		super(name, amount, saturation, isWolfFood);
+	ItemFoodGaia(Item.Properties builder, int amount, float saturation, boolean isWolfFood) {
+		super(builder, amount, saturation, isWolfFood);
 	}
 
 	@Override

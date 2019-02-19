@@ -1,18 +1,17 @@
 package gaia.entity.monster;
 
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.init.GaiaBlocks;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -28,20 +27,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaVampire extends EntityMobHostileBase {
 
 	private int spawnLimit;
@@ -49,9 +48,8 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	private boolean canSpawn;
 	private boolean spawnOnDeath;
 
-	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaVampire(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.VAMPIRE, worldIn);
 
 		setSize(1.0F, 2.2F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_3;
@@ -77,13 +75,13 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_3);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_3);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_3);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_3);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_3);
 	}
 
 	@Override
@@ -128,7 +126,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void livingTick() {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
@@ -165,7 +163,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle(Particles.EXPLOSION, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
 			}
 
 			if (!spawnOnDeath) {
@@ -176,7 +174,7 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 				spawnOnDeath = true;
 			}
 		} else {
-			super.onLivingUpdate();
+			super.livingTick();
 		}
 	}
 
@@ -187,43 +185,43 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 		if (id == 0) {
 			butler = new EntityGaiaSummonButler(world);
 			butler.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			butler.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(butler)), null);
+			butler.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(butler)), null, null);
 			world.spawnEntity(butler);
 		}
 
 		if (id == 1) {
 			bat = new EntityBat(world);
 			bat.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
-			bat.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(bat)), null);
+			bat.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(bat)), null, null);
 			world.spawnEntity(bat);
 		}
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.VAMPIRE_SAY;
+		return GaiaSounds.VAMPIRE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.VAMPIRE_HURT;
+		return GaiaSounds.VAMPIRE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.VAMPIRE_DEATH;
+		return GaiaSounds.VAMPIRE_DEATH;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
+				entityDropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
 			}
 
 			// Nuggets/Shards
@@ -241,23 +239,23 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.BOX_DIAMOND, 1);
+				entityDropItem(GaiaItems.BOX_DIAMOND, 1);
 			}
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_VAMPIRE), 1);
+				entityDropItem(GaiaBlocks.BUST_VAMPIRE, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 3), 0.0F);
+				entityDropItem(new ItemStack(GaiaItems.MISC_RING_NIGHT, 1), 0.0F);
 			}
 		}
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
@@ -267,8 +265,8 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	@Override
-	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.UNDEAD;
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/* IMMUNITIES */
@@ -298,11 +296,11 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean getCanSpawnHere() {
-		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
-			return posY > 60.0D && world.isRaining() && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		if (GaiaConfig.COMMON.spawnLevel3Rain.get()) {
+			return posY > 60.0D && world.getWorld().isRaining() && super.canSpawn(world, p_205020_2_);
 		} else {
-			return posY > 60.0D && super.getCanSpawnHere();
+			return posY > 60.0D && super.canSpawn(world, p_205020_2_);
 		}
 	}
 	/* SPAWN CONDITIONS */

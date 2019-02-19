@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.util.EnumHand;
 
 /**
  * TODO Remove unnecessary code for strafing
@@ -19,8 +18,10 @@ public class EntityAIGaiaStrafe extends EntityAIBase {
 
 	private EntityLiving entity;
 	private final double moveSpeedAmp;
+	@SuppressWarnings("unused")
 	private int attackCooldown;
 	private final double maxAttackDistance;
+	@SuppressWarnings("unused")
 	private int attackTime = -1;
 	private int seeTime;
 	private boolean strafingClockwise;
@@ -73,13 +74,13 @@ public class EntityAIGaiaStrafe extends EntityAIBase {
     /**
      * Keep ticking a continuous task that has already been started
      */
-    public void updateTask()
+    public void tick()
     {
         EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
 
         if (entitylivingbase != null)
         {
-            double d0 = this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+            double d0 = this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getBoundingBox().minY, entitylivingbase.posZ);
             boolean flag = this.entity.getEntitySenses().canSee(entitylivingbase);
             boolean flag1 = this.seeTime > 0;
 

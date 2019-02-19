@@ -1,14 +1,14 @@
 package gaia.entity.monster;
 
+import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
+import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemArmorDyeable;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,8 +34,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -47,27 +48,26 @@ import net.minecraft.world.storage.loot.LootTableList;
  * 
  * Disable mob in GaiaEntities and ClientProxy.
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityDebugMob extends EntityMobHostileDay {
 
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityDebugMob.AILeapAttack(this);
 
-	private static int manual_clock;
+//	private static int manual_clock;
 	private boolean debugMode;
 	private boolean enableAnimation;
 
 	public EntityDebugMob(World worldIn) {
-		super(worldIn);
+		super(GaiaEntities.DEBUG_MOB, worldIn);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 		/* Timers */
 		timer = 20;
-		manual_clock = 0;
+//		manual_clock = 0;
 		/* Server data setup */
 		sitting = false;
 
-		/* Set to true when in development environment, otherwise, set to false to execute setDead() */
+		/* Set to true when in development environment, otherwise, set to false to execute remove() */
 		debugMode = false;
 		enableAnimation = false;
 	}
@@ -83,13 +83,13 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
+		getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
+		getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
+		getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
 
 	@Override
@@ -100,8 +100,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	/**
 	 * Example Implementations
 	 */
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
+	public void livingTick() {
+		super.livingTick();
 		// 10 ticks = 1 second
 		// 1 meter = 1 block
 		// Examples of types of timers that can be used
@@ -136,7 +136,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 
 					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
 					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
-					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 0.9);
+					getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 0.9);
 					tasks.removeTask(aiGaiaLeapAtTarget);
 				}
 			} else if (sitting == false) {
@@ -148,7 +148,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 
 					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
 					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
-					getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 1.5);
+					getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) EntityAttributes.MOVE_SPEED_1 * 1.5);
 					tasks.addTask(0, aiGaiaLeapAtTarget);
 				}
 			}
@@ -195,13 +195,13 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		Random Randomize = new Random();
 		int roll = 0;
 		// Things for Looting enchant calculations
-		LootTable loottable = world.getLootTableManager().getLootTableFromLocation(dungeonLoot);
+		LootTable loottable = world.getServer().getLootTableManager().getLootTableFromLocation(dungeonLoot);
 		LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer) world)).withLootedEntity(this).withDamageSource(source);
 		if (wasRecentlyHit && attackingPlayer != null) {
 			lootcontext$builder = lootcontext$builder.withPlayer(attackingPlayer).withLuck(attackingPlayer.getLuck());
 		}
-		// Here we count the amount of pools are in the Loot Table Array
-		for (ItemStack itemstack : loottable.generateLootForPools(LootTableSeed == 0L ? rand : new Random(LootTableSeed), lootcontext$builder.build())) {
+		List<ItemStack> generateLootForPools = loottable.generateLootForPools(LootTableSeed == 0L ? rand : new Random(LootTableSeed), lootcontext$builder.build());
+		for (int i = 0; i < generateLootForPools.size(); i++) {
 			maxCount++;
 		}
 		// Our Roll dependent on the amount of pools we counted
@@ -235,26 +235,26 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		 */
 		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.KNOCKBACK, 1));
 		ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantment.getEnchantmentByID(70), 1));
-		enchantmentBook.setStackDisplayName("Mysterious Tome");
+		enchantmentBook.setDisplayName(new TextComponentTranslation("grimoireofgaia.mysterious.tome"));
 		this.entityDropItem(enchantmentBook, 1);
 
 		ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
 		// Add enchantment
 		shirt.addEnchantment(Enchantments.PROTECTION, 1);
 		// Add color
-		ItemArmor itemArmor = (ItemArmor) shirt.getItem();
+		ItemArmorDyeable itemArmor = (ItemArmorDyeable) shirt.getItem();
 		itemArmor.setColor(shirt, 5681460);
 		// Add name
-		shirt.setStackDisplayName("Dusty Shirt");
+		shirt.setDisplayName(new TextComponentTranslation("grimoireofgaia.dusty.shirt"));
 		this.entityDropItem(shirt, 1);
 
 		ItemStack rod = new ItemStack(Items.FISHING_ROD);
 		rod.addEnchantment(Enchantments.LURE, 1);
-		rod.setStackDisplayName("Arctic Fishing Rod");
+		rod.setDisplayName(new TextComponentTranslation("grimoireofgaia.artic.fishing.rod"));
 		this.entityDropItem(rod, 1);
 
 		if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0 || rand.nextInt(1 + lootingModifier) > 0) && rand.nextInt(1) == 0) {
-			dropItem(GaiaItems.BOX_IRON, 1);
+			entityDropItem(GaiaItems.BOX_IRON, 1);
 		}
 	}
 
@@ -277,8 +277,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	short timer;
 	boolean sitting;
 
-	public void readEntityFromNBT(NBTTagCompound tag) {
-		super.readEntityFromNBT(tag);
+	public void readAdditional(NBTTagCompound tag) {
+		super.readAdditional(tag);
 		if (tag.hasKey("Timer")) {
 			timer = tag.getShort("Timer");
 		}
@@ -287,8 +287,8 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		}
 	}
 
-	public void writeEntityToNBT(NBTTagCompound tag) {
-		super.writeEntityToNBT(tag);
+	public void writeAdditional(NBTTagCompound tag) {
+		super.writeAdditional(tag);
 		tag.setShort("Timer", timer);
 		tag.setBoolean("Sitting", sitting);
 	}
@@ -300,9 +300,9 @@ public class EntityDebugMob extends EntityMobHostileDay {
 	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityDebugMob.class, DataSerializers.BOOLEAN);
 
 	// Initialize the client key
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SITTING, Boolean.valueOf(false));
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(SITTING, Boolean.valueOf(false));
 	}
 
 	// Retreive the client data
@@ -318,34 +318,34 @@ public class EntityDebugMob extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.DEBUG_SAY;
+		return GaiaSounds.DEBUG_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.DEBUG_HURT;
+		return GaiaSounds.DEBUG_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.DEBUG_DEATH;
+		return GaiaSounds.DEBUG_DEATH;
 	}
 
 	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
+		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		tasks.addTask(1, aiGaiaLeapAtTarget);
 		tasks.addTask(2, aiMeleeAttack);
 //		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SHOVEL));
 //		setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BOW));
 
-		setCustomNameTag("Debug Mob");
-		setAlwaysRenderNameTag(true);
+		setCustomName(new TextComponentTranslation("entity.grimoireofgaia.debug_mob.name"));
+		setCustomNameVisible(true);
 
 		if (!debugMode) {
 			System.out.println("Disabled.");
-			setDead();
+			remove();
 		}
 
 		return ret;
@@ -362,7 +362,7 @@ public class EntityDebugMob extends EntityMobHostileDay {
 		}
 	}
 
-	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+		return posY < 0.0D && super.canSpawn(world, p_205020_2_);
 	}
 }
