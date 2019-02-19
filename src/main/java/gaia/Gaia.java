@@ -2,6 +2,7 @@ package gaia;
 
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.EntityMobPassive;
+import gaia.handlers.DimensionHandler;
 import gaia.init.GaiaRecipes;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.ClientHandler;
@@ -10,6 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -17,9 +19,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,11 +38,9 @@ public class Gaia {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-		// Register the serverStarting method for modloading
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStarting);
 
         // Register ourselves for server, registry and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new DimensionHandler());
         
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerRenders);
@@ -56,7 +54,7 @@ public class Gaia {
         GaiaRecipes.addBrews();
         
 		if (GaiaConfig.COMMON.enableSpawn.get()) {
-			GaiaSpawning.register();
+            DeferredWorkQueue.runLater(GaiaSpawning::register);
 		}
     }
     
@@ -81,14 +79,6 @@ public class Gaia {
     	//         collect(Collectors.toList()));
     }
 
-	public void serverStarting(final FMLServerStartingEvent event) {
-		// TODO: Check if this should be re-implemented
-//		if (GaiaConfig.COMMON.debugCommands.get()) { 
-//			event.registerServerCommand(new CommandBiome());
-//			event.registerServerCommand(new CommandSpawn());
-//		}
-	}
-
     @SubscribeEvent
     public void onSpawn(final LivingSpawnEvent.CheckSpawn event)
     {
@@ -99,9 +89,12 @@ public class Gaia {
             {
                 event.setResult(Event.Result.DEFAULT);
                 for (String id : GaiaConfig.COMMON.dimensionBlacklist.get()) {
-                    int i = Integer.valueOf(id);
-                    if (i == event.getWorld().getDimension().getType().getId()) {
-                        event.setResult(Event.Result.DENY);
+                    if(!id.isEmpty())
+                    {
+                        int i = Integer.valueOf(id);
+                        if (i == event.getWorld().getDimension().getType().getId()) {
+                            event.setResult(Event.Result.DENY);
+                        }
                     }
                 }
             }

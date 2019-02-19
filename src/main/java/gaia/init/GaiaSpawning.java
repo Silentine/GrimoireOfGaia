@@ -1,11 +1,14 @@
 package gaia.init;
 
+import gaia.Gaia;
 import gaia.GaiaReference;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.Mod;
@@ -53,6 +56,8 @@ public class GaiaSpawning {
 	 * Register Mobs based on Biome sub Types
 	 */
 	public static void register() {
+		registerSpawnPlacement();
+
 		for(Biome biome : ForgeRegistries.BIOMES)
 		{
 			addForestSPAWN(biome);
@@ -373,5 +378,73 @@ public class GaiaSpawning {
 				underground(biome);
 			}
 		}
+	}
+
+	public static void registerSpawnPlacement(){
+		Gaia.LOGGER.info("Registering gaia spawn placement");
+		//Mobs that spawn on the ground
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT_RANGER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ANUBIS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ARACHNE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.BANSHEE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.BAPHOMET, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.BEE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.BONE_KNIGHT, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CENTAUR, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CHEST, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.COBBLE_GOLEM, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.COBBLESTONE_GOLEM, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CREEP, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CYCLOPS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CYAN_FLOWER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.DEATHWORD, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.DHAMPIR, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.DRYAD, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.DULLAHAN, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.DWARF, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ENDER_DRAGON_GIRL, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ENDER_EYE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.FLESH_LICH, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.GELATINOUS_SLIME, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.GOBLIN, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.GOBLIN_FERAL, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.GRYPHON, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.HARPY, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.HUNTER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.KIKIMORA, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.KOBOLD, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MATANGO, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MINOTAUR, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MINOTAURUS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MUMMY, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.NAGA, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.NINE_TAILS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ONI, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ORC, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SATYRESS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SELKIE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SHAMAN, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SIREN, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SLUDGE_GIRL, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SPHINX, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SPRIGGAN, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SUCCUBUS, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.TOAD, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.VALKYRIE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.VAMPIRE, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.WERECAT, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.WITCH, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.WITHER_COW, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.YETI, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.YUKI_ONNA, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MANDRAGORA, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MIMIC, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+
+		//Mobs that spawn in water
+		EntitySpawnPlacementRegistry.register(GaiaEntities.CECEALIA, EntitySpawnPlacementRegistry.SpawnPlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.MERMAID, EntitySpawnPlacementRegistry.SpawnPlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+		EntitySpawnPlacementRegistry.register(GaiaEntities.SHARKO, EntitySpawnPlacementRegistry.SpawnPlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+
 	}
 }
