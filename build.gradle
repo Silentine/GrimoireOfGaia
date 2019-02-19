@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 
 version = '1.6.8'
 group = 'gaia'
-archivesBaseName = 'GrimoireOfGaia3-'
+archivesBaseName = 'GrimoireOfGaia3'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
