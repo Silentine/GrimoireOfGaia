@@ -31,10 +31,9 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 	protected boolean isValidLightLevel() {
 		BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
 		if (this.world.getLightFor(EnumLightType.SKY, blockpos) > this.rand.nextInt(32)) {
-			return false;
+			return true;
 		} else {
-			int i = this.world.isThundering() ? this.world.getNeighborAwareLightSubtracted(blockpos, 10) : this.world.getLight(blockpos);
-			return i <= this.rand.nextInt(8);
+			return false;
 		}
 	}
 
