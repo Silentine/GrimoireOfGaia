@@ -1,8 +1,8 @@
 {
     "variants": {
-        "type=north":   { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:block/deco_pot_mandragora"                     },
-        "type=east":    { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 90            }
+        "facing=north":   { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 180           },
+        "facing=south":   { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 270           },
+        "facing=west":    { "model": "grimoireofgaia:block/deco_pot_mandragora"                     },
+        "facing=east":    { "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 90            }
     }
 }
