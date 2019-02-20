@@ -163,7 +163,7 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 	 */
 	@Override
 	public boolean canSpawn(IWorld worldIn, boolean value) {
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.canSpawn(world, value);
+		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.canSpawn(worldIn, value);
 	}
 
 	@Override

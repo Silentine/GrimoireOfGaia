@@ -11,7 +11,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -54,7 +53,7 @@ public class Gaia {
         GaiaRecipes.addBrews();
         
 		if (GaiaConfig.COMMON.enableSpawn.get()) {
-            DeferredWorkQueue.runLater(GaiaSpawning::register);
+            GaiaSpawning.register();
 		}
     }
     
