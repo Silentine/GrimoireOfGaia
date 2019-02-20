@@ -52,11 +52,6 @@ public class BlockDecoration extends BlockBase {
 //	}
 
 	@Override
-	public boolean propagatesSkylightDown(IBlockState state, IBlockReader reader, BlockPos pos) {
-		return false;
-	}
-
-	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}

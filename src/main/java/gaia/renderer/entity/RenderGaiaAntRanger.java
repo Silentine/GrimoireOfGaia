@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaAntRanger extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/ant_ranger.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/ant_ranger.png");
 
 	public RenderGaiaAntRanger(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaAntRanger(), shadowSize);

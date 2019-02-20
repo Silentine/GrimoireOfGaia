@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaNPCTrader extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/trader.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/trader.png");
 
 	public RenderGaiaNPCTrader(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCTrader(), shadowSize);

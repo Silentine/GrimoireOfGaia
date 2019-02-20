@@ -13,8 +13,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaAnubis extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/anubis.png");
-	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/anubis_male.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/anubis.png");
+	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/anubis_male.png");
 
 	public RenderGaiaAnubis(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaAnubis(), shadowSize);

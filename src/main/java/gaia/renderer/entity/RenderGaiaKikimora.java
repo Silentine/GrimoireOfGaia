@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaKikimora extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/kikimora.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/kikimora.png");
 
 	public RenderGaiaKikimora(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaKikimora(), shadowSize);

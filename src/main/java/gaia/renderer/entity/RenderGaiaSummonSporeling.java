@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaSummonSporeling extends RenderBiped<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/biped/summon_sporeling.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/biped/summon_sporeling.png");
 
 	public RenderGaiaSummonSporeling(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelBiped(), shadowSize);

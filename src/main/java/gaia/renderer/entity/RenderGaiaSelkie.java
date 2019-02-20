@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaSelkie extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/selkie.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/selkie.png");
 
 	public RenderGaiaSelkie(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSelkie(), shadowSize);

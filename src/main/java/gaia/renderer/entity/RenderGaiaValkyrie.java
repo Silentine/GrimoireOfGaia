@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaValkyrie extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/valkyrie.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/valkyrie.png");
 
 	public RenderGaiaValkyrie(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaValkyrie(), shadowSize);

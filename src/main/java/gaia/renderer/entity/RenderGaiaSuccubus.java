@@ -13,8 +13,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaSuccubus extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/succubus.png");
-	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/succubus_male.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/succubus.png");
+	private static final ResourceLocation textureMale = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/succubus_male.png");
 
 	public RenderGaiaSuccubus(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSuccubus(), shadowSize);

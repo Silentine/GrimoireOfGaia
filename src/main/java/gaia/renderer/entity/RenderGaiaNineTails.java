@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaNineTails extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/nine_tails.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/nine_tails.png");
 
 	public RenderGaiaNineTails(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNineTails(), shadowSize);

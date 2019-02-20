@@ -50,7 +50,7 @@ public class GaiaBlocks {
 		DOLL_SLIME_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_slime_girl");
 		DOLL_MAID = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_maid");
 		DECO_GARDEN_GNOME =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_garden_gnome");
-		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_mandragora_pot");
+		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_pot_mandragora");
 		SPAWN_GUARD =  registerBlock(new BlockSpawnGuard(Block.Properties.create(Material.CLOTH)), "spawn_guard");
 		WEB_TEMP =  registerBlock(new BlockWebTemp(Block.Properties.create(Material.WEB)), "web_temp");
 

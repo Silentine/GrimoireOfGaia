@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderDebugMob extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/debugmob/debug_mob.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/debugmob/debug_mob.png");
 
 	public RenderDebugMob(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelDebugMob(), shadowSize);

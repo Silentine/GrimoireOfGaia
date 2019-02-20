@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaWitherCow extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/wither_cow.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/wither_cow.png");
 
 	public RenderGaiaWitherCow(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaWitherCow(), shadowSize);

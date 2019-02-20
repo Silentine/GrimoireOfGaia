@@ -13,8 +13,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaNPCSlimeGirl extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation hairSlimeGirl = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/hair_slime_girl.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/slime_girl.png");
+	private static final ResourceLocation hairSlimeGirl = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/hair_slime_girl.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/slime_girl.png");
 
 	public RenderGaiaNPCSlimeGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCSlimeGirl(), shadowSize);

@@ -23,19 +23,19 @@ import net.minecraft.util.Tuple;
 public class TileRenderBust extends TileEntityRenderer<TileEntityBust> {
 	private final Map<Block, Tuple<IModelBust, ResourceLocation>> models = new ImmutableMap.Builder<Block, Tuple<IModelBust, ResourceLocation>>()
 			.put(GaiaBlocks.BUST_SPHINX, new Tuple<>(new TileModelBustSphinx(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/bustsphinx.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/bustsphinx.png")))
 			.put(GaiaBlocks.BUST_VALKYRIE, new Tuple<>(new TileModelBustValkyrie(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/bustvalkyrie.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/bustvalkyrie.png")))
 			.put(GaiaBlocks.BUST_VAMPIRE, new Tuple<>(new TileModelBustVampire(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/bustvampire.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/bustvampire.png")))
 			.put(GaiaBlocks.DOLL_CREEPER_GIRL, new Tuple<>(new TileModelDoll(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/dollcreepergirl.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/dollcreepergirl.png")))
 			.put(GaiaBlocks.DOLL_ENDER_GIRL, new Tuple<>(new TileModelDoll(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/dollendergirl.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/dollendergirl.png")))
 			.put(GaiaBlocks.DOLL_MAID, new Tuple<>(new TileModelDoll(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/dollmaid.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/dollmaid.png")))
 			.put(GaiaBlocks.DOLL_SLIME_GIRL, new Tuple<>(new TileModelDollSlimeGirl(),
-					new ResourceLocation(GaiaReference.MOD_ID, "textures/models/blocks/dollslimegirl.png")))
+					new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/blocks/dollslimegirl.png")))
 			.build();
 
 	@Override

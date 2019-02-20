@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaMandragora extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/mandragora.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/mandragora.png");
 
 	public RenderGaiaMandragora(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMandragora(), shadowSize);

@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaNPCWeresheep extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/weresheep.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/weresheep.png");
 
 	public RenderGaiaNPCWeresheep(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCWeresheep(), shadowSize);

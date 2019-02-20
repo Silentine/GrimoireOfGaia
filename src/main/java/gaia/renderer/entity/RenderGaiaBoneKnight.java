@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaBoneKnight extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/bone_knight.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/bone_knight.png");
 
 	public RenderGaiaBoneKnight(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaBoneKnight(), shadowSize);

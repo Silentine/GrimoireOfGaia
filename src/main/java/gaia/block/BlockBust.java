@@ -46,10 +46,6 @@ public class BlockBust extends BlockBase {
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(IBlockState state, IBlockReader reader, BlockPos pos) {
-		return false;
-	}
-	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		WorldHelper.getTile(worldIn, pos, TileEntityBust.class).ifPresent(t -> t.setDirection(placer.getHorizontalFacing().getOpposite()));

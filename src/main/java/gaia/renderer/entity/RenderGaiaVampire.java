@@ -12,8 +12,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaVampire extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation vampireEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_vampire.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/vampire.png");
+	private static final ResourceLocation vampireEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_vampire.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/vampire.png");
 
 	public RenderGaiaVampire(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaVampire(), shadowSize);
