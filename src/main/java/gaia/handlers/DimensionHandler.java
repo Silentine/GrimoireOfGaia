@@ -15,6 +15,7 @@ public class DimensionHandler {
         if (event.getEntity() instanceof EntityMobPassive || event.getEntity() instanceof EntityMobHostileBase) {
             if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty())
             {
+                Gaia.LOGGER.debug(event.getEntity().getDisplayName().getString() + " is trying to spawn");
                 event.setResult(Event.Result.DEFAULT);
                 for (String id : GaiaConfig.COMMON.dimensionBlacklist.get()) {
                     if(!id.isEmpty())

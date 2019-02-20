@@ -34,6 +34,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 public class EntityGaiaSharko extends EntityMobHostileBase {
 
@@ -285,8 +287,22 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	}
 
 	@Override
-	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
-		return posY < 32.0D && super.canSpawn(world, p_205020_2_);
+	public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+		Biome biome = worldIn.getBiome(new BlockPos(this.posX, this.posY, this.posZ));
+		if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.WATER)) {
+			return this.rand.nextInt(40) == 0 && this.isInWater() && super.canSpawn(worldIn, p_205020_2_);
+		} else {
+			return this.rand.nextInt(15) == 0 && super.canSpawn(worldIn, p_205020_2_);
+		}
 	}
+
+	public boolean isInWater() {
+		return this.getBoundingBox().minY < (double)(this.world.getSeaLevel() - 5);
+	}
+
+//	@Override TODO: ask what this actually does.
+//	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+//		return posY < 32.0D && super.canSpawn(world, p_205020_2_);
+//	}
 	/* SPAWN CONDITIONS */
 }

@@ -14,7 +14,7 @@ description='''
 Adds mobs, monsters and monster girls.
 '''
 
- [[dependencies.grimoireofgaia]]
+[[dependencies.grimoireofgaia]]
 modId="forge"
 mandatory=true
 versionRange="[25,)"

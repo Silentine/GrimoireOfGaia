@@ -24,6 +24,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -36,10 +37,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
 
@@ -357,8 +361,22 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	}
 
 	@Override
-	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
-		return posY < 60.0D && super.canSpawn(world, p_205020_2_);
+	public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+		Biome biome = worldIn.getBiome(new BlockPos(this.posX, this.posY, this.posZ));
+		if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.WATER)) {
+			return this.rand.nextInt(40) == 0 && this.isInWater() && super.canSpawn(worldIn, p_205020_2_);
+		} else {
+			return this.rand.nextInt(15) == 0 && super.canSpawn(worldIn, p_205020_2_);
+		}
 	}
+
+	public boolean isInWater() {
+		return this.getBoundingBox().minY < (double)(this.world.getSeaLevel() - 5);
+	}
+
+//	@Override TODO: Ask what this really did.
+//	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
+//		return posY < 60.0D && super.canSpawn(world, p_205020_2_);
+//	}
 	/* SPAWN CONDITIONS */
 }
