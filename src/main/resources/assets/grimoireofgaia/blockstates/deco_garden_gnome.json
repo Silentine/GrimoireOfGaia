@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north":   { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 180           },
-        "facing=south":   { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 270           },
-        "facing=west":    { "model": "grimoireofgaia:block/deco_garden_gnome"                     },
-        "facing=east":    { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 90            }
+        "facing=north":   { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 180 },
+        "facing=south": { "model": "grimoireofgaia:block/deco_garden_gnome" },
+        "facing=west":  { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 90 },
+        "facing=east":  { "model": "grimoireofgaia:block/deco_garden_gnome", "y": 270 }
     }
 }

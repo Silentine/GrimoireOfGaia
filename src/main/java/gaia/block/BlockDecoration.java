@@ -21,19 +21,18 @@ public class BlockDecoration extends BlockBase {
 	public BlockDecoration(Block.Properties builder) {
 		super(builder.lightValue(0).hardnessAndResistance(0, 6.0F));
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
-
 	}
-
+	
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
 		builder.add(FACING);
 	}
 
-	private static final VoxelShape DOWN_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
-	private static final VoxelShape NORTH_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
-	private static final VoxelShape WEST_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
-	private static final VoxelShape EAST_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
-	private static final VoxelShape SOUTH_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
+	private static final VoxelShape DOWN_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
+	private static final VoxelShape NORTH_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
+	private static final VoxelShape WEST_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
+	private static final VoxelShape EAST_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
+	private static final VoxelShape SOUTH_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
 
 	@Override
 	public BlockRenderLayer getRenderLayer() {
