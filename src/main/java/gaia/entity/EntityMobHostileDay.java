@@ -37,7 +37,7 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	@Override
 	protected boolean isValidLightLevel() {
 		BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
-		if (this.world.getLightFor(EnumLightType.SKY, blockpos) > this.rand.nextInt(32)) {
+		if (this.getBrightness() > 0.5F && this.world.canSeeSky(blockpos)) {
 			return true;
 		} else {
 			return false;
