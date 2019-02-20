@@ -23,7 +23,7 @@ public class BlockBust extends BlockBase {
 		super(builder.lightValue(0).hardnessAndResistance(3.0f, 6.0F));
 	}
 
-	private static final VoxelShape BOUNDING_BOX = Block.makeCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 16.0F);
+	private static final VoxelShape BOUNDING_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
 
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
