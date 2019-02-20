@@ -4,9 +4,7 @@ import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.ItemGroupGaia;
 import gaia.block.BlockBust;
-import gaia.block.BlockDecoPot;
 import gaia.block.BlockDecoration;
-import gaia.block.BlockGnome;
 import gaia.block.BlockSpawnGuard;
 import gaia.block.BlockWebTemp;
 import net.minecraft.block.Block;
@@ -51,8 +49,8 @@ public class GaiaBlocks {
 		DOLL_ENDER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_ender_girl");
 		DOLL_SLIME_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_slime_girl");
 		DOLL_MAID = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_maid");
-		DECO_GARDEN_GNOME =  registerBlock(new BlockGnome(Block.Properties.create(Material.ROCK)), "deco_garden_gnome");
-		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoPot(Block.Properties.create(Material.ROCK)), "deco_pot_mandragora");
+		DECO_GARDEN_GNOME =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_garden_gnome");
+		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_pot_mandragora");
 		SPAWN_GUARD =  registerBlock(new BlockSpawnGuard(Block.Properties.create(Material.CLOTH)), "spawn_guard");
 		WEB_TEMP =  registerBlock(new BlockWebTemp(Block.Properties.create(Material.WEB)), "web_temp");
 

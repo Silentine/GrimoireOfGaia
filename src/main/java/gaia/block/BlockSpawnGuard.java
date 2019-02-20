@@ -25,7 +25,6 @@ public class BlockSpawnGuard extends BlockBase {
 
 	public BlockSpawnGuard(Block.Properties builder) {
 		super(builder.lightValue(0).hardnessAndResistance(0.0F,6.0F).doesNotBlockMovement());
-//		super(Material.CLOTH, "spawn_guard");
 	    this.setDefaultState((IBlockState)((IBlockState)(this.stateContainer.getBaseState()).with(TYPE, EnumType.NORTH)));
 	}
 
