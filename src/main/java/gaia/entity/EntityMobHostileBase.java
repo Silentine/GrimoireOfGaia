@@ -1,7 +1,5 @@
 package gaia.entity;
 
-import java.util.List;
-
 import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
@@ -33,6 +31,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
 
 /**
  * Apply all changes made here to EntityMobPassiveBase (except for AI).
@@ -120,13 +120,6 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 		}
 	}
 
-	/**
-	 * @param id    ParticleType.NAME
-	 * @param id_08 ParticleType.HEART (For Healing)
-	 * @param id_09 ParticleType.FLAME (For Spawning)
-	 * @param id_10 ParticleType.SPELL_WITCH (For Spawning)
-	 * @param id_11 ParticleType.SMOKE_NORMAL
-	 */
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
@@ -239,13 +232,25 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	
 	@Override
 	public boolean canSpawn(IWorld worldIn, boolean value) {
+		System.out.println("Hey");
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return daysPassed() && super.canSpawn(world, value);
+			return checkDimension() && daysPassed() && super.canSpawn(world, value);
 		} else {
-			return super.canSpawn(worldIn, value);
+			return checkDimension() && super.canSpawn(worldIn, value);
 		}
 	}
 
+	public boolean checkDimension() {
+		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
+			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		return true;
+	}
 	/* SPAWN CONDITIONS */
 
 	@Override

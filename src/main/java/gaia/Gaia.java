@@ -2,7 +2,6 @@ package gaia;
 
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.EntityMobPassive;
-import gaia.handlers.DimensionHandler;
 import gaia.init.GaiaRecipes;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.ClientHandler;
@@ -39,7 +38,7 @@ public class Gaia {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         // Register ourselves for server, registry and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(new DimensionHandler());
+        // MinecraftForge.EVENT_BUS.register();
         
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerRenders);

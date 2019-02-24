@@ -1,5 +1,6 @@
 package gaia.entity;
 
+import gaia.GaiaConfig;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -17,6 +18,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumLightType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * This is a direct copy of EntityMob used by assist mobs to not trigger the warning message when using a bed. No additional changes have been made aside from the class name.
@@ -163,7 +165,19 @@ public abstract class EntityMobPassive extends EntityCreature implements IAnimal
 	 */
 	@Override
 	public boolean canSpawn(IWorld worldIn, boolean value) {
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.canSpawn(worldIn, value);
+		return checkDimension() && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.canSpawn(worldIn, value);
+	}
+
+	public boolean checkDimension() {
+		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
+			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override

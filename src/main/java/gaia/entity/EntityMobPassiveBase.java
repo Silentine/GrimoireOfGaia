@@ -1,8 +1,5 @@
 package gaia.entity;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
@@ -38,6 +35,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * This is a direct copy of EntityMobHostileBase.
@@ -151,13 +151,6 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 		}
 	}
 
-	/**
-	 * @param id    ParticleType.NAME
-	 * @param id_08 ParticleType.HEART (For Healing)
-	 * @param id_09 ParticleType.FLAME (For Spawning)
-	 * @param id_10 ParticleType.SPELL_WITCH (For Spawning)
-	 * @param id_11 ParticleType.SMOKE_NORMAL
-	 */
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
@@ -265,7 +258,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	public boolean daysPassed() {
 		int daysPassedClientInt = (int) (world.getGameTime() / 24000);
 
-		return GaiaConfig.COMMON.spawnDaysSet.get() <= daysPassedClientInt;
+		return checkDimension() && GaiaConfig.COMMON.spawnDaysSet.get() <= daysPassedClientInt;
 	}
 
 	@Override
@@ -275,6 +268,18 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 		} else {
 			return super.canSpawn(world, p_205020_2_);
 		}
+	}
+
+	public boolean checkDimension() {
+		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
+			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		return true;
 	}
 	/* SPAWN CONDITIONS */
 
