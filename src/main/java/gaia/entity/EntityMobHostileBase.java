@@ -232,15 +232,14 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	
 	@Override
 	public boolean canSpawn(IWorld worldIn, boolean value) {
-		System.out.println("Hey");
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return checkDimension() && daysPassed() && super.canSpawn(world, value);
+			return !isDimensionBlacklisted() && daysPassed() && super.canSpawn(world, value);
 		} else {
-			return checkDimension() && super.canSpawn(worldIn, value);
+			return !isDimensionBlacklisted() && super.canSpawn(worldIn, value);
 		}
 	}
 
-	public boolean checkDimension() {
+	public boolean isDimensionBlacklisted() {
 		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
 			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
 				return true;
@@ -249,7 +248,7 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 			}
 		}
 
-		return true;
+		return false;
 	}
 	/* SPAWN CONDITIONS */
 

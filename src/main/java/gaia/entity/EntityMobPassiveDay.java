@@ -48,10 +48,10 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 		boolean defaultFlag = spawnBlocks.contains(spawnBlock);
 		boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(spawnBlock.getRegistryName().toString());
 
-		return checkDimension() && (defaultFlag || additionalFlag) && flag && flag2 && !world.containsAnyLiquid(this.getBoundingBox());
+		return isDimensionBlacklisted() && (defaultFlag || additionalFlag) && flag && flag2 && !world.containsAnyLiquid(this.getBoundingBox());
 	}
 
-	public boolean checkDimension() {
+	public boolean isDimensionBlacklisted() {
 		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
 			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
 				return true;
@@ -60,7 +60,7 @@ public abstract class EntityMobPassiveDay extends EntityMobPassiveBase {
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);

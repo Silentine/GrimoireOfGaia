@@ -264,13 +264,13 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 	@Override
 	public boolean canSpawn(IWorld p_205020_1_, boolean p_205020_2_) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return daysPassed() && super.canSpawn(world, p_205020_2_);
+			return !isDimensionBlacklisted() && daysPassed() && super.canSpawn(world, p_205020_2_);
 		} else {
 			return super.canSpawn(world, p_205020_2_);
 		}
 	}
 
-	public boolean checkDimension() {
+	public boolean isDimensionBlacklisted() {
 		if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty()) {
 			if(GaiaConfig.COMMON.dimensionBlacklist.get().contains(String.valueOf(this.world.getDimension().getType().getId()))) {
 				return true;
@@ -279,7 +279,7 @@ public abstract class EntityMobPassiveBase extends EntityMobPassive implements I
 			}
 		}
 
-		return true;
+		return false;
 	}
 	/* SPAWN CONDITIONS */
 
