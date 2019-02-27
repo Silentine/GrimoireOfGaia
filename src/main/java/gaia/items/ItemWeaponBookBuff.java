@@ -46,7 +46,7 @@ public class ItemWeaponBookBuff extends ItemBase {
 		} else {
 			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.BlessMainhand").applyTextStyle(TextFormatting.YELLOW));
 		}
-		
+
 		tooltip.add(new TextComponentTranslation("effect.minecraft.strength").appendSibling(new TextComponentString(" (1:00)")));
 		tooltip.add(new TextComponentTranslation("effect.minecraft.resistance").appendSibling(new TextComponentString(" (1:00)")));
 		tooltip.add(new TextComponentTranslation("effect.minecraft.regeneration").appendSibling(new TextComponentString(" (IV)")).appendSibling(new TextComponentString(" (0:04)")));

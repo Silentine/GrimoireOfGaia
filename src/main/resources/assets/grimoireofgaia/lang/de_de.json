@@ -265,6 +265,9 @@
   "entity.grimoireofgaia.slime_girl.name": "Schleimmädchen",
   "entity.grimoireofgaia.trader.name": "Hausiererin",
   "entity.grimoireofgaia.weresheep.name": "Wiefschaf",
+  
+  "_comment": "TRADER_TEXT",
+  "entity.grimoireofgaia.trader": "Händler",
 
   "_comment": "ENTITY_SUMMON_NAMES",
   "entity.grimoireofgaia.butler.name": "Butler",
