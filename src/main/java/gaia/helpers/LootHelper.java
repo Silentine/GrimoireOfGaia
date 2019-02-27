@@ -1,9 +1,5 @@
 package gaia.helpers;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,19 +10,22 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class LootHelper {
 	private LootHelper() {}
 
 	public static void dropLootAtPlayersPos(World world, EntityPlayer player, ResourceLocation lootTableName) {
 		List<ItemStack> loot = getLoot(world, player, true, lootTableName);
-
+		System.out.println(loot.toString());
 		for (ItemStack itemstack : loot) {
 			world.spawnEntity(new EntityItem(world, player.posX, player.posY, player.posZ, itemstack));
 		}
 	}
 
 	private static List<ItemStack> getLoot(World world, @Nullable EntityPlayer player, boolean entityWasRecentlyHit, ResourceLocation lootTableName) {
-		LootContext.Builder builder = new LootContext.Builder((WorldServer) world);
+		LootContext.Builder builder = new LootContext.Builder((WorldServer)world);
 		LootTable lootTable = world.getServer().getLootTableManager().getLootTableFromLocation(lootTableName);
 		if (entityWasRecentlyHit && player != null) {
 			builder.withLuck(player.getLuck()).withPlayer(player);

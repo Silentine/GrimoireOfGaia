@@ -47,7 +47,9 @@ public class ItemBoxBase extends ItemBase {
 			stack.shrink(1);
 		}
 
-		LootHelper.dropLootAtPlayersPos(world, player, this.getBoxLoot());
+		if(!world.isRemote) {
+			LootHelper.dropLootAtPlayersPos(world, player, this.getBoxLoot());
+		}
 
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
