@@ -20,7 +20,7 @@
                 },
 				{
                     "type": "item",
-                    "name": "minecraft:quartz_ore",
+                    "name": "minecraft:nether_quartz_ore",
                     "weight": 15,
                     "functions": [
                         {

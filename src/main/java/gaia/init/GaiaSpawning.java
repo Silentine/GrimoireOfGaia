@@ -28,7 +28,8 @@ public class GaiaSpawning {
 	 */
 	public static void add(int weight, EntityType<? extends EntityLiving> entityType, int groupCountMin, int groupCountMax, Biome biome) {
 		if (weight > 0) {
-			biome.addSpawn(EnumCreatureType.MONSTER, new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
+			biome.getSpawns(EnumCreatureType.MONSTER).add(new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
+				//biome.addSpawn(EnumCreatureType.MONSTER, new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
 		}
 	}
 

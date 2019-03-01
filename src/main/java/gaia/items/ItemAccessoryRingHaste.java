@@ -35,7 +35,7 @@ public class ItemAccessoryRingHaste extends ItemAccessoryBauble {
 		tooltip.add(new TextComponentTranslation("text.grimoireofgaia.Accessory.tag").applyTextStyle(TextFormatting.YELLOW));
 
 		if (shiftPressed) {
-			tooltip.add(new TextComponentTranslation("text.grimodigSpeedireofgaia.InventoryAccessory").applyTextStyle(TextFormatting.YELLOW));
+			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.InventoryAccessory").applyTextStyle(TextFormatting.YELLOW));
 			tooltip.add(new TextComponentTranslation("effect.minecraft.haste"));
 		} else {
 			tooltip.add(new TextComponentTranslation("text.grimoireofgaia.HoldShift").applyTextStyle(TextFormatting.ITALIC));
