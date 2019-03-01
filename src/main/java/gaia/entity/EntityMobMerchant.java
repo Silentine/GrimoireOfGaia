@@ -15,7 +15,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.IWorld;
@@ -38,9 +38,10 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 			return super.getDisplayName();
 		}
 
-		TextComponentString nameString = new TextComponentString(getName().getString());
+		TextComponentTranslation nameString = new TextComponentTranslation(this.getType().getTranslationKey() + ".name");
 		nameString.getStyle().setHoverEvent(getHoverEvent());
 		nameString.getStyle().setInsertion(getCachedUniqueIdString());
+
 		return nameString;
 	}
 
@@ -52,11 +53,11 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
 		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
 	}
-	
-//	@Override
-//	protected boolean canDespawn() {
-//		return false;
-//	}
+
+	@Override
+	public boolean canDespawn() {
+		return false;
+	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {

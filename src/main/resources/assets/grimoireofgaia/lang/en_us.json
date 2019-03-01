@@ -259,8 +259,6 @@
   "entity.grimoireofgaia.slime_girl.name": "Slime Girl",
   "entity.grimoireofgaia.trader.name": "Trader",
   "entity.grimoireofgaia.weresheep.name": "Weresheep",
-  "_comment": "TRADER_TEXT",
-  "entity.grimoireofgaia.trader": "Trader",
   "_comment": "ENTITY_SUMMON_NAMES",
   "entity.grimoireofgaia.butler.name": "Butler",
   "entity.grimoireofgaia.sporeling.name": "Sporeling",
