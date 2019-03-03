@@ -1,6 +1,27 @@
 itemGroup.tabGaia=Grimoire of Gaia 3
 #NEW
+#ITEM_NAMES
+item.grimoireofgaia.box_hat.name=帽子の箱
+item.grimoireofgaia.pickup_heart.name=ハート
+item.grimoireofgaia.weapon_projectile_bomb.name=バクダン
 
+#ITEM_HEADGEAR
+item.grimoireofgaia.accessory_headgear.name=アイマスクの本
+
+#BLOCK_NAMES
+tile.grimoireofgaia.deco_nest_harpy.name=ハーピーの巣
+tile.grimoireofgaia.deco_bust_minotaur.name=ミノトーアの胸像
+tile.grimoireofgaia.fire_camp.name=キャンプファイア
+
+#ENTITY_NAMES
+entity.grimoireofgaia.elf.name=エルフ
+entity.grimoireofgaia.campfire.name=キャンプ地
+entity.grimoireofgaia.vase.name=古めかしい壺
+entity.grimoireofgaia.vase_nether.name=古めかしいネザーの壺
+
+#MISC
+text.grimoireofgaia.spawnDaysPassed=スポーン日数の遅延を有効化しました
+text.grimoireofgaia.SpawnDaysSet=Grimoire of Gaiaのモブがスポーンするまで%d日経過する必要があります
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鉄塊
