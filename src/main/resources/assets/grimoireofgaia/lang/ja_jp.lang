@@ -110,11 +110,11 @@ item.grimoireofgaia.accessory_trinket_wither.name=しなびた心臓
 item.grimoireofgaia.accessory_trinket_levitation.name=鎖付き鉄球
 item.grimoireofgaia.accessory_cursed.name=重いバーベル
 
-item.grimoireofgaia.accessory_headgear_0.name=カゴ
-item.grimoireofgaia.accessory_headgear_1.name=ボルト
-item.grimoireofgaia.accessory_headgear_2.name=頭を貫通した矢
-item.grimoireofgaia.accessory_headgear_3.name=頭乗せうつ伏せメイドさん
-item.grimoireofgaia.accessory_headgear_4.name=エルフ耳
+item.grimoireofgaia.accessory_headgear_mob.name=カゴ
+item.grimoireofgaia.accessory_headgear_bolt.name=ボルト
+item.grimoireofgaia.accessory_headgear_arrow.name=頭を貫通した矢
+item.grimoireofgaia.accessory_headgear_doll.name=頭乗せうつ伏せメイドさん
+item.grimoireofgaia.accessory_headgear_ears_elf.name=エルフ耳
 
 item.grimoireofgaia.spawn_egg.name=スポーン
 

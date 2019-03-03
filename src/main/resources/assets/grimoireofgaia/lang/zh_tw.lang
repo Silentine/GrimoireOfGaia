@@ -110,11 +110,11 @@ item.grimoireofgaia.accessory_trinket_wither.name=凋零的心
 item.grimoireofgaia.accessory_trinket_levitation.name=鐵球腳鐐
 item.grimoireofgaia.accessory_cursed.name=沉重槓鈴
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_0.name=鐵籠
-item.grimoireofgaia.accessory_headgear_1.name=螺栓
-item.grimoireofgaia.accessory_headgear_2.name=腦袋穿箭
-item.grimoireofgaia.accessory_headgear_3.name=趴趴女僕
-item.grimoireofgaia.accessory_headgear_4.name=精靈耳朵
+item.grimoireofgaia.accessory_headgear_mob.name=鐵籠
+item.grimoireofgaia.accessory_headgear_bolt.name=螺栓
+item.grimoireofgaia.accessory_headgear_arrow.name=腦袋穿箭
+item.grimoireofgaia.accessory_headgear_doll.name=趴趴女僕
+item.grimoireofgaia.accessory_headgear_ears_elf.name=精靈耳朵
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=生成
 #BLOCK_NAMES

@@ -112,11 +112,11 @@ item.grimoireofgaia.accessory_trinket_levitation.name=Fußfessel
 item.grimoireofgaia.accessory_cursed.name=Schwere Hantel
 
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_0.name=Käfig
-item.grimoireofgaia.accessory_headgear_1.name=Bolzen
-item.grimoireofgaia.accessory_headgear_2.name=Pfeil durch Kopf
-item.grimoireofgaia.accessory_headgear_3.name=Hängende Magd
-item.grimoireofgaia.accessory_headgear_4.name=Elfenohren
+item.grimoireofgaia.accessory_headgear_mob.name=Käfig
+item.grimoireofgaia.accessory_headgear_bolt.name=Bolzen
+item.grimoireofgaia.accessory_headgear_arrow.name=Pfeil durch Kopf
+item.grimoireofgaia.accessory_headgear_doll.name=Hängende Magd
+item.grimoireofgaia.accessory_headgear_ears_elf.name=Elfenohren
 
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Beschwöre

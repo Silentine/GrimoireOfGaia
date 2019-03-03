@@ -1,6 +1,5 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
 #NEW
-item.grimoireofgaia.accessory_headgear_4.name=Orelhas Élficas
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Pepita de Ferro
@@ -110,10 +109,11 @@ item.grimoireofgaia.accessory_trinket_wither.name=Coração Decomposto
 item.grimoireofgaia.accessory_trinket_levitation.name=Bola e Corrente
 item.grimoireofgaia.accessory_cursed.name=Halter Pesado
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_0.name=Gaiola
-item.grimoireofgaia.accessory_headgear_1.name=Parafusos
-item.grimoireofgaia.accessory_headgear_2.name=Flecha Através da Cabeça
-item.grimoireofgaia.accessory_headgear_3.name=Empregada Caída
+item.grimoireofgaia.accessory_headgear_mob.name=Gaiola
+item.grimoireofgaia.accessory_headgear_bolt.name=Parafusos
+item.grimoireofgaia.accessory_headgear_arrow.name=Flecha Através da Cabeça
+item.grimoireofgaia.accessory_headgear_doll.name=Empregada Caída
+item.grimoireofgaia.accessory_headgear_ears_elf.name=Orelhas Élficas
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Gerar
 #BLOCK_NAMES

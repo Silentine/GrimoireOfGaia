@@ -110,11 +110,11 @@ item.grimoireofgaia.accessory_trinket_wither.name=Иссохшее Сердце
 item.grimoireofgaia.accessory_trinket_levitation.name=Путы
 item.grimoireofgaia.accessory_cursed.name=Тяжеленная Гантель
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_0.name=Клетка
-item.grimoireofgaia.accessory_headgear_1.name=Железные Штыри
-item.grimoireofgaia.accessory_headgear_2.name=Стрела в голове
-item.grimoireofgaia.accessory_headgear_3.name=Усталая горничная
-item.grimoireofgaia.accessory_headgear_4.name=Уши Эльфа
+item.grimoireofgaia.accessory_headgear_mob.name=Клетка
+item.grimoireofgaia.accessory_headgear_bolt.name=Железные Штыри
+item.grimoireofgaia.accessory_headgear_arrow.name=Стрела в голове
+item.grimoireofgaia.accessory_headgear_doll.name=Усталая горничная
+item.grimoireofgaia.accessory_headgear_ears_elf.name=Уши Эльфа
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Яйцо Призыва: 
 #BLOCK_NAMES
