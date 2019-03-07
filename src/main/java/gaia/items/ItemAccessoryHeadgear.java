@@ -1,7 +1,5 @@
 package gaia.items;
 
-import java.util.List;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.List;
+
 /**
  * UNDER CONSTRUCTION
  */
@@ -26,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ItemAccessoryHeadgear extends ItemBase { //implements IBauble {
 
 	public ItemAccessoryHeadgear(Item.Properties builder) {
-		super(builder); //"accessory_headgear"
+		super(builder);
 	}
 
 	@Override
@@ -63,19 +63,6 @@ public class ItemAccessoryHeadgear extends ItemBase { //implements IBauble {
 			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 		}
 	}
-	
-//	@Override
-//	@OnlyIn(Dist.CLIENT)
-//	public void registerClient() {
-//		ModelLoaderHelper.registerItem(this,
-//				ModelLoaderHelper.getSuffixedLocation(this, "_mob"),
-//				ModelLoaderHelper.getSuffixedLocation(this, "_bolt"),
-//				ModelLoaderHelper.getSuffixedLocation(this, "_arrow"),
-//				ModelLoaderHelper.getSuffixedLocation(this, "_doll"),
-//				ModelLoaderHelper.getSuffixedLocation(this, "_ears_elf")
-//		);
-//	}
-	/* SUBITEMS */
 
 	/* BAUBLES */
 //	@Override

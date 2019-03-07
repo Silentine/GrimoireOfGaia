@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -13,10 +15,11 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.apache.commons.lang3.Range;
 
 public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
 	public ItemAccessoryTrinketPoison(Item.Properties builder) {
-		super(builder); //"accessory_trinket_poison");
+		super(builder);
 	}
 
 //	@Override
@@ -38,15 +41,15 @@ public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
 		}
 	}
 
-//	@Override
-//	protected Range<Integer> getActiveSlotRange() {
-//		return Range.between(8, 8);
-//	}
-//
-//	@Override
-//	public void doEffect(EntityLivingBase player, ItemStack item) {
-//		if (player.getActivePotionEffect(MobEffects.POISON) != null) {
-//			player.removePotionEffect(MobEffects.POISON);
-//		}
-//	}
+	@Override
+	protected Range<Integer> getActiveSlotRange() {
+		return Range.between(8, 8);
+	}
+
+	@Override
+	public void doEffect(EntityLivingBase player, ItemStack item) {
+		if (player.getActivePotionEffect(MobEffects.POISON) != null) {
+			player.removePotionEffect(MobEffects.POISON);
+		}
+	}
 }
