@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.enchantment.EnchantmentData;
@@ -278,7 +278,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_CECAELIA;
+		return GaiaLootTables.ENTITIES_GAIA_CECAELIA;
 	}
 
 	@Override

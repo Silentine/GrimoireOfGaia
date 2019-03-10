@@ -31,17 +31,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGaiaPropVase extends EntityMobProp {
+public class EntityGaiaPropVaseNether extends EntityMobProp {
 
 	private static final String ROTATION_TAG = "Rotation";
 	private static final String DROP_TAG = "Drop";
 
-	private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityGaiaPropVase.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> DROP = EntityDataManager.createKey(EntityGaiaPropVase.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityGaiaPropVaseNether.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> DROP = EntityDataManager.createKey(EntityGaiaPropVaseNether.class, DataSerializers.VARINT);
 
 	private BlockPos blockPosition;
 
-	public EntityGaiaPropVase(World worldIn) {
+	public EntityGaiaPropVaseNether(World worldIn) {
 		super(worldIn);
 		setSize(0.8F, 0.8F);
 		experienceValue = 0;
@@ -201,7 +201,7 @@ public class EntityGaiaPropVase extends EntityMobProp {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTables.ENTITIES_GAIA_VASE;
+		return GaiaLootTables.ENTITIES_GAIA_VASE_NETHER;
 	}
 
 	@Override
@@ -270,36 +270,9 @@ public class EntityGaiaPropVase extends EntityMobProp {
 	}
 
 	/* SPAWN CONDITIONS */
-	/**
-	 * @see EntityMob
-	 */
-	private boolean isValidLightLevel() {
-		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
-
-		if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
-			return false;
-		} else {
-			int i = world.getLightFromNeighbors(blockpos);
-
-			if (world.isThundering()) {
-				int j = world.getSkylightSubtracted();
-				world.setSkylightSubtracted(10);
-				i = world.getLightFromNeighbors(blockpos);
-				world.setSkylightSubtracted(j);
-			}
-
-			return i <= rand.nextInt(8);
-		}
-	}
-	
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
-	}
-
-	@Override
-	public boolean getCanSpawnHere() {
-		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 

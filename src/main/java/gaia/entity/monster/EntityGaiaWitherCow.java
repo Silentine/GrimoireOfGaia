@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -143,7 +143,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_WITHER_COW;
+		return GaiaLootTables.ENTITIES_GAIA_WITHER_COW;
 	}
 
 	@Override

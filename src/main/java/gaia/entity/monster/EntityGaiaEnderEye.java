@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
@@ -242,7 +242,7 @@ public class EntityGaiaEnderEye extends EntityMobAssistBase {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_ENDER_EYE;
+		return GaiaLootTables.ENTITIES_GAIA_ENDER_EYE;
 	}
 
 	@Override

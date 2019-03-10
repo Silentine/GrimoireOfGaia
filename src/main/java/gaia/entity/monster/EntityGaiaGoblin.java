@@ -5,9 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -221,9 +221,9 @@ public class EntityGaiaGoblin extends EntityMobAssistDay implements IRangedAttac
 	protected ResourceLocation getLootTable() {
 		switch (getMobType()) {
 		case 0:
-			return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_MELEE;
+			return GaiaLootTables.ENTITIES_GAIA_GOBLIN_MELEE;
 		case 1:
-			return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_RANGED;
+			return GaiaLootTables.ENTITIES_GAIA_GOBLIN_RANGED;
 		default:
 			return LootTableList.EMPTY;
 		}

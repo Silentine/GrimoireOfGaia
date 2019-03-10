@@ -1,8 +1,8 @@
 package gaia.items;
 
-import gaia.entity.GaiaLootTableList;
 import gaia.helpers.LootHelper;
 import gaia.helpers.ModelLoaderHelper;
+import gaia.init.GaiaLootTables;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -52,11 +52,11 @@ public class ItemBox extends ItemBase {
 
 		if (!world.isRemote) {
 			if (stack.getMetadata() == 0) {
-				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_OVERWORLD);
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTables.BOXES_OVERWORLD);
 			} else if (stack.getMetadata() == 1) {
-				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_NETHER);
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTables.BOXES_NETHER);
 			} else if (stack.getMetadata() == 2) {
-				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_END);
+				LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTables.BOXES_END);
 			}
 		}
 

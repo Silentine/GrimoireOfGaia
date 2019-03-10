@@ -5,9 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -212,7 +212,7 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_NINETAILS;
+		return GaiaLootTables.ENTITIES_GAIA_NINETAILS;
 	}
 
 	@Override

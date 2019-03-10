@@ -3,9 +3,9 @@ package gaia.entity.prop;
 import javax.annotation.Nullable;
 
 import gaia.entity.EntityMobProp;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.monster.EntityGaiaDwarf;
 import gaia.init.GaiaBlocks;
+import gaia.init.GaiaLootTables;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -226,7 +226,7 @@ public class EntityGaiaPropCampfire extends EntityMobProp {
 	
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_CAMPFIRE;
+		return GaiaLootTables.ENTITIES_GAIA_CAMPFIRE;
 	}
 
 	@Override

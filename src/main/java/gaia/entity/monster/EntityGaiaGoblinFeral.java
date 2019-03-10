@@ -4,11 +4,11 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -317,11 +317,11 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 	protected ResourceLocation getLootTable() {
 		switch (getMobType()) {
 		case 0:
-			return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_MELEE;
+			return GaiaLootTables.ENTITIES_GAIA_GOBLIN_FERAL_MELEE;
 		case 1:
-			return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_RANGED;
+			return GaiaLootTables.ENTITIES_GAIA_GOBLIN_FERAL_RANGED;
 		case 2:
-			return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_BOMBER;
+			return GaiaLootTables.ENTITIES_GAIA_GOBLIN_FERAL_BOMBER;
 		default:
 			return LootTableList.EMPTY;
 		}

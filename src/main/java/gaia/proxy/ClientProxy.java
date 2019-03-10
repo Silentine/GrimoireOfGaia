@@ -80,6 +80,7 @@ import gaia.entity.prop.EntityGaiaPropCampfire;
 import gaia.entity.prop.EntityGaiaPropChestMimic;
 import gaia.entity.prop.EntityGaiaPropFlowerCyan;
 import gaia.entity.prop.EntityGaiaPropVase;
+import gaia.entity.prop.EntityGaiaPropVaseNether;
 import gaia.init.GaiaItems;
 import gaia.renderer.RenderGaiaProjectile;
 import gaia.renderer.entity.RenderDebugMob;
@@ -134,6 +135,7 @@ import gaia.renderer.entity.RenderGaiaPropCampfire;
 import gaia.renderer.entity.RenderGaiaPropChestMimic;
 import gaia.renderer.entity.RenderGaiaPropFlowerCyan;
 import gaia.renderer.entity.RenderGaiaPropVase;
+import gaia.renderer.entity.RenderGaiaPropVaseNether;
 import gaia.renderer.entity.RenderGaiaSatyress;
 import gaia.renderer.entity.RenderGaiaSelkie;
 import gaia.renderer.entity.RenderGaiaShaman;
@@ -254,6 +256,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropChestMimic.class, renderManager -> new RenderGaiaPropChestMimic(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropFlowerCyan.class, renderManager -> new RenderGaiaPropFlowerCyan(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropVase.class, renderManager -> new RenderGaiaPropVase(renderManager, small));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaPropVaseNether.class, renderManager -> new RenderGaiaPropVaseNether(renderManager, small));
 		/* MOB */
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSatyress.class, renderManager -> new RenderGaiaSatyress(renderManager, small));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGaiaSelkie.class, renderManager -> new RenderGaiaSelkie(renderManager, small));

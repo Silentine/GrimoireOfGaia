@@ -7,10 +7,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -353,9 +353,9 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	protected ResourceLocation getLootTable() {
 		switch (getMobType()) {
 		case 0:
-			return GaiaLootTableList.ENTITIES_GAIA_ORC_MELEE;
+			return GaiaLootTables.ENTITIES_GAIA_ORC_MELEE;
 		case 1:
-			return GaiaLootTableList.ENTITIES_GAIA_ORC_RANGED;
+			return GaiaLootTables.ENTITIES_GAIA_ORC_RANGED;
 		default:
 			return LootTableList.EMPTY;
 		}

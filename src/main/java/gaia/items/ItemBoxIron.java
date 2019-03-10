@@ -1,7 +1,7 @@
 package gaia.items;
 
-import gaia.entity.GaiaLootTableList;
 import gaia.helpers.LootHelper;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -47,7 +47,7 @@ public class ItemBoxIron extends ItemBase {
 		}
 
 		if (!world.isRemote) {
-			LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTableList.BOXES_IRON);
+			LootHelper.dropLootAtPlayersPos(world, player, GaiaLootTables.BOXES_IRON);
 		}
 
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);

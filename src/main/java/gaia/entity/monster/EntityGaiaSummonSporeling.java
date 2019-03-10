@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
+import gaia.init.GaiaLootTables;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -71,7 +71,7 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_SPORELING;
+		return GaiaLootTables.ENTITIES_GAIA_SPORELING;
 	}
 
 	@Nullable

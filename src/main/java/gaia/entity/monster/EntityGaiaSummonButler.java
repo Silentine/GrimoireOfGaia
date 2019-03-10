@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
+import gaia.init.GaiaLootTables;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
@@ -67,7 +67,7 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_BUTLER;
+		return GaiaLootTables.ENTITIES_GAIA_BUTLER;
 	}
 
 	@Nullable

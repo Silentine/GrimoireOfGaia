@@ -5,13 +5,13 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
-import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -351,11 +351,11 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 	protected ResourceLocation getLootTable() {
 		switch (getMobType()) {
 		case 0:
-			return GaiaLootTableList.ENTITIES_GAIA_DWARF_MELEE;
+			return GaiaLootTables.ENTITIES_GAIA_DWARF_MELEE;
 		case 1:
-			return GaiaLootTableList.ENTITIES_GAIA_DWARF_RANGED;
+			return GaiaLootTables.ENTITIES_GAIA_DWARF_RANGED;
 		case 2:
-			return GaiaLootTableList.ENTITIES_GAIA_DWARF_MINER;
+			return GaiaLootTables.ENTITIES_GAIA_DWARF_MINER;
 		default:
 			return LootTableList.EMPTY;
 		}

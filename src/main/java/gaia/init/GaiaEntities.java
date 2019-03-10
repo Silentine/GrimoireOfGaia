@@ -83,6 +83,7 @@ import gaia.entity.prop.EntityGaiaPropCampfire;
 import gaia.entity.prop.EntityGaiaPropChestMimic;
 import gaia.entity.prop.EntityGaiaPropFlowerCyan;
 import gaia.entity.prop.EntityGaiaPropVase;
+import gaia.entity.prop.EntityGaiaPropVaseNether;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -154,7 +155,8 @@ public class GaiaEntities {
 			createEntityEntry("succubus", EntityGaiaSuccubus.class, 4079166, 13218145), 
 			createEntityEntry("toad", EntityGaiaToad.class, 0x355d2b, 0x779f5a), 
 			createEntityEntry("valkyrie", EntityGaiaValkyrie.class, 0xc9b161, 0xd54242), 
-			createEntityEntry("vase", EntityGaiaPropVase.class, 0xc3a06a, 0x5f4c2d, false),
+			createEntityEntry("vase", EntityGaiaPropVase.class, 0x949494, 0x545454, false),
+			createEntityEntry("vase_nether", EntityGaiaPropVaseNether.class, 0x290d10, 0x462129, false),
 			createEntityEntry("vampire", EntityGaiaVampire.class, 0xc23021, 0xc9b161), 
 			createEntityEntry("werecat", EntityGaiaWerecat.class, 0x7a7e8a, 0xdddadb), 
 			createEntityEntry("witch", EntityGaiaWitch.class, 0x303030, 0x943dbb), 

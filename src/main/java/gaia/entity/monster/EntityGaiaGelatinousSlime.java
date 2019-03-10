@@ -5,9 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -198,11 +198,11 @@ public class EntityGaiaGelatinousSlime extends EntityMobHostileBase {
 	protected ResourceLocation getLootTable() {
 		switch (rand.nextInt(2)) {
 		case 0:
-			return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+			return GaiaLootTables.ENTITIES_GAIA_GELATINOUS_SLIME;
 		case 1:
 			return LootTableList.ENTITIES_SKELETON;
 		default:
-			return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+			return GaiaLootTables.ENTITIES_GAIA_GELATINOUS_SLIME;
 		}
 	}
 

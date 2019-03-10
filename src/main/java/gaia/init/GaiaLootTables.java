@@ -1,7 +1,6 @@
-package gaia.entity;
+package gaia.init;
 
 import gaia.GaiaReference;
-import gaia.init.GaiaEntities;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -9,8 +8,8 @@ import net.minecraft.world.storage.loot.LootTableList;
  * For a full list of entities to register, check;
  * @see GaiaEntities
  */
-public class GaiaLootTableList {
-	private GaiaLootTableList() {
+public class GaiaLootTables {
+	private GaiaLootTables() {
 	}
 
 	public static final ResourceLocation BAG_ARROW = register("loot_table_bagarrow");
@@ -70,6 +69,7 @@ public class GaiaLootTableList {
 	public static final ResourceLocation ENTITIES_GAIA_ORC_MELEE = register("entities/orc_melee");
 	public static final ResourceLocation ENTITIES_GAIA_ORC_RANGED = register("entities/orc_ranged");
 	public static final ResourceLocation ENTITIES_GAIA_VASE = register("entities/prop/vase");
+	public static final ResourceLocation ENTITIES_GAIA_VASE_NETHER = register("entities/prop/vase_nether");
 	public static final ResourceLocation ENTITIES_GAIA_SATYRESS = register("entities/satyress");
 	public static final ResourceLocation ENTITIES_GAIA_SELKIE = register("entities/selkie");
 	public static final ResourceLocation ENTITIES_GAIA_SHAMAN = register("entities/shaman");

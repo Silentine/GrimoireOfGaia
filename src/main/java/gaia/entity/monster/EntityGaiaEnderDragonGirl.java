@@ -8,9 +8,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistBase;
-import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaLootTables;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -239,7 +239,7 @@ public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return GaiaLootTableList.ENTITIES_GAIA_ENDER_DRAGON_GIRL;
+		return GaiaLootTables.ENTITIES_GAIA_ENDER_DRAGON_GIRL;
 	}
 
 	@Override

@@ -27,7 +27,6 @@ import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaMonoeye;
 import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
@@ -46,6 +45,7 @@ import gaia.entity.monster.EntityGaiaMatango;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMinotaur;
 import gaia.entity.monster.EntityGaiaMinotaurus;
+import gaia.entity.monster.EntityGaiaMonoeye;
 import gaia.entity.monster.EntityGaiaMummy;
 import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaNineTails;
@@ -72,6 +72,7 @@ import gaia.entity.prop.EntityGaiaPropCampfire;
 import gaia.entity.prop.EntityGaiaPropChestMimic;
 import gaia.entity.prop.EntityGaiaPropFlowerCyan;
 import gaia.entity.prop.EntityGaiaPropVase;
+import gaia.entity.prop.EntityGaiaPropVaseNether;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
@@ -173,7 +174,7 @@ public class GaiaSpawning {
 		 * NETHER
 		 */
 		for (Biome biome : biomeMap.get(Type.NETHER)) {
-			add(GENERAL.spawnVaseNether, EntityGaiaPropVase.class, 1, 1, biome);
+			add(GENERAL.spawnVaseNether, EntityGaiaPropVaseNether.class, 1, 1, biome);
 			add(GENERAL.spawnSuccubus, EntityGaiaSuccubus.class, 2, 4, biome);
 			add(GENERAL.spawnWitherCow, EntityGaiaWitherCow.class, 2, 4, biome);
 			add(GENERAL.spawnBaphomet, EntityGaiaBaphomet.class, 2, 4, biome);
