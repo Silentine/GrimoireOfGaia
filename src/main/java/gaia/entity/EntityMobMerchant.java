@@ -20,7 +20,7 @@ import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
 //Adapted from DivineRPG code
-@SuppressWarnings({"squid:MaximumInheritanceDepth", "squid:S2160"})
+@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {
 	private static final String OFFERS_TAG = "Offers";
 	private static final int MAX_RECIPES_TO_ADD = 75;
@@ -64,12 +64,12 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return null;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+	protected SoundEvent getDeathSound() {
 		return null;
 	}
 
@@ -117,6 +117,12 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 	}
 
 	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
+		super.dropLoot(wasRecentlyHit, lootingModifier, source);
+		dropFewItems(wasRecentlyHit, lootingModifier);
+	}
+
+	@Override
 	public void useRecipe(MerchantRecipe recipe) {
 		recipe.incrementToolUses();
 		livingSoundTime = -getTalkInterval();
@@ -129,14 +135,22 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 			i += 5;
 		}
 
-		if (recipe.getItemToBuy()
-				.getItem() == Items.EMERALD) {
-			wealth += recipe.getItemToBuy()
-					.getMaxStackSize();
+		if (recipe.getItemToBuy().getItem() == Items.EMERALD) {
+			wealth += recipe.getItemToBuy().getMaxStackSize();
 		}
 
 		if (recipe.getRewardsExp()) {
 			world.spawnEntity(new EntityXPOrb(world, posX, posY + 0.5D, posZ, i));
+		}
+	}
+
+	/**
+	 * Overridden due to Villager sounds
+	 */
+	@Override
+	public void verifySellingItem(ItemStack stack) {
+		if (!this.world.isRemote && this.livingSoundTime > -this.getTalkInterval() + 20) {
+			this.livingSoundTime = -this.getTalkInterval();
 		}
 	}
 

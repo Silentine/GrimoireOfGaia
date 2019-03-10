@@ -13,17 +13,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ModelGaiaFleshLich extends ModelGaia {
 
-	private ModelRenderer head;
-	private ModelRenderer neck;
-	private ModelRenderer body;
-	private ModelRenderer rightarm;
-	private ModelRenderer leftarm;
-	private ModelRenderer banner;
-	private ModelRenderer waist1;
-	private ModelRenderer waist2;
-	private ModelRenderer waist3;
-	private ModelRenderer rightleg;
-	private ModelRenderer leftleg;
+    ModelRenderer head;
+    ModelRenderer headupper;
+    ModelRenderer headlower;
+    ModelRenderer neck;
+    ModelRenderer body;
+    ModelRenderer rightarm;
+    ModelRenderer leftarm;
+    ModelRenderer rightshoulder;
+    ModelRenderer rightshoulderlower;
+    ModelRenderer leftshoulder;
+    ModelRenderer banner;
+    ModelRenderer waist1;
+    ModelRenderer waist2;
+    ModelRenderer waist3;
+    ModelRenderer rightleg;
+    ModelRenderer leftleg;
 
 	public ModelGaiaFleshLich() {
 		textureWidth = 128;
@@ -32,83 +37,76 @@ public class ModelGaiaFleshLich extends ModelGaia {
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-4F, -8F, -4F, 8, 6, 8);
 		head.setRotationPoint(0F, 0F, 0F);
-		head.setTextureSize(64, 32);
 		setRotation(head, 0F, 0F, 0F);
-		ModelRenderer headlower = new ModelRenderer(this, 56, 0);
-		headlower.addBox(-4F, -2F, -4F, 8, 4, 8);
-		headlower.setRotationPoint(0F, 0F, 0F);
-		headlower.setTextureSize(64, 32);
+		headupper = new ModelRenderer(this, 56, 0);
+		headupper.addBox(-4F, 0F, -8F, 8, 2, 8);
+		headupper.setRotationPoint(0F, -2F, 4F);
+		setRotation(headupper, 0F, 0F, 0F);
+		headlower = new ModelRenderer(this, 56, 10);
+		headlower.addBox(-4F, 0F, -8F, 8, 4, 8);
+		headlower.setRotationPoint(0F, -2F, 4F);
 		setRotation(headlower, 0F, 0F, 0F);
-		neck = new ModelRenderer(this, 56, 12);
+		neck = new ModelRenderer(this, 56, 22);
 		neck.addBox(-2F, -2F, -2F, 4, 4, 4);
 		neck.setRotationPoint(0F, 0F, 0F);
-		neck.setTextureSize(64, 32);
 		setRotation(neck, 0F, 0F, 0F);
 		body = new ModelRenderer(this, 0, 14);
 		body.addBox(-4F, 0F, -2F, 8, 12, 4);
 		body.setRotationPoint(0F, 0F, 0F);
-		body.setTextureSize(64, 32);
 		setRotation(body, 0F, 0F, 0F);
 		rightarm = new ModelRenderer(this, 24, 14);
 		rightarm.addBox(-3F, -2F, -2F, 4, 12, 4);
 		rightarm.setRotationPoint(-5F, 2F, 0F);
-		rightarm.setTextureSize(64, 32);
 		setRotation(rightarm, 0F, 0F, 0F);
 		leftarm = new ModelRenderer(this, 24, 14);
+		leftarm.mirror = true;
 		leftarm.addBox(-1F, -2F, -2F, 4, 12, 4);
 		leftarm.setRotationPoint(5F, 2F, 0F);
-		leftarm.setTextureSize(64, 32);
 		setRotation(leftarm, 0F, 0F, 0F);
-		ModelRenderer rightshoulder = new ModelRenderer(this, 56, 20);
+		rightshoulder = new ModelRenderer(this, 56, 30);
 		rightshoulder.addBox(-4F, -3F, -3F, 6, 6, 6);
 		rightshoulder.setRotationPoint(-5F, 2F, 0F);
-		rightshoulder.setTextureSize(64, 32);
 		setRotation(rightshoulder, 0F, 0F, 0.0872665F);
-		ModelRenderer rightshoulderlower = new ModelRenderer(this, 56, 32);
+		rightshoulderlower = new ModelRenderer(this, 56, 42);
 		rightshoulderlower.addBox(-3.5F, -0.5F, -2.5F, 5, 7, 5);
 		rightshoulderlower.setRotationPoint(-5F, 2F, 0F);
-		rightshoulderlower.setTextureSize(64, 32);
 		setRotation(rightshoulderlower, 0F, 0F, 0F);
-		ModelRenderer leftshoulder = new ModelRenderer(this, 56, 44);
+		leftshoulder = new ModelRenderer(this, 56, 54);
 		leftshoulder.addBox(-1.5F, -3F, -2.5F, 5, 5, 5);
 		leftshoulder.setRotationPoint(5F, 2F, 0F);
-		leftshoulder.setTextureSize(64, 32);
 		setRotation(leftshoulder, 0F, 0F, -0.0872665F);
 		banner = new ModelRenderer(this, 88, 27);
 		banner.addBox(-3F, 11F, -3F, 6, 12, 4);
 		banner.setRotationPoint(0F, 0F, 0F);
-		banner.setTextureSize(64, 32);
 		setRotation(banner, 0F, 0F, 0F);
 		waist1 = new ModelRenderer(this, 88, 0);
 		waist1.addBox(-4.5F, 10F, -2.5F, 9, 4, 5);
 		waist1.setRotationPoint(0F, 0F, 0F);
-		waist1.setTextureSize(64, 32);
 		setRotation(waist1, 0F, 0F, 0F);
 		waist2 = new ModelRenderer(this, 88, 9);
-		waist2.addBox(-5F, 14F, -2F, 10, 4, 5);
-		waist2.setRotationPoint(0F, 0F, 0F);
-		waist2.setTextureSize(64, 32);
+		waist2.addBox(-5F, 0F, -4.5F, 10, 4, 5);
+		waist2.setRotationPoint(0F, 14F, 2.5F);
 		setRotation(waist2, 0F, 0F, 0F);
 		waist3 = new ModelRenderer(this, 88, 18);
-		waist3.addBox(-5.5F, 18F, -1.5F, 11, 4, 5);
-		waist3.setRotationPoint(0F, 0F, 0F);
-		waist3.setTextureSize(64, 32);
+		waist3.addBox(-5.5F, 0F, -4.5F, 11, 4, 5);
+		waist3.setRotationPoint(0F, 18F, 3F);
 		setRotation(waist3, 0F, 0F, 0F);
 		rightleg = new ModelRenderer(this, 40, 14);
 		rightleg.addBox(-2F, 0F, -2F, 4, 12, 4);
 		rightleg.setRotationPoint(-2F, 12F, 0F);
-		rightleg.setTextureSize(64, 32);
 		setRotation(rightleg, 0F, 0F, 0F);
 		leftleg = new ModelRenderer(this, 40, 14);
+		leftleg.mirror = true;
 		leftleg.addBox(-2F, 0F, -2F, 4, 12, 4);
 		leftleg.setRotationPoint(2F, 12F, 0F);
-		leftleg.setTextureSize(64, 32);
 		setRotation(leftleg, 0F, 0F, 0F);
 
+		convertToChild(head, headupper);
 		convertToChild(head, headlower);
 		convertToChild(rightarm, rightshoulder);
 		convertToChild(rightarm, rightshoulderlower);
-		convertToChild(leftarm, leftshoulder);
+		convertToChild(waist2, waist3);
+		convertToChild(waist1, waist2);
 	}
 
 	@Override
@@ -122,8 +120,6 @@ public class ModelGaiaFleshLich extends ModelGaia {
 		leftarm.render(scale);
 		banner.render(scale);
 		waist1.render(scale);
-		waist2.render(scale);
-		waist3.render(scale);
 		rightleg.render(scale);
 		leftleg.render(scale);
 	}
@@ -135,6 +131,8 @@ public class ModelGaiaFleshLich extends ModelGaia {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
+		
+		headlower.rotateAngleX = +degToRad(5);
 
 		// arms
 		if (itemstack.isEmpty()) {
@@ -161,6 +159,10 @@ public class ModelGaiaFleshLich extends ModelGaia {
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+		
+		waist1.rotateAngleX = degToRad(5);
+		waist2.rotateAngleX = degToRad(5);
+		waist3.rotateAngleX = degToRad(5);
 	}
 
 	public void holdingMelee() {

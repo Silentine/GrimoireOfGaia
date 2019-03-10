@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "grimoireofgaia:block/doll_base_slime_girl",
     "textures": {
-        "all": "blocks/slime"
+        "0": "grimoireofgaia:blocks/models/doll_slime_girl",
+		"particle": "grimoireofgaia:blocks/models/doll_slime_girl"
     }
 }

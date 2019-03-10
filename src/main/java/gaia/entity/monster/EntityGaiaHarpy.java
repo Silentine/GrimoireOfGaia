@@ -5,9 +5,11 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaLeapAtTarget;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -27,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -34,6 +37,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,14 +48,16 @@ import net.minecraft.world.World;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final String IS_CHILD_TAG = "IsBaby";
+
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaHarpy.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaHarpy.class, DataSerializers.BOOLEAN);
 
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);
 	private EntityAIAttackMelee aiMeleeAttack = new EntityGaiaHarpy.AILeapAttack(this);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
 
 	private int switchHealth;
-	private boolean isChild;
 
 	public EntityGaiaHarpy(World worldIn) {
 		super(worldIn);
@@ -178,42 +184,37 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 		}
 	}
-	
-	private void setBodyType(String id) {
-		if (id == "none") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-		}
 
-		if (id == "baby") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
-	}
-	
 	private void setCombatTask() {
 		tasks.removeTask(aiMeleeAttack);
 		tasks.removeTask(aiAvoid);
-		
+
 		setAI((byte) 0);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.HARPY_SAY;
+		return GaiaSounds.HARPY_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.HARPY_HURT;
+		return GaiaSounds.HARPY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.HARPY_DEATH;
+		return GaiaSounds.HARPY_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_HARPY;
 	}
 
 	@Override
@@ -242,6 +243,15 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
 			}
+
+			// Unique Rare
+			ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+			if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+				if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+					dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_NEST_HARPY), 1);
+				}
+			}
 		}
 	}
 
@@ -250,26 +260,25 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
-            
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
-    			setTextureType(2);
-    		} else if (world.rand.nextInt(4) == 0) {
-    			setTextureType(1);
-    		}
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+				setTextureType(2);
+			} else if (world.rand.nextInt(4) == 0) {
+				setTextureType(1);
+			}
 		}
 
-		// TEMP Method used instead of isChild
 		setChild(true, 10);
 
-		if (!isChild) {
+		if (!isChild()) {
 			ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
 			weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, weaponCustom);
 		}
-		
+
 		setCombatTask();
 
 		return ret;
@@ -279,10 +288,10 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setBodyType("baby");
+				setChild(true);
 			}
 		} else {
-			setBodyType("baby");
+			setChild(true);
 		}
 	}
 
@@ -319,6 +328,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);
+		dataManager.register(IS_CHILD, false);
 	}
 
 	public int getTextureType() {
@@ -329,10 +339,19 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 		dataManager.set(SKIN, par1);
 	}
 
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+		compound.setBoolean(IS_CHILD_TAG, isChild());
 	}
 
 	@Override
@@ -342,7 +361,12 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
-		
+
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
+
 		setCombatTask();
 	}
 	/* ALTERNATE SKIN */

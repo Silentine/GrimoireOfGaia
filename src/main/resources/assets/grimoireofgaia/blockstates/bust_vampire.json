@@ -1,5 +1,8 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:bust_vampire" }
+        "type=north":   { "model": "grimoireofgaia:bust_vampire", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:bust_vampire", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:bust_vampire"                     },
+        "type=east":    { "model": "grimoireofgaia:bust_vampire", "y": 90            }
     }
 }

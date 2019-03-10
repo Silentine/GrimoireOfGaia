@@ -18,10 +18,10 @@ public class RenderGaiaProjectile extends Render<Entity> {
 	private final float scale;
 	protected final Item item;
 
-	public RenderGaiaProjectile(RenderManager renderManager, Item item) {
+	public RenderGaiaProjectile(RenderManager renderManager, Item item, float scale) {
 		super(renderManager);
 		this.item = item;
-		this.scale = 2.0F;
+		this.scale = scale;
 	}
 
 	@Override

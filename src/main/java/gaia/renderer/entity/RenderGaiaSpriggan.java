@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSpriggan extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation SprigganEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_spriggan.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/spriggan.png");
+	private static final ResourceLocation SprigganEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_spriggan.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/spriggan.png");
 
 	public RenderGaiaSpriggan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSpriggan(), shadowSize);

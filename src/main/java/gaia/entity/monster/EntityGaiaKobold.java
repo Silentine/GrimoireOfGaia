@@ -7,11 +7,12 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -36,6 +37,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
@@ -249,17 +251,22 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.KOBOLD_SAY;
+		return GaiaSounds.KOBOLD_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.KOBOLD_HURT;
+		return GaiaSounds.KOBOLD_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.KOBOLD_DEATH;
+		return GaiaSounds.KOBOLD_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_KOBOLD;
 	}
 
 	@Override

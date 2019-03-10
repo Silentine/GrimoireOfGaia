@@ -1,5 +1,8 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:doll_slime_girl" }
+        "type=north":   { "model": "grimoireofgaia:doll_slime_girl", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:doll_slime_girl", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:doll_slime_girl"                     },
+        "type=east":    { "model": "grimoireofgaia:doll_slime_girl", "y": 90            }
     }
 }

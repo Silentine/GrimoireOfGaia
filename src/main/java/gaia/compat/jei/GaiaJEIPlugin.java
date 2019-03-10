@@ -150,6 +150,15 @@ public class GaiaJEIPlugin implements IModPlugin {
 		oldBoxLoot.add(new ItemStack(GaiaItems.BAG_BOOK));
 		result.add(new GaiaLootWrapper(new ItemStack(GaiaItems.BOX_OLD), oldBoxLoot));
 
+		ArrayList<ItemStack> hatBoxLoot = new ArrayList<>();
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR));
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB));
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_ARROW));
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_DOLL));
+		hatBoxLoot.add(new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_EARS_ELF));
+		result.add(new GaiaLootWrapper(new ItemStack(GaiaItems.BOX_HAT), hatBoxLoot));
+
 		return result;
 	}
 }

@@ -58,7 +58,8 @@ public class LayerHeadgear implements LayerRenderer<EntityPlayer> {
 
 		for (int i = 0; i < baubles.getSlots(); i++) {
 			ItemStack bauble = baubles.getStackInSlot(i);
-			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR)
+//			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR)
+			if (bauble.isEmpty())
 				continue;
 
 			return bauble;

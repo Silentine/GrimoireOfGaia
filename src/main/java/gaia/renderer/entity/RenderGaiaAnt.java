@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaAnt extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/ant01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/ant02.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/ant01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/ant02.png");
 
 	public RenderGaiaAnt(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaAnt(), shadowSize);

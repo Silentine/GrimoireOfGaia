@@ -5,6 +5,7 @@ import static net.minecraft.world.EnumDifficulty.HARD;
 import java.util.Random;
 
 import gaia.GaiaConfig;
+import gaia.entity.projectile.EntityGaiaProjectileBomb;
 import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectilePoison;
@@ -14,6 +15,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
@@ -40,7 +42,7 @@ public class Ranged {
 	 * @param host        the entity that is shooting
 	 * @param bonusdamage bonus damage
 	 * 
-	 * @see EntitySkeleton
+	 * @see               EntitySkeleton
 	 */
 	public static void rangedAttack(EntityLivingBase target, EntityLivingBase host, float bonusdamage) {
 		Random rand = new Random();
@@ -91,7 +93,7 @@ public class Ranged {
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
 	 * 
-	 * @see EntityBlaze
+	 * @see                  EntityBlaze
 	 */
 	public static void fireball(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
@@ -117,7 +119,7 @@ public class Ranged {
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
 	 * 
-	 * @see EntityBlaze
+	 * @see                  EntityBlaze
 	 */
 	public static void magic(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
@@ -142,9 +144,9 @@ public class Ranged {
 	 * @param target         the entity to fire at
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
-	 * @param height		 height from which the projectile spawns from
+	 * @param height         height from which the projectile spawns from
 	 * 
-	 * @see EntityBlaze
+	 * @see                  EntityBlaze
 	 */
 	public static void web(EntityLivingBase target, EntityLivingBase host, float distanceFactor, double height) {
 		Random rand = new Random();
@@ -170,7 +172,7 @@ public class Ranged {
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
 	 * 
-	 * @see EntityBlaze
+	 * @see                  EntityBlaze
 	 */
 	public static void bubble(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
@@ -186,7 +188,7 @@ public class Ranged {
 			host.world.spawnEntity(entitygaiaprojectilebubble);
 		}
 	}
-	
+
 	/**
 	 * Shortcut Method for entities using bubble attacks. Use this to replace entity [attackEntityWithRangedAttack].
 	 *
@@ -194,7 +196,7 @@ public class Ranged {
 	 * @param host           the entity that is shooting
 	 * @param distanceFactor distance
 	 * 
-	 * @see EntityBlaze
+	 * @see                  EntityBlaze
 	 */
 	public static void poison(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
 		Random rand = new Random();
@@ -219,7 +221,7 @@ public class Ranged {
 	 * @param distanceFactor distance
 	 * @param potiontype     PotionType
 	 * 
-	 * @see EntityWitch
+	 * @see                  EntityWitch
 	 */
 	public static void potion(EntityLivingBase target, EntityLivingBase host, float distanceFactor, PotionType potiontype) {
 		Random rand = new Random();
@@ -236,5 +238,31 @@ public class Ranged {
 
 		host.world.playSound((EntityPlayer) null, host.posX, host.posY, host.posZ, SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
 		host.world.spawnEntity(entitypotion);
+	}
+
+	/**
+	 * Shortcut Method for entities using bomb attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param distanceFactor distance
+	 * @param distanceFactor distance
+	 * 
+	 * @see                  EntityWitch
+	 */
+	public static void bomb(EntityLivingBase target, EntityLivingBase host, float distanceFactor) {
+		Random rand = new Random();
+
+		double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+		double d1 = target.posX + target.motionX - host.posX;
+		double d2 = d0 - host.posY;
+		double d3 = target.posZ + target.motionZ - host.posZ;
+		float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
+
+		EntityGaiaProjectileBomb entitygaiaprojectilebomb = new EntityGaiaProjectileBomb(host.world, host);
+		entitygaiaprojectilebomb.rotationPitch -= -20.0F;
+		entitygaiaprojectilebomb.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
+
+		host.world.playSound((EntityPlayer) null, host.posX, host.posY, host.posZ, SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+		host.world.spawnEntity(entitygaiaprojectilebomb);
 	}
 }

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaPropFlowerCyan extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/prop_flower_cyan.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/prop/prop_flower_cyan.png");
 
 	public RenderGaiaPropFlowerCyan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaPropFlowerCyan(), 0.0F);

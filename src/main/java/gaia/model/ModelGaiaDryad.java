@@ -1,5 +1,6 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaDryad;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -27,6 +28,7 @@ public class ModelGaiaDryad extends ModelGaia {
 	private ModelRenderer leftarm;
 	private ModelRenderer rightleg;
 	private ModelRenderer leftleg;
+	private ModelRenderer headflower;
 	private ModelRenderer hair1;
 	private ModelRenderer hair2;
 	private ModelRenderer waist1;
@@ -113,7 +115,7 @@ public class ModelGaiaDryad extends ModelGaia {
 		leftleg.setRotationPoint(2F, 11F, 0F);
 		leftleg.setTextureSize(64, 32);
 		setRotation(leftleg, 0F, 0F, 0.0349066F);
-		ModelRenderer headflower = new ModelRenderer(this, 36, 39);
+		headflower = new ModelRenderer(this, 36, 39);
 		headflower.addBox(0F, -7.5F, -2F, 4, 2, 4);
 		headflower.setRotationPoint(0F, 1F, 0F);
 		headflower.setTextureSize(64, 32);
@@ -160,9 +162,9 @@ public class ModelGaiaDryad extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		EntityGaiaDryad entityGaiaDryad = (EntityGaiaDryad) entityIn;
 
-		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+		if (!entityGaiaDryad.isChild()) {
 			head.render(scale);
 			headaccessory.render(scale);
 			neck.render(scale);
@@ -197,8 +199,8 @@ public class ModelGaiaDryad extends ModelGaia {
 			}
 
 			headaccessory.render(scale);
+			headflower.showModel = false;
 			hair1.render(scale);
-//			hair2.render(scale);
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();

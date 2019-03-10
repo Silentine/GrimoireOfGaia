@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +28,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -36,7 +38,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaToad extends EntityMobHostileBase {
-	
+
 	private byte inWaterTimer;
 
 	public EntityGaiaToad(World worldIn) {
@@ -44,7 +46,7 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
-		
+
 		inWaterTimer = 0;
 	}
 
@@ -128,11 +130,11 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 		}
 
 		if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
-            
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+			int i = MathHelper.floor(this.posX);
+			int j = MathHelper.floor(this.posY);
+			int k = MathHelper.floor(this.posZ);
+
+			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
 				addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 0));
 				addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
 			}
@@ -155,17 +157,22 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.TOAD_SAY;
+		return GaiaSounds.TOAD_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.TOAD_HURT;
+		return GaiaSounds.TOAD_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.TOAD_DEATH;
+		return GaiaSounds.TOAD_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_TOAD;
 	}
 
 	@Override

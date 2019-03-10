@@ -4,10 +4,11 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveBase;
+import gaia.entity.EntityMobAssistBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,14 +31,15 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaMermaid extends EntityMobPassiveBase {
-	
+public class EntityGaiaMermaid extends EntityMobAssistBase {
+
 	private byte inWaterTimer;
 
 	public EntityGaiaMermaid(World worldIn) {
@@ -45,8 +47,8 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-        setPathPriority(PathNodeType.WATER, 8.0F);
-        
+		setPathPriority(PathNodeType.WATER, 8.0F);
+
 		inWaterTimer = 0;
 	}
 
@@ -146,17 +148,22 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MERMAID_SAY;
+		return GaiaSounds.MERMAID_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MERMAID_HURT;
+		return GaiaSounds.MERMAID_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MERMAID_DEATH;
+		return GaiaSounds.MERMAID_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MERMAID;
 	}
 
 	@Override

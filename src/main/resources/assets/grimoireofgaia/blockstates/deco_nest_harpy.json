@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "type=north":   { "model": "grimoireofgaia:deco_nest_harpy", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:deco_nest_harpy", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:deco_nest_harpy"                     },
+        "type=east":    { "model": "grimoireofgaia:deco_nest_harpy", "y": 90            }
+    }
+}

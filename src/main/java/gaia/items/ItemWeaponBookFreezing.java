@@ -1,6 +1,6 @@
 package gaia.items;
 
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -78,7 +78,7 @@ public class ItemWeaponBookFreezing extends ItemWeaponBook {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		super.hitEntity(stack, target, attacker);
 
-		attacker.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
+		attacker.playSound(GaiaSounds.BOOK_HIT, 1.0F, 1.0F);
 		target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80, 1));
 
 		return true;

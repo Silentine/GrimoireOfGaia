@@ -4,10 +4,11 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentData;
@@ -28,13 +29,14 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaKikimora extends EntityMobPassiveDay {
+public class EntityGaiaKikimora extends EntityMobAssistDay {
 
 	public EntityGaiaKikimora(World worldIn) {
 		super(worldIn);
@@ -86,22 +88,27 @@ public class EntityGaiaKikimora extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.KIKIMORA_SAY;
+		return GaiaSounds.KIKIMORA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.KIKIMORA_HURT;
+		return GaiaSounds.KIKIMORA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.KIKIMORA_DEATH;
+		return GaiaSounds.KIKIMORA_DEATH;
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.STEP_SANDALS, 1.0F, 1.0F);
+		playSound(GaiaSounds.STEP_SANDALS, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_KIKIMORA;
 	}
 
 	@Override
@@ -136,12 +143,12 @@ public class EntityGaiaKikimora extends EntityMobPassiveDay {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		if (world.rand.nextInt(2) == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BROOM));
 			setEnchantmentBasedOnDifficulty(difficulty);
 		}
-		
+
 		return ret;
 	}
 

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
@@ -194,9 +195,15 @@ public class EntityGaiaGelatinousSlime extends EntityMobHostileBase {
 	}
 
 	@Nullable
-	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_SKELETON;
+		switch (rand.nextInt(2)) {
+		case 0:
+			return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+		case 1:
+			return LootTableList.ENTITIES_SKELETON;
+		default:
+			return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+		}
 	}
 
 	@Override

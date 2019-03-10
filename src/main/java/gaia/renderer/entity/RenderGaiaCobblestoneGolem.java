@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCobblestoneGolem extends RenderLiving<EntityGaiaCobblestoneGolem> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/cobblestone_golem.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/cobblestone_golem.png");
 
 	public RenderGaiaCobblestoneGolem(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCobblestoneGolem(), shadowSize);

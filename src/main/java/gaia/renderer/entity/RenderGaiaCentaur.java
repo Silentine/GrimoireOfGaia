@@ -14,8 +14,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCentaur extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/centaur01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/centaur02.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/centaur01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/centaur02.png");
+	private static final ResourceLocation texture01Male = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/centaur01_male.png");
+	private static final ResourceLocation texture02Male = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/centaur02_male.png");
 
 	public RenderGaiaCentaur(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCentaur(), shadowSize);
@@ -43,6 +45,10 @@ public class RenderGaiaCentaur extends RenderLiving<EntityLiving> {
 			return texture01;
 		case 1:
 			return texture02;
+		case 2:
+			return texture01Male;
+		case 3:
+			return texture02Male;
 		default:
 			return texture01;
 		}

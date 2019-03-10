@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaDullahan extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/dullahan.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/dullahan.png");
 
 	public RenderGaiaDullahan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDullahan(), shadowSize);

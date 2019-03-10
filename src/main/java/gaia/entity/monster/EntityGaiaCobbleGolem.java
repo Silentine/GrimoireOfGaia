@@ -1,11 +1,14 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -28,6 +31,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -36,7 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
+public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 
 	private int attackTimer;
 
@@ -152,7 +156,7 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.NONE;
+		return GaiaSounds.NONE;
 	}
 
 	@Override
@@ -168,6 +172,11 @@ public class EntityGaiaCobbleGolem extends EntityMobPassiveDay {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+	}
+	
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_COBBLE_GOLEM;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaYukiOnna extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/yuki_onna.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/yuki_onna.png");
 
 	public RenderGaiaYukiOnna(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaYukiOnna(), shadowSize);

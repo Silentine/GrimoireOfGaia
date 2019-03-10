@@ -15,60 +15,44 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/creep.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/creep.png");
 
 	public RenderGaiaCreep(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCreep(), shadowSize);
 		addLayer(new LayerCreepCharge(this));
 	}
 
-	private void updateCreepScale(EntityGaiaCreep entity, float par2) {
-		float f1 = entity.getCreeperFlashIntensity(par2);
-		float f2 = 1.0F + MathHelper.sin(f1 * 100.0F) * f1 * 0.01F;
-		if (f1 < 0.0F) {
-			f1 = 0.0F;
-		}
-
-		if (f1 > 1.0F) {
-			f1 = 1.0F;
-		}
-
-		f1 *= f1;
-		f1 *= f1;
-		float f3 = (1.0F + f1 * 0.4F) * f2;
-		float f4 = (1.0F + f1 * 0.1F) / f2;
-		GlStateManager.scale(f3, f4, f3);
+	@Override
+	protected void preRenderCallback(EntityLiving entitylivingbaseIn, float partialTickTime) {
+		preRenderCallback((EntityGaiaCreep) entitylivingbaseIn, partialTickTime);
 	}
 
-	private int updateCreepColorMultiplier(EntityGaiaCreep entity, float par3) {
-		float f2 = entity.getCreeperFlashIntensity(par3);
-		if ((int) (f2 * 10.0F) % 2 == 0) {
+	@Override
+	protected int getColorMultiplier(EntityLiving entitylivingbaseIn, float lightBrightness, float partialTickTime) {
+		return getColorMultiplier((EntityGaiaCreep) entitylivingbaseIn, lightBrightness, partialTickTime);
+	}
+
+	protected void preRenderCallback(EntityGaiaCreep entitylivingbaseIn, float partialTickTime) {
+		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
+		float f1 = 1.0F + MathHelper.sin(f * 100.0F) * f * 0.01F;
+		f = MathHelper.clamp(f, 0.0F, 1.0F);
+		f = f * f;
+		f = f * f;
+		float f2 = (1.0F + f * 0.4F) * f1;
+		float f3 = (1.0F + f * 0.1F) / f1;
+		GlStateManager.scale(f2, f3, f2);
+	}
+
+	protected int getColorMultiplier(EntityGaiaCreep entitylivingbaseIn, float lightBrightness, float partialTickTime) {
+		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
+
+		if ((int) (f * 10.0F) % 2 == 0) {
 			return 0;
 		} else {
-			int i = (int) (f2 * 0.2F * 255.0F);
-			if (i < 0) {
-				i = 0;
-			}
-
-			if (i > 255) {
-				i = 255;
-			}
-
-			short short1 = 255;
-			short short2 = 255;
-			short short3 = 255;
-			return i << 24 | short1 << 16 | short2 << 8 | short3;
+			int i = (int) (f * 0.2F * 255.0F);
+			i = MathHelper.clamp(i, 0, 255);
+			return i << 24 | 822083583;
 		}
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLiving par1EntityLivingBase, float par2) {
-		updateCreepScale((EntityGaiaCreep) par1EntityLivingBase, par2);
-	}
-
-	@Override
-	protected int getColorMultiplier(EntityLiving par1EntityLivingBase, float par2, float par3) {
-		return updateCreepColorMultiplier((EntityGaiaCreep) par1EntityLivingBase, par3);
 	}
 
 	@Override
@@ -87,8 +71,7 @@ public class RenderGaiaCreep extends RenderLiving<EntityLiving> {
 			creeperRenderer = creeperRendererIn;
 		}
 
-		public void doRenderLayer(EntityGaiaCreep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
-				float netHeadYaw, float headPitch, float scale) {
+		public void doRenderLayer(EntityGaiaCreep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			if (entitylivingbaseIn.getPowered()) {
 				boolean flag = entitylivingbaseIn.isInvisible();
 				GlStateManager.depthMask(!flag);

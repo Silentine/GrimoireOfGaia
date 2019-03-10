@@ -1,10 +1,13 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -24,6 +27,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
@@ -123,22 +127,27 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MUMMY_SAY;
+		return GaiaSounds.MUMMY_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MUMMY_HURT;
+		return GaiaSounds.MUMMY_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MUMMY_DEATH;
+		return GaiaSounds.MUMMY_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MUMMY;
 	}
 
 	@Override

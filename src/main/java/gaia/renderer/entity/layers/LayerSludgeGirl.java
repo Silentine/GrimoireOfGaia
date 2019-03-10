@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerSludgeGirl implements LayerRenderer<EntityGaiaSludgeGirl> {
 
-	private static final ResourceLocation hairSludgeGirl[] = new ResourceLocation[] { new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/hair_sludge_girl01.png"), new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/hair_sludge_girl02.png") };
+	private static final ResourceLocation hairSludgeGirl[] = new ResourceLocation[] { new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/hair_sludge_girl01.png"), new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/hair_sludge_girl02.png") };
 
 	private final RenderGaiaSludgeGirl sludgeGirlRenderer;
 

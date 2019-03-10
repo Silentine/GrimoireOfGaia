@@ -7,11 +7,12 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,6 +39,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
@@ -278,17 +280,22 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SIREN_SAY;
+		return GaiaSounds.SIREN_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SIREN_HURT;
+		return GaiaSounds.SIREN_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SIREN_DEATH;
+		return GaiaSounds.SIREN_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SIREN;
 	}
 
 	@Override

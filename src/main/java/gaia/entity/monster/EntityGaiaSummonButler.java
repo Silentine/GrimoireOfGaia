@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
@@ -15,6 +16,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -47,7 +49,7 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 	}
-	
+
 	@Override
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
 		return super.canAttackClass(cls) && cls != EntityGaiaDhampir.class || cls != EntityGaiaVampire.class;
@@ -62,7 +64,12 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.UNDEAD;
 	}
-	
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BUTLER;
+	}
+
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		return livingdata;

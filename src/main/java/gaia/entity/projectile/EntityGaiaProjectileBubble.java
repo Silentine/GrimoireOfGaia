@@ -1,7 +1,6 @@
 package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
-import gaia.entity.monster.EntityGaiaWerecat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.init.MobEffects;
@@ -47,12 +46,12 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 	 * @see EntityFireball
 	 */
 	@Override
-	protected void onImpact(RayTraceResult movingObject) {
+	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
-			if (movingObject.entityHit != null) {
-				movingObject.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
+			if (result.entityHit != null) {
+				result.entityHit.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
 
-				if (movingObject.entityHit instanceof EntityLivingBase) {
+				if (result.entityHit instanceof EntityLivingBase) {
 					int i = 0;
 
 					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
@@ -62,7 +61,7 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, i * 20, 1));
+						((EntityLivingBase) result.entityHit).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, i * 20, 1));
 					}
 				}
 			}
@@ -82,7 +81,7 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 		return false;
 	}
 
-	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaProjectileBubble.class, DataSerializers.VARINT);
 
 	@Override
 	protected void entityInit() {

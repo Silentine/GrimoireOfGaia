@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
@@ -29,6 +30,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -147,6 +149,11 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_FLESH_LICH;
 	}
 
 	@Override

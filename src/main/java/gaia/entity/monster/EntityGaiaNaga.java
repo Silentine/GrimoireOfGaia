@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +30,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -167,7 +169,7 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -195,7 +197,7 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 		if (id == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
-			setItemStackToSlot(EntityEquipmentSlot.OFFHAND,  new ItemStack(GaiaItems.SHIELD_PROP, 1, 2));
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(GaiaItems.SHIELD_PROP, 1, 2));
 		}
 
 		if (id == 1) {
@@ -212,17 +214,22 @@ public class EntityGaiaNaga extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.NAGA_SAY;
+		return GaiaSounds.NAGA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.NAGA_HURT;
+		return GaiaSounds.NAGA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.NAGA_DEATH;
+		return GaiaSounds.NAGA_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_NAGA;
 	}
 
 	@Override

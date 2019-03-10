@@ -1,6 +1,6 @@
 ﻿itemGroup.grimoireofgaia=Grimoire der Gaia 3
-#NEW
 
+#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Eisenklumpen
@@ -100,6 +100,9 @@ item.grimoireofgaia.weapon_book_nature.name=Buch der Natur
 item.grimoireofgaia.weapon_book_wither.name=Buch des Ausdörrens
 item.grimoireofgaia.weapon_book_buff.name=Fechtbuch
 item.grimoireofgaia.weapon_debug.name=Debug-Waffe
+item.grimoireofgaia.box_hat.name=Hutschachtel
+item.grimoireofgaia.pickup_heart.name=Herz
+item.grimoireofgaia.weapon_projectile_bomb.name=Bombe
 
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_ring_speed.name=Ring der Schnelligkeit
@@ -112,11 +115,12 @@ item.grimoireofgaia.accessory_trinket_levitation.name=Fußfessel
 item.grimoireofgaia.accessory_cursed.name=Schwere Hantel
 
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_mob.name=Käfig
-item.grimoireofgaia.accessory_headgear_bolt.name=Bolzen
-item.grimoireofgaia.accessory_headgear_arrow.name=Pfeil durch Kopf
-item.grimoireofgaia.accessory_headgear_doll.name=Hängende Magd
-item.grimoireofgaia.accessory_headgear_ears_elf.name=Elfenohren
+item.grimoireofgaia.accessory_headgear_0.name=Käfig
+item.grimoireofgaia.accessory_headgear_1.name=Bolzen
+item.grimoireofgaia.accessory_headgear_2.name=Pfeil durch Kopf
+item.grimoireofgaia.accessory_headgear_3.name=Hängende Magd
+item.grimoireofgaia.accessory_headgear_4.name=Elfenohren
+item.grimoireofgaia.accessory_headgear.name=Buch im Gesicht
 
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Beschwöre
@@ -129,10 +133,14 @@ tile.grimoireofgaia.doll_creeper_girl.name=Creepermädchenpuppe
 tile.grimoireofgaia.doll_ender_girl.name=Endermädchenpuppe
 tile.grimoireofgaia.doll_slime_girl.name=Schleimmädchenpuppe
 tile.grimoireofgaia.doll_maid.name=Magdpuppe
+tile.grimoireofgaia.deco_bust_minotaur.name=Minotaur-Büste
 tile.grimoireofgaia.deco_garden_gnome.name=Gartenzwerg
 tile.grimoireofgaia.deco_mandragora_pot.name=Alraunentopf
+tile.grimoireofgaia.deco_nest_harpy.name=Harpyiennest
+tile.grimoireofgaia.fire_camp.name=Lagerfeuer
 tile.grimoireofgaia.spawn_guard.name=Schutztalisman
 tile.grimoireofgaia.web_temp.name=Zerfallendes Spinnennetz
+
 
 #ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=DEBUG MOB
@@ -157,6 +165,7 @@ entity.grimoireofgaia.dhampir.name=Dhampir
 entity.grimoireofgaia.dryad.name=Dryade
 entity.grimoireofgaia.dullahan.name=Dullahan
 entity.grimoireofgaia.dwarf.name=Zwerg
+entity.grimoireofgaia.elf.name=Elfe
 entity.grimoireofgaia.ender_dragon_girl.name=Enderdrachenmädchen
 entity.grimoireofgaia.ender_eye.name=Enderauge
 entity.grimoireofgaia.flesh_lich.name=Fleisch-Lich
@@ -168,6 +177,7 @@ entity.grimoireofgaia.harpy.name=Harpyie
 entity.grimoireofgaia.hunter.name=Jägerin
 entity.grimoireofgaia.kikimora.name=Kikimora
 entity.grimoireofgaia.kobold.name=Fernöstl. Kobold
+entity.grimoireofgaia.campfire.name=Lagerstätte
 entity.grimoireofgaia.mandragora.name=Alraune
 entity.grimoireofgaia.matango.name=Matango
 entity.grimoireofgaia.mermaid.name=Meerjungfrau
@@ -191,6 +201,8 @@ entity.grimoireofgaia.succubus.name=Sukkubus
 entity.grimoireofgaia.toad.name=Kröte
 entity.grimoireofgaia.valkyrie.name=Walküre
 entity.grimoireofgaia.vampire.name=Vampir
+entity.grimoireofgaia.vase.name=Antike Vase
+entity.grimoireofgaia.vase_nether.name=Antike Vase (Nether)
 entity.grimoireofgaia.werecat.name=Wiefkatze
 entity.grimoireofgaia.witch.name=Hexe
 entity.grimoireofgaia.wither_cow.name=Dörrkuh
@@ -208,6 +220,7 @@ entity.grimoireofgaia.weresheep.name=Wiefschaf
 #ENTITY_SUMMON_NAMES
 entity.grimoireofgaia.butler.name=Butler
 entity.grimoireofgaia.sporeling.name=Sporling
+
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Betrifft nur Grimoire-der-Gaia-Kreaturen
 text.grimoireofgaia.NegativeStatus.desc=Entfernt negative Statuseffekte
@@ -256,6 +269,10 @@ item.grimoireofgaia.weapon_debug.desc=Dient Testzwecken
 
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=Verhindert das Spawnen von TAGAKTIVEN Kreaturen innerhalb von %d Blöcken
+
+#MISC
+text.grimoireofgaia.spawnDaysPassed=Spawn-Hemmung aktiv.
+text.grimoireofgaia.SpawnDaysSet=%d Tage die verstreichen müssen bevor Spawns freigegeben werden.
 
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=Spawnraten

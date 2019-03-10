@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaFleshLich extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/flesh_lich.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/flesh_lich.png");
 
 	public RenderGaiaFleshLich(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaFleshLich(), shadowSize);

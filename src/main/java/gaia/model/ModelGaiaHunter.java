@@ -190,9 +190,9 @@ public class ModelGaiaHunter extends ModelGaia {
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
-		// legs
-		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+		// legs (walk_normal)
+		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 	}
 
 	private void holdingBow(float ageInTicks) {

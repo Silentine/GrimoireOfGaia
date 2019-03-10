@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +31,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -141,17 +143,22 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SPHINX_SAY;
+		return GaiaSounds.SPHINX_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SPHINX_HURT;
+		return GaiaSounds.SPHINX_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SPHINX_DEATH;
+		return GaiaSounds.SPHINX_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SPHINX;
 	}
 
 	@Override
@@ -178,7 +185,7 @@ public class EntityGaiaSphinx extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_DIAMOND, 1);
 			}
-			
+
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(Item.getItemFromBlock(GaiaBlocks.BUST_SPHINX), 1);

@@ -5,8 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,12 +29,14 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,7 +48,7 @@ import net.minecraft.world.World;
 public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
-	
+
 	private ItemStack mainWeapon;
 
 	private int buffEffect;
@@ -156,7 +160,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -212,22 +216,27 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MINOTAUR_SAY;
+		return GaiaSounds.MINOTAUR_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MINOTAUR_HURT;
+		return GaiaSounds.MINOTAUR_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MINOTAUR_DEATH;
+		return GaiaSounds.MINOTAUR_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MINOTAUR;
 	}
 
 	@Override
@@ -260,7 +269,10 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 				dropItem(GaiaItems.ACCESSORY_CURSED, 1);
 			}
 
-			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_BUST_MINOTAUR), 1);
+			}
+
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				entityDropItem(new ItemStack(GaiaItems.MISC_RING, 1, 1), 0.0F);
 			}

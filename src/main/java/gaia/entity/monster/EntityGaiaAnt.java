@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -21,12 +22,10 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -34,6 +33,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -43,7 +43,10 @@ import net.minecraft.world.World;
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAnt extends EntityMobHostileDay {
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final String IS_CHILD_TAG = "IsBaby";
+
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaAnt.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaAnt.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaAnt(World worldIn) {
 		super(worldIn);
@@ -113,22 +116,27 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ANT_SAY;
+		return GaiaSounds.ANT_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ANT_HURT;
+		return GaiaSounds.ANT_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ANT_DEATH;
+		return GaiaSounds.ANT_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_ANT;
 	}
 
 	@Override
@@ -138,7 +146,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				entityDropItem(new ItemStack(Items.DYE, 1, 2), 0.0F);
 			}
-			
+
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				dropItem(GaiaItems.FOOD_HONEY, 1);
 			}
@@ -170,27 +178,59 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(2) == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
-			setEnchantmentBasedOnDifficulty(difficulty);
-		} else {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
-			setEnchantmentBasedOnDifficulty(difficulty);
-		}
-		
-		if (world.rand.nextInt(2) == 0) {
 			setTextureType(0);
 		} else {
 			setTextureType(1);
 		}
 
+		setChild(true, 10);
+
+		if (!isChild()) {
+			if (world.rand.nextInt(2) == 0) {
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+				setEnchantmentBasedOnDifficulty(difficulty);
+			} else {
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
+				setEnchantmentBasedOnDifficulty(difficulty);
+			}
+		}
+
 		return ret;
 	}
+
+	/* CHILD CODE */
+	private void setChild(boolean isRandom, int chance) {
+		if (isRandom) {
+			if (world.rand.nextInt(chance) == 0) {
+				setChild(true);
+			}
+		} else {
+			setChild(true);
+		}
+	}
+
+	@Override
+	public float getEyeHeight() {
+		float f;
+
+		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+			f = 1.74F;
+		} else {
+			f = 1.74F - 0.81F;
+		}
+
+		return f;
+	}
+	/* CHILD CODE */
 
 	/* ALTERNATE SKIN */
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);
+		dataManager.register(IS_CHILD, false);
 	}
 
 	public int getTextureType() {
@@ -201,10 +241,19 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		dataManager.set(SKIN, par1);
 	}
 
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+		compound.setBoolean(IS_CHILD_TAG, isChild());
 	}
 
 	@Override
@@ -214,6 +263,12 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
+
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
+
 	}
 	/* ALTERNATE SKIN */
 

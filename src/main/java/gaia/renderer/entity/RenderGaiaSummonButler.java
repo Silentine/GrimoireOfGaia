@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSummonButler extends RenderBiped<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/biped/summon_butler.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/biped/summon_butler.png");
 
 	public RenderGaiaSummonButler(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelBiped(), shadowSize);

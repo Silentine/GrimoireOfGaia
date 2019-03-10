@@ -24,6 +24,7 @@ import gaia.items.ItemBase;
 import gaia.items.ItemBox;
 import gaia.items.ItemBoxDiamond;
 import gaia.items.ItemBoxGold;
+import gaia.items.ItemBoxHat;
 import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
 import gaia.items.ItemChest;
@@ -49,12 +50,12 @@ import gaia.items.ItemMiscGigaGear;
 import gaia.items.ItemMiscRing;
 import gaia.items.ItemMiscSoulFiery;
 import gaia.items.ItemMiscSoulFire;
+import gaia.items.ItemPickupHeart;
 import gaia.items.ItemShard;
 import gaia.items.ItemShardMisc;
 import gaia.items.ItemShieldProp;
 import gaia.items.ItemSpawn;
 import gaia.items.ItemSpawnNPC;
-import gaia.items.ItemSpawnTame;
 import gaia.items.ItemWeaponBook;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
@@ -68,10 +69,13 @@ import gaia.items.ItemWeaponBookWither;
 import gaia.items.ItemWeaponFan;
 import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
+import gaia.items.ItemWeaponProjectileBomb;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropItemSword;
 import gaia.items.ItemWeaponPropProjectile;
+import gaia.items.debug.ItemDebugWeapon;
+import gaia.items.delete.ItemSpawnTame;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -91,6 +95,11 @@ public class GaiaItems {
 	// A
 	public static final Item ACCESSORY_CURSED = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR_MOB = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR_ARROW = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR_BOLT = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR_DOLL = Items.AIR;
+	public static final Item ACCESSORY_HEADGEAR_EARS_ELF = Items.AIR;
 	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
 	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
 	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
@@ -106,6 +115,7 @@ public class GaiaItems {
 	public static final Item BOOK_BUFF = Items.AIR;
 	public static final Item BOX_DIAMOND = Items.AIR;
 	public static final Item BOX_GOLD = Items.AIR;
+	public static final Item BOX_HAT = Items.AIR;
 	public static final Item BOX_IRON = Items.AIR;
 	public static final Item BOX_OLD = Items.AIR;
 	// C
@@ -139,6 +149,8 @@ public class GaiaItems {
 	public static final Item MISC_RING = Items.AIR;
 	public static final Item MISC_SOUL_FIRE = Items.AIR;
 	public static final Item MISC_SOUL_FIERY = Items.AIR;
+	// P
+	public static final Item PICKUP_HEART = Items.AIR;
 	// S
 	public static final Item SHARD = Items.AIR;
 	public static final Item SHARD_MISC = Items.AIR;
@@ -165,6 +177,7 @@ public class GaiaItems {
 	public static final Item WEAPON_FAN = Items.AIR;
 	public static final Item WEAPON_FAN_FIRE = Items.AIR;
 	public static final Item WEAPON_FAN_ICE = Items.AIR;
+	public static final Item WEAPON_PROJECTILE_BOMB = Items.AIR;
 	public static final Item WEAPON_PROP = Items.AIR;
 	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE_BUBBLE = Items.AIR;
@@ -246,6 +259,7 @@ public class GaiaItems {
 			registry.register(new ItemBagRecord());
 			registry.register(new ItemBagArrow());
 			registry.register(new ItemBoxOld());
+			registry.register(new ItemBoxHat());
 			registry.register(new ItemChest());
 			registry.register(new ItemWeaponProp());
 			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_bubble"));
@@ -266,7 +280,8 @@ public class GaiaItems {
 			registry.register(new ItemWeaponBookBattle(MATERIAL_BOOK, "weapon_book_battle"));
 			registry.register(new ItemWeaponBookNature(MATERIAL_BOOK, "weapon_book_nature"));
 			registry.register(new ItemWeaponBookWither(MATERIAL_BOOK, "weapon_book_wither"));
-			registry.register(new ItemWeaponBookBuff());
+			registry.register(new ItemWeaponBookBuff("weapon_book_buff"));
+			registry.register(new ItemWeaponProjectileBomb("weapon_projectile_bomb"));
 			registry.register(new ItemAccessoryRingSpeed());
 			registry.register(new ItemAccessoryRingHaste());
 			registry.register(new ItemAccessoryRingJump());
@@ -275,7 +290,12 @@ public class GaiaItems {
 			registry.register(new ItemAccessoryTrinketWither());
 			registry.register(new ItemAccessoryTrinketLevitation());
 			registry.register(new ItemAccessoryCursed());
-			registry.register(new ItemAccessoryHeadgear());
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear"));
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear_mob"));
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear_bolt"));
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear_arrow"));
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear_doll"));
+			registry.register(new ItemAccessoryHeadgear("accessory_headgear_ears_elf"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_wood"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_stone"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_sword_iron"));
@@ -287,7 +307,8 @@ public class GaiaItems {
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_dagger_metal"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_broom"));
 			registry.register(new ItemWeaponPropItemSword(MATERIAL_PROP, "weapon_prop_hammer_minotaur"));
-
+			registry.register(new ItemPickupHeart());
+			
 			Gaia.LOGGER.info("Item registration complete.");
 		}
 

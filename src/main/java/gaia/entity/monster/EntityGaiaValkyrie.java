@@ -6,11 +6,12 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,6 +39,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
@@ -45,7 +47,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaValkyrie extends EntityMobPassiveDay {
+public class EntityGaiaValkyrie extends EntityMobAssistDay {
 
 	private static final double DETECTION_RANGE = 6D;
 
@@ -168,6 +170,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 				dataManager.set(ANNOYED, Boolean.valueOf(true));
 
 				setAI((byte) 0);
+				setAI((byte) 1);
 				setEquipment((byte) 2);
 			}
 		}
@@ -176,6 +179,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 			dataManager.set(ANNOYED, Boolean.valueOf(true));
 
 			setAI((byte) 0);
+			setAI((byte) 1);
 			setEquipment((byte) 2);
 		}
 		/* AGGRESSION */
@@ -195,7 +199,7 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -297,17 +301,22 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.VALKYRIE_SAY;
+		return GaiaSounds.VALKYRIE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.VALKYRIE_HURT;
+		return GaiaSounds.VALKYRIE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.VALKYRIE_DEATH;
+		return GaiaSounds.VALKYRIE_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_VALKYRIE;
 	}
 
 	@Override
@@ -357,6 +366,8 @@ public class EntityGaiaValkyrie extends EntityMobPassiveDay {
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
 		setItemStackToSlot(EntityEquipmentSlot.FEET, bootsSwimming);
 		bootsSwimming.addEnchantment(Enchantments.DEPTH_STRIDER, 2);
+
+		setCombatTask();
 
 		return ret;
 	}

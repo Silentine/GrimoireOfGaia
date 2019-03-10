@@ -32,16 +32,7 @@ public class ModelGaiaNaga extends ModelGaia {
 	private ModelRenderer tail8;
 
 	private static final double CYCLES_PER_BLOCK = 0.75D;
-	private float[][] undulationCycle = new float[][] { 
-		{   5F,   0F,-11.25F,  -45F,-22.5F,    0F, 22.5F,   45F}, 
-		{  10F,  10F,     0F,-22.5F,  -45F,-22.5F,    0F, 22.5F}, 
-		{   5F,  20F, 11.25F,    0F,-22.5F,  -45F,-22.5F,    0F}, 
-		{   0F,  10F , 22.5F, 22.5F,    0F,-22.5F,  -45F,-22.5F}, 
-		{  -5F,   0F, 11.25F,   45F, 22.5F,    0F,-22.5F,  -45F}, 
-		{ -10F, -10F,     0F, 22.5F,   45F, 22.5F,    0F,-22.5F}, 
-		{  -5F, -20F,-11.25F,    0F, 22.5F,   45F, 22.5F,    0F}, 
-		{   0F, -10F, -22.5F,-22.5F,    0F, 22.5F,   45F, 22.5F}, 
-		};
+	private float[][] undulationCycle = new float[][] { { 5F, 0F, -11.25F, -45F, -22.5F, 0F, 22.5F, 45F }, { 10F, 10F, 0F, -22.5F, -45F, -22.5F, 0F, 22.5F }, { 5F, 20F, 11.25F, 0F, -22.5F, -45F, -22.5F, 0F }, { 0F, 10F, 22.5F, 22.5F, 0F, -22.5F, -45F, -22.5F }, { -5F, 0F, 11.25F, 45F, 22.5F, 0F, -22.5F, -45F }, { -10F, -10F, 0F, 22.5F, 45F, 22.5F, 0F, -22.5F }, { -5F, -20F, -11.25F, 0F, 22.5F, 45F, 22.5F, 0F }, { 0F, -10F, -22.5F, -22.5F, 0F, 22.5F, 45F, 22.5F }, };
 
 	public ModelGaiaNaga() {
 		textureWidth = 128;
@@ -200,7 +191,7 @@ public class ModelGaiaNaga extends ModelGaia {
 		convertToChild(leftarm, leftpauldron);
 		convertToChild(rightarm, rightarmlower);
 		convertToChild(leftarm, leftarmlower);
-		
+
 		convertToChild(tail7, tail8);
 		convertToChild(tail6, tail7);
 		convertToChild(tail5, tail6);
@@ -235,7 +226,7 @@ public class ModelGaiaNaga extends ModelGaia {
 
 		// arms
 		float armDefaultAngleX = 0.261799F;
-		
+
 		if (itemstack.isEmpty()) {
 			rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
@@ -251,10 +242,10 @@ public class ModelGaiaNaga extends ModelGaia {
 			rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 			leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
 			leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-			
+
 			rightarm.rotateAngleX = +armDefaultAngleX;
 			leftarm.rotateAngleX = +armDefaultAngleX;
-			
+
 			rightarmlower.rotateAngleX = -armDefaultAngleX;
 			leftarmlower.rotateAngleX = -armDefaultAngleX;
 		}
@@ -301,12 +292,12 @@ public class ModelGaiaNaga extends ModelGaia {
 
 	private void animationBuff() {
 		float armDefaultAngleX = 0.785398F;
-		
+
 		rightarm.rotateAngleX = 0.0F;
 		leftarm.rotateAngleX = 0.0F;
 		rightarm.rotateAngleZ = +armDefaultAngleX;
 		leftarm.rotateAngleZ = -armDefaultAngleX;
-		
+
 		rightarm.rotateAngleX = +armDefaultAngleX;
 		leftarm.rotateAngleX = +armDefaultAngleX;
 		rightarmlower.rotateAngleX = -armDefaultAngleX;

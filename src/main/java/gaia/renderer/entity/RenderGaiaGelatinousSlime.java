@@ -16,8 +16,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaGelatinousSlime extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation layerSlime = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/layer_gelatinous_slime.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/gelatinous_slime.png");
+	private static final ResourceLocation layerSlime = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/layer_gelatinous_slime.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/gelatinous_slime.png");
 
 	public RenderGaiaGelatinousSlime(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaGelatinousSlime(), shadowSize);

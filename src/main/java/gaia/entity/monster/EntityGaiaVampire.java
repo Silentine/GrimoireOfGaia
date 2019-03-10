@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -31,10 +32,15 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -43,6 +49,10 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaVampire extends EntityMobHostileBase {
+
+	private static final String CAN_SPAWN_TAG = "CanSpawn";
+
+	private static final DataParameter<Boolean> CAN_SPAWN = EntityDataManager.<Boolean>createKey(EntityGaiaVampire.class, DataSerializers.BOOLEAN);
 
 	private int spawnLimit;
 	private int spawnTime;
@@ -148,10 +158,12 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 					if ((spawnTime >= 0) && (spawnTime <= 200)) {
 						++spawnTime;
 					} else {
-						world.setEntityState(this, (byte) 9);
+						if (canSpawn()) {
+							world.setEntityState(this, (byte) 9);
 
-						if (!world.isRemote) {
-							setSpawn((byte) 0);
+							if (!world.isRemote) {
+								setSpawn((byte) 0);
+							}
 						}
 
 						spawnLimit += 1;
@@ -200,23 +212,57 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(CAN_SPAWN, true);
+	}
+
+	public boolean canSpawn() {
+		return ((Boolean) getDataManager().get(CAN_SPAWN)).booleanValue();
+	}
+
+	public void setSpawn(boolean canSpawn) {
+		getDataManager().set(CAN_SPAWN, Boolean.valueOf(canSpawn));
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean(CAN_SPAWN_TAG, canSpawn());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(CAN_SPAWN_TAG)) {
+			boolean b0 = compound.getBoolean(CAN_SPAWN_TAG);
+			setSpawn(b0);
+		}
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.VAMPIRE_SAY;
+		return GaiaSounds.VAMPIRE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.VAMPIRE_HURT;
+		return GaiaSounds.VAMPIRE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.VAMPIRE_DEATH;
+		return GaiaSounds.VAMPIRE_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_VAMPIRE;
 	}
 
 	@Override

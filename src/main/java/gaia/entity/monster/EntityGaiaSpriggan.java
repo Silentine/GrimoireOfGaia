@@ -2,9 +2,12 @@ package gaia.entity.monster;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
@@ -25,6 +28,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +42,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 	private int axeAttack;
 
 	private byte inWaterTimer;
-	
+
 	public EntityGaiaSpriggan(World worldIn) {
 		super(worldIn);
 
@@ -46,7 +50,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 		stepHeight = 1.0F;
 
 		axeAttack = 0;
-		
+
 		inWaterTimer = 0;
 	}
 
@@ -153,6 +157,11 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.BLOCK_WOOD_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SPRIGGAN;
 	}
 
 	@Override

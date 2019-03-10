@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -156,7 +158,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		if (id == 0) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.addTask(1, aiArrowAttack);
-			
+
 			setEquipment((byte) 0);
 			animationPlay = false;
 			animationTimer = 0;
@@ -177,7 +179,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 			setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.ARROW));
 		}
 	}
-	
+
 	private void setCombatTask() {
 		ItemStack itemstack = getHeldItemMainhand();
 		if (itemstack.getItem() == GaiaItems.WEAPON_PROP) {
@@ -189,21 +191,26 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BAPHOMET_SAY;
+		return GaiaSounds.BAPHOMET_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BAPHOMET_HURT;
+		return GaiaSounds.BAPHOMET_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BAPHOMET_DEATH;
+		return GaiaSounds.BAPHOMET_DEATH;
 	}
 
 	protected void playStepSound() {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BAPHOMET;
 	}
 
 	@Override
@@ -274,7 +281,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 		return potioneffectIn.getPotion() == MobEffects.WITHER ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
@@ -285,7 +292,7 @@ public class EntityGaiaBaphomet extends EntityMobHostileBase implements IRangedA
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return EntityAttributes.CHUNK_LIMIT_2;
+		return 1;
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -2,15 +2,20 @@ package gaia.entity.monster;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -27,21 +32,29 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackMob {
+public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
+
+	private static final DataParameter<Boolean> IS_MOVING = EntityDataManager.<Boolean>createKey(EntityGaiaBee.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
 	private EntityAILeapAtTarget aiAttackLeapAtTarget = new EntityAILeapAtTarget(this, 0.2F);
@@ -154,6 +167,16 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			motionY *= 0.8D;
 		}
 
+		if (!world.isRemote && (getHealth() >= EntityAttributes.MAX_HEALTH_1)) {
+			if (detectMovement() && !isMoving()) {
+				setMoving(true);
+			} 
+			
+			if (!detectMovement() && isMoving()) {
+				setMoving(false);
+			}
+		}
+
 		if (isFriendly() && !isFriendly) {
 			setAI((byte) 1);
 			timer = 0;
@@ -234,6 +257,21 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 		}
 	}
 
+	private boolean detectMovement() {
+		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D) {
+			int i = MathHelper.floor(posX);
+			int j = MathHelper.floor(posY - 0.20000000298023224D);
+			int k = MathHelper.floor(posZ);
+			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
+
+			if (iblockstate.getMaterial() != Material.AIR) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void setCombatTask() {
 		setAI((byte) 0);
 	}
@@ -260,23 +298,49 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	}
 
 	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(IS_MOVING, false);
+	}
+
+	public boolean isMoving() {
+		return ((Boolean) getDataManager().get(IS_MOVING)).booleanValue();
+	}
+
+	public void setMoving(boolean isMoving) {
+		getDataManager().set(IS_MOVING, Boolean.valueOf(isMoving));
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+
+		setCombatTask();
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BEE_SAY;
+		return GaiaSounds.BEE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BEE_HURT;
+		return GaiaSounds.BEE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BEE_DEATH;
+		return GaiaSounds.BEE_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BEE;
 	}
 
 	@Override
@@ -327,13 +391,6 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
-
-		setCombatTask();
-	}
 
 	/* SPAWN CONDITIONS */
 	@Override

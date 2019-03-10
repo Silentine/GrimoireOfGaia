@@ -75,7 +75,7 @@ public class ItemWeaponFanIce extends ItemWeaponFan {
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return GaiaItems.MISC_SOUL_FIRE != repair.getItem() && super.getIsRepairable(toRepair, repair);
+		return GaiaItems.MISC_SOUL_FIRE == repair.getItem();
 	}
 
 	@SideOnly(Side.CLIENT)

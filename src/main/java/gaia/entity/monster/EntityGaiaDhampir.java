@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -144,7 +146,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -243,17 +245,22 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.DHAMPIR_SAY;
+		return GaiaSounds.DHAMPIR_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.DHAMPIR_HURT;
+		return GaiaSounds.DHAMPIR_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.DHAMPIR_DEATH;
+		return GaiaSounds.DHAMPIR_DEATH;
+	}
+	
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_DHAMPIR;
 	}
 
 	@Override

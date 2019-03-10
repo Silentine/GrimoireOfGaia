@@ -3,7 +3,7 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -21,23 +21,25 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.HOLSTAURUS_SAY;
+		return GaiaSounds.HOLSTAURUS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.HOLSTAURUS_HURT;
+		return GaiaSounds.HOLSTAURUS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.HOLSTAURUS_DEATH;
+		return GaiaSounds.HOLSTAURUS_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_HOLSTAURUS, 1, 0), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_HOLSTAURUS, 1, 0), 0.0F);
+			}
 		}
 	}
 

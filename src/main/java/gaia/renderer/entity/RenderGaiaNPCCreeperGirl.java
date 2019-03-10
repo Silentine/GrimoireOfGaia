@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCCreeperGirl extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/creeper_girl.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/creeper_girl.png");
 
 	public RenderGaiaNPCCreeperGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCCreeperGirl(), shadowSize);

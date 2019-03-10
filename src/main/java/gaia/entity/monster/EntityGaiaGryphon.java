@@ -4,10 +4,11 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,13 +29,14 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaGryphon extends EntityMobPassiveDay {
+public class EntityGaiaGryphon extends EntityMobAssistDay {
 
 	public EntityGaiaGryphon(World worldIn) {
 		super(worldIn);
@@ -98,7 +100,7 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean isTameable() {
 		return true;
@@ -117,23 +119,26 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 
 		super.onLivingUpdate();
 	}
-	
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.GRYPHON_SAY;
+		return GaiaSounds.GRYPHON_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.GRYPHON_HURT;
+		return GaiaSounds.GRYPHON_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.GRYPHON_DEATH;
+		return GaiaSounds.GRYPHON_DEATH;
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_GRYPHON;
+	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -192,7 +197,6 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 	}
 	/* IMMUNITIES */
 
-	
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {

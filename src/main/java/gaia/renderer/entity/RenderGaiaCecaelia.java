@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaCecaelia extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/cecaelia.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/cecaelia.png");
 
 	public RenderGaiaCecaelia(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaCecaelia(), shadowSize);

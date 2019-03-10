@@ -2,7 +2,7 @@ package gaia.items;
 
 import gaia.entity.GaiaLootTableList;
 import gaia.helpers.LootHelper;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +40,7 @@ public class ItemBagArrow extends ItemBase {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		final ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(GaiaSounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		if (!player.capabilities.isCreativeMode) {
 			stack.shrink(1);

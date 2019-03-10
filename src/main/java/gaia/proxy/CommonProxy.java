@@ -1,8 +1,8 @@
 package gaia.proxy;
 
 import gaia.GaiaConfig;
+import gaia.entity.EntityMobAssistBase;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.EntityMobPassiveBase;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
@@ -37,10 +37,19 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
+	// TODO Needs further tweaking
+//	@SubscribeEvent
+//	public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+//		if (GaiaConfig.SPAWN.spawnDaysPassed) {
+//			event.player.sendMessage(new TextComponentString("" + TextFormatting.BOLD + TextFormatting.YELLOW + "[Grimoire of Gaia]" + I18n.format("text.grimoireofgaia.spawnDaysPassed")));
+//			event.player.sendMessage(new TextComponentString(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.SpawnDaysSet", GaiaConfig.SPAWN.spawnDaysSet)));
+//		}
+//	}
+
 	@SubscribeEvent
 	public void debugGaiaSpawn(CheckSpawn event) {
 		if (GaiaConfig.DEBUG.debugSpawn) {
-			if (event.getEntity() instanceof EntityMobPassiveBase || event.getEntity() instanceof EntityMobHostileBase) {
+			if (event.getEntity() instanceof EntityMobAssistBase || event.getEntity() instanceof EntityMobHostileBase) {
 				EntityLiving living = (EntityLiving) event.getEntity();
 				if (living.getCanSpawnHere()) {
 					event.setResult(Event.Result.ALLOW);

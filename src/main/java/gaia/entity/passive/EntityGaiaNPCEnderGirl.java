@@ -3,7 +3,7 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -20,23 +20,25 @@ public class EntityGaiaNPCEnderGirl extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ENDERGIRL_SAY;
+		return GaiaSounds.ENDERGIRL_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ENDERGIRL_HURT;
+		return GaiaSounds.ENDERGIRL_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ENDERGIRL_DEATH;
+		return GaiaSounds.ENDERGIRL_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_ENDER_GIRL, 1, 0), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_ENDER_GIRL, 1, 0), 0.0F);
+			}
 		}
 	}
 

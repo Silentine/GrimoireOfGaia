@@ -1,7 +1,7 @@
 package gaia.items;
 
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -22,8 +22,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWeaponBookBuff extends ItemBase {
-	public ItemWeaponBookBuff() {
-		super("weapon_book_buff");
+	public ItemWeaponBookBuff(String name) {
+		super(name);
 		maxStackSize = 1;
 		setMaxDamage(64);
 	}
@@ -55,7 +55,7 @@ public class ItemWeaponBookBuff extends ItemBase {
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
 		stack.damageItem(1, host);
-		host.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
+		host.playSound(GaiaSounds.BOOK_HIT, 1.0F, 1.0F);
 		target.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 600, 0));
 		target.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0));
 		target.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 80, 3));

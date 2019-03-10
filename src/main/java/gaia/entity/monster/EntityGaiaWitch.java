@@ -8,9 +8,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -39,6 +40,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -68,9 +70,11 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	private int spawn;
 
+	private static final String MOB_TYPE_TAG = "MobType";
 	private static final UUID MODIFIER_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
 	private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Drinking speed penalty", -0.25D, 0)).setSaved(false);
 	private static final DataParameter<Boolean> IS_DRINKING = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_RIDING = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.BOOLEAN);
 
 	private int potionUseTimer;
 
@@ -117,7 +121,9 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
+		dataManager.register(SKIN, 0);
+		getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
+		getDataManager().register(IS_RIDING, Boolean.valueOf(false));
 	}
 
 	public void setDrinkingPotion(boolean drinkingPotion) {
@@ -210,6 +216,14 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		}
 		/* WITCH CODE */
 
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_BROOM) {
+			setRidingBroom(true);
+		} else {
+			setRidingBroom(false);
+		}
+
 		super.onLivingUpdate();
 	}
 
@@ -278,7 +292,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
 			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -292,7 +306,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			skeleton = new EntitySkeleton(world);
 			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 1));
+			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
 			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -318,34 +332,34 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.WITCH_SAY;
+		return GaiaSounds.WITCH_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.WITCH_HURT;
+		return GaiaSounds.WITCH_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.WITCH_DEATH;
+		return GaiaSounds.WITCH_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
-	}
-
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
 	@Nullable
-	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+		case 0:
+			return GaiaLootTableList.ENTITIES_GAIA_WITCH;
+		case 1:
+			return LootTableList.ENTITIES_WITCH;
+		default:
+			return GaiaLootTableList.ENTITIES_GAIA_WITCH;
+		}
 	}
 
 	@Override
@@ -386,7 +400,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.MISC_BOOK, 1);
 			}
-			
+
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(Item.getItemFromBlock(GaiaBlocks.DECO_MANDRAGORA_POT), 1);
 			}
@@ -397,7 +411,15 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
+		if (world.rand.nextInt(4) == 0) {
+			setTextureType(1);
+		}
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 0));
+
+		if (world.rand.nextInt(2) == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(GaiaItems.WEAPON_PROP_BROOM));
+		}
 
 		return ret;
 	}
@@ -412,6 +434,41 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
+
+	/* ALTERNATE SKIN */
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.VARINT);
+
+	public void setRidingBroom(boolean riding) {
+		this.getDataManager().set(IS_RIDING, Boolean.valueOf(riding));
+	}
+
+	public boolean isRidingBroom() {
+		return ((Boolean) this.getDataManager().get(IS_RIDING)).booleanValue();
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

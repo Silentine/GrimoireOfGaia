@@ -4,13 +4,14 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -40,6 +41,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -50,8 +52,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
+
+	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaCentaur.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaCentaur.class, DataSerializers.VARINT);
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
@@ -77,7 +81,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	private int fullHealth;
 	private int regenerateHealth;
-	
+
 	private boolean isFriendly;
 
 	public EntityGaiaCentaur(World worldIn) {
@@ -132,14 +136,17 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	public void onLivingUpdate() {
-		/* TODO Fix archers from attacking same spot despite target already being eliminated */
+		/*
+		 * TODO Fix archers from attacking same spot despite target already being
+		 * eliminated
+		 */
 		if (isFriendly() && !isFriendly) {
 			setAI((byte) 2);
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
 			isFriendly = true;
 		}
-		
+
 		/* REGENERATE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (fullHealth == 0)) {
 			ItemStack stacky = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1, 0), PotionTypes.REGENERATION);
@@ -214,6 +221,16 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		}
 	}
 
+	private void setBodyType(String id) {
+		if (id == "none") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+		}
+
+		if (id == "male") {
+			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.STICK));
+		}
+	}
+
 	private void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.removeTask(aiArrowAttack);
@@ -250,6 +267,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+		dataManager.register(MALE, Boolean.valueOf(false));
 		dataManager.register(SKIN, 0);
 	}
 
@@ -265,22 +283,27 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.CENTAUR_SAY;
+		return GaiaSounds.CENTAUR_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.CENTAUR_HURT;
+		return GaiaSounds.CENTAUR_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.CENTAUR_DEATH;
+		return GaiaSounds.CENTAUR_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_CENTAUR;
 	}
 
 	@Override
@@ -321,13 +344,23 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingData) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingData);
 
+		if (world.rand.nextInt(4) == 0) {
+			dataManager.set(MALE, Boolean.valueOf(true));
+			setBodyType("male");
+			setTextureType(2);
+		}
+
 		if (!this.world.isRemote) {
 			int i = MathHelper.floor(this.posX);
 			int j = MathHelper.floor(this.posY);
 			int k = MathHelper.floor(this.posZ);
 
 			if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
-				setTextureType(1);
+				if (isMale()) {
+					setTextureType(3);
+				} else {
+					setTextureType(1);
+				}
 			}
 		}
 
@@ -348,6 +381,10 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	}
 
 	/* ALTERNATE SKIN */
+	public boolean isMale() {
+		return ((Boolean) this.dataManager.get(MALE)).booleanValue();
+	}
+
 	public int getTextureType() {
 		return dataManager.get(SKIN);
 	}
@@ -359,6 +396,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
+		dataManager.set(MALE, Boolean.valueOf(compound.getBoolean("male")));
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
 	}
 
@@ -367,6 +405,7 @@ public class EntityGaiaCentaur extends EntityMobPassiveDay implements GaiaIRange
 		super.readEntityFromNBT(compound);
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			compound.setBoolean("male", isMale());
 			setTextureType(b0);
 		}
 

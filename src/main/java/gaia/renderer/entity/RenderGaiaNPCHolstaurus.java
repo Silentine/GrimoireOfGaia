@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCHolstaurus extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/holstaurus.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/holstaurus.png");
 
 	public RenderGaiaNPCHolstaurus(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCHolstaurus(), shadowSize);

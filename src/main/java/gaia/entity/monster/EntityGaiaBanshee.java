@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -90,12 +92,12 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 		if (entity instanceof EntityArrow) {
 			damage += 2;
-		} 
-		
+		}
+
 		if (entity instanceof EntitySpectralArrow) {
 			damage += 4;
 		}
-		
+
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
@@ -363,22 +365,27 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.BANSHEE_SAY;
+		return GaiaSounds.BANSHEE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.BANSHEE_HURT;
+		return GaiaSounds.BANSHEE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.BANSHEE_DEATH;
+		return GaiaSounds.BANSHEE_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.NONE, 1.0F, 1.0F);
+		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BANSHEE;
 	}
 
 	@Override
@@ -414,7 +421,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 					dropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
-			
+
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1);

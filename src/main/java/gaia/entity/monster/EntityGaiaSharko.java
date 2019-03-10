@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -29,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -148,7 +150,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -189,20 +191,25 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 	
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SHARKO_SAY;
+		return GaiaSounds.SHARKO_SAY;
 	}
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SHARKO_HURT;
+		return GaiaSounds.SHARKO_HURT;
 	}
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SHARKO_DEATH;
+		return GaiaSounds.SHARKO_DEATH;
 	}
 	
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(Sounds.STEP_WEBBED, 1.0F, 1.0F);
+		playSound(GaiaSounds.STEP_WEBBED, 1.0F, 1.0F);
+	}
+	
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SHARKO;
 	}
 
 	@Override

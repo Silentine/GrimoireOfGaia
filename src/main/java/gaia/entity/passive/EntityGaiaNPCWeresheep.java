@@ -3,7 +3,7 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -20,23 +20,25 @@ public class EntityGaiaNPCWeresheep extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.WERESHEEP_SAY;
+		return GaiaSounds.WERESHEEP_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.WERESHEEP_HURT;
+		return GaiaSounds.WERESHEEP_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.WERESHEEP_DEATH;
+		return GaiaSounds.WERESHEEP_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_WERESHEEP, 1, 0), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_WERESHEEP, 1, 0), 0.0F);
+			}
 		}
 	}
 

@@ -7,8 +7,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -33,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -182,11 +184,13 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	private void setSpawn(byte id) {
 		EntityGaiaSummonSporeling sporeling;
 
-		if (id == 0) {
-			sporeling = new EntityGaiaSummonSporeling(world);
-			sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
-			world.spawnEntity(sporeling);
+		if (!isNeutral()) {
+			if (id == 0) {
+				sporeling = new EntityGaiaSummonSporeling(world);
+				sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+				sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
+				world.spawnEntity(sporeling);
+			}
 		}
 	}
 
@@ -213,17 +217,22 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MATANGO_SAY;
+		return GaiaSounds.MATANGO_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MATANGO_HURT;
+		return GaiaSounds.MATANGO_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MATANGO_DEATH;
+		return GaiaSounds.MATANGO_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MATANGO;
 	}
 
 	@Override

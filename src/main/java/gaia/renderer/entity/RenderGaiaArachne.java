@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaArachne extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation ArachneEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_arachne.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/arachne.png");
+	private static final ResourceLocation ArachneEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_arachne.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/arachne.png");
 
 	public RenderGaiaArachne(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaArachne(), shadowSize);

@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "grimoireofgaia:block/doll_base",
     "textures": {
-        "all": "blocks/wool_colored_lime"
+        "0": "grimoireofgaia:blocks/models/doll_creeper_girl",
+		"particle": "grimoireofgaia:blocks/models/doll_creeper_girl"
     }
 }

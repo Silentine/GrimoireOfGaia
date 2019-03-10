@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,6 +33,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -146,6 +148,15 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 			switchHealth = 0;
 		}
 
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+
 		super.onLivingUpdate();
 	}
 
@@ -186,17 +197,22 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.NINETAILS_SAY;
+		return GaiaSounds.NINETAILS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.NINETAILS_HURT;
+		return GaiaSounds.NINETAILS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.NINETAILS_DEATH;
+		return GaiaSounds.NINETAILS_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_NINETAILS;
 	}
 
 	@Override

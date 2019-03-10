@@ -1,6 +1,14 @@
 itemGroup.grimoireofgaia=蓋亞魔典3
 #NEW
+#ITEM_NAMES
 
+#ITEM_HEADGEAR
+
+#BLOCK_NAMES
+
+#ENTITY_NAMES
+
+#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鐵粒
@@ -42,6 +50,7 @@ item.grimoireofgaia.misc_currency_0.name=販售
 item.grimoireofgaia.misc_currency_1.name=貿易商代幣
 item.grimoireofgaia.misc_currency_2.name=荷斯陶洛斯代幣
 item.grimoireofgaia.misc_currency_3.name=綿羊代幣
+item.grimoireofgaia.pickup_heart.name=心
 item.grimoireofgaia.spawn.name=蛋盒
 item.grimoireofgaia.spawn_creeper_girl.name=苦力怕女孩蛋
 item.grimoireofgaia.spawn_slime_girl.name=史萊姆女孩蛋
@@ -61,9 +70,11 @@ item.grimoireofgaia.bag_book.name=書包
 item.grimoireofgaia.bag_record.name=唱片盒
 item.grimoireofgaia.bag_arrow.name=密封箭袋
 item.grimoireofgaia.box_old.name=老舊箱子
+item.grimoireofgaia.box_hat.name=帽子箱
 item.grimoireofgaia.chest_0.name=地牢箱
 item.grimoireofgaia.chest_1.name=叢林箱
 item.grimoireofgaia.chest_2.name=沙漠箱
+item.grimoireofgaia.weapon_projectile_bomb.name=炸彈
 item.grimoireofgaia.weapon_prop_0.name=終界權杖
 item.grimoireofgaia.weapon_prop_1.name=烈焰權杖
 item.grimoireofgaia.weapon_prop_2.name=鐵棍
@@ -81,11 +92,11 @@ item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法彈
 item.grimoireofgaia.weapon_prop_projectile_poison.name=毒彈
 item.grimoireofgaia.weapon_prop_projectile_web.name=蛛絲彈
 item.grimoireofgaia.weapon_prop_enchanted.name=附魔彈丸
+item.grimoireofgaia.weapon_prop_broom.name=掃帚
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=米諾陶槌子
 item.grimoireofgaia.shield_prop_0.name=石盾牌
 item.grimoireofgaia.shield_prop_1.name=鐵盾牌
 item.grimoireofgaia.shield_prop_2.name=金盾牌
-item.grimoireofgaia.weapon_prop_broom.name=掃帚
-item.grimoireofgaia.weapon_prop_hammer_minotaur.name=米諾陶槌子
 item.grimoireofgaia.weapon_fan.name=摺扇
 item.grimoireofgaia.weapon_fan_ice.name=華麗冰扇
 item.grimoireofgaia.weapon_fan_fire.name=華麗焰扇
@@ -110,6 +121,7 @@ item.grimoireofgaia.accessory_trinket_wither.name=凋零的心
 item.grimoireofgaia.accessory_trinket_levitation.name=鐵球腳鐐
 item.grimoireofgaia.accessory_cursed.name=沉重槓鈴
 #ITEM_HEADGEAR
+item.grimoireofgaia.accessory_headgear.name=臉上的書
 item.grimoireofgaia.accessory_headgear_mob.name=鐵籠
 item.grimoireofgaia.accessory_headgear_bolt.name=螺栓
 item.grimoireofgaia.accessory_headgear_arrow.name=腦袋穿箭
@@ -125,8 +137,11 @@ tile.grimoireofgaia.doll_creeper_girl.name=苦力怕女孩玩偶
 tile.grimoireofgaia.doll_ender_girl.name=終界女孩玩偶
 tile.grimoireofgaia.doll_slime_girl.name=史萊姆女孩玩偶
 tile.grimoireofgaia.doll_maid.name=女僕玩偶
+tile.grimoireofgaia.deco_bust_minotaur.name=米諾陶像
 tile.grimoireofgaia.deco_garden_gnome.name=花園地精
 tile.grimoireofgaia.deco_mandragora_pot.name=曼陀羅盆栽
+tile.grimoireofgaia.deco_nest_harpy.name=哈比巢
+tile.grimoireofgaia.fire_camp.name=營火
 tile.grimoireofgaia.spawn_guard.name=護符
 tile.grimoireofgaia.web_temp.name=腐朽的蜘蛛網
 #ENTITY_NAMES
@@ -139,6 +154,7 @@ entity.grimoireofgaia.banshee.name=報喪女妖
 entity.grimoireofgaia.baphomet.name=巴風特
 entity.grimoireofgaia.bee.name=蜜蜂人
 entity.grimoireofgaia.bone_knight.name=骷髏騎士
+entity.grimoireofgaia.campfire.name=營地
 entity.grimoireofgaia.cecaelia.name=賽卡利亞
 entity.grimoireofgaia.centaur.name=半人馬
 entity.grimoireofgaia.cobble_golem.name=鵝卵石魔像
@@ -152,6 +168,7 @@ entity.grimoireofgaia.dhampir.name=半吸血鬼
 entity.grimoireofgaia.dryad.name=木精靈
 entity.grimoireofgaia.dullahan.name=杜拉悍
 entity.grimoireofgaia.dwarf.name=矮人
+entity.grimoireofgaia.elf.name=精靈
 entity.grimoireofgaia.ender_dragon_girl.name=終界龍女孩
 entity.grimoireofgaia.ender_eye.name=終界眼
 entity.grimoireofgaia.flesh_lich.name=屍巫
@@ -181,11 +198,13 @@ entity.grimoireofgaia.sharko.name=鯊魚哥
 entity.grimoireofgaia.siren.name=賽蓮
 entity.grimoireofgaia.sludge_girl.name=黏泥女孩
 entity.grimoireofgaia.sphinx.name=斯芬克斯
-entity.grimoireofgaia.spriggan.name=守寶妖精
+entity.grimoireofgaia.spriggan.name=樹精
 entity.grimoireofgaia.succubus.name=魅魔
 entity.grimoireofgaia.toad.name=蟾蜍人
 entity.grimoireofgaia.valkyrie.name=女武神
 entity.grimoireofgaia.vampire.name=吸血鬼
+entity.grimoireofgaia.vase.name=古老的壺
+entity.grimoireofgaia.vase_nether.name=古老的壺 (地獄)
 entity.grimoireofgaia.werecat.name=貓又
 entity.grimoireofgaia.witch.name=魔女
 entity.grimoireofgaia.wither_cow.name=凋零牛
@@ -245,6 +264,9 @@ item.grimoireofgaia.WeaponBookEnder.desc=右鍵射出終界珍珠
 item.grimoireofgaia.weapon_debug.desc=測試用
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=防止白天出現的怪物生成於 %d 格內
+#MISC
+text.grimoireofgaia.spawnDaysPassed=生成日延遲開啟.
+text.grimoireofgaia.SpawnDaysSet=需經過 %d 天才開始生成.
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=生成機率
 configgui.grimoireofgaia.category.Menu0.general.tooltip=(需要重啟遊戲)\n設置0關閉怪物生成.\n白天: (<30 稀有, >60 普遍)\n夜晚: (<60 稀有, >100 普遍)\n(WARNING: 數值設定過高會抑制其他怪物生成.

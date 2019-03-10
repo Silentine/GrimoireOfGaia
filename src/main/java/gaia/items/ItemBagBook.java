@@ -1,6 +1,6 @@
 package gaia.items;
 
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -39,7 +39,7 @@ public class ItemBagBook extends ItemBase {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
-		player.playSound(Sounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(GaiaSounds.BAG_OPEN, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		Random rand = new Random();
 		ItemStack book = new ItemStack(Items.BOOK);

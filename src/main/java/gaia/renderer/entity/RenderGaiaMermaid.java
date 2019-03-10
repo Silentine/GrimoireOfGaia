@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaMermaid extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/mermaid.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/mermaid.png");
 
 	public RenderGaiaMermaid(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMermaid(), shadowSize);

@@ -1,5 +1,8 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:bust_valkyrie" }
+        "type=north":   { "model": "grimoireofgaia:bust_valkyrie", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:bust_valkyrie", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:bust_valkyrie"                     },
+        "type=east":    { "model": "grimoireofgaia:bust_valkyrie", "y": 90            }
     }
 }

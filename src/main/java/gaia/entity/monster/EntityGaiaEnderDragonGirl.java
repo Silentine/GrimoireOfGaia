@@ -7,7 +7,8 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveBase;
+import gaia.entity.EntityMobAssistBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
@@ -37,6 +38,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -47,7 +49,7 @@ import net.minecraft.world.storage.loot.LootTableList;
  * @see EntityEnderman
  */
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
-public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
+public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
 	private static final AttributeModifier ATTACKING_SPEED_BOOST = (new AttributeModifier(ATTACKING_SPEED_BOOST_ID, "Attacking speed boost", EntityAttributes.ATTACK_SPEED_BOOST, 0)).setSaved(false);
@@ -233,6 +235,11 @@ public class EntityGaiaEnderDragonGirl extends EntityMobPassiveBase {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_ENDERMEN_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_ENDER_DRAGON_GIRL;
 	}
 
 	@Override

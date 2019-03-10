@@ -7,9 +7,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -244,7 +245,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
 			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -279,29 +280,29 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SHAMAN_SAY;
+		return GaiaSounds.SHAMAN_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SHAMAN_HURT;
+		return GaiaSounds.SHAMAN_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SHAMAN_DEATH;
-	}
-
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
+		return GaiaSounds.SHAMAN_DEATH;
 	}
 
 	@Nullable
-	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+		case 0:
+			return GaiaLootTableList.ENTITIES_GAIA_SHAMAN;
+		case 1:
+			return LootTableList.ENTITIES_WITCH;
+		default:
+			return GaiaLootTableList.ENTITIES_GAIA_SHAMAN;
+		}
 	}
 
 	@Override

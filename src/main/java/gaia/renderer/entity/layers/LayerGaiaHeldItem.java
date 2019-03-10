@@ -14,6 +14,7 @@ import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaOrc;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaWerecat;
+import gaia.entity.monster.EntityGaiaWitch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -75,9 +76,9 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		}
 
 		/**
-		 * Used to manually adjust x, y, z coordinates. 
-		 * x = NEVER adjust 
-		 * y = distance from shoulder (positive = further, negative = closer)
+		 * Used to manually adjust x, y, z coordinates.
+		 * x = distance from hand (<0 = away from body, >0 = closer to body)
+		 * y = distance from shoulder (>0 = further from shoulder, <0 = closer to shoulder)
 		 * z = angle
 		 */
 
@@ -100,11 +101,11 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		if (living instanceof EntityGaiaDwarf) {
 			GlStateManager.translate(0.0F, -0.04F, 0.0F);
 		}
-		
+
 		if (living instanceof EntityGaiaGoblin) {
 			GlStateManager.translate(0.0F, -0.12F, 0.0F);
 		}
-		
+
 		if (living instanceof EntityGaiaGoblinFeral) {
 			GlStateManager.translate(0.0F, -0.12F, 0.0F);
 		}
@@ -121,13 +122,13 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.translate(0.0F, 0.2F, -0.01F);
 			GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
 		}
-		
+
 		if (living instanceof EntityGaiaOrc) {
 			GlStateManager.translate(0.0F, 0.20F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaNaga) {
-			GlStateManager.translate(0.04F, 0.25F, -0.01F);
+			GlStateManager.translate(0.04F, 0.25F, -0.02F);
 			GlStateManager.rotate(12.0F, -1.0F, 0.0F, 0.0F);
 		}
 

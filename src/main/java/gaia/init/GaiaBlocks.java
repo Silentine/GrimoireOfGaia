@@ -2,8 +2,8 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.block.BlockBust;
 import gaia.block.BlockDecoration;
+import gaia.block.BlockFireCamp;
 import gaia.block.BlockSpawnGuard;
 import gaia.block.BlockWebTemp;
 import gaia.tileentity.TileEntityBust;
@@ -33,8 +33,11 @@ public class GaiaBlocks {
 	public static final Block DOLL_MAID = Blocks.AIR;
 	public static final Block DECO_GARDEN_GNOME = Blocks.AIR;
 	public static final Block DECO_MANDRAGORA_POT = Blocks.AIR;
+	public static final Block DECO_BUST_MINOTAUR = Blocks.AIR;
+	public static final Block DECO_NEST_HARPY = Blocks.AIR;
 	public static final Block SPAWN_GUARD = Blocks.AIR;
 	public static final Block WEB_TEMP = Blocks.AIR;
+	public static final Block FIRE_CAMP = Blocks.AIR;
 
 	@SuppressWarnings("unused")
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
@@ -47,17 +50,20 @@ public class GaiaBlocks {
 			Gaia.LOGGER.info("Registering blocks...");
 			IForgeRegistry<Block> registry = event.getRegistry();
 
-			registry.register(new BlockBust(Material.ROCK, "bust_sphinx"));
-			registry.register(new BlockBust(Material.ROCK, "bust_valkyrie"));
-			registry.register(new BlockBust(Material.ROCK, "bust_vampire"));
-			registry.register(new BlockBust(Material.ROCK, "doll_creeper_girl"));
-			registry.register(new BlockBust(Material.ROCK, "doll_ender_girl"));
-			registry.register(new BlockBust(Material.ROCK, "doll_slime_girl"));
-			registry.register(new BlockBust(Material.ROCK, "doll_maid"));
+			registry.register(new BlockDecoration(Material.CLOTH, "bust_sphinx"));
+			registry.register(new BlockDecoration(Material.CLOTH, "bust_valkyrie"));
+			registry.register(new BlockDecoration(Material.CLOTH, "bust_vampire"));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_creeper_girl"));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_ender_girl"));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_slime_girl"));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_maid"));
 			registry.register(new BlockDecoration(Material.CLOTH, "deco_garden_gnome"));
 			registry.register(new BlockDecoration(Material.CLOTH, "deco_mandragora_pot"));
+			registry.register(new BlockDecoration(Material.ROCK, "deco_bust_minotaur"));
+			registry.register(new BlockDecoration(Material.LEAVES, "deco_nest_harpy"));
 			registry.register(new BlockSpawnGuard());
 			registry.register(new BlockWebTemp());
+			registry.register(new BlockFireCamp());
 
 			GameRegistry.registerTileEntity(TileEntityBust.class, new ResourceLocation(GaiaReference.MOD_ID, "tile_bust"));
 			Gaia.LOGGER.info("Block registration complete.");
@@ -77,8 +83,11 @@ public class GaiaBlocks {
 			registerItemBlock(registry, DOLL_MAID);
 			registerItemBlock(registry, DECO_GARDEN_GNOME);
 			registerItemBlock(registry, DECO_MANDRAGORA_POT);
+			registerItemBlock(registry, DECO_BUST_MINOTAUR);
+			registerItemBlock(registry, DECO_NEST_HARPY);
 			registerItemBlock(registry, SPAWN_GUARD);
 			registerItemBlock(registry, WEB_TEMP);
+			registerItemBlock(registry, FIRE_CAMP);
 
 			Gaia.LOGGER.info("Item block registration complete.");
 		}
@@ -86,7 +95,6 @@ public class GaiaBlocks {
 		private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {
 			Item item = new ItemBlock(block);
 			ResourceLocation registryName = block.getRegistryName();
-			// noinspection ConstantConditions
 			registry.register(item.setRegistryName(registryName));
 		}
 	}

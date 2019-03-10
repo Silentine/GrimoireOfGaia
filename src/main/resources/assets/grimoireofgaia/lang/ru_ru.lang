@@ -1,6 +1,14 @@
 itemGroup.grimoireofgaia=Гримуар Гайи 3
 #NEW
+#ITEM_NAMES
 
+#ITEM_HEADGEAR
+
+#BLOCK_NAMES
+
+#ENTITY_NAMES
+
+#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Железный Самородок
@@ -42,6 +50,7 @@ item.grimoireofgaia.misc_currency_0.name=Продажа
 item.grimoireofgaia.misc_currency_1.name=Токен Торговки
 item.grimoireofgaia.misc_currency_2.name=Токен Гольштавра
 item.grimoireofgaia.misc_currency_3.name=Овечий Токен
+item.grimoireofgaia.pickup_heart.name=Сердце
 item.grimoireofgaia.spawn.name=Коробка Призывателя
 item.grimoireofgaia.spawn_creeper_girl.name=Яйцо Призыва Девушки-Крипера
 item.grimoireofgaia.spawn_slime_girl.name=Яйцо Призыва Слизняшки
@@ -61,9 +70,11 @@ item.grimoireofgaia.bag_book.name=Рюкзак с книгами
 item.grimoireofgaia.bag_record.name=Винировый Рюкзак
 item.grimoireofgaia.bag_arrow.name=Колчан со стрелами
 item.grimoireofgaia.box_old.name=Старый багаж
+item.grimoireofgaia.box_hat.name=Коробка на Голове
 item.grimoireofgaia.chest_0.name=Сундук Сокровищницы
 item.grimoireofgaia.chest_1.name=Сундук Джунглей
 item.grimoireofgaia.chest_2.name=Пустынный Сундук
+item.grimoireofgaia.weapon_projectile_bomb.name=Бомба
 item.grimoireofgaia.weapon_prop_0.name=Посох Края
 item.grimoireofgaia.weapon_prop_1.name=Посох Ифрита
 item.grimoireofgaia.weapon_prop_2.name=Металлическая Дубина
@@ -81,11 +92,11 @@ item.grimoireofgaia.weapon_prop_projectile_magic.name=Магический Сн�
 item.grimoireofgaia.weapon_prop_projectile_poison.name=Ядовитый Снаряд
 item.grimoireofgaia.weapon_prop_projectile_web.name=Паутинный Снаряд
 item.grimoireofgaia.weapon_prop_enchanted.name=Зачарованный подшипник
+item.grimoireofgaia.weapon_prop_3.name=Метла
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот Минотавра
 item.grimoireofgaia.shield_prop_0.name=Каменный Щит
 item.grimoireofgaia.shield_prop_1.name=Железный Щит
 item.grimoireofgaia.shield_prop_2.name=Золотой Щит
-item.grimoireofgaia.weapon_prop_broom.name=Метла
-item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот Минотавра
 item.grimoireofgaia.weapon_fan.name=Опахало
 item.grimoireofgaia.weapon_fan_ice.name=Изысканное Ледяное Опахало
 item.grimoireofgaia.weapon_fan_fire.name=Изысканное Пламенное Опахало
@@ -110,13 +121,14 @@ item.grimoireofgaia.accessory_trinket_wither.name=Иссохшее Сердце
 item.grimoireofgaia.accessory_trinket_levitation.name=Путы
 item.grimoireofgaia.accessory_cursed.name=Тяжеленная Гантель
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear_mob.name=Клетка
-item.grimoireofgaia.accessory_headgear_bolt.name=Железные Штыри
-item.grimoireofgaia.accessory_headgear_arrow.name=Стрела в голове
-item.grimoireofgaia.accessory_headgear_doll.name=Усталая горничная
-item.grimoireofgaia.accessory_headgear_ears_elf.name=Уши Эльфа
+item.grimoireofgaia.accessory_headgear.name=Книга на Лице
+item.grimoireofgaia.accessory_headgear_0.name=Клетка
+item.grimoireofgaia.accessory_headgear_1.name=Железные Штыри
+item.grimoireofgaia.accessory_headgear_2.name=Стрела в голове
+item.grimoireofgaia.accessory_headgear_3.name=Усталая горничная
+item.grimoireofgaia.accessory_headgear_4.name=эльфийские Уши
 #ITEM_SPAWNEGG
-item.grimoireofgaia.spawnegg.name=Яйцо Призыва: 
+item.grimoireofgaia.spawnegg.name=Яйцо Призыва –
 #BLOCK_NAMES
 tile.grimoireofgaia.bust_valkyrie.name=Бюст Валькирии
 tile.grimoireofgaia.bust_vampire.name=Бюст Вампира
@@ -125,8 +137,11 @@ tile.grimoireofgaia.doll_creeper_girl.name=Кукла Девушки-Крипе�
 tile.grimoireofgaia.doll_ender_girl.name=Кукла Девушки Края
 tile.grimoireofgaia.doll_slime_girl.name=Кукла Слизняшки
 tile.grimoireofgaia.doll_maid.name=Кукла Горничной
+tile.grimoireofgaia.deco_bust_minotaur.name=бюст Минотавра
 tile.grimoireofgaia.deco_garden_gnome.name=Садовый Гном
 tile.grimoireofgaia.deco_mandragora_pot.name=Мандрагора в Горшке
+tile.grimoireofgaia.deco_nest_harpy.name=гнездо Гарпии
+tile.grimoireofgaia.fire_camp.name=Костёр
 tile.grimoireofgaia.spawn_guard.name=Талисман Защиты
 tile.grimoireofgaia.web_temp.name=Увядающая Паутина
 #ENTITY_NAMES
@@ -139,6 +154,7 @@ entity.grimoireofgaia.banshee.name=Банши
 entity.grimoireofgaia.baphomet.name=Бафомет
 entity.grimoireofgaia.bee.name=Медоносная Пчела
 entity.grimoireofgaia.bone_knight.name=Закостенелый Рыцарь
+entity.grimoireofgaia.campfire.name=Лагерь
 entity.grimoireofgaia.cecaelia.name=Сцила
 entity.grimoireofgaia.centaur.name=Кентарв
 entity.grimoireofgaia.cobble_golem.name=каменный Голлем
@@ -152,6 +168,7 @@ entity.grimoireofgaia.dhampir.name=Дампир
 entity.grimoireofgaia.dryad.name=Дриада
 entity.grimoireofgaia.dullahan.name=Даллахан
 entity.grimoireofgaia.dwarf.name=Дворф
+entity.grimoireofgaia.elf.name=Эльф
 entity.grimoireofgaia.ender_dragon_girl.name=Девушка-Дракон Края
 entity.grimoireofgaia.ender_eye.name=Глаз Края
 entity.grimoireofgaia.flesh_lich.name=Лич Плоти
@@ -186,6 +203,8 @@ entity.grimoireofgaia.succubus.name=Суккуб
 entity.grimoireofgaia.toad.name=Лягушка
 entity.grimoireofgaia.valkyrie.name=Валькирия
 entity.grimoireofgaia.vampire.name=Вампир
+entity.grimoireofgaia.vase.name=Древняя Ваза
+entity.grimoireofgaia.vase_nether.name=Адская Древняя Ваза
 entity.grimoireofgaia.werecat.name=Кошка-оборотень
 entity.grimoireofgaia.witch.name=Ведьма
 entity.grimoireofgaia.wither_cow.name=Корова-иссушитель
@@ -245,6 +264,9 @@ item.grimoireofgaia.WeaponBookEnder.desc=ПКМ, чтобы бросить Же�
 item.grimoireofgaia.weapon_debug.desc=Используется для тестирования
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=Не даёт "Дневным" мобам спавниться в радиусе %d блоков(ка)
+#MISC
+text.grimoireofgaia.spawnDaysPassed=Функция задержки спавна активированна.
+text.grimoireofgaia.SpawnDaysSet=Пройдёт %d дней прежде, чем начнут спавниться моды Гримуара Гайи.
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=Частота Спавна
 configgui.grimoireofgaia.category.Menu0.general.tooltip=(ТРЕБУЕТСЯ ПРЕЗАГРУЗКА)\nУстановите в 0 чтобы отключить естественный спавн.\nДень: (<30 Редкие, >60 Обычные)\nНочь: (<60 Редкие, >100 Обычные)\n(ВНИМАНИЕ: Если сделать эти значения слишком высокими, то другие мобы не смогут спавниться!)

@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -29,6 +30,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -37,7 +39,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
-	
+
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaSludgeGirl.class, DataSerializers.VARINT);
 
@@ -117,7 +119,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.AGGRESSIVE_SAY;
+		return GaiaSounds.AGGRESSIVE_SAY;
 	}
 
 	@Override
@@ -133,6 +135,11 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_SLIME_JUMP, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SLUDGE_GIRL;
 	}
 
 	@Override
@@ -163,7 +170,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 			}
 		}
 	}
-	
+
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
@@ -186,7 +193,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
-	
+
 	/* ALTERNATE SKIN */
 	@Override
 	protected void entityInit() {

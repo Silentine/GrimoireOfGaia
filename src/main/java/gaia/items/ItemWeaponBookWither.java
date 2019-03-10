@@ -1,6 +1,6 @@
 package gaia.items;
 
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -51,7 +51,7 @@ public class ItemWeaponBookWither extends ItemWeaponBook {
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase host) {
 		stack.damageItem(1, host);
-		host.playSound(Sounds.BOOK_HIT, 1.0F, 1.0F);
+		host.playSound(GaiaSounds.BOOK_HIT, 1.0F, 1.0F);
 		target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80, 0));
 		return true;
 	}

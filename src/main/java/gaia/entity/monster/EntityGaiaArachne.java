@@ -7,9 +7,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -328,17 +329,17 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ARACHNE_SAY;
+		return GaiaSounds.ARACHNE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ARACHNE_HURT;
+		return GaiaSounds.ARACHNE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ARACHNE_DEATH;
+		return GaiaSounds.ARACHNE_DEATH;
 	}
 
 	@Override
@@ -346,16 +347,16 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
 	}
 
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
-	}
-
-	@Override
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+		case 0:
+			return GaiaLootTableList.ENTITIES_GAIA_ARACHNE;
+		case 1:
+			return LootTableList.ENTITIES_WITCH;
+		default:
+			return GaiaLootTableList.ENTITIES_GAIA_ARACHNE;
+		}
 	}
 
 	@Override

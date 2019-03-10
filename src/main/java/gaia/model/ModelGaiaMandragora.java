@@ -1,12 +1,9 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaMandragora;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -219,9 +216,9 @@ public class ModelGaiaMandragora extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		EntityGaiaMandragora entityGaiaMandragora = (EntityGaiaMandragora) entityIn;
 
-		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+		if (!entityGaiaMandragora.isChild()) {
 			head.render(scale);
 			headaccessory.render(scale);
 			neck.render(scale);

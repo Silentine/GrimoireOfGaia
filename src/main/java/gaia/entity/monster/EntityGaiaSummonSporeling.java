@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -49,7 +51,7 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((EntityAttributes.ATTACK_DAMAGE_1) * 0.5);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1 * 0.5);
 	}
-	
+
 	@Override
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
 		return super.canAttackClass(cls) && cls != EntityGaiaMatango.class;
@@ -59,14 +61,19 @@ public class EntityGaiaSummonSporeling extends EntityMobHostileBase {
 	public boolean isAIDisabled() {
 		return false;
 	}
-	
+
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
-	
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SPORELING;
+	}
+
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		return livingdata;

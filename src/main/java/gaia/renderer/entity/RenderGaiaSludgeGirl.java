@@ -13,8 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSludgeGirl extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/sludge_girl01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/sludge_girl02.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/sludge_girl01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/sludge_girl02.png");
 
 	public RenderGaiaSludgeGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSludgeGirl(), shadowSize);

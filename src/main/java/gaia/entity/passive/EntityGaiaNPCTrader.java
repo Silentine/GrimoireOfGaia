@@ -3,7 +3,7 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -19,23 +19,25 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.TRADER_SAY;
+		return GaiaSounds.TRADER_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.TRADER_HURT;
+		return GaiaSounds.TRADER_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.TRADER_DEATH;
+		return GaiaSounds.TRADER_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_TRADER, 1, 0), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_TRADER, 1, 0), 0.0F);
+			}
 		}
 	}
 
@@ -53,6 +55,7 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 0)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 1)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 1), new ItemStack(GaiaItems.CHEST, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 4, 1), new ItemStack(GaiaItems.BOX_HAT, 1, 0)));
 
 		// Sell List
 		// Materials

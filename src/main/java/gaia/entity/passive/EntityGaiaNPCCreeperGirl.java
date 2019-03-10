@@ -3,7 +3,7 @@ package gaia.entity.passive;
 import gaia.entity.EntityMobMerchant;
 import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -20,23 +20,25 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.CREEPERGIRL_SAY;
+		return GaiaSounds.CREEPERGIRL_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.CREEPERGIRL_HURT;
+		return GaiaSounds.CREEPERGIRL_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.CREEPERGIRL_DEATH;
+		return GaiaSounds.CREEPERGIRL_DEATH;
 	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1, 0), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1, 0), 0.0F);
+			}
 		}
 	}
 

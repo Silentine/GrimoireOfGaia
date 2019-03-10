@@ -1,7 +1,7 @@
 package gaia.items;
 
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +40,7 @@ public class ItemSpawn extends ItemGaiaLootable {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
 		ItemStack stack = player.getHeldItem(handIn);
 
-		player.playSound(Sounds.BOX_OPEN_2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		player.playSound(GaiaSounds.BOX_OPEN_2, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 		Random random = new Random();
 		int i = random.nextInt(6);

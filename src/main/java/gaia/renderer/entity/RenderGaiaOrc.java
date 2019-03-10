@@ -14,9 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaOrc extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/orc01.png");
-	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/orc02.png");
-	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/alternate/orc03.png");
+	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/orc01.png");
+	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/orc02.png");
+	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/orc03.png");
 
 	public RenderGaiaOrc(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaOrc(), shadowSize);

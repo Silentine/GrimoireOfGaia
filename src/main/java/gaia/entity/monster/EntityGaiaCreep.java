@@ -2,9 +2,12 @@ package gaia.entity.monster;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
@@ -18,7 +21,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -31,10 +34,10 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -208,10 +211,10 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	private void explode() {
 		if (!world.isRemote) {
-			boolean flag = world.getGameRules().getBoolean("mobGriefing");
+			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(world, this);
 			float f = getPowered() ? 2.0F : 1.0F;
 			dead = true;
-			world.createExplosion(this, posX, posY, posZ, explosionRadius * f, flag);
+			world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius * f, flag);
 			setDead();
 		}
 	}
@@ -232,6 +235,11 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_CREEPER_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_CREEP;
 	}
 
 	@Override
@@ -265,7 +273,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
 			}
-			
+
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_CREEPER_GIRL), 1);
 			}
@@ -282,8 +290,8 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getCreeperFlashIntensity(float par1) {
-		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * par1) / (fuseTime - 2);
+	public float getCreeperFlashIntensity(float partialTickTime) {
+		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * partialTickTime) / (fuseTime - 2);
 	}
 
 	@Override

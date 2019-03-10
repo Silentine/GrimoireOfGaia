@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -31,6 +32,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -39,6 +41,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSuccubus extends EntityMobHostileBase {
+	
 	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaSuccubus.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaSuccubus(World worldIn) {
@@ -132,22 +135,27 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SUCCUBUS_SAY;
+		return GaiaSounds.SUCCUBUS_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SUCCUBUS_HURT;
+		return GaiaSounds.SUCCUBUS_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SUCCUBUS_DEATH;
+		return GaiaSounds.SUCCUBUS_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SUCCUBUS;
 	}
 
 	@Override
@@ -230,7 +238,7 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return EntityAttributes.CHUNK_LIMIT_1;
+		return 2;
 	}
 	/* SPAWN CONDITIONS */
 }

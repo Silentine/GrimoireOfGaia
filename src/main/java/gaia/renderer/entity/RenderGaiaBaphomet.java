@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaBaphomet extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/baphomet.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/baphomet.png");
 
 	public RenderGaiaBaphomet(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaBaphomet(), shadowSize);

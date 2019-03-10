@@ -4,13 +4,10 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.BlockWeb;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,13 +30,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @see BlockFire
  * @see BlockWeb
  */
-public class BlockWebTemp extends BlockBase implements net.minecraftforge.common.IShearable {
+public class BlockWebTemp extends BlockBase {
 
 	public BlockWebTemp() {
 		super(Material.WEB, "web_temp");
-		this.setLightOpacity(1);
-		this.setHardness(0.2F);
-		this.setTickRandomly(true);
+		setLightOpacity(1);
+		setHardness(0.2F);
+		setTickRandomly(true);
+		setCreativeTab(null);
 	}
 
 	/**
@@ -65,10 +63,6 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 		return false;
 	}
 
-	protected boolean canSilkHarvest() {
-		return true;
-	}
-
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
@@ -84,16 +78,6 @@ public class BlockWebTemp extends BlockBase implements net.minecraftforge.common
 		} else {
 			super.harvestBlock(worldIn, player, pos, state, te, stack);
 		}
-	}
-
-	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-		return true;
-	}
-
-	@Override
-	public java.util.List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-		return com.google.common.collect.Lists.newArrayList(new ItemStack(Item.getItemFromBlock(this)));
 	}
 
 	/**

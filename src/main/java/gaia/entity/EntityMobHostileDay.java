@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 /**
  * Apply all changes made here to EntityMobPassiveDay (except for AI).
  *
- * @see EntityMobPassiveDay
+ * @see EntityMobAssistDay
  */
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
@@ -34,6 +34,16 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
+		super.getCanSpawnHere();
+		
+		if (GaiaConfig.SPAWN.spawnDaysPassed) {
+			return daysPassed() && spawnConditions();
+		} else {
+			return spawnConditions();
+		}
+	}
+
+	public boolean spawnConditions() {
 		if (this.world.isDaytime()) {
 			float f = this.getBrightness();
 			if (f > 0.5F && this.world.canSeeSky(this.getPosition())) {

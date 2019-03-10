@@ -1,8 +1,11 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
@@ -23,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
@@ -108,7 +112,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		}
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
@@ -135,6 +139,11 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_WITHER_COW;
 	}
 
 	@Override
@@ -184,7 +193,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return EntityAttributes.CHUNK_LIMIT_1;
+		return 1;
 	}
 	/* SPAWN CONDITIONS */
 }

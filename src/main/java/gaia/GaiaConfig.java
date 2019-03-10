@@ -43,6 +43,10 @@ public class GaiaConfig {
 		/* 
 		 * NETHER 
 		 */
+		@Config.LangKey("entity.grimoireofgaia.vase_nether.name")
+		@Config.Comment("Ancient Vase (Nether)")
+		@Config.RequiresMcRestart
+		public int spawnVaseNether = 12;
 		@Config.LangKey("entity.grimoireofgaia.succubus.name")
 		@Config.Comment("Succubus")
 		@Config.RequiresMcRestart
@@ -50,11 +54,11 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.wither_cow.name")
 		@Config.Comment("Wither Cow")
 		@Config.RequiresMcRestart
-		public int spawnWitherCow = 8;
+		public int spawnWitherCow = 12;
 		@Config.LangKey("entity.grimoireofgaia.baphomet.name")
 		@Config.Comment("Baphomet")
 		@Config.RequiresMcRestart
-		public int spawnBaphomet = 8;
+		public int spawnBaphomet = 12;
 		/*
 		 * OCEAN,
 		 * RIVER,
@@ -100,6 +104,10 @@ public class GaiaConfig {
 		@Config.Comment("Banshee")
 		@Config.RequiresMcRestart
 		public int spawnBanshee = 80;
+		@Config.LangKey("entity.grimoireofgaia.campfire.name")
+		@Config.Comment("Campsite")
+		@Config.RequiresMcRestart
+		public int spawnCampsite = 30;
 		/*
 		 * ICE_PLAINS,
 		 * ICE_MOUNTAINS
@@ -166,11 +174,11 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.satyress.name")
 		@Config.Comment("Satyress")
 		@Config.RequiresMcRestart
-		public int spawnSatyress = 30;
+		public int spawnSatyress = 20;
 		@Config.LangKey("entity.grimoireofgaia.centaur.name")
 		@Config.Comment("Centaur")
 		@Config.RequiresMcRestart
-		public int spawnCentaur = 30;
+		public int spawnCentaur = 20;
 		@Config.LangKey("entity.grimoireofgaia.harpy.name")
 		@Config.Comment("Harpy")
 		@Config.RequiresMcRestart
@@ -258,7 +266,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
 		@Config.Comment("Cyclops")
 		@Config.RequiresMcRestart
-		public int spawnCyclops = 60;
+		public int spawnCyclops = 40;
 		@Config.LangKey("entity.grimoireofgaia.yuki-onna.name")
 		@Config.Comment("Yuki-Onna")
 		@Config.RequiresMcRestart
@@ -308,6 +316,10 @@ public class GaiaConfig {
 		/*
 		 * UNDERGROUND
 		 */
+		@Config.LangKey("entity.grimoireofgaia.vase.name")
+		@Config.Comment("Ancient Vase")
+		@Config.RequiresMcRestart
+		public int spawnVase = 40;
 		@Config.LangKey("entity.grimoireofgaia.creep.name")
 		@Config.Comment("Creep")
 		@Config.RequiresMcRestart
@@ -323,7 +335,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.mimic.name")
 		@Config.Comment("Mimic")
 		@Config.RequiresMcRestart
-		public int spawnMimic = 80;
+		public int spawnMimic = 40;
 		@Config.LangKey("entity.grimoireofgaia.deathword.name")
 		@Config.Comment("Deathword")
 		@Config.RequiresMcRestart

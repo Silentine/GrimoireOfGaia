@@ -5,9 +5,10 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,9 +28,14 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -39,6 +45,11 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMandragora extends EntityMobHostileDay {
+	private static final String IS_CHILD_TAG = "IsBaby";
+	private static final String IS_SCREAMING_TAG = "IsScreaming";
+
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaMandragora.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaMandragora.class, DataSerializers.BOOLEAN);
 
 	private int shovelAttack;
 
@@ -134,6 +145,10 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	@Override
 	public void onLivingUpdate() {
+		if (isScreaming()) {
+			beaconDebuff(2, MobEffects.NAUSEA, 100, 0);
+		}
+
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -166,29 +181,24 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		super.onLivingUpdate();
 	}
 
-	private void setBodyType(String id) {
-		if (id == "none") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-		}
-
-		if (id == "baby") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.MANDRAGORA_SAY;
+		return GaiaSounds.MANDRAGORA_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.MANDRAGORA_HURT;
+		return GaiaSounds.MANDRAGORA_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.MANDRAGORA_DEATH;
+		return GaiaSounds.MANDRAGORA_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MANDRAGORA;
 	}
 
 	@Override
@@ -239,7 +249,8 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setBodyType("baby");
+		setChild(true);
+		setScreaming(true);
 
 		return ret;
 	}
@@ -258,6 +269,50 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		}
 
 		return f;
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(IS_CHILD, true);
+		dataManager.register(IS_SCREAMING, true);
+	}
+
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
+	public boolean isScreaming() {
+		return ((Boolean) getDataManager().get(IS_SCREAMING)).booleanValue();
+	}
+
+	public void setScreaming(boolean isScreaming) {
+		getDataManager().set(IS_SCREAMING, Boolean.valueOf(isScreaming));
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean(IS_CHILD_TAG, isChild());
+		compound.setBoolean(IS_SCREAMING_TAG, isScreaming());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
+
+		if (compound.hasKey(IS_SCREAMING_TAG)) {
+			boolean b1 = compound.getBoolean(IS_SCREAMING_TAG);
+			setScreaming(b1);
+		}
 	}
 	/* CHILD CODE */
 

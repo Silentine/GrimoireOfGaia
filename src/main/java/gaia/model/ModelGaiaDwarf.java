@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModelGaiaDwarf extends ModelGaia {
 
 	private ModelRenderer head;
+	private ModelRenderer headlight;
 	private ModelRenderer neck;
 	private ModelRenderer body;
 	private ModelRenderer rightarm;
@@ -35,6 +36,10 @@ public class ModelGaiaDwarf extends ModelGaia {
 		headaccessory.setRotationPoint(0F, 4F, 0F);
 		headaccessory.setTextureSize(64, 32);
 		setRotation(headaccessory, 0F, 0F, 0F);
+		headlight = new ModelRenderer(this, 64, 44);
+		headlight.addBox(-1.5F, -9F, -5F, 3, 3, 3);
+		headlight.setRotationPoint(0F, 4F, 0F);
+		setRotation(headlight, 0F, 0F, 0F);
 		ModelRenderer headbeard = new ModelRenderer(this, 64, 18);
 		headbeard.addBox(-4.5F, -2F, -4.5F, 9, 9, 9);
 		headbeard.setRotationPoint(0F, 4F, 0F);
@@ -118,6 +123,7 @@ public class ModelGaiaDwarf extends ModelGaia {
 		setRotation(leftlegboot, 0F, 0F, 0F);
 
 		convertToChild(head, headaccessory);
+		convertToChild(head, headlight);
 		convertToChild(head, headbeard);
 		convertToChild(rightarm, rightarmpauldron);
 		convertToChild(leftarm, leftarmpauldron);
@@ -144,13 +150,21 @@ public class ModelGaiaDwarf extends ModelGaia {
 
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		EntityGaiaDwarf entityGaiaDwarf = (EntityGaiaDwarf) entityIn;
+
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
 
+		if (entityGaiaDwarf.getMobType() == 2) {
+			headlight.showModel = true;
+		} else {
+			headlight.showModel = false;
+		}
+
 		// arms
 		rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.rotateAngleX = 0.0F;
+		leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount * 0.5F;
 
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
@@ -169,9 +183,9 @@ public class ModelGaiaDwarf extends ModelGaia {
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.0872665F;
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
-		// legs
-		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+		// legs (walk_normal)
+		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 	}
 
 	private void holdingBow(float ageInTicks) {

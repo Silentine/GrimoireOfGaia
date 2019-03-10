@@ -9,7 +9,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGaiaGryphon extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/gryphon.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/gryphon.png");
 	private static final float SCALE_AMOUNT = 1.25F;
 
 	public RenderGaiaGryphon(RenderManager renderManager, float shadowSize) {

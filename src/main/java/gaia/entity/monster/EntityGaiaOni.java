@@ -5,8 +5,9 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -39,9 +41,10 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaOni extends EntityMobHostileBase {
-	
+
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaOni.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_BUFFED = EntityDataManager.<Boolean>createKey(EntityGaiaOni.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
@@ -131,7 +134,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -178,17 +181,22 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.ONI_SAY;
+		return GaiaSounds.ONI_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.ONI_HURT;
+		return GaiaSounds.ONI_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.ONI_DEATH;
+		return GaiaSounds.ONI_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_ONI;
 	}
 
 	@Override
@@ -230,7 +238,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		if (world.rand.nextInt(4) == 0) {
 			setTextureType(1);
 		}
@@ -241,12 +249,13 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 		return ret;
 	}
-	
+
 	/* ALTERNATE SKIN */
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(SKIN, 0);
+		dataManager.register(IS_BUFFED, false);
 	}
 
 	public int getTextureType() {
@@ -255,6 +264,14 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 	private void setTextureType(int par1) {
 		dataManager.set(SKIN, par1);
+	}
+	
+	public boolean isBuffed() {
+		return ((Boolean) getDataManager().get(IS_BUFFED)).booleanValue();
+	}
+
+	public void setBuffed(boolean isBuffed) {
+		getDataManager().set(IS_BUFFED, Boolean.valueOf(isBuffed));
 	}
 
 	@Override
@@ -270,7 +287,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
-		
+
 		setCombatTask();
 	}
 	/* ALTERNATE SKIN */

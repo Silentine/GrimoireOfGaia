@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaDeathword extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/deathword.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/deathword.png");
 
 	public RenderGaiaDeathword(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDeathword(), shadowSize);

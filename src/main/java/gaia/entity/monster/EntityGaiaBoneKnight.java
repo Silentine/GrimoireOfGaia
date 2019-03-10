@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -154,6 +156,11 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 
 	protected void playStepSound() {
 		playSound(SoundEvents.ENTITY_SKELETON_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BONE_KNIGHT;
 	}
 
 	@Override

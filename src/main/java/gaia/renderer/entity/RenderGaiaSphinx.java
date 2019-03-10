@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSphinx extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/sphinx.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/sphinx.png");
 
 	public RenderGaiaSphinx(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSphinx(), shadowSize);

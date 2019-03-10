@@ -151,12 +151,6 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	}
 
 	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
-	}
-
-	@Override
 	@Nullable
 	protected ResourceLocation getLootTable() {
 		switch (rand.nextInt(6)) {

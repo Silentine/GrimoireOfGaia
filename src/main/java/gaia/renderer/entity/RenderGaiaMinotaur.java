@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaMinotaur extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/layer/eyes_Minotaur.png");
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/models/minotaur.png");
+	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_Minotaur.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/minotaur.png");
 
 	public RenderGaiaMinotaur(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaMinotaur(), shadowSize);

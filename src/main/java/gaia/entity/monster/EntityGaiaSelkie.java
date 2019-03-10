@@ -7,12 +7,14 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaItems;
-import gaia.init.Sounds;
+import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -29,6 +31,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,6 +40,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -273,17 +277,22 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return Sounds.SELKIE_SAY;
+		return GaiaSounds.SELKIE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return Sounds.SELKIE_HURT;
+		return GaiaSounds.SELKIE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return Sounds.SELKIE_DEATH;
+		return GaiaSounds.SELKIE_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_SELKIE;
 	}
 
 	@Override
@@ -316,6 +325,12 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BAG_ARROW, 1);
+			}
+			
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				ItemStack enchantmentBook = new ItemStack(Items.ENCHANTED_BOOK);
+				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.LURE, 1));
+				entityDropItem(enchantmentBook, 1);
 			}
 		}
 	}

@@ -1,5 +1,27 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
 #NEW
+#ITEM_NAMES
+item.grimoireofgaia.box_hat.name=Hat Box
+item.grimoireofgaia.pickup_heart.name=Heart
+item.grimoireofgaia.weapon_projectile_bomb.name=Bomb
+
+#ITEM_HEADGEAR
+item.grimoireofgaia.accessory_headgear.name=Book on Face
+
+#BLOCK_NAMES
+tile.grimoireofgaia.deco_nest_harpy.name=Harpy Nest
+tile.grimoireofgaia.deco_bust_minotaur.name=Minotaur Bust
+tile.grimoireofgaia.fire_camp.name=Campfire
+
+#ENTITY_NAMES
+entity.grimoireofgaia.elf.name=Elf
+entity.grimoireofgaia.campfire.name=Campsite
+entity.grimoireofgaia.vase.name=Ancient Vase
+entity.grimoireofgaia.vase_nether.name=Ancient Vase (Nether)
+
+#MISC
+text.grimoireofgaia.spawnDaysPassed=Spawn Day Delay enabled.
+text.grimoireofgaia.SpawnDaysSet=%d days required to pass before spawns are enabled.
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Pepita de Ferro
