@@ -42,7 +42,7 @@ public class EntityGaiaProjectileBomb extends EntityThrowable {
 	            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)2);
 			}
 
-			this.world.newExplosion(this, this.posX, this.posY, this.posZ, 2.0F, false, false);
+			this.world.newExplosion(this, this.posX, this.posY, this.posZ, 1.5F, false, false);
 			this.setDead();
 		}
 	}

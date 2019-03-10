@@ -283,11 +283,11 @@ public class EntityGaiaGoblin extends EntityMobAssistDay implements IRangedAttac
 	public void mobClass(DifficultyInstance difficulty, int id) {
 		switch (id) {
 		case 0:
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB));
-			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.FLINT_AND_STEEL));
+			setEquipmentBasedOnDifficulty(difficulty);
 			break;
 		case 1:
-			setEquipmentBasedOnDifficulty(difficulty);
+			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB));
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.FLINT_AND_STEEL));
 			break;
 		}
 
