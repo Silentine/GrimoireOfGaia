@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -245,7 +246,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 			zombie = new EntityZombie(world);
 			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null, null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
+			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT, 1));
 			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
 			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
@@ -293,16 +294,17 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 		return GaiaSounds.SHAMAN_DEATH;
 	}
 
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
-	}
-
 	@Nullable
 	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_SHAMAN;
+			case 1:
+				return LootTableList.ENTITIES_WITCH;
+			default:
+				return GaiaLootTableList.ENTITIES_GAIA_SHAMAN;
+		}
 	}
 
 	@Override

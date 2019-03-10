@@ -1,5 +1,8 @@
 {
     "variants": {
-        "": { "model": "grimoireofgaia:block/bust_valkyrie" }
+        "facing=north":   { "model": "grimoireofgaia:bust_valkyrie", "y": 180           },
+        "facing=south":   { "model": "grimoireofgaia:bust_valkyrie", "y": 270           },
+        "facing=west":    { "model": "grimoireofgaia:bust_valkyrie"                     },
+        "facing=east":    { "model": "grimoireofgaia:bust_valkyrie", "y": 90            }
     }
 }

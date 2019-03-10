@@ -24,6 +24,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -35,9 +36,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 
 /**
- * Apply all changes made here to EntityMobPassiveBase (except for AI).
+ * Apply all changes made here to EntityMobAssistBase (except for AI).
  *
- * @see EntityMobPassiveBase
+ * @see EntityMobAssistBase
  */
 public abstract class EntityMobHostileBase extends EntityMob implements IRangedAttackMob {
 
@@ -158,9 +159,11 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	/**
 	 * Adapted from @TileEntityBeacon
 	 *
-	 * @param effect   Potion Effect to Implement
-	 * @param duration Duration of potion effect in ticks (20 ticks = 1 second)
-	 * @see TileEntityBeacon
+	 * @param range     Range of effect
+	 * @param effect    Potion effect
+	 * @param duration  Duration of potion effect in ticks (20 ticks = 1 second)
+	 * @param amplifier Potion level
+	 * @see             TileEntityBeacon
 	 */
 	protected void beaconDebuff(double range, Potion effect, int duration, int amplifier) {
 		if (!world.isRemote) {
@@ -182,7 +185,7 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	 * @param potionIn    Potion effect
 	 * @param durationIn  Potion duration
 	 * @param amplifierIn Potion level
-	 * @see EntityAreaEffectCloud
+	 * @see               EntityAreaEffectCloud
 	 */
 	protected void spawnLingeringCloud(EntityLivingBase sourceMob, Potion potionIn, int durationIn, int amplifierIn) {
 
@@ -251,6 +254,15 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 		return false;
 	}
 	/* SPAWN CONDITIONS */
+
+	/**
+	 * Used to access dropFewItems despite having a LootTable
+	 */
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
+		super.dropLoot(wasRecentlyHit, lootingModifier, source);
+		dropFewItems(wasRecentlyHit, lootingModifier);
+	}
 
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {

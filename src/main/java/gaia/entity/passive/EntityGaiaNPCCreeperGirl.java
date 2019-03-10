@@ -42,8 +42,10 @@ public class EntityGaiaNPCCreeperGirl extends EntityMobMerchant {
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (this.rand.nextInt(1) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_CREEPER_GIRL, 1), 0.0F);
+			}
 		}
 	}
 

@@ -5,6 +5,7 @@ import gaia.GaiaReference;
 import gaia.ItemGroupGaia;
 import gaia.block.BlockBust;
 import gaia.block.BlockDecoration;
+import gaia.block.BlockFireCamp;
 import gaia.block.BlockSpawnGuard;
 import gaia.block.BlockWebTemp;
 import net.minecraft.block.Block;
@@ -32,8 +33,11 @@ public class GaiaBlocks {
 	public static Block DOLL_MAID;
 	public static Block DECO_GARDEN_GNOME;
 	public static Block DECO_MANDRAGORA_POT;
+	public static Block DECO_BUST_MINOTAUR;
+	public static Block DECO_NEST_HARPY;
 	public static Block SPAWN_GUARD;
 	public static Block WEB_TEMP;
+	public static Block FIRE_CAMP;
 	
 	public static ArrayList<Block> BLOCKS = new ArrayList<>();
 
@@ -42,17 +46,20 @@ public class GaiaBlocks {
 		Gaia.LOGGER.info("Registering blocks...");
 		IForgeRegistry<Block> registry = event.getRegistry();
 		
-		BUST_SPHINX = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_sphinx");
-		BUST_VALKYRIE = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_valkyrie");
-		BUST_VAMPIRE = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_vampire");
-		DOLL_CREEPER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_creeper_girl");
-		DOLL_ENDER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_ender_girl");
-		DOLL_SLIME_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_slime_girl");
-		DOLL_MAID = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "doll_maid");
-		DECO_GARDEN_GNOME =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_garden_gnome");
-		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_pot_mandragora");
+		BUST_SPHINX = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_sphinx");
+		BUST_VALKYRIE = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_valkyrie");
+		BUST_VAMPIRE = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_vampire");
+		DOLL_CREEPER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_creeper_girl");
+		DOLL_ENDER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_ender_girl");
+		DOLL_SLIME_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_slime_girl");
+		DOLL_MAID = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_maid");
+		DECO_GARDEN_GNOME =  registerBlock(new BlockDecoration(Block.Properties.create(Material.CLOTH)), "deco_garden_gnome");
+		DECO_MANDRAGORA_POT =  registerBlock(new BlockDecoration(Block.Properties.create(Material.CLOTH)), "deco_pot_mandragora");
+		DECO_BUST_MINOTAUR = registerBlock(new BlockDecoration(Block.Properties.create(Material.ROCK)), "deco_bust_minotaur");
+		DECO_NEST_HARPY = registerBlock(new BlockDecoration(Block.Properties.create(Material.LEAVES)), "deco_nest_harpy");
 		SPAWN_GUARD =  registerBlock(new BlockSpawnGuard(Block.Properties.create(Material.CLOTH)), "spawn_guard");
-		WEB_TEMP =  registerBlock(new BlockWebTemp(Block.Properties.create(Material.WEB)), "web_temp");
+		WEB_TEMP =  registerHiddenBlock(new BlockWebTemp(Block.Properties.create(Material.WEB)), "web_temp");
+		FIRE_CAMP = registerHiddenBlock(new BlockFireCamp(Block.Properties.create(Material.FIRE)), "fire_camp");
 
 		registry.registerAll(BLOCKS.toArray(new Block[0]));
 
@@ -62,12 +69,18 @@ public class GaiaBlocks {
 	public static <T extends Block> T registerBlock(T block, String registry)
     {
     	block.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, registry));
-        return registerBlock(block, new ItemBlock(block, itemBuilder()));
+        return registerBlock(block, new ItemBlock(block, itemBuilder().group(ItemGroupGaia.INSTANCE)));
     }
+
+	public static <T extends Block> T registerHiddenBlock(T block, String registry)
+	{
+		block.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, registry));
+		return registerBlock(block, new ItemBlock(block, itemBuilder()));
+	}
 	
 	private static Item.Properties itemBuilder()
 	{
-		return new Item.Properties().group(ItemGroupGaia.INSTANCE);
+		return new Item.Properties();
 	}
 	
 	public static <T extends Block> T registerBlock(T block, ItemBlock item)

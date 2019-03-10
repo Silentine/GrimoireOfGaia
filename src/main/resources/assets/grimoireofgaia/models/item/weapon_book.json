@@ -1,9 +1,9 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
-    "textures": {
-        "0": "grimoireofgaia:item/models/book/weapon_book"
-    },
+	"textures": {
+		"0": "grimoireofgaia:item/models/book/weapon_book"
+	},
 	"elements": [
 		{
 			"name": "body1",
@@ -21,8 +21,8 @@
 			"to": [9, 9, 11],
 			"faces": {
 				"north": {"uv": [0, 2, 2, 12], "texture": "#0"},
-				"up": {"uv": [2, 0, 8, 2], "texture": "#0", "rotation": 90},
-				"down": {"uv": [8, 0, 14, 2], "texture": "#0", "rotation": 270}
+				"up": {"uv": [2, 0, 8, 2], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [8, 0, 14, 2], "rotation": 270, "texture": "#0"}
 			}
 		},
 		{
@@ -32,8 +32,8 @@
 			"faces": {
 				"north": {"uv": [2, 2, 3, 12], "texture": "#0"},
 				"west": {"uv": [16, 2, 10, 12], "texture": "#0"},
-				"up": {"uv": [2, 2, 8, 3], "texture": "#0", "rotation": 90},
-				"down": {"uv": [2, 2, 8, 3], "texture": "#0", "rotation": 270}
+				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [2, 2, 8, 3], "rotation": 270, "texture": "#0"}
 			}
 		},
 		{
@@ -43,8 +43,8 @@
 			"faces": {
 				"north": {"uv": [2, 2, 3, 12], "texture": "#0"},
 				"east": {"uv": [8, 2, 2, 12], "texture": "#0"},
-				"up": {"uv": [2, 2, 8, 3], "texture": "#0", "rotation": 90},
-				"down": {"uv": [2, 11, 8, 12], "texture": "#0", "rotation": 270}
+				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [2, 11, 8, 12], "rotation": 270, "texture": "#0"}
 			}
 		},
 		{
@@ -59,22 +59,10 @@
 		}
 	],
 	"display": {
-		"gui": {
-			"rotation": [90, 45, 270],
-			"translation": [2.5, 2.5, 0],
-			"scale": [1.25, 1.25, 1.25]
-		},
-		"ground": {
-			"rotation": [0, 0, 0],
-			"translation": [0, 2, 0],
-			"scale": [0.5, 0.5, 0.5]
-		},
-		"fixed": {
-			"rotation": [0, -90, 0],
-			"translation": [0, 4, -1.5]
-		},
 		"thirdperson_righthand": {
-			"rotation": [0, 0, 0],
+			"translation": [0, 0.75, -1]
+		},
+		"thirdperson_lefthand": {
 			"translation": [0, 0.75, -1]
 		},
 		"firstperson_righthand": {
@@ -84,6 +72,19 @@
 		"firstperson_lefthand": {
 			"rotation": [0, 90, 0],
 			"translation": [0, 2.5, 0]
+		},
+		"ground": {
+			"translation": [0, 2, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [90, 45, 270],
+			"translation": [2.5, 2.5, 0],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"fixed": {
+			"rotation": [0, -90, 0],
+			"translation": [0, 4, -1.5]
 		}
 	}
 }

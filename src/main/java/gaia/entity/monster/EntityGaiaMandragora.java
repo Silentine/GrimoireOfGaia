@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -26,9 +27,13 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -37,7 +42,14 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class EntityGaiaMandragora extends EntityMobHostileDay {
+	private static final String IS_CHILD_TAG = "IsBaby";
+	private static final String IS_SCREAMING_TAG = "IsScreaming";
+
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaMandragora.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_SCREAMING = EntityDataManager.<Boolean>createKey(EntityGaiaMandragora.class, DataSerializers.BOOLEAN);
 
 	private int shovelAttack;
 
@@ -133,6 +145,10 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 
 	@Override
 	public void livingTick() {
+		if (isScreaming()) {
+			beaconDebuff(2, MobEffects.NAUSEA, 100, 0);
+		}
+
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -165,16 +181,6 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 		super.livingTick();
 	}
 
-	private void setBodyType(String id) {
-		if (id == "none") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-		}
-
-		if (id == "baby") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return GaiaSounds.MANDRAGORA_SAY;
@@ -188,6 +194,11 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.MANDRAGORA_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MANDRAGORA;
 	}
 
 	@Override
@@ -238,9 +249,54 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
-		setBodyType("baby");
+		setChild(true);
+		setScreaming(true);
 
 		return ret;
+	}
+
+	@Override
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(IS_CHILD, true);
+		this.getDataManager().register(IS_SCREAMING, true);
+	}
+
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
+	public boolean isScreaming() {
+		return ((Boolean) getDataManager().get(IS_SCREAMING)).booleanValue();
+	}
+
+	public void setScreaming(boolean isScreaming) {
+		getDataManager().set(IS_SCREAMING, Boolean.valueOf(isScreaming));
+	}
+
+	@Override
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
+		compound.setBoolean(IS_CHILD_TAG, isChild());
+		compound.setBoolean(IS_SCREAMING_TAG, isScreaming());
+	}
+
+	@Override
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
+
+		if (compound.hasKey(IS_SCREAMING_TAG)) {
+			boolean b1 = compound.getBoolean(IS_SCREAMING_TAG);
+			setScreaming(b1);
+		}
 	}
 
 	/* CHILD CODE */

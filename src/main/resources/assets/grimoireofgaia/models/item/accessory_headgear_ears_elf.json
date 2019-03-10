@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
 		"0": "grimoireofgaia:item/models/bauble/accessory_headgear_ears_elf"
@@ -44,7 +44,7 @@
 	],
 	"display": {
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, 180, 0],
 			"translation": [0, 0, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},

@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -28,11 +29,15 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
+
+import javax.annotation.Nullable;
 
 
 public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRangedAttackMob {
@@ -147,6 +152,18 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 	@Override
 	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		switch (rand.nextInt(2)) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+			case 1:
+				return LootTableList.ENTITIES_SKELETON;
+			default:
+				return GaiaLootTableList.ENTITIES_GAIA_GELATINOUS_SLIME;
+		}
 	}
 
 	@Override

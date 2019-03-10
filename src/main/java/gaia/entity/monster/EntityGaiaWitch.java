@@ -1,13 +1,9 @@
 package gaia.entity.monster;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -60,6 +56,10 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.UUID;
+
 /**
  * Copied code from EntityWitch. isAIDisabled has been removed.
  * 
@@ -69,9 +69,11 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	private int spawn;
 
+	private static final String MOB_TYPE_TAG = "MobType";
 	private static final UUID MODIFIER_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
 	private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Drinking speed penalty", -0.25D, 0)).setSaved(false);
 	private static final DataParameter<Boolean> IS_DRINKING = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_RIDING = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.BOOLEAN);
 
 	private int potionUseTimer;
 
@@ -118,7 +120,9 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	@Override
 	protected void registerData() {
 		super.registerData();
+		this.getDataManager().register(SKIN, 0);
 		this.getDataManager().register(IS_DRINKING, Boolean.valueOf(false));
+		this.getDataManager().register(IS_RIDING, Boolean.valueOf(false));
 	}
 
 	public void setDrinkingPotion(boolean drinkingPotion) {
@@ -209,6 +213,15 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 				this.world.setEntityState(this, (byte) 15);
 			}
 		}
+
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROP_BROOM) {
+			setRidingBroom(true);
+		} else {
+			setRidingBroom(false);
+		}
+
 		/* WITCH CODE */
 
 		super.livingTick();
@@ -337,16 +350,17 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
 	}
 
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
-	}
-
 	@Nullable
 	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_WITCH;
+			case 1:
+				return LootTableList.ENTITIES_WITCH;
+			default:
+				return GaiaLootTableList.ENTITIES_GAIA_WITCH;
+		}
 	}
 
 	@Override
@@ -398,7 +412,15 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
+		if (world.rand.nextInt(4) == 0) {
+			setTextureType(1);
+		}
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
+
+		if (world.rand.nextInt(2) == 0) {
+			setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(GaiaItems.WEAPON_PROP_BROOM));
+		}
 
 		return ret;
 	}
@@ -413,6 +435,41 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
+
+	/* ALTERNATE SKIN */
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaWitch.class, DataSerializers.VARINT);
+
+	public void setRidingBroom(boolean riding) {
+		this.getDataManager().set(IS_RIDING, Boolean.valueOf(riding));
+	}
+
+	public boolean isRidingBroom() {
+		return ((Boolean) this.getDataManager().get(IS_RIDING)).booleanValue();
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override

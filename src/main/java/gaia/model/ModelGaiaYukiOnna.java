@@ -1,5 +1,6 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaYukiOnna;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -152,9 +153,9 @@ public class ModelGaiaYukiOnna extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		EntityGaiaYukiOnna entityGaiaYukiOnna = (EntityGaiaYukiOnna) entityIn;
 
-		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+		if (!entityGaiaYukiOnna.isChild()) {
 			head.render(scale);
 			headaccessory.render(scale);
 			neck.render(scale);

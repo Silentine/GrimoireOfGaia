@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
@@ -10,6 +11,7 @@ import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,14 +37,18 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
@@ -65,12 +71,12 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
-	private int mobClass;
-
 	private boolean canSpawnLevel3;
 	private boolean spawned;
 	private int spawnLevel3;
 	private int spawnLevel3Chance;
+
+	private boolean blockIsAir[] = new boolean[] {};
 
 	public EntityGaiaMinotaurus(World worldIn) {
 		super(GaiaEntities.MINOTAURUS, worldIn);
@@ -78,7 +84,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
 
-		mobClass = 0;
 		spawnLevel3 = 0;
 		spawnLevel3Chance = 0;
 
@@ -320,12 +325,17 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MINOTAURUS;
+	}
+
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			int drop = rand.nextInt(3 + lootingModifier);
 
-			if (mobClass == 1) {
+			if (getMobType() == 1) {
 				for (int i = 0; i < drop; ++i) {
 					entityDropItem(Items.ARROW, 1);
 				}
@@ -366,7 +376,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				entityDropItem(mobClass == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
+				entityDropItem(getMobType() == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
 			}
 		}
 
@@ -376,32 +386,32 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		}
 	}
 
+	public boolean canSpawn() {
+		int i = MathHelper.floor(posX);
+		int j = MathHelper.floor(posY + 2.0D);
+		int k = MathHelper.floor(posZ);
+		IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
+
+		int i1 = MathHelper.floor(posX);
+		int j1 = MathHelper.floor(posY + 3.0D);
+		int k1 = MathHelper.floor(posZ);
+		IBlockState iblockstate_j = world.getBlockState(new BlockPos(i1, j1, k1));
+
+		if (iblockstate.getMaterial() == Material.AIR && iblockstate_j.getMaterial() == Material.AIR) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(4) == 0) {
-			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-			setEnchantmentBasedOnDifficulty(difficulty);
-
-			if (world.rand.nextInt(2) == 0) {
-				if (world.rand.nextInt(2) == 0) {
-					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
-				} else {
-					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM_2);
-				}
-			}
-
-			setTextureType(1);
-			mobClass = 1;
+			mobClass(difficulty, 1);
 		} else {
-			setEquipmentBasedOnDifficulty(difficulty);
-			setEnchantmentBasedOnDifficulty(difficulty);
-			setMobType(1);
-			getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
-
-			setTextureType(0);
-			mobClass = 0;
+			mobClass(difficulty, 0);
 		}
 
 		setCombatTask();
@@ -411,6 +421,32 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		}
 
 		return ret;
+	}
+
+	public void mobClass(DifficultyInstance difficulty, int id) {
+		switch (id) {
+			case 0:
+				setEquipmentBasedOnDifficulty(difficulty);
+				setEnchantmentBasedOnDifficulty(difficulty);
+				setMobType(1);
+				getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
+				break;
+			case 1:
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+				setEnchantmentBasedOnDifficulty(difficulty);
+
+				if (world.rand.nextInt(2) == 0) {
+					if (world.rand.nextInt(2) == 0) {
+						setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
+					} else {
+						setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM_2);
+					}
+				}
+				break;
+		}
+
+		setMobType(id);
+		setTextureType(id);
 	}
 
 	@Override

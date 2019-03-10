@@ -1,6 +1,7 @@
 {
   "﻿itemGroup.grimoireofgaia": "Grimoire der Gaia 3",
-  "_comment": "NEW",
+
+  "_comment": "MISC",
 
   "_comment": "ITEM_NAMES",
   "item.grimoireofgaia.shard_iron": "Eisenklumpen",
@@ -53,9 +54,9 @@
   "item.grimoireofgaia.box_iron": "Eisenkiste",
   "item.grimoireofgaia.box_gold": "Goldkiste",
   "item.grimoireofgaia.box_diamond": "Diamantkiste",
-  "item.grimoireofgaia.box_overworld": "Erzkiste",
-  "item.grimoireofgaia.box_nether": "Netherkiste",
-  "item.grimoireofgaia.box_end": "Endenkiste",
+  "item.grimoireofgaia.box_iron": "Erzkiste",
+  "item.grimoireofgaia.box_gold": "Netherkiste",
+  "item.grimoireofgaia.box_diamond": "Endenkiste",
   "item.grimoireofgaia.bag_ore": "Erztasche",
   "item.grimoireofgaia.bag_book": "Büchertasche",
   "item.grimoireofgaia.bag_record": "Schallplattenkiste",
@@ -100,6 +101,9 @@
   "item.grimoireofgaia.weapon_book_wither": "Buch des Ausdörrens",
   "item.grimoireofgaia.weapon_book_buff": "Fechtbuch",
   "item.grimoireofgaia.weapon_debug": "Debug-Waffe",
+  "item.grimoireofgaia.box_hat": "Hutschachtel",
+  "item.grimoireofgaia.pickup_heart": "Herz",
+  "item.grimoireofgaia.weapon_projectile_bomb": "Bombe",
 
   "_comment": "ITEM_BAUBLES_NAMES",
   "item.grimoireofgaia.accessory_ring_speed": "Ring der Schnelligkeit",
@@ -112,15 +116,16 @@
   "item.grimoireofgaia.accessory_cursed": "Schwere Hantel",
 
   "_comment": "ITEM_HEADGEAR",
-  "item.grimoireofgaia.accessory_headgear_mob": "Käfig",
-  "item.grimoireofgaia.accessory_headgear_bolt": "Bolzen",
-  "item.grimoireofgaia.accessory_headgear_arrow": "Pfeil durch Kopf",
-  "item.grimoireofgaia.accessory_headgear_doll": "Hängende Magd",
-  "item.grimoireofgaia.accessory_headgear_ears_elf": "Elfenohren",
+  "item.grimoireofgaia.accessory_headgear_0": "Käfig",
+  "item.grimoireofgaia.accessory_headgear_1": "Bolzen",
+  "item.grimoireofgaia.accessory_headgear_2": "Pfeil durch Kopf",
+  "item.grimoireofgaia.accessory_headgear_3": "Hängende Magd",
+  "item.grimoireofgaia.accessory_headgear_4": "Elfenohren",
+  "item.grimoireofgaia.accessory_headgear": "Buch im Gesicht",
 
   "_comment": "ITEM_SPAWNEGG",
   "item.grimoireofgaia.spawnegg": "Beschwöre",
-  
+
     "_comment": "SPAWN_EGGS",
   "item.grimoireofgaia.debug_mob_spawn_egg": "Debug-Mob-Spawn-Ei",
   "item.grimoireofgaia.ant_spawn_egg": "Ameisenarbeiterinnen-Spawn-Ei",
@@ -131,6 +136,7 @@
   "item.grimoireofgaia.baphomet_spawn_egg": "Baphomet-Spawn-Ei",
   "item.grimoireofgaia.bee_spawn_egg": "Honigbienen-Spawn-Ei",
   "item.grimoireofgaia.bone_knight_spawn_egg": "Knochenritter-Spawn-Ei",
+  "item.grimoireofgaia.campfire_spawn_egg": "Lagerstätte-Spawn-Ei",
   "item.grimoireofgaia.cecaelia_spawn_egg": "Cecaelia-Spawn-Ei",
   "item.grimoireofgaia.centaur_spawn_egg": "Zentauren-Spawn-Ei",
   "item.grimoireofgaia.chest_spawn_egg": "Feldsteingolem-Spawn-Ei",
@@ -175,13 +181,15 @@
   "item.grimoireofgaia.succubus_spawn_egg": "Sukkubus-Spawn-Ei",
   "item.grimoireofgaia.toad_spawn_egg": "Kröten-Spawn-Ei",
   "item.grimoireofgaia.valkyrie_spawn_egg": "Walküren-Spawn-Ei",
+  "item.grimoireofgaia.vase_spawn_egg": "Walküren-Spawn-Ei",
+  "item.grimoireofgaia.valkyrie_spawn_egg": "Walküren-Spawn-Ei",
   "item.grimoireofgaia.vampire_spawn_egg": "Vampir-Spawn-Ei",
   "item.grimoireofgaia.werecat_spawn_egg": "Wiefkatzen-Spawn-Ei",
   "item.grimoireofgaia.witch_spawn_egg": "Hexen-Spawn-Ei",
   "item.grimoireofgaia.wither_cow_spawn_egg": "Dörrkuh-Spawn-Ei",
   "item.grimoireofgaia.yeti_spawn_egg": "Yeti-Spawn-Ei",
   "item.grimoireofgaia.yuki_onna_spawn_egg": "Yuki-Onna-Spawn-Ei",
-
+  
   "_comment": "BLOCK_NAMES",
   "block.grimoireofgaia.bust_valkyrie": "Die Walküre",
   "block.grimoireofgaia.bust_vampire": "Der Vampir",
@@ -190,8 +198,11 @@
   "block.grimoireofgaia.doll_ender_girl": "Endermädchenpuppe",
   "block.grimoireofgaia.doll_slime_girl": "Schleimmädchenpuppe",
   "block.grimoireofgaia.doll_maid": "Magdpuppe",
+  "block.grimoireofgaia.deco_bust_minotaur": "Minotaur-Büste",
   "block.grimoireofgaia.deco_garden_gnome": "Gartenzwerg",
-  "block.grimoireofgaia.deco_pot_mandragora": "Alraunentopf",
+  "block.grimoireofgaia.deco_mandragora_pot": "Alraunentopf",
+  "block.grimoireofgaia.deco_nest_harpy": "Harpyiennest",
+  "block.grimoireofgaia.fire_camp": "Lagerfeuer",
   "block.grimoireofgaia.spawn_guard": "Schutztalisman",
   "block.grimoireofgaia.web_temp": "Zerfallendes Spinnennetz",
 
@@ -218,6 +229,7 @@
   "entity.grimoireofgaia.dryad.name": "Dryade",
   "entity.grimoireofgaia.dullahan.name": "Dullahan",
   "entity.grimoireofgaia.dwarf.name": "Zwerg",
+  "entity.grimoireofgaia.elf.name": "Elfe",
   "entity.grimoireofgaia.ender_dragon_girl.name": "Enderdrachenmädchen",
   "entity.grimoireofgaia.ender_eye.name": "Enderauge",
   "entity.grimoireofgaia.flesh_lich.name": "Fleisch-Lich",
@@ -229,6 +241,7 @@
   "entity.grimoireofgaia.hunter.name": "Jägerin",
   "entity.grimoireofgaia.kikimora.name": "Kikimora",
   "entity.grimoireofgaia.kobold.name": "Fernöstl. Kobold",
+  "entity.grimoireofgaia.campfire.name": "Lagerstätte",
   "entity.grimoireofgaia.mandragora.name": "Alraune",
   "entity.grimoireofgaia.matango.name": "Matango",
   "entity.grimoireofgaia.mermaid.name": "Meerjungfrau",
@@ -237,7 +250,7 @@
   "entity.grimoireofgaia.minotaurus.name": "Minotauros",
   "entity.grimoireofgaia.mummy.name": "Mumie",
   "entity.grimoireofgaia.naga.name": "Naga",
-  "entity.grimoireofgaia.nine_tails.name": "Fuchsgeist",
+  "entity.grimoireofgaia.nine_tails.name": "Kitsune",
   "entity.grimoireofgaia.oni.name": "Oni",
   "entity.grimoireofgaia.orc.name": "Ork",
   "entity.grimoireofgaia.satyress.name": "Satyrin",
@@ -252,6 +265,8 @@
   "entity.grimoireofgaia.toad.name": "Kröte",
   "entity.grimoireofgaia.valkyrie.name": "Walküre",
   "entity.grimoireofgaia.vampire.name": "Vampir",
+  "entity.grimoireofgaia.vase.name": "Antike Vase",
+  "entity.grimoireofgaia.vase_nether.name": "Antike Vase (Nether)",
   "entity.grimoireofgaia.werecat.name": "Wiefkatze",
   "entity.grimoireofgaia.witch.name": "Hexe",
   "entity.grimoireofgaia.wither_cow.name": "Dörrkuh",
@@ -269,6 +284,7 @@
   "_comment": "ENTITY_SUMMON_NAMES",
   "entity.grimoireofgaia.butler.name": "Butler",
   "entity.grimoireofgaia.sporeling.name": "Sporling",
+
   "_comment": "ACTIONS",
   "text.grimoireofgaia.grimoireofgaia.desc": "Betrifft nur Grimoire-der-Gaia-Kreaturen",
   "text.grimoireofgaia.NegativeStatus.desc": "Entfernt negative Statuseffekte",
@@ -317,6 +333,10 @@
 
   "_comment": "BLOCK_DESC",
   "block.grimoireofgaia.spawn_guard.desc": "Verhindert das Spawnen von TAGAKTIVEN Kreaturen innerhalb von %d Blöcken",
+
+  "_comment": "MISC",
+  "text.grimoireofgaia.spawnDaysPassed": "Spawn-Hemmung aktiv.",
+  "text.grimoireofgaia.SpawnDaysSet": "%d Tage die verstreichen müssen bevor Spawns freigegeben werden.",
 
   "_comment": "CONFIG",
   "configgui.grimoireofgaia.category.Menu0.general": "Spawnraten",
@@ -407,7 +427,7 @@
 
   "_comment": "JEI",
   "gaia.box.loot": "Kistenbeute",
-  "gui.gaia.box.loot": "Kistenbeute",
+  "gui.gaia.box.loot": "KIstenbeute",
   "gaia.satchel.loot": "Bag Loot",
   "gui.gaia.satchel.loot": "Taschenbeute"
 }

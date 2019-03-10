@@ -1,9 +1,9 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
-    "textures": {
-        "1": "grimoireofgaia:item/models/bauble/accessory_headgear_arrow"
- 	},
+	"textures": {
+		"1": "grimoireofgaia:item/models/bauble/accessory_headgear_arrow"
+	},
 	"elements": [
 		{
 			"name": "body1",
@@ -11,10 +11,10 @@
 			"to": [16, 8.5, 8.5],
 			"faces": {
 				"north": {"uv": [0, 1, 8, 1.5], "texture": "#1"},
-				"south": {"uv": [0, 1, 8, 1.5], "texture": "#1", "rotation": 180},
+				"south": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"},
 				"west": {"uv": [7.5, 1.5, 8, 1], "texture": "#1"},
-				"up": {"uv": [0, 1, 8, 1.5], "texture": "#1", "rotation": 180},
-				"down": {"uv": [0, 1, 8, 1.5], "texture": "#1", "rotation": 180}
+				"up": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"}
 			}
 		},
 		{
@@ -22,7 +22,7 @@
 			"from": [0, 7, 5.5],
 			"to": [16, 8, 10.5],
 			"faces": {
-				"up": {"uv": [0, 2.5, 8, 0], "texture": "#1", "rotation": 180}
+				"up": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
 			}
 		},
 		{
@@ -38,7 +38,7 @@
 			"from": [0, 8.1, 5.5],
 			"to": [16, 9.1, 10.5],
 			"faces": {
-				"down": {"uv": [0, 2.5, 8, 0], "texture": "#1", "rotation": 180}
+				"down": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
 			}
 		},
 		{
@@ -46,7 +46,7 @@
 			"from": [0, 5.5, 7],
 			"to": [16, 10.5, 8],
 			"faces": {
-				"south": {"uv": [0, 2.5, 8, 0], "texture": "#1", "rotation": 180}
+				"south": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
 			}
 		},
 		{
@@ -60,7 +60,7 @@
 	],
 	"display": {
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, 180, 0],
 			"translation": [0, 0, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},

@@ -42,7 +42,7 @@
 	"baphomet_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
 
 	"bee_say": { "category": "neutral", "sounds": ["grimoireofgaia:assist_say1","grimoireofgaia:assist_say2","grimoireofgaia:assist_say3"]},
-	"bee_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
+	"bee_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:bee_hurt1","grimoireofgaia:bee_hurt2"]},
 	"bee_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
 
 	"cecaelia_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},

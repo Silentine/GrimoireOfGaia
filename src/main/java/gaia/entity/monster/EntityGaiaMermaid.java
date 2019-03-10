@@ -2,7 +2,8 @@ package gaia.entity.monster;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveBase;
+import gaia.entity.EntityMobAssistBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -30,6 +31,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -39,8 +41,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
+import javax.annotation.Nullable;
 
-public class EntityGaiaMermaid extends EntityMobPassiveBase {
+
+public class EntityGaiaMermaid extends EntityMobAssistBase {
 	
 	private byte inWaterTimer;
 
@@ -161,6 +165,11 @@ public class EntityGaiaMermaid extends EntityMobPassiveBase {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.MERMAID_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_MERMAID;
 	}
 
 	@Override

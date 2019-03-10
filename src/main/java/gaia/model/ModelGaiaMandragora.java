@@ -1,12 +1,9 @@
 package gaia.model;
 
+import gaia.entity.monster.EntityGaiaMandragora;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -219,9 +216,9 @@ public class ModelGaiaMandragora extends ModelGaia {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		ItemStack itemstack = ((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		EntityGaiaMandragora entityGaiaMandragora = (EntityGaiaMandragora) entityIn;
 
-		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+		if (!entityGaiaMandragora.isChild()) {
 			head.render(scale);
 			headaccessory.render(scale);
 			neck.render(scale);
@@ -241,8 +238,8 @@ public class ModelGaiaMandragora extends ModelGaia {
 		} else {
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scalef(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
-			GlStateManager.translatef(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
+			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
+			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
 			head.render(scale);
 
 			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
@@ -253,8 +250,8 @@ public class ModelGaiaMandragora extends ModelGaia {
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scalef(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
-			GlStateManager.translatef(0.0F, Y_OFFSET_BODY * scale, 0.0F);
+			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
+			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
 			neck.render(scale);
 			bodytop.render(scale);
 			bodymiddle.render(scale);

@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
@@ -31,17 +32,21 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 
 public class EntityGaiaOni extends EntityMobHostileBase {
 	
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaOni.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_BUFFED = EntityDataManager.<Boolean>createKey(EntityGaiaOni.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 
@@ -131,7 +136,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 		}
 
 		if (animationPlay) {
-			if (animationTimer != 20) {
+			if (animationTimer != 15) {
 				animationTimer += 1;
 			} else {
 				setBuff();
@@ -191,6 +196,11 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 		return GaiaSounds.ONI_DEATH;
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_ONI;
+	}
+
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
@@ -247,6 +257,7 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 	protected void registerData() {
 		super.registerData();
 		this.getDataManager().register(SKIN, 0);
+		this.getDataManager().register(IS_BUFFED, false);
 	}
 
 	public int getTextureType() {
@@ -255,6 +266,14 @@ public class EntityGaiaOni extends EntityMobHostileBase {
 
 	private void setTextureType(int par1) {
 		dataManager.set(SKIN, par1);
+	}
+
+	public boolean isBuffed() {
+		return ((Boolean) getDataManager().get(IS_BUFFED)).booleanValue();
+	}
+
+	public void setBuffed(boolean isBuffed) {
+		getDataManager().set(IS_BUFFED, Boolean.valueOf(isBuffed));
 	}
 
 	@Override

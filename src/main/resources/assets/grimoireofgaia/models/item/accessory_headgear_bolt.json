@@ -1,9 +1,9 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
-    "textures": {
-        "1": "grimoireofgaia:item/models/bauble/accessory_headgear_bolt"
- 	},
+	"textures": {
+		"1": "grimoireofgaia:item/models/bauble/accessory_headgear_bolt"
+	},
 	"elements": [
 		{
 			"name": "rightbolt",
@@ -39,7 +39,7 @@
 				"north": {"uv": [1, 1, 2, 2], "texture": "#1"},
 				"east": {"uv": [0, 1, 1, 2], "texture": "#1"},
 				"south": {"uv": [3, 1, 4, 2], "texture": "#1"},
-				"west": {"uv": [1, 1, 2, 2], "texture": "#1", "rotation": 90},
+				"west": {"uv": [1, 1, 2, 2], "rotation": 90, "texture": "#1"},
 				"up": {"uv": [1, 0, 2, 1], "texture": "#1"},
 				"down": {"uv": [2, 0, 3, 1], "texture": "#1"}
 			}
@@ -52,7 +52,7 @@
 				"north": {"uv": [1.5, 3.5, 2, 5], "texture": "#1"},
 				"east": {"uv": [2, 3.5, 3.5, 5], "texture": "#1"},
 				"south": {"uv": [3.5, 3.5, 4, 5], "texture": "#1"},
-				"west": {"uv": [0, 3.5, 1.5, 5], "texture": "#1", "rotation": 90},
+				"west": {"uv": [0, 3.5, 1.5, 5], "rotation": 90, "texture": "#1"},
 				"up": {"uv": [1.5, 2, 2, 3.5], "texture": "#1"},
 				"down": {"uv": [2, 2, 2.5, 3.5], "texture": "#1"}
 			}
@@ -60,7 +60,7 @@
 	],
 	"display": {
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, 180, 0],
 			"translation": [0, 0, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},

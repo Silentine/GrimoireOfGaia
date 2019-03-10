@@ -2,7 +2,8 @@ package gaia.entity.monster;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -28,14 +29,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 
-public class EntityGaiaGryphon extends EntityMobPassiveDay {
+
+public class EntityGaiaGryphon extends EntityMobAssistDay {
 
 	public EntityGaiaGryphon(World worldIn) {
 		super(GaiaEntities.GRYPHON, worldIn);
@@ -135,6 +139,10 @@ public class EntityGaiaGryphon extends EntityMobPassiveDay {
 		return GaiaSounds.GRYPHON_DEATH;
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_GRYPHON;
+	}
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {

@@ -19,6 +19,7 @@ import gaia.items.ItemBase;
 import gaia.items.ItemBoxDiamond;
 import gaia.items.ItemBoxEnd;
 import gaia.items.ItemBoxGold;
+import gaia.items.ItemBoxHat;
 import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxNether;
 import gaia.items.ItemBoxOld;
@@ -26,8 +27,8 @@ import gaia.items.ItemBoxOverworld;
 import gaia.items.ItemChestDesert;
 import gaia.items.ItemChestDungeon;
 import gaia.items.ItemChestJungle;
-import gaia.items.ItemDebugItem;
-import gaia.items.ItemDebugWeapon;
+import gaia.items.debug.ItemDebugItem;
+import gaia.items.debug.ItemDebugWeapon;
 import gaia.items.ItemFoodBase;
 import gaia.items.ItemFoodCoalfish;
 import gaia.items.ItemFoodHoney;
@@ -51,12 +52,13 @@ import gaia.items.ItemMiscGigaGear;
 import gaia.items.ItemMiscRing;
 import gaia.items.ItemMiscSoulFiery;
 import gaia.items.ItemMiscSoulFire;
+import gaia.items.ItemPickupHeart;
 import gaia.items.ItemShard;
 import gaia.items.ItemShardMisc;
 import gaia.items.ItemShieldProp;
 import gaia.items.ItemSpawn;
 import gaia.items.ItemSpawnNPC;
-import gaia.items.ItemSpawnTame;
+import gaia.items.delete.ItemSpawnTame;
 import gaia.items.ItemWeaponBook;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
@@ -70,6 +72,7 @@ import gaia.items.ItemWeaponBookWither;
 import gaia.items.ItemWeaponFan;
 import gaia.items.ItemWeaponFanFire;
 import gaia.items.ItemWeaponFanIce;
+import gaia.items.ItemWeaponProjectileBomb;
 import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropItemSword;
@@ -110,6 +113,7 @@ public class GaiaItems {
 	public static Item BAG_BOOK;
 	public static Item BAG_RECORD;
 	public static Item BOX_DIAMOND;
+	public static Item BOX_HAT;
 	public static Item BOX_GOLD;
 	public static Item BOX_IRON;
 	public static Item BOX_OLD;
@@ -156,6 +160,10 @@ public class GaiaItems {
 	public static Item MISC_RING_NIGHT;
 	public static Item MISC_SOUL_FIRE;
 	public static Item MISC_SOUL_FIERY;
+
+	// P
+	public static Item PICKUP_HEART;
+
 	// S
 	public static Item SHARD_IRON;
 	public static Item SHARD_GOLD;
@@ -185,6 +193,7 @@ public class GaiaItems {
 	public static Item BAPHOMET_SPAWN_EGG;
 	public static Item BEE_SPAWN_EGG;
 	public static Item BONE_KNIGHT_SPAWN_EGG;
+	public static Item CAMPFIRE_SPAWN_EGG;
 	public static Item CECEALIA_SPAWN_EGG;
 	public static Item CENTAUR_SPAWN_EGG;
 	public static Item CHEST_SPAWN_EGG;
@@ -229,6 +238,7 @@ public class GaiaItems {
 	public static Item SUCCUBUS_SPAWN_EGG;
 	public static Item TOAD_SPAWN_EGG;
 	public static Item VALKYRIE_SPAWN_EGG;
+	public static Item VASE_SPAWN_EGG;
 	public static Item VAMPIRE_SPAWN_EGG;
 	public static Item WERECAT_SPAWN_EGG;
 	public static Item WITCH_SPAWN_EGG;
@@ -249,6 +259,7 @@ public class GaiaItems {
 	public static Item WEAPON_FAN;
 	public static Item WEAPON_FAN_FIRE;
 	public static Item WEAPON_FAN_ICE;
+	public static Item WEAPON_PROJECTILE_BOMB;
 	public static Item WEAPON_PROP_ENDER;
 	public static Item WEAPON_PROP_BLAZE;
 	public static Item WEAPON_PROP_CLUB;
@@ -302,6 +313,7 @@ public class GaiaItems {
 		BOX_IRON = registerItem(new ItemBoxIron(itemBuilder()), "box_iron");
 		BOX_GOLD = registerItem(new ItemBoxGold(itemBuilder()), "box_gold");
 		BOX_DIAMOND = registerItem(new ItemBoxDiamond(itemBuilder()), "box_diamond");
+		BOX_HAT = registerItem(new ItemBoxHat(itemBuilder()), "box_hat");
 		BOX_OLD = registerItem(new ItemBoxOld(itemBuilder()), "box_old");
 		BOOK_BUFF = registerItem(new ItemWeaponBookBuff(itemBuilder()), "weapon_book_buff");
 		BAG_ARROW = registerItem(new ItemBagArrow(itemBuilder()), "bag_arrow");
@@ -342,6 +354,7 @@ public class GaiaItems {
 		MISC_RING_NIGHT = registerItem(new ItemMiscRing(itemBuilder()), "misc_ring_night");
 		MISC_SOUL_FIRE = registerItem(new ItemMiscSoulFire(itemBuilder()), "misc_soul_fire");
 		MISC_SOUL_FIERY = registerItem(new ItemMiscSoulFiery(itemBuilder()), "misc_soul_fiery");
+		PICKUP_HEART = registerItem(new ItemPickupHeart(itemBuilder()), "pickup_heart");
 		SHARD_IRON = registerItem(new ItemShard(itemBuilder()), "shard_iron");
 		SHARD_GOLD = registerItem(new ItemShard(itemBuilder()), "shard_gold");
 		SHARD_DIAMOND = registerItem(new ItemShard(itemBuilder()), "shard_diamond");
@@ -372,6 +385,7 @@ public class GaiaItems {
 		WEAPON_FAN = registerItem(new ItemWeaponFan(itemBuilder()), "weapon_fan");
 		WEAPON_FAN_FIRE = registerItem(new ItemWeaponFanFire(itemBuilder()), "weapon_fan_fire");
 		WEAPON_FAN_ICE = registerItem(new ItemWeaponFanIce(itemBuilder()), "weapon_fan_ice");
+		WEAPON_PROJECTILE_BOMB = registerItem(new ItemWeaponProjectileBomb(itemBuilder()), "weapon_projectile_bomb");
 		WEAPON_PROP_ENDER = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_ender");
 		WEAPON_PROP_BLAZE = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_blaze");
 		WEAPON_PROP_CLUB = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_metal");
@@ -401,6 +415,7 @@ public class GaiaItems {
 		BAPHOMET_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BAPHOMET, 3559756, 14197864, itemBuilder()), "baphomet_spawn_egg");
 		BEE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BEE, 0x353535, 0x353535, itemBuilder()), "bee_spawn_egg");
 		BONE_KNIGHT_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BONE_KNIGHT, 4602533, 13619151, itemBuilder()), "bone_knight_spawn_egg");
+		CAMPFIRE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CAMPFIRE, 0x7a5f3a, 0xffd800, itemBuilder()), "campfire_spawn_egg");
 		CECEALIA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CECEALIA, 0xdb5760, 0xd893a9, itemBuilder()), "cecaelia_spawn_egg");
 		CENTAUR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CENTAUR, 0x8d4f41, 0x353535, itemBuilder()), "centaur_spawn_egg");
 		CHEST_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CHEST, 11237677, 4274991, itemBuilder()), "chest_spawn_egg");
@@ -445,6 +460,7 @@ public class GaiaItems {
 		SUCCUBUS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SUCCUBUS, 4079166, 13218145, itemBuilder()), "succubus_spawn_egg");
 		TOAD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.TOAD, 0x355d2b, 0x779f5a, itemBuilder()), "toad_spawn_egg");
 		VALKYRIE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VALKYRIE, 0xc9b161, 0xd54242, itemBuilder()), "valkyrie_spawn_egg");
+		VASE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VASE, 0xc3a06a, 0x5f4c2d, itemBuilder()), "vase_spawn_egg");
 		VAMPIRE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VAMPIRE, 0xc23021, 0xc9b161, itemBuilder()), "vampire_spawn_egg");
 		WERECAT_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.WERECAT, 0x7a7e8a, 0xdddadb, itemBuilder()), "werecat_spawn_egg");
 		WITCH_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.WITCH, 0x303030, 0x943dbb, itemBuilder()), "witch_spawn_egg");

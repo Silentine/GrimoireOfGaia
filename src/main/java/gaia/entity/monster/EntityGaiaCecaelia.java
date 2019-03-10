@@ -5,6 +5,7 @@ import java.util.List;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -35,6 +36,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -44,6 +46,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+
+import javax.annotation.Nullable;
 
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
 
@@ -275,6 +279,11 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.CECAELIA_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_CECAELIA;
 	}
 
 	@Override

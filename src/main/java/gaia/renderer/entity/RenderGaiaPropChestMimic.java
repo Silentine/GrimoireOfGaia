@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderGaiaPropChestMimic extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/prop_chest_mimic.png");
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/chest/normal.png");
 
 	public RenderGaiaPropChestMimic(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaPropChestMimic(), 0.0F);

@@ -25,11 +25,16 @@ import static gaia.GaiaConfig.COMMON;
 public class GaiaSpawning {
 	/**
 	 * Bridge Method for simpler spawning registry
+	 *
+	 * @param weight        Spawn rate
+	 * @param entityType Entity
+	 * @param groupCountMin Minimum amount (always 1)
+	 * @param groupCountMax Maximum amount (depreciated due to chunk limits)
+	 * @param biome         Biome
 	 */
 	public static void add(int weight, EntityType<? extends EntityLiving> entityType, int groupCountMin, int groupCountMax, Biome biome) {
 		if (weight > 0) {
 			biome.getSpawns(EnumCreatureType.MONSTER).add(new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
-				//biome.addSpawn(EnumCreatureType.MONSTER, new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
 		}
 	}
 
@@ -39,14 +44,17 @@ public class GaiaSpawning {
 	private static void underground(Biome biome) {
 		add(COMMON.spawnCreep.get(), GaiaEntities.CREEP, 2, 4, biome);
 		add(COMMON.spawnEnderEye.get(), GaiaEntities.ENDER_EYE, 2, 4, biome);
+		add(COMMON.spawnVase.get(), GaiaEntities.VASE, 1, 1, biome);
+		add(COMMON.spawnMimic.get(), GaiaEntities.MIMIC, 1, 1, biome);
 		add(COMMON.spawnArachne.get(), GaiaEntities.ARACHNE, 1, 2, biome);
-		add(COMMON.spawnMimic.get(), GaiaEntities.MIMIC, 1, 2, biome);
 		add(COMMON.spawnDeathword.get(), GaiaEntities.DEATHWORD, 1, 2, biome);
 		add(COMMON.spawnBoneKnight.get(), GaiaEntities.BONE_KNIGHT, 1, 2, biome);
 		add(COMMON.spawnFleshLich.get(), GaiaEntities.FLESH_LICH, 1, 2, biome);
 	}
 
-	// Water based mobs
+	/**
+	 * Ocean Creature Roster
+	 */
 	private static void aquatic(Biome biome) {
 		add(COMMON.spawnCecaelia.get(), GaiaEntities.CECEALIA, 4, 6, biome);
 		add(COMMON.spawnMermaid.get(), GaiaEntities.MERMAID, 2, 4, biome);
@@ -102,8 +110,8 @@ public class GaiaSpawning {
 		 */
 		if (BiomeDictionary.hasType(biome, Type.NETHER)) {
 			add(COMMON.spawnSuccubus.get(), GaiaEntities.SUCCUBUS, 2, 4, biome);
-			add(COMMON.spawnWitherCow.get(), GaiaEntities.WITHER_COW, 1, 2, biome);
-			add(COMMON.spawnBaphomet.get(), GaiaEntities.BAPHOMET, 1, 2, biome);
+			add(COMMON.spawnWitherCow.get(), GaiaEntities.WITHER_COW, 2, 4, biome);
+			add(COMMON.spawnBaphomet.get(), GaiaEntities.BAPHOMET, 2, 4, biome);
 		}
 	}
 
@@ -140,22 +148,19 @@ public class GaiaSpawning {
 		 * EXTREME_HILLS_WITH_TREES,
 		 * MUTATED_EXTREME_HILLS
 		 */
-		if (BiomeDictionary.hasType(biome, Type.MOUNTAIN)) {
-			if (!BiomeDictionary.hasType(biome, Type.COLD) &&
-					!BiomeDictionary.hasType(biome, Type.HOT) &&
-					!BiomeDictionary.hasType(biome, Type.DENSE)) {
-				add(COMMON.spawnGryphon.get(), GaiaEntities.GRYPHON, 1, 2, biome);
-				add(COMMON.spawnDwarf.get(), GaiaEntities.DWARF, 4, 6, biome);
+		if (!BiomeDictionary.hasType(biome, Type.COLD) && !BiomeDictionary.hasType(biome, Type.HOT) && !BiomeDictionary.hasType(biome, Type.DENSE)) {
+			add(COMMON.spawnGryphon.get(), GaiaEntities.GRYPHON, 1, 2, biome);
+			add(COMMON.spawnDwarf.get(), GaiaEntities.DWARF, 4, 6, biome);
 
-				if (!COMMON.spawnLevel3.get()) {
-					add(COMMON.spawnValkyrie.get(), GaiaEntities.VALKYRIE, 1, 2, biome);
-				}
-
-				add(COMMON.spawnDullahan.get(), GaiaEntities.DULLAHAN, 4, 6, biome);
-				add(COMMON.spawnBanshee.get(), GaiaEntities.BANSHEE, 2, 4, biome);
-
-				underground(biome);
+			if (!COMMON.spawnLevel3.get()) {
+				add(COMMON.spawnValkyrie.get(), GaiaEntities.VALKYRIE, 1, 2, biome);
 			}
+
+			add(COMMON.spawnDullahan.get(), GaiaEntities.DULLAHAN, 4, 6, biome);
+			add(COMMON.spawnBanshee.get(), GaiaEntities.BANSHEE, 2, 4, biome);
+
+			add(COMMON.spawnCampsite.get(), GaiaEntities.CAMPFIRE, 1, 1, biome);
+			underground(biome);
 		}
 	}
 

@@ -2,7 +2,8 @@ package gaia.entity.monster;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -28,8 +29,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -38,7 +43,12 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
+import javax.annotation.Nullable;
+
+public class EntityGaiaYukiOnna extends EntityMobAssistDay {
+	private static final String IS_CHILD_TAG = "IsBaby";
+
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaYukiOnna.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 20.0F, EntityAttributes.ATTACK_SPEED_2, EntityAttributes.ATTACK_SPEED_3);
@@ -179,16 +189,6 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 		}
 	}
 
-	private void setBodyType(String id) {
-		if (id == "none") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-		}
-
-		if (id == "baby") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
-	}
-
 	private void setCombatTask() {
 		tasks.removeTask(aiMeleeAttack);
 		tasks.removeTask(aiAvoid);
@@ -214,6 +214,11 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	@Override
 	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_YUKI_ONNA;
 	}
 
 	@Override
@@ -290,11 +295,42 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setBodyType("baby");
+				setChild(true);
 			}
 		} else {
-			setBodyType("baby");
+			setChild(true);
 		}
+	}
+
+	@Override
+	protected void registerData() {
+		super.registerData();
+		this.getDataManager().register(IS_CHILD, false);
+	}
+
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
+	@Override
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
+		compound.setBoolean(IS_CHILD_TAG, isChild());
+	}
+
+	@Override
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
+
+		setCombatTask();
 	}
 
 	@Override
@@ -332,13 +368,6 @@ public class EntityGaiaYukiOnna extends EntityMobPassiveDay {
 	public void setInWeb() {
 	}
 	/* IMMUNITIES */
-
-	@Override
-	public void readAdditional(NBTTagCompound compound) {
-		super.readAdditional(compound);
-
-		setCombatTask();
-	}
 
 	/* SPAWN CONDITIONS */
 	private boolean isSnowing() {

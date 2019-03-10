@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -393,9 +394,15 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	@Nullable
-	@Override
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_WITCH;
+		switch (rand.nextInt(2)) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_ANUBIS;
+			case 1:
+				return LootTableList.ENTITIES_WITCH;
+			default:
+				return GaiaLootTableList.ENTITIES_GAIA_ANUBIS;
+		}
 	}
 
 	@Override
@@ -480,7 +487,12 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	public boolean isMale() {
 		return ((Boolean) this.dataManager.get(MALE)).booleanValue();
 	}
-	
+
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
+		compound.setBoolean("male", isMale());
+	}
+
 	public void readAdditional(NBTTagCompound compound) {
 		super.readAdditional(compound);
 		dataManager.set(MALE, Boolean.valueOf(compound.getBoolean("male")));
@@ -488,10 +500,6 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 		setCombatTask();
 	}
 
-	public void writeAdditional(NBTTagCompound compound) {
-		super.writeAdditional(compound);
-		compound.setBoolean("male", isMale());
-	}
 	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */

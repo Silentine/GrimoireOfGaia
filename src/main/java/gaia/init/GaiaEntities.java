@@ -2,7 +2,7 @@ package gaia.init;
 
 import com.google.common.base.Preconditions;
 import gaia.GaiaReference;
-import gaia.entity.monster.EntityDebugMob;
+import gaia.entity.debug.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAntRanger;
 import gaia.entity.monster.EntityGaiaAnubis;
@@ -16,7 +16,7 @@ import gaia.entity.monster.EntityGaiaCentaur;
 import gaia.entity.monster.EntityGaiaCobbleGolem;
 import gaia.entity.monster.EntityGaiaCobblestoneGolem;
 import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaCyclops;
+import gaia.entity.monster.EntityGaiaMonoeye;
 import gaia.entity.monster.EntityGaiaDeathword;
 import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
@@ -69,13 +69,16 @@ import gaia.entity.passive.EntityGaiaNPCHolstaurus;
 import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
 import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaNPCWeresheep;
-import gaia.entity.passive.EntityGaiaPropChestMimic;
-import gaia.entity.passive.EntityGaiaPropFlowerCyan;
+import gaia.entity.prop.EntityGaiaPropChestMimic;
+import gaia.entity.prop.EntityGaiaPropFlowerCyan;
+import gaia.entity.projectile.EntityGaiaProjectileBomb;
 import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectilePoison;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
+import gaia.entity.prop.EntityGaiaPropCampfire;
+import gaia.entity.prop.EntityGaiaPropVase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -99,12 +102,10 @@ public class GaiaEntities {
 	public static final EntityType<EntityGaiaBoneKnight> BONE_KNIGHT = register("bone_knight", EntityType.Builder.create(EntityGaiaBoneKnight.class, EntityGaiaBoneKnight::new));
 	public static final EntityType<EntityGaiaCecaelia> CECEALIA = register("cecaelia", EntityType.Builder.create(EntityGaiaCecaelia.class, EntityGaiaCecaelia::new));
 	public static final EntityType<EntityGaiaCentaur> CENTAUR = register("centaur", EntityType.Builder.create(EntityGaiaCentaur.class, EntityGaiaCentaur::new));
-	public static final EntityType<EntityGaiaPropChestMimic> CHEST = register("chest", EntityType.Builder.create(EntityGaiaPropChestMimic.class, EntityGaiaPropChestMimic::new), false);
 	public static final EntityType<EntityGaiaCobbleGolem> COBBLE_GOLEM = register("cobble_golem", EntityType.Builder.create(EntityGaiaCobbleGolem.class, EntityGaiaCobbleGolem::new));
 	public static final EntityType<EntityGaiaCobblestoneGolem> COBBLESTONE_GOLEM = register("cobblestone_golem", EntityType.Builder.create(EntityGaiaCobblestoneGolem.class, EntityGaiaCobblestoneGolem::new));
 	public static final EntityType<EntityGaiaCreep> CREEP = register("creep", EntityType.Builder.create(EntityGaiaCreep.class, EntityGaiaCreep::new));
-	public static final EntityType<EntityGaiaCyclops> CYCLOPS = register("cyclops", EntityType.Builder.create(EntityGaiaCyclops.class, EntityGaiaCyclops::new));
-	public static final EntityType<EntityGaiaPropFlowerCyan> CYAN_FLOWER = register("cyan_flower", EntityType.Builder.create(EntityGaiaPropFlowerCyan.class, EntityGaiaPropFlowerCyan::new), false);
+	public static final EntityType<EntityGaiaMonoeye> CYCLOPS = register("cyclops", EntityType.Builder.create(EntityGaiaMonoeye.class, EntityGaiaMonoeye::new));
 	public static final EntityType<EntityGaiaDeathword> DEATHWORD = register("deathword", EntityType.Builder.create(EntityGaiaDeathword.class, EntityGaiaDeathword::new));
 	public static final EntityType<EntityGaiaDhampir> DHAMPIR = register("dhampir", EntityType.Builder.create(EntityGaiaDhampir.class, EntityGaiaDhampir::new));
 	public static final EntityType<EntityGaiaDryad> DRYAD = register("dryad", EntityType.Builder.create(EntityGaiaDryad.class, EntityGaiaDryad::new));
@@ -166,6 +167,13 @@ public class GaiaEntities {
 	public static final EntityType<EntityGaiaProjectilePoison> POISON_PROJECTILE = register("poison", EntityType.Builder.create(EntityGaiaProjectilePoison.class, EntityGaiaProjectilePoison::new));
 	public static final EntityType<EntityGaiaProjectileSmallFireball> FIREBALL_PROJECTILE = register("small_fireball", EntityType.Builder.create(EntityGaiaProjectileSmallFireball.class, EntityGaiaProjectileSmallFireball::new));
 	public static final EntityType<EntityGaiaProjectileWeb> WEB_PROJECTILE = register("web", EntityType.Builder.create(EntityGaiaProjectileWeb.class, EntityGaiaProjectileWeb::new));
+	public static final EntityType<EntityGaiaProjectileBomb> BOMB_PROJECTILE = register("bomb", EntityType.Builder.create(EntityGaiaProjectileBomb.class, EntityGaiaProjectileBomb::new));
+
+	//Prop
+	public static final EntityType<EntityGaiaPropChestMimic> CHEST = register("chest", EntityType.Builder.create(EntityGaiaPropChestMimic.class, EntityGaiaPropChestMimic::new), false);
+	public static final EntityType<EntityGaiaPropFlowerCyan> CYAN_FLOWER = register("cyan_flower", EntityType.Builder.create(EntityGaiaPropFlowerCyan.class, EntityGaiaPropFlowerCyan::new), false);
+	public static final EntityType<EntityGaiaPropCampfire> CAMPFIRE = register("campfire", EntityType.Builder.create(EntityGaiaPropCampfire.class, EntityGaiaPropCampfire::new));
+	public static final EntityType<EntityGaiaPropVase> VASE = register("vase", EntityType.Builder.create(EntityGaiaPropVase.class, EntityGaiaPropVase::new), false);
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
         EntityType<T> entitytype = builder.tracker(64, 3, sendVelocityUpdates).build("");
@@ -179,7 +187,7 @@ public class GaiaEntities {
         return register(id, builder, true);
 	}
 
-	public static void register(EntityType<?> entity, String name, RegistryEvent.Register<EntityType<?>> event) {
+	public static void register(EntityType<?> entity, RegistryEvent.Register<EntityType<?>> event) {
         Preconditions.checkNotNull(entity, "registryName");
         event.getRegistry().register(entity);
 	}
@@ -187,81 +195,84 @@ public class GaiaEntities {
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event)
 	{
-		register(DEBUG_MOB, "debug_mob", event); //TODO: DISABLE BEFORE BUILD
+		register(DEBUG_MOB, event); //TODO: DISABLE BEFORE BUILD
 
-		register(ANT, "ant", event);
-		register(ANT_RANGER, "ant_ranger", event);
-		register(ANUBIS, "anubis", event);
-		register(ARACHNE, "arachne", event);
-		register(BANSHEE, "banshee", event);
-		register(BAPHOMET, "baphomet", event);
-		register(BEE, "bee", event);
-		register(BONE_KNIGHT, "bone_knight", event);
-		register(CECEALIA, "cecaelia", event);
-		register(CENTAUR, "centaur", event);
-		register(CHEST, "chest", event);
-		register(COBBLE_GOLEM, "cobble_golem", event);
-		register(COBBLESTONE_GOLEM, "cobblestone_golem", event);
-		register(CREEP, "creep", event);
-		register(CYCLOPS, "cyclops", event);
-		register(CYAN_FLOWER, "cyan_flower", event);
-		register(DEATHWORD, "deathword", event);
-		register(DHAMPIR, "dhampir", event);
-		register(DRYAD, "dryad", event);
-		register(DULLAHAN, "dullahan", event);
-		register(DWARF, "dwarf", event);
-		register(ENDER_DRAGON_GIRL, "ender_dragon_girl", event);
-		register(ENDER_EYE, "ender_eye", event);
-		register(FLESH_LICH, "flesh_lich", event);
-		register(GELATINOUS_SLIME, "gelatinous_slime", event);
-		register(GOBLIN, "goblin", event);
-		register(GOBLIN_FERAL, "goblin_feral", event);
-		register(GRYPHON, "gryphon", event);
-		register(HARPY, "harpy", event);
-		register(HUNTER, "hunter", event);
-		register(KIKIMORA, "kikimora", event);
-		register(KOBOLD, "kobold", event);
-		register(MATANGO, "matango", event);
-		register(MERMAID, "mermaid", event);
-		register(MINOTAUR, "minotaur", event);
-		register(MINOTAURUS, "minotaurus", event);
-		register(MUMMY, "mummy", event);
-		register(NAGA, "naga", event);
-		register(NINE_TAILS, "nine_tails", event);
-		register(ONI, "oni", event);
-		register(ORC, "orc", event);
-		register(SATYRESS, "satyress", event);
-		register(SELKIE, "selkie", event);
-		register(SHAMAN, "shaman", event);
-		register(SHARKO, "sharko", event);
-		register(SIREN, "siren", event);
-		register(SLUDGE_GIRL, "sludge_girl", event);
-		register(SPHINX, "sphinx", event);
-		register(SPRIGGAN, "spriggan", event);
-		register(SUCCUBUS, "succubus", event);
-		register(TOAD, "toad", event);
-		register(VALKYRIE, "valkyrie", event);
-		register(VAMPIRE, "vampire", event);
-		register(WERECAT, "werecat", event);
-		register(WITCH, "witch", event);
-		register(WITHER_COW, "wither_cow", event);
-		register(YETI, "yeti", event);
-		register(YUKI_ONNA, "yuki_onna", event);
-		register(CREEPER_GIRL_NPC, "creeper_girl", event);
-		register(SLUDGE_GIRL_NPC, "slime_girl", event);
-		register(ENDER_GIRL_NPC, "ender_girl", event);
-		register(TRADER_NPC, "trader", event);
-		register(HOLSTAURUS_NPC, "holstaurus", event);
-		register(WERESHEEP_NPC, "weresheep", event);
-		register(MANDRAGORA, "mandragora", event);
-		register(MIMIC, "mimic", event);
-		register(BUTLER, "butler", event);
-		register(SPORELING, "sporeling", event);
-		register(BUBBLE_PROJECTILE, "bubble", event);
-		register(MAGIC_PROJECTILE, "magic", event);
-		register(POISON_PROJECTILE, "poison", event);
-		register(FIREBALL_PROJECTILE, "small_fireball", event);
-		register(WEB_PROJECTILE, "web", event);
+		register(ANT, event);
+		register(ANT_RANGER, event);
+		register(ANUBIS, event);
+		register(ARACHNE, event);
+		register(BANSHEE, event);
+		register(BAPHOMET, event);
+		register(BEE, event);
+		register(BONE_KNIGHT, event);
+		register(CECEALIA, event);
+		register(CENTAUR, event);
+		register(CHEST, event);
+		register(COBBLE_GOLEM, event);
+		register(COBBLESTONE_GOLEM, event);
+		register(CREEP, event);
+		register(CYCLOPS, event);
+		register(CYAN_FLOWER, event);
+		register(DEATHWORD, event);
+		register(DHAMPIR, event);
+		register(DRYAD, event);
+		register(DULLAHAN, event);
+		register(DWARF, event);
+		register(ENDER_DRAGON_GIRL, event);
+		register(ENDER_EYE, event);
+		register(FLESH_LICH, event);
+		register(GELATINOUS_SLIME, event);
+		register(GOBLIN, event);
+		register(GOBLIN_FERAL, event);
+		register(GRYPHON, event);
+		register(HARPY, event);
+		register(HUNTER, event);
+		register(KIKIMORA, event);
+		register(KOBOLD, event);
+		register(MATANGO, event);
+		register(MERMAID, event);
+		register(MINOTAUR, event);
+		register(MINOTAURUS, event);
+		register(MUMMY, event);
+		register(NAGA, event);
+		register(NINE_TAILS, event);
+		register(ONI, event);
+		register(ORC, event);
+		register(SATYRESS, event);
+		register(SELKIE, event);
+		register(SHAMAN, event);
+		register(SHARKO, event);
+		register(SIREN, event);
+		register(SLUDGE_GIRL, event);
+		register(SPHINX, event);
+		register(SPRIGGAN, event);
+		register(SUCCUBUS, event);
+		register(TOAD, event);
+		register(VALKYRIE, event);
+		register(VAMPIRE, event);
+		register(WERECAT, event);
+		register(WITCH, event);
+		register(WITHER_COW, event);
+		register(YETI, event);
+		register(YUKI_ONNA, event);
+		register(CREEPER_GIRL_NPC, event);
+		register(SLUDGE_GIRL_NPC, event);
+		register(ENDER_GIRL_NPC, event);
+		register(TRADER_NPC, event);
+		register(HOLSTAURUS_NPC, event);
+		register(WERESHEEP_NPC, event);
+		register(MANDRAGORA, event);
+		register(MIMIC, event);
+		register(BUTLER, event);
+		register(SPORELING, event);
+		register(BUBBLE_PROJECTILE, event);
+		register(MAGIC_PROJECTILE, event);
+		register(POISON_PROJECTILE, event);
+		register(FIREBALL_PROJECTILE, event);
+		register(WEB_PROJECTILE, event);
+		register(BOMB_PROJECTILE, event);
+		register(CAMPFIRE, event);
+		register(VASE, event);
 	}
 
 }

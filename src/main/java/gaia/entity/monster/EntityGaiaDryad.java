@@ -2,7 +2,8 @@ package gaia.entity.monster;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -41,10 +42,14 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EntityGaiaDryad extends EntityMobPassiveDay {
+import javax.annotation.Nullable;
+
+public class EntityGaiaDryad extends EntityMobAssistDay {
 
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final String IS_CHILD_TAG = "IsBaby";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaDryad.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaDryad.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackMelee aiMeleeAttack = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
 	private EntityAIAvoidEntity<EntityPlayer> aiAvoid = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 4.0F, EntityAttributes.ATTACK_SPEED_1, EntityAttributes.ATTACK_SPEED_3);
@@ -58,6 +63,10 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 
 	public EntityGaiaDryad(World worldIn) {
 		super(GaiaEntities.DRYAD, worldIn);
+
+		if (isChild()) {
+			setSize(1.0F, 0.5F);
+		}
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
@@ -200,16 +209,6 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		setAI((byte) 0);
 	}
 
-	private void setBodyType(String id) {
-		if (id == "none") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-		}
-
-		if (id == "baby") {
-			setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
-		}
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return GaiaSounds.DRYAD_SAY;
@@ -223,6 +222,11 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.DRYAD_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_DRYAD;
 	}
 
 	@Override
@@ -278,10 +282,10 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	private void setChild(boolean isRandom, int chance) {
 		if (isRandom) {
 			if (world.rand.nextInt(chance) == 0) {
-				setBodyType("baby");
+				setChild(true);
 			}
 		} else {
-			setBodyType("baby");
+			setChild(true);
 		}
 	}
 
@@ -306,6 +310,7 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 	protected void registerData() {
 		super.registerData();
 		this.getDataManager().register(SKIN, 0);
+		dataManager.register(IS_CHILD, false);
 	}
 
 	public int getTextureType() {
@@ -316,10 +321,19 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 		dataManager.set(SKIN, par1);
 	}
 
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
 	@Override
 	public void writeAdditional(NBTTagCompound compound) {
 		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+		compound.setBoolean(IS_CHILD_TAG, isChild());
 	}
 
 	@Override
@@ -329,7 +343,10 @@ public class EntityGaiaDryad extends EntityMobPassiveDay {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
 		}
-		
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
+		}
 		setCombatTask();
 	}
 	/* ALTERNATE SKIN */

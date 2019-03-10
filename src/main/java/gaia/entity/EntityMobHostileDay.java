@@ -11,16 +11,14 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumLightType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 /**
- * Apply all changes made here to EntityMobPassiveDay (except for AI).
+ * Apply all changes made here to EntityMobAssistDay (except for AI).
  *
- * @see EntityMobPassiveDay
+ * @see EntityMobAssistDay
  */
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 
@@ -37,7 +35,7 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 	@Override
 	protected boolean isValidLightLevel() {
 		BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
-		if (this.getBrightness() > 0.5F && this.world.canSeeSky(blockpos)) {
+		if (this.getBrightness() > 0.5F && this.world.canSeeSky(blockpos) && !torchCheck(this.world, blockpos)) {
 			return true;
 		} else {
 			return false;
@@ -46,16 +44,30 @@ public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 
 	@Override
 	public boolean canSpawn(IWorld worldIn, boolean value) {
-		BlockPos pos = this.getPosition();
-		boolean flag = worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && world.isDaytime();
-		boolean flag2 = this.isValidLightLevel() && !torchCheck(world, pos);
+		super.canSpawn(worldIn, value);
 
-		Block spawnBlock = world.getBlockState(pos.down()).getBlock();
-		Set<String> additionalBlocks = new HashSet<String>(GaiaConfig.COMMON.additionalSpawnBlocks.get());
-		boolean defaultFlag = spawnBlocks.contains(spawnBlock);
-		boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(spawnBlock.getRegistryName().toString());
+		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
+			return daysPassed() && spawnConditions();
+		} else {
+			return spawnConditions();
+		}
+	}
 
-		return !isDimensionBlacklisted() && (defaultFlag || additionalFlag) && flag && flag2 && !world.containsAnyLiquid(this.getBoundingBox());
+	public boolean spawnConditions() {
+		if (isValidLightLevel()) {
+			BlockPos pos = this.getPosition();
+			boolean flag = this.world.getDifficulty() != EnumDifficulty.PEACEFUL && world.isDaytime();
+			boolean flag2 = this.isValidLightLevel() && !torchCheck(world, pos);
+
+			Block spawnBlock = world.getBlockState(pos.down()).getBlock();
+			Set<String> additionalBlocks = new HashSet<String>(GaiaConfig.COMMON.additionalSpawnBlocks.get());
+			boolean defaultFlag = spawnBlocks.contains(spawnBlock);
+			boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(spawnBlock.getRegistryName().toString());
+
+			return isDimensionBlacklisted() && (defaultFlag || additionalFlag) && flag && flag2 && !world.containsAnyLiquid(this.getBoundingBox());
+		}
+
+		return false;
 	}
 
 	public boolean isDimensionBlacklisted() {

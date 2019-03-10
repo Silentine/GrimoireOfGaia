@@ -4,7 +4,8 @@ import java.util.List;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.GaiaIRangedAttackMob;
@@ -36,6 +37,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
@@ -45,7 +47,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+import javax.annotation.Nullable;
+
+public class EntityGaiaHunter extends EntityMobAssistDay implements GaiaIRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
 
@@ -291,6 +295,11 @@ public class EntityGaiaHunter extends EntityMobPassiveDay implements GaiaIRanged
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.HUNTER_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_HUNTER;
 	}
 
 	@Override

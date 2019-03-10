@@ -170,16 +170,6 @@ public class ModelGaiaBaphomet extends ModelGaia {
 		leftear.setRotationPoint(0F, 1F, 0F);
 		leftear.setTextureSize(64, 32);
 		setRotation(leftear, 0F, 0.5235988F, 0F);
-		rightear = new ModelRenderer(this, 36, 42);
-		rightear.addBox(-4F, -5F, -1F, 0, 4, 4);
-		rightear.setRotationPoint(0F, 1F, 0F);
-		rightear.setTextureSize(64, 32);
-		setRotation(rightear, 0F, -0.5235988F, 0F);
-		leftear = new ModelRenderer(this, 36, 42);
-		leftear.addBox(4F, -5F, -1F, 0, 4, 4);
-		leftear.setRotationPoint(0F, 1F, 0F);
-		leftear.setTextureSize(64, 32);
-		setRotation(leftear, 0F, 0.5235988F, 0F);
 		mantle = new ModelRenderer(this, 64, 0);
 		mantle.addBox(-5F, 0F, -0.5F, 10, 3, 3);
 		mantle.setRotationPoint(0F, 1F, 0F);
@@ -239,6 +229,8 @@ public class ModelGaiaBaphomet extends ModelGaia {
 		convertToChild(head, lefthorn2);
 		convertToChild(head, lefthorn3);
 		convertToChild(head, lefthorn4);
+		convertToChild(head, rightear);
+		convertToChild(head, leftear);
 		convertToChild(head, righthairclip);
 		convertToChild(head, righthair);
 		convertToChild(head, lefthairclip);
@@ -315,9 +307,9 @@ public class ModelGaiaBaphomet extends ModelGaia {
 		cloak2.rotateAngleZ = MathHelper.cos(limbSwing * 0.6262F) * 0.1F * limbSwingAmount;
 		cloak3.rotateAngleZ = MathHelper.cos(limbSwing * 0.6362F) * 0.1F * limbSwingAmount;
 
-		// legs
-		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+		// legs (walk_normal)
+		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 	}
 
 	public void holdingMelee() {

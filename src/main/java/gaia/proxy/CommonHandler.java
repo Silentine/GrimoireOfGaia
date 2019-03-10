@@ -2,8 +2,8 @@ package gaia.proxy;
 
 import gaia.GaiaConfig;
 import gaia.GaiaReference;
+import gaia.entity.EntityMobAssistBase;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.EntityMobPassiveBase;
 import gaia.items.ItemWeaponBookBattle;
 import gaia.items.ItemWeaponBookBuff;
 import gaia.items.ItemWeaponBookEnder;
@@ -29,10 +29,19 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonHandler {
 
+	// TODO Needs further tweaking
+//	@SubscribeEvent
+//	public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+//		if (GaiaConfig.SPAWN.spawnDaysPassed) {
+//			event.player.sendMessage(new TextComponentString("" + TextFormatting.BOLD + TextFormatting.YELLOW + "[Grimoire of Gaia]" + I18n.format("text.grimoireofgaia.spawnDaysPassed")));
+//			event.player.sendMessage(new TextComponentString(TextFormatting.YELLOW + I18n.format("text.grimoireofgaia.SpawnDaysSet", GaiaConfig.SPAWN.spawnDaysSet)));
+//		}
+//	}
+
 	@SubscribeEvent
 	public void debugGaiaSpawn(CheckSpawn event) {
 		if (GaiaConfig.COMMON.debugSpawn.get()) {
-			if (event.getEntity() instanceof EntityMobPassiveBase || event.getEntity() instanceof EntityMobHostileBase) {
+			if (event.getEntity() instanceof EntityMobAssistBase || event.getEntity() instanceof EntityMobHostileBase) {
 				EntityLiving living = (EntityLiving) event.getEntity();
 				if (living.canSpawn(event.getWorld(), true)) {
 					event.setResult(Event.Result.ALLOW);

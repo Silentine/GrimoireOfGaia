@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -31,11 +32,14 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntityGaiaNineTails extends EntityMobHostileBase implements IRangedAttackMob {
 
@@ -145,6 +149,15 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 			switchHealth = 0;
 		}
 
+		if (animationPlay) {
+			if (animationTimer != 20) {
+				animationTimer += 1;
+			} else {
+				setEquipment((byte) 0);
+				animationPlay = false;
+			}
+		}
+
 		super.livingTick();
 	}
 
@@ -196,6 +209,11 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.NINETAILS_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_NINETAILS;
 	}
 
 	@Override

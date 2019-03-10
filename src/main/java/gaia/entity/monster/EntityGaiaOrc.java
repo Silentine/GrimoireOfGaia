@@ -1,12 +1,9 @@
 package gaia.entity.monster;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaBreakDoor;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
@@ -48,6 +45,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 
@@ -57,7 +57,6 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaMinotaurus.class, DataSerializers.VARINT);
 
-	private int mobClass;
 	// MobType_1
 	private int switchHealth;
 	// MobType_0
@@ -183,7 +182,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			}
 
 			if (animationPlay) {
-				if (animationTimer != 20) {
+				if (animationTimer != 15) {
 					animationTimer += 1;
 				} else {
 					setBuff();
@@ -354,11 +353,11 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	@Nullable
 	@Override
 	protected ResourceLocation getLootTable() {
-		switch (mobClass) {
+		switch (getMobType()) {
 		case 0:
-			return LootTableList.EMPTY;
+			return GaiaLootTableList.ENTITIES_GAIA_ORC_MELEE;
 		case 1:
-			return LootTableList.ENTITIES_WITCH;
+			return GaiaLootTableList.ENTITIES_GAIA_ORC_RANGED;
 		default:
 			return LootTableList.EMPTY;
 		}
@@ -393,7 +392,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				if (mobClass == 1) {
+				if (getMobType() == 1) {
 					entityDropItem(GaiaItems.BAG_BOOK, 1);
 				}
 			}
@@ -408,7 +407,6 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
 
 			setTextureType(2);
-			mobClass = 1;
 		} else {
 			switch (rand.nextInt(2)) {
 			case 0:
@@ -483,8 +481,6 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 			setItemStackToSlot(EntityEquipmentSlot.CHEST, armor_chestplate);
 
 			setBreakDoorsAItask(true);
-
-			mobClass = 0;
 		}
 
 		setCombatTask();

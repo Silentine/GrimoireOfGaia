@@ -1,7 +1,7 @@
 package gaia;
 
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.EntityMobPassive;
+import gaia.entity.EntityMobAssist;
 import gaia.init.GaiaRecipes;
 import gaia.init.GaiaSpawning;
 import gaia.proxy.ClientHandler;
@@ -80,7 +80,7 @@ public class Gaia {
     @SubscribeEvent
     public void onSpawn(final LivingSpawnEvent.CheckSpawn event)
     {
-        if (event.getEntity() instanceof EntityMobPassive || event.getEntity() instanceof EntityMobHostileBase) {
+        if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase) {
             Gaia.LOGGER.debug(event.getEntity().getName().getString() + " is trying to spawn.");
             Gaia.LOGGER.debug(GaiaConfig.COMMON.dimensionBlacklist.get());
             if(!GaiaConfig.COMMON.dimensionBlacklist.get().isEmpty())

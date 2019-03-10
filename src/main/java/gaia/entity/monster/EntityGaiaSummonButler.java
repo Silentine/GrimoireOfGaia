@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaEntities;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +17,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -63,7 +65,12 @@ public class EntityGaiaSummonButler extends EntityMobHostileBase {
 	public CreatureAttribute getCreatureAttribute() {
 		return CreatureAttribute.UNDEAD;
 	}
-	
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BUTLER;
+	}
+
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		return entityLivingData;

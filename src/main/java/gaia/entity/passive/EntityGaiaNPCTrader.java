@@ -41,8 +41,10 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		if (wasRecentlyHit && (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-			entityDropItem(new ItemStack(GaiaItems.SPAWN_TRADER, 1), 0.0F);
+		if (wasRecentlyHit) {
+			if (rand.nextInt(1) == 0 || rand.nextInt(1 + lootingModifier) > 0) {
+				entityDropItem(new ItemStack(GaiaItems.SPAWN_TRADER, 1), 0.0F);
+			}
 		}
 	}
 
@@ -60,6 +62,7 @@ public class EntityGaiaNPCTrader extends EntityMobMerchant {
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY_TRADER, 2), new ItemStack(GaiaItems.CHEST_DUNGEON)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY_TRADER, 2), new ItemStack(GaiaItems.CHEST_JUNGLE, 1)));
 		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY_TRADER, 2), new ItemStack(GaiaItems.CHEST_TEMPLE, 1)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY_TRADER, 4), new ItemStack(GaiaItems.BOX_HAT, 1)));
 
 		// Sell List
 		// Materials

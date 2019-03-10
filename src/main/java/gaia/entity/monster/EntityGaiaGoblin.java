@@ -2,9 +2,8 @@ package gaia.entity.monster;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
-import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
-import gaia.entity.ai.GaiaIRangedAttackMob;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -14,8 +13,10 @@ import gaia.items.ItemShieldProp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -25,27 +26,29 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRangedAttackMob {
+import javax.annotation.Nullable;
+
+public class EntityGaiaGoblin extends EntityMobAssistDay implements IRangedAttackMob {
 
 	private static final String MOB_TYPE_TAG = "MobType";
-	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
+	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true) {
 		public void resetTask() {
 			super.resetTask();
@@ -59,10 +62,6 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 	};
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaGoblin.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaGoblin.class, DataSerializers.BOOLEAN);
-	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
-
-	private int mobClass;
 
 	public EntityGaiaGoblin(World worldIn) {
 		super(GaiaEntities.GOBLIN, worldIn);
@@ -70,8 +69,6 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 		setCanPickUpLoot(true);
-
-		mobClass = 0;
 
 		if (!worldIn.isRemote) {
 			setCombatTask();
@@ -152,14 +149,7 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 		tasks.removeTask(aiArrowAttack);
 		ItemStack itemstack = getHeldItemMainhand();
 
-		if (itemstack.getItem() == Items.BOW) {
-			int i = 20;
-
-			if (this.world.getDifficulty() != EnumDifficulty.HARD) {
-				i = 40;
-			}
-
-			aiArrowAttack.setAttackCooldown(i);
+		if (itemstack.getItem() == GaiaItems.WEAPON_PROJECTILE_BOMB) {
 			tasks.addTask(1, aiArrowAttack);
 		} else {
 			tasks.addTask(1, aiAttackOnCollide);
@@ -208,26 +198,15 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-		if (target.isAlive()) {
-			Ranged.rangedAttack(target, this, distanceFactor);
-		}
+		Ranged.bomb(target, this, distanceFactor);
 	}
 
 	@Override
 	protected void registerData() {
 		super.registerData();
 		this.getDataManager().register(SKIN, 0);
-		this.getDataManager().register(SWINGING_ARMS, Boolean.valueOf(false));
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public boolean isSwingingArms() {
-		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
-	}
-
-	public void setSwingingArms(boolean swingingArms) {
-		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
-	}
 	/* ARCHER DATA */
 	
 	@Override
@@ -243,6 +222,18 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.GOBLIN_DEATH;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		switch (getMobType()) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_MELEE;
+			case 1:
+				return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_RANGED;
+			default:
+				return LootTableList.EMPTY;
+		}
 	}
 
 	@Override
@@ -274,7 +265,7 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				if (mobClass == 1) {
+				if (getMobType() == 1) {
 					entityDropItem(GaiaItems.BAG_ARROW, 1);
 				}
 			}
@@ -285,33 +276,30 @@ public class EntityGaiaGoblin extends EntityMobPassiveDay implements GaiaIRanged
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData, NBTTagCompound itemNbt) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
-		if (world.rand.nextInt(2) == 0) {
-			if (world.rand.nextInt(2) == 0) {
-				ItemStack bowCustom = new ItemStack(Items.BOW);
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, bowCustom);
-				bowCustom.addEnchantment(Enchantments.PUNCH, 1);
-			} else {
-				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				setEnchantmentBasedOnDifficulty(difficulty);
-			}
-
-			if (world.rand.nextInt(4) == 0) {
-				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, TIPPED_ARROW_CUSTOM);
-			}
-
-			setTextureType(1);
-			mobClass = 1;
+		if (world.rand.nextInt(4) == 0) {
+			mobClass(difficulty, 1);
 		} else {
-			setEquipmentBasedOnDifficulty(difficulty);
-
-			setMobType(1);
-			setTextureType(0);
-			mobClass = 0;
+			mobClass(difficulty, 0);
 		}
 
 		setCombatTask();
 
 		return ret;
+	}
+
+	public void mobClass(DifficultyInstance difficulty, int id) {
+		switch (id) {
+			case 0:
+				setEquipmentBasedOnDifficulty(difficulty);
+				break;
+			case 1:
+				setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB));
+				setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.FLINT_AND_STEEL));
+				break;
+		}
+
+		setMobType(id);
+		setTextureType(id);
 	}
 
 	@Override

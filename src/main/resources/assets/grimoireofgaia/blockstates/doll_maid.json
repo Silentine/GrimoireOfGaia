@@ -1,5 +1,8 @@
 {
     "variants": {
-        "": { "model": "grimoireofgaia:block/doll_maid" }
+        "facing=north":   { "model": "grimoireofgaia:doll_maid", "y": 180           },
+        "facing=south":   { "model": "grimoireofgaia:doll_maid", "y": 270           },
+        "facing=west":    { "model": "grimoireofgaia:doll_maid"                     },
+        "facing=east":    { "model": "grimoireofgaia:doll_maid", "y": 90            }
     }
 }

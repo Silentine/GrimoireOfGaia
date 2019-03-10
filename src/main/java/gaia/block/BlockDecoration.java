@@ -19,7 +19,7 @@ public class BlockDecoration extends BlockBase {
 	public static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
 
 	public BlockDecoration(Block.Properties builder) {
-		super(builder.lightValue(0).hardnessAndResistance(0, 6.0F));
+		super(builder.lightValue(0).hardnessAndResistance(0, 6.0F).doesNotBlockMovement());
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
 	}
 	
@@ -43,11 +43,6 @@ public class BlockDecoration extends BlockBase {
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
-
-//	@Override
-//	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-//		return true;
-//	}
 
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {

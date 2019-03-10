@@ -5,6 +5,7 @@ import java.util.List;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaStrafe;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -34,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -41,6 +43,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntityGaiaDeathword extends EntityMobHostileBase {
 
@@ -293,6 +297,11 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.BOOK_HIT;
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_DEATHWORD;
 	}
 
 	@Override

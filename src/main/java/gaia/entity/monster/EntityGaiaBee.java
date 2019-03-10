@@ -4,13 +4,15 @@ import java.util.List;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobPassiveDay;
+import gaia.entity.EntityMobAssistDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
 import gaia.entity.ai.Ranged;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.items.ItemShard;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -31,19 +33,28 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 
-public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackMob {
+
+public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
+
+	private static final DataParameter<Boolean> IS_MOVING = EntityDataManager.<Boolean>createKey(EntityGaiaBee.class, DataSerializers.BOOLEAN);
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
 	private EntityAILeapAtTarget aiAttackLeapAtTarget = new EntityAILeapAtTarget(this, 0.2F);
@@ -164,6 +175,16 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 			isFriendly = true;
 		}
 
+		if (!world.isRemote && (getHealth() >= EntityAttributes.MAX_HEALTH_1)) {
+			if (detectMovement() && !isMoving()) {
+				setMoving(true);
+			}
+
+			if (!detectMovement() && isMoving()) {
+				setMoving(false);
+			}
+		}
+
 		if (playerDetection()) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
@@ -236,8 +257,49 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 		}
 	}
 
+	private boolean detectMovement() {
+		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D) {
+			int i = MathHelper.floor(posX);
+			int j = MathHelper.floor(posY - 0.20000000298023224D);
+			int k = MathHelper.floor(posZ);
+			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
+
+			if (iblockstate.getMaterial() != Material.AIR) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void setCombatTask() {
 		setAI((byte) 0);
+	}
+
+	@Override
+	protected void registerData() {
+		super.registerData();
+		dataManager.register(IS_MOVING, false);
+	}
+
+	public boolean isMoving() {
+		return ((Boolean) getDataManager().get(IS_MOVING)).booleanValue();
+	}
+
+	public void setMoving(boolean isMoving) {
+		getDataManager().set(IS_MOVING, Boolean.valueOf(isMoving));
+	}
+
+	@Override
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
+	}
+
+	@Override
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
+
+		setCombatTask();
 	}
 
 	static class AILeapAttack extends EntityAIAttackMelee {
@@ -279,6 +341,11 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	@Override
 	protected void playStepSound(BlockPos pos, IBlockState blockIn) {
 		playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_BEE;
 	}
 
 	@Override
@@ -329,13 +396,6 @@ public class EntityGaiaBee extends EntityMobPassiveDay implements IRangedAttackM
 	public void fall(float distance, float damageMultiplier) {
 	}
 	/* IMMUNITIES */
-
-	@Override
-	public void readAdditional(NBTTagCompound compound) {
-		super.readAdditional(compound);
-
-		setCombatTask();
-	}
 
 	/* SPAWN CONDITIONS */
 	@Override

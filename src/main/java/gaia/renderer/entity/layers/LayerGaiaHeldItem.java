@@ -77,8 +77,8 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 
 		/**
 		 * Used to manually adjust x, y, z coordinates. 
-		 * x = NEVER adjust 
-		 * y = distance from shoulder (positive = further, negative = closer)
+		 * x = distance from hand (<0 = away from body, >0 = closer to body)
+		 * y = distance from shoulder (>0 = further from shoulder, <0 = closer to shoulder)
 		 * z = angle
 		 */
 
@@ -128,7 +128,7 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		}
 
 		if (living instanceof EntityGaiaNaga) {
-			GlStateManager.translatef(0.04F, 0.25F, -0.01F);
+			GlStateManager.translatef(0.04F, 0.25F, -0.02F);
 			GlStateManager.rotatef(12.0F, -1.0F, 0.0F, 0.0F);
 		}
 

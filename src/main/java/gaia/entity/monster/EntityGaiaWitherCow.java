@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.items.ItemShard;
@@ -24,10 +25,13 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 
 public class EntityGaiaWitherCow extends EntityMobHostileBase {
@@ -138,6 +142,11 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_WITHER_COW;
+	}
+
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
@@ -185,7 +194,7 @@ public class EntityGaiaWitherCow extends EntityMobHostileBase {
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return EntityAttributes.CHUNK_LIMIT_1;
+		return EntityAttributes.CHUNK_LIMIT_2;
 	}
 	/* SPAWN CONDITIONS */
 }

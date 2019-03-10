@@ -1,11 +1,13 @@
 package gaia.model;
 
-import net.minecraft.client.renderer.entity.model.ModelBlaze;
+import net.minecraft.client.model.ModelBlaze;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class ModelGaiaEnderEye extends ModelGaia {
@@ -20,7 +22,7 @@ public class ModelGaiaEnderEye extends ModelGaia {
 	private ModelRenderer tail2;
 	private ModelRenderer tail3;
 
-//	private Random rnd = new Random();
+	private Random rnd = new Random();
 
 	public boolean isAttacking;
 

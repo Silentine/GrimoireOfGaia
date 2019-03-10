@@ -1,7 +1,7 @@
 package gaia.model;
 
 import gaia.entity.monster.EntityGaiaCobbleGolem;
-import net.minecraft.client.renderer.entity.model.ModelIronGolem;
+import net.minecraft.client.model.ModelIronGolem;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

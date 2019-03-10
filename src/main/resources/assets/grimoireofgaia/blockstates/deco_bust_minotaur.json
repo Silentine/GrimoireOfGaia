@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north":   { "model": "grimoireofgaia:deco_bust_minotaur", "y": 180           },
+        "facing=south":   { "model": "grimoireofgaia:deco_bust_minotaur", "y": 270           },
+        "facing=west":    { "model": "grimoireofgaia:deco_bust_minotaur"                     },
+        "facing=east":    { "model": "grimoireofgaia:deco_bust_minotaur", "y": 90            }
+    }
+}

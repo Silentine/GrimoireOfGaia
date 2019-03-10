@@ -22,6 +22,7 @@ public class GaiaConfig {
 	public static class Common {
 		//spawn rates
 		public final IntValue spawnEnderDragonGirl;
+		public final IntValue spawnVaseNether;
 		public final IntValue spawnSuccubus;
 		public final IntValue spawnWitherCow;
 		public final IntValue spawnBaphomet;
@@ -35,6 +36,7 @@ public class GaiaConfig {
 		public final IntValue spawnValkyrie;
 		public final IntValue spawnDullahan;
 		public final IntValue spawnBanshee;
+		public final IntValue spawnCampsite;
 
 		public final IntValue spawnSelkie;
 		public final IntValue spawnKobold;
@@ -84,6 +86,7 @@ public class GaiaConfig {
 		public final IntValue spawnToad;
 		public final IntValue spawnWitch;
 
+		public final IntValue spawnVase;
 		public final IntValue spawnCreep;
 		public final IntValue spawnEnderEye;
 		public final IntValue spawnArachne;
@@ -144,6 +147,11 @@ public class GaiaConfig {
 						.translation("entity.grimoireofgaia.ender_dragon_girl.name")
 						.defineInRange("spawnEnderDragonGirl", 4, 0, 200);
 
+				spawnVaseNether = builder
+						.comment("Ancient Vase (Nether)")
+						.translation("entity.grimoireofgaia.vase_nether.name")
+						.defineInRange("spawnVaseNether", 12, 0, 200);
+
 				spawnSuccubus = builder
 						.comment("Succubus")
 						.translation("entity.grimoireofgaia.succubus.name")
@@ -152,12 +160,12 @@ public class GaiaConfig {
 				spawnWitherCow = builder
 						.comment("Wither Cow")
 						.translation("entity.grimoireofgaia.baphomet.name")
-						.defineInRange("spawnWitherCow", 8, 0, 200);
+						.defineInRange("spawnWitherCow", 12, 0, 200);
 
 				spawnBaphomet = builder
 						.comment("Baphomet")
 						.translation("entity.grimoireofgaia.baphomet.name")
-						.defineInRange("spawnBaphomet", 8, 0, 200);
+						.defineInRange("spawnBaphomet", 12, 0, 200);
 
 				spawnCecaelia = builder
 						.comment("Cecaelia")
@@ -196,8 +204,13 @@ public class GaiaConfig {
 
 				spawnBanshee = builder
 						.comment("Banshee")
-						.translation("entity.grimoireofgaia.banshee.name")
+						.translation("entity.grimoireofgaia.campfire.name")
 						.defineInRange("spawnBanshee", 80, 0, 200);
+
+				spawnCampsite = builder
+						.comment("Campsite")
+						.translation("entity.grimoireofgaia.banshee.name")
+						.defineInRange("spawnCampsite", 80, 0, 200);
 
 				spawnSelkie = builder
 						.comment("Selkie")
@@ -257,12 +270,12 @@ public class GaiaConfig {
 				spawnSatyress = builder
 						.comment("Satyress")
 						.translation("entity.grimoireofgaia.satyress.name")
-						.defineInRange("spawnSatyress", 30, 0, 200);
+						.defineInRange("spawnSatyress", 20, 0, 200);
 
 				spawnCentaur = builder
 						.comment("Centaur")
 						.translation("entity.grimoireofgaia.centaur.name")
-						.defineInRange("spawnCentaur", 30, 0, 200);
+						.defineInRange("spawnCentaur", 20, 0, 200);
 
 				spawnHarpy = builder
 						.comment("Harpy")
@@ -347,7 +360,7 @@ public class GaiaConfig {
 				spawnCyclops = builder
 						.comment("Cyclops")
 						.translation("entity.grimoireofgaia.cyclops.name")
-						.defineInRange("spawnCyclops", 60, 0, 200);
+						.defineInRange("spawnCyclops", 40, 0, 200);
 
 				spawnYukiOnna = builder
 						.comment("Yuki-Onna")
@@ -394,6 +407,11 @@ public class GaiaConfig {
 						.translation("entity.grimoireofgaia.witch.name")
 						.defineInRange("spawnWitch", 60, 0, 200);
 
+				spawnVase = builder
+						.comment("Ancient Vase")
+						.translation("entity.grimoireofgaia.vase.name")
+						.defineInRange("spawnVase", 40, 0, 200);
+
 				spawnCreep = builder
 						.comment("Creep")
 						.translation("entity.grimoireofgaia.creep.name")
@@ -412,7 +430,7 @@ public class GaiaConfig {
 				spawnMimic = builder
 						.comment("Mimic")
 						.translation("entity.grimoireofgaia.mimic.name")
-						.defineInRange("spawnMimic", 80, 0, 200);
+						.defineInRange("spawnMimic", 40, 0, 200);
 
 				spawnDeathword = builder
 						.comment("Deathword")

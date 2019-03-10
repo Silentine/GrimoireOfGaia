@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made by Silentine, with Blockbench",
 	"textures": {
 		"0": "grimoireofgaia:block/models/deco_garden_gnome",
 		"particle": "grimoireofgaia:block/models/deco_garden_gnome"
@@ -43,7 +43,7 @@
 				"east": {"uv": [7.25, 4, 6, 5], "texture": "#0"},
 				"south": {"uv": [8.5, 4, 7.25, 5], "texture": "#0"},
 				"west": {"uv": [9.75, 4, 8.5, 5], "texture": "#0"},
-				"up": {"uv": [7.25, 4, 8.5, 2.75], "texture": "#0", "rotation": 180}
+				"up": {"uv": [7.25, 4, 8.5, 2.75], "rotation": 180, "texture": "#0"}
 			}
 		},
 		{
@@ -56,7 +56,7 @@
 				"east": {"uv": [7.75, 1.75, 6, 2.75], "texture": "#0"},
 				"south": {"uv": [9.5, 1.75, 7.75, 2.75], "texture": "#0"},
 				"west": {"uv": [11.25, 1.75, 9.5, 2.75], "texture": "#0"},
-				"up": {"uv": [7.75, 1.75, 9.5, 0], "texture": "#0", "rotation": 180},
+				"up": {"uv": [7.75, 1.75, 9.5, 0], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [9.5, 1.75, 11.25, 0], "texture": "#0"}
 			}
 		},
@@ -77,13 +77,12 @@
 			"name": "nose",
 			"from": [7, 9, 11],
 			"to": [9, 11, 13],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 8]},
 			"faces": {
 				"north": {"uv": [2, 0, 0, 2], "texture": "#missing"},
 				"east": {"uv": [0.5, 3.5, 0, 4], "texture": "#0"},
 				"south": {"uv": [1, 3.5, 0.5, 4], "texture": "#0"},
 				"west": {"uv": [1.5, 3.5, 1, 4], "texture": "#0"},
-				"up": {"uv": [0.5, 3.5, 1, 3], "texture": "#0", "rotation": 180},
+				"up": {"uv": [0.5, 3.5, 1, 3], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [1, 3.5, 1.5, 3], "texture": "#0"}
 			}
 		},
@@ -183,7 +182,6 @@
 			"name": "legs",
 			"from": [5, 2, 7],
 			"to": [11, 4, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 8]},
 			"faces": {
 				"north": {"uv": [4, 12, 2.5, 12.5], "texture": "#0"},
 				"east": {"uv": [0.5, 12, 0, 12.5], "texture": "#0"},
@@ -203,7 +201,7 @@
 				"east": {"uv": [1, 13.5, 0, 14], "texture": "#0"},
 				"south": {"uv": [1.75, 13.5, 1, 14], "texture": "#0"},
 				"west": {"uv": [2.75, 13.5, 1.75, 14], "texture": "#0"},
-				"up": {"uv": [1, 13.5, 1.75, 12.5], "texture": "#0", "rotation": 180},
+				"up": {"uv": [1, 13.5, 1.75, 12.5], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [1.75, 13.5, 2.5, 12.5], "texture": "#0"}
 			}
 		},
@@ -217,46 +215,45 @@
 				"east": {"uv": [1, 13.5, 0, 14], "texture": "#0"},
 				"south": {"uv": [1.75, 13.5, 1, 14], "texture": "#0"},
 				"west": {"uv": [2.75, 13.5, 1.75, 14], "texture": "#0"},
-				"up": {"uv": [1, 13.5, 1.75, 12.5], "texture": "#0", "rotation": 180},
+				"up": {"uv": [1, 13.5, 1.75, 12.5], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [1.75, 13.5, 2.5, 12.5], "texture": "#0"}
 			}
 		}
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"scale": [0.375, 0.375, 0.375],
 			"rotation": [75, -135, 0],
-			"translation": [0, 2.5, 0]
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
 		},
 		"thirdperson_lefthand": {
-			"scale": [0.375, 0.375, 0.375],
 			"rotation": [75, -135, 0],
-			"translation": [0, 2.5, 0]
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
 		},
 		"firstperson_righthand": {
-			"scale": [0.4, 0.4, 0.4],
 			"rotation": [0, -45, 0],
-			"translation": [0, 0, 0]
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
 		},
 		"firstperson_lefthand": {
-			"scale": [0.4, 0.4, 0.4],
 			"rotation": [0, -45, 0],
-			"translation": [0, 0, 0]
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
 		},
 		"ground": {
-			"scale": [0.25, 0.25, 0.25],
-			"rotation": [0, 0, 0],
-			"translation": [0, 3, 0]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5],
-			"rotation": [0, -180, 0],
-			"translation": [0, -1, -3.5]
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"scale": [0.625, 0.625, 0.625],
 			"rotation": [30, 45, 0],
-			"translation": [0, -1, 0]
+			"translation": [0, -1, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"rotation": [0, -180, 0],
+			"translation": [0, -1, -4],
+			"scale": [0.5, 0.5, 0.5]
 		}
 	}
 }

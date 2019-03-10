@@ -5,6 +5,7 @@ import java.util.List;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaCreepSwell;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
@@ -31,12 +32,15 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 /**
  * @see EntityCreeper
@@ -207,12 +211,17 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	private void explode() {
 		if (!world.isRemote) {
-			boolean flag = world.getGameRules().getBoolean("mobGriefing");
+			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(world, this);
 			float f = getPowered() ? 2.0F : 1.0F;
 			dead = true;
-			world.createExplosion(this, posX, posY, posZ, explosionRadius * f, flag);
+			world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius * f, flag);
 			remove();
 		}
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_CREEP;
 	}
 
 	public int getCreeperState() {
@@ -281,8 +290,8 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public float getCreeperFlashIntensity(float par1) {
-		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * par1) / (fuseTime - 2);
+	public float getCreeperFlashIntensity(float partialTickTime) {
+		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * partialTickTime) / (fuseTime - 2);
 	}
 
 	@Override

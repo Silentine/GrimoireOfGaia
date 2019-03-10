@@ -43,11 +43,12 @@ public class EntityAttributes {
 	public static final double KNOCKBACK_2 = 0.25D;
 	public static final double KNOCKBACK_3 = 0.20D;
 
-	public static final int CHUNK_LIMIT_1 = 4;
-	public static final int CHUNK_LIMIT_2 = 2;
+	public static final int CHUNK_LIMIT_1 = 2;
+	public static final int CHUNK_LIMIT_2 = 1;
 	public static final int CHUNK_LIMIT_3 = 1;
 	public static final int CHUNK_LIMIT_UNDERGROUND = 2;
 
+	public static final int RATE_SEMI_RARE_DROP = 10;
 	public static final int RATE_RARE_DROP = 40;
 	public static final int RATE_UNIQUE_RARE_DROP = 100;
 	public static final double FOLLOW_RANGE = 40.0D;

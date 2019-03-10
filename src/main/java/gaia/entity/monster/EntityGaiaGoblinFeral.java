@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.entity.GaiaLootTableList;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
 import gaia.entity.ai.GaiaIRangedAttackMob;
 import gaia.entity.ai.Ranged;
@@ -22,24 +23,37 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+
 public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
+	private int lastActiveTime;
+	private int timeSinceIgnited;
+	private int fuseTime = 30;
+	private int explosionRadius = 3;
+	private float explosionPower = 1.0F;
 	private static final String MOB_TYPE_TAG = "MobType";
+
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true) {
 		public void resetTask() {
@@ -55,17 +69,15 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaGoblinFeral.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(EntityGaiaGoblinFeral.class, DataSerializers.BOOLEAN);
-//	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
+	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityGaiaGoblinFeral.class, DataSerializers.BOOLEAN);
 
-	private int mobClass;
+	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 
 	public EntityGaiaGoblinFeral(World worldIn) {
 		super(GaiaEntities.GOBLIN_FERAL, worldIn);
 
 		stepHeight = 1.0F;
 		setCanPickUpLoot(true);
-
-		mobClass = 0;
 
 		if (!worldIn.isRemote) {
 			setCombatTask();
@@ -98,7 +110,7 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 			Entity entity = source.getImmediateSource();
 			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(amount, EntityAttributes.BASE_DEFENSE_1));
 		} else {
-            return super.attackEntityFrom(source, amount);
+			return super.attackEntityFrom(source, amount);
 		}
 	}
 
@@ -106,6 +118,20 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
 		if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			if (getMobType() == 2 && entityIn instanceof EntityLivingBase) {
+				tasks.removeTask(aiAttackOnCollide);
+				ignite();
+			}
+
 			return true;
 		} else {
 			return false;
@@ -123,6 +149,7 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 	}
 
 	/* CLASS TYPE */
+
 	@Override
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
 		super.setItemStackToSlot(slotIn, stack);
@@ -184,6 +211,14 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 	}
 	/* CLASS TYPE */
 
+	@Override
+	protected void registerData() {
+		super.registerData();
+		dataManager.register(SKIN, 0);
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+		dataManager.register(IGNITED, Boolean.FALSE);
+	}
+
 	/* ARCHER DATA */
 	@Override
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
@@ -197,13 +232,6 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 		}
 	}
 
-	@Override
-	protected void registerData() {
-		super.registerData();
-		this.getDataManager().register(SKIN, 0);
-		this.getDataManager().register(SWINGING_ARMS, Boolean.valueOf(false));
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
@@ -213,6 +241,57 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
 	/* ARCHER DATA */
+
+	/* BOMBER DATA */
+	@Override
+	public void tick() {
+		if (hasIgnited()) {
+			if (isAlive()) {
+				lastActiveTime = timeSinceIgnited;
+
+				int i = 1;
+
+				if (i > 0 && timeSinceIgnited == 0) {
+					playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+				}
+
+				timeSinceIgnited += i;
+
+				if (timeSinceIgnited < 0) {
+					timeSinceIgnited = 0;
+				}
+
+				if (timeSinceIgnited >= fuseTime) {
+					timeSinceIgnited = fuseTime;
+					explode();
+				}
+			}
+		}
+
+		super.tick();
+	}
+
+	private boolean hasIgnited() {
+		return dataManager.get(IGNITED);
+	}
+
+	private void ignite() {
+		dataManager.set(IGNITED, true);
+	}
+
+	private void explode() {
+		if (!world.isRemote) {
+			dead = true;
+			world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius * explosionPower, false);
+			remove();
+		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public float getCreeperFlashIntensity(float partialTickTime) {
+		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * partialTickTime) / (fuseTime - 2);
+	}
+	/* BOMBER DATA */
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -227,6 +306,28 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 	@Override
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.GOBLIN_DEATH;
+	}
+
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
+
+		if (getMobType() == 2) {
+			explode();
+		}
+	}
+
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		switch (getMobType()) {
+			case 0:
+				return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_MELEE;
+			case 1:
+				return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_RANGED;
+			case 2:
+				return GaiaLootTableList.ENTITIES_GAIA_GOBLIN_FERAL_BOMBER;
+			default:
+				return LootTableList.EMPTY;
+		}
 	}
 
 	@Override
@@ -248,13 +349,16 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 			setEnchantmentBasedOnDifficulty(difficulty);
 
 			setTextureType(1);
-			mobClass = 1;
 		} else {
-			setEquipmentBasedOnDifficulty(difficulty);
+			if (world.rand.nextInt(4) == 0) {
+				setMobType(2);
+				setTextureType(2);
+			} else {
+				setEquipmentBasedOnDifficulty(difficulty);
 
-			setMobType(1);
-			setTextureType(0);
-			mobClass = 0;
+				setMobType(0);
+				setTextureType(0);
+			}
 		}
 
 		setCombatTask();

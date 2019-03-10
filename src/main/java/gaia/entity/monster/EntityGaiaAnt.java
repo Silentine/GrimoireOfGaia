@@ -3,6 +3,7 @@ package gaia.entity.monster;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileDay;
+import gaia.entity.GaiaLootTableList;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
@@ -31,6 +32,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -38,9 +40,13 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class EntityGaiaAnt extends EntityMobHostileDay {
 	private static final String MOB_TYPE_TAG = "MobType";
+	private static final String IS_CHILD_TAG = "IsBaby";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaAnt.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityGaiaAnt.class, DataSerializers.BOOLEAN);
 
 	public EntityGaiaAnt(World worldIn) {
 		super(GaiaEntities.ANT, worldIn);
@@ -128,6 +134,11 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
 	}
 
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return GaiaLootTableList.ENTITIES_GAIA_ANT;
+	}
+
 	@Override
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
@@ -135,7 +146,7 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				entityDropItem(new ItemStack(Items.CACTUS_GREEN, 1), 0.0F);
 			}
-			
+
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
 				entityDropItem(GaiaItems.FOOD_HONEY, 1);
 			}
@@ -167,27 +178,57 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
 
 		if (world.rand.nextInt(2) == 0) {
+			setTextureType(0);
+		} else {
+			setTextureType(1);
+		}
+
+		setChild(true, 10);
+
+		if (world.rand.nextInt(2) == 0) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
 			setEnchantmentBasedOnDifficulty(difficulty);
 		} else {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
 			setEnchantmentBasedOnDifficulty(difficulty);
 		}
-		
-		if (world.rand.nextInt(2) == 0) {
-			setTextureType(0);
-		} else {
-			setTextureType(1);
-		}
 
 		return ret;
 	}
+
+	/* CHILD CODE */
+	private void setChild(boolean isRandom, int chance) {
+		if (isRandom) {
+			if (world.rand.nextInt(chance) == 0) {
+				setChild(true);
+			}
+		} else {
+			setChild(true);
+		}
+	}
+
+	@Override
+	public float getEyeHeight() {
+		float f;
+
+		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+
+		if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
+			f = 1.74F;
+		} else {
+			f = 1.74F - 0.81F;
+		}
+
+		return f;
+	}
+	/* CHILD CODE */
 
 	/* ALTERNATE SKIN */
 	@Override
 	protected void registerData() {
 		super.registerData();
 		this.getDataManager().register(SKIN, 0);
+		this.getDataManager().register(IS_CHILD, false);
 	}
 
 	public int getTextureType() {
@@ -198,10 +239,19 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		dataManager.set(SKIN, par1);
 	}
 
+	public boolean isChild() {
+		return ((Boolean) getDataManager().get(IS_CHILD)).booleanValue();
+	}
+
+	public void setChild(boolean isChild) {
+		getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+	}
+
 	@Override
 	public void writeAdditional(NBTTagCompound compound) {
 		super.writeAdditional(compound);
 		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+		compound.setBoolean(IS_CHILD_TAG, isChild());
 	}
 
 	@Override
@@ -210,6 +260,10 @@ public class EntityGaiaAnt extends EntityMobHostileDay {
 		if (compound.hasKey(MOB_TYPE_TAG)) {
 			byte b0 = compound.getByte(MOB_TYPE_TAG);
 			setTextureType(b0);
+		}
+		if (compound.hasKey(IS_CHILD_TAG)) {
+			boolean b0 = compound.getBoolean(IS_CHILD_TAG);
+			setChild(b0);
 		}
 	}
 	/* ALTERNATE SKIN */

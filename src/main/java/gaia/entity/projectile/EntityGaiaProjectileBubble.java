@@ -47,12 +47,12 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 	 * @see EntityFireball
 	 */
 	@Override
-	protected void onImpact(RayTraceResult movingObject) {
+	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
-			if (movingObject.entity != null) {
-				movingObject.entity.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
+			if (result.entity != null) {
+				result.entity.attackEntityFrom(DamageSource.MAGIC, (EntityAttributes.ATTACK_DAMAGE_2 / 2));
 
-				if (movingObject.entity instanceof EntityLivingBase) {
+				if (result.entity instanceof EntityLivingBase) {
 					int i = 0;
 
 					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
@@ -62,7 +62,7 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) movingObject.entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, i * 20, 1));
+						((EntityLivingBase) result.entity).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, i * 20, 1));
 					}
 				}
 			}
@@ -82,7 +82,7 @@ public class EntityGaiaProjectileBubble extends EntityFireball {
 		return false;
 	}
 
-	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaProjectileBubble.class, DataSerializers.VARINT);
 
 	@Override
 	protected void registerData() {
