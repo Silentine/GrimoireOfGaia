@@ -1,27 +1,6 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
-#NEW
-#ITEM_NAMES
-item.grimoireofgaia.box_hat.name=Hat Box
-item.grimoireofgaia.pickup_heart.name=Heart
-item.grimoireofgaia.weapon_projectile_bomb.name=Bomb
-
-#ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear.name=Book on Face
-
-#BLOCK_NAMES
-tile.grimoireofgaia.deco_nest_harpy.name=Harpy Nest
-tile.grimoireofgaia.deco_bust_minotaur.name=Minotaur Bust
-tile.grimoireofgaia.fire_camp.name=Campfire
-
-#ENTITY_NAMES
-entity.grimoireofgaia.elf.name=Elf
-entity.grimoireofgaia.campfire.name=Campsite
-entity.grimoireofgaia.vase.name=Ancient Vase
-entity.grimoireofgaia.vase_nether.name=Ancient Vase (Nether)
 
 #MISC
-text.grimoireofgaia.spawnDaysPassed=Spawn Day Delay enabled.
-text.grimoireofgaia.SpawnDaysSet=%d days required to pass before spawns are enabled.
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Pepita de Ferro
@@ -121,6 +100,10 @@ item.grimoireofgaia.weapon_book_nature.name=Livro da Natureza
 item.grimoireofgaia.weapon_book_wither.name=Livro do Apodrecimento
 item.grimoireofgaia.weapon_book_buff.name=Manual de Combate
 item.grimoireofgaia.weapon_debug.name=Arma de Debug
+item.grimoireofgaia.box_hat.name=Caixa de Chapéu
+item.grimoireofgaia.pickup_heart.name=Coração
+item.grimoireofgaia.weapon_projectile_bomb.name=Bomba
+
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_ring_speed.name=Anel de Velocidade
 item.grimoireofgaia.accessory_ring_haste.name=Anel de Pressa
@@ -130,14 +113,18 @@ item.grimoireofgaia.accessory_trinket_poison.name=Bufonite
 item.grimoireofgaia.accessory_trinket_wither.name=Coração Decomposto
 item.grimoireofgaia.accessory_trinket_levitation.name=Bola e Corrente
 item.grimoireofgaia.accessory_cursed.name=Halter Pesado
+
 #ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_mob.name=Gaiola
 item.grimoireofgaia.accessory_headgear_bolt.name=Parafusos
 item.grimoireofgaia.accessory_headgear_arrow.name=Flecha Através da Cabeça
 item.grimoireofgaia.accessory_headgear_doll.name=Empregada Caída
 item.grimoireofgaia.accessory_headgear_ears_elf.name=Orelhas Élficas
+item.grimoireofgaia.accessory_headgear.name=Livro na Cara
+
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Gerar
+
 #BLOCK_NAMES
 tile.grimoireofgaia.bust_valkyrie.name=A Valquíria
 tile.grimoireofgaia.bust_vampire.name=A Vampira
@@ -150,6 +137,10 @@ tile.grimoireofgaia.deco_garden_gnome.name=Gnomo de Jardim
 tile.grimoireofgaia.deco_mandragora_pot.name=Pode de Mandragora
 tile.grimoireofgaia.spawn_guard.name=Talismã de Proteção
 tile.grimoireofgaia.web_temp.name=Teia de Aranha Decadente
+tile.grimoireofgaia.deco_nest_harpy.name=Ninho de Harpy
+tile.grimoireofgaia.deco_bust_minotaur.name=Busto de Minotauro
+tile.grimoireofgaia.fire_camp.name=Fogueira
+
 #ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=Mob de Debug
 entity.grimoireofgaia.ant.name=Formiga Operária
@@ -212,6 +203,11 @@ entity.grimoireofgaia.witch.name=Bruxa
 entity.grimoireofgaia.wither_cow.name=Vaca Decomposta
 entity.grimoireofgaia.yeti.name=Yeti
 entity.grimoireofgaia.yuki-onna.name=Yuki-Onna
+entity.grimoireofgaia.elf.name=Elfo
+entity.grimoireofgaia.campfire.name=Acampamento
+entity.grimoireofgaia.vase.name=Vaso Antigo
+entity.grimoireofgaia.vase_nether.name=Vaso Antigo (Nether)
+
 #ENTITY_VILLAGER_NAMES
 entity.grimoireofgaia.creeper_girl.name=Garota Creeper
 entity.grimoireofgaia.ender_girl.name=Garota Ender
@@ -219,9 +215,11 @@ entity.grimoireofgaia.holstaurus.name=Holstaurus
 entity.grimoireofgaia.slime_girl.name=Garota Slime
 entity.grimoireofgaia.trader.name=Comerciante
 entity.grimoireofgaia.weresheep.name=Mulher-Ovelha
+
 #ENTITY_SUMMON_NAMES
 entity.grimoireofgaia.butler.name=Mordomo
 entity.grimoireofgaia.sporeling.name=Esporolins
+
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Apenas afeta mobs do Grimoire of Gaia
 text.grimoireofgaia.NegativeStatus.desc=Remove efeitos de status negativos
@@ -238,6 +236,7 @@ text.grimoireofgaia.InventoryCurse=Quando no inventário:
 text.grimoireofgaia.InventoryAccessory=Quando no 1º e 2º slots da barra de acesso rápido
 text.grimoireofgaia.InventoryTrinket=Quando no último slot da barra de acesso rápido:
 text.grimoireofgaia.InventoryImmunity=Imunidade a
+
 #TAGS
 text.grimoireofgaia.Accessory.tag=Acessório
 text.grimoireofgaia.Trinket.tag=Bugiganga
@@ -245,8 +244,10 @@ text.grimoireofgaia.Headgear.tag=Chapelaria
 text.grimoireofgaia.Prop.tag=Suporte
 text.grimoireofgaia.WIP.tag=WIP
 text.grimoireofgaia.Debug.tag=Debug
+
 #KEYBOARD
 text.grimoireofgaia.HoldShift=<Segure Shift>
+
 #ITEMS_DESC
 item.grimoireofgaia.FoodExperienceIron.desc=Ganhe um nível
 item.grimoireofgaia.food_monster_feed.desc=Adiciona simmpatia para Mobs de assistência Level 1
@@ -264,8 +265,14 @@ item.grimoireofgaia.spawn_tame.desc=Remove hostilidade inicial
 item.grimoireofgaia.spawn_tame2.desc=Não afeta mobs danificados
 item.grimoireofgaia.WeaponBookEnder.desc=Clique com o botão direito para lançar uma Peróla do Ender
 item.grimoireofgaia.weapon_debug.desc=Usado para teste
+
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=Previne mobs diurnos de serem gerados dentro de %d blocos
+
+#MISC
+text.grimoireofgaia.spawnDaysPassed=Gerar Atraso de Dia habilitado.
+text.grimoireofgaia.SpawnDaysSet=%d dias requeridos para passar antes que as gerações sejam habilitadas.
+
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=Taxas de Gerar
 configgui.grimoireofgaia.category.Menu0.general.tooltip=(REQUERE REINICIO)\nDefinir para 0 vai desabilitar os mobs de serem gerados.\nDay: (<30 Raro, >60 Comum)\nNight: (<60 Raro, >100 Comum)\n(AVISO: Definir os valores muito altos impedirá que outros mobs de serem gerados.
@@ -283,6 +290,7 @@ configgui.grimoireofgaia.category.Menu6.debug=Debug
 configgui.grimoireofgaia.category.Menu6.debug.tooltip=\nOpções de compatibilidade e depuração.
 configgui.grimoireofgaia.category.Menu7.dimensions=Configurações Dimensionais
 configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nConfigurar configurações dimensionais.
+
 #CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=Atraso de Dia para Gerar
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=\nMobs só são gerados depois de uma certa quantidade de dias.
@@ -298,6 +306,7 @@ configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Blocos Adici
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nBlocos Adicionais mobs de Gaia podem gerar em.
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Blocos Adicionais de Gerar Flor
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nBlocos Adicionais flores de Gaia podem gerar em.
+
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Dano Base
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nAtaques corpo a corpo causam mais 2.0 (1 coração) de dano.
@@ -305,6 +314,7 @@ configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers=Dano Base (Arqu
 configgui.grimoireofgaia.category.damage.Menu1.BaseDamageArchers.tooltip=\nFlechas de arqueiros causam mais 1 (0.5 coração) de dano.
 configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing=Escudos Bloqueiam Dano Penetrante
 configgui.grimoireofgaia.category.damage.Menu2.ShieldsBlockPiercing.tooltip=\nDano Base (corpo a corpo) não penetra Escudos.
+
 #CONFIG_DEFENSE
 configgui.grimoireofgaia.category.defense.Tier1baseDefense=Nível 1 Limite Máx. de Dano
 configgui.grimoireofgaia.category.defense.Tier1baseDefense.tooltip=\nQuantidade máxima de acertos necessários.\n(0 = desabilita)
@@ -312,6 +322,7 @@ configgui.grimoireofgaia.category.defense.Tier2baseDefense=Nível 2 Limite Máx.
 configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\nQuantidade máxima de acertos necessários.\n(0 = desabilita)
 configgui.grimoireofgaia.category.defense.Tier3baseDefense=Nível 3 Limite Máx. de Dano
 configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\nQuantidade máxima de acertos necessários.\n(0 = desabilita)
+
 #CONFIG_ATTRIBUTES
 configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Nível 1 Vida
 configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\Vida: 40 (20 Corações).\n(50 = metade, 200 = dobro)
@@ -325,6 +336,7 @@ configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Nível 3 Vida
 configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\nVida: 160 (80 Corações).\n(50 = metade, 200 = dobro)
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Nível 3 Dano
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nDano: 8 (4 Corações).\n(50 = metade, 200 = dobro)
+
 #CONFIG_OPTIONS
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Habilitar Gerações
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip=Habilita mobs de Gaia para serem gerados.
@@ -336,6 +348,7 @@ configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Pepitas Adicionais
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nMobs de Gaia podem agora dropar Pepitas de Cobre e Prata.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Arqueiros Atacantes
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nArqueiros irão atacar e evitar ataques (como esqueletos).
+
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Unificar Drops de Fragmento
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nMobs podem dropar pepitas/fragmentos de outros mods.\n(Desabilite se você encontrar problemas)
@@ -343,9 +356,11 @@ configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn=Gerações de Debug
 configgui.grimoireofgaia.category.debug.Menu1.Debug_Spawn.tooltip=Desabilita todos os mobs não-Gaia de serem gerados.
 configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands=Comandos de Debug
 configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=Habilita comandos de desenvolvedor.
+
 #CONFIG_DIMENSIONS
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Lista negra de ID de Dimensão
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Desabilita mobs de Gaia de serem gerados nas ids de dimensão específicas.
+
 #JEI
 gaia.box.loot=Box Loot
 gui.gaia.box.loot=Box Loot
