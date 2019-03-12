@@ -24,10 +24,10 @@ public class BlockDecoration extends BlockBase {
 
 	private static final PropertyEnum<BlockDecoration.EnumType> TYPE = PropertyEnum.create("type", BlockDecoration.EnumType.class);
 
-	public BlockDecoration(Material material, String blockName) {
+	public BlockDecoration(Material material, String blockName, float hardness) {
 		super(material, blockName);
 		this.setLightOpacity(0);
-		this.setHardness(0.0F);
+		this.setHardness(hardness);
 		this.setResistance(6.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.NORTH));
 	}

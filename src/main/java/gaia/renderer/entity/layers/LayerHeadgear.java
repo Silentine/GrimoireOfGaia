@@ -46,7 +46,7 @@ public class LayerHeadgear implements LayerRenderer<EntityPlayer> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;
@@ -58,12 +58,18 @@ public class LayerHeadgear implements LayerRenderer<EntityPlayer> {
 
 		for (int i = 0; i < baubles.getSlots(); i++) {
 			ItemStack bauble = baubles.getStackInSlot(i);
-//			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR)
-			if (bauble.isEmpty())
-				continue;
+
+			if (bauble.isEmpty() || bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR)
+				if (bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR_MOB)
+					if (bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR_ARROW)
+						if (bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR_BOLT)
+							if (bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR_DOLL)
+								if (bauble.getItem() != GaiaItems.ACCESSORY_HEADGEAR_EARS_ELF)
+									continue;
 
 			return bauble;
 		}
+
 		return ItemStack.EMPTY;
 	}
 }

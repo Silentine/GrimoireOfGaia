@@ -65,7 +65,7 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 		if (isChild()) {
 			setSize(1.0F, 0.5F);
 		}
-		
+
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 

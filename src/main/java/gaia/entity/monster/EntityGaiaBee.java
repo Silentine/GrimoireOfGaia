@@ -32,7 +32,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -170,8 +169,8 @@ public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMo
 		if (!world.isRemote && (getHealth() >= EntityAttributes.MAX_HEALTH_1)) {
 			if (detectMovement() && !isMoving()) {
 				setMoving(true);
-			} 
-			
+			}
+
 			if (!detectMovement() && isMoving()) {
 				setMoving(false);
 			}

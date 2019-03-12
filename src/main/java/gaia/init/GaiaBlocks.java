@@ -50,17 +50,17 @@ public class GaiaBlocks {
 			Gaia.LOGGER.info("Registering blocks...");
 			IForgeRegistry<Block> registry = event.getRegistry();
 
-			registry.register(new BlockDecoration(Material.CLOTH, "bust_sphinx"));
-			registry.register(new BlockDecoration(Material.CLOTH, "bust_valkyrie"));
-			registry.register(new BlockDecoration(Material.CLOTH, "bust_vampire"));
-			registry.register(new BlockDecoration(Material.CLOTH, "doll_creeper_girl"));
-			registry.register(new BlockDecoration(Material.CLOTH, "doll_ender_girl"));
-			registry.register(new BlockDecoration(Material.CLOTH, "doll_slime_girl"));
-			registry.register(new BlockDecoration(Material.CLOTH, "doll_maid"));
-			registry.register(new BlockDecoration(Material.CLOTH, "deco_garden_gnome"));
-			registry.register(new BlockDecoration(Material.CLOTH, "deco_mandragora_pot"));
-			registry.register(new BlockDecoration(Material.ROCK, "deco_bust_minotaur"));
-			registry.register(new BlockDecoration(Material.LEAVES, "deco_nest_harpy"));
+			registry.register(new BlockDecoration(Material.ROCK, "bust_sphinx",1.5F));
+			registry.register(new BlockDecoration(Material.ROCK, "bust_valkyrie",1.5F));
+			registry.register(new BlockDecoration(Material.ROCK, "bust_vampire",1.5F));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_creeper_girl",0.8F));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_ender_girl",0.8F));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_slime_girl",0.8F));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_maid",0.8F));
+			registry.register(new BlockDecoration(Material.CLOTH, "deco_garden_gnome",0.8F));
+			registry.register(new BlockDecoration(Material.CLOTH, "deco_mandragora_pot",0.8F));
+			registry.register(new BlockDecoration(Material.ROCK, "deco_bust_minotaur",1.5F));
+			registry.register(new BlockDecoration(Material.LEAVES, "deco_nest_harpy",0.8F));
 			registry.register(new BlockSpawnGuard());
 			registry.register(new BlockWebTemp());
 			registry.register(new BlockFireCamp());
