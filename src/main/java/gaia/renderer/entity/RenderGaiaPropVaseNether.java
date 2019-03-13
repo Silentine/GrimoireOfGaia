@@ -3,6 +3,7 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.entity.prop.EntityGaiaPropVase;
 import gaia.model.ModelGaiaPropVase;
+import gaia.model.ModelGaiaPropVaseNether;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -11,11 +12,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RenderGaiaPropVase extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/prop/prop_vase.png");
+public class RenderGaiaPropVaseNether extends RenderLiving<EntityLiving> {
+	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/prop/prop_vase_nether.png");
 
-	public RenderGaiaPropVase(RenderManager renderManager, float shadowSize) {
-		super(renderManager, new ModelGaiaPropVase(), 0.0F);
+	public RenderGaiaPropVaseNether(RenderManager renderManager, float shadowSize) {
+		super(renderManager, new ModelGaiaPropVaseNether(), 0.0F);
 	}
 
 	@Override

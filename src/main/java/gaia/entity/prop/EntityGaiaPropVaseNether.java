@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.init.Items;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
@@ -23,28 +22,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumLightType;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class EntityGaiaPropVase extends EntityMobProp {
+public class EntityGaiaPropVaseNether extends EntityMobProp {
 
     private static final String ROTATION_TAG = "Rotation";
     private static final String DROP_TAG = "Drop";
 
-    private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityGaiaPropVase.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> DROP = EntityDataManager.createKey(EntityGaiaPropVase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityGaiaPropVaseNether.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> DROP = EntityDataManager.createKey(EntityGaiaPropVaseNether.class, DataSerializers.VARINT);
 
     private BlockPos blockPosition;
 
-    public EntityGaiaPropVase(World worldIn) {
+    public EntityGaiaPropVaseNether(World worldIn) {
         super(GaiaEntities.VASE, worldIn);
         setSize(0.8F, 0.8F);
         experienceValue = 0;
@@ -204,7 +199,7 @@ public class EntityGaiaPropVase extends EntityMobProp {
 
     @Nullable
     protected ResourceLocation getLootTable() {
-        return GaiaLootTableList.ENTITIES_GAIA_VASE;
+        return GaiaLootTableList.ENTITIES_GAIA_VASE_NETHER;
     }
 
     @Override
@@ -273,27 +268,10 @@ public class EntityGaiaPropVase extends EntityMobProp {
     }
 
     /* SPAWN CONDITIONS */
-    /**
-     * @see EntityMob
-     */
-    protected boolean isValidLightLevel() {
-        BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
-        if (this.world.getLightFor(EnumLightType.SKY, blockpos) > this.rand.nextInt(32)) {
-            return false;
-        } else {
-            int i = this.world.isThundering() ? this.world.getNeighborAwareLightSubtracted(blockpos, 10) : this.world.getLight(blockpos);
-            return i <= this.rand.nextInt(8);
-        }
-    }
 
     @Override
     public int getMaxSpawnedInChunk() {
         return 1;
-    }
-
-    @Override
-    public boolean canSpawn(IWorld worldIn, boolean value) {
-        return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
     }
     /* SPAWN CONDITIONS */
 

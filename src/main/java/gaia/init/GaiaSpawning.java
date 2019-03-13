@@ -109,6 +109,7 @@ public class GaiaSpawning {
 		 * NETHER
 		 */
 		if (BiomeDictionary.hasType(biome, Type.NETHER)) {
+			add(COMMON.spawnVaseNether.get(), GaiaEntities.VASE_NETHER, 1, 1, biome);
 			add(COMMON.spawnSuccubus.get(), GaiaEntities.SUCCUBUS, 2, 4, biome);
 			add(COMMON.spawnWitherCow.get(), GaiaEntities.WITHER_COW, 2, 4, biome);
 			add(COMMON.spawnBaphomet.get(), GaiaEntities.BAPHOMET, 2, 4, biome);

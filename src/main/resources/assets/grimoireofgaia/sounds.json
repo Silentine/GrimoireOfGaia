@@ -2,25 +2,25 @@
 	"passive_say": { "category": "neutral", "sounds": ["grimoireofgaia:passive_say1","grimoireofgaia:passive_say2","grimoireofgaia:passive_say3"]},
 	"passive_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:passive_hurt1","grimoireofgaia:passive_hurt2","grimoireofgaia:passive_hurt3"]},
 	"passive_death": {"category": "neutral", "sounds": ["grimoireofgaia:passive_death"]},
-	
+
 	"assist_say": { "category": "neutral", "sounds": ["grimoireofgaia:assist_say1","grimoireofgaia:assist_say2","grimoireofgaia:assist_say3"]},
 	"assist_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:assist_hurt1","grimoireofgaia:assist_hurt2","grimoireofgaia:assist_hurt3"]},
 	"assist_death": { "category": "neutral", "sounds": ["grimoireofgaia:assist_death"]},
-	
+
 	"aggressive_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},
 	"aggressive_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
 	"aggressive_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
-	
+
 	"debug_say": { "category": "neutral", "sounds": ["grimoireofgaia:debug_say1","grimoireofgaia:debug_say2","grimoireofgaia:debug_say3"]},
 	"debug_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:debug_hurt1","grimoireofgaia:debug_hurt2","grimoireofgaia:debug_hurt3"]},
 	"debug_death": { "category": "neutral", "sounds": ["grimoireofgaia:debug_death"]},
 
-	
-	
+
+
 	"ant_say": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_say1","grimoireofgaia:aggressive_say2","grimoireofgaia:aggressive_say3"]},
 	"ant_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_hurt1","grimoireofgaia:aggressive_hurt2","grimoireofgaia:aggressive_hurt3"]},
 	"ant_death": { "category": "neutral", "sounds": ["grimoireofgaia:aggressive_death"]},
-	
+
 	"ant_ranger_say": { "category": "neutral", "sounds": ["grimoireofgaia:ant_ranger_say1","grimoireofgaia:ant_ranger_say2"]},
 	"ant_ranger_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:ant_ranger_hurt1","grimoireofgaia:ant_ranger_hurt2"]},
 	"ant_ranger_death": { "category": "neutral", "sounds": ["grimoireofgaia:ant_ranger_death"]},
@@ -88,7 +88,7 @@
 	"hunter_say": { "category": "neutral", "sounds": ["grimoireofgaia:assist_say1","grimoireofgaia:assist_say2","grimoireofgaia:assist_say3"]},
 	"hunter_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:assist_hurt1","grimoireofgaia:assist_hurt2","grimoireofgaia:assist_hurt3"]},
 	"hunter_death": { "category": "neutral", "sounds": ["grimoireofgaia:assist_death"]},
-	
+
 	"kikimora_say": { "category": "neutral", "sounds": ["grimoireofgaia:assist_say1","grimoireofgaia:assist_say2","grimoireofgaia:assist_say3"]},
 	"kikimora_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:assist_hurt1","grimoireofgaia:assist_hurt2","grimoireofgaia:assist_hurt3"]},
 	"kikimora_death": { "category": "neutral", "sounds": ["grimoireofgaia:assist_death"]},
@@ -201,8 +201,8 @@
 	"yukionna_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:assist_hurt1","grimoireofgaia:assist_hurt2","grimoireofgaia:assist_hurt3"]},
 	"yukionna_death": { "category": "neutral", "sounds": ["grimoireofgaia:assist_death"]},
 
-	
-	
+
+
 	"holstaurus_say": { "category": "neutral", "sounds": ["grimoireofgaia:passive_say1","grimoireofgaia:passive_say2","grimoireofgaia:passive_say3"]},
 	"holstaurus_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:passive_hurt1","grimoireofgaia:passive_hurt2","grimoireofgaia:passive_hurt3"]},
 	"holstaurus_death": { "category": "neutral", "sounds": ["grimoireofgaia:passive_death"]},
@@ -226,17 +226,17 @@
 	"endergirl_say": { "category": "neutral", "sounds": ["grimoireofgaia:passive_say1","grimoireofgaia:passive_say2","grimoireofgaia:passive_say3"]},
 	"endergirl_hurt": { "category": "neutral", "sounds": ["grimoireofgaia:passive_hurt1","grimoireofgaia:passive_hurt2","grimoireofgaia:passive_hurt3"]},
 	"endergirl_death": { "category": "neutral", "sounds": ["grimoireofgaia:passive_death"]},
-  
-  
-  
-  	"step_sandals": { "category": "neutral", "sounds": ["grimoireofgaia:step_sandals"]},
+
+
+
+	"step_sandals": { "category": "neutral", "sounds": ["grimoireofgaia:step_sandals"]},
 	"step_webbed": { "category": "neutral", "sounds": ["grimoireofgaia:step_webbed"]},
-  
+
 	"box_open1": { "category": "neutral", "sounds": ["grimoireofgaia:box_open1"]},
 	"box_open2": { "category": "neutral", "sounds": ["grimoireofgaia:box_open2"]},
 	"bag_open": { "category": "neutral", "sounds": ["grimoireofgaia:bag_open"]},
 	"book_hit": { "category": "neutral", "sounds": ["grimoireofgaia:book_hit1","grimoireofgaia:book_hit2","grimoireofgaia:book_hit3","grimoireofgaia:book_hit4"]},
-	
-	
+
+
 	"none": { "category": "neutral", "sounds": ["grimoireofgaia:none"]}
 }

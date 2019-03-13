@@ -79,6 +79,7 @@ import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import gaia.entity.prop.EntityGaiaPropCampfire;
 import gaia.entity.prop.EntityGaiaPropVase;
+import gaia.entity.prop.EntityGaiaPropVaseNether;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -174,6 +175,7 @@ public class GaiaEntities {
 	public static final EntityType<EntityGaiaPropFlowerCyan> CYAN_FLOWER = register("cyan_flower", EntityType.Builder.create(EntityGaiaPropFlowerCyan.class, EntityGaiaPropFlowerCyan::new), false);
 	public static final EntityType<EntityGaiaPropCampfire> CAMPFIRE = register("campfire", EntityType.Builder.create(EntityGaiaPropCampfire.class, EntityGaiaPropCampfire::new));
 	public static final EntityType<EntityGaiaPropVase> VASE = register("vase", EntityType.Builder.create(EntityGaiaPropVase.class, EntityGaiaPropVase::new), false);
+	public static final EntityType<EntityGaiaPropVaseNether> VASE_NETHER = register("vase_nether", EntityType.Builder.create(EntityGaiaPropVaseNether.class, EntityGaiaPropVaseNether::new), false);
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
         EntityType<T> entitytype = builder.tracker(64, 3, sendVelocityUpdates).build("");
@@ -273,6 +275,7 @@ public class GaiaEntities {
 		register(BOMB_PROJECTILE, event);
 		register(CAMPFIRE, event);
 		register(VASE, event);
+		register(VASE_NETHER, event);
 	}
 
 }
