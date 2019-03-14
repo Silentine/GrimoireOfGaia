@@ -46,9 +46,9 @@ public class GaiaBlocks {
 		Gaia.LOGGER.info("Registering blocks...");
 		IForgeRegistry<Block> registry = event.getRegistry();
 		
-		BUST_SPHINX = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_sphinx");
-		BUST_VALKYRIE = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_valkyrie");
-		BUST_VAMPIRE = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "bust_vampire");
+		BUST_SPHINX = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_sphinx");
+		BUST_VALKYRIE = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_valkyrie");
+		BUST_VAMPIRE = registerBlock(new BlockBust(Block.Properties.create(Material.ROCK)), "bust_vampire");
 		DOLL_CREEPER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_creeper_girl");
 		DOLL_ENDER_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_ender_girl");
 		DOLL_SLIME_GIRL = registerBlock(new BlockBust(Block.Properties.create(Material.CLOTH)), "doll_slime_girl");
