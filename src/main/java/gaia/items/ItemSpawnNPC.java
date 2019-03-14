@@ -1,6 +1,5 @@
 package gaia.items;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlowingFluid;
@@ -131,19 +130,6 @@ public class ItemSpawnNPC extends ItemBase {
 				return new ActionResult(EnumActionResult.PASS, stack);
 			}
 		}
-	}
-
-	public boolean hasType(@Nullable NBTTagCompound tag, EntityType<?> typeIn) {
-		return Objects.equals(this.getType(tag), typeIn);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public static ItemSpawnNPC getEgg(@Nullable EntityType<?> typeIn) {
-		return (ItemSpawnNPC)EGGS.get(typeIn);
-	}
-
-	public static Iterable<ItemSpawnNPC> getEggs() {
-		return Iterables.unmodifiableIterable(EGGS.values());
 	}
 
 	@Nullable

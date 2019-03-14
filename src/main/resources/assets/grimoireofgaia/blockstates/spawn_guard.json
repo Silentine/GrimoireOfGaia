@@ -1,18 +1,18 @@
 {
     "variants": {
-        "facing=north":   { "model": "grimoireofgaia:block/spawn_guard", "y": 180           },
-        "facing=south":   { "model": "grimoireofgaia:block/spawn_guard", "y": 270           },
-        "facing=west":    { "model": "grimoireofgaia:block/spawn_guard"                     },
-        "facing=east":    { "model": "grimoireofgaia:block/spawn_guard", "y": 90            },
+        "type=north":   { "model": "grimoireofgaia:block/spawn_guard", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:block/spawn_guard", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:block/spawn_guard"                     },
+        "type=east":    { "model": "grimoireofgaia:block/spawn_guard", "y": 90            },
         
-        "facing=u_north": { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 180 },
-        "facing=u_south": { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 270 },
-        "facing=u_west":  { "model": "grimoireofgaia:block/spawn_guard", "x": 180           },
-        "facing=u_east":  { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 90  },
+        "type=u_north": { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 180 },
+        "type=u_south": { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 270 },
+        "type=u_west":  { "model": "grimoireofgaia:block/spawn_guard", "x": 180           },
+        "type=u_east":  { "model": "grimoireofgaia:block/spawn_guard", "x": 180, "y": 90  },
         
-        "facing=v_north": { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 180 },
-        "facing=v_west": { "model": "grimoireofgaia:block/spawn_guard", "x": 270           },
-        "facing=v_east":  { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 90  },
-        "facing=v_south":  { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 270 }
+        "type=v_north": { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 180 },
+        "type=v_west": { "model": "grimoireofgaia:block/spawn_guard", "x": 270           },
+        "type=v_east":  { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 90  },
+        "type=v_south":  { "model": "grimoireofgaia:block/spawn_guard", "x": 270, "y": 270 }
     }
 }
