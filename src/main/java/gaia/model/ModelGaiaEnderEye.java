@@ -1,6 +1,6 @@
 package gaia.model;
 
-import net.minecraft.client.model.ModelBlaze;
+import net.minecraft.client.renderer.entity.model.ModelBlaze;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;

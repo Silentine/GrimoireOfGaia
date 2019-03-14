@@ -190,8 +190,8 @@ public class ModelGaiaDryad extends ModelGaia {
 		} else {
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
-			GlStateManager.translate(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
+			GlStateManager.scalef(SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD, SCALE_AMOUNT_HEAD);
+			GlStateManager.translatef(0.0F, Y_OFFSET_HEAD * scale, 0.0F);
 			head.render(scale);
 
 			if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
@@ -204,8 +204,8 @@ public class ModelGaiaDryad extends ModelGaia {
 			GlStateManager.popMatrix();
 			/* SCALING */
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
-			GlStateManager.translate(0.0F, Y_OFFSET_BODY * scale, 0.0F);
+			GlStateManager.scalef(SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY, SCALE_AMOUNT_BODY);
+			GlStateManager.translatef(0.0F, Y_OFFSET_BODY * scale, 0.0F);
 			neck.render(scale);
 			bodytop.render(scale);
 			bodymid.render(scale);

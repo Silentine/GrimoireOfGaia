@@ -224,8 +224,8 @@ public class ModelDebugMob extends ModelGaia {
 		EntityDebugMob mob = (EntityDebugMob) entityIn;
 		if (mob.getSitting()) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 10.0F * scale, 0.0F);
-			GlStateManager.rotate(70F, 70, 0, 0);
+			GlStateManager.translatef(0.0F, 10.0F * scale, 0.0F);
+			GlStateManager.rotatef(70F, 70, 0, 0);
 		}
 
 		head.render(scale);

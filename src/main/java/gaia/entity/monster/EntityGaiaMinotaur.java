@@ -265,7 +265,7 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				entityDropItem(GaiaBlocks.BUST_MINOTAUR, 1);
+				entityDropItem(GaiaBlocks.DECO_BUST_MINOTAUR, 1);
 			}
 
 			// Unique Rare
