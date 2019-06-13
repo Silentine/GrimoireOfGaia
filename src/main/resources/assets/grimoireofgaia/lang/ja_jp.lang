@@ -1,4 +1,4 @@
-itemGroup.tabGaia=Grimoire of Gaia 3
+itemGroup.grimoireofgaia=Grimoire of Gaia 3
 #NEW
 #ITEM_NAMES
 
@@ -86,7 +86,7 @@ item.grimoireofgaia.weapon_prop_axe_wood.name=木の斧
 item.grimoireofgaia.weapon_prop_axe_stone.name=石の斧
 item.grimoireofgaia.weapon_prop_axe_iron.name=鉄の斧
 item.grimoireofgaia.weapon_prop_axe_gold.name=金の斧
-item.grimoireofgaia.weapon_dagger_metal.name=金属の短剣
+item.grimoireofgaia.weapon_prop_dagger_metal.name=金属の短剣
 item.grimoireofgaia.weapon_prop_projectile_bubble.name=泡
 item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法
 item.grimoireofgaia.weapon_prop_projectile_poison.name=毒
@@ -128,7 +128,7 @@ item.grimoireofgaia.accessory_headgear_arrow.name=頭を貫通した矢
 item.grimoireofgaia.accessory_headgear_doll.name=頭乗せうつ伏せメイドさん
 item.grimoireofgaia.accessory_headgear_ears_elf.name=エルフ耳
 #ITEM_SPAWNEGG
-item.grimoireofgaia.spawn_egg.name=スポーン
+item.grimoireofgaia.spawnegg.name=スポーン
 #BLOCK_NAMES
 tile.grimoireofgaia.bust_valkyrie.name=ヴァルキリーの胸像
 tile.grimoireofgaia.bust_vampire.name=ヴァンパイアの胸像
@@ -219,7 +219,7 @@ entity.grimoireofgaia.trader.name=トレーダー
 entity.grimoireofgaia.weresheep.name=ウェアシープ
 #ENTITY_SUMMON_NAMES
 entity.grimoireofgaia.butler.name=執事
-entity.grimoireofgaia.spiderling.name=子グモ
+entity.grimoireofgaia.sporeling.name=胞子の小人
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Grimoire of Gaiaのモブにのみ効果があります。
 text.grimoireofgaia.NegativeStatus.desc=悪いステータスエフェクトを取り除きます
@@ -232,7 +232,7 @@ text.grimoireofgaia.RightClickEquip=右クリックで着用
 text.grimoireofgaia.FuelForSeconds=%d 秒燃焼します
 text.grimoireofgaia.BlessMainhand=利き手では:
 text.grimoireofgaia.BlessOffhand=オフハンドに持ったとき、利き手では:
-text.grimoireofgaia.CurseInventory=インベントリ内にあるとき:
+text.grimoireofgaia.InventoryCurse=インベントリ内にあるとき:
 text.grimoireofgaia.InventoryAccessory=ホットバーの1･2番目のスロットにある時:
 text.grimoireofgaia.InventoryTrinket=ホットバーの一番最後のスロットにある時
 text.grimoireofgaia.InventoryImmunity=抵抗性:  
@@ -260,10 +260,10 @@ item.grimoireofgaia.spawn_holstaurus.desc=ホルスタウルスを召喚しま�
 item.grimoireofgaia.spawn_weresheep.desc=ウェアシープを召喚します
 item.grimoireofgaia.spawn_tame.desc=モンスターの闘争心を落ち着かせます
 item.grimoireofgaia.spawn_tame2.desc=ダメージを受けたモブには効果がありません
-item.grimoireofgaia.weapon_book_ender.desc=右クリックでエンダーパールを射出します
+item.grimoireofgaia.WeaponBookEnder.desc=右クリックでエンダーパールを射出します
 item.grimoireofgaia.weapon_debug.desc=テスト用
 #BLOCK_DESC
-block.grimoireofgaia.SpawnGuard.desc=%d ブロック内の日中のモブのスポーンを抑制します
+block.grimoireofgaia.spawn_guard.desc=%d ブロック内の日中のモブのスポーンを抑制します
 #MISC
 text.grimoireofgaia.spawnDaysPassed=スポーン日数の遅延を有効化しました
 text.grimoireofgaia.SpawnDaysSet=Grimoire of Gaiaのモブがスポーンするまで%d日経過する必要があります
