@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:misc_ring_night"
+    },
+    {
+      "item": "minecraft:beacon"
+    }
+  ],
+  "result": {
+    "item": "grimoireofgaia:accessory_ring_night"
+  }
+}

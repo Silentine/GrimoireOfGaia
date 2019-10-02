@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:diamond",
+    "ingredients": [
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        },
+        {
+            "item": "grimoireofgaia:shard_diamond"
+        }
+    ],
+    "result": {
+        "item": "minecraft:diamond"
+    }
+}

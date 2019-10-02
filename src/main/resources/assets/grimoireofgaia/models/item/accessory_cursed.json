@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/accessory_cursed"
+        "layer0": "grimoireofgaia:item/accessory_cursed"
     } 
 }

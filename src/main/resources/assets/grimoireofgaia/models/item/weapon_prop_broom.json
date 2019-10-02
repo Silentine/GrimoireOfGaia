@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:items/models/weapon_prop_broom"
+		"0": "grimoireofgaia:item/models/weapon_prop_broom"
 	},
 	"elements": [
 		{

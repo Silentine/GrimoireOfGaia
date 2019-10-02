@@ -1,6 +1,6 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "grimoireofgaia:blocks/campfire_fire"
+        "cross": "grimoireofgaia:block/campfire_fire"
     }
 }

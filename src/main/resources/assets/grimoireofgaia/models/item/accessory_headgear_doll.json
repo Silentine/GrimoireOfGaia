@@ -2,8 +2,8 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"1": "grimoireofgaia:items/models/bauble/accessory_headgear_doll_head",
-		"2": "grimoireofgaia:items/models/bauble/accessory_headgear_doll_body"
+		"1": "grimoireofgaia:item/models/bauble/accessory_headgear_doll_head",
+		"2": "grimoireofgaia:item/models/bauble/accessory_headgear_doll_body"
 	},
 	"elements": [
 		{

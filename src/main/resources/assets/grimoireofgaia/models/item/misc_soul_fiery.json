@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/misc_soul_fiery"
+        "layer0": "grimoireofgaia:item/misc_soul_fiery"
     } 
 }

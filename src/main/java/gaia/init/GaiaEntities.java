@@ -1,238 +1,257 @@
 package gaia.init;
 
-import java.util.Set;
-
-import com.google.common.collect.ImmutableSet;
-
-import gaia.Gaia;
+import com.google.common.base.Preconditions;
 import gaia.GaiaReference;
-import gaia.entity.debug.EntityDebugMob;
-import gaia.entity.monster.EntityGaiaAnt;
-import gaia.entity.monster.EntityGaiaAntRanger;
-import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaArachne;
-import gaia.entity.monster.EntityGaiaBanshee;
-import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.entity.monster.EntityGaiaBee;
-import gaia.entity.monster.EntityGaiaBoneKnight;
-import gaia.entity.monster.EntityGaiaCecaelia;
-import gaia.entity.monster.EntityGaiaCentaur;
-import gaia.entity.monster.EntityGaiaCobbleGolem;
-import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaDeathword;
-import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaDullahan;
-import gaia.entity.monster.EntityGaiaDwarf;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaEnderEye;
-import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaGelatinousSlime;
-import gaia.entity.monster.EntityGaiaGoblin;
-import gaia.entity.monster.EntityGaiaGoblinFeral;
-import gaia.entity.monster.EntityGaiaGryphon;
-import gaia.entity.monster.EntityGaiaHarpy;
-import gaia.entity.monster.EntityGaiaHunter;
-import gaia.entity.monster.EntityGaiaKikimora;
-import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMandragora;
-import gaia.entity.monster.EntityGaiaMatango;
-import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMimic;
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.entity.monster.EntityGaiaMinotaurus;
-import gaia.entity.monster.EntityGaiaMonoeye;
-import gaia.entity.monster.EntityGaiaMummy;
-import gaia.entity.monster.EntityGaiaNaga;
-import gaia.entity.monster.EntityGaiaNineTails;
-import gaia.entity.monster.EntityGaiaOni;
-import gaia.entity.monster.EntityGaiaOrc;
-import gaia.entity.monster.EntityGaiaSatyress;
-import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.entity.monster.EntityGaiaShaman;
-import gaia.entity.monster.EntityGaiaSharko;
-import gaia.entity.monster.EntityGaiaSiren;
-import gaia.entity.monster.EntityGaiaSludgeGirl;
-import gaia.entity.monster.EntityGaiaSphinx;
-import gaia.entity.monster.EntityGaiaSpriggan;
-import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSummonButler;
-import gaia.entity.monster.EntityGaiaSummonSporeling;
-import gaia.entity.monster.EntityGaiaToad;
-import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
-import gaia.entity.monster.EntityGaiaWitherCow;
-import gaia.entity.monster.EntityGaiaYeti;
-import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
-import gaia.entity.passive.EntityGaiaNPCEnderGirl;
-import gaia.entity.passive.EntityGaiaNPCHolstaurus;
-import gaia.entity.passive.EntityGaiaNPCSlimeGirl;
-import gaia.entity.passive.EntityGaiaNPCTrader;
-import gaia.entity.passive.EntityGaiaNPCWeresheep;
-import gaia.entity.projectile.EntityGaiaProjectileBomb;
-import gaia.entity.projectile.EntityGaiaProjectileBubble;
-import gaia.entity.projectile.EntityGaiaProjectileMagic;
-import gaia.entity.projectile.EntityGaiaProjectilePoison;
-import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
-import gaia.entity.projectile.EntityGaiaProjectileWeb;
-import gaia.entity.prop.EntityGaiaPropCampfire;
-import gaia.entity.prop.EntityGaiaPropChestMimic;
-import gaia.entity.prop.EntityGaiaPropFlowerCyan;
-import gaia.entity.prop.EntityGaiaPropVase;
-import gaia.entity.prop.EntityGaiaPropVaseNether;
+import gaia.entity.assist.GaiaBeeEntity;
+import gaia.entity.assist.GaiaCentaurEntity;
+import gaia.entity.assist.GaiaCobbleGolemEntity;
+import gaia.entity.assist.GaiaCyclopsEntity;
+import gaia.entity.hostile.GaiaAntEntity;
+import gaia.entity.hostile.GaiaAntRangerEntity;
+import gaia.entity.hostile.GaiaAnubisEntity;
+import gaia.entity.hostile.GaiaArachneEntity;
+import gaia.entity.hostile.GaiaBansheeEntity;
+import gaia.entity.hostile.GaiaBaphometEntity;
+import gaia.entity.hostile.GaiaBoneKnightEntity;
+import gaia.entity.hostile.GaiaCecaeliaEntity;
+import gaia.entity.hostile.GaiaCobblestoneGolemEntity;
+import gaia.entity.hostile.GaiaCreepEntity;
+import gaia.entity.hostile.GaiaDeathwordEntity;
+import gaia.entity.hostile.GaiaMandragoraEntity;
+import gaia.entity.hostile.GaiaMimicEntity;
+import gaia.entity.hostile.GaiaSphinxEntity;
+import gaia.entity.projectile.GaiaProjectileBombEntity;
+import gaia.entity.projectile.GaiaProjectileBubbleEntity;
+import gaia.entity.projectile.GaiaProjectileMagicEntity;
+import gaia.entity.projectile.GaiaProjectilePoisonEntity;
+import gaia.entity.projectile.GaiaProjectileSmallFireballEntity;
+import gaia.entity.projectile.GaiaProjectileWebEntity;
+import gaia.entity.prop.GaiaPropCampfireEntity;
+import gaia.entity.prop.GaiaPropChestMimicEntity;
+import gaia.entity.prop.GaiaPropFlowerCyanEntity;
+import gaia.entity.prop.GaiaPropVaseEntity;
+import gaia.entity.prop.GaiaPropVaseNetherEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.registries.IForgeRegistry;
 
+@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class GaiaEntities {
-	private GaiaEntities() {
+
+//	public static final EntityType<EntityDebugMob> DEBUG_MOB = register("debug_mob", EntityType.Builder.create(EntityDebugMob::new, EntityDebugMob::new));
+	public static final EntityType<GaiaAntEntity> ANT = register("ant", EntityType.Builder.<GaiaAntEntity>create(GaiaAntEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaAntRangerEntity> ANT_RANGER = register("ant_ranger", EntityType.Builder.<GaiaAntRangerEntity>create(GaiaAntRangerEntity::new, EntityClassification.MONSTER).size(0.5F, 0.5F));
+	public static final EntityType<GaiaAnubisEntity> ANUBIS = register("anubis", EntityType.Builder.create(GaiaAnubisEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaArachneEntity> ARACHNE = register("arachne", EntityType.Builder.<GaiaArachneEntity>create(GaiaArachneEntity::new, EntityClassification.MONSTER).size(1.4F, 1.6F));
+	public static final EntityType<GaiaBansheeEntity> BANSHEE = register("banshee", EntityType.Builder.<GaiaBansheeEntity>create(GaiaBansheeEntity::new, EntityClassification.MONSTER).immuneToFire());
+	public static final EntityType<GaiaBaphometEntity> BAPHOMET = register("baphomet", EntityType.Builder.<GaiaBaphometEntity>create(GaiaBaphometEntity::new, EntityClassification.MONSTER).immuneToFire());
+	public static final EntityType<GaiaBeeEntity> BEE = register("bee", EntityType.Builder.<GaiaBeeEntity>create(GaiaBeeEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaBoneKnightEntity> BONE_KNIGHT = register("bone_knight", EntityType.Builder.<GaiaBoneKnightEntity>create(GaiaBoneKnightEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaCecaeliaEntity> CECEALIA = register("cecaelia", EntityType.Builder.<GaiaCecaeliaEntity>create(GaiaCecaeliaEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaCentaurEntity> CENTAUR = register("centaur", EntityType.Builder.<GaiaCentaurEntity>create(GaiaCentaurEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaCobbleGolemEntity> COBBLE_GOLEM = register("cobble_golem", EntityType.Builder.<GaiaCobbleGolemEntity>create(GaiaCobbleGolemEntity::new, EntityClassification.MONSTER).immuneToFire());
+	public static final EntityType<GaiaCobblestoneGolemEntity> COBBLESTONE_GOLEM = register("cobblestone_golem", EntityType.Builder.<GaiaCobblestoneGolemEntity>create(GaiaCobblestoneGolemEntity::new, EntityClassification.MONSTER)
+			.size(1.4F, 2.2F).immuneToFire());
+	public static final EntityType<GaiaCreepEntity> CREEP = register("creep", EntityType.Builder.<GaiaCreepEntity>create(GaiaCreepEntity::new, EntityClassification.MONSTER).size(0.75F, 0.75F));
+	public static final EntityType<GaiaCyclopsEntity> CYCLOPS = register("cyclops", EntityType.Builder.<GaiaCyclopsEntity>create(GaiaCyclopsEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaDeathwordEntity> DEATHWORD = register("deathword", EntityType.Builder.<GaiaDeathwordEntity>create(GaiaDeathwordEntity::new, EntityClassification.MONSTER));
+//	public static final EntityType<EntityGaiaDhampir> DHAMPIR = register("dhampir", EntityType.Builder.create(EntityGaiaDhampir::new, EntityGaiaDhampir::new));
+//	public static final EntityType<EntityGaiaDryad> DRYAD = register("dryad", EntityType.Builder.create(EntityGaiaDryad::new, EntityGaiaDryad::new));
+//	public static final EntityType<EntityGaiaDullahan> DULLAHAN = register("dullahan", EntityType.Builder.create(EntityGaiaDullahan::new, EntityGaiaDullahan::new));
+//	public static final EntityType<EntityGaiaDwarf> DWARF = register("dwarf", EntityType.Builder.create(EntityGaiaDwarf::new, EntityGaiaDwarf::new));
+//	public static final EntityType<EntityGaiaEnderDragonGirl> ENDER_DRAGON_GIRL = register("ender_dragon_girl", EntityType.Builder.create(EntityGaiaEnderDragonGirl::new, EntityGaiaEnderDragonGirl::new));
+//	public static final EntityType<EntityGaiaEnderEye> ENDER_EYE = register("ender_eye", EntityType.Builder.create(EntityGaiaEnderEye::new, EntityGaiaEnderEye::new));
+//	public static final EntityType<EntityGaiaFleshLich> FLESH_LICH = register("flesh_lich", EntityType.Builder.create(EntityGaiaFleshLich::new, EntityGaiaFleshLich::new));
+//	public static final EntityType<EntityGaiaGelatinousSlime> GELATINOUS_SLIME = register("gelatinous_slime", EntityType.Builder.create(EntityGaiaGelatinousSlime::new, EntityGaiaGelatinousSlime::new));
+//	public static final EntityType<EntityGaiaGoblin> GOBLIN = register("goblin", EntityType.Builder.create(EntityGaiaGoblin::new, EntityGaiaGoblin::new));
+//	public static final EntityType<EntityGaiaGoblinFeral> GOBLIN_FERAL = register("goblin_feral", EntityType.Builder.create(EntityGaiaGoblinFeral::new, EntityGaiaGoblinFeral::new));
+//	public static final EntityType<EntityGaiaGryphon> GRYPHON = register("gryphon", EntityType.Builder.create(EntityGaiaGryphon::new, EntityGaiaGryphon::new));
+//	public static final EntityType<EntityGaiaHarpy> HARPY = register("harpy", EntityType.Builder.create(EntityGaiaHarpy::new, EntityGaiaHarpy::new));
+//	public static final EntityType<EntityGaiaHunter> HUNTER = register("hunter", EntityType.Builder.create(EntityGaiaHunter::new, EntityGaiaHunter::new));
+//	public static final EntityType<EntityGaiaKikimora> KIKIMORA = register("kikimora", EntityType.Builder.create(EntityGaiaKikimora::new, EntityGaiaKikimora::new));
+//	public static final EntityType<EntityGaiaKobold> KOBOLD = register("kobold", EntityType.Builder.create(EntityGaiaKobold::new, EntityGaiaKobold::new));
+//	public static final EntityType<EntityGaiaMatango> MATANGO = register("matango", EntityType.Builder.create(EntityGaiaMatango::new, EntityGaiaMatango::new));
+//	public static final EntityType<EntityGaiaMermaid> MERMAID = register("mermaid", EntityType.Builder.create(EntityGaiaMermaid::new, EntityGaiaMermaid::new));
+//	public static final EntityType<EntityGaiaMinotaur> MINOTAUR = register("minotaur", EntityType.Builder.create(EntityGaiaMinotaur::new, EntityGaiaMinotaur::new));
+//	public static final EntityType<EntityGaiaMinotaurus> MINOTAURUS = register("minotaurus", EntityType.Builder.create(EntityGaiaMinotaurus::new, EntityGaiaMinotaurus::new));
+//	public static final EntityType<EntityGaiaMummy> MUMMY = register("mummy", EntityType.Builder.create(EntityGaiaMummy::new, EntityGaiaMummy::new));
+//	public static final EntityType<EntityGaiaNaga> NAGA = register("naga", EntityType.Builder.create(EntityGaiaNaga::new, EntityGaiaNaga::new));
+//	public static final EntityType<EntityGaiaNineTails> NINE_TAILS = register("nine_tails", EntityType.Builder.create(EntityGaiaNineTails::new, EntityGaiaNineTails::new));
+//	public static final EntityType<EntityGaiaOni> ONI = register("oni", EntityType.Builder.create(EntityGaiaOni::new, EntityGaiaOni::new));
+//	public static final EntityType<EntityGaiaOrc> ORC = register("orc", EntityType.Builder.create(EntityGaiaOrc::new, EntityGaiaOrc::new));
+//	public static final EntityType<EntityGaiaSatyress> SATYRESS = register("satyress", EntityType.Builder.create(EntityGaiaSatyress::new, EntityGaiaSatyress::new));
+//	public static final EntityType<EntityGaiaSelkie> SELKIE = register("selkie", EntityType.Builder.create(EntityGaiaSelkie::new, EntityGaiaSelkie::new));
+//	public static final EntityType<EntityGaiaShaman> SHAMAN = register("shaman", EntityType.Builder.create(EntityGaiaShaman::new, EntityGaiaShaman::new));
+//	public static final EntityType<EntityGaiaSharko> SHARKO = register("sharko", EntityType.Builder.create(EntityGaiaSharko::new, EntityGaiaSharko::new));
+//	public static final EntityType<EntityGaiaSiren> SIREN = register("siren", EntityType.Builder.create(EntityGaiaSiren::new, EntityGaiaSiren::new));
+//	public static final EntityType<EntityGaiaSludgeGirl> SLUDGE_GIRL = register("sludge_girl", EntityType.Builder.create(EntityGaiaSludgeGirl::new, EntityGaiaSludgeGirl::new));
+	public static final EntityType<GaiaSphinxEntity> SPHINX = register("sphinx", EntityType.Builder.<GaiaSphinxEntity>create(GaiaSphinxEntity::new, EntityClassification.MONSTER)
+		.size(1.2F, 1.8F).immuneToFire());
+//	public static final EntityType<EntityGaiaSpriggan> SPRIGGAN = register("spriggan", EntityType.Builder.create(EntityGaiaSpriggan::new, EntityGaiaSpriggan::new));
+//	public static final EntityType<EntityGaiaSuccubus> SUCCUBUS = register("succubus", EntityType.Builder.create(EntityGaiaSuccubus::new, EntityGaiaSuccubus::new));
+//	public static final EntityType<EntityGaiaToad> TOAD = register("toad", EntityType.Builder.create(EntityGaiaToad::new, EntityGaiaToad::new));
+//	public static final EntityType<EntityGaiaValkyrie> VALKYRIE = register("valkyrie", EntityType.Builder.create(EntityGaiaValkyrie::new, EntityGaiaValkyrie::new));
+//	public static final EntityType<EntityGaiaVampire> VAMPIRE = register("vampire", EntityType.Builder.create(EntityGaiaVampire::new, EntityGaiaVampire::new));
+//	public static final EntityType<EntityGaiaWerecat> WERECAT = register("werecat", EntityType.Builder.create(EntityGaiaWerecat::new, EntityGaiaWerecat::new));
+//	public static final EntityType<EntityGaiaWitch> WITCH = register("witch", EntityType.Builder.create(EntityGaiaWitch::new, EntityGaiaWitch::new));
+//	public static final EntityType<EntityGaiaWitherCow> WITHER_COW = register("wither_cow", EntityType.Builder.create(EntityGaiaWitherCow::new, EntityGaiaWitherCow::new));
+//	public static final EntityType<EntityGaiaYeti> YETI = register("yeti", EntityType.Builder.create(EntityGaiaYeti::new, EntityGaiaYeti::new));
+//	public static final EntityType<EntityGaiaYukiOnna> YUKI_ONNA = register("yuki_onna", EntityType.Builder.create(EntityGaiaYukiOnna::new, EntityGaiaYukiOnna::new));
+//
+//	public static final EntityType<EntityGaiaNPCCreeperGirl> CREEPER_GIRL_NPC = register("creeper_girl", EntityType.Builder.create(EntityGaiaNPCCreeperGirl::new, EntityGaiaNPCCreeperGirl::new));
+//	public static final EntityType<EntityGaiaNPCSlimeGirl> SLUDGE_GIRL_NPC = register("slime_girl", EntityType.Builder.create(EntityGaiaNPCSlimeGirl::new, EntityGaiaNPCSlimeGirl::new));
+//	public static final EntityType<EntityGaiaNPCEnderGirl> ENDER_GIRL_NPC = register("ender_girl", EntityType.Builder.create(EntityGaiaNPCEnderGirl::new, EntityGaiaNPCEnderGirl::new));
+//	public static final EntityType<EntityGaiaNPCTrader> TRADER_NPC = register("trader", EntityType.Builder.create(EntityGaiaNPCTrader::new, EntityGaiaNPCTrader::new));
+//	public static final EntityType<EntityGaiaNPCHolstaurus> HOLSTAURUS_NPC = register("holstaurus", EntityType.Builder.create(EntityGaiaNPCHolstaurus::new, EntityGaiaNPCHolstaurus::new));
+//	public static final EntityType<EntityGaiaNPCWeresheep> WERESHEEP_NPC = register("weresheep", EntityType.Builder.create(EntityGaiaNPCWeresheep::new, EntityGaiaNPCWeresheep::new));
+//
+	public static final EntityType<GaiaMandragoraEntity> MANDRAGORA = register("mandragora", EntityType.Builder.<GaiaMandragoraEntity>create(GaiaMandragoraEntity::new, EntityClassification.MONSTER)
+.size(0.75F, 1.0F));
+	public static final EntityType<GaiaMimicEntity> MIMIC = register("mimic", EntityType.Builder.<GaiaMimicEntity>create(GaiaMimicEntity::new, EntityClassification.MONSTER));
+//
+//	public static final EntityType<EntityGaiaSummonButler> BUTLER = register("butler", EntityType.Builder.create(EntityGaiaSummonButler::new, EntityGaiaSummonButler::new));
+//	public static final EntityType<EntityGaiaSummonSporeling> SPORELING = register("sporeling", EntityType.Builder.create(EntityGaiaSummonSporeling::new, EntityGaiaSummonSporeling::new));
+
+	public static final EntityType<GaiaProjectileBubbleEntity> BUBBLE_PROJECTILE = registerProjectile("bubble", EntityType.Builder.<GaiaProjectileBubbleEntity>create(GaiaProjectileBubbleEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectileBubbleEntity::new));
+	public static final EntityType<GaiaProjectileMagicEntity> MAGIC_PROJECTILE = registerProjectile("magic", EntityType.Builder.<GaiaProjectileMagicEntity>create(GaiaProjectileMagicEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectileMagicEntity::new));
+	public static final EntityType<GaiaProjectilePoisonEntity> POISON_PROJECTILE = registerProjectile("poison", EntityType.Builder.<GaiaProjectilePoisonEntity>create(GaiaProjectilePoisonEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectilePoisonEntity::new));
+	public static final EntityType<GaiaProjectileSmallFireballEntity> FIREBALL_PROJECTILE = registerProjectile("small_fireball", EntityType.Builder.<GaiaProjectileSmallFireballEntity>create(GaiaProjectileSmallFireballEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectileSmallFireballEntity::new));
+	public static final EntityType<GaiaProjectileWebEntity> WEB_PROJECTILE = registerProjectile("web", EntityType.Builder.<GaiaProjectileWebEntity>create(GaiaProjectileWebEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectileWebEntity::new));
+	public static final EntityType<GaiaProjectileBombEntity> BOMB_PROJECTILE = registerProjectile("bomb", EntityType.Builder.<GaiaProjectileBombEntity>create(GaiaProjectileBombEntity::new, EntityClassification.MISC)
+			.size(0.3125F, 0.3125F)
+			.setCustomClientFactory(GaiaProjectileBombEntity::new));
+
+	//Prop
+	public static final EntityType<GaiaPropChestMimicEntity> CHEST = register("chest", EntityType.Builder.<GaiaPropChestMimicEntity>create(GaiaPropChestMimicEntity::new, EntityClassification.MISC).size(0.8F, 0.8F), false);
+	public static final EntityType<GaiaPropFlowerCyanEntity> CYAN_FLOWER = register("cyan_flower", EntityType.Builder.<GaiaPropFlowerCyanEntity>create(GaiaPropFlowerCyanEntity::new, EntityClassification.MISC).size(0.8F, 0.8F), false);
+	public static final EntityType<GaiaPropCampfireEntity> CAMPFIRE = register("campfire", EntityType.Builder.<GaiaPropCampfireEntity>create(GaiaPropCampfireEntity::new, EntityClassification.MISC).size(0.8F, 0.8F));
+	public static final EntityType<GaiaPropVaseEntity> VASE = register("vase", EntityType.Builder.<GaiaPropVaseEntity>create(GaiaPropVaseEntity::new, EntityClassification.MISC).immuneToFire().size(0.8F, 0.8F), false);
+	public static final EntityType<GaiaPropVaseNetherEntity> VASE_NETHER = register("vase_nether", EntityType.Builder.<GaiaPropVaseNetherEntity>create(GaiaPropVaseNetherEntity::new, EntityClassification.MISC).immuneToFire().size(0.8F, 0.8F), false);
+
+	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
+		EntityType<T> entityType = builder.setTrackingRange(64).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build("");
+		ResourceLocation name = new ResourceLocation(GaiaReference.MOD_ID, id);
+		entityType.setRegistryName(name);
+
+		return entityType;
+	}
+	public static <T extends Entity> EntityType<T> registerProjectile(String id, EntityType.Builder<T> builder) {
+		EntityType<T> entityType = builder.setTrackingRange(4).setUpdateInterval(10).build("");
+		ResourceLocation name = new ResourceLocation(GaiaReference.MOD_ID, id);
+		entityType.setRegistryName(name);
+
+		return entityType;
+	}
+	
+	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
+        return register(id, builder, true);
 	}
 
-	private static int modEntityId = 0;
+	public static void register(EntityType<?> entityType, RegistryEvent.Register<EntityType<?>> event) {
+        Preconditions.checkNotNull(entityType, "registryName");
+        event.getRegistry().register(entityType);
+	}
+	
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event)
+	{
+//		register(DEBUG_MOB, event); //TODO: DISABLE BEFORE BUILD
+		//Props
+		register(CHEST, event);
+		register(CAMPFIRE, event);
+		register(CYAN_FLOWER, event);
+		register(VASE, event);
+		register(VASE_NETHER, event);
 
-	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
-//			createEntityEntry("example", Entity.class, bodyDarkestColor, spotsLightestColor),
-			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741), 
-			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264), 
-			createEntityEntry("ant_ranger", EntityGaiaAntRanger.class, 0x8a7264, 0x303030), 
-			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534), 
-			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646), 
-			createEntityEntry("banshee", EntityGaiaBanshee.class, 0xeed2e8, 0xc6b0ed),
-			createEntityEntry("baphomet", EntityGaiaBaphomet.class, 3559756, 14197864), 
-			createEntityEntry("bee", EntityGaiaBee.class, 0xc9b161, 0x353535), 
-			createEntityEntry("bone_knight", EntityGaiaBoneKnight.class, 4602533, 13619151), 
-			createEntityEntry("campfire", EntityGaiaPropCampfire.class, 0x7a5f3a, 0xffd800, false),
-			createEntityEntry("cecaelia", EntityGaiaCecaelia.class, 0xdb5760, 0xd893a9), 
-			createEntityEntry("centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535), 
-			createEntityEntry("chest", EntityGaiaPropChestMimic.class, 11237677, 4274991, false),
-			createEntityEntry("cobble_golem", EntityGaiaCobbleGolem.class, 11513775, 11513775), 
-			createEntityEntry("cobblestone_golem", EntityGaiaCobblestoneGolem.class, 11513775, 11513775), 
-			createEntityEntry("creep", EntityGaiaCreep.class, 7917159, 2053400), 
-			createEntityEntry("cyan_flower", EntityGaiaPropFlowerCyan.class, 1073920, 4045287, false), 
-			createEntityEntry("deathword", EntityGaiaDeathword.class, 0xb77a35, 0xffd800),
-			createEntityEntry("dhampir", EntityGaiaDhampir.class, 0x9c1c2b, 0xc9b161), 
-			createEntityEntry("dryad", EntityGaiaDryad.class, 10255437, 5681460), 
-			createEntityEntry("dullahan", EntityGaiaDullahan.class, 0x824fab, 0xa4452d), 
-			createEntityEntry("dwarf", EntityGaiaDwarf.class, 0x969696, 0xf09942), 
-			createEntityEntry("ender_dragon_girl", EntityGaiaEnderDragonGirl.class, 3158064, 14711290), 
-			createEntityEntry("ender_eye", EntityGaiaEnderEye.class, 2039583, 0x3158064),
-			createEntityEntry("flesh_lich", EntityGaiaFleshLich.class, 0x00cccc, 0x799c65), 
-			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151), 
-			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
-			createEntityEntry("goblin_feral", EntityGaiaGoblinFeral.class, 0x718a60, 0x8a1d3e), 
-			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2), 
-			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
-			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535), 
-			createEntityEntry("kikimora", EntityGaiaKikimora.class, 0x191919, 0xd3bdac), 
-			createEntityEntry("kobold", EntityGaiaKobold.class, 0x938dab, 0xafa7c1), 
-			createEntityEntry("matango", EntityGaiaMatango.class, 0xab1311, 0xd8d8d8), 
-			createEntityEntry("mermaid", EntityGaiaMermaid.class, 0x5c70b1, 0xa4452d), 
-			createEntityEntry("minotaur", EntityGaiaMinotaur.class, 0x8d4f41, 0xd54242),
-			createEntityEntry("minotaurus", EntityGaiaMinotaurus.class, 0x8d4f41, 0xa9a9a9), 
-			createEntityEntry("cyclops", EntityGaiaMonoeye.class, 4936602, 3487029), 
-			createEntityEntry("mummy", EntityGaiaMummy.class, 0xdcd7c1, 0xc9b161), 
-			createEntityEntry("naga", EntityGaiaNaga.class, 0x29bc55, 0xccb63f), 
-			createEntityEntry("nine_tails", EntityGaiaNineTails.class, 11809844, 13218145), 
-			createEntityEntry("oni", EntityGaiaOni.class, 0x8b302d, 0xc9b161), 
-			createEntityEntry("orc", EntityGaiaOrc.class, 0x718a60, 0xc0d696),
-			createEntityEntry("satyress", EntityGaiaSatyress.class, 0x707b4f, 0xa4452d), 
-			createEntityEntry("selkie", EntityGaiaSelkie.class, 9082818, 13488612), 
-			createEntityEntry("shaman", EntityGaiaShaman.class, 0xae6b3c, 0x56b134), 
-			createEntityEntry("sharko", EntityGaiaSharko.class, 0x84a498, 0x5c70b1), 
-			createEntityEntry("siren", EntityGaiaSiren.class, 0x29bc55, 0x48a0de), 
-			createEntityEntry("sludge_girl", EntityGaiaSludgeGirl.class, 6595667, 7715172),
-			createEntityEntry("sphinx", EntityGaiaSphinx.class, 0xf09942, 0x353535), 
-			createEntityEntry("spriggan", EntityGaiaSpriggan.class, 0x7c623e, 0xc2dda5), 
-			createEntityEntry("succubus", EntityGaiaSuccubus.class, 4079166, 13218145), 
-			createEntityEntry("toad", EntityGaiaToad.class, 0x355d2b, 0x779f5a), 
-			createEntityEntry("valkyrie", EntityGaiaValkyrie.class, 0xc9b161, 0xd54242), 
-			createEntityEntry("vase", EntityGaiaPropVase.class, 0x949494, 0x545454, false),
-			createEntityEntry("vase_nether", EntityGaiaPropVaseNether.class, 0x290d10, 0x462129, false),
-			createEntityEntry("vampire", EntityGaiaVampire.class, 0xc23021, 0xc9b161), 
-			createEntityEntry("werecat", EntityGaiaWerecat.class, 0x7a7e8a, 0xdddadb), 
-			createEntityEntry("witch", EntityGaiaWitch.class, 0x303030, 0x943dbb), 
-			createEntityEntry("wither_cow", EntityGaiaWitherCow.class, 5791069, 16777215), 
-			createEntityEntry("yeti", EntityGaiaYeti.class, 16448250, 7895160), 
-			createEntityEntry("yuki-onna", EntityGaiaYukiOnna.class, 6781114, 13817330));
+		//Projectiles
+		register(BUBBLE_PROJECTILE, event);
+		register(MAGIC_PROJECTILE, event);
+		register(POISON_PROJECTILE, event);
+		register(FIREBALL_PROJECTILE, event);
+		register(WEB_PROJECTILE, event);
+		register(BOMB_PROJECTILE, event);
 
-	private static <T extends Entity> EntityEntry createEntityEntry(String name, Class<T> cls, int primaryColorIn, int secondaryColorIn) {
-		return createEntityEntry(name, cls, primaryColorIn, secondaryColorIn, true);
+		//Mobs
+		register(ANT, event);
+		register(ANT_RANGER, event);
+		register(ANUBIS, event);
+		register(ARACHNE, event);
+		register(BANSHEE, event);
+		register(BAPHOMET, event);
+		register(BEE, event);
+		register(BONE_KNIGHT, event);
+		register(CECEALIA, event);
+		register(CENTAUR, event);
+		register(COBBLE_GOLEM, event);
+		register(COBBLESTONE_GOLEM, event);
+		register(CREEP, event);
+		register(CYCLOPS, event);
+		register(DEATHWORD, event);
+//		register(DHAMPIR, event);
+//		register(DRYAD, event);
+//		register(DULLAHAN, event);
+//		register(DWARF, event);
+//		register(ENDER_DRAGON_GIRL, event);
+//		register(ENDER_EYE, event);
+//		register(FLESH_LICH, event);
+//		register(GELATINOUS_SLIME, event);
+//		register(GOBLIN, event);
+//		register(GOBLIN_FERAL, event);
+//		register(GRYPHON, event);
+//		register(HARPY, event);
+//		register(HUNTER, event);
+//		register(KIKIMORA, event);
+//		register(KOBOLD, event);
+//		register(MATANGO, event);
+//		register(MERMAID, event);
+//		register(MINOTAUR, event);
+//		register(MINOTAURUS, event);
+//		register(MUMMY, event);
+//		register(NAGA, event);
+//		register(NINE_TAILS, event);
+//		register(ONI, event);
+//		register(ORC, event);
+//		register(SATYRESS, event);
+//		register(SELKIE, event);
+//		register(SHAMAN, event);
+//		register(SHARKO, event);
+//		register(SIREN, event);
+//		register(SLUDGE_GIRL, event);
+		register(SPHINX, event);
+//		register(SPRIGGAN, event);
+//		register(SUCCUBUS, event);
+//		register(TOAD, event);
+//		register(VALKYRIE, event);
+//		register(VAMPIRE, event);
+//		register(WERECAT, event);
+//		register(WITCH, event);
+//		register(WITHER_COW, event);
+//		register(YETI, event);
+//		register(YUKI_ONNA, event);
+//		register(CREEPER_GIRL_NPC, event);
+//		register(SLUDGE_GIRL_NPC, event);
+//		register(ENDER_GIRL_NPC, event);
+//		register(TRADER_NPC, event);
+//		register(HOLSTAURUS_NPC, event);
+//		register(WERESHEEP_NPC, event);
+		register(MANDRAGORA, event);
+		register(MIMIC, event);
+//		register(BUTLER, event);
+//		register(SPORELING, event);
 	}
 
-	private static <T extends Entity> EntityEntry createEntityEntry(String name, Class<T> cls, int primaryColorIn, int secondaryColorIn, boolean sendVelocityUpdates) {
-		EntityEntryBuilder<T> builder = EntityEntryBuilder.create();
-		builder.entity(cls);
-		builder.name(GaiaReference.MOD_ID + "." + name);
-		builder.id(new ResourceLocation(GaiaReference.MOD_ID, name), modEntityId++);
-		builder.tracker(64, 3, sendVelocityUpdates);
-		builder.egg(primaryColorIn, secondaryColorIn);
-		return builder.build();
-	}
-
-	@SuppressWarnings({ "unused", "squid:S1118" }) // used in registration reflection
-	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
-	public static class RegistrationHandler {
-
-		@SubscribeEvent
-		public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
-			Gaia.LOGGER.info("Registering entities...");
-			IForgeRegistry<EntityEntry> registry = event.getRegistry();
-
-			initNoSpawnEggEntities(registry);
-
-			for (EntityEntry entry : SPAWN_EGG_ENTITIES) {
-				registry.register(entry);
-			}
-
-			Gaia.LOGGER.info("Entity registration complete.");
-		}
-
-		private static void initNoSpawnEggEntities(IForgeRegistry<EntityEntry> registry) {
-			/* VILLAGER */
-			createEntityEntry("creeper_girl", EntityGaiaNPCCreeperGirl.class, registry);
-			createEntityEntry("slime_girl", EntityGaiaNPCSlimeGirl.class, registry);
-			createEntityEntry("ender_girl", EntityGaiaNPCEnderGirl.class, registry);
-			createEntityEntry("trader", EntityGaiaNPCTrader.class, registry);
-			createEntityEntry("holstaurus", EntityGaiaNPCHolstaurus.class, registry);
-			createEntityEntry("weresheep", EntityGaiaNPCWeresheep.class, registry);
-
-			/* SPAWN */
-			createEntityEntry("mandragora", EntityGaiaMandragora.class, registry);
-			createEntityEntry("mimic", EntityGaiaMimic.class, registry);
-
-			/* SUMMON */
-			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
-			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
-
-			/* PROJECTILE */
-			createEntityEntry("bomb", EntityGaiaProjectileBomb.class, registry, 3);
-			createEntityEntry("bubble", EntityGaiaProjectileBubble.class, registry, 3);
-			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry, 3);
-			createEntityEntry("poison", EntityGaiaProjectilePoison.class, registry, 3);
-			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
-			createEntityEntry("web", EntityGaiaProjectileWeb.class, registry, 3);
-		}
-
-		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry) {
-			createEntityEntry(name, cls, registry, 3);
-		}
-
-		private static <T extends Entity> void createEntityEntry(String name, Class<T> cls, IForgeRegistry<EntityEntry> registry, int updateFrequency) {
-			EntityEntryBuilder<T> builder = EntityEntryBuilder.create();
-			builder.entity(cls);
-			builder.name(GaiaReference.MOD_ID + "." + name);
-			builder.id(new ResourceLocation(GaiaReference.MOD_ID, name), modEntityId++);
-			builder.tracker(64, updateFrequency, true);
-			registry.register(builder.build());
-		}
-	}
 }

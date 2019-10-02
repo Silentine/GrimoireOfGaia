@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:fire_camp" }
+        "": { "model": "grimoireofgaia:block/fire_camp" }
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:blocks/campfire_fire"
+        "layer0": "grimoireofgaia:block/campfire_fire"
     } 
 }

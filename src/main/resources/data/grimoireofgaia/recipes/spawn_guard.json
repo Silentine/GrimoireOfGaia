@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "minecraft:diamond",
+    "ingredients": [
+        {
+            "item": "grimoireofgaia:misc_quill"
+        },
+        {
+            "item": "minecraft:paper"
+        },
+        {
+            "item": "minecraft:paper"
+        },
+        {
+            "item": "minecraft:paper"
+        },
+        {
+            "item": "minecraft:paper"
+        }
+    ],
+    "result": {
+        "item": "grimoireofgaia:spawn_guard",
+        "count": 4
+    }
+}

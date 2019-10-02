@@ -1,0 +1,8 @@
+{
+    "variants": {
+    	"facing=north":	{ "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 180 },
+        "facing=east":	{ "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 270 },
+        "facing=south":	{ "model": "grimoireofgaia:block/deco_pot_mandragora" },
+        "facing=west":	{ "model": "grimoireofgaia:block/deco_pot_mandragora", "y": 90 }
+    }
+}

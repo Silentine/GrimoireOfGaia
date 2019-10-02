@@ -1,8 +1,8 @@
 {
     "variants": {
-        "type=north":   { "model": "grimoireofgaia:bust_vampire", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:bust_vampire", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:bust_vampire"                     },
-        "type=east":    { "model": "grimoireofgaia:bust_vampire", "y": 90            }
+    	"facing=north":	{ "model": "grimoireofgaia:block/bust_vampire", "y": 180 },
+        "facing=east":	{ "model": "grimoireofgaia:block/bust_vampire", "y": 270 },
+        "facing=south":	{ "model": "grimoireofgaia:block/bust_vampire" },
+        "facing=west":	{ "model": "grimoireofgaia:block/bust_vampire", "y": 90 }
     }
 }

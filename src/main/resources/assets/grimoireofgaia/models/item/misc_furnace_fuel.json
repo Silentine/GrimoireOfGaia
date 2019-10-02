@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/misc_furnace_fuel"
+        "layer0": "grimoireofgaia:item/misc_furnace_fuel"
     } 
 }

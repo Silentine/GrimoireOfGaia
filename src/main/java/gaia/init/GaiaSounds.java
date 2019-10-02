@@ -2,17 +2,18 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 
-@GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
+@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaSounds {
-	private GaiaSounds() {}
 	
 	// GENERAL
 	public static final SoundEvent PASSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
@@ -26,7 +27,7 @@ public class GaiaSounds {
 	public static final SoundEvent AGGRESSIVE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent AGGRESSIVE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent AGGRESSIVE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	public static final SoundEvent DEBUG_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent DEBUG_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent DEBUG_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -35,10 +36,10 @@ public class GaiaSounds {
 	public static final SoundEvent ANT_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANT_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANT_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
-	public static final SoundEvent ANTRANGER_SAY = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent ANTRANGER_HURT = SoundEvents.BLOCK_GRASS_STEP;
-	public static final SoundEvent ANTRANGER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+
+	public static final SoundEvent ANT_RANGER_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANT_RANGER_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANT_RANGER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent ANUBIS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANUBIS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -107,7 +108,7 @@ public class GaiaSounds {
 	public static final SoundEvent KIKIMORA_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KIKIMORA_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KIKIMORA_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	public static final SoundEvent KOBOLD_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KOBOLD_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent KOBOLD_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -215,7 +216,7 @@ public class GaiaSounds {
 	public static final SoundEvent YUKIONNA_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent YUKIONNA_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent YUKIONNA_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	// 	PASSIVE
 	public static final SoundEvent HOLSTAURUS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HOLSTAURUS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -232,7 +233,7 @@ public class GaiaSounds {
 	public static final SoundEvent CREEPERGIRL_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CREEPERGIRL_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CREEPERGIRL_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	public static final SoundEvent ENDERGIRL_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ENDERGIRL_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ENDERGIRL_DEATH = SoundEvents.BLOCK_GRASS_STEP;
@@ -240,11 +241,11 @@ public class GaiaSounds {
 	public static final SoundEvent SLIMEGIRL_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SLIMEGIRL_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SLIMEGIRL_DEATH = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	// 	GENERIC
 	public static final SoundEvent STEP_SANDALS = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent STEP_WEBBED = SoundEvents.BLOCK_GRASS_STEP;
-	
+
 	//	OTHER
 	public static final SoundEvent BOX_OPEN_1 = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BOX_OPEN_2 = SoundEvents.BLOCK_GRASS_STEP;
@@ -253,8 +254,7 @@ public class GaiaSounds {
 
 	public static final SoundEvent NONE = SoundEvents.BLOCK_GRASS_STEP;
 
-	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
-	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
+	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistrationHandler {
 
 		@SubscribeEvent
@@ -266,7 +266,7 @@ public class GaiaSounds {
 					// GENERAL
 					"passive", "assist", "aggressive", "debug",
 					// SPECIFIC
-					"ant", "ant_ranger", "anubis", "arachne", 
+					"ant", "ant_ranger", "anubis", "arachne",
 					"banshee", "baphomet", "bee", 
 					"cecaelia", "centaur", "cyclops", 
 					"dhampir", "dryad", "dullahan", "dwarf",
@@ -294,6 +294,8 @@ public class GaiaSounds {
 			}
 			
 			//Register misc sounds
+
+
 			event.getRegistry().registerAll(
 					// 	GENERIC
 					createSoundEvent("step_sandals"),
@@ -308,10 +310,18 @@ public class GaiaSounds {
 			);
 			Gaia.LOGGER.info("Sounds Finished");
 		}
-
+	    
 		private static SoundEvent createSoundEvent(final String soundName) {
 			ResourceLocation soundID = new ResourceLocation(GaiaReference.MOD_ID, soundName);
 			return new SoundEvent(soundID).setRegistryName(soundID);
+		}
+
+		private static SoundEvent registerSound(IForgeRegistry<SoundEvent> registry, String soundName)
+		{
+			ResourceLocation name = new ResourceLocation(GaiaReference.MOD_ID, soundName);
+			SoundEvent sound = new SoundEvent(name).setRegistryName(name);
+			registry.register(sound);
+			return sound;
 		}
 	}
 }

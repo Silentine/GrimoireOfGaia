@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/food_rotten_heart"
+        "layer0": "grimoireofgaia:item/food_rotten_heart"
     } 
 }

@@ -1,494 +1,459 @@
 package gaia.init;
 
-import static gaia.GaiaConfig.GENERAL;
-import static gaia.GaiaConfig.SPAWN;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import com.google.common.collect.ImmutableSet;
-
-import gaia.GaiaConfig;
+import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.entity.EntityMobAssist;
-import gaia.entity.EntityMobHostileBase;
-import gaia.entity.monster.EntityGaiaAnt;
-import gaia.entity.monster.EntityGaiaAntRanger;
-import gaia.entity.monster.EntityGaiaAnubis;
-import gaia.entity.monster.EntityGaiaArachne;
-import gaia.entity.monster.EntityGaiaBanshee;
-import gaia.entity.monster.EntityGaiaBaphomet;
-import gaia.entity.monster.EntityGaiaBee;
-import gaia.entity.monster.EntityGaiaBoneKnight;
-import gaia.entity.monster.EntityGaiaCecaelia;
-import gaia.entity.monster.EntityGaiaCentaur;
-import gaia.entity.monster.EntityGaiaCobbleGolem;
-import gaia.entity.monster.EntityGaiaCobblestoneGolem;
-import gaia.entity.monster.EntityGaiaCreep;
-import gaia.entity.monster.EntityGaiaDeathword;
-import gaia.entity.monster.EntityGaiaDhampir;
-import gaia.entity.monster.EntityGaiaDryad;
-import gaia.entity.monster.EntityGaiaDullahan;
-import gaia.entity.monster.EntityGaiaDwarf;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
-import gaia.entity.monster.EntityGaiaEnderEye;
-import gaia.entity.monster.EntityGaiaFleshLich;
-import gaia.entity.monster.EntityGaiaGoblin;
-import gaia.entity.monster.EntityGaiaGryphon;
-import gaia.entity.monster.EntityGaiaHarpy;
-import gaia.entity.monster.EntityGaiaHunter;
-import gaia.entity.monster.EntityGaiaKikimora;
-import gaia.entity.monster.EntityGaiaKobold;
-import gaia.entity.monster.EntityGaiaMatango;
-import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMinotaur;
-import gaia.entity.monster.EntityGaiaMinotaurus;
-import gaia.entity.monster.EntityGaiaMonoeye;
-import gaia.entity.monster.EntityGaiaMummy;
-import gaia.entity.monster.EntityGaiaNaga;
-import gaia.entity.monster.EntityGaiaNineTails;
-import gaia.entity.monster.EntityGaiaOni;
-import gaia.entity.monster.EntityGaiaOrc;
-import gaia.entity.monster.EntityGaiaSatyress;
-import gaia.entity.monster.EntityGaiaSelkie;
-import gaia.entity.monster.EntityGaiaShaman;
-import gaia.entity.monster.EntityGaiaSharko;
-import gaia.entity.monster.EntityGaiaSiren;
-import gaia.entity.monster.EntityGaiaSludgeGirl;
-import gaia.entity.monster.EntityGaiaSphinx;
-import gaia.entity.monster.EntityGaiaSpriggan;
-import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaToad;
-import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
-import gaia.entity.monster.EntityGaiaWitherCow;
-import gaia.entity.monster.EntityGaiaYeti;
-import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.prop.EntityGaiaPropCampfire;
-import gaia.entity.prop.EntityGaiaPropChestMimic;
-import gaia.entity.prop.EntityGaiaPropFlowerCyan;
-import gaia.entity.prop.EntityGaiaPropVase;
-import gaia.entity.prop.EntityGaiaPropVaseNether;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
+import gaia.entity.AbstractMobHostileEntity;
+import gaia.entity.AbstractMobPropEntity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
 /**
  * Streamlined Spawning Registry, Tried to keep structure as similar, but cleaned up methods and repetitive code to save time and fingers.
  */
+@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaSpawning {
-	private GaiaSpawning() {
-	}
-
 	/**
 	 * Bridge Method for simpler spawning registry
-	 * 
+	 *
 	 * @param weight        Spawn rate
-	 * @param entityclassIn Entity
+	 * @param entityType Entity
 	 * @param groupCountMin Minimum amount (always 1)
 	 * @param groupCountMax Maximum amount (depreciated due to chunk limits)
 	 * @param biome         Biome
 	 */
-	public static void add(int weight, Class<? extends EntityLiving> entityclassIn, int groupCountMin, int groupCountMax, Biome biome) {
+	public static void add(int weight, EntityType<? extends LivingEntity> entityType, int groupCountMin, int groupCountMax, Biome biome) {
 		if (weight > 0) {
-			biome.getSpawnableList(EnumCreatureType.MONSTER).add(new SpawnListEntry(entityclassIn, weight, groupCountMin, groupCountMax));
+			biome.getSpawns(EntityClassification.MONSTER).add(new SpawnListEntry(entityType, weight, groupCountMin, groupCountMax));
 		}
 	}
-
-	/**
-	 * Underground Creature Roster
-	 */
-	private static void underground(Biome biome) {
-		add(GENERAL.spawnCreep, EntityGaiaCreep.class, 2, 4, biome);
-		add(GENERAL.spawnEnderEye, EntityGaiaEnderEye.class, 2, 4, biome);
-		add(GENERAL.spawnVase, EntityGaiaPropVase.class, 1, 1, biome);
-		add(GENERAL.spawnMimic, EntityGaiaPropChestMimic.class, 1, 1, biome);
-		add(GENERAL.spawnArachne, EntityGaiaArachne.class, 1, 2, biome);
-		add(GENERAL.spawnDeathword, EntityGaiaDeathword.class, 1, 2, biome);
-		add(GENERAL.spawnBoneKnight, EntityGaiaBoneKnight.class, 1, 2, biome);
-		add(GENERAL.spawnFleshLich, EntityGaiaFleshLich.class, 1, 2, biome);
-	}
-
-	/**
-	 * Ocean Creature Roster
-	 */
-	private static void aquatic(Biome biome) {
-		add(GENERAL.spawnCecaelia, EntityGaiaCecaelia.class, 4, 6, biome);
-		add(GENERAL.spawnMermaid, EntityGaiaMermaid.class, 2, 4, biome);
-		add(GENERAL.spawnSharko, EntityGaiaSharko.class, 2, 4, biome);
-	}
-
-	/**
-	 * Register Mobs based on Biome sub Types
-	 */
+//
+//	/**
+//	 * Underground Creature Roster
+//	 */
+//	private static void underground(Biome biome) {
+//		add(COMMON.spawnCreep.get(), GaiaEntities.CREEP, 2, 4, biome);
+//		add(COMMON.spawnEnderEye.get(), GaiaEntities.ENDER_EYE, 2, 4, biome);
+//		add(COMMON.spawnVase.get(), GaiaEntities.VASE, 1, 1, biome);
+//		add(COMMON.spawnMimic.get(), GaiaEntities.MIMIC, 1, 1, biome);
+//		add(COMMON.spawnArachne.get(), GaiaEntities.ARACHNE, 1, 2, biome);
+//		add(COMMON.spawnDeathword.get(), GaiaEntities.DEATHWORD, 1, 2, biome);
+//		add(COMMON.spawnBoneKnight.get(), GaiaEntities.BONE_KNIGHT, 1, 2, biome);
+//		add(COMMON.spawnFleshLich.get(), GaiaEntities.FLESH_LICH, 1, 2, biome);
+//	}
+//
+//	/**
+//	 * Ocean Creature Roster
+//	 */
+//	private static void aquatic(Biome biome) {
+//		add(COMMON.spawnCecaelia.get(), GaiaEntities.CECEALIA, 4, 6, biome);
+//		add(COMMON.spawnMermaid.get(), GaiaEntities.MERMAID, 2, 4, biome);
+//		add(COMMON.spawnSharko.get(), GaiaEntities.SHARKO, 2, 4, biome);
+//	}
+//
+//	/**
+//	 * Register Mobs based on Biome sub Types
+//	 */
 	public static void register() {
-		Map<Type, Set<Biome>> biomeMap = buildBiomeListByType();
-
-		addForestSPAWN(biomeMap);
-		addSandySPAWN(biomeMap);
-		addPlainsSPAWN(biomeMap);
-		addSwampSPAWN(biomeMap);
-		addJungleSPAWN(biomeMap);
-		addSnowySPAWN(biomeMap);
-		addMountainSPAWN(biomeMap);
-		addSavannaSPAWN(biomeMap);
-		addMesaSPAWN(biomeMap);
-		addWaterSPAWN(biomeMap);
-		addBeachSPAWN(biomeMap);
-		addNetherSPAWN(biomeMap);
-		addEndSPAWN(biomeMap);
+		registerSpawnPlacement();
+//
+//		for(Biome biome : ForgeRegistries.BIOMES)
+//		{
+//			addForestSPAWN(biome);
+//			addSandySPAWN(biome);
+//			addPlainsSPAWN(biome);
+//			addSwampSPAWN(biome);
+//			addJungleSPAWN(biome);
+//			addSnowySPAWN(biome);
+//			addMountainSPAWN(biome);
+//			addSavannaSPAWN(biome);
+//			addMesaSPAWN(biome);
+//			addWaterSPAWN(biome);
+//			addBeachSPAWN(biome);
+//			addNetherSPAWN(biome);
+//			addEndSPAWN(biome);
+//		}
 	}
+//
+//	/*
+//	 * List of missing Biomes;
+//	 *
+//	 * MUTATED_REDWOOD_TAIGA
+//	 * MUTATED_REDWOOD_TAIGA_HILLS
+//	 * MUTATED_MESA_ROCK
+//	 */
+//
+//	private static void addEndSPAWN(Biome biome) {
+//		/*
+//		 * SKY
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.END)) {
+//			if (BiomeDictionary.hasType(biome, Type.COLD) && (BiomeDictionary.hasType(biome, Type.DRY))) {
+//				add(COMMON.spawnEnderDragonGirl.get(), GaiaEntities.ENDER_DRAGON_GIRL, 1, 2, biome);
+//			}
+//		}
+//	}
+//
+//	private static void addNetherSPAWN(Biome biome) {
+//		/*
+//		 * NETHER
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.NETHER)) {
+//			add(COMMON.spawnVaseNether.get(), GaiaEntities.VASE_NETHER, 1, 1, biome);
+//			add(COMMON.spawnSuccubus.get(), GaiaEntities.SUCCUBUS, 2, 4, biome);
+//			add(COMMON.spawnWitherCow.get(), GaiaEntities.WITHER_COW, 2, 4, biome);
+//			add(COMMON.spawnBaphomet.get(), GaiaEntities.BAPHOMET, 2, 4, biome);
+//		}
+//	}
+//
+//	private static void addBeachSPAWN(Biome biome) {
+//		/*
+//		 * BEACH,
+//		 * STONE_BEACH,
+//		 * COLD_BEACH
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.BEACH)) {
+//			if (!BiomeDictionary.hasType(biome, Type.MUSHROOM)) {
+//				aquatic(biome);
+//			}
+//		}
+//	}
+//
+//	private static void addWaterSPAWN(Biome biome) {
+//		/*
+//		 * OCEAN,
+//		 * RIVER,
+//		 * FROZEN_OCEAN,
+//		 * FROZEN_RIVER,
+//		 * DEEP_OCEAN
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.WATER)){
+//			aquatic(biome);
+//		}
+//	}
+//
+//	private static void addMountainSPAWN(Biome biome) {
+//		/*
+//		 * EXTREME_HILLS,
+//		 * EXTREME_HILLS_EDGE,
+//		 * EXTREME_HILLS_WITH_TREES,
+//		 * MUTATED_EXTREME_HILLS
+//		 */
+//		if (!BiomeDictionary.hasType(biome, Type.COLD) && !BiomeDictionary.hasType(biome, Type.HOT) && !BiomeDictionary.hasType(biome, Type.DENSE)) {
+//			add(COMMON.spawnGryphon.get(), GaiaEntities.GRYPHON, 1, 2, biome);
+//			add(COMMON.spawnDwarf.get(), GaiaEntities.DWARF, 4, 6, biome);
+//
+//			if (!COMMON.spawnLevel3.get()) {
+//				add(COMMON.spawnValkyrie.get(), GaiaEntities.VALKYRIE, 1, 2, biome);
+//			}
+//
+//			add(COMMON.spawnDullahan.get(), GaiaEntities.DULLAHAN, 4, 6, biome);
+//			add(COMMON.spawnBanshee.get(), GaiaEntities.BANSHEE, 2, 4, biome);
+//
+//			add(COMMON.spawnCampsite.get(), GaiaEntities.CAMPFIRE, 1, 1, biome);
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addSnowySPAWN(Biome biome) {
+//		/*
+//		 * ICE_PLAINS,
+//		 * ICE_MOUNTAINS
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.SNOWY)) {
+//			if (!BiomeDictionary.hasType(biome, Type.OCEAN) &&
+//					!BiomeDictionary.hasType(biome, Type.RIVER) &&
+//					!BiomeDictionary.hasType(biome, Type.BEACH) &&
+//					!BiomeDictionary.hasType(biome, Type.FOREST)) {
+//				add(COMMON.spawnSelkie.get(), GaiaEntities.SELKIE, 2, 4, biome);
+//				add(COMMON.spawnKobold.get(), GaiaEntities.KOBOLD, 4, 6, biome);
+//				add(COMMON.spawnYeti.get(), GaiaEntities.YETI, 2, 4, biome);
+//
+//				underground(biome);
+//			}
+//		}
+//	}
+//
+//	private static void addJungleSPAWN(Biome biome) {
+//		/*
+//		 * JUNGLE,
+//		 * JUNGLE_HILLS,
+//		 * JUNGLE_EDGE,
+//		 * MUTATED_JUNGLE,
+//		 * MUTATED_JUNGLE_EDGE
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.JUNGLE)) {
+//			add(COMMON.spawnCobbleGolem.get(), GaiaEntities.COBBLE_GOLEM, 2, 4, biome);
+//			add(COMMON.spawnHunter.get(), GaiaEntities.HUNTER, 2, 4, biome);
+//			add(COMMON.spawnShaman.get(), GaiaEntities.SHAMAN, 2, 4, biome);
+//			add(COMMON.spawnCobblestoneGolem.get(), GaiaEntities.COBBLESTONE_GOLEM, 2, 4, biome);
+//
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addSwampSPAWN(Biome biome) {
+//		/*
+//		 * SWAMPLAND
+//		 * MUTATED_SWAMPLAND
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.SWAMP)) {
+//			add(COMMON.spawnSiren.get(), GaiaEntities.SIREN, 4, 6, biome);
+//			add(COMMON.spawnSludgeGirl.get(), GaiaEntities.SLUDGE_GIRL, 2, 4, biome);
+//			add(COMMON.spawnNaga.get(), GaiaEntities.NAGA, 1, 2, biome);
+//
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addPlainsSPAWN(Biome biome) {
+//		if (BiomeDictionary.hasType(biome, Type.PLAINS)) {
+//			/*
+//			 * PLAINS
+//			 * MUTATED_PLAINS
+//			 */
+//			if (!BiomeDictionary.hasType(biome, Type.SAVANNA)) {
+//				add(COMMON.spawnSatyress.get(), GaiaEntities.SATYRESS, 2, 4, biome);
+//				add(COMMON.spawnCentaur.get(), GaiaEntities.CENTAUR, 4, 6, biome);
+//				add(COMMON.spawnHarpy.get(), GaiaEntities.HARPY, 2, 4, biome);
+//				add(COMMON.spawnMinotaurus.get(), GaiaEntities.MINOTAURUS, 2, 4, biome);
+//
+//				if (!COMMON.spawnLevel3.get()) {
+//					add(COMMON.spawnMinotaur.get(), GaiaEntities.MINOTAUR, 1, 2, biome);
+//				}
+//
+//				underground(biome);
+//			}
+//		}
+//	}
+//
+//	private static void addSavannaSPAWN(Biome biome) {
+//		/*
+//		 * SAVANNA,
+//		 * SAVANNA_PLATEAU,
+//		 * MUTATED_SAVANNA,
+//		 * MUTATED_SAVANNA_ROCK,
+//		 * MUTATED_MESA,
+//		 * MUTATED_MESA_CLEAR_ROCK
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.SAVANNA)) {
+//			add(COMMON.spawnGoblin.get(), GaiaEntities.GOBLIN, 2, 6, biome);
+//			add(COMMON.spawnOrc.get(), GaiaEntities.ORC, 2, 6, biome);
+//
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addMesaSPAWN(Biome biome) {
+//		/*
+//		 * MESA,
+//		 * MESA_ROCK,
+//		 * MESA_CLEAR_ROCK
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.MESA)) {
+//			add(COMMON.spawnSatyress.get(), GaiaEntities.SATYRESS, 2, 4, biome);
+//			add(COMMON.spawnCentaur.get(), GaiaEntities.CENTAUR, 4, 6, biome);
+//			add(COMMON.spawnHarpy.get(), GaiaEntities.HARPY, 2, 4, biome);
+//			add(COMMON.spawnMinotaurus.get(), GaiaEntities.MINOTAURUS, 2, 4, biome);
+//
+//			if (!COMMON.spawnLevel3.get()) {
+//				add(COMMON.spawnMinotaur.get(), GaiaEntities.MINOTAUR, 1, 2, biome);
+//			}
+//
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addSandySPAWN(Biome biome) {
+//		/*
+//		 * DESERT,
+//		 * DESERT_HILLS,
+//		 * MUTATED_DESERT
+//		 */
+//		if (BiomeDictionary.hasType(biome, Type.SANDY)) {
+//			if (!BiomeDictionary.hasType(biome, Type.MESA)) {
+//				add(COMMON.spawnAnt.get(), GaiaEntities.ANT, 2, 4, biome);
+//				add(COMMON.spawnAntRanger.get(), GaiaEntities.ANT_RANGER, 2, 4, biome);
+//				add(COMMON.spawnMummy.get(), GaiaEntities.MUMMY, 2, 4, biome);
+//				add(COMMON.spawnAnubis.get(), GaiaEntities.ANUBIS, 2, 4, biome);
+//
+//				if (!COMMON.spawnLevel3.get()) {
+//					add(COMMON.spawnSphinx.get(), GaiaEntities.SPHINX, 1, 2, biome);
+//				}
+//
+//				underground(biome);
+//			}
+//
+//			underground(biome);
+//		}
+//	}
+//
+//	private static void addForestSPAWN(Biome biome) {
+//		if (BiomeDictionary.hasType(biome, Type.FOREST)) {
+//			/*
+//			 * FOREST,
+//			 * FOREST_HILLS,
+//			 * BIRCH_FOREST,
+//			 * BIRCH_FOREST_HILLS,
+//			 * MUTATED_FOREST
+//			 */
+//			if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) &&
+//					!BiomeDictionary.hasType(biome, Type.COLD) &&
+//					!BiomeDictionary.hasType(biome, Type.HOT) &&
+//					!BiomeDictionary.hasType(biome, Type.SPARSE) &&
+//					!BiomeDictionary.hasType(biome, Type.SPOOKY) &&
+//					!BiomeDictionary.hasType(biome, Type.DENSE)) {
+//				add(COMMON.spawnDryad.get(), GaiaEntities.DRYAD, 4, 6, biome);
+//				add(COMMON.spawnBee.get(), GaiaEntities.BEE, 2, 4, biome);
+//				add(COMMON.spawnMandragora.get(), GaiaEntities.MANDRAGORA, 1, 2, biome);
+//				add(COMMON.spawnWerecat.get(), GaiaEntities.WERECAT, 4, 6, biome);
+//				add(COMMON.spawnSpriggan.get(), GaiaEntities.SPRIGGAN, 2, 4, biome);
+//
+//				underground(biome);
+//			}
+//
+//			/*
+//			 * MUTATED_BIRCH_FOREST
+//			 * MUTATED_BIRCH_FOREST_HILLS
+//			 */
+//			if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) &&
+//					!BiomeDictionary.hasType(biome, Type.COLD) &&
+//					!BiomeDictionary.hasType(biome, Type.HOT) &&
+//					!BiomeDictionary.hasType(biome, Type.SPARSE) &&
+//					!BiomeDictionary.hasType(biome, Type.SPOOKY) &&
+//					BiomeDictionary.hasType(biome, Type.DENSE) &&
+//					BiomeDictionary.hasType(biome, Type.RARE)) {
+//				add(COMMON.spawnDryad.get(), GaiaEntities.DRYAD, 4, 6, biome);
+//				add(COMMON.spawnBee.get(), GaiaEntities.BEE, 2, 4, biome);
+//				add(COMMON.spawnMandragora.get(), GaiaEntities.MANDRAGORA, 1, 2, biome);
+//				add(COMMON.spawnWerecat.get(), GaiaEntities.WERECAT, 4, 6, biome);
+//				add(COMMON.spawnSpriggan.get(), GaiaEntities.SPRIGGAN, 2, 4, biome);
+//
+//				underground(biome);
+//			}
+//
+//			/*
+//			 * TAIGA
+//			 * REDWOOD_TAIGA,
+//			 * REDWOOD_TAIGA_HILLS
+//			 */
+//			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && (!BiomeDictionary.hasType(biome, Type.SNOWY))) {
+//				add(COMMON.spawnMandragora.get(), GaiaEntities.MANDRAGORA, 1, 2, biome);
+//				add(COMMON.spawnCyclops.get(), GaiaEntities.CYCLOPS, 4, 6, biome);
+//				add(COMMON.spawnYukiOnna.get(), GaiaEntities.YUKI_ONNA, 2, 4, biome);
+//				add(COMMON.spawnOni.get(), GaiaEntities.ONI, 4, 6, biome);
+//				add(COMMON.spawnNineTails.get(), GaiaEntities.NINE_TAILS, 2, 4, biome);
+//
+//				underground(biome);
+//			}
+//
+//			/*
+//			 * COLD_TAIGA,
+//			 * COLD_TAIGA_HILLS,
+//			 * MUTATED_TAIGA_COLD
+//			 */
+//			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && (BiomeDictionary.hasType(biome, Type.SNOWY))) {
+//				add(COMMON.spawnKikimora.get(), GaiaEntities.KIKIMORA, 2, 4, biome);
+//				add(COMMON.spawnDhampir.get(), GaiaEntities.DHAMPIR, 2, 4, biome);
+//
+//				if (!COMMON.spawnLevel3.get()) {
+//					add(COMMON.spawnVampire.get(), GaiaEntities.VAMPIRE, 1, 2, biome);
+//				}
+//
+//				underground(biome);
+//			}
+//
+//			/*
+//			 * ROOFED_FOREST
+//			 * MUTATED_ROOFED_FOREST
+//			 */
+//			if (BiomeDictionary.hasType(biome, Type.SPOOKY)) {
+//				add(COMMON.spawnMatango.get(), GaiaEntities.MATANGO, 2, 4, biome);
+//				add(COMMON.spawnToad.get(), GaiaEntities.TOAD, 2, 4, biome);
+//				add(COMMON.spawnWitch.get(), GaiaEntities.WITCH, 2, 4, biome);
+//
+//				underground(biome);
+//			}
+//		}
+//	}
 
-	/*
-	 * List of missing Biomes;
-	 * 
-	 * MUTATED_REDWOOD_TAIGA
-	 * MUTATED_REDWOOD_TAIGA_HILLS
-	 * MUTATED_MESA_ROCK
-	 */
+	public static void registerSpawnPlacement(){
+		Gaia.LOGGER.info("Registering gaia spawn placement");
+		//Prop Mobs
+        EntitySpawnPlacementRegistry.register(GaiaEntities.CAMPFIRE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+        EntitySpawnPlacementRegistry.register(GaiaEntities.CHEST, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+        EntitySpawnPlacementRegistry.register(GaiaEntities.CYAN_FLOWER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+        EntitySpawnPlacementRegistry.register(GaiaEntities.VASE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+        EntitySpawnPlacementRegistry.register(GaiaEntities.VASE_NETHER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
 
-	private static void addEndSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * SKY
-		 */
-		for (Biome biome : biomeMap.get(Type.END)) {
-			if (BiomeDictionary.hasType(biome, Type.COLD) && (BiomeDictionary.hasType(biome, Type.DRY))) {
-				add(GENERAL.spawnEnderDragonGirl, EntityGaiaEnderDragonGirl.class, 1, 2, biome);
-			}
-		}
-	}
+        //Mobs that spawn on the ground
+		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobHostileEntity::func_223315_a);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT_RANGER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ANUBIS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ARACHNE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.BANSHEE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.BAPHOMET, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.BEE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.BONE_KNIGHT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.CENTAUR, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.COBBLE_GOLEM, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.COBBLESTONE_GOLEM, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.CREEP, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.CYCLOPS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.DEATHWORD, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.DHAMPIR, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.DRYAD, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.DULLAHAN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.DWARF, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ENDER_DRAGON_GIRL, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ENDER_EYE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.FLESH_LICH, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.GELATINOUS_SLIME, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.GOBLIN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.GOBLIN_FERAL, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.GRYPHON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.HARPY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.HUNTER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.KIKIMORA, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.KOBOLD, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MATANGO, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MINOTAUR, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MINOTAURUS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MUMMY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.NAGA, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.NINE_TAILS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ONI, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ORC, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SATYRESS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SELKIE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SHAMAN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SIREN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SLUDGE_GIRL, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SPHINX, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SPRIGGAN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SUCCUBUS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.TOAD, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.VALKYRIE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.VAMPIRE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.WERECAT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.WITCH, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.WITHER_COW, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.YETI, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.YUKI_ONNA, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MANDRAGORA, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MIMIC, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
 
-	private static void addNetherSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * NETHER
-		 */
-		for (Biome biome : biomeMap.get(Type.NETHER)) {
-			add(GENERAL.spawnVaseNether, EntityGaiaPropVaseNether.class, 1, 1, biome);
-			add(GENERAL.spawnSuccubus, EntityGaiaSuccubus.class, 2, 4, biome);
-			add(GENERAL.spawnWitherCow, EntityGaiaWitherCow.class, 2, 4, biome);
-			add(GENERAL.spawnBaphomet, EntityGaiaBaphomet.class, 2, 4, biome);
-		}
-	}
+		//Mobs that spawn in water
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.CECEALIA, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.MERMAID, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.SHARKO, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
 
-	private static void addBeachSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * BEACH,
-		 * STONE_BEACH,
-		 * COLD_BEACH
-		 */
-		for (Biome biome : biomeMap.get(Type.BEACH)) {
-			if (!BiomeDictionary.hasType(biome, Type.MUSHROOM)) {
-				aquatic(biome);
-			}
-		}
-	}
-
-	private static void addWaterSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * OCEAN,
-		 * RIVER,
-		 * FROZEN_OCEAN,
-		 * FROZEN_RIVER,
-		 * DEEP_OCEAN
-		 */
-		Set<Biome> water = new ImmutableSet.Builder<Biome>().addAll(biomeMap.get(Type.OCEAN)).addAll(biomeMap.get(Type.RIVER)).build();
-		for (Biome biome : water) {
-			aquatic(biome);
-		}
-	}
-
-	private static void addMountainSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * EXTREME_HILLS,
-		 * EXTREME_HILLS_EDGE,
-		 * EXTREME_HILLS_WITH_TREES,
-		 * MUTATED_EXTREME_HILLS
-		 */
-		for (Biome biome : biomeMap.get(Type.MOUNTAIN)) {
-			if (!BiomeDictionary.hasType(biome, Type.COLD) && !BiomeDictionary.hasType(biome, Type.HOT) && !BiomeDictionary.hasType(biome, Type.DENSE)) {
-				add(GENERAL.spawnGryphon, EntityGaiaGryphon.class, 1, 2, biome);
-				add(GENERAL.spawnDwarf, EntityGaiaDwarf.class, 4, 6, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnValkyrie, EntityGaiaValkyrie.class, 1, 2, biome);
-				}
-
-				add(GENERAL.spawnDullahan, EntityGaiaDullahan.class, 4, 6, biome);
-				add(GENERAL.spawnBanshee, EntityGaiaBanshee.class, 2, 4, biome);
-
-				add(GENERAL.spawnCampsite, EntityGaiaPropCampfire.class, 1, 1, biome);
-				underground(biome);
-			}
-		}
-	}
-
-	private static void addSnowySPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * ICE_PLAINS,
-		 * ICE_MOUNTAINS
-		 */
-		for (Biome biome : biomeMap.get(Type.SNOWY)) {
-			if (!BiomeDictionary.hasType(biome, Type.OCEAN) && 
-					!BiomeDictionary.hasType(biome, Type.RIVER) && 
-					!BiomeDictionary.hasType(biome, Type.BEACH) && 
-					!BiomeDictionary.hasType(biome, Type.FOREST)) {
-				add(GENERAL.spawnSelkie, EntityGaiaSelkie.class, 2, 4, biome);
-				add(GENERAL.spawnKobold, EntityGaiaKobold.class, 4, 6, biome);
-				add(GENERAL.spawnYeti, EntityGaiaYeti.class, 2, 4, biome);
-
-				underground(biome);
-			}
-		}
-	}
-
-	private static void addJungleSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * JUNGLE,
-		 * JUNGLE_HILLS,
-		 * JUNGLE_EDGE,
-		 * MUTATED_JUNGLE,
-		 * MUTATED_JUNGLE_EDGE
-		 */
-		for (Biome biome : biomeMap.get(Type.JUNGLE)) {
-			add(GENERAL.spawnHunter, EntityGaiaHunter.class, 2, 4, biome);
-			add(GENERAL.spawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, biome);
-			add(GENERAL.spawnShaman, EntityGaiaShaman.class, 2, 4, biome);
-			add(GENERAL.spawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, biome);
-
-			underground(biome);
-		}
-	}
-
-	private static void addSwampSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * SWAMPLAND
-		 * MUTATED_SWAMPLAND
-		 */
-		for (Biome biome : biomeMap.get(Type.SWAMP)) {
-			add(GENERAL.spawnSiren, EntityGaiaSiren.class, 4, 6, biome);
-			add(GENERAL.spawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, biome);
-			add(GENERAL.spawnNaga, EntityGaiaNaga.class, 1, 2, biome);
-
-			underground(biome);
-		}
-	}
-
-	private static void addPlainsSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		for (Biome biome : biomeMap.get(Type.PLAINS)) {
-			/*
-			 * PLAINS
-			 * MUTATED_PLAINS
-			 */
-			if (!BiomeDictionary.hasType(biome, Type.SAVANNA)) {
-				add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
-				add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
-				add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
-				add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnMinotaur, EntityGaiaMinotaur.class, 1, 2, biome);
-				}
-
-				underground(biome);
-			}
-		}
-	}
-
-	private static void addSavannaSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * SAVANNA,
-		 * SAVANNA_PLATEAU,
-		 * MUTATED_SAVANNA,
-		 * MUTATED_SAVANNA_ROCK,
-		 * MUTATED_MESA,
-		 * MUTATED_MESA_CLEAR_ROCK
-		 */
-		for (Biome biome : biomeMap.get(Type.SAVANNA)) {
-			add(GENERAL.spawnGoblin, EntityGaiaGoblin.class, 2, 6, biome);
-			add(GENERAL.spawnOrc, EntityGaiaOrc.class, 2, 6, biome);
-
-			underground(biome);
-		}
-	}
-
-	private static void addMesaSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * MESA,
-		 * MESA_ROCK,
-		 * MESA_CLEAR_ROCK
-		 */
-		for (Biome biome : biomeMap.get(Type.MESA)) {
-			add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
-			add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
-			add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
-			add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
-
-			if (!SPAWN.spawnLevel3) {
-				add(GENERAL.spawnMinotaur, EntityGaiaMinotaur.class, 1, 2, biome);
-			}
-
-			underground(biome);
-		}
-	}
-
-	private static void addSandySPAWN(Map<Type, Set<Biome>> biomeMap) {
-		/*
-		 * DESERT,
-		 * DESERT_HILLS,
-		 * MUTATED_DESERT
-		 */
-		for (Biome biome : biomeMap.get(Type.SANDY)) {
-			if (!BiomeDictionary.hasType(biome, Type.MESA)) {
-				add(GENERAL.spawnAnt, EntityGaiaAnt.class, 2, 4, biome);
-				add(GENERAL.spawnAntRanger, EntityGaiaAntRanger.class, 2, 4, biome);
-				add(GENERAL.spawnMummy, EntityGaiaMummy.class, 2, 4, biome);
-				add(GENERAL.spawnAnubis, EntityGaiaAnubis.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnSphinx, EntityGaiaSphinx.class, 1, 2, biome);
-				}
-
-				underground(biome);
-			}
-
-			underground(biome);
-		}
-	}
-
-	private static void addForestSPAWN(Map<Type, Set<Biome>> biomeMap) {
-		for (Biome biome : biomeMap.get(Type.FOREST)) {
-			/*
-			 * FOREST,
-			 * FOREST_HILLS,
-			 * BIRCH_FOREST,
-			 * BIRCH_FOREST_HILLS,
-			 * MUTATED_FOREST
-			 */
-			if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
-					!BiomeDictionary.hasType(biome, Type.COLD) && 
-					!BiomeDictionary.hasType(biome, Type.HOT) && 
-					!BiomeDictionary.hasType(biome, Type.SPARSE) && 
-					!BiomeDictionary.hasType(biome, Type.SPOOKY) && 
-					!BiomeDictionary.hasType(biome, Type.DENSE)) {
-				add(GENERAL.spawnDryad, EntityGaiaDryad.class, 4, 6, biome);
-				add(GENERAL.spawnBee, EntityGaiaBee.class, 2, 4, biome);
-				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
-				add(GENERAL.spawnWerecat, EntityGaiaWerecat.class, 4, 6, biome);
-				add(GENERAL.spawnSpriggan, EntityGaiaSpriggan.class, 2, 4, biome);
-
-				underground(biome);
-			}
-
-			/*
-			 * MUTATED_BIRCH_FOREST
-			 * MUTATED_BIRCH_FOREST_HILLS
-			 */
-			if (!BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
-					!BiomeDictionary.hasType(biome, Type.COLD) && 
-					!BiomeDictionary.hasType(biome, Type.HOT) && 
-					!BiomeDictionary.hasType(biome, Type.SPARSE) && 
-					!BiomeDictionary.hasType(biome, Type.SPOOKY) && 
-					BiomeDictionary.hasType(biome, Type.DENSE) && 
-					BiomeDictionary.hasType(biome, Type.RARE)) {
-				add(GENERAL.spawnDryad, EntityGaiaDryad.class, 4, 6, biome);
-				add(GENERAL.spawnBee, EntityGaiaBee.class, 2, 4, biome);
-				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
-				add(GENERAL.spawnWerecat, EntityGaiaWerecat.class, 4, 6, biome);
-				add(GENERAL.spawnSpriggan, EntityGaiaSpriggan.class, 2, 4, biome);
-
-				underground(biome);
-			}
-
-			/*
-			 * TAIGA
-			 * REDWOOD_TAIGA,
-			 * REDWOOD_TAIGA_HILLS
-			 */
-			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
-					(!BiomeDictionary.hasType(biome, Type.SNOWY))) {
-				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
-				add(GENERAL.spawnCyclops, EntityGaiaMonoeye.class, 4, 6, biome);
-				add(GENERAL.spawnYukiOnna, EntityGaiaYukiOnna.class, 2, 4, biome);
-				add(GENERAL.spawnOni, EntityGaiaOni.class, 4, 6, biome);
-				add(GENERAL.spawnNineTails, EntityGaiaNineTails.class, 2, 4, biome);
-
-				underground(biome);
-			}
-
-			/*
-			 * COLD_TAIGA,
-			 * COLD_TAIGA_HILLS,
-			 * MUTATED_TAIGA_COLD
-			 */
-			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
-					(BiomeDictionary.hasType(biome, Type.SNOWY))) {
-				add(GENERAL.spawnKikimora, EntityGaiaKikimora.class, 2, 4, biome);
-				add(GENERAL.spawnDhampir, EntityGaiaDhampir.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnVampire, EntityGaiaVampire.class, 1, 2, biome);
-				}
-
-				underground(biome);
-			}
-
-			/*
-			 * ROOFED_FOREST
-			 * MUTATED_ROOFED_FOREST
-			 */
-			if (BiomeDictionary.hasType(biome, Type.SPOOKY)) {
-				add(GENERAL.spawnMatango, EntityGaiaMatango.class, 2, 4, biome);
-				add(GENERAL.spawnToad, EntityGaiaToad.class, 2, 4, biome);
-				add(GENERAL.spawnWitch, EntityGaiaWitch.class, 2, 4, biome);
-
-				underground(biome);
-			}
-		}
-	}
-
-	private static Map<Type, Set<Biome>> buildBiomeListByType() {
-		Map<Type, Set<Biome>> biomesAndTypes = new HashMap<>();
-
-		for (Biome biome : Biome.REGISTRY) {
-			Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
-			for (BiomeDictionary.Type type : types) {
-				if (!biomesAndTypes.containsKey(type)) {
-					biomesAndTypes.put(type, new HashSet<>());
-				}
-
-				biomesAndTypes.get(type).add(biome);
-			}
-		}
-
-		return biomesAndTypes;
-	}
-
-	@SuppressWarnings({ "unused", "squid:S1118" }) // used in registration reflection
-	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
-	public static class DimensionHandler {
-		@SubscribeEvent
-		public static void onSpawn(final LivingSpawnEvent.CheckSpawn event) {
-			if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase) {
-				if (GaiaConfig.DIMENSIONS.dimensionBlacklist.length > 0) {
-					event.setResult(Event.Result.DEFAULT);
-					for (int i : GaiaConfig.DIMENSIONS.dimensionBlacklist) {
-						if (i == event.getWorld().provider.getDimension()) {
-							event.setResult(Event.Result.DENY);
-						}
-					}
-				}
-			}
-		}
 	}
 }

@@ -1,8 +1,8 @@
 {
     "variants": {
-        "type=north":   { "model": "grimoireofgaia:doll_creeper_girl", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:doll_creeper_girl", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:doll_creeper_girl"                     },
-        "type=east":    { "model": "grimoireofgaia:doll_creeper_girl", "y": 90            }
+    	"facing=north":	{ "model": "grimoireofgaia:block/doll_creeper_girl", "y": 180 },
+        "facing=east":	{ "model": "grimoireofgaia:block/doll_creeper_girl", "y": 270 },
+        "facing=south":	{ "model": "grimoireofgaia:block/doll_creeper_girl" },
+        "facing=west":	{ "model": "grimoireofgaia:block/doll_creeper_girl", "y": 90 }
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:blocks/web_temp"
+        "layer0": "grimoireofgaia:block/web_temp"
     } 
 }

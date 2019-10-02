@@ -1,8 +1,8 @@
 {
 	"credit": "Made by Silentine, with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/bust_valkyrie",
-		"particle": "grimoireofgaia:blocks/models/bust_valkyrie"
+		"0": "grimoireofgaia:block/models/bust_valkyrie",
+		"particle": "grimoireofgaia:block/models/bust_valkyrie"
 	},
 	"elements": [
 		{

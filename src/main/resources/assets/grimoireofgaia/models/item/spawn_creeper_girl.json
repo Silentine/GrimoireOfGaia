@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/spawn_creeper_girl"
+        "layer0": "grimoireofgaia:item/spawn_creeper_girl"
     } 
 }

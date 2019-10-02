@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "grimoireofgaia:box_diamond"
+  },
+  "result": "grimoireofgaia:misc_experience_large",
+  "experience": 0.1,
+  "cookingtime": 200
+}

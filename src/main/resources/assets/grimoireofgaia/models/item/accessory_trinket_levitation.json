@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/accessory_trinket_levitation"
+        "layer0": "grimoireofgaia:item/accessory_trinket_levitation"
     } 
 }

@@ -1,28 +1,17 @@
 package gaia.block;
 
-import gaia.CreativeTabGaia;
-import gaia.Gaia;
-import gaia.GaiaReference;
-import gaia.helpers.ModelLoaderHelper;
-import gaia.proxy.IClientRegister;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 
-class BlockBase extends Block implements IClientRegister {
-	BlockBase(Material materialIn, String blockName) {
-		super(materialIn);
-		setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, blockName));
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + blockName);
-		setCreativeTab(CreativeTabGaia.INSTANCE);
-		Gaia.proxy.addClientRegister(this);
+class BlockBase extends Block {
+	BlockBase(Block.Properties builder) {
+		super(builder);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerClient() {
-		ModelLoaderHelper.registerItem(this);
+	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+		return true;
 	}
 }

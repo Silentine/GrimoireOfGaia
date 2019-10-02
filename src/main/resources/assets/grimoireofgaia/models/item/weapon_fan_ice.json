@@ -1,6 +1,6 @@
 {
     "parent": "grimoireofgaia:item/weapon_fan",
     "textures": {
-        "0": "grimoireofgaia:items/models/weapon_fan_ice"
+        "0": "grimoireofgaia:item/models/weapon_fan_ice"
     }
 }

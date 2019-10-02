@@ -1,0 +1,33 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/creeper"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/spider"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/enderman"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/slime"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/zombie"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/skeleton"
+        },
+      ]
+    }
+  ]
+}

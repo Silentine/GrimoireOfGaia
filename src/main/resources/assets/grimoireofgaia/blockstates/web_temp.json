@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "grimoireofgaia:web_temp" }
+        "": { "model": "grimoireofgaia:block/web_temp" }
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/box_hat"
+        "layer0": "grimoireofgaia:item/box_hat"
     } 
 }

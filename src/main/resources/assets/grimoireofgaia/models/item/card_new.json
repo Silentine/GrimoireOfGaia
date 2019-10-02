@@ -1,8 +1,8 @@
 {
   "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
   "textures": {
-    "0": "grimoireofgaia:items/models/card/Card_front",
-    "1": "grimoireofgaia:items/models/card/Card_back"
+    "0": "grimoireofgaia:item/models/card/Card_front",
+    "1": "grimoireofgaia:item/models/card/Card_back"
   },
   "display": {
     "gui": {

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:misc_ring_jump"
+    },
+    {
+      "item": "minecraft:beacon"
+    }
+  ],
+  "result": {
+    "item": "grimoireofgaia:accessory_ring_jump"
+  }
+}

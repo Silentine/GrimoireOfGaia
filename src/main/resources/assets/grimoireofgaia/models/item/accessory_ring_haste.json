@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "grimoireofgaia:items/accessory_ring_haste"
+        "layer0": "grimoireofgaia:item/accessory_ring_haste"
     } 
 }

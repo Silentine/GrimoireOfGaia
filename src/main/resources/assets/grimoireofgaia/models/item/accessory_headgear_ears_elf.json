@@ -2,7 +2,7 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "grimoireofgaia:items/models/bauble/accessory_headgear_ears_elf"
+		"0": "grimoireofgaia:item/models/bauble/accessory_headgear_ears_elf"
 	},
 	"elements": [
 		{
