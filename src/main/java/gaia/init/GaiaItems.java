@@ -428,10 +428,10 @@ public class GaiaItems {
         CREEP_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CREEP, 7917159, 2053400, itemBuilder()), "creep_spawn_egg");
         CYCLOPS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CYCLOPS, 4936602, 3487029, itemBuilder()), "cyclops_spawn_egg");
         DEATHWORD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DEATHWORD, 0xb77a35, 0xffd800, itemBuilder()), "deathword_spawn_egg");
-//        DHAMPIR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DHAMPIR, 0x9c1c2b, 0xc9b161, itemBuilder()), "dhampir_spawn_egg");
-//        DRYAD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DRYAD, 10255437, 5681460, itemBuilder()), "dryad_spawn_egg");
-//        DULLAHAN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DULLAHAN, 0x824fab, 0xa4452d, itemBuilder()), "dullahan_spawn_egg");
-//        DWARF_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DWARF, 0x969696, 0xf09942, itemBuilder()), "dwarf_spawn_egg");
+        DHAMPIR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DHAMPIR, 0x9c1c2b, 0xc9b161, itemBuilder()), "dhampir_spawn_egg");
+        DRYAD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DRYAD, 10255437, 5681460, itemBuilder()), "dryad_spawn_egg");
+        DULLAHAN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DULLAHAN, 0x824fab, 0xa4452d, itemBuilder()), "dullahan_spawn_egg");
+        DWARF_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DWARF, 0x969696, 0xf09942, itemBuilder()), "dwarf_spawn_egg");
 //        ENDER_DRAGON_GIRL_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ENDER_DRAGON_GIRL, 3158064, 14711290, itemBuilder()), "ender_dragon_girl_spawn_egg");
 //        ENDER_EYE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ENDER_EYE, 2039583, 0x3158064, itemBuilder()), "ender_eye_spawn_egg");
 //        FLESH_LICH_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.FLESH_LICH, 0x00cccc, 0x799c65, itemBuilder()), "flesh_lich_spawn_egg");

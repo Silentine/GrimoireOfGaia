@@ -2,6 +2,7 @@ package gaia.client.model;
 
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -265,7 +266,7 @@ public class ModelGaiaMinotaurus<T extends MobEntity> extends ModelGaia<T> {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		if (entityIn.isAggressive() && (entityIn.getHeldItemMainhand().getItem() == Items.BOW)) {
+		if (entityIn.isAggressive() && (entityIn.getHeldItemMainhand().getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

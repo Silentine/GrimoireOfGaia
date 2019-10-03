@@ -107,6 +107,7 @@ public interface ISharedMethods {
         return !list.isEmpty();
     }
 
+
     default void ApplyDebuff(World world, Entity entityIn, HashMap<Effect, Integer> effects) {
         if (entityIn instanceof LivingEntity) {
             LivingEntity livingEntity = (LivingEntity) entityIn;

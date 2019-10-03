@@ -80,7 +80,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
     }
 
     public void setChild(boolean isChild) {
-        getDataManager().set(IS_CHILD, Boolean.valueOf(isChild));
+        getDataManager().set(IS_CHILD, isChild);
     }
 
     private void setChild(boolean isRandom, int chance) {

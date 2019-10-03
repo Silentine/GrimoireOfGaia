@@ -1,14 +1,15 @@
 package gaia.client.model;
 
+import gaia.entity.assist.GaiaDwarfEntity;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ModelGaiaDwarf<T extends MobEntity> extends ModelGaia<T> {
+public class ModelGaiaDwarf<T extends GaiaDwarfEntity> extends ModelGaia<T> {
 
 	private RendererModel head;
 	private RendererModel headlight;
@@ -147,13 +148,11 @@ public class ModelGaiaDwarf<T extends MobEntity> extends ModelGaia<T> {
 
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-//		EntityGaiaDwarf entityGaiaDwarf = (EntityGaiaDwarf) entityIn;
-
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
 
-		if (2 /*TODO: entityGaiaDwarf.getMobType()*/ == 2) {
+		if (entityIn.getMobType() == 2) {
 			headlight.showModel = true;
 		} else {
 			headlight.showModel = false;
@@ -166,7 +165,7 @@ public class ModelGaiaDwarf<T extends MobEntity> extends ModelGaia<T> {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		if (entityIn.isAggressive() && (entityIn.getHeldItemMainhand().getItem() == Items.BOW)) {
+		if (entityIn.isAggressive() && (entityIn.getHeldItemMainhand().getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

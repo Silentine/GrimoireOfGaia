@@ -1,9 +1,11 @@
 package gaia.client.renderer.layers;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import gaia.entity.assist.GaiaDwarfEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
 import gaia.entity.hostile.GaiaArachneEntity;
+import gaia.entity.hostile.GaiaDullahanEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -68,14 +70,14 @@ public class GaiaHeldItemLayer<T extends LivingEntity, M extends EntityModel<T>>
         if (living instanceof GaiaArachneEntity) {
             GlStateManager.translatef(0.0F, -0.02F, 0.0F);
         }
-//
-//        if (living instanceof EntityGaiaDullahan) {
-//            GlStateManager.translatef(0.0F, -0.02F, 0.0F);
-//        }
-//
-//        if (living instanceof EntityGaiaDwarf) {
-//            GlStateManager.translatef(0.0F, -0.04F, 0.0F);
-//        }
+
+        if (living instanceof GaiaDullahanEntity) {
+            GlStateManager.translatef(0.0F, -0.02F, 0.0F);
+        }
+
+        if (living instanceof GaiaDwarfEntity) {
+            GlStateManager.translatef(0.0F, -0.04F, 0.0F);
+        }
 //
 //        if (living instanceof EntityGaiaGoblin) {
 //            GlStateManager.translatef(0.0F, -0.12F, 0.0F);

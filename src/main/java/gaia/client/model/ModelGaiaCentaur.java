@@ -3,6 +3,7 @@ package gaia.client.model;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
@@ -276,7 +277,7 @@ public class ModelGaiaCentaur<T extends MobEntity> extends ModelGaia<T> {
 		rightarm.rotateAngleZ = 0.0F;
 		leftarm.rotateAngleZ = 0.0F;
 
-		if (entityIn.isAggressive() && (equipstack.getItem() == Items.BOW)) {
+		if (entityIn.isAggressive() && (equipstack.getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
 		} else if (swingProgress > -9990.0F) {
 			holdingMelee();

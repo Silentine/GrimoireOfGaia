@@ -1,6 +1,7 @@
 package gaia.entity.prop;
 
 import gaia.entity.AbstractMobPropEntity;
+import gaia.entity.assist.GaiaDwarfEntity;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaLootTables;
@@ -65,23 +66,23 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 
 		if (canSpawn()) {
 			for (int i = 0; i < 2; i++) {
-//				EntityGaiaDwarf dwarf; TODO: Reimplement EntityGaiaDwarf spawning
-//
-//				if (i == 0) {
-//					dwarf = new EntityGaiaDwarf(world);
-//					dwarf.classID = 2;
-//					dwarf.randomClass = false;
-//					dwarf.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-//					dwarf.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(dwarf)), null, null);
-//					world.spawnEntity(dwarf);
-//				} else {
-//					dwarf = new EntityGaiaDwarf(world);
-//					dwarf.classID = rand.nextInt(2);
-//					dwarf.randomClass = false;
-//					dwarf.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-//					dwarf.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(dwarf)), null, null);
-//					world.spawnEntity(dwarf);
-//				}
+				GaiaDwarfEntity dwarf;
+
+				if (i == 0) {
+					dwarf = new GaiaDwarfEntity(world);
+					dwarf.classID = 2;
+					dwarf.randomClass = false;
+					dwarf.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+					dwarf.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(dwarf)), null, null, null);
+					world.addEntity(dwarf);
+				} else {
+					dwarf = new GaiaDwarfEntity(world);
+					dwarf.classID = rand.nextInt(2);
+					dwarf.randomClass = false;
+					dwarf.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+					dwarf.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(dwarf)), null, null, null);
+					world.addEntity(dwarf);
+				}
 			}
 		}
 
