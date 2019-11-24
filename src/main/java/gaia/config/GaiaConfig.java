@@ -119,6 +119,7 @@ public class GaiaConfig {
 
         //Options
         public final BooleanValue enableSpawn;
+        public final BooleanValue disableYRestriction;
         public final BooleanValue passiveHostileMobs;
         public final BooleanValue passiveHostileAllMobs;
         public final BooleanValue additionalOre;
@@ -577,6 +578,11 @@ public class GaiaConfig {
                     .comment("Enable Gaia mobs to spawn")
                     .translation("configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn")
                     .define("enableSpawn", true);
+
+            disableYRestriction = builder
+                    .comment("Enable Gaia mobs to spawn")
+                    .translation("configgui.grimoireofgaia.category.options.Menu0.disable_Y_Restriction")
+                    .define("disableYRestriction", true);
 
             passiveHostileMobs = builder
                     .comment("Hostile day mobs will no longer attack players on sight")

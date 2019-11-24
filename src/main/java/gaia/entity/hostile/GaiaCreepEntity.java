@@ -281,6 +281,6 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY < 60.0D && posY > 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : posY > 32.0D && super.canSpawn(worldIn, reason);
     }
 }

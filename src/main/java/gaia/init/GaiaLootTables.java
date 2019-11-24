@@ -15,6 +15,7 @@ public class GaiaLootTables {
 	public static final ResourceLocation BOXES_NETHER = register("lootbox/box_nether");
 	public static final ResourceLocation BOXES_END = register("lootbox/box_end");
 	public static final ResourceLocation BOXES_OLD = register("lootbox/box_old");
+	public static final ResourceLocation BOXES_HAT = register("lootbox/box_hat");
 
 	/* MOBS */
 	public static final ResourceLocation ENTITIES_GAIA_ANT = register("entities/ant");

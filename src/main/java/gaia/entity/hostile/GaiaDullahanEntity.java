@@ -111,11 +111,6 @@ public class GaiaDullahanEntity extends AbstractMobHostileEntity implements ISwi
         return GaiaSounds.DULLAHAN_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_DULLAHAN;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -162,6 +157,6 @@ public class GaiaDullahanEntity extends AbstractMobHostileEntity implements ISwi
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

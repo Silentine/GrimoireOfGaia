@@ -194,6 +194,10 @@ public abstract class AbstractMobAssistEntity extends CreatureEntity implements 
         super.registerAttributes();
         this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 
+        setGaiaAttributes();
+    }
+
+    public void setGaiaAttributes() {
         int gaiaTier = getGaiaTier();
         switch (gaiaTier) {
             default:

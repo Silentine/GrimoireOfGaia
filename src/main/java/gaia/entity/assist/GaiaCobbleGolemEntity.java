@@ -192,11 +192,6 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
         playSound(SoundEvents.ENTITY_IRON_GOLEM_STEP, 1.0F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_COBBLE_GOLEM;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -253,6 +248,6 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

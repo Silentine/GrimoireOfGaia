@@ -183,6 +183,6 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY < 0.0D && super.canSpawn(worldIn, reason);
+        return reason != SpawnReason.NATURAL && super.canSpawn(worldIn, reason);
     }
 }

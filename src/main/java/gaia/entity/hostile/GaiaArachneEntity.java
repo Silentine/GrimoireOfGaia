@@ -370,6 +370,6 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY < 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && super.canSpawn(worldIn, reason);
     }
 }

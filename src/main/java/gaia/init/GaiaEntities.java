@@ -8,6 +8,10 @@ import gaia.entity.assist.GaiaCobbleGolemEntity;
 import gaia.entity.assist.GaiaCyclopsEntity;
 import gaia.entity.assist.GaiaDryadEntity;
 import gaia.entity.assist.GaiaDwarfEntity;
+import gaia.entity.assist.GaiaEnderDragonGirlEntity;
+import gaia.entity.assist.GaiaEnderEyeEntity;
+import gaia.entity.assist.GaiaGoblinEntity;
+import gaia.entity.assist.GaiaGoblinFeralEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -21,6 +25,8 @@ import gaia.entity.hostile.GaiaCreepEntity;
 import gaia.entity.hostile.GaiaDeathwordEntity;
 import gaia.entity.hostile.GaiaDhampirEntity;
 import gaia.entity.hostile.GaiaDullahanEntity;
+import gaia.entity.hostile.GaiaFleshLichEntity;
+import gaia.entity.hostile.GaiaGelatinousSlimeEntity;
 import gaia.entity.hostile.GaiaMandragoraEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import gaia.entity.hostile.GaiaSphinxEntity;
@@ -48,31 +54,42 @@ public class GaiaEntities {
 
 //	public static final EntityType<EntityDebugMob> DEBUG_MOB = register("debug_mob", EntityType.Builder.create(EntityDebugMob::new, EntityDebugMob::new));
 	public static final EntityType<GaiaAntEntity> ANT = register("ant", EntityType.Builder.<GaiaAntEntity>create(GaiaAntEntity::new, EntityClassification.MONSTER));
-	public static final EntityType<GaiaAntRangerEntity> ANT_RANGER = register("ant_ranger", EntityType.Builder.<GaiaAntRangerEntity>create(GaiaAntRangerEntity::new, EntityClassification.MONSTER).size(0.5F, 0.5F));
+	public static final EntityType<GaiaAntRangerEntity> ANT_RANGER = register("ant_ranger", EntityType.Builder.<GaiaAntRangerEntity>create(GaiaAntRangerEntity::new, EntityClassification.MONSTER)
+			.size(0.5F, 0.5F));
 	public static final EntityType<GaiaAnubisEntity> ANUBIS = register("anubis", EntityType.Builder.create(GaiaAnubisEntity::new, EntityClassification.MONSTER));
-	public static final EntityType<GaiaArachneEntity> ARACHNE = register("arachne", EntityType.Builder.<GaiaArachneEntity>create(GaiaArachneEntity::new, EntityClassification.MONSTER).size(1.4F, 1.6F));
-	public static final EntityType<GaiaBansheeEntity> BANSHEE = register("banshee", EntityType.Builder.<GaiaBansheeEntity>create(GaiaBansheeEntity::new, EntityClassification.MONSTER).immuneToFire());
-	public static final EntityType<GaiaBaphometEntity> BAPHOMET = register("baphomet", EntityType.Builder.<GaiaBaphometEntity>create(GaiaBaphometEntity::new, EntityClassification.MONSTER).immuneToFire());
+	public static final EntityType<GaiaArachneEntity> ARACHNE = register("arachne", EntityType.Builder.<GaiaArachneEntity>create(GaiaArachneEntity::new, EntityClassification.MONSTER)
+			.size(1.4F, 1.6F));
+	public static final EntityType<GaiaBansheeEntity> BANSHEE = register("banshee", EntityType.Builder.<GaiaBansheeEntity>create(GaiaBansheeEntity::new, EntityClassification.MONSTER)
+			.immuneToFire());
+	public static final EntityType<GaiaBaphometEntity> BAPHOMET = register("baphomet", EntityType.Builder.<GaiaBaphometEntity>create(GaiaBaphometEntity::new, EntityClassification.MONSTER)
+			.immuneToFire());
 	public static final EntityType<GaiaBeeEntity> BEE = register("bee", EntityType.Builder.<GaiaBeeEntity>create(GaiaBeeEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaBoneKnightEntity> BONE_KNIGHT = register("bone_knight", EntityType.Builder.<GaiaBoneKnightEntity>create(GaiaBoneKnightEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaCecaeliaEntity> CECEALIA = register("cecaelia", EntityType.Builder.<GaiaCecaeliaEntity>create(GaiaCecaeliaEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaCentaurEntity> CENTAUR = register("centaur", EntityType.Builder.<GaiaCentaurEntity>create(GaiaCentaurEntity::new, EntityClassification.MONSTER));
-	public static final EntityType<GaiaCobbleGolemEntity> COBBLE_GOLEM = register("cobble_golem", EntityType.Builder.<GaiaCobbleGolemEntity>create(GaiaCobbleGolemEntity::new, EntityClassification.MONSTER).immuneToFire());
+	public static final EntityType<GaiaCobbleGolemEntity> COBBLE_GOLEM = register("cobble_golem", EntityType.Builder.<GaiaCobbleGolemEntity>create(GaiaCobbleGolemEntity::new, EntityClassification.MONSTER)
+			.immuneToFire());
 	public static final EntityType<GaiaCobblestoneGolemEntity> COBBLESTONE_GOLEM = register("cobblestone_golem", EntityType.Builder.<GaiaCobblestoneGolemEntity>create(GaiaCobblestoneGolemEntity::new, EntityClassification.MONSTER)
 			.size(1.4F, 2.2F).immuneToFire());
-	public static final EntityType<GaiaCreepEntity> CREEP = register("creep", EntityType.Builder.<GaiaCreepEntity>create(GaiaCreepEntity::new, EntityClassification.MONSTER).size(0.75F, 0.75F));
+	public static final EntityType<GaiaCreepEntity> CREEP = register("creep", EntityType.Builder.<GaiaCreepEntity>create(GaiaCreepEntity::new, EntityClassification.MONSTER)
+			.size(0.75F, 0.75F));
 	public static final EntityType<GaiaCyclopsEntity> CYCLOPS = register("cyclops", EntityType.Builder.<GaiaCyclopsEntity>create(GaiaCyclopsEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaDeathwordEntity> DEATHWORD = register("deathword", EntityType.Builder.<GaiaDeathwordEntity>create(GaiaDeathwordEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaDhampirEntity> DHAMPIR = register("dhampir", EntityType.Builder.<GaiaDhampirEntity>create(GaiaDhampirEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaDryadEntity> DRYAD = register("dryad", EntityType.Builder.create(GaiaDryadEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaDullahanEntity> DULLAHAN = register("dullahan", EntityType.Builder.create(GaiaDullahanEntity::new, EntityClassification.MONSTER));
-	public static final EntityType<GaiaDwarfEntity> DWARF = register("dwarf", EntityType.Builder.<GaiaDwarfEntity>create(GaiaDwarfEntity::new, EntityClassification.MONSTER).size(0.5F, 1.5F));
-//	public static final EntityType<EntityGaiaEnderDragonGirl> ENDER_DRAGON_GIRL = register("ender_dragon_girl", EntityType.Builder.create(EntityGaiaEnderDragonGirl::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaEnderEye> ENDER_EYE = register("ender_eye", EntityType.Builder.create(EntityGaiaEnderEye::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaFleshLich> FLESH_LICH = register("flesh_lich", EntityType.Builder.create(EntityGaiaFleshLich::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaGelatinousSlime> GELATINOUS_SLIME = register("gelatinous_slime", EntityType.Builder.create(EntityGaiaGelatinousSlime::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaGoblin> GOBLIN = register("goblin", EntityType.Builder.create(EntityGaiaGoblin::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaGoblinFeral> GOBLIN_FERAL = register("goblin_feral", EntityType.Builder.create(EntityGaiaGoblinFeral::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaDwarfEntity> DWARF = register("dwarf", EntityType.Builder.<GaiaDwarfEntity>create(GaiaDwarfEntity::new, EntityClassification.MONSTER)
+			.size(0.5F, 1.5F));
+	public static final EntityType<GaiaEnderDragonGirlEntity> ENDER_DRAGON_GIRL = register("ender_dragon_girl", EntityType.Builder.<GaiaEnderDragonGirlEntity>create(GaiaEnderDragonGirlEntity::new, EntityClassification.MONSTER)
+			.size(0.6F, 2.2F).immuneToFire());
+	public static final EntityType<GaiaEnderEyeEntity> ENDER_EYE = register("ender_eye", EntityType.Builder.<GaiaEnderEyeEntity>create(GaiaEnderEyeEntity::new, EntityClassification.MONSTER)
+			.size(1.0F, 2.4F).immuneToFire());
+	public static final EntityType<GaiaFleshLichEntity> FLESH_LICH = register("flesh_lich", EntityType.Builder.<GaiaFleshLichEntity>create(GaiaFleshLichEntity::new, EntityClassification.MONSTER)
+	.immuneToFire());
+	public static final EntityType<GaiaGelatinousSlimeEntity> GELATINOUS_SLIME = register("gelatinous_slime", EntityType.Builder.<GaiaGelatinousSlimeEntity>create(GaiaGelatinousSlimeEntity::new, EntityClassification.MONSTER)
+	.size(1.75F, 1.75F));
+	public static final EntityType<GaiaGoblinEntity> GOBLIN = register("goblin", EntityType.Builder.<GaiaGoblinEntity>create(GaiaGoblinEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaGoblinFeralEntity> GOBLIN_FERAL = register("goblin_feral",EntityType.Builder.<GaiaGoblinFeralEntity>create(GaiaGoblinFeralEntity::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaGryphon> GRYPHON = register("gryphon", EntityType.Builder.create(EntityGaiaGryphon::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaHarpy> HARPY = register("harpy", EntityType.Builder.create(EntityGaiaHarpy::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaHunter> HUNTER = register("hunter", EntityType.Builder.create(EntityGaiaHunter::new, EntityClassification.MONSTER));
@@ -209,12 +226,12 @@ public class GaiaEntities {
 		register(DRYAD, event);
 		register(DULLAHAN, event);
 		register(DWARF, event);
-//		register(ENDER_DRAGON_GIRL, event);
-//		register(ENDER_EYE, event);
-//		register(FLESH_LICH, event);
-//		register(GELATINOUS_SLIME, event);
-//		register(GOBLIN, event);
-//		register(GOBLIN_FERAL, event);
+		register(ENDER_DRAGON_GIRL, event);
+		register(ENDER_EYE, event);
+		register(FLESH_LICH, event);
+		register(GELATINOUS_SLIME, event);
+		register(GOBLIN, event);
+		register(GOBLIN_FERAL, event);
 //		register(GRYPHON, event);
 //		register(HARPY, event);
 //		register(HUNTER, event);

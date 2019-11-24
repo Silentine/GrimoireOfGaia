@@ -12,6 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -127,5 +128,12 @@ public interface ISharedMethods {
                 }
             }
         }
+    }
+
+    default boolean canEntitySeeSky(IWorld worldIn, Entity entity) {
+        if(GaiaConfig.COMMON.disableYRestriction.get())
+            return true;
+
+        return worldIn.canBlockSeeSky(entity.getPosition());
     }
 }

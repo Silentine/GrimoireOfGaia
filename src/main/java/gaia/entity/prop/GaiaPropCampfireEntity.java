@@ -1,5 +1,6 @@
 package gaia.entity.prop;
 
+import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobPropEntity;
 import gaia.entity.assist.GaiaDwarfEntity;
 import gaia.init.GaiaBlocks;
@@ -229,11 +230,6 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 		return SoundEvents.BLOCK_WOOD_BREAK;
 	}
 
-	@Nullable
-	protected ResourceLocation getLootTable() {
-		return GaiaLootTables.ENTITIES_GAIA_CAMPFIRE;
-	}
-
 	@Override
 	protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {
 		if (recentlyHitIn) {
@@ -299,7 +295,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 
 	@Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason value) {
-		return posY < 60.0D && posY > 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
+		return GaiaConfig.COMMON.disableYRestriction.get() ? true : GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : posY > 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
 	}
 	/* SPAWN CONDITIONS */
 

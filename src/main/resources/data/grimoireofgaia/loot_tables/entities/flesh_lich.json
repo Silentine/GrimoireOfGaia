@@ -1,1 +1,17 @@
-{}
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/skeleton"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "grimoireofgaia:entities/gelatinous_slime"
+        }
+      ]
+    }
+  ]
+}

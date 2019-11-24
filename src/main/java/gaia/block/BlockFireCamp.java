@@ -132,6 +132,6 @@ public class BlockFireCamp extends BlockBase {
 	public static void campfireSmoke(World worldIn, BlockPos pos, boolean isSignal) {
 		Random rand = worldIn.getRandom();
 		BasicParticleType particle = isSignal ? ParticleTypes.CAMPFIRE_SIGNAL_SMOKE : ParticleTypes.CAMPFIRE_COSY_SMOKE;
-		worldIn.func_217404_b(particle, true, (double)pos.getX() + 0.5D + rand.nextDouble() / 3.0D * (double)(rand.nextBoolean() ? 1 : -1), (double)pos.getY() + rand.nextDouble() + rand.nextDouble(), (double)pos.getZ() + 0.5D + rand.nextDouble() / 3.0D * (double)(rand.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
+		worldIn.addParticle(particle, true, (double)pos.getX() + 0.5D + rand.nextDouble() / 3.0D * (double)(rand.nextBoolean() ? 1 : -1), (double)pos.getY() + rand.nextDouble() + rand.nextDouble(), (double)pos.getZ() + 0.5D + rand.nextDouble() / 3.0D * (double)(rand.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
 	}
 }

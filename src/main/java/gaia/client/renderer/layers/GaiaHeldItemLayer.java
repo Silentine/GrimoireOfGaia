@@ -2,6 +2,7 @@ package gaia.client.renderer.layers;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.entity.assist.GaiaDwarfEntity;
+import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
 import gaia.entity.hostile.GaiaArachneEntity;
@@ -78,10 +79,10 @@ public class GaiaHeldItemLayer<T extends LivingEntity, M extends EntityModel<T>>
         if (living instanceof GaiaDwarfEntity) {
             GlStateManager.translatef(0.0F, -0.04F, 0.0F);
         }
-//
-//        if (living instanceof EntityGaiaGoblin) {
-//            GlStateManager.translatef(0.0F, -0.12F, 0.0F);
-//        }
+
+        if (living instanceof GaiaGoblinEntity) {
+            GlStateManager.translatef(0.0F, -0.12F, 0.0F);
+        }
 //
 //        if (living instanceof EntityGaiaGoblinFeral) {
 //            GlStateManager.translatef(0.0F, -0.12F, 0.0F);

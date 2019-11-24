@@ -39,6 +39,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -370,11 +371,6 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
         return GaiaSounds.ANUBIS_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_ANUBIS;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -448,6 +444,6 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

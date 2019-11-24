@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -32,14 +31,12 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 
 public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDayMob, IRangedAttackMob {
@@ -214,11 +211,6 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
         playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_ANT_RANGER;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -298,6 +290,6 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

@@ -1,0 +1,30 @@
+{
+    "pools": [
+        {
+			"name": "main",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "grimoireofgaia:accessory_headgear_mob"
+                },
+				{
+                    "type": "item",
+                    "name": "grimoireofgaia:accessory_headgear_bolt"
+                },
+				{
+                    "type": "item",
+                    "name": "grimoireofgaia:accessory_headgear_arrow"
+                },
+				{
+                    "type": "item",
+                    "name": "grimoireofgaia:accessory_headgear_doll"
+                },
+				{
+                    "type": "item",
+                    "name": "grimoireofgaia:accessory_headgear_ears_elf"
+                }
+			]
+        }
+    ]
+}

@@ -202,11 +202,6 @@ public class GaiaPropVaseNetherEntity extends AbstractMobPropEntity {
         return SoundEvents.BLOCK_GLASS_BREAK;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_VASE_NETHER;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {

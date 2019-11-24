@@ -192,11 +192,6 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
         return GaiaSounds.MANDRAGORA_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_MANDRAGORA;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -317,7 +312,7 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY < 0.0D && super.canSpawn(worldIn, reason);
+        return reason != SpawnReason.NATURAL && super.canSpawn(worldIn, reason);
     }
 
 }

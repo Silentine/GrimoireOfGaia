@@ -172,11 +172,6 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
         return GaiaSounds.CYCLOPS_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_MONOEYE;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -246,6 +241,6 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

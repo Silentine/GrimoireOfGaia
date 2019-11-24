@@ -2,7 +2,8 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "grimoireofgaia:spawn_tame"
+            "_comment": "Revert back to grimoireofgaia:spawn_tame when it exists",
+            "item": "minecraft:egg"
         }
     ],
     "result": {

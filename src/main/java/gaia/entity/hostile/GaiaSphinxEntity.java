@@ -7,7 +7,6 @@ import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
@@ -27,7 +26,6 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
@@ -133,10 +131,6 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
         return GaiaSounds.SPHINX_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_SPHINX;
-    }
 
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
@@ -214,9 +208,9 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
         if (GaiaConfig.COMMON.spawnLevel3Rain.get()) {
-            return posY > 60.0D && world.getWorld().isRaining() && super.canSpawn(worldIn, reason);
+            return canEntitySeeSky(worldIn, this) && world.getWorld().isRaining() && super.canSpawn(worldIn, reason);
         } else {
-            return posY > 60.0D && super.canSpawn(worldIn, reason);
+            return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
         }
     }
 }

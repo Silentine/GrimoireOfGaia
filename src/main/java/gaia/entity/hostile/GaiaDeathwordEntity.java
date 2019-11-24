@@ -255,11 +255,6 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
         return GaiaSounds.BOOK_HIT;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_DEATHWORD;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -336,6 +331,6 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY < 16.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 16.0D && super.canSpawn(worldIn, reason);
     }
 }

@@ -446,6 +446,6 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

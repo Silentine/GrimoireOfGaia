@@ -1,5 +1,6 @@
 package gaia.entity.prop;
 
+import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobPropEntity;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -204,11 +205,6 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
         return SoundEvents.BLOCK_GLASS_BREAK;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_VASE;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -293,7 +289,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
-        return posY < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
     }
     /* SPAWN CONDITIONS */
 

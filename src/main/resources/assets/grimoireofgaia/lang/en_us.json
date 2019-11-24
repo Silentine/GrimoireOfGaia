@@ -387,6 +387,8 @@
   "_comment": "CONFIG_OPTIONS",
   "configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn": "Enable Spawns",
   "configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn.tooltip": "Enable Gaia mobs to spawn.",
+  "configgui.grimoireofgaia.category.options.Menu0.disable_Y_Restriction": "Disable Y-level restriction",
+  "configgui.grimoireofgaia.category.options.Menu0.disable_Y_Restriction.tooltip": "Disable the Y-level restriction some Gaia mobs use to spawn.",
   "configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs": "Sets hostile day mobs to be passive",
   "configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip": "Hostile day mobs will no longer attack players on sight.",
   "configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs": "Sets all mobs to be hostile",

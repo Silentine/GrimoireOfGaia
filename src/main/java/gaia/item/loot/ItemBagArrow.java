@@ -25,13 +25,11 @@ public class ItemBagArrow extends Item {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public Rarity getRarity(ItemStack stack) {
 		return Rarity.RARE;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(new TranslationTextComponent("text.grimoireofgaia.RightClickUse"));
 	}

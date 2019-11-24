@@ -295,11 +295,6 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
         playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_CENTAUR;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -380,7 +375,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
     }
 
     @Override
-    public boolean canSpawn(IWorld worldIn, SpawnReason p_205020_2_) {
-        return posY > 60.0D && super.canSpawn(worldIn, p_205020_2_);
+    public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

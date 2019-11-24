@@ -203,11 +203,6 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
         playSound(GaiaSounds.NONE, 1.0F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_BANSHEE;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -262,7 +257,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 
     class MoveRandomGoal extends Goal {

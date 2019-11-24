@@ -1,5 +1,6 @@
 package gaia.entity.prop;
 
+import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobPropEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import gaia.init.GaiaEntities;
@@ -271,7 +272,7 @@ public class GaiaPropChestMimicEntity extends AbstractMobPropEntity {
 	
 	@Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-		return posY < 32.0D && worldIn.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, reason);
+		return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && worldIn.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, reason);
 	}
 	/* SPAWN CONDITIONS */
 

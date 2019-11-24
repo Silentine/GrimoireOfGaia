@@ -225,11 +225,6 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
         return GaiaSounds.DHAMPIR_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_DHAMPIR;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -311,6 +306,6 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return posY > 60.0D && super.canSpawn(worldIn, reason);
+        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
     }
 }

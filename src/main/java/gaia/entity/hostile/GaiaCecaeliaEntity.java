@@ -223,11 +223,6 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
         return GaiaSounds.CECAELIA_DEATH;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_CECAELIA;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -310,6 +305,6 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-		return posY < 60.0D && super.canSpawn(worldIn, reason);
+		return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 60.0D && super.canSpawn(worldIn, reason);
 	}
 }

@@ -14,7 +14,6 @@ public class ItemBoxIron extends ItemBoxBase {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public Rarity getRarity(ItemStack stack) {
 		return Rarity.RARE;
 	}
