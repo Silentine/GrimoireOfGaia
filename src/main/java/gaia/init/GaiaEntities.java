@@ -12,6 +12,7 @@ import gaia.entity.assist.GaiaEnderDragonGirlEntity;
 import gaia.entity.assist.GaiaEnderEyeEntity;
 import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
+import gaia.entity.assist.GaiaGryphonEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -90,7 +91,8 @@ public class GaiaEntities {
 	.size(1.75F, 1.75F));
 	public static final EntityType<GaiaGoblinEntity> GOBLIN = register("goblin", EntityType.Builder.<GaiaGoblinEntity>create(GaiaGoblinEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaGoblinFeralEntity> GOBLIN_FERAL = register("goblin_feral",EntityType.Builder.<GaiaGoblinFeralEntity>create(GaiaGoblinFeralEntity::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaGryphon> GRYPHON = register("gryphon", EntityType.Builder.create(EntityGaiaGryphon::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaGryphonEntity> GRYPHON = register("gryphon", EntityType.Builder.<GaiaGryphonEntity>create(GaiaGryphonEntity::new, EntityClassification.MONSTER)
+	.size(1.2F, 1.8F));
 //	public static final EntityType<EntityGaiaHarpy> HARPY = register("harpy", EntityType.Builder.create(EntityGaiaHarpy::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaHunter> HUNTER = register("hunter", EntityType.Builder.create(EntityGaiaHunter::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaKikimora> KIKIMORA = register("kikimora", EntityType.Builder.create(EntityGaiaKikimora::new, EntityClassification.MONSTER));
@@ -232,7 +234,7 @@ public class GaiaEntities {
 		register(GELATINOUS_SLIME, event);
 		register(GOBLIN, event);
 		register(GOBLIN_FERAL, event);
-//		register(GRYPHON, event);
+		register(GRYPHON, event);
 //		register(HARPY, event);
 //		register(HUNTER, event);
 //		register(KIKIMORA, event);

@@ -41,7 +41,7 @@ public class GaiaProjectileBombEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected Item func_213885_i() {
+    protected Item getDefaultItem() {
         return GaiaItems.WEAPON_PROJECTILE_BOMB;
     }
 

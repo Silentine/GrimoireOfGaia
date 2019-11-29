@@ -2,15 +2,11 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
-import gaia.entity.AbstractMobHostileEntity;
-import gaia.entity.AbstractMobPropEntity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -387,14 +383,14 @@ public class GaiaSpawning {
 	public static void registerSpawnPlacement(){
 		Gaia.LOGGER.info("Registering gaia spawn placement");
 		//Prop Mobs
-        EntitySpawnPlacementRegistry.register(GaiaEntities.CAMPFIRE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+/*        EntitySpawnPlacementRegistry.register(GaiaEntities.CAMPFIRE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
         EntitySpawnPlacementRegistry.register(GaiaEntities.CHEST, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
         EntitySpawnPlacementRegistry.register(GaiaEntities.CYAN_FLOWER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
         EntitySpawnPlacementRegistry.register(GaiaEntities.VASE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
-        EntitySpawnPlacementRegistry.register(GaiaEntities.VASE_NETHER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);
+        EntitySpawnPlacementRegistry.register(GaiaEntities.VASE_NETHER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobPropEntity::func_223315_a);*/
 
         //Mobs that spawn on the ground
-		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobHostileEntity::func_223315_a);
+//		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractMobHostileEntity::func_223315_a);
 //		EntitySpawnPlacementRegistry.register(GaiaEntities.ANT_RANGER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
 //		EntitySpawnPlacementRegistry.register(GaiaEntities.ANUBIS, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
 //		EntitySpawnPlacementRegistry.register(GaiaEntities.ARACHNE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);

@@ -25,6 +25,7 @@ import gaia.client.renderer.monster.GaiaFleshLichRenderer;
 import gaia.client.renderer.monster.GaiaGelatinousSlimeRenderer;
 import gaia.client.renderer.monster.GaiaGoblinFeralRenderer;
 import gaia.client.renderer.monster.GaiaGoblinRenderer;
+import gaia.client.renderer.monster.GaiaGryphonRenderer;
 import gaia.client.renderer.monster.GaiaMandragoraRenderer;
 import gaia.client.renderer.monster.GaiaMimicRenderer;
 import gaia.client.renderer.monster.GaiaSphinxRenderer;
@@ -43,6 +44,7 @@ import gaia.entity.assist.GaiaEnderDragonGirlEntity;
 import gaia.entity.assist.GaiaEnderEyeEntity;
 import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
+import gaia.entity.assist.GaiaGryphonEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -122,9 +124,9 @@ public class GaiaClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(GaiaEnderEyeEntity.class, renderManager -> new GaiaEnderEyeRenderer(renderManager, small));
         RenderingRegistry.registerEntityRenderingHandler(GaiaFleshLichEntity.class, renderManager -> new GaiaFleshLichRenderer(renderManager, med));
         RenderingRegistry.registerEntityRenderingHandler(GaiaGelatinousSlimeEntity.class, renderManager -> new GaiaGelatinousSlimeRenderer(renderManager, large));
-
         RenderingRegistry.registerEntityRenderingHandler(GaiaGoblinEntity.class, renderManager -> new GaiaGoblinRenderer(renderManager, tiny));
         RenderingRegistry.registerEntityRenderingHandler(GaiaGoblinFeralEntity.class, renderManager -> new GaiaGoblinFeralRenderer(renderManager, tiny));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaGryphonEntity.class, renderManager -> new GaiaGryphonRenderer(renderManager, med));
 
         RenderingRegistry.registerEntityRenderingHandler(GaiaMandragoraEntity.class, renderManager -> new GaiaMandragoraRenderer(renderManager, tiny));
         RenderingRegistry.registerEntityRenderingHandler(GaiaMimicEntity.class, renderManager -> new GaiaMimicRenderer(renderManager, med));

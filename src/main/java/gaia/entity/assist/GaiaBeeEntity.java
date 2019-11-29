@@ -30,6 +30,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -44,6 +45,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
 
 public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, IRangedAttackMob {
     private static final int DETECTION_RANGE = 3;
@@ -142,20 +144,10 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         if (super.attackEntityAsMob(entityIn)) {
-            if (entityIn instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity) entityIn;
-                byte difficultyModifier = 0;
+            HashMap<Effect, Integer> effects = new HashMap<>();
+            effects.put(Effects.POISON, 0);
 
-                if (world.getDifficulty() == Difficulty.NORMAL) {
-                    difficultyModifier = 5;
-                } else if (world.getDifficulty() == Difficulty.HARD) {
-                    difficultyModifier = 10;
-                }
-
-                if (difficultyModifier > 0) {
-                    livingEntity.addPotionEffect(new EffectInstance(Effects.POISON, difficultyModifier * 20, 0));
-                }
-            }
+            ApplyDebuff(world, entityIn, effects);
             return true;
         } else {
             return false;
