@@ -1,14 +1,4 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
-#NEW
-#ITEM_NAMES
-
-#ITEM_HEADGEAR
-
-#BLOCK_NAMES
-
-#ENTITY_NAMES
-
-#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=鉄塊
@@ -35,12 +25,14 @@ item.grimoireofgaia.food_pie_apple_gold.name=金のアップルパイ
 item.grimoireofgaia.misc_soul_fire.name=ソウルファイア
 item.grimoireofgaia.misc_soul_fiery.name=火炎の欠片
 item.grimoireofgaia.misc_giga_gear.name=ギガナイトの心臓
-item.grimoireofgaia.misc_fur.name=毛皮
 item.grimoireofgaia.misc_experience_0.name=結晶化した経験値(小)
 item.grimoireofgaia.misc_experience_1.name=結晶化した経験値(中)
 item.grimoireofgaia.misc_experience_2.name=結晶化した経験値(大)
 item.grimoireofgaia.misc_book.name=記憶の本
+item.grimoireofgaia.misc_fur.name=毛皮
 item.grimoireofgaia.misc_quill.name=ダイヤの魔法の羽ペン
+item.grimoireofgaia.misc_pearl.name=輝く真珠
+item.grimoireofgaia.misc_elytra.name=エリトラの端切れ
 item.grimoireofgaia.misc_ring_0.name=非活性な迅速の指輪
 item.grimoireofgaia.misc_ring_1.name=非活性な性急の指輪
 item.grimoireofgaia.misc_ring_2.name=非活性な跳躍の指輪
@@ -78,6 +70,7 @@ item.grimoireofgaia.weapon_projectile_bomb.name=バクダン
 item.grimoireofgaia.weapon_prop_0.name=エンドの杖
 item.grimoireofgaia.weapon_prop_1.name=火炎の杖
 item.grimoireofgaia.weapon_prop_2.name=金属の短剣
+item.grimoireofgaia.weapon_prop_3.name=デュラハンの剣
 item.grimoireofgaia.weapon_prop_sword_wood.name=木の剣
 item.grimoireofgaia.weapon_prop_sword_stone.name=石の剣
 item.grimoireofgaia.weapon_prop_sword_iron.name=鉄の剣
@@ -89,14 +82,15 @@ item.grimoireofgaia.weapon_prop_axe_gold.name=金の斧
 item.grimoireofgaia.weapon_prop_dagger_metal.name=金属の短剣
 item.grimoireofgaia.weapon_prop_projectile_bubble.name=泡
 item.grimoireofgaia.weapon_prop_projectile_magic.name=魔法
+item.grimoireofgaia.weapon_prop_projectile_magic_random.name=魔法(ランダム)
 item.grimoireofgaia.weapon_prop_projectile_poison.name=毒
 item.grimoireofgaia.weapon_prop_projectile_web.name=網
 item.grimoireofgaia.weapon_prop_enchanted.name=魔法のベアリング
+item.grimoireofgaia.weapon_prop_broom.name=箒
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=ミノトーアのハンマー
 item.grimoireofgaia.shield_prop_0.name=石の盾
 item.grimoireofgaia.shield_prop_1.name=鉄の盾
 item.grimoireofgaia.shield_prop_2.name=金の盾
-item.grimoireofgaia.weapon_prop_broom.name=箒
-item.grimoireofgaia.weapon_prop_hammer_minotaur.name=ミノトーアのハンマー
 item.grimoireofgaia.weapon_fan.name=扇
 item.grimoireofgaia.weapon_fan_ice.name=豪奢な氷の扇
 item.grimoireofgaia.weapon_fan_fire.name=豪奢な炎の扇
@@ -112,16 +106,18 @@ item.grimoireofgaia.weapon_book_wither.name=衰退の本
 item.grimoireofgaia.weapon_book_buff.name=戦闘便覧
 item.grimoireofgaia.weapon_debug.name=デバッグ用武器
 #ITEM_BAUBLES_NAMES
+item.grimoireofgaia.accessory_headgear.name=アイマスクの本
 item.grimoireofgaia.accessory_ring_speed.name=迅速の指輪
 item.grimoireofgaia.accessory_ring_haste.name=性急の指輪
 item.grimoireofgaia.accessory_ring_jump.name=跳躍の指輪
 item.grimoireofgaia.accessory_ring_night.name=暗視の指輪
-item.grimoireofgaia.accessory_trinket_poison.name=蝦蟇石
-item.grimoireofgaia.accessory_trinket_wither.name=しなびた心臓
 item.grimoireofgaia.accessory_trinket_levitation.name=鎖付き鉄球
+item.grimoireofgaia.accessory_trinket_poison.name=蝦蟇石
+item.grimoireofgaia.accessory_trinket_water_breathing_0.name=貝殻のヘアピン(新品)
+item.grimoireofgaia.accessory_trinket_water_breathing_1.name=貝殻のヘアピン(中古)
+item.grimoireofgaia.accessory_trinket_wither.name=しなびた心臓
 item.grimoireofgaia.accessory_cursed.name=重いバーベル
 #ITEM_HEADGEAR
-item.grimoireofgaia.accessory_headgear.name=アイマスクの本
 item.grimoireofgaia.accessory_headgear_mob.name=カゴ
 item.grimoireofgaia.accessory_headgear_bolt.name=ボルト
 item.grimoireofgaia.accessory_headgear_arrow.name=頭を貫通した矢
@@ -130,13 +126,18 @@ item.grimoireofgaia.accessory_headgear_ears_elf.name=エルフ耳
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=スポーン
 #BLOCK_NAMES
+tile.grimoireofgaia.block_pearl.name=真珠ブロック
+tile.grimoireofgaia.bust_gorgon.name=ゴルゴーンの胸像
+tile.grimoireofgaia.bust_sphinx.name=スフィンクスの胸像
 tile.grimoireofgaia.bust_valkyrie.name=ヴァルキリーの胸像
 tile.grimoireofgaia.bust_vampire.name=ヴァンパイアの胸像
-tile.grimoireofgaia.bust_sphinx.name=スフィンクスの胸像
 tile.grimoireofgaia.doll_creeper_girl.name=クリーパーガールの人形
 tile.grimoireofgaia.doll_ender_girl.name=エンダーガールの人形
 tile.grimoireofgaia.doll_slime_girl.name=スライムガールの人形
 tile.grimoireofgaia.doll_maid.name=メイドの人形
+tile.grimoireofgaia.doll_dullahan.name=デュラハンの人形
+tile.grimoireofgaia.doll_mermaid.name=マーメイドの人形
+tile.grimoireofgaia.doll_nine_tails.name=九尾の人形
 tile.grimoireofgaia.deco_bust_minotaur.name=ミノトーアの胸像
 tile.grimoireofgaia.deco_garden_gnome.name=ガーデン・ノーム
 tile.grimoireofgaia.deco_mandragora_pot.name=マンドラゴラの鉢植え
@@ -147,12 +148,14 @@ tile.grimoireofgaia.web_temp.name=腐りかけの蜘蛛の巣
 #ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=[DEBUG]
 entity.grimoireofgaia.ant.name=働きアリ
+entity.grimoireofgaia.ant_hill.name=アリ塚
 entity.grimoireofgaia.ant_ranger.name=回収アリ
 entity.grimoireofgaia.anubis.name=アヌビス
 entity.grimoireofgaia.arachne.name=アラクネ
 entity.grimoireofgaia.banshee.name=バンシー
 entity.grimoireofgaia.baphomet.name=バフォメット
 entity.grimoireofgaia.bee.name=ミツバチ
+entity.grimoireofgaia.beholder.name=ビヘンダー
 entity.grimoireofgaia.bone_knight.name=骸骨騎士
 entity.grimoireofgaia.campfire.name=キャンプ地
 entity.grimoireofgaia.cecaelia.name=セカエリア
@@ -173,11 +176,16 @@ entity.grimoireofgaia.ender_dragon_girl.name=エンダードラゴンガール
 entity.grimoireofgaia.ender_eye.name=エンダーアイ
 entity.grimoireofgaia.flesh_lich.name=フレッシュリッチ
 entity.grimoireofgaia.gelatinous_slime.name=ゼラチナススライム
+entity.grimoireofgaia.mite.name=グレイブマイト
 entity.grimoireofgaia.gryphon.name=グリフォン
 entity.grimoireofgaia.goblin.name=ゴブリン
 entity.grimoireofgaia.goblin_feral.name=野生のゴブリン
+entity.grimoireofgaia.gorgon.name=ゴルゴーン
 entity.grimoireofgaia.harpy.name=ハーピー
+entity.grimoireofgaia.harpy_wizard.name=ハーピーの魔法使い
+entity.grimoireofgaia.horse.name=馬
 entity.grimoireofgaia.hunter.name=狩人
+entity.grimoireofgaia.illager_fire.name=パイロマイスター
 entity.grimoireofgaia.kikimora.name=キキーモラ
 entity.grimoireofgaia.kobold.name=コボルド
 entity.grimoireofgaia.mandragora.name=マンドラゴラ
@@ -286,19 +294,19 @@ configgui.grimoireofgaia.category.Menu7.dimensions=ディメンションの設�
 configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nディメンションの設定
 #CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=スポーン禁止期間の有効化
-configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=[開発中]\n設定した日数が経過後に当Modのモブがスポーンするようになります。
+configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=\n設定した日数が経過後に当Modのモブがスポーンするようになります。
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=スポーン禁止期間の設定
-configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=[開発中]\nスポーン抑制が解除されるまでの日数
+configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=\nスポーン抑制が解除されるまでの日数
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=Level3モブの雨天/降雪時のみのスポーン
-configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=[開発中]\nLevel3モブは雨あるいは雪が降っているときのみスポーンします
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=Level3モブの自発的なスポーンの禁止
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nLevel3モブは自発的にスポーンせず、特定のモブからの呼び寄せによりスポーンします。
-configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=Level3モブのスポーン率
-configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nLevel3モブの特定のモブからの呼び寄せスポーン率。\n((1/value)*100)
+configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=\nLevel3モブは雨あるいは雪が降っているときのみスポーンします
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=追加のスポーン設定
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nこのModのモブがスポーンできるブロックの設定
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=追加のお花のスポーン設定
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nこのModの花がスポーンできるブロックの設定
+configgui.grimoireofgaia.category.spawn.Menu7.Weather=天候条件の無効化
+configgui.grimoireofgaia.category.spawn.Menu7.Weather.tooltip=\n天候に関連したスポーン条件を無効化します
+configgui.grimoireofgaia.category.spawn.Menu8.Height=高度条件の無効化
+configgui.grimoireofgaia.category.spawn.Menu8.Height.tooltip=(注意)\n高さ(Y軸)に関連したスポーン条件を無効化します
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=基底攻撃力
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\n近接攻撃において2.0(1ハート分)のダメージを追加します
@@ -337,6 +345,8 @@ configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=ナゲットの追
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\n Grimoire of Gaiaのモブが銅塊、銀塊をドロップするようになります。
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=弓使いの射ち方
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\n弓使いは攻撃を避けるように弓を撃ちます。(スケルトンの様に)
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops=ルートテーブルを使用しないモブドロップの無効化
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(注意)\nモブドロップを無効にし、ルートテーブルを使用します
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=欠片ドロップの統合
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\n他のModで追加されたナゲット/欠片を\nドロップするようになります。\n(問題が生じた場合無効にして下さい。)
