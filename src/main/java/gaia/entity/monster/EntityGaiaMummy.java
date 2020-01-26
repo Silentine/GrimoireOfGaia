@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -33,7 +34,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMummy extends EntityMobHostileBase {
 
 	private static final Item[] mummyDrops = new Item[] { Items.BONE, Items.ROTTEN_FLESH };
@@ -69,6 +69,17 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
+		Entity entity = source.getTrueSource();
+
+		if (entity instanceof EntityPlayer) {
+			if (world.rand.nextInt(2) == 0) {
+				if (!world.isRemote) {
+					world.setEntityState(this, (byte) 12);
+					setSpawn((byte) 0);
+				}
+			}
+		}
+
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
 	}
 
@@ -123,6 +134,17 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 		}
 
 		super.onLivingUpdate();
+	}
+
+	private void setSpawn(byte id) {
+		BlockPos blockpos = (new BlockPos(EntityGaiaMummy.this)).add(-1 + EntityGaiaMummy.this.rand.nextInt(3), 1, -1 + EntityGaiaMummy.this.rand.nextInt(3));
+
+		if (id == 0) {
+			EntityGaiaMite entitySpawn = new EntityGaiaMite(EntityGaiaMummy.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaMummy.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaMummy.this.world.spawnEntity(entitySpawn);
+		}
 	}
 
 	@Override
@@ -196,7 +218,7 @@ public class EntityGaiaMummy extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

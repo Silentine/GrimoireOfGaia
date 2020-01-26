@@ -14,14 +14,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaArachne extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation ArachneEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_arachne.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_arachne.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/arachne.png");
 
 	public RenderGaiaArachne(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaArachne(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
-		addLayer(new LayerGlowing(this, ArachneEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 	}
 
 	private ModelGaiaArachne getModel() {

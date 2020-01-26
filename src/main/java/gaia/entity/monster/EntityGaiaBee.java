@@ -48,7 +48,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -385,6 +384,10 @@ public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMo
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
 	}
+	
+	protected boolean canTriggerWalking() {
+		return false;
+	}
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
@@ -399,7 +402,7 @@ public class EntityGaiaBee extends EntityMobAssistDay implements IRangedAttackMo
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

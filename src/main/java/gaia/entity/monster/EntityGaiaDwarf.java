@@ -43,7 +43,6 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -90,8 +89,6 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 
 		classID = 0;
 		randomClass = true;
-		spawnLevel3 = 0;
-		spawnLevel3Chance = 0;
 
 		if (!worldIn.isRemote) {
 			setCombatTask();
@@ -134,15 +131,9 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			if (canSpawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
-			}
-		}
-
 		if (hasShield()) {
 			Entity entity = source.getImmediateSource();
-			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_1));
+			return !(entity instanceof EntityArrow) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 		} else {
 			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 		}
@@ -190,51 +181,6 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 	@Override
 	public boolean isAIDisabled() {
 		return false;
-	}
-
-	@Override
-	public void onLivingUpdate() {
-		/* LEVEL 3 SPAWN DATA */
-		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
-			canSpawnLevel3 = true;
-		}
-
-		if (canSpawnLevel3) {
-			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
-
-				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
-				}
-
-				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
-					spawnLevel3 = 1;
-				}
-
-				spawned = true;
-			}
-		}
-
-		if (spawnLevel3 == 1) {
-			world.setEntityState(this, (byte) 10);
-
-			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
-		}
-		/* LEVEL 3 SPAWN DATA */
-
-		super.onLivingUpdate();
-	}
-
-	private void setSpawn(byte id) {
-		EntityGaiaValkyrie valyrie;
-
-		if (id == 1) {
-			explode();
-
-			valyrie = new EntityGaiaValkyrie(world);
-			valyrie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null);
-			world.spawnEntity(valyrie);
-		}
 	}
 
 	/* CLASS TYPE */
@@ -320,17 +266,6 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
 	/* ARCHER DATA */
-
-	private void explode() {
-		if (!this.world.isRemote) {
-			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
-			int explosionRadius = 2;
-
-			this.dead = true;
-			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
-			this.setDead();
-		}
-	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -418,11 +353,6 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 				dropItem(GaiaItems.BAG_ARROW, 1);
 			}
 		}
-
-		// Boss
-		if (spawnLevel3 == 1) {
-			setSpawn((byte) 1);
-		}
 	}
 
 	@Override
@@ -445,10 +375,6 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 
 		setCombatTask();
 		setBreakDoorsAItask(true);
-
-		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
-			canSpawnLevel3 = true;
-		}
 
 		return ret;
 	}
@@ -496,7 +422,7 @@ public class EntityGaiaDwarf extends EntityMobAssistDay implements GaiaIRangedAt
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

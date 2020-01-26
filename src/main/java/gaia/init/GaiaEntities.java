@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.delete.EntityGaiaPropCampfire;
 import gaia.entity.debug.EntityDebugMob;
 import gaia.entity.monster.EntityGaiaAnt;
 import gaia.entity.monster.EntityGaiaAntRanger;
@@ -14,6 +15,7 @@ import gaia.entity.monster.EntityGaiaArachne;
 import gaia.entity.monster.EntityGaiaBanshee;
 import gaia.entity.monster.EntityGaiaBaphomet;
 import gaia.entity.monster.EntityGaiaBee;
+import gaia.entity.monster.EntityGaiaBeholder;
 import gaia.entity.monster.EntityGaiaBoneKnight;
 import gaia.entity.monster.EntityGaiaCecaelia;
 import gaia.entity.monster.EntityGaiaCentaur;
@@ -31,9 +33,14 @@ import gaia.entity.monster.EntityGaiaFleshLich;
 import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGoblinFeral;
+import gaia.entity.monster.EntityGaiaGorgon;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
+import gaia.entity.monster.EntityGaiaHarpyWizard;
+import gaia.entity.monster.EntityGaiaHorse;
 import gaia.entity.monster.EntityGaiaHunter;
+import gaia.entity.monster.EntityGaiaIllagerFire;
+import gaia.entity.monster.EntityGaiaIllagerInquisitor;
 import gaia.entity.monster.EntityGaiaKikimora;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMandragora;
@@ -42,6 +49,7 @@ import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.entity.monster.EntityGaiaMinotaur;
 import gaia.entity.monster.EntityGaiaMinotaurus;
+import gaia.entity.monster.EntityGaiaMite;
 import gaia.entity.monster.EntityGaiaMonoeye;
 import gaia.entity.monster.EntityGaiaMummy;
 import gaia.entity.monster.EntityGaiaNaga;
@@ -55,10 +63,10 @@ import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSludgeGirl;
 import gaia.entity.monster.EntityGaiaSphinx;
+import gaia.entity.monster.EntityGaiaSporeling;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
-import gaia.entity.monster.EntityGaiaSummonButler;
-import gaia.entity.monster.EntityGaiaSummonSporeling;
+import gaia.entity.monster.EntityGaiaIllagerButler;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaVampire;
@@ -76,14 +84,22 @@ import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.entity.projectile.EntityGaiaProjectileBomb;
 import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
+import gaia.entity.projectile.EntityGaiaProjectileMagicRandom;
 import gaia.entity.projectile.EntityGaiaProjectilePoison;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
-import gaia.entity.prop.EntityGaiaPropCampfire;
+import gaia.entity.prop.EntityGaiaPropAntHill;
 import gaia.entity.prop.EntityGaiaPropChestMimic;
 import gaia.entity.prop.EntityGaiaPropFlowerCyan;
 import gaia.entity.prop.EntityGaiaPropVase;
 import gaia.entity.prop.EntityGaiaPropVaseNether;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerBeholder;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerEnderDragonGirl;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerGorgon;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerMinotaur;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerSphinx;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerValkyrie;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerVampire;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -100,16 +116,19 @@ public class GaiaEntities {
 	private static int modEntityId = 0;
 
 	public static final Set<EntityEntry> SPAWN_EGG_ENTITIES = ImmutableSet.of(
-//			createEntityEntry("example", Entity.class, bodyDarkestColor, spotsLightestColor),
+//			createEntityEntry("example", Entity.class, bodyDarkestColor(body), spotsLightestColor(spots)),
 			createEntityEntry("debug_mob", EntityDebugMob.class, 0x6fa289, 0x915741), 
 			createEntityEntry("ant", EntityGaiaAnt.class, 0x303030, 0x8a7264), 
+			createEntityEntry("ant_hill", EntityGaiaPropAntHill.class, 0xe4dea7, 0x545454, false),
 			createEntityEntry("ant_ranger", EntityGaiaAntRanger.class, 0x8a7264, 0x303030), 
 			createEntityEntry("anubis", EntityGaiaAnubis.class, 0x353535, 0xb19534), 
 			createEntityEntry("arachne", EntityGaiaArachne.class, 3815994, 11013646), 
 			createEntityEntry("banshee", EntityGaiaBanshee.class, 0xeed2e8, 0xc6b0ed),
 			createEntityEntry("baphomet", EntityGaiaBaphomet.class, 3559756, 14197864), 
 			createEntityEntry("bee", EntityGaiaBee.class, 0xc9b161, 0x353535), 
+			createEntityEntry("beholder", EntityGaiaBeholder.class, 0x2f5754, 0x82ba74),
 			createEntityEntry("bone_knight", EntityGaiaBoneKnight.class, 4602533, 13619151), 
+			createEntityEntry("butler", EntityGaiaIllagerButler.class, 0x8a9090, 0xdbcedf), 
 			createEntityEntry("campfire", EntityGaiaPropCampfire.class, 0x7a5f3a, 0xffd800, false),
 			createEntityEntry("cecaelia", EntityGaiaCecaelia.class, 0xdb5760, 0xd893a9), 
 			createEntityEntry("centaur", EntityGaiaCentaur.class, 0x8d4f41, 0x353535), 
@@ -129,9 +148,15 @@ public class GaiaEntities {
 			createEntityEntry("gelatinous_slime", EntityGaiaGelatinousSlime.class, 6595667, 13619151), 
 			createEntityEntry("goblin", EntityGaiaGoblin.class, 0x718a60, 0x8d4f41),
 			createEntityEntry("goblin_feral", EntityGaiaGoblinFeral.class, 0x718a60, 0x8a1d3e), 
+//			createEntityEntry("gorgon", EntityGaiaGorgon.class, 0x29bc55, 0xccb63f), 
+			createEntityEntry("mite", EntityGaiaMite.class, 0x252525, 0x3a3a3a), 
 			createEntityEntry("gryphon", EntityGaiaGryphon.class, 0xf09942, 0xe2e2e2), 
 			createEntityEntry("harpy", EntityGaiaHarpy.class, 0xc9b161, 0xa5884e),
+			createEntityEntry("harpy_wizard", EntityGaiaHarpyWizard.class, 0xdddadb, 0xba9b53),
+			createEntityEntry("horse", EntityGaiaHorse.class, 0x252525, 0x3a3a3a), 
 			createEntityEntry("hunter", EntityGaiaHunter.class, 0xae6b3c, 0x353535), 
+			createEntityEntry("illager_fire", EntityGaiaIllagerFire.class, 0x8a9090, 0xffc42a), 
+			createEntityEntry("illager_inquisitor", EntityGaiaIllagerInquisitor.class, 0x8a9090, 0xae281f), 
 			createEntityEntry("kikimora", EntityGaiaKikimora.class, 0x191919, 0xd3bdac), 
 			createEntityEntry("kobold", EntityGaiaKobold.class, 0x938dab, 0xafa7c1), 
 			createEntityEntry("matango", EntityGaiaMatango.class, 0xab1311, 0xd8d8d8), 
@@ -152,6 +177,7 @@ public class GaiaEntities {
 			createEntityEntry("sludge_girl", EntityGaiaSludgeGirl.class, 6595667, 7715172),
 			createEntityEntry("sphinx", EntityGaiaSphinx.class, 0xf09942, 0x353535), 
 			createEntityEntry("spriggan", EntityGaiaSpriggan.class, 0x7c623e, 0xc2dda5), 
+			createEntityEntry("sporeling", EntityGaiaSporeling.class, 0xc32826, 0x977251), 
 			createEntityEntry("succubus", EntityGaiaSuccubus.class, 4079166, 13218145), 
 			createEntityEntry("toad", EntityGaiaToad.class, 0x355d2b, 0x779f5a), 
 			createEntityEntry("valkyrie", EntityGaiaValkyrie.class, 0xc9b161, 0xd54242), 
@@ -178,7 +204,6 @@ public class GaiaEntities {
 		return builder.build();
 	}
 
-	@SuppressWarnings({ "unused", "squid:S1118" }) // used in registration reflection
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	public static class RegistrationHandler {
 
@@ -197,6 +222,9 @@ public class GaiaEntities {
 		}
 
 		private static void initNoSpawnEggEntities(IForgeRegistry<EntityEntry> registry) {
+			/* DISABLED */
+			createEntityEntry("gorgon", EntityGaiaGorgon.class, registry);
+			
 			/* VILLAGER */
 			createEntityEntry("creeper_girl", EntityGaiaNPCCreeperGirl.class, registry);
 			createEntityEntry("slime_girl", EntityGaiaNPCSlimeGirl.class, registry);
@@ -208,15 +236,23 @@ public class GaiaEntities {
 			/* SPAWN */
 			createEntityEntry("mandragora", EntityGaiaMandragora.class, registry);
 			createEntityEntry("mimic", EntityGaiaMimic.class, registry);
+			
+			/* SPAWNER */
+			createEntityEntry("spawner_beholder", EntityGaiaSpawnerBeholder.class, registry);
+			createEntityEntry("spawner_ender_dragon_girl", EntityGaiaSpawnerEnderDragonGirl.class, registry);
+			createEntityEntry("spawner_gorgon", EntityGaiaSpawnerGorgon.class, registry);
+			createEntityEntry("spawner_minotaur", EntityGaiaSpawnerMinotaur.class, registry);
+			createEntityEntry("spawner_sphinx", EntityGaiaSpawnerSphinx.class, registry);
+			createEntityEntry("spawner_valkyrie", EntityGaiaSpawnerValkyrie.class, registry);
+			createEntityEntry("spawner_vampire", EntityGaiaSpawnerVampire.class, registry);
 
 			/* SUMMON */
-			createEntityEntry("butler", EntityGaiaSummonButler.class, registry);
-			createEntityEntry("sporeling", EntityGaiaSummonSporeling.class, registry);
 
 			/* PROJECTILE */
 			createEntityEntry("bomb", EntityGaiaProjectileBomb.class, registry, 3);
 			createEntityEntry("bubble", EntityGaiaProjectileBubble.class, registry, 3);
 			createEntityEntry("magic", EntityGaiaProjectileMagic.class, registry, 3);
+			createEntityEntry("magic_random", EntityGaiaProjectileMagicRandom.class, registry, 3);
 			createEntityEntry("poison", EntityGaiaProjectilePoison.class, registry, 3);
 			createEntityEntry("small_fireball", EntityGaiaProjectileSmallFireball.class, registry, 3);
 			createEntityEntry("web", EntityGaiaProjectileWeb.class, registry, 3);

@@ -1,14 +1,4 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
-#NEW
-#ITEM_NAMES
-
-#ITEM_HEADGEAR
-
-#BLOCK_NAMES
-
-#ENTITY_NAMES
-
-#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Iron Nugget
@@ -35,12 +25,14 @@ item.grimoireofgaia.food_pie_apple_gold.name=Golden Apple Pie
 item.grimoireofgaia.misc_soul_fire.name=Soulfire
 item.grimoireofgaia.misc_soul_fiery.name=Fireshard
 item.grimoireofgaia.misc_giga_gear.name=Heart of Giga Knight
-item.grimoireofgaia.misc_fur.name=Fur
 item.grimoireofgaia.misc_experience_0.name=Crystallized Experience (Small)
 item.grimoireofgaia.misc_experience_1.name=Crystallized Experience (Medium)
 item.grimoireofgaia.misc_experience_2.name=Crystallized Experience (Large)
 item.grimoireofgaia.misc_book.name=Book of Memory
+item.grimoireofgaia.misc_fur.name=Fur
 item.grimoireofgaia.misc_quill.name=Diamond Tipped Quill
+item.grimoireofgaia.misc_pearl.name=Shiny Pearl
+item.grimoireofgaia.misc_elytra.name=Elytra Fragments
 item.grimoireofgaia.misc_ring_0.name=Inert Ring of Speed
 item.grimoireofgaia.misc_ring_1.name=Inert Ring of Haste
 item.grimoireofgaia.misc_ring_2.name=Inert Ring of Jump
@@ -78,6 +70,7 @@ item.grimoireofgaia.weapon_projectile_bomb.name=Bomb
 item.grimoireofgaia.weapon_prop_0.name=Ender Stave
 item.grimoireofgaia.weapon_prop_1.name=Blaze Stave
 item.grimoireofgaia.weapon_prop_2.name=Metal Club
+item.grimoireofgaia.weapon_prop_3.name=Dullahan Sword
 item.grimoireofgaia.weapon_prop_sword_wood.name=Wooden Sword
 item.grimoireofgaia.weapon_prop_sword_stone.name=Stone Sword
 item.grimoireofgaia.weapon_prop_sword_iron.name=Iron Sword
@@ -89,6 +82,7 @@ item.grimoireofgaia.weapon_prop_axe_gold.name=Gold Axe
 item.grimoireofgaia.weapon_prop_dagger_metal.name=Metal Dagger
 item.grimoireofgaia.weapon_prop_projectile_bubble.name=Bubble Projectile
 item.grimoireofgaia.weapon_prop_projectile_magic.name=Magic Projectile
+item.grimoireofgaia.weapon_prop_projectile_magic_random.name=Random Magic Projectile
 item.grimoireofgaia.weapon_prop_projectile_poison.name=Poison Projectile
 item.grimoireofgaia.weapon_prop_projectile_web.name=Web Projectile
 item.grimoireofgaia.weapon_prop_enchanted.name=Enchanted Bearing
@@ -113,13 +107,16 @@ item.grimoireofgaia.weapon_book_buff.name=Combat Manual
 item.grimoireofgaia.weapon_debug.name=Debug Weapon
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_headgear.name=Book on Face
+item.grimoireofgaia.accessory_charm_damage_iron.name=Knuckles
 item.grimoireofgaia.accessory_ring_speed.name=Ring of Speed
 item.grimoireofgaia.accessory_ring_haste.name=Ring of Haste
 item.grimoireofgaia.accessory_ring_jump.name=Ring of Jump
 item.grimoireofgaia.accessory_ring_night.name=Ring of Night Vision
-item.grimoireofgaia.accessory_trinket_poison.name=Toadstone
-item.grimoireofgaia.accessory_trinket_wither.name=Withered Heart
 item.grimoireofgaia.accessory_trinket_levitation.name=Ball and Chain
+item.grimoireofgaia.accessory_trinket_poison.name=Toadstone
+item.grimoireofgaia.accessory_trinket_water_breathing_0.name=Seashell Hairpin (Ready)
+item.grimoireofgaia.accessory_trinket_water_breathing_1.name=Seashell Hairpin (Used)
+item.grimoireofgaia.accessory_trinket_wither.name=Withered Heart
 item.grimoireofgaia.accessory_cursed.name=Heavy Barbell
 #ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_mob.name=Cage
@@ -130,13 +127,18 @@ item.grimoireofgaia.accessory_headgear_ears_elf.name=Elven Ears
 #ITEM_SPAWNEGG
 item.grimoireofgaia.spawnegg.name=Spawn
 #BLOCK_NAMES
+tile.grimoireofgaia.block_pearl.name=Pearl Block
+tile.grimoireofgaia.bust_gorgon.name=The Gorgon
+tile.grimoireofgaia.bust_sphinx.name=The Sphinx
 tile.grimoireofgaia.bust_valkyrie.name=The Valkyrie
 tile.grimoireofgaia.bust_vampire.name=The Vampire
-tile.grimoireofgaia.bust_sphinx.name=The Sphinx
 tile.grimoireofgaia.doll_creeper_girl.name=Creeper Girl Doll
 tile.grimoireofgaia.doll_ender_girl.name=Ender Girl Doll
 tile.grimoireofgaia.doll_slime_girl.name=Slime Girl Doll
 tile.grimoireofgaia.doll_maid.name=Maid Doll
+tile.grimoireofgaia.doll_dullahan.name=Dullahan Doll
+tile.grimoireofgaia.doll_mermaid.name=Mermaid Doll
+tile.grimoireofgaia.doll_nine_tails.name=Nine Tails Doll
 tile.grimoireofgaia.deco_bust_minotaur.name=Minotaur Bust
 tile.grimoireofgaia.deco_garden_gnome.name=Garden Gnome
 tile.grimoireofgaia.deco_mandragora_pot.name=Mandragora Pot
@@ -147,12 +149,14 @@ tile.grimoireofgaia.web_temp.name=Decaying Cobweb
 #ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=Debug Mob
 entity.grimoireofgaia.ant.name=Ant Worker
+entity.grimoireofgaia.ant_hill.name=Ant Hill
 entity.grimoireofgaia.ant_ranger.name=Ant Salvager
 entity.grimoireofgaia.anubis.name=Anubis
 entity.grimoireofgaia.arachne.name=Arachne
 entity.grimoireofgaia.banshee.name=Banshee
 entity.grimoireofgaia.baphomet.name=Baphomet
 entity.grimoireofgaia.bee.name=Honey Bee
+entity.grimoireofgaia.beholder.name=Behender
 entity.grimoireofgaia.bone_knight.name=Bone Knight
 entity.grimoireofgaia.campfire.name=Campsite
 entity.grimoireofgaia.cecaelia.name=Cecaelia
@@ -173,11 +177,17 @@ entity.grimoireofgaia.ender_dragon_girl.name=Ender Dragon Girl
 entity.grimoireofgaia.ender_eye.name=Ender Eye
 entity.grimoireofgaia.flesh_lich.name=Flesh Lich
 entity.grimoireofgaia.gelatinous_slime.name=Gelatinous Slime
+entity.grimoireofgaia.mite.name=Gravemite
 entity.grimoireofgaia.gryphon.name=Gryphon
 entity.grimoireofgaia.goblin.name=Goblin
 entity.grimoireofgaia.goblin_feral.name=Feral Goblin
+entity.grimoireofgaia.gorgon.name=Gorgon
 entity.grimoireofgaia.harpy.name=Harpy
+entity.grimoireofgaia.harpy_wizard.name=Wizard Harpy
+entity.grimoireofgaia.horse.name=Horse
 entity.grimoireofgaia.hunter.name=Hunter
+entity.grimoireofgaia.illager_fire.name=Incinerator
+entity.grimoireofgaia.illager_inquisitor.name=Inquisitor
 entity.grimoireofgaia.kikimora.name=Kikimora
 entity.grimoireofgaia.kobold.name=Kobold
 entity.grimoireofgaia.mandragora.name=Mandragora
@@ -235,10 +245,14 @@ text.grimoireofgaia.BlessOffhand=When in off-hand, main hand:
 text.grimoireofgaia.InventoryCurse=When in inventory:
 text.grimoireofgaia.InventoryAccessory=When in the 1st and 2nd slots of the hotbar:
 text.grimoireofgaia.InventoryTrinket=When in the last slot of the hotbar:
+text.grimoireofgaia.InventoryCharm=When in the 8th slot of the hotbar:
 text.grimoireofgaia.InventoryImmunity=Immunity to
+text.grimoireofgaia.CharmDamage=+%d Attack Damage
 #TAGS
 text.grimoireofgaia.Accessory.tag=Accessory
+text.grimoireofgaia.Ring.tag=Ring
 text.grimoireofgaia.Trinket.tag=Trinket
+text.grimoireofgaia.Charm.tag=Charm
 text.grimoireofgaia.Headgear.tag=Headgear
 text.grimoireofgaia.Prop.tag=Prop
 text.grimoireofgaia.WIP.tag=WIP
@@ -291,14 +305,14 @@ configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=Set Spawn Day
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=\nAmount of days required to have passed before they can start spawning.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=(Level 3) Only spawn in rain/snow.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=\nLevel 3 mobs only spawn when it is raining/snowing.
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(Level 3) Disable natural spawning
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nLevel 3 mobs do not spawn naturally but instead spawn from specific mobs.
-configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(Level 3) Chance of spawning
-configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nChance that Level 3 mobs spawn from specific mobs.\n((1/value)*100)
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Additional Spawn Blocks
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nAdditional Blocks Gaia mobs can spawn on.
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Additional Flower Spawn Blocks
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nAdditional Blocks Gaia flower can spawn on.
+configgui.grimoireofgaia.category.spawn.Menu7.Weather=Remove Weather Conditions
+configgui.grimoireofgaia.category.spawn.Menu7.Weather.tooltip=\nRemove spawn conditions related to weather.
+configgui.grimoireofgaia.category.spawn.Menu8.Height=Remove Height Conditions
+configgui.grimoireofgaia.category.spawn.Menu8.Height.tooltip=(WARNING)\nRemove spawn conditions related to height (Y-axis).
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Base Damage
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nMelee attacks deal an additional 2.0 (1 heart) of damage.
@@ -337,6 +351,10 @@ configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Additional Nuggets
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Strafing Archers
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops=Disable drops not using loot tables
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(WARNING)\nDisable drops and use loot tables.
+configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility=Disable Invisibility status effect
+configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility.tooltip=Disable mobs that use the Invisibility status effect when far from a player.
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Unify Shard Drops
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nMobs can drop nuggets/shards from other mods.\n(Disable if you encounter issues)

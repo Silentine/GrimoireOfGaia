@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "type=north":   { "model": "grimoireofgaia:doll_mermaid", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:doll_mermaid", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:doll_mermaid"                     },
+        "type=east":    { "model": "grimoireofgaia:doll_mermaid", "y": 90            }
+    }
+}

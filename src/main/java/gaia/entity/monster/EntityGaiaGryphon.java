@@ -35,7 +35,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaGryphon extends EntityMobAssistDay {
 
 	public EntityGaiaGryphon(World worldIn) {
@@ -205,7 +204,7 @@ public class EntityGaiaGryphon extends EntityMobAssistDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 80.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 80D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

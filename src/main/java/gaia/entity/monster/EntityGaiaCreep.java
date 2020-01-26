@@ -15,6 +15,7 @@ import gaia.items.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -22,6 +23,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -34,6 +36,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -44,7 +47,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * @see EntityCreeper
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 8;
@@ -71,6 +73,8 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIGaiaCreepSwell(this));
+		tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 8.0F, 0.6D, 0.6D));
+		tasks.addTask(1, new EntityAIAvoidEntity(this, EntityGaiaWerecat.class, 8.0F, 0.6D, 0.6D));
 		tasks.addTask(2, new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true));
 		tasks.addTask(3, new EntityAIWander(this, 1.0D));
 		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -150,19 +154,26 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 			ignite();
 		}
 	}
-
+	
 	@Override
-	public void onUpdate() {
-		if (playerDetection(DETECTION_RANGE)) {
-			if (isPotionActive(MobEffects.INVISIBILITY)) {
-				removePotionEffect(MobEffects.INVISIBILITY);
-			}
-		} else {
-			if (!isPotionActive(MobEffects.INVISIBILITY)) {
-				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
+	public void onLivingUpdate() {
+		if (!GaiaConfig.OPTIONS.disableInvisibility) {
+			if (playerDetection(DETECTION_RANGE)) {
+				if (isPotionActive(MobEffects.INVISIBILITY)) {
+					removePotionEffect(MobEffects.INVISIBILITY);
+				}
+			} else {
+				if (!isPotionActive(MobEffects.INVISIBILITY)) {
+					addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
+				}
 			}
 		}
 
+		super.onLivingUpdate();
+	}
+
+	@Override
+	public void onUpdate() {
 		if (isEntityAlive()) {
 			lastActiveTime = timeSinceIgnited;
 
@@ -300,6 +311,23 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 		dataManager.set(POWERED, true);
 	}
 
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
+			this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, this.getSoundCategory(), 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
+			player.swingArm(hand);
+
+			if (!this.world.isRemote) {
+				this.ignite();
+				itemstack.damageItem(1, player);
+				return true;
+			}
+		}
+
+		return super.processInteract(player, hand);
+	}
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
@@ -308,7 +336,7 @@ public class EntityGaiaCreep extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 60.0D && posY > 32.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

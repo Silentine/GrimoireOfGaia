@@ -2,6 +2,7 @@ package gaia.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlowerPot;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -24,11 +25,12 @@ public class BlockDecoration extends BlockBase {
 
 	private static final PropertyEnum<BlockDecoration.EnumType> TYPE = PropertyEnum.create("type", BlockDecoration.EnumType.class);
 
-	public BlockDecoration(Material material, String blockName, float hardness) {
+	public BlockDecoration(Material material, String blockName, float hardness, float resistance, SoundType soundType) {
 		super(material, blockName);
-		this.setLightOpacity(0);
-		this.setHardness(hardness);
-		this.setResistance(6.0F);
+		setLightOpacity(0);
+		setHardness(hardness);
+		setResistance(resistance);
+		setSoundType(soundType);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.NORTH));
 	}
 

@@ -159,10 +159,25 @@ public class ModelGaiaFleshLich extends ModelGaia {
 		// legs
 		rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+        rightleg.rotateAngleY = 0.0F;
+        leftleg.rotateAngleY = 0.0F;
+        rightleg.rotateAngleZ = 0.0F;
+        leftleg.rotateAngleZ = 0.0F;
 		
 		waist1.rotateAngleX = degToRad(5);
 		waist2.rotateAngleX = degToRad(5);
 		waist3.rotateAngleX = degToRad(5);
+		
+		if (isRiding) {
+			rightarm.rotateAngleX += -((float) Math.PI / 5F);
+			leftarm.rotateAngleX += -((float) Math.PI / 5F);
+			rightleg.rotateAngleX = -1.4137167F;
+			rightleg.rotateAngleY = ((float) Math.PI / 10F);
+			rightleg.rotateAngleZ = 0.07853982F;
+			leftleg.rotateAngleX = -1.4137167F;
+			leftleg.rotateAngleY = -((float) Math.PI / 10F);
+			leftleg.rotateAngleZ = -0.07853982F;
+		}
 	}
 
 	public void holdingMelee() {

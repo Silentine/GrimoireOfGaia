@@ -1,7 +1,6 @@
 package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
-import gaia.entity.monster.EntityGaiaWerecat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.init.MobEffects;
@@ -81,7 +80,7 @@ public class EntityGaiaProjectileMagic extends EntityFireball {
 		return false;
 	}
 
-	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaProjectileMagic.class, DataSerializers.VARINT);
 
 	@Override
 	protected void entityInit() {

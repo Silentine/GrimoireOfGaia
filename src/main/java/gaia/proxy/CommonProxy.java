@@ -29,7 +29,6 @@ public class CommonProxy {
 	public void registerRenders() {
 	}
 
-	@SuppressWarnings("squid:S1186") // Overridden in @ClientProxy
 	public void addClientRegister(IClientRegister register) {
 	}
 

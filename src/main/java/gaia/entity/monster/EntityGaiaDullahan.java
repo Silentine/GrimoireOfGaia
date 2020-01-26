@@ -1,5 +1,7 @@
 package gaia.entity.monster;
 
+import javax.annotation.Nullable;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -17,6 +19,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -31,14 +34,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaDullahan extends EntityMobHostileBase {
 
 	public EntityGaiaDullahan(World worldIn) {
 		super(worldIn);
 
+		setSize(0.6F, 1.6F);
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
 		stepHeight = 1.0F;
 	}
@@ -97,20 +98,20 @@ public class EntityGaiaDullahan extends EntityMobHostileBase {
 	}
 
 	public boolean attackEntityFrom(DamageSource damageSource, int inputDamage) {
+		float input = inputDamage;
 		Entity entity = damageSource.getTrueSource();
-		int damage = inputDamage;
+
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			ItemStack itemstack = player.getHeldItem(getActiveHand());
 
 			Item item = itemstack.getItem();
 			if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE || item == Items.GOLDEN_SHOVEL || item == Items.GOLDEN_HOE || item == Items.GOLDEN_PICKAXE) {
-				damage = 14;
-				damage = (int) (damage + Item.ToolMaterial.GOLD.getAttackDamage());
+				input = Item.ToolMaterial.GOLD.getAttackDamage() * 8;
 			}
 		}
 
-		return super.attackEntityFrom(damageSource, damage);
+		return super.attackEntityFrom(damageSource, input);
 	}
 
 	@Override
@@ -171,10 +172,24 @@ public class EntityGaiaDullahan extends EntityMobHostileBase {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
-		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
-		setEnchantmentBasedOnDifficulty(difficulty);
+		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP, 1, 3));
+
+		if (world.rand.nextInt(8) == 0 && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+			AbstractHorse abstracthorse = createHorse(difficulty);
+			startRiding(abstracthorse);
+		}
 
 		return ret;
+	}
+
+	private AbstractHorse createHorse(DifficultyInstance difficulty) {
+		EntityGaiaHorse entityHorse = new EntityGaiaHorse(this.world);
+		entityHorse.onInitialSpawn(difficulty, (IEntityLivingData) null);
+		entityHorse.setPosition(this.posX, this.posY, this.posZ);
+		entityHorse.setHorseTamed(true);
+		entityHorse.setGrowingAge(0);
+		this.world.spawnEntity(entityHorse);
+		return entityHorse;
 	}
 
 	/* SPAWN CONDITIONS */
@@ -185,7 +200,7 @@ public class EntityGaiaDullahan extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

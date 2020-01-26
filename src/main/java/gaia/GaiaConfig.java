@@ -7,13 +7,11 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@SuppressWarnings("WeakerAccess") // forge needs public access to fields here to write values from config
 @Config(modid = GaiaReference.MOD_ID, category = "")
 public class GaiaConfig {
 	private GaiaConfig() {
 	}
 
-	@SuppressWarnings({ "unused", "squid:S3985" })
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	private static class EventHandler {
 
@@ -36,10 +34,14 @@ public class GaiaConfig {
 		/* 
 		 * SKY 
 		 */
+		@Config.LangKey("entity.grimoireofgaia.beholderl.name")
+		@Config.Comment("Beholder")
+		@Config.RequiresMcRestart
+		public int spawnBeholder = 1;
 		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
 		@Config.Comment("Ender Dragon Girl")
 		@Config.RequiresMcRestart
-		public int spawnEnderDragonGirl = 4;
+		public int spawnEnderDragonGirl = 1;
 		/* 
 		 * NETHER 
 		 */
@@ -95,7 +97,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.valkyrie.name")
 		@Config.Comment("Valkyrie")
 		@Config.RequiresMcRestart
-		public int spawnValkyrie = 40;
+		public int spawnValkyrie = 10;
 		@Config.LangKey("entity.grimoireofgaia.dullahan.name")
 		@Config.Comment("Dullahan")
 		@Config.RequiresMcRestart
@@ -104,10 +106,6 @@ public class GaiaConfig {
 		@Config.Comment("Banshee")
 		@Config.RequiresMcRestart
 		public int spawnBanshee = 80;
-		@Config.LangKey("entity.grimoireofgaia.campfire.name")
-		@Config.Comment("Campsite")
-		@Config.RequiresMcRestart
-		public int spawnCampsite = 30;
 		/*
 		 * ICE_PLAINS,
 		 * ICE_MOUNTAINS
@@ -115,7 +113,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.selkie.name")
 		@Config.Comment("Selkie")
 		@Config.RequiresMcRestart
-		public int spawnSelkie = 60;
+		public int spawnSelkie = 30;
 		@Config.LangKey("entity.grimoireofgaia.kobold.name")
 		@Config.Comment("Kobold")
 		@Config.RequiresMcRestart
@@ -159,6 +157,10 @@ public class GaiaConfig {
 		@Config.Comment("Naga")
 		@Config.RequiresMcRestart
 		public int spawnNaga = 30;
+//		@Config.LangKey("entity.grimoireofgaia.gorgon.name")
+//		@Config.Comment("Gorgon")
+//		@Config.RequiresMcRestart
+//		public int spawnGorgon = 10;
 		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
 		@Config.Comment("Sludge Girl")
 		@Config.RequiresMcRestart
@@ -190,7 +192,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.minotaur.name")
 		@Config.Comment("Minotaur")
 		@Config.RequiresMcRestart
-		public int spawnMinotaur = 40;
+		public int spawnMinotaur = 10;
 		/*
 		 * SAVANNA,
 		 * SAVANNA_PLATEAU,
@@ -210,10 +212,10 @@ public class GaiaConfig {
 		 * DESERT_HILLS,
 		 * MUTATED_DESERT
 		 */
-		@Config.LangKey("entity.grimoireofgaia.ant.name")
-		@Config.Comment("Ant Worker")
+		@Config.LangKey("entity.grimoireofgaia.ant_hill.name")
+		@Config.Comment("Ant Hill")
 		@Config.RequiresMcRestart
-		public int spawnAnt = 20;
+		public int spawnAntHill = 20;
 		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
 		@Config.Comment("Ant Salvager")
 		@Config.RequiresMcRestart
@@ -229,7 +231,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.sphinx.name")
 		@Config.Comment("Sphinx")
 		@Config.RequiresMcRestart
-		public int spawnSphinx = 40;
+		public int spawnSphinx = 10;
 		/* 
 		 * FOREST, 
 		 * FOREST_HILLS, 
@@ -296,7 +298,7 @@ public class GaiaConfig {
 		@Config.LangKey("entity.grimoireofgaia.vampire.name")
 		@Config.Comment("Vampire")
 		@Config.RequiresMcRestart
-		public int spawnVampire = 40;
+		public int spawnVampire = 10;
 		/*
 		 * ROOFED_FOREST
 		 * MUTATED_ROOFED_FOREST
@@ -309,6 +311,10 @@ public class GaiaConfig {
 		@Config.Comment("Toad")
 		@Config.RequiresMcRestart
 		public int spawnToad = 80;
+		@Config.LangKey("entity.grimoireofgaia.harpy_wizard.name")
+		@Config.Comment("Wizard Harpy")
+		@Config.RequiresMcRestart
+		public int spawnHarpyWizard = 60;
 		@Config.LangKey("entity.grimoireofgaia.witch.name")
 		@Config.Comment("Witch")
 		@Config.RequiresMcRestart
@@ -364,18 +370,18 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain")
 		@Config.Comment("Level 3 mobs only spawn when it is raining/snowing.")
 		public boolean spawnLevel3Rain = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3")
-		@Config.Comment("Level 3 mobs do not spawn naturally but instead spawn from specific mobs.")
-		public boolean spawnLevel3 = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance")
-		@Config.Comment("Chance that Level 3 mobs spawn from specific mobs. ((1/value)*100)")
-		public int spawnLevel3Chance = 20;
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks")
 		@Config.Comment("Additional Blocks Gaia mobs can spawn on")
 		public String[] additionalSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
 		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks")
 		@Config.Comment("Additional Blocks Gaia flower can spawn on")
 		public String[] additionalFlowerSpawnBlocks = { Blocks.SANDSTONE.getRegistryName().toString() };
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu7.Weather")
+		@Config.Comment("Remove spawn conditions related to weather.")
+		public boolean spawnWeather = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.spawn.Menu8.Height")
+		@Config.Comment("Remove spawn conditions related to height (Y-axis).")
+		public boolean disableYRestriction = false;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu2.attributes")
@@ -455,6 +461,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu4.StrafingArchers")
 		@Config.Comment("Archers will strafe and avoid attacks (like Skeletons)")
 		public boolean strafingArchers = true;
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu5.DisableDrops")
+		@Config.Comment("Disable drops not using loot tables.")
+		public boolean disableDrops = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility")
+		@Config.Comment("Disable mobs that use the Invisibility status effect when far from a player.")
+		public boolean disableInvisibility = false;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu6.debug")

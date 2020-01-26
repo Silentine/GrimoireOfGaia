@@ -46,7 +46,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaValkyrie extends EntityMobAssistDay {
 
 	private static final double DETECTION_RANGE = 6D;
@@ -63,7 +62,6 @@ public class EntityGaiaValkyrie extends EntityMobAssistDay {
 	private boolean animationPlay;
 	private int animationTimer;
 
-	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaValkyrie(World worldIn) {
 		super(worldIn);
 
@@ -105,12 +103,20 @@ public class EntityGaiaValkyrie extends EntityMobAssistDay {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		if (isArmored()) {
+			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		}
 	}
 
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_3);
+	}
+
+	public boolean isArmored() {
+		return getHealth() <= this.getMaxHealth() / 2.0F;
 	}
 
 	@Override
@@ -149,6 +155,10 @@ public class EntityGaiaValkyrie extends EntityMobAssistDay {
 	public void onLivingUpdate() {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
+		}
+
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
 		}
 
 		/* AGGRESSION */
@@ -401,9 +411,9 @@ public class EntityGaiaValkyrie extends EntityMobAssistDay {
 	@Override
 	public boolean getCanSpawnHere() {
 		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
-			return posY > 80.0D && world.isRaining() && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 80D : 0D) && world.isRaining() && super.getCanSpawnHere();
 		} else {
-			return posY > 80.0D && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 80D : 0D) && super.getCanSpawnHere();
 		}
 	}
 	/* SPAWN CONDITIONS */

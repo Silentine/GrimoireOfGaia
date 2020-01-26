@@ -1,5 +1,6 @@
 package gaia.entity.monster;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -48,8 +49,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedAttackMob {
+
+	private static final String MOB_TYPE_TAG = "MobType";
+
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaSiren.class, DataSerializers.VARINT);
 
 	private static final int DETECTION_RANGE = 3;
 
@@ -262,12 +266,6 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 		}
 	}
 
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
-	}
-
 	@SideOnly(Side.CLIENT)
 	public boolean isSwingingArms() {
 		return ((Boolean) this.dataManager.get(SWINGING_ARMS)).booleanValue();
@@ -340,6 +338,12 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
+		Calendar calendar = this.world.getCurrentDate();
+
+		if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F) {
+			setTextureType(10);
+		}
+
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
 
@@ -372,12 +376,39 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 	}
 	/* IMMUNITIES */
 
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SWINGING_ARMS, Boolean.valueOf(false));
+		dataManager.register(SKIN, 0);
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
 
 		setCombatTask();
 	}
+	/* ALTERNATE SKIN */
 
 	/* SPAWN CONDITIONS */
 	@Override
@@ -387,7 +418,7 @@ public class EntityGaiaSiren extends EntityMobHostileDay implements GaiaIRangedA
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -17,12 +17,10 @@ public class ModelGaiaPropFlowerCyan extends ModelGaia {
 		headflower1 = new ModelRenderer(this, 0, 0);
 		headflower1.addBox(-3.0F, -10.0F, 0.0F, 6, 11, 0);
 		headflower1.setRotationPoint(0.0F, 23.0F, 0.0F);
-		headflower1.setTextureSize(64, 32);
 		setRotation(headflower1, 0.0F, -0.7853982F, 0.0F);
 		headflower2 = new ModelRenderer(this, 0, 0);
 		headflower2.addBox(-3.0F, -10.0F, 0.0F, 6, 11, 0);
 		headflower2.setRotationPoint(0.0F, 23.0F, 0.0F);
-		headflower2.setTextureSize(64, 32);
 		setRotation(headflower2, 0.0F, 0.7853982F, 0.0F);
 	}
 

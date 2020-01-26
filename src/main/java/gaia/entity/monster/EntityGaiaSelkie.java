@@ -51,7 +51,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -376,12 +375,12 @@ public class EntityGaiaSelkie extends EntityMobHostileDay implements GaiaIRanged
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
-		return 4;
+		return EntityAttributes.CHUNK_LIMIT_1;
 	}
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

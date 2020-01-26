@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "grimoireofgaia:misc_pearl"
+        },
+        {
+            "item": "grimoireofgaia:misc_pearl"
+        },
+        {
+            "item": "grimoireofgaia:misc_pearl"
+        },
+        {
+            "item": "grimoireofgaia:misc_pearl"
+        }
+    ],
+    "result": {
+        "item": "grimoireofgaia:block_pearl"
+    }
+}

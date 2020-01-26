@@ -27,6 +27,8 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -51,7 +53,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 
@@ -122,6 +123,17 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRanged
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_1);
+	}
+	
+	/**
+	 * Used for isRiding.
+	 * Used to offset the entity.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	@Override
+	public double getYOffset() {
+		return -0.3D;
 	}
 
 	@Override
@@ -280,20 +292,20 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRanged
 		dataManager.set(SWINGING_ARMS, Boolean.valueOf(swingingArms));
 	}
 	/* ARCHER DATA */
-
+	
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return GaiaSounds.CENTAUR_SAY;
+		return !isMale() ? GaiaSounds.CENTAUR_SAY : GaiaSounds.CENTAUR_MALE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaSounds.CENTAUR_HURT;
+		return !isMale() ? GaiaSounds.CENTAUR_HURT : GaiaSounds.CENTAUR_MALE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaSounds.CENTAUR_DEATH;
+		return !isMale() ? GaiaSounds.CENTAUR_DEATH : GaiaSounds.CENTAUR_MALE_DEATH;
 	}
 
 	@Override
@@ -376,8 +388,23 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRanged
 		}
 
 		setCombatTask();
+		
+		if (world.rand.nextInt(1000) == 0 && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+			AbstractHorse abstracthorse = createHorse(difficulty);
+			startRiding(abstracthorse);
+		}
 
 		return ret;
+	}
+	
+	private AbstractHorse createHorse(DifficultyInstance difficulty) {
+		EntityGaiaHorse entityHorse = new EntityGaiaHorse(this.world);
+		entityHorse.onInitialSpawn(difficulty, (IEntityLivingData) null);
+		entityHorse.setPosition(this.posX, this.posY, this.posZ);
+		entityHorse.setHorseTamed(true);
+		entityHorse.setGrowingAge(0);
+		this.world.spawnEntity(entityHorse);
+		return entityHorse;
 	}
 
 	/* ALTERNATE SKIN */
@@ -421,7 +448,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRanged
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

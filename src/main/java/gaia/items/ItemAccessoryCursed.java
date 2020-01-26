@@ -51,4 +51,12 @@ public class ItemAccessoryCursed extends ItemAccessoryBauble {
 		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, true));
 		player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 20 * 10, 1, true, true));
 	}
+
+	@Override
+	public void applyModifier(EntityLivingBase player, ItemStack item) {
+	}
+
+	@Override
+	public void removeModifier(EntityLivingBase player, ItemStack item) {
+	}
 }

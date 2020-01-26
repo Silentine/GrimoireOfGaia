@@ -44,7 +44,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 6;
@@ -127,6 +126,10 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+		
 		beaconMonster();
 
 		if (playerDetection(DETECTION_RANGE)) {
@@ -205,51 +208,48 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	}
 
 	private void setSpawn(byte id) {
-		EntityCreeper creeper;
-		EntitySkeleton skeleton;
-		EntitySpider spider;
-		EntityZombie zombie;
-
+		BlockPos blockpos = (new BlockPos(EntityGaiaDeathword.this)).add(-1 + EntityGaiaDeathword.this.rand.nextInt(3), 1, -1 + EntityGaiaDeathword.this.rand.nextInt(3));
+		
 		if (id == 0) {
-			creeper = new EntityCreeper(world);
-			creeper.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			creeper.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(creeper)), null);
-			world.spawnEntity(creeper);
+			EntityCreeper entitySpawn = new EntityCreeper(EntityGaiaDeathword.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaDeathword.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaDeathword.this.world.spawnEntity(entitySpawn);
 		}
-
+		
 		if (id == 1) {
-			skeleton = new EntitySkeleton(world);
-			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
-			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.LEGS, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.CHEST, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.HEAD, 0);
-			world.spawnEntity(skeleton);
+			EntitySkeleton entitySpawn = new EntitySkeleton(EntityGaiaDeathword.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaDeathword.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			entitySpawn.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			entitySpawn.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.FEET, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			EntityGaiaDeathword.this.world.spawnEntity(entitySpawn);
 		}
-
+		
 		if (id == 2) {
-			spider = new EntitySpider(world);
-			spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			spider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(spider)), null);
-			world.spawnEntity(spider);
+			EntitySpider entitySpawn = new EntitySpider(EntityGaiaDeathword.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaDeathword.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaDeathword.this.world.spawnEntity(entitySpawn);
 		}
 
 		if (id == 3) {
-			zombie = new EntityZombie(world);
-			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
-			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
-			zombie.setDropChance(EntityEquipmentSlot.LEGS, 0);
-			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
-			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
-			world.spawnEntity(zombie);
+			EntityZombie entitySpawn = new EntityZombie(EntityGaiaDeathword.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaDeathword.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			entitySpawn.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR, 1, 0));
+			entitySpawn.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.FEET, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			EntityGaiaDeathword.this.world.spawnEntity(entitySpawn);
 		}
 	}
 
@@ -362,8 +362,16 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 	}
 
 	/* IMMUNITIES */
+	protected boolean canTriggerWalking() {
+		return false;
+	}
+	
 	@Override
 	public void fall(float distance, float damageMultiplier) {
+	}
+	
+	@Override
+	public void setInWeb() {
 	}
 	/* IMMUNITIES */
 
@@ -382,7 +390,7 @@ public class EntityGaiaDeathword extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 16.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 16D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

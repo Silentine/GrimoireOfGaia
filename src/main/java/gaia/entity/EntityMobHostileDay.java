@@ -19,7 +19,6 @@ import net.minecraft.world.World;
  *
  * @see EntityMobAssistDay
  */
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobHostileDay extends EntityMobHostileBase {
 
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT, Blocks.GRAVEL, Blocks.SAND, Blocks.SNOW_LAYER, Blocks.SNOW);

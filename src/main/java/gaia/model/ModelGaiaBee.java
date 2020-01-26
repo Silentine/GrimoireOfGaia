@@ -131,7 +131,7 @@ public class ModelGaiaBee extends ModelGaia {
 		leftantenna.setRotationPoint(0F, 1F, 0F);
 		setRotation(leftantenna, 0F, -0.1745329F, 0F);
 		collar = new ModelRenderer(this, 36, 33);
-		collar.addBox(-3.5F, 0F, -1.5F, 7, 3, 3);
+		collar.addBox(-3.5F, 0F, -1.5F, 7, 3, 3, 0.5F);
 		collar.setRotationPoint(0F, 1F, 0F);
 		setRotation(collar, 0F, 0F, 0F);
 		rightwing1 = new ModelRenderer(this, 64, -10);
@@ -347,6 +347,21 @@ public class ModelGaiaBee extends ModelGaia {
 
 			rightleg.rotateAngleZ = MathHelper.cos(ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * -0.5F;
 			leftleg.rotateAngleZ = MathHelper.cos(ageInTicks * swingSpeed2) * angleRange2 * -0.5F;
+	        rightleg.rotateAngleY = 0.0F;
+	        leftleg.rotateAngleY = 0.0F;
+	        rightleg.rotateAngleZ = 0.0F;
+	        leftleg.rotateAngleZ = 0.0F;
+		}
+
+		if (isRiding) {
+			rightarm.rotateAngleX += -((float) Math.PI / 5F);
+			leftarm.rotateAngleX += -((float) Math.PI / 5F);
+			rightleg.rotateAngleX = -1.4137167F;
+			rightleg.rotateAngleY = ((float) Math.PI / 10F);
+			rightleg.rotateAngleZ = 0.07853982F;
+			leftleg.rotateAngleX = -1.4137167F;
+			leftleg.rotateAngleY = -((float) Math.PI / 10F);
+			leftleg.rotateAngleZ = -0.07853982F;
 		}
 	}
 

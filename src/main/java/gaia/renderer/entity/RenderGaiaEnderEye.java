@@ -15,13 +15,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaEnderEye extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation endereyeEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_ender_eye.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_ender_eye.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/ender_eye.png");
 	private Random rnd = new Random();
 
 	public RenderGaiaEnderEye(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaEnderEye(), shadowSize);
-		addLayer(new LayerGlowing(this, endereyeEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 	}
 
 	private ModelGaiaEnderEye getModel() {

@@ -1,5 +1,12 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.Range;
+import org.lwjgl.input.Keyboard;
+
 import baubles.api.BaubleType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -11,11 +18,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.Range;
-import org.lwjgl.input.Keyboard;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 	public ItemAccessoryTrinketLevitation() {
@@ -25,7 +27,7 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.CHARM;
+		return BaubleType.BODY;
 	}
 
 	@Override
@@ -35,7 +37,10 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Trinket.tag")));
 
 		if (shiftPressed) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.InventoryTrinket")));
+			if (!isBaublesLoaded) {
+				tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.InventoryTrinket")));
+			}
+
 			tooltip.add(I18n.format("text.grimoireofgaia.InventoryImmunity") + " " + I18n.format("effect.levitation"));
 			tooltip.add(I18n.format("effect.moveSlowdown"));
 		} else {
@@ -59,5 +64,13 @@ public class ItemAccessoryTrinketLevitation extends ItemAccessoryBauble {
 		}
 
 		player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 10, 1, true, false));
+	}
+	
+	@Override
+	public void applyModifier(EntityLivingBase player, ItemStack item) {
+	}
+
+	@Override
+	public void removeModifier(EntityLivingBase player, ItemStack item) {
 	}
 }

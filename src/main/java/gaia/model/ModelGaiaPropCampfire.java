@@ -1,6 +1,6 @@
 package gaia.model;
 
-import gaia.entity.prop.EntityGaiaPropCampfire;
+import gaia.delete.EntityGaiaPropCampfire;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 

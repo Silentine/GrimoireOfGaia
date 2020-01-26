@@ -28,5 +28,4 @@ public class ItemBase extends Item implements IClientRegister {
 	public String getUnlocalizedName(ItemStack stack) {
 		return getHasSubtypes() ? getUnlocalizedName() + "_" + stack.getItemDamage() : getUnlocalizedName();
 	}
-
 }

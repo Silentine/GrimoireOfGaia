@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
-import gaia.entity.EntityMobHostileBase;
+import gaia.entity.EntityMobHostileDay;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
@@ -36,8 +36,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
-public class EntityGaiaToad extends EntityMobHostileBase {
+public class EntityGaiaToad extends EntityMobHostileDay {
 
 	private byte inWaterTimer;
 
@@ -239,7 +238,7 @@ public class EntityGaiaToad extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

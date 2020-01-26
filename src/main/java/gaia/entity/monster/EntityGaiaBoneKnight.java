@@ -39,7 +39,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 
 	public EntityGaiaBoneKnight(World worldIn) {
@@ -230,7 +229,7 @@ public class EntityGaiaBoneKnight extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 16D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

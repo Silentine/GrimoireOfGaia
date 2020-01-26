@@ -11,6 +11,14 @@ public class EntityMobProp extends EntityAgeable {
 		super(worldIn);
 	}
 
+	public void onUpdate() {
+		super.onUpdate();
+
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+	}
+
 	/* SPAWN CONDITIONS */
 	public boolean daysPassed() {
 		int daysPassedClientInt = (int) (world.getWorldTime() / 24000);

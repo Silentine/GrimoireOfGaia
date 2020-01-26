@@ -49,7 +49,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
 	private static final String MOB_TYPE_TAG = "MobType";
@@ -71,11 +70,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.SLOWNESS);
 	private static final ItemStack TIPPED_ARROW_CUSTOM_2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), PotionTypes.WEAKNESS);
 
-	private boolean canSpawnLevel3;
-	private boolean spawned;
-	private int spawnLevel3;
-	private int spawnLevel3Chance;
-
 	private boolean blockIsAir[] = new boolean[] {};
 
 	public EntityGaiaMinotaurus(World worldIn) {
@@ -83,9 +77,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 		experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
 		stepHeight = 1.0F;
-
-		spawnLevel3 = 0;
-		spawnLevel3Chance = 0;
 
 		if (!worldIn.isRemote) {
 			setCombatTask();
@@ -114,12 +105,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			if (canSpawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
-			}
-		}
-
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
@@ -155,51 +140,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	@Override
 	public boolean isAIDisabled() {
 		return false;
-	}
-
-	@Override
-	public void onLivingUpdate() {
-		/* LEVEL 3 SPAWN DATA */
-		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
-			canSpawnLevel3 = true;
-		}
-
-		if (canSpawnLevel3) {
-			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
-
-				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
-				}
-
-				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
-					spawnLevel3 = 1;
-				}
-
-				spawned = true;
-			}
-		}
-
-		if (spawnLevel3 == 1) {
-			world.setEntityState(this, (byte) 10);
-
-			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
-		}
-		/* LEVEL 3 SPAWN DATA */
-
-		super.onLivingUpdate();
-	}
-
-	private void setSpawn(byte id) {
-		EntityGaiaMinotaur minotaur;
-
-		if (id == 1) {
-			explode();
-
-			minotaur = new EntityGaiaMinotaur(world);
-			minotaur.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			minotaur.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(minotaur)), null);
-			world.spawnEntity(minotaur);
-		}
 	}
 
 	/* CLASS TYPE */
@@ -294,17 +234,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 	}
 	/* ARCHER DATA */
 
-	private void explode() {
-		if (!this.world.isRemote) {
-			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
-			int explosionRadius = 2;
-
-			this.dead = true;
-			this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, flag);
-			this.setDead();
-		}
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return GaiaSounds.MINOTAURUS_SAY;
@@ -379,13 +308,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 				dropItem(getMobType() == 1 ? GaiaItems.BAG_ARROW : GaiaItems.WEAPON_BOOK_BATTLE, 1);
 			}
 		}
-
-		// Boss
-		if (spawnLevel3 == 1) {
-			if (canSpawn()) {
-				setSpawn((byte) 1);
-			}
-		}
 	}
 
 	public boolean canSpawn() {
@@ -417,10 +339,6 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 		}
 
 		setCombatTask();
-
-		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
-			canSpawnLevel3 = true;
-		}
 
 		return ret;
 	}
@@ -470,7 +388,7 @@ public class EntityGaiaMinotaurus extends EntityMobHostileBase implements GaiaIR
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

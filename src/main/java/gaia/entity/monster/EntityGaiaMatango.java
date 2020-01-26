@@ -43,7 +43,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	private static final Item[] matangoDrops = new Item[] { Item.getItemFromBlock(Blocks.RED_MUSHROOM), Item.getItemFromBlock(Blocks.BROWN_MUSHROOM) };
@@ -80,7 +79,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
 
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
+		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
 	}
 
 	@Override
@@ -154,13 +153,10 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 					if ((spawnTime >= 0) && (spawnTime <= 140)) {
 						++spawnTime;
 					} else {
-						world.setEntityState(this, (byte) 9);
-
 						if (!world.isRemote) {
 							setSpawn((byte) 0);
 						}
 
-						world.setEntityState(this, (byte) 8);
 						heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
 
 						spawnLimit += 1;
@@ -182,16 +178,17 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 	}
 
 	private void setSpawn(byte id) {
-		EntityGaiaSummonSporeling sporeling;
+		BlockPos blockpos = (new BlockPos(EntityGaiaMatango.this)).add(-1 + EntityGaiaMatango.this.rand.nextInt(3), 1, -1 + EntityGaiaMatango.this.rand.nextInt(3));
 
-		if (!isNeutral()) {
-			if (id == 0) {
-				sporeling = new EntityGaiaSummonSporeling(world);
-				sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-				sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null);
-				world.spawnEntity(sporeling);
-			}
+		if (id == 0) {
+			EntityGaiaSporeling entitySpawn = new EntityGaiaSporeling(EntityGaiaMatango.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaMatango.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaMatango.this.world.spawnEntity(entitySpawn);
 		}
+
+		world.setEntityState(this, (byte) 8);
+		world.setEntityState(this, (byte) 12);
 	}
 
 	private void beaconMonster() {
@@ -200,7 +197,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 			List<EntityLivingBase> moblist = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
 			for (EntityLivingBase mob : moblist) {
-				if (mob instanceof EntityGaiaSummonSporeling) {
+				if (mob instanceof EntityGaiaSporeling) {
 					mob.addPotionEffect(new PotionEffect(MobEffects.SPEED, 300, 1, true, true));
 				}
 			}
@@ -294,7 +291,7 @@ public class EntityGaiaMatango extends EntityMobHostileDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

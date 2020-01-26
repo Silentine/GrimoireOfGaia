@@ -35,7 +35,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaYeti extends EntityMobHostileBase {
 
 	public EntityGaiaYeti(World worldIn) {
@@ -107,6 +106,10 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 	// Detects biome and inflicts buff/debuff
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+		
 		if (!this.world.isRemote) {
 			int i = MathHelper.floor(this.posX);
 			int j = MathHelper.floor(this.posY);
@@ -206,7 +209,7 @@ public class EntityGaiaYeti extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

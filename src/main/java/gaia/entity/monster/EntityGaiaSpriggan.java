@@ -34,7 +34,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSpriggan extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 6;
@@ -103,13 +102,15 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
-		if (playerDetection(DETECTION_RANGE)) {
-			if (isPotionActive(MobEffects.INVISIBILITY)) {
-				removePotionEffect(MobEffects.INVISIBILITY);
-			}
-		} else {
-			if (!isPotionActive(MobEffects.INVISIBILITY)) {
-				addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
+		if (!GaiaConfig.OPTIONS.disableInvisibility) {
+			if (playerDetection(DETECTION_RANGE)) {
+				if (isPotionActive(MobEffects.INVISIBILITY)) {
+					removePotionEffect(MobEffects.INVISIBILITY);
+				}
+			} else {
+				if (!isPotionActive(MobEffects.INVISIBILITY)) {
+					addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 480 * 20, 0));
+				}
 			}
 		}
 
@@ -217,7 +218,7 @@ public class EntityGaiaSpriggan extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

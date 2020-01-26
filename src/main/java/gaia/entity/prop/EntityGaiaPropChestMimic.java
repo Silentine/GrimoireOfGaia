@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityMobProp;
 import gaia.entity.monster.EntityGaiaMimic;
 import gaia.helpers.LootHelper;
@@ -113,9 +114,14 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 	@Override
 	public void onLivingUpdate() {
 		if (playerDetection() && getDrop() == 2) {
+			if (!world.isRemote) {
+				setSpawn((byte) 0);
+			}
+			spawned = true;
+		}
+
+		if (spawned) {
 			attackEntityFrom(DamageSource.GENERIC, 2.0F);
-			world.setEntityState(this, (byte) 7);
-			setSpawn((byte) 0);
 		}
 
 		super.onLivingUpdate();
@@ -124,13 +130,14 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 	private void setSpawn(byte id) {
 		EntityGaiaMimic mimic;
 
-		if ((id == 0) && !spawned) {
+		if ((id == 0) && !spawned && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
 			mimic = new EntityGaiaMimic(world);
 			mimic.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			mimic.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mimic)), null);
 			world.spawnEntity(mimic);
-			spawned = true;
 		}
+
+		world.setEntityState(this, (byte) 6);
 	}
 
 	/**
@@ -187,7 +194,7 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 			byte b0 = compound.getByte(ROTATION_TAG);
 			setRotation(b0);
 		}
-		
+
 		if (compound.hasKey(DROP_TAG)) {
 			byte b1 = compound.getByte(DROP_TAG);
 			setDrop(b1);
@@ -262,6 +269,7 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 		return true;
 	}
 
+	/* SPAWN CONDITIONS */
 	/**
 	 * @see EntityMob
 	 */
@@ -284,7 +292,6 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 		}
 	}
 
-	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
@@ -292,7 +299,7 @@ public class EntityGaiaPropChestMimic extends EntityMobProp {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 512D) && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 

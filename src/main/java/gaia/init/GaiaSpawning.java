@@ -1,7 +1,6 @@
 package gaia.init;
 
 import static gaia.GaiaConfig.GENERAL;
-import static gaia.GaiaConfig.SPAWN;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +13,7 @@ import gaia.GaiaConfig;
 import gaia.GaiaReference;
 import gaia.entity.EntityMobAssist;
 import gaia.entity.EntityMobHostileBase;
-import gaia.entity.monster.EntityGaiaAnt;
+import gaia.entity.EntityMobProp;
 import gaia.entity.monster.EntityGaiaAntRanger;
 import gaia.entity.monster.EntityGaiaAnubis;
 import gaia.entity.monster.EntityGaiaArachne;
@@ -32,18 +31,18 @@ import gaia.entity.monster.EntityGaiaDhampir;
 import gaia.entity.monster.EntityGaiaDryad;
 import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaDwarf;
-import gaia.entity.monster.EntityGaiaEnderDragonGirl;
 import gaia.entity.monster.EntityGaiaEnderEye;
 import gaia.entity.monster.EntityGaiaFleshLich;
+import gaia.entity.monster.EntityGaiaGelatinousSlime;
 import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGryphon;
 import gaia.entity.monster.EntityGaiaHarpy;
+import gaia.entity.monster.EntityGaiaHarpyWizard;
 import gaia.entity.monster.EntityGaiaHunter;
 import gaia.entity.monster.EntityGaiaKikimora;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMatango;
 import gaia.entity.monster.EntityGaiaMermaid;
-import gaia.entity.monster.EntityGaiaMinotaur;
 import gaia.entity.monster.EntityGaiaMinotaurus;
 import gaia.entity.monster.EntityGaiaMonoeye;
 import gaia.entity.monster.EntityGaiaMummy;
@@ -57,22 +56,26 @@ import gaia.entity.monster.EntityGaiaShaman;
 import gaia.entity.monster.EntityGaiaSharko;
 import gaia.entity.monster.EntityGaiaSiren;
 import gaia.entity.monster.EntityGaiaSludgeGirl;
-import gaia.entity.monster.EntityGaiaSphinx;
 import gaia.entity.monster.EntityGaiaSpriggan;
 import gaia.entity.monster.EntityGaiaSuccubus;
 import gaia.entity.monster.EntityGaiaToad;
 import gaia.entity.monster.EntityGaiaValkyrie;
-import gaia.entity.monster.EntityGaiaVampire;
 import gaia.entity.monster.EntityGaiaWerecat;
 import gaia.entity.monster.EntityGaiaWitch;
 import gaia.entity.monster.EntityGaiaWitherCow;
 import gaia.entity.monster.EntityGaiaYeti;
 import gaia.entity.monster.EntityGaiaYukiOnna;
-import gaia.entity.prop.EntityGaiaPropCampfire;
+import gaia.entity.prop.EntityGaiaPropAntHill;
 import gaia.entity.prop.EntityGaiaPropChestMimic;
 import gaia.entity.prop.EntityGaiaPropFlowerCyan;
 import gaia.entity.prop.EntityGaiaPropVase;
 import gaia.entity.prop.EntityGaiaPropVaseNether;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerBeholder;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerEnderDragonGirl;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerGorgon;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerMinotaur;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerSphinx;
+import gaia.entity.prop.spawner.EntityGaiaSpawnerVampire;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
@@ -164,7 +167,8 @@ public class GaiaSpawning {
 		 */
 		for (Biome biome : biomeMap.get(Type.END)) {
 			if (BiomeDictionary.hasType(biome, Type.COLD) && (BiomeDictionary.hasType(biome, Type.DRY))) {
-				add(GENERAL.spawnEnderDragonGirl, EntityGaiaEnderDragonGirl.class, 1, 2, biome);
+				add(GENERAL.spawnBeholder, EntityGaiaSpawnerBeholder.class, 1, 1, biome);
+				add(GENERAL.spawnEnderDragonGirl, EntityGaiaSpawnerEnderDragonGirl.class, 1, 1, biome);
 			}
 		}
 	}
@@ -219,15 +223,10 @@ public class GaiaSpawning {
 			if (!BiomeDictionary.hasType(biome, Type.COLD) && !BiomeDictionary.hasType(biome, Type.HOT) && !BiomeDictionary.hasType(biome, Type.DENSE)) {
 				add(GENERAL.spawnGryphon, EntityGaiaGryphon.class, 1, 2, biome);
 				add(GENERAL.spawnDwarf, EntityGaiaDwarf.class, 4, 6, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnValkyrie, EntityGaiaValkyrie.class, 1, 2, biome);
-				}
-
+				add(GENERAL.spawnValkyrie, EntityGaiaValkyrie.class, 1, 2, biome);
+					
 				add(GENERAL.spawnDullahan, EntityGaiaDullahan.class, 4, 6, biome);
 				add(GENERAL.spawnBanshee, EntityGaiaBanshee.class, 2, 4, biome);
-
-				add(GENERAL.spawnCampsite, EntityGaiaPropCampfire.class, 1, 1, biome);
 				underground(biome);
 			}
 		}
@@ -263,6 +262,7 @@ public class GaiaSpawning {
 		for (Biome biome : biomeMap.get(Type.JUNGLE)) {
 			add(GENERAL.spawnHunter, EntityGaiaHunter.class, 2, 4, biome);
 			add(GENERAL.spawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, biome);
+			
 			add(GENERAL.spawnShaman, EntityGaiaShaman.class, 2, 4, biome);
 			add(GENERAL.spawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, biome);
 
@@ -277,8 +277,11 @@ public class GaiaSpawning {
 		 */
 		for (Biome biome : biomeMap.get(Type.SWAMP)) {
 			add(GENERAL.spawnSiren, EntityGaiaSiren.class, 4, 6, biome);
-			add(GENERAL.spawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, biome);
 			add(GENERAL.spawnNaga, EntityGaiaNaga.class, 1, 2, biome);
+//			add(GENERAL.spawnGorgon, EntityGaiaSpawnerGorgon.class, 1, 1, biome);
+			
+			add(GENERAL.spawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, biome);
+			add(GENERAL.spawnGelatinousSlime, EntityGaiaGelatinousSlime.class, 1, 2, biome);
 
 			underground(biome);
 		}
@@ -293,12 +296,10 @@ public class GaiaSpawning {
 			if (!BiomeDictionary.hasType(biome, Type.SAVANNA)) {
 				add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
 				add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
+				
 				add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
 				add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnMinotaur, EntityGaiaMinotaur.class, 1, 2, biome);
-				}
+				add(GENERAL.spawnMinotaur, EntityGaiaSpawnerMinotaur.class, 1, 1, biome);
 
 				underground(biome);
 			}
@@ -331,12 +332,10 @@ public class GaiaSpawning {
 		for (Biome biome : biomeMap.get(Type.MESA)) {
 			add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
 			add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
+			
 			add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
 			add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
-
-			if (!SPAWN.spawnLevel3) {
-				add(GENERAL.spawnMinotaur, EntityGaiaMinotaur.class, 1, 2, biome);
-			}
+			add(GENERAL.spawnMinotaur, EntityGaiaSpawnerMinotaur.class, 1, 1, biome);
 
 			underground(biome);
 		}
@@ -350,14 +349,12 @@ public class GaiaSpawning {
 		 */
 		for (Biome biome : biomeMap.get(Type.SANDY)) {
 			if (!BiomeDictionary.hasType(biome, Type.MESA)) {
-				add(GENERAL.spawnAnt, EntityGaiaAnt.class, 2, 4, biome);
+				add(GENERAL.spawnAntHill, EntityGaiaPropAntHill.class, 1, 1, biome);
 				add(GENERAL.spawnAntRanger, EntityGaiaAntRanger.class, 2, 4, biome);
+				
 				add(GENERAL.spawnMummy, EntityGaiaMummy.class, 2, 4, biome);
 				add(GENERAL.spawnAnubis, EntityGaiaAnubis.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnSphinx, EntityGaiaSphinx.class, 1, 2, biome);
-				}
+				add(GENERAL.spawnSphinx, EntityGaiaSpawnerSphinx.class, 1, 1, biome);
 
 				underground(biome);
 			}
@@ -383,7 +380,7 @@ public class GaiaSpawning {
 					!BiomeDictionary.hasType(biome, Type.DENSE)) {
 				add(GENERAL.spawnDryad, EntityGaiaDryad.class, 4, 6, biome);
 				add(GENERAL.spawnBee, EntityGaiaBee.class, 2, 4, biome);
-				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 2, biome);
+				add(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 1, biome);
 				add(GENERAL.spawnWerecat, EntityGaiaWerecat.class, 4, 6, biome);
 				add(GENERAL.spawnSpriggan, EntityGaiaSpriggan.class, 2, 4, biome);
 
@@ -434,11 +431,9 @@ public class GaiaSpawning {
 			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
 					(BiomeDictionary.hasType(biome, Type.SNOWY))) {
 				add(GENERAL.spawnKikimora, EntityGaiaKikimora.class, 2, 4, biome);
+				
 				add(GENERAL.spawnDhampir, EntityGaiaDhampir.class, 2, 4, biome);
-
-				if (!SPAWN.spawnLevel3) {
-					add(GENERAL.spawnVampire, EntityGaiaVampire.class, 1, 2, biome);
-				}
+				add(GENERAL.spawnVampire, EntityGaiaSpawnerVampire.class, 1, 1, biome);
 
 				underground(biome);
 			}
@@ -450,6 +445,7 @@ public class GaiaSpawning {
 			if (BiomeDictionary.hasType(biome, Type.SPOOKY)) {
 				add(GENERAL.spawnMatango, EntityGaiaMatango.class, 2, 4, biome);
 				add(GENERAL.spawnToad, EntityGaiaToad.class, 2, 4, biome);
+				add(GENERAL.spawnHarpyWizard, EntityGaiaHarpyWizard.class, 1, 2, biome);
 				add(GENERAL.spawnWitch, EntityGaiaWitch.class, 2, 4, biome);
 
 				underground(biome);
@@ -474,12 +470,11 @@ public class GaiaSpawning {
 		return biomesAndTypes;
 	}
 
-	@SuppressWarnings({ "unused", "squid:S1118" }) // used in registration reflection
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	public static class DimensionHandler {
 		@SubscribeEvent
 		public static void onSpawn(final LivingSpawnEvent.CheckSpawn event) {
-			if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase) {
+			if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase|| event.getEntity() instanceof EntityMobProp) {
 				if (GaiaConfig.DIMENSIONS.dimensionBlacklist.length > 0) {
 					event.setResult(Event.Result.DEFAULT);
 					for (int i : GaiaConfig.DIMENSIONS.dimensionBlacklist) {

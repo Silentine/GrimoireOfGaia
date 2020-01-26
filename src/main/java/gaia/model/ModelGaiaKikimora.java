@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelGaiaKikimora extends ModelGaia {
-	
+
 	ModelRenderer head;
 	ModelRenderer headeyes;
 	ModelRenderer headaccessory;
@@ -264,7 +264,7 @@ public class ModelGaiaKikimora extends ModelGaia {
 		headeyes.rotateAngleX = head.rotateAngleX;
 		headaccessory.rotateAngleY = head.rotateAngleY;
 		headaccessory.rotateAngleX = head.rotateAngleX;
-		
+
 		float earDefaultAngleZ = 0.5235988F;
 
 		rightear.rotateAngleZ = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(4);
@@ -289,11 +289,11 @@ public class ModelGaiaKikimora extends ModelGaia {
 		rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		rightarm.rotateAngleY = +armDefaultAngleY;
 		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
-		
+
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 		leftarm.rotateAngleY = -armDefaultAngleY;
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
-		
+
 		rightarmlower.rotateAngleX = -armDefaultAngleY;
 		leftarmlower.rotateAngleX = -armDefaultAngleY;
 
@@ -302,7 +302,7 @@ public class ModelGaiaKikimora extends ModelGaia {
 		tail03.rotateAngleX = -0.785398F;
 		tail04.rotateAngleX = +0.3926991F;
 		tail05.rotateAngleX = +0.785398F;
-		
+
 		tail02.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(1);
 		tail03.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(5);
 		tail04.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(10);
@@ -311,6 +311,21 @@ public class ModelGaiaKikimora extends ModelGaia {
 		// legs
 		rightleg.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 0.5F;
 		leftleg.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount) * 0.5F;
+        rightleg.rotateAngleY = -0.0872665F;
+        leftleg.rotateAngleY = 0.0872665F;
+        rightleg.rotateAngleZ = 0.0F;
+        leftleg.rotateAngleZ = 0.0F;
+
+		if (isRiding) {
+			rightarm.rotateAngleX += -((float) Math.PI / 5F);
+			leftarm.rotateAngleX += -((float) Math.PI / 5F);
+			rightleg.rotateAngleX = -1.4137167F;
+			rightleg.rotateAngleY = ((float) Math.PI / 10F);
+			rightleg.rotateAngleZ = 0.07853982F;
+			leftleg.rotateAngleX = -1.4137167F;
+			leftleg.rotateAngleY = -((float) Math.PI / 10F);
+			leftleg.rotateAngleZ = -0.07853982F;
+		}
 	}
 
 	public void holdingMelee() {

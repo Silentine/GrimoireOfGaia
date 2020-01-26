@@ -44,7 +44,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true);
@@ -55,7 +54,6 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	private boolean animationPlay;
 	private int animationTimer;
 
-	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaMinotaur(World worldIn) {
 		super(worldIn);
 
@@ -91,12 +89,20 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		if (isArmored()) {
+			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		}
 	}
 
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_3);
+	}
+	
+	public boolean isArmored() {
+		return getHealth() <= this.getMaxHealth() / 2.0F;
 	}
 
 	@Override
@@ -132,6 +138,10 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public void onLivingUpdate() {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
+		}
+		
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
 		}
 
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
@@ -327,13 +337,13 @@ public class EntityGaiaMinotaur extends EntityMobHostileBase {
 	public int getMaxSpawnedInChunk() {
 		return EntityAttributes.CHUNK_LIMIT_3;
 	}
-
+	
 	@Override
 	public boolean getCanSpawnHere() {
 		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
-			return posY > 60.0D && world.isRaining() && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 0D) && world.isRaining() && super.getCanSpawnHere();
 		} else {
-			return posY > 32.0D && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 0D) && super.getCanSpawnHere();
 		}
 	}
 	/* SPAWN CONDITIONS */

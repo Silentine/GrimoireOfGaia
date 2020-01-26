@@ -9,13 +9,13 @@ import gaia.entity.projectile.EntityGaiaProjectileBomb;
 import gaia.entity.projectile.EntityGaiaProjectileBubble;
 import gaia.entity.projectile.EntityGaiaProjectileMagic;
 import gaia.entity.projectile.EntityGaiaProjectilePoison;
+import gaia.entity.projectile.EntityGaiaProjectileMagicRandom;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
 import gaia.entity.projectile.EntityGaiaProjectileWeb;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
@@ -113,7 +113,7 @@ public class Ranged {
 	}
 
 	/**
-	 * Shortcut Method for entities using blaze attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 * Shortcut Method for entities using magic attacks. Use this to replace entity [attackEntityWithRangedAttack].
 	 *
 	 * @param target         the entity to fire at
 	 * @param host           the entity that is shooting
@@ -135,6 +135,33 @@ public class Ranged {
 			EntityGaiaProjectileMagic entitygaiaprojectilemagic = new EntityGaiaProjectileMagic(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
 			entitygaiaprojectilemagic.posY = host.posY + host.height / 2.0D;
 			host.world.spawnEntity(entitygaiaprojectilemagic);
+		}
+	}
+	
+	/**
+	 * Shortcut Method for entities using random magic attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 *
+	 * @param target         the entity to fire at
+	 * @param host           the entity that is shooting
+	 * @param distanceFactor distance
+	 * 
+	 * @see                  EntityBlaze
+	 */
+	public static void magicRandom(EntityLivingBase target, EntityLivingBase host, float distanceFactor, double height, int potionEffect) {
+		Random rand = new Random();
+
+		host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
+
+		double d0 = target.posX - host.posX;
+		double d1 = target.getEntityBoundingBox().minY + target.height / 2.0D - (host.posY + host.height / 2.0D);
+		double d2 = target.posZ - host.posZ;
+		double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
+
+		for (int i = 0; i < 1; ++i) {
+			EntityGaiaProjectileMagicRandom entitygaiaprojectilemagicrandom = new EntityGaiaProjectileMagicRandom(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
+			entitygaiaprojectilemagicrandom.potionEffect(potionEffect);
+			entitygaiaprojectilemagicrandom.posY = host.posY + host.height / 2.0D + height;
+			host.world.spawnEntity(entitygaiaprojectilemagicrandom);
 		}
 	}
 
@@ -190,7 +217,7 @@ public class Ranged {
 	}
 
 	/**
-	 * Shortcut Method for entities using bubble attacks. Use this to replace entity [attackEntityWithRangedAttack].
+	 * Shortcut Method for entities using poison attacks. Use this to replace entity [attackEntityWithRangedAttack].
 	 *
 	 * @param target         the entity to fire at
 	 * @param host           the entity that is shooting

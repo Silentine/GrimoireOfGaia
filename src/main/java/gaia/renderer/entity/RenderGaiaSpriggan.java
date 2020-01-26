@@ -14,14 +14,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaSpriggan extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation SprigganEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_spriggan.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_spriggan.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/spriggan.png");
 
 	public RenderGaiaSpriggan(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaSpriggan(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
-		addLayer(new LayerGlowing(this, SprigganEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 	}
 
 	private ModelGaiaSpriggan getModel() {

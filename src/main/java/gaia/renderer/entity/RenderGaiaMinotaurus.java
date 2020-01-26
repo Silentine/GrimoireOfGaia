@@ -32,6 +32,7 @@ public class RenderGaiaMinotaurus extends RenderLiving<EntityLiving> {
 		GlStateManager.translate(0.0F, 0.1875F, 0.0F);
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving entity) {
 		return getTexture((EntityGaiaMinotaurus) entity);
 	}

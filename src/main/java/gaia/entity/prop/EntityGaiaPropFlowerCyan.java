@@ -13,9 +13,9 @@ import gaia.entity.EntityMobProp;
 import gaia.entity.monster.EntityGaiaMandragora;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
+import gaia.init.GaiaSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -116,13 +116,15 @@ public class EntityGaiaPropFlowerCyan extends EntityMobProp {
 	private void setSpawn(byte id) {
 		EntityGaiaMandragora mandragora;
 
-		if (id == 0) {
+		if (id == 0 && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
 			mandragora = new EntityGaiaMandragora(world);
 			mandragora.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
 			mandragora.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mandragora)), null);
 			mandragora.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.EGG));
 			world.spawnEntity(mandragora);
 		}
+
+		world.setEntityState(this, (byte) 6);
 	}
 
 	protected void playParticleEffect(boolean play) {
@@ -160,43 +162,17 @@ public class EntityGaiaPropFlowerCyan extends EntityMobProp {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if (world.rand.nextInt(4) == 0) {
-				world.setEntityState(this, (byte) 7);
-				setSpawn((byte) 0);
+				if (!world.isRemote) {
+					setSpawn((byte) 0);
+					playSound(GaiaSounds.MANDRAGORA_SCREAM, 2.0F, 2.0F);
+				}
 			} else {
 				world.setEntityState(this, (byte) 6);
 
-				switch (rand.nextInt(10)) {
-				case 0:
+				if (world.rand.nextInt(10) == 0) {
 					dropItem(Item.getItemFromBlock(Blocks.YELLOW_FLOWER), 1);
-					break;
-				case 1:
+				} else {
 					dropItem(Item.getItemFromBlock(Blocks.RED_FLOWER), 1);
-					break;
-				case 2:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 1), 0.0F);
-					break;
-				case 3:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 2), 0.0F);
-					break;
-				case 4:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 3), 0.0F);
-					break;
-				case 5:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 4), 0.0F);
-					break;
-				case 6:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 5), 0.0F);
-					break;
-				case 7:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 6), 0.0F);
-					break;
-				case 8:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 7), 0.0F);
-					break;
-				case 9:
-				default:
-					entityDropItem(new ItemStack(Blocks.RED_FLOWER, 1, 8), 0.0F);
-					break;
 				}
 			}
 
@@ -233,23 +209,7 @@ public class EntityGaiaPropFlowerCyan extends EntityMobProp {
 	}
 
 	/* SPAWN CONDITIONS */
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 1;
-	}
-
 	private static Set<Block> spawnBlocks = Sets.newHashSet(Blocks.GRASS, Blocks.DIRT);
-
-	@Override
-	public boolean getCanSpawnHere() {
-		super.getCanSpawnHere();
-
-		if (GaiaConfig.SPAWN.spawnDaysPassed) {
-			return daysPassed() && spawnConditions();
-		} else {
-			return spawnConditions();
-		}
-	}
 
 	public boolean spawnConditions() {
 		if (world.isDaytime()) {
@@ -289,6 +249,16 @@ public class EntityGaiaPropFlowerCyan extends EntityMobProp {
 		}
 
 		return false;
+	}
+
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
+
+	@Override
+	public boolean getCanSpawnHere() {
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 

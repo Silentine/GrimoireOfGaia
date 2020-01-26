@@ -35,7 +35,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaGelatinousSlime extends EntityMobHostileBase {
 
 	private boolean animationPlay;
@@ -156,6 +155,10 @@ public class EntityGaiaGelatinousSlime extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+
 		beaconDebuff(4, MobEffects.SLOWNESS, 100, 1);
 
 		if (getHealth() < EntityAttributes.MAX_HEALTH_2) {
@@ -289,7 +292,7 @@ public class EntityGaiaGelatinousSlime extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -45,7 +45,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaHarpy extends EntityMobHostileBase {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final String IS_CHILD_TAG = "IsBaby";
@@ -128,6 +127,10 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (!onGround && motionY < 0.0D) {
+			motionY *= 0.8D;
+		}
+
 		/* FLEE DATA */
 		if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.25F) && (switchHealth == 0)) {
 			switch (rand.nextInt(2)) {
@@ -149,10 +152,6 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 			switchHealth = 0;
 		}
 		/* FLEE DATA */
-
-		if (!onGround && motionY < 0.0D) {
-			motionY *= 0.8D;
-		}
 
 		super.onLivingUpdate();
 	}
@@ -385,7 +384,7 @@ public class EntityGaiaHarpy extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

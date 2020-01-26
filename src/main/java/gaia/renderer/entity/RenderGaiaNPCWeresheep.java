@@ -3,6 +3,7 @@ package gaia.renderer.entity;
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaNPCWeresheep;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
+import gaia.renderer.entity.layers.LayerColorWeresheep;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -18,6 +19,7 @@ public class RenderGaiaNPCWeresheep extends RenderLiving<EntityLiving> {
 		super(renderManager, new ModelGaiaNPCWeresheep(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
+		addLayer(new LayerColorWeresheep(this));
 	}
 
 	private ModelGaiaNPCWeresheep getModel() {

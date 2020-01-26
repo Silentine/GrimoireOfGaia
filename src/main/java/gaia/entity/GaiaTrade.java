@@ -10,8 +10,8 @@ public class GaiaTrade extends MerchantRecipe {
 		super(tag);
 	}
 
-	public GaiaTrade(ItemStack buy, ItemStack sell) {
-		super(buy, sell);
+	public GaiaTrade(ItemStack buy1, ItemStack buy2, ItemStack sell) {
+		super(buy1, buy2, sell);
 	}
 
 	@Override

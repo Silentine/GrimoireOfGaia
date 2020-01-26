@@ -59,7 +59,7 @@ public class ItemWeaponProp extends ItemBase {
 			return;
 		}
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -70,7 +70,8 @@ public class ItemWeaponProp extends ItemBase {
 		ModelLoaderHelper.registerItem(this, 
 				"variant=ender", 
 				"variant=blaze",
-				"variant=club"
+				"variant=club",
+				"variant=sword_dullahan"
 				);
 	}
 	/* SUBITEMS */

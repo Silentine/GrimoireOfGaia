@@ -28,6 +28,7 @@ public class GaiaLootTables {
 	public static final ResourceLocation ENTITIES_GAIA_BANSHEE = register("entities/banshee");
 	public static final ResourceLocation ENTITIES_GAIA_BAPHOMET = register("entities/baphomet");
 	public static final ResourceLocation ENTITIES_GAIA_BEE = register("entities/bee");
+	public static final ResourceLocation ENTITIES_GAIA_BEHOLDER = register("entities/beholder");
 	public static final ResourceLocation ENTITIES_GAIA_BONE_KNIGHT = register("entities/bone_knight");
 	public static final ResourceLocation ENTITIES_GAIA_CAMPFIRE = register("entities/prop/campfire");
 	public static final ResourceLocation ENTITIES_GAIA_CECAELIA = register("entities/cecaelia");
@@ -42,7 +43,6 @@ public class GaiaLootTables {
 	public static final ResourceLocation ENTITIES_GAIA_DWARF_MELEE = register("entities/dwarf_melee");
 	public static final ResourceLocation ENTITIES_GAIA_DWARF_RANGED = register("entities/dwarf_ranged");
 	public static final ResourceLocation ENTITIES_GAIA_DWARF_MINER = register("entities/dwarf_miner");
-	public static final ResourceLocation ENTITIES_GAIA_ELF = register("entities/elf");
 	public static final ResourceLocation ENTITIES_GAIA_ENDER_DRAGON_GIRL = register("entities/ender_dragon_girl");
 	public static final ResourceLocation ENTITIES_GAIA_ENDER_EYE = register("entities/ender_eye");
 	public static final ResourceLocation ENTITIES_GAIA_FLESH_LICH = register("entities/flesh_lich");
@@ -52,9 +52,13 @@ public class GaiaLootTables {
 	public static final ResourceLocation ENTITIES_GAIA_GOBLIN_FERAL_MELEE = register("entities/goblin_feral_melee");
 	public static final ResourceLocation ENTITIES_GAIA_GOBLIN_FERAL_RANGED = register("entities/goblin_feral_ranged");
 	public static final ResourceLocation ENTITIES_GAIA_GOBLIN_FERAL_BOMBER = register("entities/goblin_feral_bomber");
+	public static final ResourceLocation ENTITIES_GAIA_GORGON = register("entities/gorgon");
 	public static final ResourceLocation ENTITIES_GAIA_GRYPHON = register("entities/gryphon");
 	public static final ResourceLocation ENTITIES_GAIA_HARPY = register("entities/harpy");
+	public static final ResourceLocation ENTITIES_GAIA_HARPY_WIZARD = register("entities/harpy_wizard");
 	public static final ResourceLocation ENTITIES_GAIA_HUNTER = register("entities/hunter");
+	public static final ResourceLocation ENTITIES_GAIA_ILLAGER_FIRE = register("entities/illager_fire");
+	public static final ResourceLocation ENTITIES_GAIA_ILLAGER_INQUISITOR = register("entities/illager_inquisitor");
 	public static final ResourceLocation ENTITIES_GAIA_KIKIMORA = register("entities/kikimora");
 	public static final ResourceLocation ENTITIES_GAIA_KOBOLD = register("entities/kobold");
 	public static final ResourceLocation ENTITIES_GAIA_MATANGO = register("entities/matango");
@@ -95,8 +99,9 @@ public class GaiaLootTables {
 	/* SPAWN */
 
 	/* SUMMON */
-	public static final ResourceLocation ENTITIES_GAIA_BUTLER = register("entities/biped/butler");
-	public static final ResourceLocation ENTITIES_GAIA_SPORELING = register("entities/biped/sporeling");
+	public static final ResourceLocation ENTITIES_GAIA_BUTLER = register("entities/butler");
+	public static final ResourceLocation ENTITIES_GAIA_MITE = register("entities/mite");
+	public static final ResourceLocation ENTITIES_GAIA_SPORELING = register("entities/sporeling");
 	/* SUMMON */
 
 	private static ResourceLocation register(String id) {

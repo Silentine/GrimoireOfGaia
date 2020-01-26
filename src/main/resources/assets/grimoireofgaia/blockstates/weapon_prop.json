@@ -20,7 +20,12 @@
                 "textures": {
                     "layer0": "grimoireofgaia:items/weapon_prop_club"
                 }
-            }
+            },
+			"sword_dullahan": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/weapon_prop_sword_dullahan"
+                }
+			}
         }
     }
 }

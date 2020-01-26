@@ -6,11 +6,13 @@ import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -37,7 +39,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *
  * @see EntityMobAssistBase
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobHostileBase extends EntityMob implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> NEUTRAL = EntityDataManager.<Boolean>createKey(EntityMobHostileBase.class, DataSerializers.BOOLEAN);
@@ -48,6 +49,31 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 		super(worldIn);
 
 		targetTasks.addTask(2, aiNearestAttackableTarget);
+	}
+
+	/**
+	 * Used when isRiding is triggered.
+	 * Makes the entity being ridden face the same direction of the rider.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public void updateRidden() {
+		super.updateRidden();
+
+		if (this.getRidingEntity() instanceof EntityCreature) {
+			EntityCreature entitycreature = (EntityCreature) this.getRidingEntity();
+			this.renderYawOffset = entitycreature.renderYawOffset;
+		}
+	}
+
+	/**
+	 * Used for isRiding.
+	 * Used to offset the entity.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public double getYOffset() {
+		return -0.6D;
 	}
 
 	@Override
@@ -132,9 +158,7 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 		if (id == 7) {
 			spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
 		} else if (id == 8) {
-			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.HEART, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D);
-			}
+			spawnParticles(EnumParticleTypes.HEART);
 		} else if (id == 9) {
 			spawnParticles(EnumParticleTypes.FLAME);
 		} else if (id == 10) {
@@ -254,7 +278,8 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
 		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
+		if (!GaiaConfig.OPTIONS.disableDrops)
+			dropFewItems(wasRecentlyHit, lootingModifier);
 	}
 
 	@Override

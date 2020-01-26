@@ -65,7 +65,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 
  * @see EntityWitch
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private int spawn;
@@ -140,6 +139,10 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
+		}
+		
+		if (!world.isRemote && isRiding() && isRidingBroom()) {
+			dismountRidingEntity();
 		}
 
 		if (motionX > 0 || motionY > 0 || motionZ > 0) {
@@ -285,35 +288,34 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 	/* WITCH CODE */
 
 	private void setSpawn(byte id) {
-		EntityZombie zombie;
-		EntitySkeleton skeleton;
+		BlockPos blockpos = (new BlockPos(EntityGaiaWitch.this)).add(-1 + EntityGaiaWitch.this.rand.nextInt(3), 1, -1 + EntityGaiaWitch.this.rand.nextInt(3));
 
 		if (id == 0) {
-			zombie = new EntityZombie(world);
-			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
-			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
-			zombie.setDropChance(EntityEquipmentSlot.LEGS, 0);
-			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
-			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
-			world.spawnEntity(zombie);
+			EntityZombie entitySpawn = new EntityZombie(EntityGaiaWitch.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaWitch.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			entitySpawn.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
+			entitySpawn.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.FEET, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			EntityGaiaWitch.this.world.spawnEntity(entitySpawn);
 		}
-
+		
 		if (id == 1) {
-			skeleton = new EntitySkeleton(world);
-			skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(skeleton)), null);
-			skeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
-			skeleton.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.FEET, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.LEGS, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.CHEST, 0);
-			skeleton.setDropChance(EntityEquipmentSlot.HEAD, 0);
-			world.spawnEntity(skeleton);
+			EntitySkeleton entitySpawn = new EntitySkeleton(EntityGaiaWitch.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaWitch.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			entitySpawn.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
+			entitySpawn.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.FEET, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			EntityGaiaWitch.this.world.spawnEntity(entitySpawn);
 		}
 	}
 
@@ -478,7 +480,7 @@ public class EntityGaiaWitch extends EntityMobHostileBase implements IRangedAtta
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

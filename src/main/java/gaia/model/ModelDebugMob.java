@@ -311,6 +311,17 @@ public class ModelDebugMob extends ModelGaia {
 			rightarm.rotateAngleX = rightarm.rotateAngleX - 190;
 			leftarm.rotateAngleX = leftarm.rotateAngleX - 8;
 		}
+		
+		if (isRiding) {
+			rightarm.rotateAngleX += -((float) Math.PI / 5F);
+			leftarm.rotateAngleX += -((float) Math.PI / 5F);
+			rightleg.rotateAngleX = -1.4137167F;
+			rightleg.rotateAngleY = ((float) Math.PI / 10F);
+			rightleg.rotateAngleZ = 0.07853982F;
+			leftleg.rotateAngleX = -1.4137167F;
+			leftleg.rotateAngleY = -((float) Math.PI / 10F);
+			leftleg.rotateAngleZ = -0.07853982F;
+		}
 	}
 
 	/*

@@ -46,7 +46,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
 	private static final String MOB_TYPE_TAG = "MobType";
@@ -376,7 +375,7 @@ public class EntityGaiaKobold extends EntityMobHostileBase implements GaiaIRange
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

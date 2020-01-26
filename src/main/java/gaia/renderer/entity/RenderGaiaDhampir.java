@@ -14,14 +14,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaDhampir extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation dhampirEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_dhampir.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_dhampir.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/dhampir.png");
 
 	public RenderGaiaDhampir(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaDhampir(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
-		addLayer(new LayerGlowing(this, dhampirEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 	}
 
 	private ModelGaiaDhampir getModel() {

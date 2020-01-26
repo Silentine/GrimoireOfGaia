@@ -58,7 +58,8 @@ public class GaiaRecipes {
 		 * @see PotionHelper
 		 */
 		private static void addBrews() {
-			BrewingRecipeRegistry.addRecipe(getType(PotionTypes.WATER), new ItemStack(GaiaItems.FOOD_NETHER_WART, 1, 0), getType(PotionTypes.AWKWARD));
+			BrewingRecipeRegistry.addRecipe(getType(PotionTypes.WATER), new ItemStack(GaiaItems.FOOD_NETHER_WART, 1), getType(PotionTypes.AWKWARD));
+			BrewingRecipeRegistry.addRecipe(getType(PotionTypes.AWKWARD), new ItemStack(GaiaItems.MISC_PEARL, 1), getType(PotionTypes.WATER_BREATHING));
 		}
 	}
 }

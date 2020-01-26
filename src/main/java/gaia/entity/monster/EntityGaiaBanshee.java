@@ -46,7 +46,6 @@ import net.minecraft.world.World;
  * 
  * @see EntityVex
  */
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	private static final int DETECTION_RANGE = 8;
@@ -442,7 +441,7 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

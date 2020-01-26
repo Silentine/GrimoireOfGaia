@@ -4,6 +4,7 @@ import org.apache.commons.lang3.Range;
 
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
+import gaia.Gaia;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,10 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 @Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
 public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 
+	public boolean hasEffect;
+	public boolean hasModifier;
+	public boolean isBaublesLoaded = Gaia.isBaublesLoaded;
+
 	ItemAccessoryBauble(String name) {
 		super(name);
 		setMaxStackSize(1);
@@ -31,7 +36,11 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 
 	@Override
 	public boolean hasEffect(ItemStack stack) {
-		return true;
+		if (!isBaublesLoaded) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
@@ -57,8 +66,7 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 
 		ItemStack toEquip = stack.splitStack(1);
 
-		if(Loader.isModLoaded("baubles"))
-		{
+		if (Loader.isModLoaded("baubles")) {
 			if (canEquip(toEquip, player)) {
 				IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
 				for (int i = 0; i < baubles.getSlots(); i++) {
@@ -90,17 +98,48 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 		if (!(entityIn instanceof EntityPlayer))
 			return;
 
-		EntityPlayer player = (EntityPlayer) entityIn;
-		Range<Integer> range = getActiveSlotRange();
-		for (int i = range.getMinimum(); i <= range.getMaximum(); ++i) {
-			if (player.inventory.getStackInSlot(i) == stack) {
-				doEffect(player, stack);
-				break;
+		if (!isBaublesLoaded) {
+			EntityPlayer player = (EntityPlayer) entityIn;
+			Range<Integer> range = getActiveSlotRange();
+			for (int i = range.getMinimum(); i <= range.getMaximum(); ++i) {
+				if (player.inventory.getStackInSlot(i) == stack) {
+					doEffect(player, stack);
+
+					if (isModifier()) {
+						if (!hasModifier) {
+							applyModifier(player, stack);
+							hasModifier = true;
+						}
+					}
+
+					if (!hasEffect)
+						hasEffect = true;
+
+					break;
+				}
+
+				if (player.inventory.getStackInSlot(i) != stack && hasEffect) {
+					if (isModifier()) {
+						removeModifier(player, stack);
+						hasModifier = false;
+					}
+
+					hasEffect = false;
+					break;
+				}
 			}
 		}
 	}
 
+	public boolean isModifier() {
+		return false;
+	}
+
 	public abstract void doEffect(EntityLivingBase player, ItemStack item);
+
+	public abstract void applyModifier(EntityLivingBase player, ItemStack item);
+
+	public abstract void removeModifier(EntityLivingBase player, ItemStack item);
 
 	protected abstract Range<Integer> getActiveSlotRange();
 
@@ -110,6 +149,15 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 		if (player instanceof EntityPlayer && !player.world.isRemote) {
 			doEffect(player, itemstack);
 		}
+
+		if (isModifier()) {
+			if (player instanceof EntityPlayer && !player.world.isRemote) {
+				if (!hasModifier) {
+					applyModifier(player, itemstack);
+					hasModifier = true;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -118,6 +166,12 @@ public abstract class ItemAccessoryBauble extends ItemBase implements IBauble {
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+		if (isModifier()) {
+			if (player instanceof EntityPlayer && !player.world.isRemote) {
+				removeModifier(player, itemstack);
+				hasModifier = false;
+			}
+		}
 	}
 
 	@Override

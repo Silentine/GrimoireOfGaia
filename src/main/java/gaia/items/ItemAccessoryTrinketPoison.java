@@ -1,5 +1,12 @@
 package gaia.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.Range;
+import org.lwjgl.input.Keyboard;
+
 import baubles.api.BaubleType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -10,13 +17,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.Range;
-import org.lwjgl.input.Keyboard;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
+	
 	public ItemAccessoryTrinketPoison() {
 		super("accessory_trinket_poison");
 		setMaxStackSize(1);
@@ -24,7 +27,7 @@ public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.CHARM;
+		return BaubleType.BODY;
 	}
 
 	@Override
@@ -34,7 +37,10 @@ public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
 		tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.Trinket.tag")));
 
 		if (shiftPressed) {
-			tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.InventoryTrinket")));
+			if (!isBaublesLoaded) {
+				tooltip.add(TextFormatting.YELLOW + (I18n.format("text.grimoireofgaia.InventoryTrinket")));
+			}
+
 			tooltip.add(I18n.format("text.grimoireofgaia.InventoryImmunity") + " " + I18n.format("effect.poison"));
 		} else {
 			tooltip.add(TextFormatting.ITALIC + (I18n.format("text.grimoireofgaia.HoldShift")));
@@ -51,5 +57,13 @@ public class ItemAccessoryTrinketPoison extends ItemAccessoryBauble {
 		if (player.getActivePotionEffect(MobEffects.POISON) != null) {
 			player.removePotionEffect(MobEffects.POISON);
 		}
+	}
+	
+	@Override
+	public void applyModifier(EntityLivingBase player, ItemStack item) {
+	}
+
+	@Override
+	public void removeModifier(EntityLivingBase player, ItemStack item) {
 	}
 }

@@ -32,12 +32,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
@@ -45,11 +43,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 	private int buffEffect;
 	private boolean animationPlay;
 	private int animationTimer;
-
-	private boolean canSpawnLevel3;
-	private boolean spawned;
-	private int spawnLevel3;
-	private int spawnLevel3Chance;
 
 	public EntityGaiaDhampir(World worldIn) {
 		super(worldIn);
@@ -60,9 +53,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		buffEffect = 0;
 		animationPlay = false;
 		animationTimer = 0;
-
-		spawnLevel3 = 0;
-		spawnLevel3Chance = 0;
 	}
 
 	@Override
@@ -84,15 +74,9 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_2);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_2);
 	}
-
+	
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		if (damage > EntityAttributes.BASE_DEFENSE_2) {
-			if (canSpawnLevel3) {
-				spawnLevel3Chance += (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.05);
-			}
-		}
-
 		return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_2));
 	}
 
@@ -157,33 +141,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		}
 		/* BUFF */
 
-		/* LEVEL 3 SPAWN DATA */
-		if ((GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) && !canSpawnLevel3) {
-			canSpawnLevel3 = true;
-		}
-
-		if (canSpawnLevel3) {
-			if (getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.25F && getHealth() > 0.0F && !spawned) {
-
-				if (spawnLevel3Chance > (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5)) {
-					spawnLevel3Chance = (int) (GaiaConfig.SPAWN.spawnLevel3Chance * 0.5);
-				}
-
-				if ((rand.nextInt(GaiaConfig.SPAWN.spawnLevel3Chance - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
-					spawnLevel3 = 1;
-				}
-
-				spawned = true;
-			}
-		}
-
-		if (spawnLevel3 == 1) {
-			world.setEntityState(this, (byte) 10);
-
-			attackEntityFrom(DamageSource.GENERIC, EntityAttributes.MAX_HEALTH_2 * 0.01F);
-		}
-		/* LEVEL 3 SPAWN DATA */
-
 		super.onLivingUpdate();
 	}
 
@@ -211,19 +168,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 		world.setEntityState(this, (byte) 7);
 		addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * 60, 0));
 		addPotionEffect(new PotionEffect(MobEffects.HASTE, 20 * 60, 0));
-	}
-
-	private void setSpawn(byte id) {
-		EntityGaiaVampire vampire;
-
-		if (id == 1) {
-			explode();
-
-			vampire = new EntityGaiaVampire(world);
-			vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			vampire.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(vampire)), null);
-			world.spawnEntity(vampire);
-		}
 	}
 
 	private void setCombatTask() {
@@ -257,7 +201,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 	protected SoundEvent getDeathSound() {
 		return GaiaSounds.DHAMPIR_DEATH;
 	}
-	
+
 	@Nullable
 	protected ResourceLocation getLootTable() {
 		return GaiaLootTables.ENTITIES_GAIA_DHAMPIR;
@@ -302,11 +246,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MAID), 1);
 			}
 		}
-
-		// Boss
-		if (spawnLevel3 == 1) {
-			setSpawn((byte) 1);
-		}
 	}
 
 	@Override
@@ -315,10 +254,6 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
 		setEnchantmentBasedOnDifficulty(difficulty);
-
-		if (GaiaConfig.SPAWN.spawnLevel3 && (GaiaConfig.SPAWN.spawnLevel3Chance != 0)) {
-			canSpawnLevel3 = true;
-		}
 
 		setCombatTask();
 
@@ -345,7 +280,7 @@ public class EntityGaiaDhampir extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

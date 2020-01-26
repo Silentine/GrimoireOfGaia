@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation dwarfEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_dwarf03.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_dwarf03.png");
 	private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/dwarf01.png");
 	private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/Dwarf02.png");
 	private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/Dwarf03.png");
@@ -24,7 +24,7 @@ public class RenderGaiaDwarf extends RenderLiving<EntityLiving> {
 		super(renderManager, new ModelGaiaDwarf(), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
-		addLayer(new LayerGlowing(this, dwarfEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 	}
 
 	private ModelGaiaDwarf getModel() {

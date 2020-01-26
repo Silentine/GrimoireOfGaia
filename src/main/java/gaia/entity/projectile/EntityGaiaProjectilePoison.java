@@ -1,9 +1,6 @@
 package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
-import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.init.GaiaBlocks;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
@@ -14,7 +11,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -85,7 +81,7 @@ public class EntityGaiaProjectilePoison extends EntityFireball {
 		return false;
 	}
 
-	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaWerecat.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> Vuln = EntityDataManager.createKey(EntityGaiaProjectilePoison.class, DataSerializers.VARINT);
 
 	@Override
 	protected void entityInit() {

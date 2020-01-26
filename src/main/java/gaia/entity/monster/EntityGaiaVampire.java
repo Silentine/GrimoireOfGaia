@@ -47,7 +47,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaVampire extends EntityMobHostileBase {
 
 	private static final String CAN_SPAWN_TAG = "CanSpawn";
@@ -59,7 +58,6 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	private boolean canSpawn;
 	private boolean spawnOnDeath;
 
-	@SuppressWarnings("WeakerAccess") // used in reflection
 	public EntityGaiaVampire(World worldIn) {
 		super(worldIn);
 
@@ -98,12 +96,20 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
-		return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		if (isArmored()) {
+			return !(source instanceof EntityDamageSourceIndirect) && super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		} else {
+			return super.attackEntityFrom(source, Math.min(damage, EntityAttributes.BASE_DEFENSE_3));
+		}
 	}
-
+	
 	@Override
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		super.knockBack(xRatio, zRatio, EntityAttributes.KNOCKBACK_3);
+	}
+	
+	public boolean isArmored() {
+		return getHealth() <= this.getMaxHealth() / 2.0F;
 	}
 
 	@Override
@@ -142,8 +148,12 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.8D;
 		}
+		
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
 
-		if (world.isDaytime() && !world.isRemote) {
+		if (!world.isRemote && world.isDaytime()) {
 			float f = getBrightness();
 
 			if (f > 0.5F && rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(getPosition())) {
@@ -193,21 +203,20 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	private void setSpawn(byte id) {
-		EntityGaiaSummonButler butler;
-		EntityBat bat;
-
 		if (id == 0) {
-			butler = new EntityGaiaSummonButler(world);
-			butler.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			butler.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(butler)), null);
-			world.spawnEntity(butler);
+			BlockPos blockpos = (new BlockPos(EntityGaiaVampire.this)).add(-1 + EntityGaiaVampire.this.rand.nextInt(3), 1, -1 + EntityGaiaVampire.this.rand.nextInt(3));
+			EntityGaiaIllagerButler entitySpawn = new EntityGaiaIllagerButler(EntityGaiaVampire.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaVampire.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaVampire.this.world.spawnEntity(entitySpawn);
 		}
 
 		if (id == 1) {
-			bat = new EntityBat(world);
-			bat.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
-			bat.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(bat)), null);
-			world.spawnEntity(bat);
+			BlockPos blockpos = (new BlockPos(EntityGaiaVampire.this)).add(1, 2, 1);
+			EntityBat entitySpawn = new EntityBat(EntityGaiaVampire.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaVampire.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaVampire.this.world.spawnEntity(entitySpawn);
 		}
 	}
 
@@ -318,6 +327,10 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	}
 
 	/* IMMUNITIES */
+	protected boolean canTriggerWalking() {
+		return false;
+	}
+
 	@Override
 	public boolean canBreatheUnderwater() {
 		return true;
@@ -346,9 +359,9 @@ public class EntityGaiaVampire extends EntityMobHostileBase {
 	@Override
 	public boolean getCanSpawnHere() {
 		if (GaiaConfig.SPAWN.spawnLevel3Rain) {
-			return posY > 60.0D && world.isRaining() && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && world.isRaining() && super.getCanSpawnHere();
 		} else {
-			return posY > 60.0D && super.getCanSpawnHere();
+			return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 		}
 	}
 	/* SPAWN CONDITIONS */

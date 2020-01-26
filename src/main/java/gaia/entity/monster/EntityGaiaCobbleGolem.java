@@ -39,7 +39,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 
 	private int attackTimer;
@@ -71,6 +70,7 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
+		
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
 	}
 
@@ -138,6 +138,10 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+		
 		if (attackTimer > 0) {
 			--attackTimer;
 		}
@@ -240,7 +244,7 @@ public class EntityGaiaCobbleGolem extends EntityMobAssistDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

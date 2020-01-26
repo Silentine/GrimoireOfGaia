@@ -2,6 +2,8 @@ package gaia.init;
 
 import gaia.Gaia;
 import gaia.GaiaReference;
+import gaia.delete.ItemFoodCoalfish;
+import gaia.delete.ItemSpawnTame;
 import gaia.entity.passive.EntityGaiaNPCCreeperGirl;
 import gaia.entity.passive.EntityGaiaNPCEnderGirl;
 import gaia.entity.passive.EntityGaiaNPCHolstaurus;
@@ -10,12 +12,14 @@ import gaia.entity.passive.EntityGaiaNPCTrader;
 import gaia.entity.passive.EntityGaiaNPCWeresheep;
 import gaia.items.ItemAccessoryCursed;
 import gaia.items.ItemAccessoryHeadgear;
+import gaia.items.ItemAccessoryCharmDamageIron;
 import gaia.items.ItemAccessoryRingHaste;
 import gaia.items.ItemAccessoryRingJump;
 import gaia.items.ItemAccessoryRingNight;
 import gaia.items.ItemAccessoryRingSpeed;
 import gaia.items.ItemAccessoryTrinketLevitation;
 import gaia.items.ItemAccessoryTrinketPoison;
+import gaia.items.ItemAccessoryTrinketWaterBreathing;
 import gaia.items.ItemAccessoryTrinketWither;
 import gaia.items.ItemBagArrow;
 import gaia.items.ItemBagBook;
@@ -29,7 +33,6 @@ import gaia.items.ItemBoxIron;
 import gaia.items.ItemBoxOld;
 import gaia.items.ItemChest;
 import gaia.items.ItemFoodBase;
-import gaia.items.ItemFoodCoalfish;
 import gaia.items.ItemFoodHoney;
 import gaia.items.ItemFoodMandrake;
 import gaia.items.ItemFoodMonsterFeed;
@@ -74,8 +77,6 @@ import gaia.items.ItemWeaponProp;
 import gaia.items.ItemWeaponPropEnchanted;
 import gaia.items.ItemWeaponPropItemSword;
 import gaia.items.ItemWeaponPropProjectile;
-import gaia.items.debug.ItemDebugWeapon;
-import gaia.items.delete.ItemSpawnTame;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -91,7 +92,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @GameRegistry.ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
-	@SuppressWarnings("WeakerAccess") // needs to be public static final for ObjectHolder code to work
 	// A
 	public static final Item ACCESSORY_CURSED = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR = Items.AIR;
@@ -100,12 +100,14 @@ public class GaiaItems {
 	public static final Item ACCESSORY_HEADGEAR_BOLT = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR_DOLL = Items.AIR;
 	public static final Item ACCESSORY_HEADGEAR_EARS_ELF = Items.AIR;
+	public static final Item ACCESSORY_CHARM_DAMAGE_IRON = Items.AIR;
 	public static final Item ACCESSORY_RING_HASTE = Items.AIR;
 	public static final Item ACCESSORY_RING_JUMP = Items.AIR;
 	public static final Item ACCESSORY_RING_NIGHT = Items.AIR;
 	public static final Item ACCESSORY_RING_SPEED = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_LEVITATION = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_POISON = Items.AIR;
+	public static final Item ACCESSORY_TRINKET_WATER_BREATHING = Items.AIR;
 	public static final Item ACCESSORY_TRINKET_WITHER = Items.AIR;
 	// B
 	public static final Item BOX = Items.AIR;
@@ -141,11 +143,13 @@ public class GaiaItems {
 	// M
 	public static final Item MISC_BOOK = Items.AIR;
 	public static final Item MISC_CURRENCY = Items.AIR;
+	public static final Item MISC_ELYTRA  = Items.AIR;
 	public static final Item MISC_EXPERIENCE = Items.AIR;
 	public static final Item MISC_FUR = Items.AIR;
 	public static final Item MISC_FURNACE_FUEL = Items.AIR;
 	public static final Item MISC_GIGA_GEAR = Items.AIR;
 	public static final Item MISC_QUILL = Items.AIR;
+	public static final Item MISC_PEARL = Items.AIR;
 	public static final Item MISC_RING = Items.AIR;
 	public static final Item MISC_SOUL_FIRE = Items.AIR;
 	public static final Item MISC_SOUL_FIERY = Items.AIR;
@@ -182,6 +186,7 @@ public class GaiaItems {
 	public static final Item WEAPON_PROP_ENCHANTED = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE_BUBBLE = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE_MAGIC = Items.AIR;
+	public static final Item WEAPON_PROP_PROJECTILE_MAGIC_RANDOM = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE_POISON = Items.AIR;
 	public static final Item WEAPON_PROP_PROJECTILE_WEB = Items.AIR;
 	public static final Item WEAPON_PROP_SWORD_WOOD = Items.AIR;
@@ -203,7 +208,6 @@ public class GaiaItems {
 	}
 
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
-	@SuppressWarnings("unused")
 	public static class RegistrationHandler {
 
 		private RegistrationHandler() {
@@ -236,10 +240,12 @@ public class GaiaItems {
 			registry.register(new ItemMiscSoulFire());
 			registry.register(new ItemMiscSoulFiery());
 			registry.register(new ItemMiscGigaGear());
-			registry.register(new ItemBase("misc_fur"));
 			registry.register(new ItemMiscExperience());
 			registry.register(new ItemMiscBook());
+			registry.register(new ItemBase("misc_fur"));
 			registry.register(new ItemBase("misc_quill"));
+			registry.register(new ItemBase("misc_pearl"));
+			registry.register(new ItemBase("misc_elytra"));
 			registry.register(new ItemMiscRing());
 			registry.register(new ItemMiscFurnaceFuel());
 			registry.register(new ItemMiscCurrency());
@@ -264,6 +270,7 @@ public class GaiaItems {
 			registry.register(new ItemWeaponProp());
 			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_bubble"));
 			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_magic"));
+			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_magic_random"));
 			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_poison"));
 			registry.register(new ItemWeaponPropProjectile("weapon_prop_projectile_web"));
 			registry.register(new ItemWeaponPropEnchanted());
@@ -282,14 +289,16 @@ public class GaiaItems {
 			registry.register(new ItemWeaponBookWither(MATERIAL_BOOK, "weapon_book_wither"));
 			registry.register(new ItemWeaponBookBuff("weapon_book_buff"));
 			registry.register(new ItemWeaponProjectileBomb("weapon_projectile_bomb"));
-			registry.register(new ItemAccessoryRingSpeed());
+			registry.register(new ItemAccessoryCursed());
+			registry.register(new ItemAccessoryCharmDamageIron());
 			registry.register(new ItemAccessoryRingHaste());
 			registry.register(new ItemAccessoryRingJump());
 			registry.register(new ItemAccessoryRingNight());
-			registry.register(new ItemAccessoryTrinketPoison());
-			registry.register(new ItemAccessoryTrinketWither());
+			registry.register(new ItemAccessoryRingSpeed());
 			registry.register(new ItemAccessoryTrinketLevitation());
-			registry.register(new ItemAccessoryCursed());
+			registry.register(new ItemAccessoryTrinketPoison());
+			registry.register(new ItemAccessoryTrinketWaterBreathing());
+			registry.register(new ItemAccessoryTrinketWither());
 			registry.register(new ItemAccessoryHeadgear("accessory_headgear"));
 			registry.register(new ItemAccessoryHeadgear("accessory_headgear_mob"));
 			registry.register(new ItemAccessoryHeadgear("accessory_headgear_bolt"));

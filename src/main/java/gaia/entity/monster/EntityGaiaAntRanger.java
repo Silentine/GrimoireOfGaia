@@ -45,7 +45,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> HIDDING = EntityDataManager.<Boolean>createKey(EntityGaiaAntRanger.class, DataSerializers.BOOLEAN);
@@ -135,6 +134,10 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+
 		if (ticksExisted % 60 == 0 && !canHide) {
 			canHide = true;
 		}
@@ -353,7 +356,7 @@ public class EntityGaiaAntRanger extends EntityMobHostileDay implements IRangedA
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

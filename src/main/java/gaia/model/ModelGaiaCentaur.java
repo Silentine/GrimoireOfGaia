@@ -142,65 +142,65 @@ public class ModelGaiaCentaur extends ModelGaia {
 		front.setRotationPoint(0F, -6F, -7F);
 		setRotation(front, -0.0872665F, 0F, 0F);
 		body1 = new ModelRenderer(this, 64, 11);
-		body1.addBox(-4F, 14F, 0F, 8, 9, 9);
-		body1.setRotationPoint(0F, -10F, -8F);
-		setRotation(body1, -0.0872665F, 0F, 0F);
+		body1.addBox(-4F, -1F, -2F, 8, 9, 9);
+		body1.setRotationPoint(0F, 5F, -7.5F);
+		setRotation(body1, 0F, 0F, 0F);
 		body2 = new ModelRenderer(this, 64, 29);
-		body2.addBox(-3.5F, 15.5F, 5F, 7, 8, 12);
-		body2.setRotationPoint(0F, -10F, -8F);
-		setRotation(body2, 0.0872665F, 0F, 0F);
+		body2.addBox(-3.5F, -0.5F, -2F, 7, 8, 12);
+		body2.setRotationPoint(0F, 4.5F, -0.5F);
+		setRotation(body2, 0F, 0F, 0F);
 		rightlegupper = new ModelRenderer(this, 106, 0);
 		rightlegupper.addBox(-1.466667F, -1.5F, -1.5F, 3, 8, 3);
 		rightlegupper.setRotationPoint(-4F, 9F, -7F);
-		setRotation(rightlegupper, 0F, 0F, -0.0872665F);
+		setRotation(rightlegupper, 0F, 0F, 0F);
 		leftlegupper = new ModelRenderer(this, 106, 0);
 		leftlegupper.addBox(-1.466667F, -1.5F, -1.5F, 3, 8, 3);
 		leftlegupper.setRotationPoint(4F, 9F, -7F);
-		setRotation(leftlegupper, 0F, 0F, 0.0872665F);
+		setRotation(leftlegupper, 0F, 0F, 0F);
 		rightlegbracelet = new ModelRenderer(this, 106, 11);
 		rightlegbracelet.addBox(-1.5F, 10.5F, -1F, 3, 2, 3);
 		rightlegbracelet.setRotationPoint(-4F, 9F, -7F);
-		setRotation(rightlegbracelet, 0F, 0F, -0.0872665F);
+		setRotation(rightlegbracelet, 0F, 0F, 0F);
 		leftlegbracelet = new ModelRenderer(this, 106, 11);
 		leftlegbracelet.addBox(-1.5F, 10.5F, -1F, 3, 2, 3);
 		leftlegbracelet.setRotationPoint(4F, 9F, -7F);
-		setRotation(leftlegbracelet, 0F, 0F, 0.0872665F);
+		setRotation(leftlegbracelet, 0F, 0F, 0F);
 		rightleglower = new ModelRenderer(this, 106, 16);
 		rightleglower.addBox(-1F, 6.5F, -0.5F, 2, 8, 2);
 		rightleglower.setRotationPoint(-4F, 9F, -7F);
-		setRotation(rightleglower, 0F, 0F, -0.0872665F);
+		setRotation(rightleglower, 0F, 0F, 0F);
 		leftleglower = new ModelRenderer(this, 106, 16);
 		leftleglower.addBox(-1F, 6.5F, -0.5F, 2, 8, 2);
 		leftleglower.setRotationPoint(4F, 9F, -7F);
-		setRotation(leftleglower, 0F, 0F, 0.0872665F);
+		setRotation(leftleglower, 0F, 0F, 0F);
 		rightlegback1 = new ModelRenderer(this, 106, 26);
 		rightlegback1.addBox(-0.5F, -2.5F, -1.5F, 3, 8, 6);
-		rightlegback1.setRotationPoint(-4F, 7F, 7F);
-		setRotation(rightlegback1, -0.296706F, 0F, -0.0872665F);
+		rightlegback1.setRotationPoint(-4F, 7F, 6F);
+		setRotation(rightlegback1, 0F, 0F, 0F);
 		leftlegback1 = new ModelRenderer(this, 106, 26);
 		leftlegback1.addBox(-2.5F, -2.5F, -1.5F, 3, 8, 6);
-		leftlegback1.setRotationPoint(4F, 7F, 7F);
-		setRotation(leftlegback1, -0.296706F, 0F, 0.0872665F);
+		leftlegback1.setRotationPoint(4F, 7F, 6F);
+		setRotation(leftlegback1, 0F, 0F, 0F);
 		rightlegback2 = new ModelRenderer(this, 106, 40);
-		rightlegback2.addBox(-1.5F, 2F, 2.5F, 3, 3, 6);
-		rightlegback2.setRotationPoint(-4F, 7F, 7F);
-		setRotation(rightlegback2, -1.047198F, 0F, -0.0872665F);
+		rightlegback2.addBox(-1.5F, 0F, 0F, 3, 6, 3);
+		rightlegback2.setRotationPoint(-3.5F, 12.5F, 4.5F);
+		setRotation(rightlegback2, 0F, 0F, 0F);
 		leftlegback2 = new ModelRenderer(this, 106, 40);
-		leftlegback2.addBox(-1.5F, 2F, 2.5F, 3, 3, 6);
-		leftlegback2.setRotationPoint(4F, 7F, 7F);
-		setRotation(leftlegback2, -1.047198F, 0F, 0.0872665F);
+		leftlegback2.addBox(-1.5F, 0F, 0F, 3, 6, 3);
+		leftlegback2.setRotationPoint(3.5F, 12.5F, 4.5F);
+		setRotation(leftlegback2, 0F, 0F, 0F);
 		rightlegback3 = new ModelRenderer(this, 106, 49);
-		rightlegback3.addBox(-1F, 8F, 1.5F, 2, 8, 2);
-		rightlegback3.setRotationPoint(-4F, 7F, 7F);
-		setRotation(rightlegback3, -0.122173F, 0F, -0.0872665F);
+		rightlegback3.addBox(-1F, 0F, -2F, 2, 7, 2);
+		rightlegback3.setRotationPoint(-3.5F, 18.5F, 7.5F);
+		setRotation(rightlegback3, 0F, 0F, 0F);
 		leftlegback3 = new ModelRenderer(this, 106, 49);
-		leftlegback3.addBox(-1F, 8F, 1.5F, 2, 8, 2);
-		leftlegback3.setRotationPoint(4F, 7F, 7F);
-		setRotation(leftlegback3, -0.122173F, 0F, 0.0872665F);
+		leftlegback3.addBox(-1F, 0F, -2F, 2, 7, 2);
+		leftlegback3.setRotationPoint(3.5F, 18.5F, 7.5F);
+		setRotation(leftlegback3, 0F, 0F, 0F);
 		tail = new ModelRenderer(this, 106, 51);
 		tail.addBox(-1F, -1F, -0.5F, 2, 2, 8);
 		tail.setRotationPoint(0F, 6F, 10F);
-		setRotation(tail, -1.047198F, 0F, 0F);
+		setRotation(tail, 0F, 0F, 0F);
 
 		convertToChild(head, rightear);
 		convertToChild(head, leftear);
@@ -210,10 +210,14 @@ public class ModelGaiaCentaur extends ModelGaia {
 		convertToChild(rightlegupper, rightleglower);
 		convertToChild(leftlegupper, leftlegbracelet);
 		convertToChild(leftlegupper, leftleglower);
+		convertToChild(rightlegback2, rightlegback3);
 		convertToChild(rightlegback1, rightlegback2);
-		convertToChild(rightlegback1, rightlegback3);
+		convertToChild(leftlegback2, leftlegback3);
 		convertToChild(leftlegback1, leftlegback2);
-		convertToChild(leftlegback1, leftlegback3);
+		convertToChild(body2, tail);
+		convertToChild(body2, rightlegback1);
+		convertToChild(body2, leftlegback1);
+		convertToChild(body1, body2);
 	}
 
 	@Override
@@ -237,12 +241,8 @@ public class ModelGaiaCentaur extends ModelGaia {
 		hair2.render(scale);
 		front.render(scale);
 		body1.render(scale);
-		body2.render(scale);
 		rightlegupper.render(scale);
 		leftlegupper.render(scale);
-		rightlegback1.render(scale);
-		leftlegback1.render(scale);
-		tail.render(scale);
 
 		if (entityIn.ticksExisted % 60 == 0 && ageInTicks <= 0.1F) {
 			headeyes.render(scale);
@@ -297,15 +297,39 @@ public class ModelGaiaCentaur extends ModelGaia {
 		leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
+		body1.rotateAngleX = -degToRad(5);
+		body2.rotateAngleX = degToRad(10);
 		tail.rotateAngleY = MathHelper.cos(degToRad((float) entityIn.ticksExisted * 7)) * degToRad(10);
+		tail.rotateAngleX = -degToRad(45);
 
 		// legs
+		rightlegupper.rotateAngleZ = -degToRad(5);
 		rightlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.7862F) * 0.8F * limbSwingAmount;
+		leftlegupper.rotateAngleZ = degToRad(5);
 		leftlegupper.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+
+		rightlegback1.rotateAngleZ = -degToRad(5);
 		rightlegback1.rotateAngleX = MathHelper.cos(limbSwing * 0.7662F + (float) Math.PI) * 0.8F * limbSwingAmount;
 		rightlegback1.rotateAngleX -= 0.296706F;
+		leftlegback1.rotateAngleZ = degToRad(5);
 		leftlegback1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
 		leftlegback1.rotateAngleX -= 0.296706F;
+		rightlegback2.rotateAngleX = degToRad(30);
+		leftlegback2.rotateAngleX = rightlegback2.rotateAngleX;
+		rightlegback3.rotateAngleX = -degToRad(18);
+		leftlegback3.rotateAngleX = rightlegback3.rotateAngleX;
+		
+		if (isRiding) {
+			body1.rotateAngleX = -degToRad(20);
+			body2.rotateAngleX = -degToRad(45);
+			tail.rotateAngleX = degToRad(65);
+			rightlegback1.rotateAngleZ = degToRad(25);
+			leftlegback1.rotateAngleZ = -rightlegback1.rotateAngleZ;
+			rightlegupper.rotateAngleX = -degToRad(25);
+			leftlegupper.rotateAngleX = rightlegupper.rotateAngleX;
+			rightlegback1.rotateAngleX = -degToRad(20);
+			leftlegback1.rotateAngleX = rightlegback1.rotateAngleX;
+		}
 	}
 
 	private void holdingBow(float ageInTicks) {

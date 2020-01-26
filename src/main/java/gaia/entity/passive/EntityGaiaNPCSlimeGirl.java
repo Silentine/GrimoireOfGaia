@@ -11,7 +11,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 
 	public EntityGaiaNPCSlimeGirl(World worldIn) {
@@ -44,21 +43,21 @@ public class EntityGaiaNPCSlimeGirl extends EntityMobMerchant {
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
 
 		// Buy List
-		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.BONE, 2, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.ROTTEN_FLESH, 4, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.GUNPOWDER, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.SPIDER_EYE, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), new ItemStack(Items.STRING, 2, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.BONE, 2, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.ROTTEN_FLESH, 4, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.GUNPOWDER, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.SPIDER_EYE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SLIME_BALL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.STRING, 2, 0)));
 
 		// Sell List
-		recipes.add(new GaiaTrade(new ItemStack(Items.BONE, 4, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.ENDER_PEARL, 1, 0), new ItemStack(Items.SLIME_BALL, 2, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.GUNPOWDER, 2, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.ROTTEN_FLESH, 6, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.STRING, 4, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SPIDER_EYE, 2, 0), new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.BONE, 4, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.ENDER_PEARL, 1, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 2, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.GUNPOWDER, 2, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.ROTTEN_FLESH, 6, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.STRING, 4, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SPIDER_EYE, 2, 0), ItemStack.EMPTY, new ItemStack(Items.SLIME_BALL, 1, 0)));
 	}
 }

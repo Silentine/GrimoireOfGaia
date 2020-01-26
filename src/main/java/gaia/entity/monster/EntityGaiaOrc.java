@@ -46,7 +46,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttackMob {
 	private static final String MOB_TYPE_TAG = "MobType";
 
@@ -494,7 +493,7 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

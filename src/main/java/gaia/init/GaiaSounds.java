@@ -43,6 +43,9 @@ public class GaiaSounds {
 	public static final SoundEvent ANUBIS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANUBIS_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ANUBIS_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANUBIS_MALE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANUBIS_MALE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent ANUBIS_MALE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent ARACHNE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent ARACHNE_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -59,6 +62,10 @@ public class GaiaSounds {
 	public static final SoundEvent BEE_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BEE_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent BEE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent BEHOLDER_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BEHOLDER_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent BEHOLDER_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 	// C
 	public static final SoundEvent CECAELIA_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CECAELIA_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -67,6 +74,9 @@ public class GaiaSounds {
 	public static final SoundEvent CENTAUR_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CENTAUR_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CENTAUR_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent CENTAUR_MALE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent CENTAUR_MALE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent CENTAUR_MALE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent CYCLOPS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent CYCLOPS_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -91,6 +101,10 @@ public class GaiaSounds {
 	public static final SoundEvent GOBLIN_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent GOBLIN_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent GOBLIN_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent GORGON_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent GORGON_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent GORGON_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent GRYPHON_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent GRYPHON_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -99,6 +113,10 @@ public class GaiaSounds {
 	public static final SoundEvent HARPY_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HARPY_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HARPY_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
+	public static final SoundEvent HARPY_WIZARD_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent HARPY_WIZARD_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent HARPY_WIZARD_DEATH = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent HUNTER_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent HUNTER_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -115,6 +133,7 @@ public class GaiaSounds {
 	public static final SoundEvent MANDRAGORA_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent MANDRAGORA_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent MANDRAGORA_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent MANDRAGORA_SCREAM = SoundEvents.BLOCK_GRASS_STEP;
 
 	public static final SoundEvent MATANGO_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent MATANGO_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -187,6 +206,10 @@ public class GaiaSounds {
 	public static final SoundEvent SUCCUBUS_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SUCCUBUS_HURT = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent SUCCUBUS_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent SUCCUBUS_MALE_SAY = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent SUCCUBUS_MALE_HURT = SoundEvents.BLOCK_GRASS_STEP;
+	public static final SoundEvent SUCCUBUS_MALE_DEATH = SoundEvents.BLOCK_GRASS_STEP;
+	
 	// T
 	public static final SoundEvent TOAD_SAY = SoundEvents.BLOCK_GRASS_STEP;
 	public static final SoundEvent TOAD_HURT = SoundEvents.BLOCK_GRASS_STEP;
@@ -253,7 +276,6 @@ public class GaiaSounds {
 
 	public static final SoundEvent NONE = SoundEvents.BLOCK_GRASS_STEP;
 
-	@SuppressWarnings({"unused", "squid:S1118"}) //used in registration reflection
 	@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID)
 	public static class RegistrationHandler {
 
@@ -266,17 +288,17 @@ public class GaiaSounds {
 					// GENERAL
 					"passive", "assist", "aggressive", "debug",
 					// SPECIFIC
-					"ant", "ant_ranger", "anubis", "arachne", 
-					"banshee", "baphomet", "bee", 
-					"cecaelia", "centaur", "cyclops", 
+					"ant", "ant_ranger", "anubis", "anubis_male", "arachne", 
+					"banshee", "baphomet", "bee", "beholder", 
+					"cecaelia", "centaur", "centaur_male", "cyclops", 
 					"dhampir", "dryad", "dullahan", "dwarf",
-					"goblin", "gryphon", 
-					"harpy", "hunter", 
+					"goblin", "gorgon", "gryphon",
+					"harpy", "harpy_wizard", "hunter", 
 					"kikimora", "kobold", 
 					"mandragora", "matango", "mermaid", "minotaur", "minotaurus", "mummy", 
 					"naga", "ninetails", 
 					"oni", "orc", 
-					"satyress", "selkie",  "shaman", "sharko", "siren", "sludgegirl", "sphinx", "spriggan", "succubus",
+					"satyress", "selkie",  "shaman", "sharko", "siren", "sludgegirl", "sphinx", "spriggan", "succubus", "succubus_male",
 					"toad", 
 					"valkyrie", "vampire", 
 					"werecat", "witch", 
@@ -295,6 +317,8 @@ public class GaiaSounds {
 			
 			//Register misc sounds
 			event.getRegistry().registerAll(
+					//  SPECIFIC
+					createSoundEvent("mandragora_scream"),
 					// 	GENERIC
 					createSoundEvent("step_sandals"),
 					createSoundEvent("step_webbed"),

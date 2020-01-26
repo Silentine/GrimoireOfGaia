@@ -5,6 +5,7 @@ import gaia.entity.GaiaTrade;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -12,7 +13,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 
 	public EntityGaiaNPCHolstaurus(World worldIn) {
@@ -45,20 +45,26 @@ public class EntityGaiaNPCHolstaurus extends EntityMobMerchant {
 
 	@Override
 	public void addRecipies(MerchantRecipeList recipes) {
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		
+		// Unique
+		ItemStack iron_hoe = new ItemStack(Items.IRON_HOE);
+		ItemStack iron_hoe_enchanted = new ItemStack(Items.IRON_HOE);
+		iron_hoe_enchanted.addEnchantment(Enchantments.UNBREAKING, 2);
 
 		// Buy List
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2), new ItemStack(Items.WHEAT_SEEDS, 8, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2), new ItemStack(Items.PUMPKIN_SEEDS, 16, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 2), new ItemStack(Items.MELON_SEEDS, 16, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 16, 2), new ItemStack(Items.CAKE, 1, 0)));
-		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 8, 2), new ItemStack(Items.PUMPKIN_PIE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2), ItemStack.EMPTY, new ItemStack(Items.WHEAT_SEEDS, 8, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2), ItemStack.EMPTY, new ItemStack(Items.PUMPKIN_SEEDS, 16, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 2, 2), ItemStack.EMPTY, new ItemStack(Items.MELON_SEEDS, 16, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 16, 2), ItemStack.EMPTY, new ItemStack(Items.CAKE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 8, 2), ItemStack.EMPTY, new ItemStack(Items.PUMPKIN_PIE, 1, 0)));
+		recipes.add(new GaiaTrade(new ItemStack(GaiaItems.MISC_CURRENCY, 32, 2), iron_hoe, iron_hoe_enchanted));
 
 		// Sell List
-		recipes.add(new GaiaTrade(new ItemStack(Items.WHEAT, 8, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
-		recipes.add(new GaiaTrade(new ItemStack(Blocks.PUMPKIN, 2, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
-		recipes.add(new GaiaTrade(new ItemStack(Blocks.MELON_BLOCK, 1, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 2, 2)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.EGG, 8, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
-		recipes.add(new GaiaTrade(new ItemStack(Items.SUGAR, 16, 0), new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.WHEAT, 8, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Blocks.PUMPKIN, 2, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Blocks.MELON_BLOCK, 1, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 2, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.EGG, 8, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
+		recipes.add(new GaiaTrade(new ItemStack(Items.SUGAR, 16, 0), ItemStack.EMPTY, new ItemStack(GaiaItems.MISC_CURRENCY, 1, 2)));
 	}
 }

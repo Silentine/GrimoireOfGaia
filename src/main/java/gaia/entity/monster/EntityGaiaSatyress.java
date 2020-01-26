@@ -46,7 +46,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSatyress extends EntityMobAssistDay {
 	private static final String MOB_TYPE_TAG = "MobType";
 	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaSatyress.class, DataSerializers.VARINT);
@@ -317,7 +316,7 @@ public class EntityGaiaSatyress extends EntityMobAssistDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

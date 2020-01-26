@@ -1,14 +1,15 @@
 package gaia.entity.monster;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistBase;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.items.ItemShard;
@@ -43,12 +44,10 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 
 /**
  * @see EntityEnderman
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 
 	private static final UUID ATTACKING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
@@ -152,7 +151,6 @@ public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 	/**
 	 * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
 	 */
-	@Override
 	public void onLivingUpdate() {
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
@@ -180,6 +178,24 @@ public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 		}
 
 		super.updateAITasks();
+	}
+
+	/**
+	 * Checks to see if this enderman should be attacking this player
+	 */
+	private boolean shouldAttackPlayer(EntityPlayer player) {
+		ItemStack itemstack = player.inventory.armorInventory.get(3);
+
+		if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+			return false;
+		} else {
+			Vec3d vec3d = player.getLook(1.0F).normalize();
+			Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()), this.posZ - player.posZ);
+			double d0 = vec3d1.lengthVector();
+			vec3d1 = vec3d1.normalize();
+			double d1 = vec3d.dotProduct(vec3d1);
+			return d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(this) : false;
+		}
 	}
 
 	/**
@@ -276,17 +292,98 @@ public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 				}
 			}
 
-			// Unique Rare
-			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
-			}
-
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
 			}
 
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-				dropItem(Items.ELYTRA, 1);
+				dropItem(GaiaItems.MISC_ELYTRA, 1);
+			}
+		}
+	}
+
+	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
+
+		private EntityGaiaEnderDragonGirl enderman;
+		/** The player */
+		private EntityPlayer player;
+		private int aggroTime;
+		private int teleportTime;
+
+		AIFindPlayer(EntityGaiaEnderDragonGirl enderDragonGirl) {
+			super(enderDragonGirl, EntityPlayer.class, true);
+			enderman = enderDragonGirl;
+		}
+
+		/**
+		 * Returns whether the EntityAIBase should begin execution.
+		 */
+		public boolean shouldExecute() {
+			double d0 = this.getTargetDistance();
+			this.player = this.enderman.world.getNearestAttackablePlayer(this.enderman.posX, this.enderman.posY, this.enderman.posZ, d0, d0, (Function) null, new Predicate<EntityPlayer>() {
+				public boolean apply(@Nullable EntityPlayer p_apply_1_) {
+					return p_apply_1_ != null && AIFindPlayer.this.enderman.shouldAttackPlayer(p_apply_1_);
+				}
+			});
+			return this.player != null;
+		}
+
+		/**
+		 * Execute a one shot task or start executing a continuous task
+		 */
+		public void startExecuting() {
+			this.aggroTime = 5;
+			this.teleportTime = 0;
+		}
+
+		/**
+		 * Reset the task's internal state. Called when this task is interrupted by another one
+		 */
+		public void resetTask() {
+			this.player = null;
+			super.resetTask();
+		}
+
+		/**
+		 * Returns whether an in-progress EntityAIBase should continue executing
+		 */
+		public boolean shouldContinueExecuting() {
+			if (this.player != null) {
+				if (!this.enderman.shouldAttackPlayer(this.player)) {
+					return false;
+				} else {
+					this.enderman.faceEntity(this.player, 10.0F, 10.0F);
+					return true;
+				}
+			} else {
+				return this.targetEntity != null && ((EntityPlayer) this.targetEntity).isEntityAlive() ? true : super.shouldContinueExecuting();
+			}
+		}
+
+		/**
+		 * Keep ticking a continuous task that has already been started
+		 */
+		public void updateTask() {
+			if (this.player != null) {
+				if (--this.aggroTime <= 0) {
+					this.targetEntity = this.player;
+					this.player = null;
+					super.startExecuting();
+				}
+			} else {
+				if (this.targetEntity != null) {
+					if (this.enderman.shouldAttackPlayer((EntityPlayer) this.targetEntity)) {
+						if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) < 16.0D) {
+							this.enderman.teleportRandomly();
+						}
+
+						this.teleportTime = 0;
+					} else if (((EntityPlayer) this.targetEntity).getDistanceSq(this.enderman) > 256.0D && this.teleportTime++ >= 30 && this.enderman.teleportToEntity(this.targetEntity)) {
+						this.teleportTime = 0;
+					}
+				}
+
+				super.updateTask();
 			}
 		}
 	}
@@ -301,115 +398,10 @@ public class EntityGaiaEnderDragonGirl extends EntityMobAssistBase {
 	}
 	/* IMMUNITIES */
 
-	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
-
-		/**
-		 * The player
-		 */
-		private EntityGaiaEnderDragonGirl enderman;
-		private EntityPlayer player;
-		private int aggroTime;
-		private int teleportTime;
-
-		AIFindPlayer(EntityGaiaEnderDragonGirl enderDragonGirl) {
-			super(enderDragonGirl, EntityPlayer.class, true);
-			enderman = enderDragonGirl;
-		}
-
-		/**
-		 * Returns whether the EntityAIBase should begin execution.
-		 */
-		@Override
-		public boolean shouldExecute() {
-			double d0 = getTargetDistance();
-			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, null, p -> p != null && shouldAttackPlayer(p));
-			return player != null;
-		}
-
-		/**
-		 * Execute a one shot task or start executing a continuous task
-		 */
-		@Override
-		public void startExecuting() {
-			aggroTime = 5;
-			teleportTime = 0;
-		}
-
-		/**
-		 * Resets the task
-		 */
-		@Override
-		public void resetTask() {
-			player = null;
-			super.resetTask();
-		}
-
-		/**
-		 * Returns whether an in-progress EntityAIBase should continue executing
-		 */
-		@Override
-		public boolean shouldContinueExecuting() {
-			if (player != null) {
-				if (!shouldAttackPlayer(player)) {
-					return false;
-				} else {
-					enderman.faceEntity(player, 10.0F, 10.0F);
-					return true;
-				}
-			} else {
-				return targetEntity != null && targetEntity.isEntityAlive() || super.shouldContinueExecuting();
-			}
-		}
-
-		/**
-		 * Updates the task
-		 */
-		@Override
-		public void updateTask() {
-			if (player != null) {
-				if (--aggroTime <= 0) {
-					targetEntity = player;
-					player = null;
-					super.startExecuting();
-				}
-			} else {
-				if (targetEntity != null) {
-					if (shouldAttackPlayer(targetEntity)) {
-						if (targetEntity.getDistanceSq(enderman) < 16.0D) {
-							enderman.teleportRandomly();
-						}
-
-						teleportTime = 0;
-					} else if (targetEntity.getDistanceSq(enderman) > 256.0D && teleportTime++ >= 30 && enderman.teleportToEntity(targetEntity)) {
-						teleportTime = 0;
-					}
-				}
-
-				super.updateTask();
-			}
-		}
-
-		/**
-		 * Checks to see if this enderman should be attacking this player
-		 */
-		private boolean shouldAttackPlayer(EntityPlayer player) {
-			ItemStack itemstack = player.inventory.armorInventory.get(0);
-
-			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-				return false;
-			} else {
-				Vec3d vec3d = player.getLook(1.0F).normalize();
-				Vec3d vec3d1 = new Vec3d(enderman.posX - player.posX, enderman.getEntityBoundingBox().minY + enderman.getEyeHeight() - (player.posY + player.getEyeHeight()), enderman.posZ - player.posZ);
-				double d0 = vec3d1.lengthVector();
-				vec3d1 = vec3d1.normalize();
-				double d1 = vec3d.dotProduct(vec3d1);
-				return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(enderman);
-			}
-		}
-	}
-
+	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return EntityAttributes.CHUNK_LIMIT_2;
 	}
+	/* SPAWN CONDITIONS */
 }

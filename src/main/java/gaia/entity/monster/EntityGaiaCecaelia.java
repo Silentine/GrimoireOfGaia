@@ -43,7 +43,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private static final int DETECTION_RANGE = 3;
@@ -285,7 +284,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				dropItem(GaiaItems.MISC_PEARL, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -366,7 +365,7 @@ public class EntityGaiaCecaelia extends EntityMobHostileBase implements IRangedA
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 60.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -52,7 +52,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
@@ -258,13 +257,13 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 	}
 
 	private void setSpawn(byte id) {
-		EntityCaveSpider caveSpider;
+		BlockPos blockpos = (new BlockPos(EntityGaiaArachne.this)).add(-1 + EntityGaiaArachne.this.rand.nextInt(3), 1, -1 + EntityGaiaArachne.this.rand.nextInt(3));
 
 		if (id == 0) {
-			caveSpider = new EntityCaveSpider(world);
-			caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			caveSpider.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(caveSpider)), null);
-			world.spawnEntity(caveSpider);
+			EntityCaveSpider entitySpawn = new EntityCaveSpider(EntityGaiaArachne.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaArachne.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			EntityGaiaArachne.this.world.spawnEntity(entitySpawn);
 		}
 	}
 
@@ -437,7 +436,7 @@ public class EntityGaiaArachne extends EntityMobHostileBase implements IRangedAt
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -27,18 +27,23 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMermaid extends EntityMobAssistBase {
+	private static final String MOB_TYPE_TAG = "MobType";
+
+	private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(EntityGaiaMermaid.class, DataSerializers.VARINT);
 
 	private byte inWaterTimer;
 
@@ -172,7 +177,7 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				dropItem(GaiaItems.MISC_PEARL, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -208,12 +213,21 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_OLD, 1);
 			}
+
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.ACCESSORY_TRINKET_WATER_BREATHING, 1);
+			}
 		}
 	}
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		
+		if (world.rand.nextInt(4) == 0) {
+			setTextureType(1);
+		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_GOLD));
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -244,6 +258,37 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 	}
 	/* IMMUNITIES */
 
+	/* ALTERNATE SKIN */
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataManager.register(SKIN, 0);
+	}
+
+	public int getTextureType() {
+		return dataManager.get(SKIN);
+	}
+
+	private void setTextureType(int par1) {
+		dataManager.set(SKIN, par1);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte(MOB_TYPE_TAG, (byte) getTextureType());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if (compound.hasKey(MOB_TYPE_TAG)) {
+			byte b0 = compound.getByte(MOB_TYPE_TAG);
+			setTextureType(b0);
+		}
+	}
+	/* ALTERNATE SKIN */
+
 	/* SPAWN CONDITIONS */
 	@Override
 	public int getMaxSpawnedInChunk() {
@@ -252,7 +297,7 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 60.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

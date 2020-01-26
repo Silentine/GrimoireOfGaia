@@ -39,7 +39,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	
 	private static final DataParameter<Boolean> MALE = EntityDataManager.<Boolean>createKey(EntityGaiaSuccubus.class, DataSerializers.BOOLEAN);
@@ -66,7 +65,7 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(EntityAttributes.MAX_HEALTH_1);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(EntityAttributes.FOLLOW_RANGE_NETHER);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_1);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(EntityAttributes.ATTACK_DAMAGE_1);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(EntityAttributes.RATE_ARMOR_1);
@@ -135,17 +134,17 @@ public class EntityGaiaSuccubus extends EntityMobHostileBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return GaiaSounds.SUCCUBUS_SAY;
+		return !isMale() ? GaiaSounds.SUCCUBUS_SAY : GaiaSounds.SUCCUBUS_MALE_SAY;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaSounds.SUCCUBUS_HURT;
+		return !isMale() ? GaiaSounds.SUCCUBUS_HURT : GaiaSounds.SUCCUBUS_MALE_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaSounds.SUCCUBUS_DEATH;
+		return !isMale() ? GaiaSounds.SUCCUBUS_DEATH : GaiaSounds.SUCCUBUS_MALE_DEATH;
 	}
 
 	@Override

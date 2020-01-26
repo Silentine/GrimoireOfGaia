@@ -13,12 +13,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaNPCEnderGirl extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation endergirlEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_ender_girl.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_ender_girl.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/ender_girl.png");
 
 	public RenderGaiaNPCEnderGirl(RenderManager renderManager, float shadowSize) {
 		super(renderManager, new ModelGaiaNPCEnderGirl(), shadowSize);
-		addLayer(new LayerGlowing(this, endergirlEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
 	}

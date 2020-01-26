@@ -34,20 +34,32 @@ public class Gaia {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 	@SidedProxy(clientSide = GaiaReference.CLIENT_PROXY_CLASS, serverSide = GaiaReference.SERVER_PROXY_CLASS)
-	@SuppressWarnings("squid:S1444")
 	public static CommonProxy proxy;
 
 	private static final int DATA_FIXER_VERSION = 3;
-
+	
+	public static boolean isBaublesLoaded;
+	public static boolean isThaumcraftLoaded;
+	public static boolean isTConstructLoaded;
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		proxy.registerHandlers();
-
 		proxy.registerRenders();
+		
+		if (Loader.isModLoaded("baubles")) {
+			isBaublesLoaded = true;
+		}
 
 		if (Loader.isModLoaded("thaumcraft")) {
 			MinecraftForge.EVENT_BUS.register(AspectsItems.class);
 			MinecraftForge.EVENT_BUS.register(AspectsEntities.class);
+			
+			isThaumcraftLoaded = true;
+		}
+		
+		if (Loader.isModLoaded("tconstruct")) {
+			isTConstructLoaded = true;
 		}
 	}
 

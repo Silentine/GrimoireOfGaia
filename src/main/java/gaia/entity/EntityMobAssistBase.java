@@ -10,6 +10,7 @@ import gaia.GaiaConfig;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
@@ -44,7 +45,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @see EntityMobAssist
  */
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public abstract class EntityMobAssistBase extends EntityMobAssist implements IRangedAttackMob {
 
 	private static final DataParameter<Boolean> FRIENDLY = EntityDataManager.<Boolean>createKey(EntityMobAssistBase.class, DataSerializers.BOOLEAN);
@@ -66,7 +66,32 @@ public abstract class EntityMobAssistBase extends EntityMobAssist implements IRa
 	}
 
 	/**
-	 * Used to set if the mob can be tamed or not
+	 * Used when isRiding is triggered.
+	 * Makes the entity being ridden face the same direction of the rider.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public void updateRidden() {
+		super.updateRidden();
+
+		if (this.getRidingEntity() instanceof EntityCreature) {
+			EntityCreature entitycreature = (EntityCreature) this.getRidingEntity();
+			this.renderYawOffset = entitycreature.renderYawOffset;
+		}
+	}
+
+	/**
+	 * Used for isRiding.
+	 * Used to offset the entity.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public double getYOffset() {
+		return -0.6D;
+	}
+
+	/**
+	 * Used to set if the mob can be tamed or not.
 	 */
 	public boolean isTameable() {
 		return false;
@@ -287,7 +312,8 @@ public abstract class EntityMobAssistBase extends EntityMobAssist implements IRa
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
 		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		dropFewItems(wasRecentlyHit, lootingModifier);
+		if (!GaiaConfig.OPTIONS.disableDrops)
+			dropFewItems(wasRecentlyHit, lootingModifier);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package gaia.entity.prop;
 
 import javax.annotation.Nullable;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityMobProp;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
@@ -23,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
@@ -299,7 +299,7 @@ public class EntityGaiaPropVase extends EntityMobProp {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 512D) && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 

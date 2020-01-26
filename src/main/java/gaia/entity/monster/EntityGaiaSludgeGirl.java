@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import javax.annotation.Nullable;
 
+import gaia.Gaia;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
@@ -37,7 +38,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	private static final String MOB_TYPE_TAG = "MobType";
@@ -176,7 +176,16 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(8) == 0) {
-			setTextureType(1);
+			switch (world.rand.nextInt(2)) {
+			case 0:
+				if (Gaia.isThaumcraftLoaded) {
+					setTextureType(1);
+				}
+			case 1:
+				if (Gaia.isTConstructLoaded) {
+					setTextureType(2);
+				}
+			}
 		}
 
 		return ret;
@@ -233,7 +242,7 @@ public class EntityGaiaSludgeGirl extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

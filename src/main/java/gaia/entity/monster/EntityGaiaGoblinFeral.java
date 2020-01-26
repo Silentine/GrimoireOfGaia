@@ -2,6 +2,7 @@ package gaia.entity.monster;
 
 import javax.annotation.Nullable;
 
+import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.ai.EntityAIGaiaAttackRangedBow;
@@ -42,7 +43,6 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaIRangedAttackMob {
 
 	private int lastActiveTime;
@@ -382,7 +382,7 @@ public class EntityGaiaGoblinFeral extends EntityMobHostileBase implements GaiaI
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

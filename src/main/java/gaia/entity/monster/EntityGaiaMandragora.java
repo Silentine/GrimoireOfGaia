@@ -43,7 +43,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMandragora extends EntityMobHostileDay {
 	private static final String IS_CHILD_TAG = "IsBaby";
 	private static final String IS_SCREAMING_TAG = "IsScreaming";
@@ -319,12 +318,12 @@ public class EntityGaiaMandragora extends EntityMobHostileDay {
 	/* IMMUNITIES */
 	@Override
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-		return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+		return potioneffectIn.getPotion() == MobEffects.NAUSEA ? false : super.isPotionApplicable(potioneffectIn);
 	}
 	/* IMMUNITIES */
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 }

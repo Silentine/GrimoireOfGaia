@@ -37,7 +37,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaMonoeye extends EntityMobAssistDay {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_1, true);
@@ -235,6 +234,10 @@ public class EntityGaiaMonoeye extends EntityMobAssistDay {
 				ItemEnchantedBook.addEnchantment(enchantmentBook, new EnchantmentData(Enchantments.SHARPNESS, 1));
 				entityDropItem(enchantmentBook, 1);
 			}
+			
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				entityDropItem(new ItemStack(GaiaItems.ACCESSORY_CHARM_DAMAGE_IRON, 1, 0), 0.0F);
+			}
 		}
 	}
 
@@ -274,7 +277,7 @@ public class EntityGaiaMonoeye extends EntityMobAssistDay {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

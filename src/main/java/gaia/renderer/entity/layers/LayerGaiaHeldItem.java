@@ -7,6 +7,7 @@ import gaia.entity.monster.EntityGaiaDullahan;
 import gaia.entity.monster.EntityGaiaDwarf;
 import gaia.entity.monster.EntityGaiaGoblin;
 import gaia.entity.monster.EntityGaiaGoblinFeral;
+import gaia.entity.monster.EntityGaiaHarpyWizard;
 import gaia.entity.monster.EntityGaiaKobold;
 import gaia.entity.monster.EntityGaiaMermaid;
 import gaia.entity.monster.EntityGaiaMinotaur;
@@ -14,7 +15,6 @@ import gaia.entity.monster.EntityGaiaNaga;
 import gaia.entity.monster.EntityGaiaOrc;
 import gaia.entity.monster.EntityGaiaValkyrie;
 import gaia.entity.monster.EntityGaiaWerecat;
-import gaia.entity.monster.EntityGaiaWitch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -80,6 +80,7 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 		 * x = distance from hand (<0 = away from body, >0 = closer to body)
 		 * y = distance from shoulder (>0 = further from shoulder, <0 = closer to shoulder)
 		 * z = angle
+		 * x can only be applied to MAINHAND or OFFHAND.
 		 */
 
 		if (living instanceof EntityGaiaAnt) {
@@ -108,6 +109,10 @@ public class LayerGaiaHeldItem implements LayerRenderer<EntityLivingBase> {
 
 		if (living instanceof EntityGaiaGoblinFeral) {
 			GlStateManager.translate(0.0F, -0.12F, 0.0F);
+		}
+		
+		if (living instanceof EntityGaiaHarpyWizard) {
+			GlStateManager.translate(-0.3F, -0.26F, 0.0F);
 		}
 
 		if (living instanceof EntityGaiaKobold) {

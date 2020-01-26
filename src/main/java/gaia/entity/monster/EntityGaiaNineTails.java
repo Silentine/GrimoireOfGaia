@@ -39,7 +39,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaNineTails extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private static final DataParameter<Integer> WEAPON_TYPE = EntityDataManager.createKey(EntityGaiaNineTails.class, DataSerializers.VARINT);
@@ -322,7 +321,7 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

@@ -277,6 +277,21 @@ public class ModelGaiaKobold extends ModelGaia {
 		leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
 		rightleg.rotateAngleX -= 0.3490659F;
 		leftleg.rotateAngleX -= 0.3490659F;
+        rightleg.rotateAngleY = -0.0872665F;
+        leftleg.rotateAngleY = 0.0872665F;
+        rightleg.rotateAngleZ = -0.0349066F;
+        leftleg.rotateAngleZ = 0.0349066F;
+		
+		if (isRiding) {
+			rightarm.rotateAngleX += -((float) Math.PI / 5F);
+			leftarm.rotateAngleX += -((float) Math.PI / 5F);
+			rightleg.rotateAngleX = -1.4137167F;
+			rightleg.rotateAngleY = ((float) Math.PI / 10F);
+			rightleg.rotateAngleZ = 0.07853982F;
+			leftleg.rotateAngleX = -1.4137167F;
+			leftleg.rotateAngleY = -((float) Math.PI / 10F);
+			leftleg.rotateAngleZ = -0.07853982F;
+		}
 	}
 
 	private void holdingBow(float ageInTicks) {

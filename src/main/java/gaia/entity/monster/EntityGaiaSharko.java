@@ -37,7 +37,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_2, true);
@@ -122,6 +121,10 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+		
 		if (!world.isRemote) {
 			if (isWet()) {
 				if (inWaterTimer <= 100) {
@@ -218,7 +221,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 			int drop = rand.nextInt(3 + lootingModifier);
 
 			for (int i = 0; i < drop; ++i) {
-				dropItem(GaiaItems.FOOD_COALFISH, 1);
+				dropItem(GaiaItems.MISC_PEARL, 1);
 			}
 
 			if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -294,7 +297,7 @@ public class EntityGaiaSharko extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 32.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

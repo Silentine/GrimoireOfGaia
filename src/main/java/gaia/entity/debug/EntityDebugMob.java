@@ -47,7 +47,6 @@ import net.minecraft.world.storage.loot.LootTableList;
  * 
  * Disable mob in GaiaEntities and ClientProxy.
  */
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityDebugMob extends EntityMobHostileDay {
 
 	private EntityAIGaiaLeapAtTarget aiGaiaLeapAtTarget = new EntityAIGaiaLeapAtTarget(this, 0.4F);

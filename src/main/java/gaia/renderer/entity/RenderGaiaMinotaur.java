@@ -2,6 +2,7 @@ package gaia.renderer.entity;
 
 import gaia.GaiaReference;
 import gaia.model.ModelGaiaMinotaur;
+import gaia.renderer.entity.layers.LayerAuraMinotaur;
 import gaia.renderer.entity.layers.LayerGaiaHeldItem;
 import gaia.renderer.entity.layers.LayerGlowing;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,14 +15,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderGaiaMinotaur extends RenderLiving<EntityLiving> {
-	private static final ResourceLocation minotaurEyesTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_Minotaur.png");
+	private static final ResourceLocation eyeTexture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/layer/eyes_Minotaur.png");
 	private static final ResourceLocation texture = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/minotaur.png");
 
 	public RenderGaiaMinotaur(RenderManager renderManager, float shadowSize) {
-		super(renderManager, new ModelGaiaMinotaur(), shadowSize);
+		super(renderManager, new ModelGaiaMinotaur(0.0F), shadowSize);
 		addLayer(LayerGaiaHeldItem.right(this, getModel().getRightArm()));
 		addLayer(LayerGaiaHeldItem.left(this, getModel().getLeftArm()));
-		addLayer(new LayerGlowing(this, minotaurEyesTexture));
+		addLayer(new LayerGlowing(this, eyeTexture));
+        addLayer(new LayerAuraMinotaur(this));
 	}
 
 	private ModelGaiaMinotaur getModel() {

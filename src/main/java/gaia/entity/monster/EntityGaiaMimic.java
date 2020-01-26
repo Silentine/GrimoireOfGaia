@@ -30,7 +30,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaMimic extends EntityMobHostileBase {
 
 	public EntityGaiaMimic(World worldIn) {
@@ -214,6 +213,10 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 	}
 
 	/* IMMUNITIES */
+	protected boolean canTriggerWalking() {
+		return false;
+	}
+	
 	@Override
 	public void fall(float distance, float damageMultiplier) {
 	}
@@ -221,6 +224,6 @@ public class EntityGaiaMimic extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 32D : 512D) && super.getCanSpawnHere();
 	}
 }

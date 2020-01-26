@@ -47,7 +47,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private EntityAIAttackRanged aiArrowAttack = new EntityAIAttackRanged(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F);
@@ -239,20 +238,20 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 	}
 
 	private void setSpawn(byte id) {
-		EntityZombie zombie;
+		BlockPos blockpos = (new BlockPos(EntityGaiaShaman.this)).add(-1 + EntityGaiaShaman.this.rand.nextInt(3), 1, -1 + EntityGaiaShaman.this.rand.nextInt(3));
 
 		if (id == 0) {
-			zombie = new EntityZombie(world);
-			zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-			zombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(zombie)), null);
-			zombie.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
-			zombie.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
-			zombie.setDropChance(EntityEquipmentSlot.FEET, 0);
-			zombie.setDropChance(EntityEquipmentSlot.LEGS, 0);
-			zombie.setDropChance(EntityEquipmentSlot.CHEST, 0);
-			zombie.setDropChance(EntityEquipmentSlot.HEAD, 0);
-			world.spawnEntity(zombie);
+			EntityZombie entitySpawn = new EntityZombie(EntityGaiaShaman.this.world);
+			entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+			entitySpawn.onInitialSpawn(EntityGaiaShaman.this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+			entitySpawn.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_BOLT));
+			entitySpawn.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.OFFHAND, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.FEET, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.LEGS, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.CHEST, 0);
+			entitySpawn.setDropChance(EntityEquipmentSlot.HEAD, 0);
+			EntityGaiaShaman.this.world.spawnEntity(entitySpawn);
 		}
 	}
 
@@ -400,7 +399,7 @@ public class EntityGaiaShaman extends EntityMobHostileBase implements IRangedAtt
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

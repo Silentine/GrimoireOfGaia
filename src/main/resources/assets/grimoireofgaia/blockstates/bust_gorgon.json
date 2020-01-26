@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "type=north":   { "model": "grimoireofgaia:bust_gorgon", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:bust_gorgon", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:bust_gorgon"                     },
+        "type=east":    { "model": "grimoireofgaia:bust_gorgon", "y": 90            }
+    }
+}

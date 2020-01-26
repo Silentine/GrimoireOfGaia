@@ -36,7 +36,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRangedAttackMob {
 
 	private boolean animationPlay;
@@ -219,7 +218,7 @@ public class EntityGaiaFleshLich extends EntityMobHostileBase implements IRanged
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 16.0D && super.getCanSpawnHere();
+		return posY < ((!GaiaConfig.SPAWN.disableYRestriction) ? 16D : 512D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }

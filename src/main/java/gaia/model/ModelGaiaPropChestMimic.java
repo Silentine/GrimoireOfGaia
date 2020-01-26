@@ -20,14 +20,17 @@ public class ModelGaiaPropChestMimic extends ModelGaia {
 		body01 = new ModelRenderer(this, 0, 0);
 		body01.addBox(-7F, -14F, -7F, 14, 5, 14);
 		body01.setRotationPoint(0F, 24F, 0F);
+		body01.setTextureSize(64, 64);
 		setRotation(body01, 0F, 0F, 0F);
 		body02 = new ModelRenderer(this, 0, 19);
 		body02.addBox(-7F, -10F, -7F, 14, 10, 14);
 		body02.setRotationPoint(0F, 24F, 0F);
+		body02.setTextureSize(64, 64);
 		setRotation(body02, 0F, 0F, 0F);
 		lock = new ModelRenderer(this, 0, 0);
 		lock.addBox(-1F, -11F, -8F, 2, 4, 1);
 		lock.setRotationPoint(0F, 24F, 0F);
+		lock.setTextureSize(64, 64);
 		setRotation(lock, 0F, 0F, 0F);
 
 		convertToChild(body01, body02);

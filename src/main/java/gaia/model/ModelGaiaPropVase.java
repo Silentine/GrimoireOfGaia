@@ -25,18 +25,22 @@ public class ModelGaiaPropVase extends ModelGaia {
 		top01 = new ModelRenderer(this, 0, 0);
 		top01.addBox(-4F, -15F, -4F, 8, 2, 8);
 		top01.setRotationPoint(0F, 24F, 0F);
+		top01.setTextureSize(128, 64);
 		setRotation(top01, 0F, 0F, 0F);
 		top02 = new ModelRenderer(this, 0, 10);
 		top02.addBox(-3F, -13F, -3F, 6, 2, 6);
 		top02.setRotationPoint(0F, 24F, 0F);
+		top02.setTextureSize(128, 64);
 		setRotation(top02, 0F, 0F, 0F);
 		body01 = new ModelRenderer(this, 32, 0);
 		body01.addBox(-5F, -12F, -5F, 10, 12, 10);
 		body01.setRotationPoint(0F, 24F, 0F);
+		body01.setTextureSize(128, 64);
 		setRotation(body01, 0F, 0F, 0F);
 		body02 = new ModelRenderer(this, 32, 22);
 		body02.addBox(-6F, -3F, -6F, 12, 9, 12);
 		body02.setRotationPoint(0F, 16F, 0F);
+		body02.setTextureSize(128, 64);
 		setRotation(body02, 0F, 0F, 0F);
 
 		convertToChild(body01, body02);

@@ -1,14 +1,4 @@
 itemGroup.grimoireofgaia=Grimoire of Gaia 3
-#NEW
-#ITEM_NAMES
-
-#ITEM_HEADGEAR
-
-#BLOCK_NAMES
-
-#ENTITY_NAMES
-
-#MISC
 
 #ITEM_NAMES
 item.grimoireofgaia.shard_0.name=Железный самородок
@@ -34,13 +24,15 @@ item.grimoireofgaia.food_pie_meat.name=Рыбный пирог
 item.grimoireofgaia.food_pie_apple_gold.name=Золотой яблочный пирог
 item.grimoireofgaia.misc_soul_fire.name=Огонь души
 item.grimoireofgaia.misc_soul_fiery.name=Огненный осколок
-item.grimoireofgaia.misc_giga_gear.name=Сердце гига-рыцаря
-item.grimoireofgaia.misc_fur.name=Мех
+item.grimoireofgaia.misc_giga_gear.name=Сердце Гига-рыцаря
 item.grimoireofgaia.misc_experience_0.name=Кристализированный опыт (малый)
 item.grimoireofgaia.misc_experience_1.name=Кристализированный опыт (средний)
 item.grimoireofgaia.misc_experience_2.name=Кристализированный опыт (большой)
 item.grimoireofgaia.misc_book.name=Книга воспоминаний
+item.grimoireofgaia.misc_fur.name=Мех
 item.grimoireofgaia.misc_quill.name=Перо с алмазным наконечником
+item.grimoireofgaia.misc_pearl.name=Блестящая жемчужина
+item.grimoireofgaia.misc_elytra.name=Фрагмент элитр
 item.grimoireofgaia.misc_ring_0.name=Инертное кольцо скорости
 item.grimoireofgaia.misc_ring_1.name=Инертное кольцо спешки
 item.grimoireofgaia.misc_ring_2.name=Инертное кольцо прыгучести
@@ -67,17 +59,18 @@ item.grimoireofgaia.box_1.name=Адская коробка
 item.grimoireofgaia.box_2.name=Коробка Края
 item.grimoireofgaia.bag_ore.name=Рюкзак с рудой
 item.grimoireofgaia.bag_book.name=Рюкзак с книгами
-item.grimoireofgaia.bag_record.name=Винировый рюкзак
+item.grimoireofgaia.bag_record.name=Виниловый рюкзак
 item.grimoireofgaia.bag_arrow.name=Колчан со стрелами
 item.grimoireofgaia.box_old.name=Старый багаж
-item.grimoireofgaia.box_hat.name=Коробка на голове
+item.grimoireofgaia.box_hat.name=Коробка со шляпами
 item.grimoireofgaia.chest_0.name=Сундук сокровищницы
 item.grimoireofgaia.chest_1.name=Сундук джунглей
 item.grimoireofgaia.chest_2.name=Пустынный сундук
 item.grimoireofgaia.weapon_projectile_bomb.name=Бомба
 item.grimoireofgaia.weapon_prop_0.name=Посох Края
-item.grimoireofgaia.weapon_prop_1.name=Посох ифрита
+item.grimoireofgaia.weapon_prop_1.name=Посох Ифрита
 item.grimoireofgaia.weapon_prop_2.name=Металлическая дубина
+item.grimoireofgaia.weapon_prop_3.name=Меч даллахана
 item.grimoireofgaia.weapon_prop_sword_wood.name=Деревянный меч
 item.grimoireofgaia.weapon_prop_sword_stone.name=Каменный меч
 item.grimoireofgaia.weapon_prop_sword_iron.name=Железный меч
@@ -87,13 +80,14 @@ item.grimoireofgaia.weapon_prop_axe_stone.name=Каменный топор
 item.grimoireofgaia.weapon_prop_axe_iron.name=Железный топор
 item.grimoireofgaia.weapon_prop_axe_gold.name=Золотой топор
 item.grimoireofgaia.weapon_prop_dagger_metal.name=Металлический кинжал
-item.grimoireofgaia.weapon_prop_projectile_bubble.name=Пузырь снаряд
+item.grimoireofgaia.weapon_prop_projectile_bubble.name=Пузырь-снаряд
 item.grimoireofgaia.weapon_prop_projectile_magic.name=Магический снаряд
+item.grimoireofgaia.weapon_prop_projectile_magic_random.name=Снаряд случайной магии
 item.grimoireofgaia.weapon_prop_projectile_poison.name=Ядовитый снаряд
 item.grimoireofgaia.weapon_prop_projectile_web.name=Паутинный снаряд
 item.grimoireofgaia.weapon_prop_enchanted.name=Зачарованный подшипник
 item.grimoireofgaia.weapon_prop_3.name=Метла
-item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот минотавра
+item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот Минотавра
 item.grimoireofgaia.shield_prop_0.name=Каменный щит
 item.grimoireofgaia.shield_prop_1.name=Железный щит
 item.grimoireofgaia.shield_prop_2.name=Золотой щит
@@ -113,14 +107,17 @@ item.grimoireofgaia.weapon_book_buff.name=Учебник боевых искус
 item.grimoireofgaia.weapon_debug.name=Отладочное оружие
 #ITEM_BAUBLES_NAMES
 item.grimoireofgaia.accessory_headgear.name=Книга на лице
+item.grimoireofgaia.accessory_charm_damage_iron.name=Кастет
 item.grimoireofgaia.accessory_ring_speed.name=Кольцо скорости
 item.grimoireofgaia.accessory_ring_haste.name=Кольцо спешки
 item.grimoireofgaia.accessory_ring_jump.name=Кольцо прыгучести
 item.grimoireofgaia.accessory_ring_night.name=Кольцо ночного виденья
+item.grimoireofgaia.accessory_trinket_levitation.name=Кандалы
 item.grimoireofgaia.accessory_trinket_poison.name=Лягушачий камень
+item.grimoireofgaia.accessory_trinket_water_breathing_0.name=Заколка в виде ракушки (Новая)
+item.grimoireofgaia.accessory_trinket_water_breathing_1.name=Заколка в виде ракушки (Использовання)
 item.grimoireofgaia.accessory_trinket_wither.name=Иссохшее сердце
-item.grimoireofgaia.accessory_trinket_levitation.name=Мяч и цепь
-item.grimoireofgaia.accessory_cursed.name=Тяжелая штанга
+item.grimoireofgaia.accessory_cursed.name=Тяжелая гиря
 #ITEM_HEADGEAR
 item.grimoireofgaia.accessory_headgear_mob.name=Клетка
 item.grimoireofgaia.accessory_headgear_bolt.name=Железные штыри
@@ -128,31 +125,38 @@ item.grimoireofgaia.accessory_headgear_arrow.name=Стрела в голове
 item.grimoireofgaia.accessory_headgear_doll.name=Усталая горничная
 item.grimoireofgaia.accessory_headgear_ears_elf.name=Эльфийские уши
 #ITEM_SPAWNEGG
-item.grimoireofgaia.spawnegg.name=Призвать существо –
+item.grimoireofgaia.spawnegg.name=Яйцо призыва –
 #BLOCK_NAMES
-tile.grimoireofgaia.bust_valkyrie.name=Бюст валькирии
-tile.grimoireofgaia.bust_vampire.name=Бюст вампира
+tile.grimoireofgaia.block_pearl.name=Жемчужный блок
+tile.grimoireofgaia.bust_gorgon.name=Бюст горгоны
 tile.grimoireofgaia.bust_sphinx.name=Бюст сфинкса
+tile.grimoireofgaia.bust_vampire.name=Бюст вампира
+tile.grimoireofgaia.bust_valkyrie.name=Бюст валькирии
 tile.grimoireofgaia.doll_creeper_girl.name=Кукла девушки-крипера
 tile.grimoireofgaia.doll_ender_girl.name=Кукла девушки Края
 tile.grimoireofgaia.doll_slime_girl.name=Кукла слизняшки
 tile.grimoireofgaia.doll_maid.name=Кукла горничной
+tile.grimoireofgaia.doll_dullahan.name=Кукла даллахана
+tile.grimoireofgaia.doll_mermaid.name=Кукла русалки
+tile.grimoireofgaia.doll_nine_tails.name=Кукла девятихвостой
 tile.grimoireofgaia.deco_bust_minotaur.name=Бюст минотавра
 tile.grimoireofgaia.deco_garden_gnome.name=Садовый гном
 tile.grimoireofgaia.deco_mandragora_pot.name=Мандрагора в горшке
 tile.grimoireofgaia.deco_nest_harpy.name=Гнездо гарпии
 tile.grimoireofgaia.fire_camp.name=Костёр
-tile.grimoireofgaia.spawn_guard.name=Талисман защиты
+tile.grimoireofgaia.spawn_guard.name=Защитный талисман
 tile.grimoireofgaia.web_temp.name=Увядающая паутина
 #ENTITY_NAMES
 entity.grimoireofgaia.debug_mob.name=Отладочный моб
 entity.grimoireofgaia.ant.name=Муравей-рабочий
+entity.grimoireofgaia.ant_hill.name=Муравейник
 entity.grimoireofgaia.ant_ranger.name=Муравей-собиратель
 entity.grimoireofgaia.anubis.name=Анубис
 entity.grimoireofgaia.arachne.name=Арахна
 entity.grimoireofgaia.banshee.name=Банши
 entity.grimoireofgaia.baphomet.name=Бафомет
 entity.grimoireofgaia.bee.name=Медоносная пчела
+entity.grimoireofgaia.beholder.name=Злобоглаз края
 entity.grimoireofgaia.bone_knight.name=Закостенелый рыцарь
 entity.grimoireofgaia.campfire.name=Лагерь
 entity.grimoireofgaia.cecaelia.name=Сцила
@@ -172,23 +176,29 @@ entity.grimoireofgaia.elf.name=Эльф
 entity.grimoireofgaia.ender_dragon_girl.name=Девушка-дракон Края
 entity.grimoireofgaia.ender_eye.name=Глаз Края
 entity.grimoireofgaia.flesh_lich.name=Лич плоти
-entity.grimoireofgaia.gelatinous_slime.name=Желатиновая слизь
+entity.grimoireofgaia.gelatinous_slime.name=Желатиновый слизень
+entity.grimoireofgaia.mite.name=Трупный клещ
 entity.grimoireofgaia.gryphon.name=Грифон
 entity.grimoireofgaia.goblin.name=Гоблин
 entity.grimoireofgaia.goblin_feral.name=Дикий гоблин
+entity.grimoireofgaia.gorgon.name=Медуза Горгона
 entity.grimoireofgaia.harpy.name=Гарпия
+entity.grimoireofgaia.harpy_wizard.name=Гарпия-волшебница
+entity.grimoireofgaia.horse.name=Лошадь
 entity.grimoireofgaia.hunter.name=Охотница
+entity.grimoireofgaia.illager_fire.name=Испепелитель
+entity.grimoireofgaia.illager_inquisitor.name=Инквизитор
 entity.grimoireofgaia.kikimora.name=Кикимора
 entity.grimoireofgaia.kobold.name=Кобольд
 entity.grimoireofgaia.mandragora.name=Мандрагора
 entity.grimoireofgaia.matango.name=Матанго
 entity.grimoireofgaia.mermaid.name=Русалка
 entity.grimoireofgaia.mimic.name=Мимик
-entity.grimoireofgaia.minotaur.name=Минотавр
+entity.grimoireofgaia.minotaur.name=Могучий минотавр
 entity.grimoireofgaia.minotaurus.name=Минотавра
 entity.grimoireofgaia.mummy.name=Мумия
 entity.grimoireofgaia.naga.name=Нага
-entity.grimoireofgaia.nine_tails.name=Девятихвостка
+entity.grimoireofgaia.nine_tails.name=Девятихвостая
 entity.grimoireofgaia.oni.name=Они
 entity.grimoireofgaia.orc.name=Орк
 entity.grimoireofgaia.satyress.name=Сатир
@@ -205,7 +215,7 @@ entity.grimoireofgaia.valkyrie.name=Валькирия
 entity.grimoireofgaia.vampire.name=Вампир
 entity.grimoireofgaia.vase.name=Древняя ваза
 entity.grimoireofgaia.vase_nether.name=Адская древняя ваза
-entity.grimoireofgaia.werecat.name=Кот-оборотень
+entity.grimoireofgaia.werecat.name=Кошка-оборотень
 entity.grimoireofgaia.witch.name=Ведьма
 entity.grimoireofgaia.wither_cow.name=Корова-иссушитель
 entity.grimoireofgaia.yeti.name=Йети
@@ -221,36 +231,40 @@ entity.grimoireofgaia.weresheep.name=Девушка-овечка
 entity.grimoireofgaia.butler.name=Дворецкий
 entity.grimoireofgaia.sporeling.name=Спора
 #ACTIONS
-text.grimoireofgaia.grimoireofgaia.desc=Действует только на мобов из Гримуара Гайи
-text.grimoireofgaia.NegativeStatus.desc=Удаляет негативные статус эффекты
+text.grimoireofgaia.grimoireofgaia.desc=Действует только на мобов из Grimoire of Gaia
+text.grimoireofgaia.NegativeStatus.desc=Очищает от негативных статус-эффектов
 text.grimoireofgaia.HeartsGain=Восстанавливает %d сердец
 text.grimoireofgaia.HungerLose=Истощает на %d единиц(ы) голода
 text.grimoireofgaia.GainExperience=Даёт опыт
 text.grimoireofgaia.GainLevels=Даёт %d уровня(ей)
-text.grimoireofgaia.RightClickUse=ПКМ, чтобы использовать
+text.grimoireofgaia.RightClickUse=ПКМ, чтобы узнать что внутри
 text.grimoireofgaia.RightClickEquip=ПКМ, чтобы экипировать
 text.grimoireofgaia.FuelForSeconds=Топливо на %d секунд(ы)
-text.grimoireofgaia.BlessMainhand=Когда в главной руке:
+text.grimoireofgaia.BlessMainhand=Когда в ведущей руке:
 text.grimoireofgaia.BlessOffhand=Когда в любой из рук:
 text.grimoireofgaia.InventoryCurse=Когда в инвентаре:
-text.grimoireofgaia.InventoryAccessory=Когда в 1-м и 2-м слотах горячей панели:
+text.grimoireofgaia.InventoryAccessory=Когда в первых двух слотах горячей панели:
 text.grimoireofgaia.InventoryTrinket=Когда в последнем слоте горячей панели:
-text.grimoireofgaia.InventoryImmunity=Иммунитет к
+text.grimoireofgaia.InventoryCharm=Когда в 8м слоте горячей панели:
+text.grimoireofgaia.InventoryImmunity=Иммунитет к:
+text.grimoireofgaia.CharmDamage=+%d Урона
 #TAGS
 text.grimoireofgaia.Accessory.tag=Аксессуар
+text.grimoireofgaia.Ring.tag=Кольцо
 text.grimoireofgaia.Trinket.tag=Безделушка
+text.grimoireofgaia.Charm.tag=Амулет
 text.grimoireofgaia.Headgear.tag=Головной убор
 text.grimoireofgaia.Prop.tag=Муляж
-text.grimoireofgaia.WIP.tag=WIP
-text.grimoireofgaia.Debug.tag=Отладка
+text.grimoireofgaia.WIP.tag=НЕЗАКОНЧЕННОЕ
+text.grimoireofgaia.Debug.tag=Для отладки
 #KEYBOARD
 text.grimoireofgaia.HoldShift=<Удерживайте Shift>
 #ITEMS_DESC
 item.grimoireofgaia.FoodExperienceIron.desc=Даёт уровень опыта
-item.grimoireofgaia.food_monster_feed.desc=Добавляет дружелюбие к монстрам 1-го уровня
+item.grimoireofgaia.food_monster_feed.desc=Делает нейтральных монстров 1 Уровня дружелюбными
 item.grimoireofgaia.misc_soul_fire.desc=ПКМ, чтобы раскалить землю
 item.grimoireofgaia.misc_soul_fiery.desc=ПКМ, чтобы расплавить землю
-item.grimoireofgaia.misc_giga_gear.desc=Всё, что осталось от гига-рыцаря
+item.grimoireofgaia.misc_giga_gear.desc=Всё, что осталось от Гига-рыцаря
 item.grimoireofgaia.misc_currency.desc=Продавайте вещи в этом слоте
 item.grimoireofgaia.spawn_creeper_girl.desc=Призывает девушку-крипера
 item.grimoireofgaia.spawn_slime_girl.desc=Призывает слизняшку
@@ -258,15 +272,15 @@ item.grimoireofgaia.spawn_ender_girl.desc=Призывает девушку Кр
 item.grimoireofgaia.spawn_trader.desc=Призывает торговку
 item.grimoireofgaia.spawn_holstaurus.desc=Призывает гольштавра
 item.grimoireofgaia.spawn_weresheep.desc=Призывает девушку-овечку
-item.grimoireofgaia.spawn_tame.desc=Удаляет первоначальную враждебность
-item.grimoireofgaia.spawn_tame2.desc=Не влияет на поврежденных мобов
-item.grimoireofgaia.WeaponBookEnder.desc=ПКМ, чтобы запустить жемчуг Края
+item.grimoireofgaia.spawn_tame.desc=Избавляет от враждебности
+item.grimoireofgaia.spawn_tame2.desc=Не влияет на уже спровоцированных
+item.grimoireofgaia.WeaponBookEnder.desc=ПКМ, чтобы бросить Жемчуг Края
 item.grimoireofgaia.weapon_debug.desc=Используется для тестирования
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=Предотвращает появление дневных мобов в радиусе %d блоков(ка)
 #MISC
 text.grimoireofgaia.spawnDaysPassed=Функция задержки спавна активированна.
-text.grimoireofgaia.SpawnDaysSet=Пройдёт %d дней прежде, чем начнут спавниться моды Гримуара Гайи.
+text.grimoireofgaia.SpawnDaysSet=Пройдёт %d дней прежде, чем начнут спавниться мобы Grimoire of Gaia.
 #CONFIG
 configgui.grimoireofgaia.category.Menu0.general=Частота спавна
 configgui.grimoireofgaia.category.Menu0.general.tooltip=(ТРЕБУЕТСЯ ПРЕЗАГРУЗКА)\nУстановите в 0 чтобы отключить естественный спавн.\nДень: (<30 - редкие, >60 - обычные)\nНочь: (<60 - редкие, >100 - обычные)\n(ВНИМАНИЕ: Если сделать эти значения слишком высокими, то другие мобы не смогут спавниться!)
@@ -314,17 +328,17 @@ configgui.grimoireofgaia.category.defense.Tier2baseDefense.tooltip=\nМакси�
 configgui.grimoireofgaia.category.defense.Tier3baseDefense=Ограничитель урона мобов 3 уровня
 configgui.grimoireofgaia.category.defense.Tier3baseDefense.tooltip=\nМаксимальное необходимое количество ударов.\n(0 = отключить)
 #CONFIG_ATTRIBUTES
-configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Здоровье 1 уровня
+configgui.grimoireofgaia.category.attributes.Tier1maxHealth=Здоровье мобов 1 уровня
 configgui.grimoireofgaia.category.attributes.Tier1maxHealth.tooltip=\nЗдоровье: 40 (20 сердец).\n(50 = половина, 200 = вдвойне)
-configgui.grimoireofgaia.category.attributes.Tier1attackDamage=Урон 1 уровня
+configgui.grimoireofgaia.category.attributes.Tier1attackDamage=Урон мобов 1 уровня
 configgui.grimoireofgaia.category.attributes.Tier1attackDamage.tooltip=\nУрон: 4 (2 сердца).\n(50 = половина, 200 = вдвойне)
-configgui.grimoireofgaia.category.attributes.Tier2maxHealth=Здоровье 2 уровня
+configgui.grimoireofgaia.category.attributes.Tier2maxHealth=Здоровье мобов 2 уровня
 configgui.grimoireofgaia.category.attributes.Tier2maxHealth.tooltip=\nЗдоровье: 80 (40 сердец).\n(50 = половина, 200 = вдвойне)
-configgui.grimoireofgaia.category.attributes.Tier2attackDamage=Урон 2 уровня
+configgui.grimoireofgaia.category.attributes.Tier2attackDamage=Урон мобов 2 уровня
 configgui.grimoireofgaia.category.attributes.Tier2attackDamage.tooltip=\nУрон: 6 (3 сердца).\n(50 = половина, 200 = вдвойне)
-configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Здоровье 3 уровня
+configgui.grimoireofgaia.category.attributes.Tier3maxHealth=Здоровье мобов 3 уровня
 configgui.grimoireofgaia.category.attributes.Tier3maxHealth.tooltip=\nЗдоровье: 160 (80 сердец).\n(50 = половина, 200 = вдвойне)
-configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Урон 3 уровня
+configgui.grimoireofgaia.category.attributes.Tier3attackDamage=Урон мобов 3 уровня
 configgui.grimoireofgaia.category.attributes.Tier3attackDamage.tooltip=\nУрон: 8 (4 сердца).\n(50 = половина, 200 = вдвойне)
 #CONFIG_OPTIONS
 configgui.grimoireofgaia.category.options.Menu0.Enable_Spawn=Разрешить спавн
@@ -337,6 +351,8 @@ configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Дополните
 configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nПозволяет медным и серебряным самородкам выпадать из мобов Гайи.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Умные лучники
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nЛучники будут вести себя подобно скелетам (уровачиваться и отходить).
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops=Отключение дропов не из таблиц лута
+configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(ВНИМАНИЕ)\nОтключить дропы и использовать вместо этого таблицы лута.
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Унифицировать выпадение осколков
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nПозволяет самородкам/осколкам из других модов выпадать из мобов.\n(Отключите, если возникают ошибки)

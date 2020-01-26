@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "type=north":   { "model": "grimoireofgaia:doll_dullahan", "y": 180           },
+        "type=south":   { "model": "grimoireofgaia:doll_dullahan", "y": 270           },
+        "type=west":    { "model": "grimoireofgaia:doll_dullahan"                     },
+        "type=east":    { "model": "grimoireofgaia:doll_dullahan", "y": 90            }
+    }
+}

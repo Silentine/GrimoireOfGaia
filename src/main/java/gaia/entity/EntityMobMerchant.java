@@ -1,8 +1,18 @@
 package gaia.entity;
 
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIEatGrass;
+import net.minecraft.entity.ai.EntityAIFollowParent;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIPanic;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,8 +29,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-//Adapted from DivineRPG code
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public abstract class EntityMobMerchant extends EntityVillager implements INpc, IMerchant {
 	private static final String OFFERS_TAG = "Offers";
 	private static final int MAX_RECIPES_TO_ADD = 75;
@@ -29,7 +37,36 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 
 	public EntityMobMerchant(World worldIn) {
 		super(worldIn);
+	}
 
+	protected void initEntityAI() {
+		this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
+		super.initEntityAI();
+	}
+
+	/**
+	 * Used when isRiding is triggered.
+	 * Makes the entity being ridden face the same direction of the rider.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public void updateRidden() {
+		super.updateRidden();
+
+		if (this.getRidingEntity() instanceof EntityCreature) {
+			EntityCreature entitycreature = (EntityCreature) this.getRidingEntity();
+			this.renderYawOffset = entitycreature.renderYawOffset;
+		}
+	}
+
+	/**
+	 * Used for isRiding.
+	 * Used to offset the entity.
+	 * 
+	 * @see EntitySkeleton
+	 */
+	public double getYOffset() {
+		return -0.6D;
 	}
 
 	@Override

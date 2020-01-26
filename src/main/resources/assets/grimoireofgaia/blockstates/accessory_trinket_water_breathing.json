@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "builtin/generated",
+        "transform": "forge:default-item"
+    },
+    "variants": {
+        "variant": {
+            "available": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/accessory_trinket_water_breathing_available"
+                }
+            },
+            "unavailable": {
+                "textures": {
+                    "layer0": "grimoireofgaia:items/accessory_trinket_water_breathing_unavailable"
+                }
+            }
+        }
+    }
+}

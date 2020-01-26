@@ -40,7 +40,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({ "squid:MaximumInheritanceDepth", "squid:S2160" })
 public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 	private int attackTimer;
@@ -136,6 +135,10 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+		
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
 
 		if (attackTimer > 0) {
 			--attackTimer;
@@ -255,7 +258,7 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY > 60.0D && super.getCanSpawnHere();
+		return posY > ((!GaiaConfig.SPAWN.disableYRestriction) ? 60D : 0D) && super.getCanSpawnHere();
 	}
 	/* SPAWN CONDITIONS */
 }
