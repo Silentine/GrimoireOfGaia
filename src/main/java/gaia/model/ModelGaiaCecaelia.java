@@ -60,7 +60,7 @@ public class ModelGaiaCecaelia extends ModelGaia {
 	ModelRenderer tail3ne;
 	ModelRenderer tail4ne;
 
-	private static final double CYCLES_PER_BLOCK = 0.25D;
+	private static final double CYCLES_PER_BLOCK = 0.1D;
 	private float[][] undulationCycle = new float[][] { { 10F, -10F, -10F, 0F, 10F, 10F, 0F, -10F }, { 5F, 10F, -10F, -10F, 0F, 10F, 10F, 0F }, { 0F, 25F, 0F, -10F, -10F, 0F, 10F, 10F }, { -10F, 10F, 10F, 0F, -10F, -10F, 0F, 10F }, { -5F, -10F, 10F, 10F, 0F, -10F, -10F, 0F }, { 0F, -25F, 0F, 10F, 10F, 0F, -10F, -10F }, };
 
 	public ModelGaiaCecaelia() {

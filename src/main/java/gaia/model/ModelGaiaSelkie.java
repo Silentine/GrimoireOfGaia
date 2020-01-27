@@ -36,7 +36,7 @@ public class ModelGaiaSelkie extends ModelGaia {
 	private ModelRenderer fin4;
 	private ModelRenderer fintail;
 
-	private static final double CYCLES_PER_BLOCK = 1.0D;
+	private static final double CYCLES_PER_BLOCK = 0.1D;
 	private float[][] undulationCycle = new float[][]
 			{
 					{-5F, -10F, -15F, -20F, -25F, -30F},

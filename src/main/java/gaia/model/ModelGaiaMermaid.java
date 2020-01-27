@@ -33,7 +33,7 @@ public class ModelGaiaMermaid extends ModelGaia {
 	private ModelRenderer fin6;
 	private ModelRenderer fintail;
 
-	private static final double CYCLES_PER_BLOCK = 0.75D;
+	private static final double CYCLES_PER_BLOCK = 0.1D;
 	private float[][] undulationCycle = new float[][]
 			{
 					{-2.5F, -5F, -10F, -15F, -20F, -25F, -30F},

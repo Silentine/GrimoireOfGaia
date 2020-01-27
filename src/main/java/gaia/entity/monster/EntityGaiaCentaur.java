@@ -389,7 +389,7 @@ public class EntityGaiaCentaur extends EntityMobAssistDay implements GaiaIRanged
 
 		setCombatTask();
 		
-		if (world.rand.nextInt(1000) == 0 && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+		if (world.rand.nextInt(10000) == 0 && world.getDifficulty() != EnumDifficulty.PEACEFUL) {
 			AbstractHorse abstracthorse = createHorse(difficulty);
 			startRiding(abstracthorse);
 		}

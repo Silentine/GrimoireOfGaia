@@ -53,7 +53,7 @@ public class ModelGaiaGorgon extends ModelGaia {
 	private ModelRenderer tail7;
 	private ModelRenderer tail8;
 	
-	private static final double CYCLES_PER_BLOCK = 0.75D;
+	private static final double CYCLES_PER_BLOCK = 0.1D;
 	private float[][] undulationCycle = new float[][] {
 		{   5F,   0F,-11.25F,  -45F,-22.5F,    0F, 22.5F,   45F}, 
 		{  10F,  10F,     0F,-22.5F,  -45F,-22.5F,    0F, 22.5F}, 

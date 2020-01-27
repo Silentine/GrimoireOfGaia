@@ -62,6 +62,8 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 	private static final int DETECTION_RANGE = 3;
 	private static final int DETECTION_RANGE_STARE = 8;
 	private static boolean isStaringRange;
+	
+	private boolean debugMode;
 
 	private EntityAIGaiaAttackRangedBow aiArrowAttack = new EntityAIGaiaAttackRangedBow(this, EntityAttributes.ATTACK_SPEED_3, 20, 15.0F);
 	private EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, EntityAttributes.ATTACK_SPEED_3, true) {
@@ -101,6 +103,8 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 		switchEquip = 0;
 
 		inWaterTimer = 0;
+		
+		debugMode = false;
 	}
 
 	@Override
@@ -211,12 +215,12 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 		if (playerDetection(DETECTION_RANGE_STARE)) {
 			if (!isStaringRange) {
 				isStaringRange = true;
-				System.out.println("Stare");
+//				System.out.println("Stare");
 			}
 		} else {
 			if (isStaringRange) {
 				isStaringRange = false;
-				System.out.println("Shy?");
+//				System.out.println("Shy?");
 			}
 		}
 
@@ -291,12 +295,11 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 		public void startExecuting() {
 			if (isStaringRange) {
 				++stareTime;
-				System.out.println(stareTime);
+//				System.out.println(stareTime);
 				
 				if (stareTime >= 20) {
 					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 5));
 					stareTime = 0;
-	
 				}
 			}
 		}
@@ -432,6 +435,13 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		IEntityLivingData ret = super.onInitialSpawn(difficulty, livingdata);
+		
+		setCustomNameTag("WIP");
+		
+		if (!debugMode) {
+			System.out.println("Disabled.");
+			setDead();
+		}
 
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		setEnchantmentBasedOnDifficulty(difficulty);
