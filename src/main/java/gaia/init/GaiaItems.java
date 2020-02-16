@@ -439,8 +439,8 @@ public class GaiaItems {
         GOBLIN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GOBLIN, 0x718a60, 0x8d4f41, itemBuilder()), "goblin_spawn_egg");
         GOBLIN_FERAL_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GOBLIN_FERAL, 0x718a60, 0x8a1d3e, itemBuilder()), "goblin_feral_spawn_egg");
         GRYPHON_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GRYPHON, 0xf09942, 0xe2e2e2, itemBuilder()), "gryphon_spawn_egg");
-//        HARPY_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HARPY, 0xc9b161, 0xa5884e, itemBuilder()), "harpy_spawn_egg");
-//        HUNTER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HUNTER, 0xae6b3c, 0x353535, itemBuilder()), "hunter_spawn_egg");
+        HARPY_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HARPY, 0xc9b161, 0xa5884e, itemBuilder()), "harpy_spawn_egg");
+        HUNTER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HUNTER, 0xae6b3c, 0x353535, itemBuilder()), "hunter_spawn_egg");
 //        KIKIMORA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.KIKIMORA, 0x191919, 0xd3bdac, itemBuilder()), "kikimora_spawn_egg");
 //        KOBOLD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.KOBOLD, 0x938dab, 0xafa7c1, itemBuilder()), "kobold_spawn_egg");
 //        MATANGO_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MATANGO, 0xab1311, 0xd8d8d8, itemBuilder()), "matango_spawn_egg");

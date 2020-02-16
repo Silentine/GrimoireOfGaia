@@ -13,6 +13,7 @@ import gaia.entity.assist.GaiaEnderEyeEntity;
 import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
 import gaia.entity.assist.GaiaGryphonEntity;
+import gaia.entity.assist.GaiaHunterEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -28,6 +29,7 @@ import gaia.entity.hostile.GaiaDhampirEntity;
 import gaia.entity.hostile.GaiaDullahanEntity;
 import gaia.entity.hostile.GaiaFleshLichEntity;
 import gaia.entity.hostile.GaiaGelatinousSlimeEntity;
+import gaia.entity.hostile.GaiaHarpyEntity;
 import gaia.entity.hostile.GaiaMandragoraEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import gaia.entity.hostile.GaiaSphinxEntity;
@@ -93,8 +95,8 @@ public class GaiaEntities {
 	public static final EntityType<GaiaGoblinFeralEntity> GOBLIN_FERAL = register("goblin_feral",EntityType.Builder.<GaiaGoblinFeralEntity>create(GaiaGoblinFeralEntity::new, EntityClassification.MONSTER));
 	public static final EntityType<GaiaGryphonEntity> GRYPHON = register("gryphon", EntityType.Builder.<GaiaGryphonEntity>create(GaiaGryphonEntity::new, EntityClassification.MONSTER)
 	.size(1.2F, 1.8F));
-//	public static final EntityType<EntityGaiaHarpy> HARPY = register("harpy", EntityType.Builder.create(EntityGaiaHarpy::new, EntityClassification.MONSTER));
-//	public static final EntityType<EntityGaiaHunter> HUNTER = register("hunter", EntityType.Builder.create(EntityGaiaHunter::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaHarpyEntity> HARPY = register("harpy", EntityType.Builder.<GaiaHarpyEntity>create(GaiaHarpyEntity::new, EntityClassification.MONSTER));
+	public static final EntityType<GaiaHunterEntity> HUNTER = register("hunter", EntityType.Builder.<GaiaHunterEntity>create(GaiaHunterEntity::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaKikimora> KIKIMORA = register("kikimora", EntityType.Builder.create(EntityGaiaKikimora::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaKobold> KOBOLD = register("kobold", EntityType.Builder.create(EntityGaiaKobold::new, EntityClassification.MONSTER));
 //	public static final EntityType<EntityGaiaMatango> MATANGO = register("matango", EntityType.Builder.create(EntityGaiaMatango::new, EntityClassification.MONSTER));
@@ -235,8 +237,8 @@ public class GaiaEntities {
 		register(GOBLIN, event);
 		register(GOBLIN_FERAL, event);
 		register(GRYPHON, event);
-//		register(HARPY, event);
-//		register(HUNTER, event);
+		register(HARPY, event);
+		register(HUNTER, event);
 //		register(KIKIMORA, event);
 //		register(KOBOLD, event);
 //		register(MATANGO, event);

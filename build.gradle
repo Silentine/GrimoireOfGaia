@@ -20,7 +20,7 @@ archivesBaseName = 'GrimoireOfGaia4'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20191129-1.14.3'
+    mappings channel: 'snapshot', version: '20191209-1.14.3'
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -80,7 +80,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.96'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.106'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

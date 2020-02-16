@@ -3,42 +3,31 @@ package gaia.entity.assist;
 import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
+import gaia.entity.goals.GaiaRangedBowAttackGoal;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -47,23 +36,21 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
-public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, IRangedAttackMob {
+public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob, IRangedAttackMob {
     private static final int DETECTION_RANGE = 3;
 
-    private static final DataParameter<Boolean> IS_MOVING = EntityDataManager.<Boolean>createKey(GaiaBeeEntity.class, DataSerializers.BOOLEAN);
+    private GaiaRangedBowAttackGoal rangedAttackGoal = new GaiaRangedBowAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
+    private MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
 
-    private RangedAttackGoal aiArrowAttack = new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
-    private LeapAtTargetGoal aiAttackLeapAtTarget = new LeapAtTargetGoal(this, 0.2F);
-    private LeapAtTarget aiAttackLeapAtTargetAI = new GaiaBeeEntity.LeapAtTarget(this);
+    private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), Potions.POISON);
 
     private int timer;
     private int switchDetect;
     private int switchEquip;
 
-    private boolean animationPlay;
-    private int animationTimer;
+    private boolean isFriendly;
 
-    public GaiaBeeEntity(EntityType<? extends GaiaBeeEntity> entityType, World world) {
+    public GaiaHunterEntity(EntityType<? extends GaiaHunterEntity> entityType, World world) {
         super(entityType, world);
 
         experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
@@ -72,55 +59,42 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
         timer = 0;
         switchDetect = 0;
         switchEquip = 0;
-
-        animationPlay = false;
-        animationTimer = 0;
     }
 
-    public GaiaBeeEntity(World world) {
-        this(GaiaEntities.BEE, world);
+    public GaiaHunterEntity(World world) {
+        this(GaiaEntities.HUNTER, world);
     }
 
     private void setCombatTask() {
-        setCombatTask(0);
+        goalSelector.removeGoal(meleeAttackGoal);
+        goalSelector.removeGoal(rangedAttackGoal);
+        ItemStack itemstack = getHeldItemMainhand();
+
+        if (itemstack.getItem() == Items.BOW) {
+            int i = 20;
+
+            if (this.world.getDifficulty() != Difficulty.HARD) {
+                i = 40;
+            }
+
+            rangedAttackGoal.setAttackCooldown(i);
+            setCombatTask(0);
+        } else {
+            setCombatTask(1);
+        }
     }
 
     private void setCombatTask(int id) {
         switch(id) {
             default:
                 if (!isNeutral()) {
-                    goalSelector.removeGoal(aiAttackLeapAtTarget);
-                    goalSelector.removeGoal(aiAttackLeapAtTargetAI);
-                    goalSelector.addGoal(1, aiArrowAttack);
-
-                    setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
-                    animationPlay = false;
-                    animationTimer = 0;
+                    goalSelector.removeGoal(meleeAttackGoal);
+                    goalSelector.addGoal(1, rangedAttackGoal);
                 }
             case 1:
-                goalSelector.removeGoal(aiArrowAttack);
-                goalSelector.addGoal(1, aiAttackLeapAtTarget);
-                goalSelector.addGoal(2, aiAttackLeapAtTargetAI);
+                goalSelector.removeGoal(rangedAttackGoal);
+                goalSelector.addGoal(1, meleeAttackGoal);
         }
-    }
-
-    @Override
-    protected void registerData() {
-        super.registerData();
-        getDataManager().register(IS_MOVING, false);
-    }
-
-    public boolean isMoving() {
-        return (getDataManager().get(IS_MOVING));
-    }
-
-    public void setMoving(boolean isMoving) {
-        getDataManager().set(IS_MOVING, isMoving);
-    }
-
-    @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
     }
 
     @Override
@@ -156,11 +130,9 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        RangedHelper.poison(target, this, distanceFactor);
-
-        setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.ARROW));
-        animationPlay = true;
-        animationTimer = 0;
+        if(target.isAlive()) {
+            RangedHelper.rangedAttack(target, this, distanceFactor);
+        }
     }
 
     @Override
@@ -170,27 +142,14 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     @Override
     public void livingTick() {
-        if (!onGround && getMotion().getY() < 0.0D) {
-            Vec3d motion = getMotion();
-            double motionY = motion.getY();
-            motionY *= 0.8D;
-            setMotion(motion.x, motionY, motion.z);
-        }
-
-        if (isNeutral()) {
+        /* TODO Fix archers from attacking same spot despite target already being eliminated */
+        if (isNeutral() && !isFriendly) {
             setCombatTask(1);
             timer = 0;
             switchEquip = 1;
-        }
-
-        if (!world.isRemote && (getHealth() >= EntityAttributes.MAX_HEALTH_1)) {
-            if (detectMovement() && !isMoving()) {
-                setMoving(true);
-            }
-
-            if (!detectMovement() && isMoving()) {
-                setMoving(false);
-            }
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.OFFHAND, ItemStack.EMPTY);
+            isFriendly = true;
         }
 
         if (playerDetection(this, DETECTION_RANGE)) {
@@ -207,7 +166,12 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
             if (timer <= 20) {
                 ++timer;
             } else {
+                if (!isPotionActive(Effects.SPEED)) {
+                    addPotionEffect(new EffectInstance(Effects.SPEED, 10 * 20, 0));
+                }
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
                 setCombatTask(1);
+
                 timer = 0;
                 switchEquip = 1;
             }
@@ -217,39 +181,26 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
             if (timer <= 20) {
                 ++timer;
             } else {
-                setCombatTask(0);
+                if (isPotionActive(Effects.SPEED)) {
+                    removePotionEffect(Effects.SPEED);
+                }
+
+                if (!isNeutral()) {
+                    setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+                    setCombatTask(0);
+                } else {
+                    setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+                    setCombatTask(1);
+                }
+
                 timer = 0;
                 switchEquip = 0;
-            }
-        }
-
-        if (animationPlay) {
-            if (animationTimer != 20) {
-                animationTimer += 1;
-            } else {
-                setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
-                animationPlay = false;
             }
         }
 
         super.livingTick();
     }
 
-    private boolean detectMovement() {
-        Vec3d motion = this.getMotion();
-        if (motion.getX() * motion.getX() + motion.getZ() * motion.getZ() > 2.500000277905201E-7D) {
-            int i = MathHelper.floor(posX);
-            int j = MathHelper.floor(posY - 0.20000000298023224D);
-            int k = MathHelper.floor(posZ);
-            BlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
-
-            if (iblockstate.getMaterial() != Material.AIR) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     @Override
     public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
@@ -258,33 +209,24 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return GaiaSounds.BEE_SAY;
+        return GaiaSounds.HUNTER_SAY;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return GaiaSounds.BEE_HURT;
+        return GaiaSounds.HUNTER_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return GaiaSounds.BEE_DEATH;
-    }
-
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        playSound(GaiaSounds.NONE, 1.0F, 1.0F);
+        return GaiaSounds.HUNTER_DEATH;
     }
 
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(new ItemStack(Items.BONE_MEAL), 1);
-            }
-
-            if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_HONEY, 1);
+                entityDropItem(GaiaItems.FOOD_ROTTEN_HEART, 1);
             }
 
             // Nuggets/Fragments
@@ -306,29 +248,29 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 entityDropItem(GaiaItems.BOX_IRON, 1);
             }
+
+            // Unique Rare
+            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+                entityDropItem(GaiaItems.BAG_ARROW, 1);
+            }
         }
     }
 
     @Nullable
     @Override
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
+        ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
+
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+        setEnchantmentBasedOnDifficulty(difficulty);
+
+        if (world.rand.nextInt(2) == 0) {
+            setItemStackToSlot(EquipmentSlotType.OFFHAND, TIPPED_ARROW_CUSTOM);
+        }
+
         setCombatTask();
 
-        return super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
-    }
-
-    @Override
-    public CreatureAttribute getCreatureAttribute() {
-        return CreatureAttribute.ARTHROPOD;
-    }
-
-    @Override
-    public boolean isPotionApplicable(EffectInstance potioneffectIn) {
-        return potioneffectIn.getPotion() == Effects.POISON ? false : super.isPotionApplicable(potioneffectIn);
-    }
-
-    @Override
-    public void fall(float distance, float damageMultiplier) {
+        return entityData;
     }
 
     @Override
@@ -339,16 +281,5 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
         return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
-    }
-
-    static class LeapAtTarget extends MeleeAttackGoal {
-        LeapAtTarget(GaiaBeeEntity entity) {
-            super(entity, EntityAttributes.ATTACK_SPEED_1, true);
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity attackTarget) {
-            return 4.0D + attackTarget.getWidth();
-        }
     }
 }

@@ -148,6 +148,7 @@ public abstract class AbstractMobAssistEntity extends CreatureEntity implements 
                     this.goalSelector.addGoal(2, new RandomWalkingGoal(this, wanderSpeed()));
                     this.goalSelector.addGoal(2, new SwimGoal(this));
                 } else {
+                    this.goalSelector.addGoal(0, new SwimGoal(this));
                     this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, wanderSpeed()));
                 }
             }
