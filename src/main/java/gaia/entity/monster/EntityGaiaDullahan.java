@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
@@ -164,6 +165,11 @@ public class EntityGaiaDullahan extends EntityMobHostileBase {
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_DULLAHAN), 1);
 			}
 		}
 	}

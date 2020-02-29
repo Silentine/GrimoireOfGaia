@@ -115,6 +115,10 @@ public class EntityGaiaBanshee extends EntityMobHostileBase {
 
 	@Override
 	public void onLivingUpdate() {
+		if (!world.isRemote && isRiding()) {
+			dismountRidingEntity();
+		}
+		
 		if (world.isDaytime() && !world.isRemote) {
 			float f = getBrightness();
 

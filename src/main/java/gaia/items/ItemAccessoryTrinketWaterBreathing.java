@@ -85,7 +85,7 @@ public class ItemAccessoryTrinketWaterBreathing extends ItemAccessoryBauble {
 	public void registerClient() {
 		ModelLoaderHelper.registerItem(this, "variant=available", "variant=unavailable");
 	}
-	
+
 	@Override
 	public void applyModifier(EntityLivingBase player, ItemStack item) {
 	}
@@ -93,7 +93,7 @@ public class ItemAccessoryTrinketWaterBreathing extends ItemAccessoryBauble {
 	@Override
 	public void removeModifier(EntityLivingBase player, ItemStack item) {
 	}
-	
+
 	/* SUBITEMS */
 
 //	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {

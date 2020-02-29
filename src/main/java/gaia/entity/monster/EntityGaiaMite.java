@@ -106,11 +106,6 @@ public class EntityGaiaMite extends EntityMob {
 		compound.setInteger("Lifetime", this.lifetime);
 	}
 
-	public void onUpdate() {
-		this.renderYawOffset = this.rotationYaw;
-		super.onUpdate();
-	}
-
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		

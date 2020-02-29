@@ -38,6 +38,7 @@ public class GaiaBlocks {
 	public static final Block DOLL_DULLAHAN = Blocks.AIR;
 	public static final Block DOLL_MERMAID = Blocks.AIR;
 	public static final Block DOLL_NINE_TAILS = Blocks.AIR;
+	public static final Block DOLL_DRYAD = Blocks.AIR;
 	public static final Block DECO_GARDEN_GNOME = Blocks.AIR;
 	public static final Block DECO_MANDRAGORA_POT = Blocks.AIR;
 	public static final Block DECO_BUST_MINOTAUR = Blocks.AIR;
@@ -69,6 +70,7 @@ public class GaiaBlocks {
 			registry.register(new BlockDecoration(Material.CLOTH, "doll_dullahan", 0.8F, 6F, SoundType.CLOTH));
 			registry.register(new BlockDecoration(Material.CLOTH, "doll_mermaid", 0.8F, 6F, SoundType.CLOTH));
 			registry.register(new BlockDecoration(Material.CLOTH, "doll_nine_tails", 0.8F, 6F, SoundType.CLOTH));
+			registry.register(new BlockDecoration(Material.CLOTH, "doll_dryad", 0.8F, 6F, SoundType.CLOTH));
 			registry.register(new BlockDecoration(Material.CLOTH, "deco_garden_gnome", 0.8F, 6F, SoundType.STONE));
 			registry.register(new BlockDecoration(Material.CLOTH, "deco_mandragora_pot", 0.8F, 6F, SoundType.STONE));
 			registry.register(new BlockDecoration(Material.ROCK, "deco_bust_minotaur", 1.5F, 6F, SoundType.STONE));
@@ -98,6 +100,7 @@ public class GaiaBlocks {
 			registerItemBlock(registry, DOLL_DULLAHAN);
 			registerItemBlock(registry, DOLL_MERMAID);
 			registerItemBlock(registry, DOLL_NINE_TAILS);
+			registerItemBlock(registry, DOLL_DRYAD);
 			registerItemBlock(registry, DECO_GARDEN_GNOME);
 			registerItemBlock(registry, DECO_MANDRAGORA_POT);
 			registerItemBlock(registry, DECO_BUST_MINOTAUR);

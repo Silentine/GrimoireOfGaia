@@ -1,0 +1,7 @@
+{
+    "parent": "grimoireofgaia:block/doll_base",
+    "textures": {
+        "0": "grimoireofgaia:blocks/models/doll_dryad",
+		"particle": "grimoireofgaia:blocks/models/doll_dryad"
+    }
+}

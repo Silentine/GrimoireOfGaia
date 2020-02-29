@@ -150,11 +150,17 @@ public class ModelGaiaMummy extends ModelGaia {
 		if (swingProgress > -9990.0F) {
 			holdingMelee();
 		}
+		
+		float armsDefaultAngleX = 1.570796F;
+		
+		if (isRiding) {
+			armsDefaultAngleX = 0;
+		}
 
 		rightarm.rotateAngleZ += (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
-		rightarm.rotateAngleX += (MathHelper.sin(ageInTicks * 0.067F) * 0.025F) - 1.570796F;
+		rightarm.rotateAngleX += (MathHelper.sin(ageInTicks * 0.067F) * 0.025F) - armsDefaultAngleX;
 		leftarm.rotateAngleZ -= (MathHelper.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
-		leftarm.rotateAngleX -= (MathHelper.sin(ageInTicks * 0.067F) * 0.025F) + 1.570796F;
+		leftarm.rotateAngleX -= (MathHelper.sin(ageInTicks * 0.067F) * 0.025F) + armsDefaultAngleX;
 
 		// legs
 		rightleg.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount) * 0.5F;

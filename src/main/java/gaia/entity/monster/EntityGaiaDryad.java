@@ -9,6 +9,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistDay;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
@@ -260,6 +261,11 @@ public class EntityGaiaDryad extends EntityMobAssistDay {
 			// Rare
 			if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_IRON, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_DRYAD), 1);
 			}
 		}
 	}

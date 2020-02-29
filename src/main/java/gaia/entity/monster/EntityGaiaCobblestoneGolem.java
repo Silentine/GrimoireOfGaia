@@ -223,6 +223,10 @@ public class EntityGaiaCobblestoneGolem extends EntityMobHostileBase {
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				entityDropItem(new ItemStack(GaiaItems.SHARD_MISC, 1, 0), 0.0F);
 			}
+			
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(GaiaItems.WEAPON_BOOK_METAL, 1);
+			}
 		}
 	}
 

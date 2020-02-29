@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobAssistBase;
 import gaia.entity.ai.EntityAIGaiaValidateTargetPlayer;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
@@ -26,6 +27,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -212,6 +214,11 @@ public class EntityGaiaMermaid extends EntityMobAssistBase {
 			// Unique Rare
 			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
 				dropItem(GaiaItems.BOX_OLD, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_MERMAID), 1);
 			}
 
 			// Unique Rare

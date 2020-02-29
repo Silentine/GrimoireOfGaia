@@ -6,6 +6,7 @@ import gaia.GaiaConfig;
 import gaia.entity.EntityAttributes;
 import gaia.entity.EntityMobHostileBase;
 import gaia.entity.projectile.EntityGaiaProjectileSmallFireball;
+import gaia.init.GaiaBlocks;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
@@ -27,6 +28,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -254,6 +256,11 @@ public class EntityGaiaNineTails extends EntityMobHostileBase implements IRanged
 				fanFire.addEnchantment(Enchantments.FIRE_ASPECT, 2);
 				fanFire.addEnchantment(Enchantments.KNOCKBACK, 1);
 				entityDropItem(fanFire, 1);
+			}
+			
+			// Unique Rare
+			if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+				dropItem(Item.getItemFromBlock(GaiaBlocks.DOLL_NINE_TAILS), 1);
 			}
 		}
 	}
