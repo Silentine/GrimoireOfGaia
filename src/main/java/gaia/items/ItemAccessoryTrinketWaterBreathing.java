@@ -59,12 +59,10 @@ public class ItemAccessoryTrinketWaterBreathing extends ItemAccessoryBauble {
 
 	@Override
 	public void doEffect(EntityLivingBase player, ItemStack item) {
-		if (player.getActivePotionEffect(MobEffects.WATER_BREATHING) == null && player.isWet()) {
+		if (item.getItemDamage() == 0 && player.getActivePotionEffect(MobEffects.WATER_BREATHING) == null && player.isWet()) {
 			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 20 * 20, 0, true, false));
 			item.setItemDamage(1);
-		}
-
-		if (!player.isWet()) {
+		} else if (item.getItemDamage() == 1 && !player.isWet()) {
 			player.removePotionEffect(MobEffects.WATER_BREATHING);
 			item.setItemDamage(0);
 		}
