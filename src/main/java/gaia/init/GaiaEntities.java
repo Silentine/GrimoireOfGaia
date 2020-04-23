@@ -111,6 +111,10 @@ public class GaiaEntities {
 //	public static final RegistryObject<EntityType<EntityGaiaWitherCow>> WITHER_COW = ENTITIES.register("wither_cow", () -> register("wither_cow", EntityType.Builder.create(EntityGaiaWitherCow::new, EntityGaiaWitherCow::new)));
 //	public static final RegistryObject<EntityType<EntityGaiaYeti>> YETI = ENTITIES.register("yeti", () -> register("yeti", EntityType.Builder.create(EntityGaiaYeti::new, EntityGaiaYeti::new)));
 //	public static final RegistryObject<EntityType<EntityGaiaYukiOnna>> YUKI_ONNA = ENTITIES.register("yuki_onna", () -> register("yuki_onna", EntityType.Builder.create(EntityGaiaYukiOnna::new, EntityGaiaYukiOnna::new)));
+
+	/**
+	 * NPCS
+	 */
 //	public static final RegistryObject<EntityType<EntityGaiaNPCCreeperGirl>> CREEPER_GIRL_NPC = ENTITIES.register("creeper_girl", () -> register("creeper_girl", EntityType.Builder.create(EntityGaiaNPCCreeperGirl::new, EntityGaiaNPCCreeperGirl::new)));
 //	public static final RegistryObject<EntityType<EntityGaiaNPCSlimeGirl>> SLUDGE_GIRL_NPC = ENTITIES.register("slime_girl", () -> register("slime_girl", EntityType.Builder.create(EntityGaiaNPCSlimeGirl::new, EntityGaiaNPCSlimeGirl::new)));
 //	public static final RegistryObject<EntityType<EntityGaiaNPCEnderGirl>> ENDER_GIRL_NPC = ENTITIES.register("ender_girl", () -> register("ender_girl", EntityType.Builder.create(EntityGaiaNPCEnderGirl::new, EntityGaiaNPCEnderGirl::new)));
@@ -124,6 +128,9 @@ public class GaiaEntities {
 //	public static final RegistryObject<EntityType<EntityGaiaSummonButler>> BUTLER = ENTITIES.register("butler", () -> register("butler", EntityType.Builder.create(EntityGaiaSummonButler::new, EntityGaiaSummonButler::new)));
 //	public static final RegistryObject<EntityType<EntityGaiaSummonSporeling>> SPORELING = ENTITIES.register("sporeling", () -> register("sporeling", EntityType.Builder.create(EntityGaiaSummonSporeling::new, EntityGaiaSummonSporeling::new));
 
+	/**
+	 * Projectiles
+	 */
 	public static final RegistryObject<EntityType<GaiaProjectileBubbleEntity>> BUBBLE_PROJECTILE = ENTITIES.register("bubble", () -> registerProjectile("bubble", EntityType.Builder.<GaiaProjectileBubbleEntity>create(GaiaProjectileBubbleEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F).setCustomClientFactory(GaiaProjectileBubbleEntity::new)));
 	public static final RegistryObject<EntityType<GaiaProjectileMagicEntity>> MAGIC_PROJECTILE = ENTITIES.register("magic", () -> registerProjectile("magic", EntityType.Builder.<GaiaProjectileMagicEntity>create(GaiaProjectileMagicEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F).setCustomClientFactory(GaiaProjectileMagicEntity::new)));
 	public static final RegistryObject<EntityType<GaiaProjectilePoisonEntity>> POISON_PROJECTILE = ENTITIES.register("poison", () -> registerProjectile("poison", EntityType.Builder.<GaiaProjectilePoisonEntity>create(GaiaProjectilePoisonEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F).setCustomClientFactory(GaiaProjectilePoisonEntity::new)));
@@ -131,13 +138,14 @@ public class GaiaEntities {
 	public static final RegistryObject<EntityType<GaiaProjectileWebEntity>> WEB_PROJECTILE = ENTITIES.register("web", () -> registerProjectile("web", EntityType.Builder.<GaiaProjectileWebEntity>create(GaiaProjectileWebEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F).setCustomClientFactory(GaiaProjectileWebEntity::new)));
 	public static final RegistryObject<EntityType<GaiaProjectileBombEntity>> BOMB_PROJECTILE = ENTITIES.register("bomb", () -> registerProjectile("bomb", EntityType.Builder.<GaiaProjectileBombEntity>create(GaiaProjectileBombEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F).setCustomClientFactory(GaiaProjectileBombEntity::new)));
 
-	//Prop
+	/**
+	 * Props
+	 */
 	public static final RegistryObject<EntityType<GaiaPropChestMimicEntity>> CHEST = ENTITIES.register("chest", () -> register("chest", EntityType.Builder.<GaiaPropChestMimicEntity>create(GaiaPropChestMimicEntity::new, EntityClassification.MISC).size(0.8F, 0.8F), false));
 	public static final RegistryObject<EntityType<GaiaPropFlowerCyanEntity>> CYAN_FLOWER = ENTITIES.register("cyan_flower", () -> register("cyan_flower", EntityType.Builder.<GaiaPropFlowerCyanEntity>create(GaiaPropFlowerCyanEntity::new, EntityClassification.MISC).size(0.8F, 0.8F), false));
 	public static final RegistryObject<EntityType<GaiaPropCampfireEntity>> CAMPFIRE = ENTITIES.register("campfire", () -> register("campfire", EntityType.Builder.<GaiaPropCampfireEntity>create(GaiaPropCampfireEntity::new, EntityClassification.MISC).size(0.8F, 0.8F)));
 	public static final RegistryObject<EntityType<GaiaPropVaseEntity>> VASE = ENTITIES.register("vase", () -> register("vase", EntityType.Builder.<GaiaPropVaseEntity>create(GaiaPropVaseEntity::new, EntityClassification.MISC).immuneToFire().size(0.8F, 0.8F), false));
 	public static final RegistryObject<EntityType<GaiaPropVaseNetherEntity>> VASE_NETHER = ENTITIES.register("vase_nether", () -> register("vase_nether", EntityType.Builder.<GaiaPropVaseNetherEntity>create(GaiaPropVaseNetherEntity::new, EntityClassification.MISC).immuneToFire().size(0.8F, 0.8F), false));
-
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
 		return builder.setTrackingRange(64).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build(id);
