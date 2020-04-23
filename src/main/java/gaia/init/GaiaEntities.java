@@ -13,6 +13,7 @@ import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
 import gaia.entity.assist.GaiaGryphonEntity;
 import gaia.entity.assist.GaiaHunterEntity;
+import gaia.entity.assist.GaiaKikimoraEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -83,7 +84,7 @@ public class GaiaEntities {
 	public static final RegistryObject<EntityType<GaiaGryphonEntity>> GRYPHON = ENTITIES.register("gryphon", () -> register("gryphon", EntityType.Builder.<GaiaGryphonEntity>create(GaiaGryphonEntity::new, EntityClassification.MONSTER).size(1.2F, 1.8F)));
 	public static final RegistryObject<EntityType<GaiaHarpyEntity>> HARPY = ENTITIES.register("harpy", () -> register("harpy", EntityType.Builder.<GaiaHarpyEntity>create(GaiaHarpyEntity::new, EntityClassification.MONSTER)));
 	public static final RegistryObject<EntityType<GaiaHunterEntity>> HUNTER = ENTITIES.register("hunter", () -> register("hunter", EntityType.Builder.<GaiaHunterEntity>create(GaiaHunterEntity::new, EntityClassification.MONSTER)));
-//	public static final RegistryObject<EntityType<EntityGaiaKikimora>> KIKIMORA = ENTITIES.register("kikimora", () -> register("kikimora", EntityType.Builder.create(EntityGaiaKikimora::new, EntityClassification.MONSTER)));
+	public static final RegistryObject<EntityType<GaiaKikimoraEntity>> KIKIMORA = ENTITIES.register("kikimora", () -> register("kikimora", EntityType.Builder.create(GaiaKikimoraEntity::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaKobold>> KOBOLD = ENTITIES.register("kobold", () -> register("kobold", EntityType.Builder.create(EntityGaiaKobold::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaMatango>> MATANGO = ENTITIES.register("matango", () -> register("matango", EntityType.Builder.create(EntityGaiaMatango::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaMermaid>> MERMAID = ENTITIES.register("mermaid", () -> register("mermaid", EntityType.Builder.create(EntityGaiaMermaid::new, EntityClassification.MONSTER)));

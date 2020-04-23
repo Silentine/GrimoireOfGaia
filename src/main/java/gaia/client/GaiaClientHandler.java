@@ -28,6 +28,7 @@ import gaia.client.renderer.monster.GaiaGoblinRenderer;
 import gaia.client.renderer.monster.GaiaGryphonRenderer;
 import gaia.client.renderer.monster.GaiaHarpyRenderer;
 import gaia.client.renderer.monster.GaiaHunterRenderer;
+import gaia.client.renderer.monster.GaiaKikimoraRenderer;
 import gaia.client.renderer.monster.GaiaMandragoraRenderer;
 import gaia.client.renderer.monster.GaiaMimicRenderer;
 import gaia.client.renderer.monster.GaiaSphinxRenderer;
@@ -48,6 +49,7 @@ import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
 import gaia.entity.assist.GaiaGryphonEntity;
 import gaia.entity.assist.GaiaHunterEntity;
+import gaia.entity.assist.GaiaKikimoraEntity;
 import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaAntRangerEntity;
 import gaia.entity.hostile.GaiaAnubisEntity;
@@ -137,6 +139,7 @@ public class GaiaClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(GaiaGryphonEntity.class, renderManager -> new GaiaGryphonRenderer(renderManager, med));
         RenderingRegistry.registerEntityRenderingHandler(GaiaHarpyEntity.class, renderManager -> new GaiaHarpyRenderer(renderManager, small));
         RenderingRegistry.registerEntityRenderingHandler(GaiaHunterEntity.class, renderManager -> new GaiaHunterRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaKikimoraEntity.class, renderManager -> new GaiaKikimoraRenderer(renderManager, small));
 
         RenderingRegistry.registerEntityRenderingHandler(GaiaMandragoraEntity.class, renderManager -> new GaiaMandragoraRenderer(renderManager, tiny));
         RenderingRegistry.registerEntityRenderingHandler(GaiaMimicEntity.class, renderManager -> new GaiaMimicRenderer(renderManager, med));
