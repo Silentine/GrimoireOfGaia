@@ -84,7 +84,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
 
     @Override
     public void setAttackTask() {
-
+        setCombatTask();
     }
 
     @Override
