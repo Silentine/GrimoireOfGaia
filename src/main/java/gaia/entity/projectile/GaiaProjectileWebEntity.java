@@ -7,7 +7,6 @@ import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -26,16 +25,16 @@ public class GaiaProjectileWebEntity extends AbstractGaiaProjectileEntity {
     }
 
     public GaiaProjectileWebEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(GaiaEntities.WEB_PROJECTILE, worldIn, shooter, accelX, accelY, accelZ);
+        super(GaiaEntities.WEB_PROJECTILE.get(), worldIn, shooter, accelX, accelY, accelZ);
     }
 
     public GaiaProjectileWebEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.WEB_PROJECTILE, worldIn);
+        this(GaiaEntities.WEB_PROJECTILE.get(), worldIn);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_WEB);
+        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_WEB.get());
     }
 
     @Override
@@ -60,14 +59,14 @@ public class GaiaProjectileWebEntity extends AbstractGaiaProjectileEntity {
                 double z = entity.posZ;
 
                 if (this.world.isAirBlock(new BlockPos(x, y, z))) {
-                    this.world.setBlockState(new BlockPos(x, y, z), GaiaBlocks.WEB_TEMP.getDefaultState());
+                    this.world.setBlockState(new BlockPos(x, y, z), GaiaBlocks.WEB_TEMP.get().getDefaultState());
                 }
             }
         } else if (result.getType() == RayTraceResult.Type.BLOCK) {
             BlockRayTraceResult blockTraceResult = (BlockRayTraceResult)result;
             BlockPos blockpos = blockTraceResult.getPos().offset(blockTraceResult.getFace());
             if (this.world.isAirBlock(blockpos)) {
-                this.world.setBlockState(blockpos, GaiaBlocks.WEB_TEMP.getDefaultState());
+                this.world.setBlockState(blockpos, GaiaBlocks.WEB_TEMP.get().getDefaultState());
             }
         }
 

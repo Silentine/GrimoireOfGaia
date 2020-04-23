@@ -50,7 +50,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
     }
 
     public GaiaAntEntity(World world) {
-        this(GaiaEntities.ANT, world);
+        this(GaiaEntities.ANT.get(), world);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
             }
 
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_HONEY, 1);
+                entityDropItem(GaiaItems.FOOD_HONEY.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -188,7 +188,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
         }
     }
@@ -205,10 +205,10 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
         setChild(true, 10);
 
         if (world.rand.nextInt(2) == 0) {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         } else {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         }
 

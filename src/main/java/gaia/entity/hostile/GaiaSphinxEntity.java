@@ -49,7 +49,7 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
     }
 
     public GaiaSphinxEntity(World world) {
-        this(GaiaEntities.SPHINX, world);
+        this(GaiaEntities.SPHINX.get(), world);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD, 1);
+                entityDropItem(GaiaItems.FOOD_SMALL_APPLE_GOLD.get(), 1);
             }
 
             // Nuggets/Shards
@@ -154,20 +154,20 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_DIAMOND, 1);
+                entityDropItem(GaiaItems.BOX_DIAMOND.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.BUST_SPHINX, 1);
+                entityDropItem(GaiaBlocks.BUST_SPHINX.get(), 1);
             }
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.MISC_RING_JUMP), 1);
+                entityDropItem(new ItemStack(GaiaItems.MISC_RING_JUMP.get()), 1);
             }
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.CHEST_TEMPLE), 1);
+                entityDropItem(new ItemStack(GaiaItems.CHEST_TEMPLE.get()), 1);
             }
         }
     }

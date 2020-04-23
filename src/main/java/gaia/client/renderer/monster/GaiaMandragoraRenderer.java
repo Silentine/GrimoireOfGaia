@@ -1,10 +1,8 @@
 package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
-import gaia.client.model.ModelGaiaBoneKnight;
 import gaia.client.model.ModelGaiaMandragora;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
-import gaia.entity.hostile.GaiaBoneKnightEntity;
 import gaia.entity.hostile.GaiaMandragoraEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

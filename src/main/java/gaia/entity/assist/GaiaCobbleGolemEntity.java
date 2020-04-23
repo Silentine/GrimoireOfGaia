@@ -7,7 +7,6 @@ import gaia.entity.goals.GaiaValidateTargetPlayerGoal;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
@@ -27,7 +26,6 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -37,8 +35,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
 
 public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements IDayMob {
 
@@ -55,7 +51,7 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
     }
 
     public GaiaCobbleGolemEntity(World world) {
-        this(GaiaEntities.COBBLE_GOLEM, world);
+        this(GaiaEntities.COBBLE_GOLEM.get(), world);
     }
 
     @Override
@@ -216,7 +212,7 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
         }
     }

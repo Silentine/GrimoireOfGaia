@@ -3,7 +3,6 @@ package gaia.client.model;
 import gaia.entity.assist.GaiaDwarfEntity;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.item.BowItem;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

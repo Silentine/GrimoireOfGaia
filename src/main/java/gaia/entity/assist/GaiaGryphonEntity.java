@@ -43,7 +43,7 @@ public class GaiaGryphonEntity extends AbstractMobAssistEntity implements IDayMo
     }
 
     public GaiaGryphonEntity(World world) {
-        this(GaiaEntities.GRYPHON, world);
+        this(GaiaEntities.GRYPHON.get(), world);
     }
 
     private void setCombatTask() {
@@ -153,7 +153,7 @@ public class GaiaGryphonEntity extends AbstractMobAssistEntity implements IDayMo
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
         }
     }
@@ -163,7 +163,7 @@ public class GaiaGryphonEntity extends AbstractMobAssistEntity implements IDayMo
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED.get(), 1);
         weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
         setItemStackToSlot(EquipmentSlotType.MAINHAND, weaponCustom);
 

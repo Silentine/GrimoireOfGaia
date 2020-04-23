@@ -1,21 +1,17 @@
 package gaia.entity.projectile;
 
 import gaia.entity.EntityAttributes;
-import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Difficulty;
@@ -29,16 +25,16 @@ public class GaiaProjectileMagicEntity extends AbstractGaiaProjectileEntity {
     }
 
     public GaiaProjectileMagicEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(GaiaEntities.MAGIC_PROJECTILE, worldIn, shooter, accelX, accelY, accelZ);
+        super(GaiaEntities.MAGIC_PROJECTILE.get(), worldIn, shooter, accelX, accelY, accelZ);
     }
 
     public GaiaProjectileMagicEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.MAGIC_PROJECTILE, worldIn);
+        this(GaiaEntities.MAGIC_PROJECTILE.get(), worldIn);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_MAGIC);
+        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_MAGIC.get());
     }
 
     @Override

@@ -9,7 +9,6 @@ import gaia.entity.types.IDayMob;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -38,7 +37,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -92,7 +90,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
     }
 
     public GaiaCentaurEntity(World world) {
-        this(GaiaEntities.CENTAUR, world);
+        this(GaiaEntities.CENTAUR.get(), world);
     }
 
     @Override
@@ -142,7 +140,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
 
         if (isNeutral() && !isFriendly) {
             setCombatTask(2);
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
             setItemStackToSlot(EquipmentSlotType.OFFHAND, ItemStack.EMPTY);
             isFriendly = true;
         }
@@ -170,7 +168,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
                 setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
                 setCombatTask(0);
             } else {
-                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
                 setCombatTask(2);
             }
 
@@ -229,7 +227,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.CENTAUR;
+        return super.canAttack(type) && type != GaiaEntities.CENTAUR.get();
     }
 
     @Override
@@ -319,12 +317,12 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BAG_ARROW, 1);
+                entityDropItem(GaiaItems.BAG_ARROW.get(), 1);
             }
         }
     }

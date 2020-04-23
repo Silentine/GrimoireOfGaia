@@ -1,9 +1,9 @@
 package gaia.util;
 
+import net.minecraft.util.math.BlockPos;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import net.minecraft.util.math.BlockPos;
 
 public class BlockPosHelper {
 	private BlockPosHelper() {

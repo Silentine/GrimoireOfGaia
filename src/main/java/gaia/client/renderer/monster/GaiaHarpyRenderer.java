@@ -1,15 +1,10 @@
 package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
-import gaia.client.model.ModelGaiaArachne;
 import gaia.client.model.ModelGaiaHarpy;
-import gaia.client.renderer.layers.GaiaGlowingLayer;
-import gaia.client.renderer.layers.GaiaHeldItemLayer;
-import gaia.entity.hostile.GaiaArachneEntity;
 import gaia.entity.hostile.GaiaHarpyEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;

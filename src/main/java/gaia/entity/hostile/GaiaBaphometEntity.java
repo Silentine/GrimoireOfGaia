@@ -62,7 +62,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
     }
 
     public GaiaBaphometEntity(World world) {
-        this(GaiaEntities.BAPHOMET, world);
+        this(GaiaEntities.BAPHOMET.get(), world);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
 
     private void setCombatTask() {
         ItemStack itemstack = getHeldItemMainhand();
-        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER) {
+        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER.get()) {
             setCombatTask(0);
         } else {
             setCombatTask(1);
@@ -136,13 +136,13 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
     @Override
     public void livingTick() {
         if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL.get()));
             setCombatTask(1);
             switchHealth = 1;
         }
 
         if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER.get(), 1));
             switchHealth = 0;
         }
 
@@ -190,7 +190,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
 
             if ((rand.nextInt(2) == 0 || rand.nextInt(1) > 0)) {
                 for (int i = 0; i < drop; ++i) {
-                    entityDropItem(GaiaItems.MISC_SOUL_FIERY, 1);
+                    entityDropItem(GaiaItems.MISC_SOUL_FIERY.get(), 1);
                 }
             } else {
                 for (int i = 0; i < drop; ++i) {
@@ -199,7 +199,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
             }
 
             if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_NETHER_WART, 1);
+                entityDropItem(GaiaItems.FOOD_NETHER_WART.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -221,16 +221,16 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(new ItemStack(GaiaItems.BOX_GOLD, 1), 1);
+                        entityDropItem(new ItemStack(GaiaItems.BOX_GOLD.get(), 1), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                     case 2:
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.ACCESSORY_TRINKET_WITHER, 1);
+                entityDropItem(GaiaItems.ACCESSORY_TRINKET_WITHER.get(), 1);
             }
         }
     }
@@ -241,7 +241,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
         setCombatTask(0);
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER.get(), 1));
 
         return entityData;
     }

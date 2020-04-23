@@ -7,19 +7,12 @@ import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.item.ItemShard;
-import gaia.util.RangedHelper;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -32,7 +25,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -64,7 +56,7 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
     }
 
     public GaiaGelatinousSlimeEntity(World world) {
-        this(GaiaEntities.GELATINOUS_SLIME, world);
+        this(GaiaEntities.GELATINOUS_SLIME.get(), world);
     }
 
     @Override
@@ -224,19 +216,19 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.SPAWN_SLIME_GIRL, 1);
-            }
+//            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+//                entityDropItem(GaiaItems.SPAWN_SLIME_GIRL, 1);
+//            }TODO: SPAWN_SLIME_GIRL Item
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.DOLL_SLIME_GIRL, 1);
+                entityDropItem(GaiaBlocks.DOLL_SLIME_GIRL.get(), 1);
             }
         }
     }

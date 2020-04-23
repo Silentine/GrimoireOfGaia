@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -32,14 +31,12 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -82,7 +79,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
     }
 
     public GaiaAnubisEntity(World world) {
-        this(GaiaEntities.ANUBIS, world);
+        this(GaiaEntities.ANUBIS.get(), world);
     }
 
     @Override
@@ -164,7 +161,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.ANUBIS;
+        return super.canAttack(type) && type != GaiaEntities.ANUBIS.get();
     }
 
     @Override
@@ -201,7 +198,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
         goalSelector.removeGoal(aiArrowAttack);
 
         ItemStack itemstack = getHeldItemMainhand();
-        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_BLAZE) {
+        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_BLAZE.get()) {
             setCombatTask(0);
         } else {
             setCombatTask(1);
@@ -213,13 +210,13 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
         beaconMonster();
 
         if ((getHealth() < EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 0)) {
-            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
+            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL.get()));
             setCombatTask(1);
             switchHealth = 1;
         }
 
         if ((getHealth() > EntityAttributes.MAX_HEALTH_2 * 0.75F) && (switchHealth == 1)) {
-            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE, 1));
+            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE.get(), 1));
             setCombatTask(0);
             switchHealth = 0;
         }
@@ -314,7 +311,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
                 SkeletonEntity skeleton = new SkeletonEntity(EntityType.SKELETON, world);
                 skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
                 skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), null, null, null);
-                skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
+                skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
                 skeleton.setDropChance(EquipmentSlotType.OFFHAND, 0);
                 skeleton.setDropChance(EquipmentSlotType.FEET, 0);
@@ -393,21 +390,21 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.MISC_BOOK, 1);
+                entityDropItem(GaiaItems.MISC_BOOK.get(), 1);
             }
 
             // Unique Rare
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.SPAWN_WERESHEEP, 1);
-            }
+//            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+//                entityDropItem(GaiaItems.SPAWN_WERESHEEP, 1);
+//            }TODO: SPAWN_WERESHEEP Item
         }
 
         // Boss
@@ -425,7 +422,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
             setMale();
         }
 
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE, 1));
+        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_BLAZE.get(), 1));
 
         this.setCombatTask();
 

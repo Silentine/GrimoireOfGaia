@@ -1,11 +1,11 @@
 package gaia.entity;
 
+import gaia.GaiaReference;
 import gaia.config.GaiaConfig;
 import gaia.entity.types.IDayMob;
 import gaia.entity.types.IEnderMob;
 import gaia.entity.types.IFlyingMob;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.CreatureEntity;
@@ -37,6 +37,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -175,7 +176,8 @@ public abstract class AbstractMobAssistEntity extends CreatureEntity implements 
     @Override
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vec3d vec, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED && !isNeutral() && isTameable()) {
+        boolean isInTag = ItemTags.getCollection().getOrCreate(GaiaReference.MONSTER_FEED_TAG).contains(stack.getItem());
+        if (isInTag && !isNeutral() && isTameable()) {
             world.setEntityState(this, (byte) 8);
 
             if (!player.abilities.isCreativeMode) {

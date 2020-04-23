@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
@@ -25,7 +24,6 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -35,8 +33,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
 
 public class GaiaCobblestoneGolemEntity extends AbstractMobHostileEntity {
 
@@ -51,7 +47,7 @@ public class GaiaCobblestoneGolemEntity extends AbstractMobHostileEntity {
     }
 
     public GaiaCobblestoneGolemEntity(World world) {
-        this(GaiaEntities.COBBLESTONE_GOLEM, world);
+        this(GaiaEntities.COBBLESTONE_GOLEM.get(), world);
     }
 
     @Override
@@ -198,19 +194,19 @@ public class GaiaCobblestoneGolemEntity extends AbstractMobHostileEntity {
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.CHEST_JUNGLE), 1);
+                entityDropItem(new ItemStack(GaiaItems.CHEST_JUNGLE.get()), 1);
             }
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.SHARD_MISC), 1);
+                entityDropItem(new ItemStack(GaiaItems.SHARD_MISC.get()), 1);
             }
         }
     }

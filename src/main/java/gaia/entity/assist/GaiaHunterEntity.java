@@ -62,7 +62,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
     }
 
     public GaiaHunterEntity(World world) {
-        this(GaiaEntities.HUNTER, world);
+        this(GaiaEntities.HUNTER.get(), world);
     }
 
     private void setCombatTask() {
@@ -147,7 +147,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
             setCombatTask(1);
             timer = 0;
             switchEquip = 1;
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
             setItemStackToSlot(EquipmentSlotType.OFFHAND, ItemStack.EMPTY);
             isFriendly = true;
         }
@@ -169,7 +169,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
                 if (!isPotionActive(Effects.SPEED)) {
                     addPotionEffect(new EffectInstance(Effects.SPEED, 10 * 20, 0));
                 }
-                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL.get()));
                 setCombatTask(1);
 
                 timer = 0;
@@ -189,7 +189,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
                     setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
                     setCombatTask(0);
                 } else {
-                    setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+                    setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
                     setCombatTask(1);
                 }
 
@@ -226,7 +226,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_ROTTEN_HEART, 1);
+                entityDropItem(GaiaItems.FOOD_ROTTEN_HEART.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -246,12 +246,12 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BAG_ARROW, 1);
+                entityDropItem(GaiaItems.BAG_ARROW.get(), 1);
             }
         }
     }

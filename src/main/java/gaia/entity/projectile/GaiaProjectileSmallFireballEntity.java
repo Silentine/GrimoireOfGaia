@@ -10,7 +10,6 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
@@ -28,16 +27,16 @@ public class GaiaProjectileSmallFireballEntity extends SmallFireballEntity {
 
     @Override
     public EntityType<?> getType() {
-        return GaiaEntities.FIREBALL_PROJECTILE;
+        return GaiaEntities.FIREBALL_PROJECTILE.get();
     }
 
     public GaiaProjectileSmallFireballEntity(World worldIn, LivingEntity shooter) {
-        this(GaiaEntities.FIREBALL_PROJECTILE, worldIn);
+        this(GaiaEntities.FIREBALL_PROJECTILE.get(), worldIn);
         this.shootingEntity = shooter;
     }
 
     public GaiaProjectileSmallFireballEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.FIREBALL_PROJECTILE, worldIn);
+        this(GaiaEntities.FIREBALL_PROJECTILE.get(), worldIn);
     }
 
     @Override

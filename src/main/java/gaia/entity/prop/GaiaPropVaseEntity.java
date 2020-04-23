@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobPropEntity;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -20,7 +19,6 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -53,7 +51,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
     }
 
     public GaiaPropVaseEntity(World worldIn) {
-        this(GaiaEntities.VASE, worldIn);
+        this(GaiaEntities.VASE.get(), worldIn);
     }
 
     @Override
@@ -226,7 +224,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
                     case 2:
                         world.setEntityState(this, (byte) 7);
                         for (int i = 0; i < dropHeart; ++i) {
-                            entityDropItem(GaiaItems.PICKUP_HEART, 1);
+                            entityDropItem(GaiaItems.PICKUP_HEART.get(), 1);
                         }
                         break;
                 }

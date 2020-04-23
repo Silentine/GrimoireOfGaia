@@ -2,7 +2,6 @@ package gaia.client.model;
 
 import gaia.entity.assist.GaiaCobbleGolemEntity;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.entity.MobEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

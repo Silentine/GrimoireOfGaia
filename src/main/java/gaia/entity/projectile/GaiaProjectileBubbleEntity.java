@@ -25,16 +25,16 @@ public class GaiaProjectileBubbleEntity extends AbstractGaiaProjectileEntity {
     }
 
     public GaiaProjectileBubbleEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(GaiaEntities.BUBBLE_PROJECTILE, worldIn, shooter, accelX, accelY, accelZ);
+        super(GaiaEntities.BUBBLE_PROJECTILE.get(), worldIn, shooter, accelX, accelY, accelZ);
     }
 
     public GaiaProjectileBubbleEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.BUBBLE_PROJECTILE, worldIn);
+        this(GaiaEntities.BUBBLE_PROJECTILE.get(), worldIn);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_BUBBLE);
+        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_BUBBLE.get());
     }
 
     @Override

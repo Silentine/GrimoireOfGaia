@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
@@ -27,7 +26,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -53,7 +51,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
     }
 
     public GaiaBansheeEntity(World world) {
-        this(GaiaEntities.BANSHEE, world);
+        this(GaiaEntities.BANSHEE.get(), world);
     }
 
     @Override
@@ -209,7 +207,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
             int drop = rand.nextInt(3 + lootingModifier);
 
             for (int i = 0; i < drop; ++i) {
-                entityDropItem(GaiaItems.MISC_SOUL_FIRE, 1);
+                entityDropItem(GaiaItems.MISC_SOUL_FIRE.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -231,15 +229,15 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE, 1);
+                entityDropItem(GaiaItems.WEAPON_BOOK_NIGHTMARE.get(), 1);
             }
         }
     }

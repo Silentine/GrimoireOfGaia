@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IEnderMob;
-import gaia.entity.types.IFlyingMob;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
@@ -16,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -38,7 +36,6 @@ import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -60,7 +57,7 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
     }
 
     public GaiaEnderEyeEntity(World world) {
-        this(GaiaEntities.ENDER_EYE, world);
+        this(GaiaEntities.ENDER_EYE.get(), world);
     }
 
     @Override
@@ -247,12 +244,12 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get(), 1), 0.0F);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.DOLL_ENDER_GIRL, 1);
+                entityDropItem(GaiaBlocks.DOLL_ENDER_GIRL.get(), 1);
             }
         }
     }

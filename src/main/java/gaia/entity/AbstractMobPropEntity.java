@@ -5,7 +5,6 @@ import gaia.entity.types.IDayMob;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 

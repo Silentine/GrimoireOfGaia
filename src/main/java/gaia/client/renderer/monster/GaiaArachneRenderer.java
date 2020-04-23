@@ -2,8 +2,8 @@ package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaArachne;
-import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.client.renderer.layers.GaiaGlowingLayer;
+import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.entity.hostile.GaiaArachneEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

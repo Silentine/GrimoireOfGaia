@@ -23,6 +23,6 @@ public class ItemWeaponBook extends SwordItem {
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return repair.getItem() == GaiaItems.MISC_QUILL;
+		return repair.getItem() == GaiaItems.MISC_QUILL.get();
 	}
 }

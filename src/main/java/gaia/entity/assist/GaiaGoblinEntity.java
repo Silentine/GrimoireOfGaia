@@ -31,8 +31,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -66,7 +64,7 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
     }
 
     public GaiaGoblinEntity(World world) {
-        this(GaiaEntities.GOBLIN, world);
+        this(GaiaEntities.GOBLIN.get(), world);
     }
 
     @Override
@@ -120,7 +118,7 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
         goalSelector.removeGoal(rangedAttackGoal);
         ItemStack itemstack = getHeldItemMainhand();
 
-        if (itemstack.getItem() == GaiaItems.WEAPON_PROJECTILE_BOMB) {
+        if (itemstack.getItem() == GaiaItems.WEAPON_PROJECTILE_BOMB.get()) {
             goalSelector.addGoal(1, rangedAttackGoal);
         } else {
             goalSelector.addGoal(1, collideAttackGoal);
@@ -129,7 +127,7 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.GOBLIN;
+        return super.canAttack(type) && type != GaiaEntities.GOBLIN.get();
     }
 
     @Override
@@ -194,7 +192,7 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_MEAT, 1);
+                entityDropItem(GaiaItems.FOOD_MEAT.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -214,13 +212,13 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
                 if (getTextureType() == 1) {
-                    entityDropItem(GaiaItems.BAG_ARROW, 1);
+                    entityDropItem(GaiaItems.BAG_ARROW.get(), 1);
                 }
             }
         }
@@ -248,7 +246,7 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
                 setEquipmentBasedOnDifficulty(difficulty);
                 break;
             case 1:
-                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB));
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB.get()));
                 setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.FLINT_AND_STEEL));
                 break;
         }
@@ -260,10 +258,10 @@ public class GaiaGoblinEntity extends AbstractMobAssistEntity implements IDayMob
     @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         if (rand.nextInt(4) == 0) {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         } else {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         }
     }

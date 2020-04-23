@@ -53,7 +53,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 	}
 
 	public GaiaPropFlowerCyanEntity(World worldIn) {
-		this(GaiaEntities.CYAN_FLOWER, worldIn);
+		this(GaiaEntities.CYAN_FLOWER.get(), worldIn);
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 				}
 			}
 			if (shovelAttack >= 1 && (rand.nextInt(16) == 0)) {
-				entityDropItem(GaiaItems.FOOD_MANDRAKE, 1);
+				entityDropItem(GaiaItems.FOOD_MANDRAKE.get(), 1);
 			}
 		}
 	}
@@ -276,7 +276,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 		return false;
 	}
 
-	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD);
+	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD.get());
 	/* SPAWN CONDITIONS */
 
 	@Override

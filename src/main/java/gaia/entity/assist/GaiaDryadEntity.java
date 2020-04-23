@@ -7,7 +7,6 @@ import gaia.entity.goals.GaiaValidateTargetPlayerGoal;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.entity.CreatureEntity;
@@ -72,7 +71,7 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
     }
 
     public GaiaDryadEntity(World world) {
-        this(GaiaEntities.DRYAD, world);
+        this(GaiaEntities.DRYAD.get(), world);
     }
 
     @Override
@@ -208,7 +207,7 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_ROOT, 1);
+                entityDropItem(GaiaItems.FOOD_ROOT.get(), 1);
             }
 
             if (axeAttack >= 4 && (rand.nextInt(2) == 0)) {
@@ -233,7 +232,7 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
         }
     }

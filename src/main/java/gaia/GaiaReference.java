@@ -1,11 +1,11 @@
 package gaia;
 
-public class GaiaReference {
+import net.minecraft.util.ResourceLocation;
 
+public class GaiaReference {
 	public static final String MOD_ID = "grimoireofgaia";
 	public static final String MOD_NAME = "Grimoire of Gaia 3";
-	static final String MC_VERSIONS = "1.13.2";
-	static final String VERSION = "@VERSION@";
 
-	static final String DEPENDENCIES = "required-after:forge@[14.24.0.184,);after:baubles@[1.4.2,]";
+	public static final ResourceLocation MONSTER_FEED_TAG = new ResourceLocation(MOD_ID, "monster_feed");
+	public static final ResourceLocation PREMIUM_MONSTER_FEED_TAG = new ResourceLocation(MOD_ID, "monster_feed");
 }

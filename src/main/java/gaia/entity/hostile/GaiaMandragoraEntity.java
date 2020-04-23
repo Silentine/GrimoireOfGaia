@@ -7,7 +7,6 @@ import gaia.entity.types.IDayMob;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
@@ -34,7 +33,6 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -67,7 +65,7 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
     }
 
     public GaiaMandragoraEntity(World world) {
-        this(GaiaEntities.MANDRAGORA, world);
+        this(GaiaEntities.MANDRAGORA.get(), world);
     }
 
     @Override
@@ -196,16 +194,16 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_ROOT, 1);
+                entityDropItem(GaiaItems.FOOD_ROOT.get(), 1);
             }
 
             if (shovelAttack >= 4) {
                 if ((rand.nextInt(8) == 0)) {
-                    entityDropItem(GaiaItems.FOOD_MANDRAKE, 1);
+                    entityDropItem(GaiaItems.FOOD_MANDRAKE.get(), 1);
                 }
             } else {
                 if ((rand.nextInt(16) == 0)) {
-                    entityDropItem(GaiaItems.FOOD_MANDRAKE, 1);
+                    entityDropItem(GaiaItems.FOOD_MANDRAKE.get(), 1);
                 }
             }
 
@@ -226,12 +224,12 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.DECO_GARDEN_GNOME, 1);
+                entityDropItem(GaiaBlocks.DECO_GARDEN_GNOME.get(), 1);
             }
         }
     }

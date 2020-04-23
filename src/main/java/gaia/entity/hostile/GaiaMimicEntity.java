@@ -38,7 +38,7 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
     }
 
     public GaiaMimicEntity(World world) {
-        this(GaiaEntities.MIMIC, world);
+        this(GaiaEntities.MIMIC.get(), world);
     }
 
     @Override
@@ -153,24 +153,24 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get(), 1), 0.0F);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.FOOD_MONSTER_FEED_PREMIUM, 1);
+                entityDropItem(GaiaItems.FOOD_MONSTER_FEED_PREMIUM.get(), 1);
+            }
+
+//            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+//                entityDropItem(GaiaItems.SPAWN_TRADER, 1);
+//            } TODO: SPAWN_TRADER Item
+
+            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+                entityDropItem(GaiaItems.BAG_RECORD.get(), 1);
             }
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.SPAWN_TRADER, 1);
-            }
-
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BAG_RECORD, 1);
-            }
-
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.WEAPON_BOOK_HUNGER, 1);
+                entityDropItem(GaiaItems.WEAPON_BOOK_HUNGER.get(), 1);
             }
         }
     }

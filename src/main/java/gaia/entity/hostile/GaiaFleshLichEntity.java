@@ -21,8 +21,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -50,7 +48,7 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
     }
 
     public GaiaFleshLichEntity(World world) {
-        this(GaiaEntities.FLESH_LICH, world);
+        this(GaiaEntities.FLESH_LICH.get(), world);
     }
 
     @Override
@@ -155,7 +153,7 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
+                        entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 0.0F);
                     case 1:
                         entityDropItem(Blocks.LAPIS_BLOCK, 1);
                 }
@@ -173,7 +171,7 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData data = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER.get(), 1));
 
         return data;
     }

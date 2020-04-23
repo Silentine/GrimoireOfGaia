@@ -55,7 +55,7 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
     }
 
     public GaiaEnderDragonGirlEntity(World world) {
-        this(GaiaEntities.ENDER_DRAGON_GIRL, world);
+        this(GaiaEntities.ENDER_DRAGON_GIRL.get(), world);
     }
 
     @Override
@@ -241,20 +241,20 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(new ItemStack(GaiaItems.BOX_END, 1), 0.0F);
+                        entityDropItem(new ItemStack(GaiaItems.BOX_END.get()), 0.0F);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.WEAPON_BOOK_ENDER, 1);
+                entityDropItem(GaiaItems.WEAPON_BOOK_ENDER.get(), 1);
             }
 
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
-            }
+//            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+//                entityDropItem(GaiaItems.SPAWN_ENDER_GIRL, 1);
+//            } TODO: SPAWN_ENDER_GIRL Item
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
                 entityDropItem(Items.ELYTRA, 1);

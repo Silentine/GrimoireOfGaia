@@ -84,7 +84,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
     }
 
     public GaiaDwarfEntity(World world) {
-        this(GaiaEntities.DWARF, world);
+        this(GaiaEntities.DWARF.get(), world);
     }
 
     @Override
@@ -256,7 +256,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.DWARF;
+        return super.canAttack(type) && type != GaiaEntities.DWARF.get();
     }
 
     @Override
@@ -322,7 +322,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
             switch (getMobType()) {
                 case 0:
                     for (int i = 0; i < drop; ++i) {
-                        entityDropItem(GaiaItems.FOOD_MEAT, 1);
+                        entityDropItem(GaiaItems.FOOD_MEAT.get(), 1);
                     }
                     break;
                 case 1:
@@ -353,22 +353,22 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
 
             // Semi-Rare
             if ((rand.nextInt(EntityAttributes.RATE_SEMI_RARE_DROP) == 0) && (getMobType() == 2)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE, 1), 0.0F);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get(), 1), 0.0F);
             }
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0) && (getMobType() == 1)) {
-                entityDropItem(GaiaItems.BAG_ARROW, 1);
+                entityDropItem(GaiaItems.BAG_ARROW.get(), 1);
             }
         }
 
@@ -409,11 +409,11 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
     public void mobClass(DifficultyInstance difficulty, int id) {
         switch (id) {
             case 0:
-                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE));
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_STONE.get()));
                 setEnchantmentBasedOnDifficulty(difficulty);
 
                 if (world.rand.nextInt(2) == 0) {
-                    ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_IRON, 1);
+                    ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_IRON.get(), 1);
                     setItemStackToSlot(EquipmentSlotType.OFFHAND, shield);
                     getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
                 }

@@ -1,10 +1,8 @@
 package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
-import gaia.client.model.ModelGaiaEnderDragonGirl;
 import gaia.client.model.ModelGaiaEnderEye;
 import gaia.client.renderer.layers.GaiaGlowingLayer;
-import gaia.entity.assist.GaiaEnderDragonGirlEntity;
 import gaia.entity.assist.GaiaEnderEyeEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

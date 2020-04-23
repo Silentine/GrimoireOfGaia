@@ -2,9 +2,7 @@ package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaBaphomet;
-import gaia.client.model.ModelGaiaBee;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
-import gaia.entity.assist.GaiaBeeEntity;
 import gaia.entity.hostile.GaiaBaphometEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

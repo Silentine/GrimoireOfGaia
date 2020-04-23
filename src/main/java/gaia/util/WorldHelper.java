@@ -1,10 +1,10 @@
 package gaia.util;
 
-import java.util.Optional;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+
+import java.util.Optional;
 
 public class WorldHelper {
 	private WorldHelper() {}

@@ -15,6 +15,6 @@ public class GaiaRecipes {
 	}
 
 	public static void addBrews() {
-        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(getType(Potions.WATER)), Ingredient.fromItems(GaiaItems.FOOD_NETHER_WART), getType(Potions.AWKWARD));
+        BrewingRecipeRegistry.addRecipe(Ingredient.fromStacks(getType(Potions.WATER)), Ingredient.fromItems(GaiaItems.FOOD_NETHER_WART.get()), getType(Potions.AWKWARD));
 	}
 }

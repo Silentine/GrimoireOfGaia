@@ -53,7 +53,7 @@ public class GaiaPropChestMimicEntity extends AbstractMobPropEntity {
 	}
 
 	public GaiaPropChestMimicEntity(World worldIn) {
-		super(GaiaEntities.CHEST, worldIn);
+		super(GaiaEntities.CHEST.get(), worldIn);
 	}
 	
 	@Override

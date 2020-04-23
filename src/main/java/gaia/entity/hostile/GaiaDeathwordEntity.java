@@ -7,7 +7,6 @@ import gaia.entity.goals.GaiaStrafeGoal;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.enchantment.Enchantments;
@@ -31,7 +30,6 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -67,7 +65,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
     }
 
     public GaiaDeathwordEntity(World world) {
-        this(GaiaEntities.DEATHWORD, world);
+        this(GaiaEntities.DEATHWORD.get(), world);
     }
 
     @Override
@@ -181,7 +179,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
                 SkeletonEntity skeleton = new SkeletonEntity(EntityType.SKELETON, world);
                 skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
                 skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), null, null, null);
-                skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
+                skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
                 skeleton.setDropChance(EquipmentSlotType.OFFHAND, 0);
                 skeleton.setDropChance(EquipmentSlotType.FEET, 0);
@@ -198,7 +196,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
                 ZombieEntity zombie = new ZombieEntity(world);
                 zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
                 zombie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(zombie)), null, null, null);
-                zombie.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB, 1));
+                zombie.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 zombie.setDropChance(EquipmentSlotType.MAINHAND, 0);
                 zombie.setDropChance(EquipmentSlotType.OFFHAND, 0);
                 zombie.setDropChance(EquipmentSlotType.FEET, 0);
@@ -285,17 +283,17 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE), 1);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BAG_BOOK, 1);
+                entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.WEAPON_BOOK, 1);
+                entityDropItem(GaiaItems.WEAPON_BOOK.get(), 1);
             }
         }
     }
@@ -304,7 +302,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED.get(), 1);
         weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
         setItemStackToSlot(EquipmentSlotType.MAINHAND, weaponCustom);
 

@@ -79,7 +79,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
     }
 
     public GaiaArachneEntity(World world) {
-        this(GaiaEntities.ARACHNE, world);
+        this(GaiaEntities.ARACHNE.get(), world);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     private void setCombatTask() {
         ItemStack itemstack = getHeldItemMainhand();
-        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER) {
+        if (itemstack.getItem() == GaiaItems.WEAPON_PROP_ENDER.get()) {
             setCombatTask(0);
         } else {
             setCombatTask(1);
@@ -162,7 +162,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.ARACHNE;
+        return super.canAttack(type) && type != GaiaEntities.ARACHNE.get();
     }
 
     @Override
@@ -188,13 +188,13 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
         this.boostSpiderlikes();
 
         if ((getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 0)) {
-            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
+            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL.get()));
             this.setCombatTask(1);
             switchHealth = 1;
         }
 
         if ((getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.5F) && (switchHealth == 1)) {
-            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1));
+            this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_ENDER.get(), 1));
             this.setCombatTask(0);
             switchHealth = 0;
         }
@@ -307,7 +307,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.MISC_FURNACE_FUEL, 1);
+                entityDropItem(GaiaItems.MISC_FURNACE_FUEL.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -327,12 +327,12 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE), 0.0F);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 0.0F);
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.MISC_BOOK);
+                entityDropItem(GaiaItems.MISC_BOOK.get());
             }
         }
     }
@@ -342,7 +342,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENDER, 1);
+        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENDER.get(), 1);
         weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
         setItemStackToSlot(EquipmentSlotType.MAINHAND, weaponCustom);
 

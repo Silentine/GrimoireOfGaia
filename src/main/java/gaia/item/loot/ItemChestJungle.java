@@ -5,8 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTables;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemChestJungle extends ItemBoxBase {
 	public ItemChestJungle(Item.Properties builder) {

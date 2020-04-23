@@ -60,7 +60,7 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
     }
 
     public GaiaCreepEntity(World world) {
-        this(GaiaEntities.CREEP, world);
+        this(GaiaEntities.CREEP.get(), world);
     }
 
     @Override
@@ -260,16 +260,16 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE), 1);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 1);
             }
 
             // Unique Rare
-            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
-            }
+//            if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
+//                entityDropItem(GaiaItems.SPAWN_CREEPER_GIRL, 1);
+//            } TODO: SPAWN_CREEPER_GIRL item
 
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.DOLL_CREEPER_GIRL, 1);
+                entityDropItem(GaiaBlocks.DOLL_CREEPER_GIRL.get(), 1);
             }
         }
     }

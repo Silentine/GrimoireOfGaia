@@ -28,21 +28,21 @@ public class GaiaProjectileBombEntity extends ProjectileItemEntity {
     }
 
     public GaiaProjectileBombEntity(World worldIn, LivingEntity shooter) {
-        super(GaiaEntities.BOMB_PROJECTILE, shooter, worldIn);
+        super(GaiaEntities.BOMB_PROJECTILE.get(), shooter, worldIn);
     }
 
     public GaiaProjectileBombEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.BOMB_PROJECTILE, worldIn);
+        this(GaiaEntities.BOMB_PROJECTILE.get(), worldIn);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB);
+        return new ItemStack(GaiaItems.WEAPON_PROJECTILE_BOMB.get());
     }
 
     @Override
     protected Item getDefaultItem() {
-        return GaiaItems.WEAPON_PROJECTILE_BOMB;
+        return GaiaItems.WEAPON_PROJECTILE_BOMB.get();
     }
 
     @OnlyIn(Dist.CLIENT)

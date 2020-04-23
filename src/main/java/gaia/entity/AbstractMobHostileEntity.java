@@ -1,11 +1,11 @@
 package gaia.entity;
 
+import gaia.GaiaReference;
 import gaia.config.GaiaConfig;
 import gaia.entity.types.IDayMob;
 import gaia.entity.types.IEnderMob;
 import gaia.entity.types.IFlyingMob;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaItems;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,7 +16,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -36,6 +35,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -149,7 +149,8 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
     @Override
     protected boolean processInteract(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if (stack.getItem() == GaiaItems.FOOD_MONSTER_FEED_PREMIUM && !isNeutral()) {
+        boolean isInTag = ItemTags.getCollection().getOrCreate(GaiaReference.PREMIUM_MONSTER_FEED_TAG).contains(stack.getItem());
+        if (isInTag && !isNeutral()) {
             world.setEntityState(this, (byte) 8);
 
             if (!player.abilities.isCreativeMode) {

@@ -1,7 +1,5 @@
 package gaia.init;
 
-import com.google.common.base.Preconditions;
-import gaia.Gaia;
 import gaia.GaiaReference;
 import gaia.item.GaiaTier;
 import gaia.item.ItemAccessoryCursed;
@@ -73,418 +71,420 @@ import gaia.item.weapons.prop.ItemWeaponProp;
 import gaia.item.weapons.prop.ItemWeaponPropEnchanted;
 import gaia.item.weapons.prop.ItemWeaponPropItemSword;
 import gaia.item.weapons.prop.ItemWeaponPropProjectile;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-
-@Mod.EventBusSubscriber(modid = GaiaReference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-@ObjectHolder(GaiaReference.MOD_ID)
 public class GaiaItems {
-    // A
-    public static Item ACCESSORY_CURSED;
-    public static Item ACCESSORY_HEADGEAR_MOB;
-    public static Item ACCESSORY_HEADGEAR_BOLT;
-    public static Item ACCESSORY_HEADGEAR_ARROW;
-    public static Item ACCESSORY_HEADGEAR_DOLL;
-    public static Item ACCESSORY_HEADGEAR_EARS_ELF;
-    public static Item ACCESSORY_RING_HASTE;
-    public static Item ACCESSORY_RING_JUMP;
-    public static Item ACCESSORY_RING_NIGHT;
-    public static Item ACCESSORY_RING_SPEED;
-    public static Item ACCESSORY_TRINKET_LEVITATION;
-    public static Item ACCESSORY_TRINKET_POISON;
-    public static Item ACCESSORY_TRINKET_WITHER;
-    // B
-    public static Item BOX_ORE;
-    public static Item BOX_NETHER;
-    public static Item BOX_END;
-    public static Item BAG_ARROW;
-    public static Item BAG_BOOK;
-    public static Item BAG_RECORD;
-    public static Item BOX_DIAMOND;
-    public static Item BOX_HAT;
-    public static Item BOX_GOLD;
-    public static Item BOX_IRON;
-    public static Item BOX_OLD;
-    public static Item BOOK_BUFF;
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, GaiaReference.MOD_ID);
+//    // A
+//    public static Item ACCESSORY_CURSED;
+//    public static Item ACCESSORY_HEADGEAR_MOB;
+//    public static Item ACCESSORY_HEADGEAR_BOLT;
+//    public static Item ACCESSORY_HEADGEAR_ARROW;
+//    public static Item ACCESSORY_HEADGEAR_DOLL;
+//    public static Item ACCESSORY_HEADGEAR_EARS_ELF;
+//    public static Item ACCESSORY_RING_HASTE;
+//    public static Item ACCESSORY_RING_JUMP;
+//    public static Item ACCESSORY_RING_NIGHT;
+//    public static Item ACCESSORY_RING_SPEED;
+//    public static Item ACCESSORY_TRINKET_LEVITATION;
+//    public static Item ACCESSORY_TRINKET_POISON;
+//    public static Item ACCESSORY_TRINKET_WITHER;
+//    // B
+//    public static Item BOX_ORE;
+//    public static Item BOX_NETHER;
+//    public static Item BOX_END;
+//    public static Item BAG_ARROW;
+//    public static Item BAG_BOOK;
+//    public static Item BAG_RECORD;
+//    public static Item BOX_DIAMOND;
+//    public static Item BOX_HAT;
+//    public static Item BOX_GOLD;
+//    public static Item BOX_IRON;
+//    public static Item BOX_OLD;
+//    public static Item BOOK_BUFF;
+//
+//    // C
+//    public static Item CHEST_DUNGEON;
+//    public static Item CHEST_JUNGLE;
+//    public static Item CHEST_TEMPLE;
+//    // D
+//    public static Item DEBUG_ITEM;
+//    public static Item DEBUG_WEAPON;
+//    // F
+//    public static Item FOOD_COALFISH;
+//    public static Item FOOD_HONEY;
+//    public static Item FOOD_MANDRAKE;
+//    public static Item FOOD_MEAT;
+//    public static Item FOOD_MONSTER_FEED;
+//    public static Item FOOD_MONSTER_FEED_PREMIUM;
+//    public static Item FOOD_NETHER_WART;
+//    public static Item FOOD_PIE_APPLE_GOLD;
+//    public static Item FOOD_PIE_MANDRAKE;
+//    public static Item FOOD_PIE_MEAT;
+//    public static Item FOOD_ROOT;
+//    public static Item FOOD_ROTTEN_HEART;
+//    public static Item FOOD_SMALL_APPLE_GOLD;
+//    public static Item FOOD_WITHER;
+//    // M
+//    public static Item MISC_BOOK;
+//    public static Item MISC_CURRENCY_SELL;
+//    public static Item MISC_CURRENCY_TRADER;
+//    public static Item MISC_CURRENCY_HOLSTAURUS;
+//    public static Item MISC_CURRENCY_WERESHEEP;
+//    public static Item MISC_EXPERIENCE_IRON;
+//    public static Item MISC_EXPERIENCE_GOLD;
+//    public static Item MISC_EXPERIENCE_DIAMOND;
+//    public static Item MISC_FUR;
+//    public static Item MISC_FURNACE_FUEL;
+//    public static Item MISC_GIGA_GEAR;
+//    public static Item MISC_QUILL;
+//    public static Item MISC_RING_SPEED;
+//    public static Item MISC_RING_HASTE;
+//    public static Item MISC_RING_JUMP;
+//    public static Item MISC_RING_NIGHT;
+//    public static Item MISC_SOUL_FIRE;
+//    public static Item MISC_SOUL_FIERY;
+//
+//    // P
+//    public static Item PICKUP_HEART;
+//
+//    // S
+//    public static Item SHARD_IRON;
+//    public static Item SHARD_GOLD;
+//    public static Item SHARD_DIAMOND;
+//    public static Item SHARD_EMERALD;
+//    public static Item SHARD_COPPER;
+//    public static Item SHARD_SILVER;
+//    public static Item SHARD_MISC;
+//    public static Item SHIELD_PROP_STONE;
+//    public static Item SHIELD_PROP_IRON;
+//    public static Item SHIELD_PROP_GOLD;
+//    public static Item SPAWN;
+//    public static Item SPAWN_WERESHEEP;
+//    public static Item SPAWN_CREEPER_GIRL;
+//    public static Item SPAWN_ENDER_GIRL;
+//    public static Item SPAWN_HOLSTAURUS;
+//    public static Item SPAWN_SLIME_GIRL;
+//    public static Item SPAWN_TAME;
+//    public static Item SPAWN_TRADER;
+//
+//    // Spawn eggs
+//    public static Item ANT_SPAWN_EGG;
+//    public static Item ANT_RANGER_SPAWN_EGG;
+//    public static Item ANUBIS_SPAWN_EGG;
+//    public static Item ARACHNE_SPAWN_EGG;
+//    public static Item BANSHEE_SPAWN_EGG;
+//    public static Item BAPHOMET_SPAWN_EGG;
+//    public static Item BEE_SPAWN_EGG;
+//    public static Item BONE_KNIGHT_SPAWN_EGG;
+//    public static Item CAMPFIRE_SPAWN_EGG;
+//    public static Item CECEALIA_SPAWN_EGG;
+//    public static Item CENTAUR_SPAWN_EGG;
+//    public static Item CHEST_SPAWN_EGG;
+//    public static Item COBBLE_GOLEM_SPAWN_EGG;
+//    public static Item COBBLESTONE_GOLEM_SPAWN_EGG;
+//    public static Item CREEP_SPAWN_EGG;
+//    public static Item CYCLOPS_SPAWN_EGG;
+//    public static Item CYAN_FLOWER_SPAWN_EGG;
+//    public static Item DEATHWORD_SPAWN_EGG;
+//    public static Item DHAMPIR_SPAWN_EGG;
+//    public static Item DRYAD_SPAWN_EGG;
+//    public static Item DULLAHAN_SPAWN_EGG;
+//    public static Item DWARF_SPAWN_EGG;
+//    public static Item ENDER_DRAGON_GIRL_SPAWN_EGG;
+//    public static Item ENDER_EYE_SPAWN_EGG;
+//    public static Item FLESH_LICH_SPAWN_EGG;
+//    public static Item GELATINOUS_SLIME_SPAWN_EGG;
+//    public static Item GOBLIN_SPAWN_EGG;
+//    public static Item GOBLIN_FERAL_SPAWN_EGG;
+//    public static Item GRYPHON_SPAWN_EGG;
+//    public static Item HARPY_SPAWN_EGG;
+//    public static Item HUNTER_SPAWN_EGG;
+//    public static Item KIKIMORA_SPAWN_EGG;
+//    public static Item KOBOLD_SPAWN_EGG;
+//    public static Item MATANGO_SPAWN_EGG;
+//    public static Item MERMAID_SPAWN_EGG;
+//    public static Item MINOTAUR_SPAWN_EGG;
+//    public static Item MINOTAURUS_SPAWN_EGG;
+//    public static Item MUMMY_SPAWN_EGG;
+//    public static Item NAGA_SPAWN_EGG;
+//    public static Item NINE_TAILS_SPAWN_EGG;
+//    public static Item ONI_SPAWN_EGG;
+//    public static Item ORC_SPAWN_EGG;
+//    public static Item SATYRESS_SPAWN_EGG;
+//    public static Item SELKIE_SPAWN_EGG;
+//    public static Item SHAMAN_SPAWN_EGG;
+//    public static Item SHARKO_SPAWN_EGG;
+//    public static Item SIREN_SPAWN_EGG;
+//    public static Item SLUDGE_GIRL_SPAWN_EGG;
+//    public static Item SPHINX_SPAWN_EGG;
+//    public static Item SPRIGGAN_SPAWN_EGG;
+//    public static Item SUCCUBUS_SPAWN_EGG;
+//    public static Item TOAD_SPAWN_EGG;
+//    public static Item VALKYRIE_SPAWN_EGG;
+//    public static Item VASE_SPAWN_EGG;
+//    public static Item VASE_NETHER_SPAWN_EGG;
+//    public static Item VAMPIRE_SPAWN_EGG;
+//    public static Item WERECAT_SPAWN_EGG;
+//    public static Item WITCH_SPAWN_EGG;
+//    public static Item WITHER_COW_SPAWN_EGG;
+//    public static Item YETI_SPAWN_EGG;
+//    public static Item YUKI_ONNA_SPAWN_EGG;
+//
+//    // W
+//    public static Item WEAPON_BOOK;
+//    public static Item WEAPON_BOOK_BATTLE;
+//    public static Item WEAPON_BOOK_ENDER;
+//    public static Item WEAPON_BOOK_FREEZING;
+//    public static Item WEAPON_BOOK_HUNGER;
+//    public static Item WEAPON_BOOK_METAL;
+//    public static Item WEAPON_BOOK_NATURE;
+//    public static Item WEAPON_BOOK_NIGHTMARE;
+//    public static Item WEAPON_BOOK_WITHER;
+//    public static Item WEAPON_FAN;
+//    public static Item WEAPON_FAN_FIRE;
+//    public static Item WEAPON_FAN_ICE;
+//    public static Item WEAPON_PROJECTILE_BOMB;
+//    public static Item WEAPON_PROP_ENDER;
+//    public static Item WEAPON_PROP_BLAZE;
+//    public static Item WEAPON_PROP_CLUB;
+//    public static Item WEAPON_PROP_ENCHANTED;
+//    public static Item WEAPON_PROP_PROJECTILE_BUBBLE;
+//    public static Item WEAPON_PROP_PROJECTILE_MAGIC;
+//    public static Item WEAPON_PROP_PROJECTILE_POISON;
+//    public static Item WEAPON_PROP_PROJECTILE_WEB;
+//    public static Item WEAPON_PROP_SWORD_WOOD;
+//    public static Item WEAPON_PROP_SWORD_STONE;
+//    public static Item WEAPON_PROP_SWORD_IRON;
+//    public static Item WEAPON_PROP_SWORD_GOLD;
+//    public static Item WEAPON_PROP_AXE_WOOD;
+//    public static Item WEAPON_PROP_AXE_STONE;
+//    public static Item WEAPON_PROP_AXE_IRON;
+//    public static Item WEAPON_PROP_AXE_GOLD;
+//    public static Item WEAPON_PROP_DAGGER_METAL;
+//    public static Item WEAPON_PROP_BROOM;
+//    public static Item WEAPON_PROP_HAMMER_MINOTAUR;
 
-    // C
-    public static Item CHEST_DUNGEON;
-    public static Item CHEST_JUNGLE;
-    public static Item CHEST_TEMPLE;
-    // D
-    public static Item DEBUG_ITEM;
-    public static Item DEBUG_WEAPON;
-    // F
-    public static Item FOOD_COALFISH;
-    public static Item FOOD_HONEY;
-    public static Item FOOD_MANDRAKE;
-    public static Item FOOD_MEAT;
-    public static Item FOOD_MONSTER_FEED;
-    public static Item FOOD_MONSTER_FEED_PREMIUM;
-    public static Item FOOD_NETHER_WART;
-    public static Item FOOD_PIE_APPLE_GOLD;
-    public static Item FOOD_PIE_MANDRAKE;
-    public static Item FOOD_PIE_MEAT;
-    public static Item FOOD_ROOT;
-    public static Item FOOD_ROTTEN_HEART;
-    public static Item FOOD_SMALL_APPLE_GOLD;
-    public static Item FOOD_WITHER;
-    // M
-    public static Item MISC_BOOK;
-    public static Item MISC_CURRENCY_SELL;
-    public static Item MISC_CURRENCY_TRADER;
-    public static Item MISC_CURRENCY_HOLSTAURUS;
-    public static Item MISC_CURRENCY_WERESHEEP;
-    public static Item MISC_EXPERIENCE_IRON;
-    public static Item MISC_EXPERIENCE_GOLD;
-    public static Item MISC_EXPERIENCE_DIAMOND;
-    public static Item MISC_FUR;
-    public static Item MISC_FURNACE_FUEL;
-    public static Item MISC_GIGA_GEAR;
-    public static Item MISC_QUILL;
-    public static Item MISC_RING_SPEED;
-    public static Item MISC_RING_HASTE;
-    public static Item MISC_RING_JUMP;
-    public static Item MISC_RING_NIGHT;
-    public static Item MISC_SOUL_FIRE;
-    public static Item MISC_SOUL_FIERY;
+//    DEBUG_ITEM = ITEMS.register(new ItemDebugItem(itemBuilder()), "item_debug"); //Disable before release
+//    DEBUG_WEAPON = ITEMS.register(new ItemDebugWeapon(itemBuilder()), "weapon_debug"); //Disable before release
 
-    // P
-    public static Item PICKUP_HEART;
+    public static final RegistryObject<Item> ACCESSORY_CURSED = ITEMS.register("accessory_cursed", () -> new ItemAccessoryCursed(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_HEADGEAR_MOB = ITEMS.register("accessory_headgear_mob", () -> new ItemAccessoryHeadgear(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_HEADGEAR_BOLT = ITEMS.register("accessory_headgear_bolt", () -> new ItemAccessoryHeadgear(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_HEADGEAR_ARROW = ITEMS.register("accessory_headgear_arrow", () -> new ItemAccessoryHeadgear(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_HEADGEAR_DOLL = ITEMS.register("accessory_headgear_doll", () -> new ItemAccessoryHeadgear(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_HEADGEAR_EARS_ELF = ITEMS.register("accessory_headgear_ears_elf", () -> new ItemAccessoryHeadgear(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_RING_HASTE = ITEMS.register("accessory_ring_haste", () -> new ItemAccessoryRingHaste(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_RING_JUMP = ITEMS.register("accessory_ring_jump", () -> new ItemAccessoryRingJump(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_RING_NIGHT = ITEMS.register("accessory_ring_night", () -> new ItemAccessoryRingNight(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_RING_SPEED = ITEMS.register("accessory_ring_speed", () -> new ItemAccessoryRingSpeed(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_TRINKET_LEVITATION = ITEMS.register("accessory_trinket_levitation", () -> new ItemAccessoryTrinketLevitation(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_TRINKET_POISON = ITEMS.register("accessory_trinket_poison", () -> new ItemAccessoryTrinketPoison(itemBuilder()));
+    public static final RegistryObject<Item> ACCESSORY_TRINKET_WITHER = ITEMS.register("accessory_trinket_wither", () -> new ItemAccessoryTrinketWither(itemBuilder()));
+    public static final RegistryObject<Item> BOX_ORE = ITEMS.register("box_overworld", () -> new ItemBoxOverworld(itemBuilder()));
+    public static final RegistryObject<Item> BOX_NETHER = ITEMS.register("box_nether", () -> new ItemBoxNether(itemBuilder()));
+    public static final RegistryObject<Item> BOX_END = ITEMS.register("box_end", () -> new ItemBoxEnd(itemBuilder()));
+    public static final RegistryObject<Item> BOX_IRON = ITEMS.register("box_iron", () -> new ItemBoxIron(itemBuilder()));
+    public static final RegistryObject<Item> BOX_GOLD = ITEMS.register("box_gold", () -> new ItemBoxGold(itemBuilder()));
+    public static final RegistryObject<Item> BOX_DIAMOND = ITEMS.register("box_diamond", () -> new ItemBoxDiamond(itemBuilder()));
+    public static final RegistryObject<Item> BOX_HAT = ITEMS.register("box_hat", () -> new ItemBoxHat(itemBuilder()));
+    public static final RegistryObject<Item> BOX_OLD = ITEMS.register("box_old", () -> new ItemBoxOld(itemBuilder()));
+    public static final RegistryObject<Item> BOOK_BUFF = ITEMS.register("weapon_book_buff", () -> new ItemWeaponBookBuff(itemBuilder()));
+    public static final RegistryObject<Item> BAG_ARROW = ITEMS.register("bag_arrow", () -> new ItemBagArrow(itemBuilder()));
+    public static final RegistryObject<Item> BAG_BOOK = ITEMS.register("bag_book", () -> new ItemBagBook(itemBuilder()));
+    public static final RegistryObject<Item> BAG_RECORD = ITEMS.register("bag_record", () -> new ItemBagRecord(itemBuilder()));
+    public static final RegistryObject<Item> CHEST_DUNGEON = ITEMS.register("chest_dungeon", () -> new ItemChestDungeon(itemBuilder()));
+    public static final RegistryObject<Item> CHEST_JUNGLE = ITEMS.register("chest_jungle", () -> new ItemChestJungle(itemBuilder()));
+    public static final RegistryObject<Item> CHEST_TEMPLE = ITEMS.register("chest_desert", () -> new ItemChestDesert(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_COALFISH = ITEMS.register("food_coalfish", () -> new ItemFoodCoalfish(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_HONEY = ITEMS.register("food_honey", () -> new ItemFoodHoney(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_MANDRAKE = ITEMS.register("food_mandrake", () -> new ItemFoodMandrake(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_MEAT = ITEMS.register("food_meat", () -> new ItemFoodBase(itemBuilder().food(GaiaFoods.MEAT)));
+    public static final RegistryObject<Item> FOOD_MONSTER_FEED = ITEMS.register("food_monster_feed", () -> new ItemFoodMonsterFeed(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_MONSTER_FEED_PREMIUM = ITEMS.register("food_monster_feed_premium", () -> new ItemFoodMonsterFeedPremium(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_NETHER_WART = ITEMS.register("food_nether_wart", () -> new ItemFoodNetherWart(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_PIE_APPLE_GOLD = ITEMS.register("food_pie_apple_gold", () -> new ItemFoodPieAppleGold(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_PIE_MANDRAKE = ITEMS.register("food_pie_mandrake", () -> new ItemFoodPieMandrake(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_PIE_MEAT = ITEMS.register("food_pie_meat", () -> new ItemFoodPieMeat(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_ROOT = ITEMS.register("food_root", () -> new ItemFoodRoot(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_ROTTEN_HEART = ITEMS.register("food_rotten_heart", () -> new ItemFoodRottenHeart(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_SMALL_APPLE_GOLD = ITEMS.register("food_small_apple_gold", () -> new ItemFoodSmallAppleGold(itemBuilder()));
+    public static final RegistryObject<Item> FOOD_WITHER = ITEMS.register("food_wither", () -> new ItemFoodWither(itemBuilder()));
+    public static final RegistryObject<Item> MISC_BOOK = ITEMS.register("misc_book", () -> new ItemMiscBook(itemBuilder()));
+    public static final RegistryObject<Item> MISC_CURRENCY_SELL = ITEMS.register("misc_currency_sell", () -> new ItemMiscCurrency(itemBuilder()));
+    public static final RegistryObject<Item> MISC_CURRENCY_TRADER = ITEMS.register("misc_currency_trader", () -> new ItemMiscCurrency(itemBuilder()));
+    public static final RegistryObject<Item> MISC_CURRENCY_HOLSTAURUS = ITEMS.register("misc_currency_holstaurus", () -> new ItemMiscCurrency(itemBuilder()));
+    public static final RegistryObject<Item> MISC_CURRENCY_WERESHEEP = ITEMS.register("misc_currency_weresheep", () -> new ItemMiscCurrency(itemBuilder()));
+    public static final RegistryObject<Item> MISC_EXPERIENCE_IRON = ITEMS.register("misc_experience_small", () -> new ItemMiscExperience(itemBuilder()));
+    public static final RegistryObject<Item> MISC_EXPERIENCE_GOLD = ITEMS.register("misc_experience_medium", () -> new ItemMiscExperience(itemBuilder()));
+    public static final RegistryObject<Item> MISC_EXPERIENCE_DIAMOND = ITEMS.register("misc_experience_large", () -> new ItemMiscExperience(itemBuilder()));
+    public static final RegistryObject<Item> MISC_FUR = ITEMS.register("misc_fur", () -> new Item(itemBuilder()));
+    public static final RegistryObject<Item> MISC_FURNACE_FUEL = ITEMS.register("misc_furnace_fuel", () -> new ItemMiscFurnaceFuel(itemBuilder()));
+    public static final RegistryObject<Item> MISC_GIGA_GEAR = ITEMS.register("misc_giga_gear", () -> new ItemMiscGigaGear(itemBuilder()));
+    public static final RegistryObject<Item> MISC_QUILL = ITEMS.register("misc_quill", () -> new Item(itemBuilder()));
+    public static final RegistryObject<Item> MISC_RING_SPEED = ITEMS.register("misc_ring_speed", () -> new ItemMiscRing(itemBuilder()));
+    public static final RegistryObject<Item> MISC_RING_HASTE = ITEMS.register("misc_ring_haste", () -> new ItemMiscRing(itemBuilder()));
+    public static final RegistryObject<Item> MISC_RING_JUMP = ITEMS.register("misc_ring_jump", () -> new ItemMiscRing(itemBuilder()));
+    public static final RegistryObject<Item> MISC_RING_NIGHT = ITEMS.register("misc_ring_night", () -> new ItemMiscRing(itemBuilder()));
+    public static final RegistryObject<Item> MISC_SOUL_FIRE = ITEMS.register("misc_soul_fire", () -> new ItemMiscSoulFire(itemBuilder()));
+    public static final RegistryObject<Item> MISC_SOUL_FIERY = ITEMS.register("misc_soul_fiery", () -> new ItemMiscSoulFiery(itemBuilder()));
+    public static final RegistryObject<Item> PICKUP_HEART = ITEMS.register("pickup_heart", () -> new ItemPickupHeart(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_IRON = ITEMS.register("shard_iron", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_GOLD = ITEMS.register("shard_gold", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_DIAMOND = ITEMS.register("shard_diamond", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_EMERALD = ITEMS.register("shard_emerald", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_COPPER = ITEMS.register("shard_copper", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_SILVER = ITEMS.register("shard_silver", () -> new ItemShard(itemBuilder()));
+    public static final RegistryObject<Item> SHARD_MISC = ITEMS.register("shard_misc_totem", () -> new ItemShardMisc(itemBuilder()));
+    public static final RegistryObject<Item> SHIELD_PROP_STONE = ITEMS.register("shield_prop_stone", () -> new ItemShieldProp(itemBuilder()));
+    public static final RegistryObject<Item> SHIELD_PROP_IRON = ITEMS.register("shield_prop_iron", () -> new ItemShieldProp(itemBuilder()));
+    public static final RegistryObject<Item> SHIELD_PROP_GOLD = ITEMS.register("shield_prop_gold", () -> new ItemShieldProp(itemBuilder()));
+    public static final RegistryObject<Item> SPAWN = ITEMS.register("spawn", () -> new ItemSpawn(itemBuilder()));
+//        SPAWN_WERESHEEP = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.WERESHEEP_NPC), "spawn_weresheep");
+//        SPAWN_CREEPER_GIRL = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.CREEPER_GIRL_NPC), "spawn_creeper_girl");
+//        SPAWN_ENDER_GIRL = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.ENDER_GIRL_NPC), "spawn_ender_girl");
+//        SPAWN_HOLSTAURUS = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.HOLSTAURUS_NPC), "spawn_holstaurus");
+//        SPAWN_SLIME_GIRL = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.SLUDGE_GIRL_NPC), "spawn_slime_girl");
+//        SPAWN_TRADER = ITEMS.register(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.TRADER_NPC), "spawn_trader");
+    public static final RegistryObject<Item> WEAPON_BOOK = ITEMS.register("weapon_book", () -> new ItemWeaponBook(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_BATTLE = ITEMS.register("weapon_book_battle", () -> new ItemWeaponBookBattle(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_ENDER = ITEMS.register("weapon_book_ender", () -> new ItemWeaponBookEnder(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_FREEZING = ITEMS.register("weapon_book_freezing", () -> new ItemWeaponBookFreezing(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_HUNGER = ITEMS.register("weapon_book_hunger", () -> new ItemWeaponBookHunger(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_METAL = ITEMS.register("weapon_book_metal", () -> new ItemWeaponBookMetal(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_NATURE = ITEMS.register("weapon_book_nature", () -> new ItemWeaponBookNature(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_NIGHTMARE = ITEMS.register("weapon_book_nightmare", () -> new ItemWeaponBookNightmare(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_BOOK_WITHER = ITEMS.register("weapon_book_wither", () -> new ItemWeaponBookWither(GaiaTier.BOOK, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_FAN = ITEMS.register("weapon_fan", () -> new ItemWeaponFan(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_FAN_FIRE = ITEMS.register("weapon_fan_fire", () -> new ItemWeaponFanFire(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_FAN_ICE = ITEMS.register("weapon_fan_ice", () -> new ItemWeaponFanIce(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROJECTILE_BOMB = ITEMS.register("weapon_projectile_bomb", () -> new ItemWeaponProjectileBomb(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_ENDER = ITEMS.register("weapon_prop_ender", () -> new ItemWeaponProp(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_BLAZE = ITEMS.register("weapon_prop_blaze", () -> new ItemWeaponProp(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_CLUB = ITEMS.register("weapon_prop_metal", () -> new ItemWeaponProp(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_ENCHANTED = ITEMS.register("weapon_prop_enchanted", () -> new ItemWeaponPropEnchanted(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_PROJECTILE_BUBBLE = ITEMS.register("weapon_prop_projectile_bubble", () -> new ItemWeaponPropProjectile(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_PROJECTILE_MAGIC = ITEMS.register("weapon_prop_projectile_magic", () -> new ItemWeaponPropProjectile(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_PROJECTILE_POISON = ITEMS.register("weapon_prop_projectile_poison", () -> new ItemWeaponPropProjectile(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_PROJECTILE_WEB = ITEMS.register("weapon_prop_projectile_web", () -> new ItemWeaponPropProjectile(itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_SWORD_WOOD = ITEMS.register("weapon_prop_sword_wood", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_SWORD_STONE = ITEMS.register("weapon_prop_sword_stone", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_SWORD_IRON = ITEMS.register("weapon_prop_sword_iron", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_SWORD_GOLD = ITEMS.register("weapon_prop_sword_gold", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_AXE_WOOD = ITEMS.register("weapon_prop_axe_wood", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_AXE_STONE = ITEMS.register("weapon_prop_axe_stone", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_AXE_IRON = ITEMS.register("weapon_prop_axe_iron", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_AXE_GOLD = ITEMS.register("weapon_prop_axe_gold", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_DAGGER_METAL = ITEMS.register("weapon_prop_dagger_metal", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_BROOM = ITEMS.register("weapon_prop_broom", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
+    public static final RegistryObject<Item> WEAPON_PROP_HAMMER_MINOTAUR = ITEMS.register("weapon_prop_hammer_minotaur", () -> new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()));
 
-    // S
-    public static Item SHARD_IRON;
-    public static Item SHARD_GOLD;
-    public static Item SHARD_DIAMOND;
-    public static Item SHARD_EMERALD;
-    public static Item SHARD_COPPER;
-    public static Item SHARD_SILVER;
-    public static Item SHARD_MISC;
-    public static Item SHIELD_PROP_STONE;
-    public static Item SHIELD_PROP_IRON;
-    public static Item SHIELD_PROP_GOLD;
-    public static Item SPAWN;
-    public static Item SPAWN_WERESHEEP;
-    public static Item SPAWN_CREEPER_GIRL;
-    public static Item SPAWN_ENDER_GIRL;
-    public static Item SPAWN_HOLSTAURUS;
-    public static Item SPAWN_SLIME_GIRL;
-    public static Item SPAWN_TAME;
-    public static Item SPAWN_TRADER;
+    //Prop Spawn Eggs
+    public static final RegistryObject<Item> CAMPFIRE_SPAWN_EGG = ITEMS.register("campfire_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CAMPFIRE.get(), 0x7a5f3a, 0xffd800, itemBuilder()));
+    public static final RegistryObject<Item> CYAN_FLOWER_SPAWN_EGG = ITEMS.register("cyan_flower_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CYAN_FLOWER.get(), 1073920, 4045287, itemBuilder()));
+    public static final RegistryObject<Item> CHEST_SPAWN_EGG = ITEMS.register("chest_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CHEST.get(), 11237677, 4274991, itemBuilder()));
+    public static final RegistryObject<Item> VASE_SPAWN_EGG = ITEMS.register("vase_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.VASE.get(), 0x949494, 0x545454, itemBuilder()));
+    public static final RegistryObject<Item> VASE_NETHER_SPAWN_EGG = ITEMS.register("vase_nether_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.VASE_NETHER.get(), 0x462129, 0x1b080c, itemBuilder()));
 
-    // Spawn eggs
-    public static Item ANT_SPAWN_EGG;
-    public static Item ANT_RANGER_SPAWN_EGG;
-    public static Item ANUBIS_SPAWN_EGG;
-    public static Item ARACHNE_SPAWN_EGG;
-    public static Item BANSHEE_SPAWN_EGG;
-    public static Item BAPHOMET_SPAWN_EGG;
-    public static Item BEE_SPAWN_EGG;
-    public static Item BONE_KNIGHT_SPAWN_EGG;
-    public static Item CAMPFIRE_SPAWN_EGG;
-    public static Item CECEALIA_SPAWN_EGG;
-    public static Item CENTAUR_SPAWN_EGG;
-    public static Item CHEST_SPAWN_EGG;
-    public static Item COBBLE_GOLEM_SPAWN_EGG;
-    public static Item COBBLESTONE_GOLEM_SPAWN_EGG;
-    public static Item CREEP_SPAWN_EGG;
-    public static Item CYCLOPS_SPAWN_EGG;
-    public static Item CYAN_FLOWER_SPAWN_EGG;
-    public static Item DEATHWORD_SPAWN_EGG;
-    public static Item DHAMPIR_SPAWN_EGG;
-    public static Item DRYAD_SPAWN_EGG;
-    public static Item DULLAHAN_SPAWN_EGG;
-    public static Item DWARF_SPAWN_EGG;
-    public static Item ENDER_DRAGON_GIRL_SPAWN_EGG;
-    public static Item ENDER_EYE_SPAWN_EGG;
-    public static Item FLESH_LICH_SPAWN_EGG;
-    public static Item GELATINOUS_SLIME_SPAWN_EGG;
-    public static Item GOBLIN_SPAWN_EGG;
-    public static Item GOBLIN_FERAL_SPAWN_EGG;
-    public static Item GRYPHON_SPAWN_EGG;
-    public static Item HARPY_SPAWN_EGG;
-    public static Item HUNTER_SPAWN_EGG;
-    public static Item KIKIMORA_SPAWN_EGG;
-    public static Item KOBOLD_SPAWN_EGG;
-    public static Item MATANGO_SPAWN_EGG;
-    public static Item MERMAID_SPAWN_EGG;
-    public static Item MINOTAUR_SPAWN_EGG;
-    public static Item MINOTAURUS_SPAWN_EGG;
-    public static Item MUMMY_SPAWN_EGG;
-    public static Item NAGA_SPAWN_EGG;
-    public static Item NINE_TAILS_SPAWN_EGG;
-    public static Item ONI_SPAWN_EGG;
-    public static Item ORC_SPAWN_EGG;
-    public static Item SATYRESS_SPAWN_EGG;
-    public static Item SELKIE_SPAWN_EGG;
-    public static Item SHAMAN_SPAWN_EGG;
-    public static Item SHARKO_SPAWN_EGG;
-    public static Item SIREN_SPAWN_EGG;
-    public static Item SLUDGE_GIRL_SPAWN_EGG;
-    public static Item SPHINX_SPAWN_EGG;
-    public static Item SPRIGGAN_SPAWN_EGG;
-    public static Item SUCCUBUS_SPAWN_EGG;
-    public static Item TOAD_SPAWN_EGG;
-    public static Item VALKYRIE_SPAWN_EGG;
-    public static Item VASE_SPAWN_EGG;
-    public static Item VASE_NETHER_SPAWN_EGG;
-    public static Item VAMPIRE_SPAWN_EGG;
-    public static Item WERECAT_SPAWN_EGG;
-    public static Item WITCH_SPAWN_EGG;
-    public static Item WITHER_COW_SPAWN_EGG;
-    public static Item YETI_SPAWN_EGG;
-    public static Item YUKI_ONNA_SPAWN_EGG;
+    //Hostile Spawn Eggs
+    public static final RegistryObject<Item> ANT_SPAWN_EGG = ITEMS.register("ant_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ANT.get(), 0x303030, 0x8a7264, itemBuilder()));
+    public static final RegistryObject<Item> ANT_RANGER_SPAWN_EGG = ITEMS.register("ant_ranger_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ANT_RANGER.get(), 0x8a7264, 0x303030, itemBuilder()));
+    public static final RegistryObject<Item> ANUBIS_SPAWN_EGG = ITEMS.register("anubis_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ANUBIS.get(), 0x353535, 0xb19534, itemBuilder()));
 
-    // W
-    public static Item WEAPON_BOOK;
-    public static Item WEAPON_BOOK_BATTLE;
-    public static Item WEAPON_BOOK_ENDER;
-    public static Item WEAPON_BOOK_FREEZING;
-    public static Item WEAPON_BOOK_HUNGER;
-    public static Item WEAPON_BOOK_METAL;
-    public static Item WEAPON_BOOK_NATURE;
-    public static Item WEAPON_BOOK_NIGHTMARE;
-    public static Item WEAPON_BOOK_WITHER;
-    public static Item WEAPON_FAN;
-    public static Item WEAPON_FAN_FIRE;
-    public static Item WEAPON_FAN_ICE;
-    public static Item WEAPON_PROJECTILE_BOMB;
-    public static Item WEAPON_PROP_ENDER;
-    public static Item WEAPON_PROP_BLAZE;
-    public static Item WEAPON_PROP_CLUB;
-    public static Item WEAPON_PROP_ENCHANTED;
-    public static Item WEAPON_PROP_PROJECTILE_BUBBLE;
-    public static Item WEAPON_PROP_PROJECTILE_MAGIC;
-    public static Item WEAPON_PROP_PROJECTILE_POISON;
-    public static Item WEAPON_PROP_PROJECTILE_WEB;
-    public static Item WEAPON_PROP_SWORD_WOOD;
-    public static Item WEAPON_PROP_SWORD_STONE;
-    public static Item WEAPON_PROP_SWORD_IRON;
-    public static Item WEAPON_PROP_SWORD_GOLD;
-    public static Item WEAPON_PROP_AXE_WOOD;
-    public static Item WEAPON_PROP_AXE_STONE;
-    public static Item WEAPON_PROP_AXE_IRON;
-    public static Item WEAPON_PROP_AXE_GOLD;
-    public static Item WEAPON_PROP_DAGGER_METAL;
-    public static Item WEAPON_PROP_BROOM;
-    public static Item WEAPON_PROP_HAMMER_MINOTAUR;
+    //NPC Spawn Eggs
+//        DEBUG_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.DEBUG_MOB, 0x6fa289, 0x915741, itemBuilder()), "debug_mob_spawn_egg");
 
-    public static ArrayList<Item> ITEMS = new ArrayList<>();
-
-    private GaiaItems() {
-    }
-
-    @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
-        Gaia.LOGGER.info("Registering items...");
-
-        final IForgeRegistry<Item> registry = event.getRegistry();
-
-//        DEBUG_ITEM = registerItem(new ItemDebugItem(itemBuilder()), "item_debug"); //Disable before release
-//        DEBUG_WEAPON = registerItem(new ItemDebugWeapon(itemBuilder()), "weapon_debug"); //Disable before release
-
-        ACCESSORY_CURSED = registerItem(new ItemAccessoryCursed(itemBuilder()), "accessory_cursed");
-        ACCESSORY_HEADGEAR_MOB = registerItem(new ItemAccessoryHeadgear(itemBuilder()), "accessory_headgear_mob");
-        ACCESSORY_HEADGEAR_BOLT = registerItem(new ItemAccessoryHeadgear(itemBuilder()), "accessory_headgear_bolt");
-        ACCESSORY_HEADGEAR_ARROW = registerItem(new ItemAccessoryHeadgear(itemBuilder()), "accessory_headgear_arrow");
-        ACCESSORY_HEADGEAR_DOLL = registerItem(new ItemAccessoryHeadgear(itemBuilder()), "accessory_headgear_doll");
-        ACCESSORY_HEADGEAR_EARS_ELF = registerItem(new ItemAccessoryHeadgear(itemBuilder()), "accessory_headgear_ears_elf");
-        ACCESSORY_RING_HASTE = registerItem(new ItemAccessoryRingHaste(itemBuilder()), "accessory_ring_haste");
-        ACCESSORY_RING_JUMP = registerItem(new ItemAccessoryRingJump(itemBuilder()), "accessory_ring_jump");
-        ACCESSORY_RING_NIGHT = registerItem(new ItemAccessoryRingNight(itemBuilder()), "accessory_ring_night");
-        ACCESSORY_RING_SPEED = registerItem(new ItemAccessoryRingSpeed(itemBuilder()), "accessory_ring_speed");
-        ACCESSORY_TRINKET_LEVITATION = registerItem(new ItemAccessoryTrinketLevitation(itemBuilder()), "accessory_trinket_levitation");
-        ACCESSORY_TRINKET_POISON = registerItem(new ItemAccessoryTrinketPoison(itemBuilder()), "accessory_trinket_poison");
-        ACCESSORY_TRINKET_WITHER = registerItem(new ItemAccessoryTrinketWither(itemBuilder()), "accessory_trinket_wither");
-        BOX_ORE = registerItem(new ItemBoxOverworld(itemBuilder()), "box_overworld");
-        BOX_NETHER = registerItem(new ItemBoxNether(itemBuilder()), "box_nether");
-        BOX_END = registerItem(new ItemBoxEnd(itemBuilder()), "box_end");
-        BOX_IRON = registerItem(new ItemBoxIron(itemBuilder()), "box_iron");
-        BOX_GOLD = registerItem(new ItemBoxGold(itemBuilder()), "box_gold");
-        BOX_DIAMOND = registerItem(new ItemBoxDiamond(itemBuilder()), "box_diamond");
-        BOX_HAT = registerItem(new ItemBoxHat(itemBuilder()), "box_hat");
-        BOX_OLD = registerItem(new ItemBoxOld(itemBuilder()), "box_old");
-        BOOK_BUFF = registerItem(new ItemWeaponBookBuff(itemBuilder()), "weapon_book_buff");
-        BAG_ARROW = registerItem(new ItemBagArrow(itemBuilder()), "bag_arrow");
-        BAG_BOOK = registerItem(new ItemBagBook(itemBuilder()), "bag_book");
-        BAG_RECORD = registerItem(new ItemBagRecord(itemBuilder()), "bag_record");
-        CHEST_DUNGEON = registerItem(new ItemChestDungeon(itemBuilder()), "chest_dungeon");
-        CHEST_JUNGLE = registerItem(new ItemChestJungle(itemBuilder()), "chest_jungle");
-        CHEST_TEMPLE = registerItem(new ItemChestDesert(itemBuilder()), "chest_desert");
-        FOOD_COALFISH = registerItem(new ItemFoodCoalfish(itemBuilder()), "food_coalfish");
-        FOOD_HONEY = registerItem(new ItemFoodHoney(itemBuilder()), "food_honey");
-        FOOD_MANDRAKE = registerItem(new ItemFoodMandrake(itemBuilder()), "food_mandrake");
-        FOOD_MEAT = registerItem(new ItemFoodBase(itemBuilder().food(GaiaFoods.MEAT)), "food_meat");
-        FOOD_MONSTER_FEED = registerItem(new ItemFoodMonsterFeed(itemBuilder()), "food_monster_feed");
-        FOOD_MONSTER_FEED_PREMIUM = registerItem(new ItemFoodMonsterFeedPremium(itemBuilder()), "food_monster_feed_premium");
-        FOOD_NETHER_WART = registerItem(new ItemFoodNetherWart(itemBuilder()), "food_nether_wart");
-        FOOD_PIE_APPLE_GOLD = registerItem(new ItemFoodPieAppleGold(itemBuilder()), "food_pie_apple_gold");
-        FOOD_PIE_MANDRAKE = registerItem(new ItemFoodPieMandrake(itemBuilder()), "food_pie_mandrake");
-        FOOD_PIE_MEAT = registerItem(new ItemFoodPieMeat(itemBuilder()), "food_pie_meat");
-        FOOD_ROOT = registerItem(new ItemFoodRoot(itemBuilder()), "food_root");
-        FOOD_ROTTEN_HEART = registerItem(new ItemFoodRottenHeart(itemBuilder()), "food_rotten_heart");
-        FOOD_SMALL_APPLE_GOLD = registerItem(new ItemFoodSmallAppleGold(itemBuilder()), "food_small_apple_gold");
-        FOOD_WITHER = registerItem(new ItemFoodWither(itemBuilder()), "food_wither");
-        MISC_BOOK = registerItem(new ItemMiscBook(itemBuilder()), "misc_book");
-        MISC_CURRENCY_SELL = registerItem(new ItemMiscCurrency(itemBuilder()), "misc_currency_sell");
-        MISC_CURRENCY_TRADER = registerItem(new ItemMiscCurrency(itemBuilder()), "misc_currency_trader");
-        MISC_CURRENCY_HOLSTAURUS = registerItem(new ItemMiscCurrency(itemBuilder()), "misc_currency_holstaurus");
-        MISC_CURRENCY_WERESHEEP = registerItem(new ItemMiscCurrency(itemBuilder()), "misc_currency_weresheep");
-        MISC_EXPERIENCE_IRON = registerItem(new ItemMiscExperience(itemBuilder()), "misc_experience_small");
-        MISC_EXPERIENCE_GOLD = registerItem(new ItemMiscExperience(itemBuilder()), "misc_experience_medium");
-        MISC_EXPERIENCE_DIAMOND = registerItem(new ItemMiscExperience(itemBuilder()), "misc_experience_large");
-        MISC_FUR = registerItem(new Item(itemBuilder()), "misc_fur");
-        MISC_FURNACE_FUEL = registerItem(new ItemMiscFurnaceFuel(itemBuilder()), "misc_furnace_fuel");
-        MISC_GIGA_GEAR = registerItem(new ItemMiscGigaGear(itemBuilder()), "misc_giga_gear");
-        MISC_QUILL = registerItem(new Item(itemBuilder()), "misc_quill");
-        MISC_RING_SPEED = registerItem(new ItemMiscRing(itemBuilder()), "misc_ring_speed");
-        MISC_RING_HASTE = registerItem(new ItemMiscRing(itemBuilder()), "misc_ring_haste");
-        MISC_RING_JUMP = registerItem(new ItemMiscRing(itemBuilder()), "misc_ring_jump");
-        MISC_RING_NIGHT = registerItem(new ItemMiscRing(itemBuilder()), "misc_ring_night");
-        MISC_SOUL_FIRE = registerItem(new ItemMiscSoulFire(itemBuilder()), "misc_soul_fire");
-        MISC_SOUL_FIERY = registerItem(new ItemMiscSoulFiery(itemBuilder()), "misc_soul_fiery");
-        PICKUP_HEART = registerItem(new ItemPickupHeart(itemBuilder()), "pickup_heart");
-        SHARD_IRON = registerItem(new ItemShard(itemBuilder()), "shard_iron");
-        SHARD_GOLD = registerItem(new ItemShard(itemBuilder()), "shard_gold");
-        SHARD_DIAMOND = registerItem(new ItemShard(itemBuilder()), "shard_diamond");
-        SHARD_EMERALD = registerItem(new ItemShard(itemBuilder()), "shard_emerald");
-        SHARD_COPPER = registerItem(new ItemShard(itemBuilder()), "shard_copper");
-        SHARD_SILVER = registerItem(new ItemShard(itemBuilder()), "shard_silver");
-        SHARD_MISC = registerItem(new ItemShardMisc(itemBuilder()), "shard_misc_totem");
-        SHIELD_PROP_STONE = registerItem(new ItemShieldProp(itemBuilder()), "shield_prop_stone");
-        SHIELD_PROP_IRON = registerItem(new ItemShieldProp(itemBuilder()), "shield_prop_iron");
-        SHIELD_PROP_GOLD = registerItem(new ItemShieldProp(itemBuilder()), "shield_prop_gold");
-        SPAWN = registerItem(new ItemSpawn(itemBuilder()), "spawn");
-//        SPAWN_WERESHEEP = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.WERESHEEP_NPC), "spawn_weresheep");
-//        SPAWN_CREEPER_GIRL = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.CREEPER_GIRL_NPC), "spawn_creeper_girl");
-//        SPAWN_ENDER_GIRL = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.ENDER_GIRL_NPC), "spawn_ender_girl");
-//        SPAWN_HOLSTAURUS = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.HOLSTAURUS_NPC), "spawn_holstaurus");
-//        SPAWN_SLIME_GIRL = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.SLUDGE_GIRL_NPC), "spawn_slime_girl");
-//        SPAWN_TRADER = registerItem(new ItemSpawnNPC(itemBuilder(), Rarity.RARE, GaiaEntities.TRADER_NPC), "spawn_trader");
-        WEAPON_BOOK = registerItem(new ItemWeaponBook(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book");
-        WEAPON_BOOK_BATTLE = registerItem(new ItemWeaponBookBattle(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_battle");
-        WEAPON_BOOK_ENDER = registerItem(new ItemWeaponBookEnder(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_ender");
-        WEAPON_BOOK_FREEZING = registerItem(new ItemWeaponBookFreezing(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_freezing");
-        WEAPON_BOOK_HUNGER = registerItem(new ItemWeaponBookHunger(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_hunger");
-        WEAPON_BOOK_METAL = registerItem(new ItemWeaponBookMetal(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_metal");
-        WEAPON_BOOK_NATURE = registerItem(new ItemWeaponBookNature(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_nature");
-        WEAPON_BOOK_NIGHTMARE = registerItem(new ItemWeaponBookNightmare(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_nightmare");
-        WEAPON_BOOK_WITHER = registerItem(new ItemWeaponBookWither(GaiaTier.BOOK, 3, -2.4F, itemBuilder()), "weapon_book_wither");
-        WEAPON_FAN = registerItem(new ItemWeaponFan(itemBuilder()), "weapon_fan");
-        WEAPON_FAN_FIRE = registerItem(new ItemWeaponFanFire(itemBuilder()), "weapon_fan_fire");
-        WEAPON_FAN_ICE = registerItem(new ItemWeaponFanIce(itemBuilder()), "weapon_fan_ice");
-        WEAPON_PROJECTILE_BOMB = registerItem(new ItemWeaponProjectileBomb(itemBuilder()), "weapon_projectile_bomb");
-        WEAPON_PROP_ENDER = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_ender");
-        WEAPON_PROP_BLAZE = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_blaze");
-        WEAPON_PROP_CLUB = registerItem(new ItemWeaponProp(itemBuilder()), "weapon_prop_metal");
-        WEAPON_PROP_ENCHANTED = registerItem(new ItemWeaponPropEnchanted(itemBuilder()), "weapon_prop_enchanted");
-        WEAPON_PROP_PROJECTILE_BUBBLE = registerItem(new ItemWeaponPropProjectile(itemBuilder()), "weapon_prop_projectile_bubble");
-        WEAPON_PROP_PROJECTILE_MAGIC = registerItem(new ItemWeaponPropProjectile(itemBuilder()), "weapon_prop_projectile_magic");
-        WEAPON_PROP_PROJECTILE_POISON = registerItem(new ItemWeaponPropProjectile(itemBuilder()), "weapon_prop_projectile_poison");
-        WEAPON_PROP_PROJECTILE_WEB = registerItem(new ItemWeaponPropProjectile(itemBuilder()), "weapon_prop_projectile_web");
-        WEAPON_PROP_SWORD_WOOD = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_sword_wood");
-        WEAPON_PROP_SWORD_STONE = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_sword_stone");
-        WEAPON_PROP_SWORD_IRON = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_sword_iron");
-        WEAPON_PROP_SWORD_GOLD = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_sword_gold");
-        WEAPON_PROP_AXE_WOOD = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_axe_wood");
-        WEAPON_PROP_AXE_STONE = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_axe_stone");
-        WEAPON_PROP_AXE_IRON = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_axe_iron");
-        WEAPON_PROP_AXE_GOLD = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_axe_gold");
-        WEAPON_PROP_DAGGER_METAL = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_dagger_metal");
-        WEAPON_PROP_BROOM = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_broom");
-        WEAPON_PROP_HAMMER_MINOTAUR = registerItem(new ItemWeaponPropItemSword(GaiaTier.PROP, 3, -2.4F, itemBuilder()), "weapon_prop_hammer_minotaur");
-
-        //Prop Spawn Eggs
-        CAMPFIRE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CAMPFIRE, 0x7a5f3a, 0xffd800, itemBuilder()), "campfire_spawn_egg");
-        CYAN_FLOWER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CYAN_FLOWER, 1073920, 4045287, itemBuilder()), "cyan_flower_spawn_egg");
-        CHEST_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CHEST, 11237677, 4274991, itemBuilder()), "chest_spawn_egg");
-        VASE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VASE, 0x949494, 0x545454, itemBuilder()), "vase_spawn_egg");
-        VASE_NETHER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VASE_NETHER, 0x462129, 0x1b080c, itemBuilder()), "vase_nether_spawn_egg");
-
-        //Hostile Spawn Eggs
-        ANT_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ANT, 0x303030, 0x8a7264, itemBuilder()), "ant_spawn_egg");
-        ANT_RANGER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ANT_RANGER, 0x8a7264, 0x303030, itemBuilder()), "ant_ranger_spawn_egg");
-        ANUBIS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ANUBIS, 0x353535, 0xb19534, itemBuilder()), "anubis_spawn_egg");
-
-        //NPC Spawn Eggs
-//        DEBUG_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DEBUG_MOB, 0x6fa289, 0x915741, itemBuilder()), "debug_mob_spawn_egg");
-
-        ARACHNE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ARACHNE, 3815994, 11013646, itemBuilder()), "arachne_spawn_egg");
-        BANSHEE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BANSHEE, 0xeed2e8, 0xc6b0ed, itemBuilder()), "banshee_spawn_egg");
-        BAPHOMET_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BAPHOMET, 3559756, 14197864, itemBuilder()), "baphomet_spawn_egg");
-        BEE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BEE, 0x353535, 0x353535, itemBuilder()), "bee_spawn_egg");
-        BONE_KNIGHT_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.BONE_KNIGHT, 4602533, 13619151, itemBuilder()), "bone_knight_spawn_egg");
-        CECEALIA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CECEALIA, 0xdb5760, 0xd893a9, itemBuilder()), "cecaelia_spawn_egg");
-        CENTAUR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CENTAUR, 0x8d4f41, 0x353535, itemBuilder()), "centaur_spawn_egg");
-        COBBLE_GOLEM_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.COBBLE_GOLEM, 11513775, 11513775, itemBuilder()), "cobble_golem_spawn_egg");
-        COBBLESTONE_GOLEM_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.COBBLESTONE_GOLEM, 11513775, 11513775, itemBuilder()), "cobblestone_golem_spawn_egg");
-        CREEP_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CREEP, 7917159, 2053400, itemBuilder()), "creep_spawn_egg");
-        CYCLOPS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.CYCLOPS, 4936602, 3487029, itemBuilder()), "cyclops_spawn_egg");
-        DEATHWORD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DEATHWORD, 0xb77a35, 0xffd800, itemBuilder()), "deathword_spawn_egg");
-        DHAMPIR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DHAMPIR, 0x9c1c2b, 0xc9b161, itemBuilder()), "dhampir_spawn_egg");
-        DRYAD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DRYAD, 10255437, 5681460, itemBuilder()), "dryad_spawn_egg");
-        DULLAHAN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DULLAHAN, 0x824fab, 0xa4452d, itemBuilder()), "dullahan_spawn_egg");
-        DWARF_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.DWARF, 0x969696, 0xf09942, itemBuilder()), "dwarf_spawn_egg");
-        ENDER_DRAGON_GIRL_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ENDER_DRAGON_GIRL, 3158064, 14711290, itemBuilder()), "ender_dragon_girl_spawn_egg");
-        ENDER_EYE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ENDER_EYE, 2039583, 0x3158064, itemBuilder()), "ender_eye_spawn_egg");
-        FLESH_LICH_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.FLESH_LICH, 0x00cccc, 0x799c65, itemBuilder()), "flesh_lich_spawn_egg");
-        GELATINOUS_SLIME_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GELATINOUS_SLIME, 6595667, 13619151, itemBuilder()), "gelatinous_slime_spawn_egg");
-        GOBLIN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GOBLIN, 0x718a60, 0x8d4f41, itemBuilder()), "goblin_spawn_egg");
-        GOBLIN_FERAL_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GOBLIN_FERAL, 0x718a60, 0x8a1d3e, itemBuilder()), "goblin_feral_spawn_egg");
-        GRYPHON_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.GRYPHON, 0xf09942, 0xe2e2e2, itemBuilder()), "gryphon_spawn_egg");
-        HARPY_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HARPY, 0xc9b161, 0xa5884e, itemBuilder()), "harpy_spawn_egg");
-        HUNTER_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.HUNTER, 0xae6b3c, 0x353535, itemBuilder()), "hunter_spawn_egg");
-//        KIKIMORA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.KIKIMORA, 0x191919, 0xd3bdac, itemBuilder()), "kikimora_spawn_egg");
-//        KOBOLD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.KOBOLD, 0x938dab, 0xafa7c1, itemBuilder()), "kobold_spawn_egg");
-//        MATANGO_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MATANGO, 0xab1311, 0xd8d8d8, itemBuilder()), "matango_spawn_egg");
-//        MERMAID_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MERMAID, 0x5c70b1, 0xa4452d, itemBuilder()), "mermaid_spawn_egg");
-//        MINOTAUR_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MINOTAUR, 0x8d4f41, 0xd54242, itemBuilder()), "minotaur_spawn_egg");
-//        MINOTAURUS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MINOTAURUS, 0x8d4f41, 0xa9a9a9, itemBuilder()), "minotaurus_spawn_egg");
-//        MUMMY_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.MUMMY, 0xdcd7c1, 0xc9b161, itemBuilder()), "mummy_spawn_egg");
-//        NAGA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.NAGA, 0x29bc55, 0xccb63f, itemBuilder()), "naga_spawn_egg");
-//        NINE_TAILS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.NINE_TAILS, 11809844, 13218145, itemBuilder()), "nine_tails_spawn_egg");
-//        ONI_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ONI, 0x8b302d, 0xc9b161, itemBuilder()), "oni_spawn_egg");
-//        ORC_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.ORC, 0x718a60, 0xc0d696, itemBuilder()), "orc_spawn_egg");
-//        SATYRESS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SATYRESS, 0x707b4f, 0xa4452d, itemBuilder()), "satyress_spawn_egg");
-//        SELKIE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SELKIE, 9082818, 13488612, itemBuilder()), "selkie_spawn_egg");
-//        SHAMAN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SHAMAN, 0xae6b3c, 0x56b134, itemBuilder()), "shaman_spawn_egg");
-//        SHARKO_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SHARKO, 0x84a498, 0x5c70b1, itemBuilder()), "sharko_spawn_egg");
-//        SIREN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SIREN, 0x29bc55, 0x48a0de, itemBuilder()), "siren_spawn_egg");
-//        SLUDGE_GIRL_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SLUDGE_GIRL, 6595667, 7715172, itemBuilder()), "sludge_girl_spawn_egg");
-        SPHINX_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SPHINX, 0xf09942, 0x353535, itemBuilder()), "sphinx_spawn_egg");
-//        SPRIGGAN_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SPRIGGAN, 0x7c623e, 0xc2dda5, itemBuilder()), "spriggan_spawn_egg");
-//        SUCCUBUS_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.SUCCUBUS, 4079166, 13218145, itemBuilder()), "succubus_spawn_egg");
-//        TOAD_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.TOAD, 0x355d2b, 0x779f5a, itemBuilder()), "toad_spawn_egg");
-//        VALKYRIE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VALKYRIE, 0xc9b161, 0xd54242, itemBuilder()), "valkyrie_spawn_egg");
-//        VAMPIRE_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.VAMPIRE, 0xc23021, 0xc9b161, itemBuilder()), "vampire_spawn_egg");
-//        WERECAT_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.WERECAT, 0x7a7e8a, 0xdddadb, itemBuilder()), "werecat_spawn_egg");
-//        WITCH_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.WITCH, 0x303030, 0x943dbb, itemBuilder()), "witch_spawn_egg");
-//        WITHER_COW_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.WITHER_COW, 5791069, 16777215, itemBuilder()), "wither_cow_spawn_egg");
-//        YETI_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.YETI, 16448250, 7895160, itemBuilder()), "yeti_spawn_egg");
-//        YUKI_ONNA_SPAWN_EGG = registerItem(new ItemGaiaSpawnEgg(GaiaEntities.YUKI_ONNA, 6781114, 13817330, itemBuilder()), "yuki_onna_spawn_egg");
-
-        registry.registerAll(ITEMS.toArray(new Item[0]));
-        Gaia.LOGGER.info("Item registration complete.");
-    }
-
-    public static <T extends Item> T registerItem(T item, String name)
-    {
-        item.setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, name));
-        Preconditions.checkNotNull(item, "registryName");
-        Gaia.LOGGER.debug(item + " " + name);
-        ITEMS.add(item);
-        return item;
-    }
+    public static final RegistryObject<Item> ARACHNE_SPAWN_EGG = ITEMS.register("arachne_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ARACHNE.get(), 3815994, 11013646, itemBuilder()));
+    public static final RegistryObject<Item> BANSHEE_SPAWN_EGG = ITEMS.register("banshee_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BANSHEE.get(), 0xeed2e8, 0xc6b0ed, itemBuilder()));
+    public static final RegistryObject<Item> BAPHOMET_SPAWN_EGG = ITEMS.register("baphomet_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BAPHOMET.get(), 3559756, 14197864, itemBuilder()));
+    public static final RegistryObject<Item> BEE_SPAWN_EGG = ITEMS.register("bee_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BEE.get(), 0x353535, 0x353535, itemBuilder()));
+    public static final RegistryObject<Item> BONE_KNIGHT_SPAWN_EGG = ITEMS.register("bone_knight_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BONE_KNIGHT.get(), 4602533, 13619151, itemBuilder()));
+    public static final RegistryObject<Item> CECEALIA_SPAWN_EGG = ITEMS.register("cecaelia_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CECEALIA.get(), 0xdb5760, 0xd893a9, itemBuilder()));
+    public static final RegistryObject<Item> CENTAUR_SPAWN_EGG = ITEMS.register("centaur_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CENTAUR.get(), 0x8d4f41, 0x353535, itemBuilder()));
+    public static final RegistryObject<Item> COBBLE_GOLEM_SPAWN_EGG = ITEMS.register("cobble_golem_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.COBBLE_GOLEM.get(), 11513775, 11513775, itemBuilder()));
+    public static final RegistryObject<Item> COBBLESTONE_GOLEM_SPAWN_EGG = ITEMS.register("cobblestone_golem_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.COBBLESTONE_GOLEM.get(), 11513775, 11513775, itemBuilder()));
+    public static final RegistryObject<Item> CREEP_SPAWN_EGG = ITEMS.register("creep_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CREEP.get(), 7917159, 2053400, itemBuilder()));
+    public static final RegistryObject<Item> CYCLOPS_SPAWN_EGG = ITEMS.register("cyclops_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CYCLOPS.get(), 4936602, 3487029, itemBuilder()));
+    public static final RegistryObject<Item> DEATHWORD_SPAWN_EGG = ITEMS.register("deathword_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.DEATHWORD.get(), 0xb77a35, 0xffd800, itemBuilder()));
+    public static final RegistryObject<Item> DHAMPIR_SPAWN_EGG = ITEMS.register("dhampir_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.DHAMPIR.get(), 0x9c1c2b, 0xc9b161, itemBuilder()));
+    public static final RegistryObject<Item> DRYAD_SPAWN_EGG = ITEMS.register("dryad_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.DRYAD.get(), 10255437, 5681460, itemBuilder()));
+    public static final RegistryObject<Item> DULLAHAN_SPAWN_EGG = ITEMS.register("dullahan_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.DULLAHAN.get(), 0x824fab, 0xa4452d, itemBuilder()));
+    public static final RegistryObject<Item> DWARF_SPAWN_EGG = ITEMS.register("dwarf_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.DWARF.get(), 0x969696, 0xf09942, itemBuilder()));
+    public static final RegistryObject<Item> ENDER_DRAGON_GIRL_SPAWN_EGG = ITEMS.register("ender_dragon_girl_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ENDER_DRAGON_GIRL.get(), 3158064, 14711290, itemBuilder()));
+    public static final RegistryObject<Item> ENDER_EYE_SPAWN_EGG = ITEMS.register("ender_eye_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.ENDER_EYE.get(), 2039583, 0x3158064, itemBuilder()));
+    public static final RegistryObject<Item> FLESH_LICH_SPAWN_EGG = ITEMS.register("flesh_lich_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.FLESH_LICH.get(), 0x00cccc, 0x799c65, itemBuilder()));
+    public static final RegistryObject<Item> GELATINOUS_SLIME_SPAWN_EGG = ITEMS.register("gelatinous_slime_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.GELATINOUS_SLIME.get(), 6595667, 13619151, itemBuilder()));
+    public static final RegistryObject<Item> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.GOBLIN.get(), 0x718a60, 0x8d4f41, itemBuilder()));
+    public static final RegistryObject<Item> GOBLIN_FERAL_SPAWN_EGG = ITEMS.register("goblin_feral_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.GOBLIN_FERAL.get(), 0x718a60, 0x8a1d3e, itemBuilder()));
+    public static final RegistryObject<Item> GRYPHON_SPAWN_EGG = ITEMS.register("gryphon_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.GRYPHON.get(), 0xf09942, 0xe2e2e2, itemBuilder()));
+    public static final RegistryObject<Item> HARPY_SPAWN_EGG = ITEMS.register("harpy_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.HARPY.get(), 0xc9b161, 0xa5884e, itemBuilder()));
+    public static final RegistryObject<Item> HUNTER_SPAWN_EGG = ITEMS.register("hunter_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.HUNTER.get(), 0xae6b3c, 0x353535, itemBuilder()));
+//        KIKIMORA_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.KIKIMORA, 0x191919, 0xd3bdac, itemBuilder()), "kikimora_spawn_egg");
+//        KOBOLD_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.KOBOLD, 0x938dab, 0xafa7c1, itemBuilder()), "kobold_spawn_egg");
+//        MATANGO_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.MATANGO, 0xab1311, 0xd8d8d8, itemBuilder()), "matango_spawn_egg");
+//        MERMAID_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.MERMAID, 0x5c70b1, 0xa4452d, itemBuilder()), "mermaid_spawn_egg");
+//        MINOTAUR_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.MINOTAUR, 0x8d4f41, 0xd54242, itemBuilder()), "minotaur_spawn_egg");
+//        MINOTAURUS_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.MINOTAURUS, 0x8d4f41, 0xa9a9a9, itemBuilder()), "minotaurus_spawn_egg");
+//        MUMMY_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.MUMMY, 0xdcd7c1, 0xc9b161, itemBuilder()), "mummy_spawn_egg");
+//        NAGA_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.NAGA, 0x29bc55, 0xccb63f, itemBuilder()), "naga_spawn_egg");
+//        NINE_TAILS_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.NINE_TAILS, 11809844, 13218145, itemBuilder()), "nine_tails_spawn_egg");
+//        ONI_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.ONI, 0x8b302d, 0xc9b161, itemBuilder()), "oni_spawn_egg");
+//        ORC_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.ORC, 0x718a60, 0xc0d696, itemBuilder()), "orc_spawn_egg");
+//        SATYRESS_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SATYRESS, 0x707b4f, 0xa4452d, itemBuilder()), "satyress_spawn_egg");
+//        SELKIE_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SELKIE, 9082818, 13488612, itemBuilder()), "selkie_spawn_egg");
+//        SHAMAN_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SHAMAN, 0xae6b3c, 0x56b134, itemBuilder()), "shaman_spawn_egg");
+//        SHARKO_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SHARKO, 0x84a498, 0x5c70b1, itemBuilder()), "sharko_spawn_egg");
+//        SIREN_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SIREN, 0x29bc55, 0x48a0de, itemBuilder()), "siren_spawn_egg");
+//        SLUDGE_GIRL_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SLUDGE_GIRL, 6595667, 7715172, itemBuilder()), "sludge_girl_spawn_egg");
+    public static final RegistryObject<Item> SPHINX_SPAWN_EGG = ITEMS.register("sphinx_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.SPHINX.get(), 0xf09942, 0x353535, itemBuilder()));
+//        SPRIGGAN_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SPRIGGAN, 0x7c623e, 0xc2dda5, itemBuilder()), "spriggan_spawn_egg");
+//        SUCCUBUS_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.SUCCUBUS, 4079166, 13218145, itemBuilder()), "succubus_spawn_egg");
+//        TOAD_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.TOAD, 0x355d2b, 0x779f5a, itemBuilder()), "toad_spawn_egg");
+//        VALKYRIE_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.VALKYRIE, 0xc9b161, 0xd54242, itemBuilder()), "valkyrie_spawn_egg");
+//        VAMPIRE_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.VAMPIRE, 0xc23021, 0xc9b161, itemBuilder()), "vampire_spawn_egg");
+//        WERECAT_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.WERECAT, 0x7a7e8a, 0xdddadb, itemBuilder()), "werecat_spawn_egg");
+//        WITCH_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.WITCH, 0x303030, 0x943dbb, itemBuilder()), "witch_spawn_egg");
+//        WITHER_COW_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.WITHER_COW, 5791069, 16777215, itemBuilder()), "wither_cow_spawn_egg");
+//        YETI_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.YETI, 16448250, 7895160, itemBuilder()), "yeti_spawn_egg");
+//        YUKI_ONNA_SPAWN_EGG = ITEMS.register(new ItemGaiaSpawnEgg(GaiaEntities.YUKI_ONNA, 6781114, 13817330, itemBuilder()), "yuki_onna_spawn_egg");
 
     private static Item.Properties itemBuilder()
     {
         return new Item.Properties().group(GaiaItemGroups.ITEMS);
+    }
+
+    /**
+     * Block items
+     */
+    public static final RegistryObject<Item> BUST_SPHINX_ITEM = ITEMS.register("bust_sphinx", () -> new BlockItem(GaiaBlocks.BUST_SPHINX.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> BUST_VALKYRIE_ITEM = ITEMS.register("bust_valkyrie", () -> new BlockItem(GaiaBlocks.BUST_VALKYRIE.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> BUST_VAMPIRE_ITEM = ITEMS.register("bust_vampire", () -> new BlockItem(GaiaBlocks.BUST_VAMPIRE.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> BUST_MINOTAUR_ITEM = ITEMS.register("bust_minotaur", () -> new BlockItem(GaiaBlocks.BUST_MINOTAUR.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DOLL_CREEPER_GIRL_ITEM = ITEMS.register("doll_creeper_girl", () -> new BlockItem(GaiaBlocks.DOLL_CREEPER_GIRL.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DOLL_ENDER_GIRL_ITEM = ITEMS.register("doll_ender_girl", () -> new BlockItem(GaiaBlocks.DOLL_ENDER_GIRL.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DOLL_SLIME_GIRL_ITEM = ITEMS.register("doll_slime_girl", () -> new BlockItem(GaiaBlocks.DOLL_SLIME_GIRL.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DOLL_MAID_ITEM = ITEMS.register("doll_maid", () -> new BlockItem(GaiaBlocks.DOLL_MAID.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DECO_GARDEN_GNOME_ITEM =  ITEMS.register("deco_garden_gnome", () -> new BlockItem(GaiaBlocks.DECO_GARDEN_GNOME.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DECO_MANDRAGORA_POT_ITEM =  ITEMS.register("deco_pot_mandragora", () -> new BlockItem(GaiaBlocks.DECO_MANDRAGORA_POT.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> DECO_NEST_HARPY_ITEM = ITEMS.register("deco_nest_harpy", () -> new BlockItem(GaiaBlocks.DECO_NEST_HARPY.get(), gaiaBlockItemBuilder()));
+    public static final RegistryObject<Item> SPAWN_GUARD_ITEM =  ITEMS.register("spawn_guard", () -> new BlockItem(GaiaBlocks.SPAWN_GUARD.get(), gaiaBlockItemBuilder()));
+
+    //Hidden from Blocks Tab
+    public static final RegistryObject<Item> WEB_TEMP_ITEM = ITEMS.register("web_temp", () -> new BlockItem(GaiaBlocks.WEB_TEMP.get(), blockItemBuilder()));
+    public static final RegistryObject<Item> FIRE_CAMP_ITEM = ITEMS.register("fire_camp", () -> new BlockItem(GaiaBlocks.WEB_TEMP.get(), blockItemBuilder()));
+
+
+    private static Item.Properties blockItemBuilder()
+    {
+        return new Item.Properties();
+    }
+
+    private static Item.Properties gaiaBlockItemBuilder()
+    {
+        return new Item.Properties().group(GaiaItemGroups.BLOCKS);
     }
 }

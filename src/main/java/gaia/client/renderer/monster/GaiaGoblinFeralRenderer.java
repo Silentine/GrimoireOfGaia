@@ -2,10 +2,8 @@ package gaia.client.renderer.monster;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
-import gaia.client.model.ModelGaiaGoblin;
 import gaia.client.model.ModelGaiaGoblinFeral;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
-import gaia.entity.assist.GaiaGoblinEntity;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

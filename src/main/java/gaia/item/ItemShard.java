@@ -28,25 +28,25 @@ public class ItemShard extends Item {
 		
 		switch (i) {
 			case 0:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_IRON), "iron");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_IRON.get()), "iron");
 				break;
 			case 1:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_GOLD), "gold");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_GOLD.get()), "gold");
 				break;
 			case 2:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_DIAMOND), "diamond");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_DIAMOND.get()), "diamond");
 				break;
 			case 3:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_EMERALD), "emerald");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_EMERALD.get()), "emerald");
 				break;
 			case 4:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_COPPER), "copper");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_COPPER.get()), "copper");
 				break;
 			case 5:
-				stack = oreCheck(new ItemStack(GaiaItems.SHARD_SILVER), "silver");
+				stack = oreCheck(new ItemStack(GaiaItems.SHARD_SILVER.get()), "silver");
 				break;
 			default:
-				stack = new ItemStack(GaiaItems.SHARD_IRON);
+				stack = new ItemStack(GaiaItems.SHARD_IRON.get());
 				break;
 		}
 		

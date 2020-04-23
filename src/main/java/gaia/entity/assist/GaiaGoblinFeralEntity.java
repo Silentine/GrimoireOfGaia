@@ -1,6 +1,5 @@
 package gaia.entity.assist;
 
-import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaRangedBowAttackGoal;
@@ -10,7 +9,6 @@ import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
-import gaia.item.ItemShard;
 import gaia.item.ItemShieldProp;
 import gaia.util.RangedHelper;
 import net.minecraft.entity.Entity;
@@ -80,7 +78,7 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
     }
 
     public GaiaGoblinFeralEntity(World world) {
-        this(GaiaEntities.GOBLIN_FERAL, world);
+        this(GaiaEntities.GOBLIN_FERAL.get(), world);
     }
 
     @Override
@@ -173,7 +171,7 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.GOBLIN_FERAL;
+        return super.canAttack(type) && type != GaiaEntities.GOBLIN_FERAL.get();
     }
 
     @Override
@@ -331,10 +329,10 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
     @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         if (rand.nextInt(4) == 0) {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         } else {
-            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD));
+            setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD.get()));
             setEnchantmentBasedOnDifficulty(difficulty);
         }
     }

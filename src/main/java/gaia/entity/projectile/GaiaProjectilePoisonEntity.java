@@ -26,16 +26,16 @@ public class GaiaProjectilePoisonEntity extends AbstractGaiaProjectileEntity {
     }
 
     public GaiaProjectilePoisonEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(GaiaEntities.POISON_PROJECTILE, worldIn, shooter, accelX, accelY, accelZ);
+        super(GaiaEntities.POISON_PROJECTILE.get(), worldIn, shooter, accelX, accelY, accelZ);
     }
 
     public GaiaProjectilePoisonEntity(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(GaiaEntities.POISON_PROJECTILE, worldIn);
+        this(GaiaEntities.POISON_PROJECTILE.get(), worldIn);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_POISON);
+        return new ItemStack(GaiaItems.WEAPON_PROP_PROJECTILE_POISON.get());
     }
 
     @Override

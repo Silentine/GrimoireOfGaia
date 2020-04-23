@@ -9,10 +9,10 @@ import java.util.function.Supplier;
 
 public enum GaiaTier implements IItemTier {
     PROP(0, 250, 6.0F, -3.0F, 36, () -> {
-        return Ingredient.fromItems(GaiaItems.MISC_QUILL);
+        return Ingredient.fromItems(GaiaItems.MISC_QUILL.get());
     }),
     BOOK(0, 32, 12.0F, 0.0F, 22, () -> {
-        return Ingredient.fromItems(GaiaItems.MISC_QUILL);
+        return Ingredient.fromItems(GaiaItems.MISC_QUILL.get());
     });
 
     /** The level of material this tool can harvest (3 = DIAMOND, 2 = IRON, 1 = STONE, 0 = WOOD/GOLD) */

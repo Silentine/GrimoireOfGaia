@@ -7,7 +7,6 @@ import gaia.entity.types.IDayMob;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -31,7 +30,6 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -73,7 +71,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
     }
 
     public GaiaCecaeliaEntity(World world) {
-        this(GaiaEntities.CECEALIA, world);
+        this(GaiaEntities.CECEALIA.get(), world);
     }
 
     @Override
@@ -127,7 +125,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.CECEALIA;
+        return super.canAttack(type) && type != GaiaEntities.CECEALIA.get();
     }
 
     @Override
@@ -175,7 +173,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
                 if (!isPotionActive(Effects.SPEED)) {
                     addPotionEffect(new EffectInstance(Effects.SPEED, 10 * 20, 0));
                 }
-                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL));
+                setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_DAGGER_METAL.get()));
                 setCombatTask(1);
                 timer = 0;
                 switchEquip = 1;
@@ -227,7 +225,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_COALFISH, 1);
+                entityDropItem(GaiaItems.FOOD_COALFISH.get(), 1);
             }
 
             if ((rand.nextInt(4) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
@@ -251,7 +249,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(new ItemStack(GaiaItems.BOX_ORE), 1);
+                entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 1);
             }
 
             // Unique Rare

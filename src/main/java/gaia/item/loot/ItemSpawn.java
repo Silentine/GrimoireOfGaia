@@ -1,8 +1,6 @@
 package gaia.item.loot;
 
-import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
-import gaia.item.loot.ItemGaiaLootable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -47,18 +45,18 @@ public class ItemSpawn extends ItemGaiaLootable {
 		Random random = new Random();
 		int i = random.nextInt(6);
 		switch (i) {
-			case 0:
-				return loot(GaiaItems.SPAWN_CREEPER_GIRL);
-			case 1:
-				return loot(GaiaItems.SPAWN_ENDER_GIRL);
-			case 2:
-				return loot(GaiaItems.SPAWN_HOLSTAURUS);
-			case 3:
-				return loot(GaiaItems.SPAWN_SLIME_GIRL);
-			case 4:
-				return loot(GaiaItems.SPAWN_TRADER);
-			case 5:
-				return loot(GaiaItems.SPAWN_WERESHEEP);
+//			case 0: TODO: Spawn items of traders
+//				return loot(GaiaItems.SPAWN_CREEPER_GIRL.get());
+//			case 1:
+//				return loot(GaiaItems.SPAWN_ENDER_GIRL.get());
+//			case 2:
+//				return loot(GaiaItems.SPAWN_HOLSTAURUS.get());
+//			case 3:
+//				return loot(GaiaItems.SPAWN_SLIME_GIRL.get());
+//			case 4:
+//				return loot(GaiaItems.SPAWN_TRADER.get());
+//			case 5:
+//				return loot(GaiaItems.SPAWN_WERESHEEP.get());
 			default:
 				return new ActionResult<>(ActionResultType.SUCCESS, stack);
 		}

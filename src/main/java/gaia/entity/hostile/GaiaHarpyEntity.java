@@ -65,7 +65,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
     }
 
     public GaiaHarpyEntity(World world) {
-        this(GaiaEntities.HARPY, world);
+        this(GaiaEntities.HARPY.get(), world);
     }
 
     @Override
@@ -254,7 +254,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
@@ -262,7 +262,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
 
             if (itemstack.isEmpty() || itemstack.getItem() != Items.EGG) {
                 if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                    entityDropItem(GaiaBlocks.DECO_NEST_HARPY, 1);
+                    entityDropItem(GaiaBlocks.DECO_NEST_HARPY.get(), 1);
                 }
             }
         }
@@ -289,7 +289,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
         setChild(true, 10);
 
         if (!isChild()) {
-            ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED, 1);
+            ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED.get(), 1);
             weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 2);
             setItemStackToSlot(EquipmentSlotType.MAINHAND, weaponCustom);
         }

@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -18,7 +17,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -34,12 +32,10 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -78,7 +74,7 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
     }
 
     public GaiaBeeEntity(World world) {
-        this(GaiaEntities.BEE, world);
+        this(GaiaEntities.BEE.get(), world);
     }
 
     private void setCombatTask() {
@@ -284,7 +280,7 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
             }
 
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_HONEY, 1);
+                entityDropItem(GaiaItems.FOOD_HONEY.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -304,7 +300,7 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
         }
     }

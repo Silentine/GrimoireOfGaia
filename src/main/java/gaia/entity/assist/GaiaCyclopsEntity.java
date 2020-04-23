@@ -8,7 +8,6 @@ import gaia.entity.types.IDayMob;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.enchantment.EnchantmentData;
@@ -27,7 +26,6 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -57,7 +55,7 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
     }
 
     public GaiaCyclopsEntity(World world) {
-        this(GaiaEntities.CYCLOPS, world);
+        this(GaiaEntities.CYCLOPS.get(), world);
     }
 
     @Override
@@ -176,7 +174,7 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.MISC_FUR, 1);
+                entityDropItem(GaiaItems.MISC_FUR.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -196,7 +194,7 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare
@@ -212,9 +210,9 @@ public class GaiaCyclopsEntity extends AbstractMobAssistEntity implements IDayMo
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
         setEnchantmentBasedOnDifficulty(difficulty);
-        setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD));
+        setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
         setEnchantmentBasedOnDifficulty(difficulty);
 
         setCombatTask();

@@ -1,11 +1,9 @@
 package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
-import gaia.client.model.ModelGaiaDeathword;
 import gaia.client.model.ModelGaiaMonoeye;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.entity.assist.GaiaCyclopsEntity;
-import gaia.entity.hostile.GaiaDeathwordEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.inventory.EquipmentSlotType;

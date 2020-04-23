@@ -7,7 +7,6 @@ import gaia.entity.types.IDayMob;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.entity.CreatureAttribute;
@@ -24,7 +23,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -62,7 +60,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
     }
 
     public GaiaDhampirEntity(World world) {
-        this(GaiaEntities.DHAMPIR, world);
+        this(GaiaEntities.DHAMPIR.get(), world);
     }
 
     @Override
@@ -231,7 +229,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
             int drop = rand.nextInt(3 + lootingModifier);
 
             for (int i = 0; i < drop; ++i) {
-                entityDropItem(GaiaItems.MISC_SOUL_FIRE, 1);
+                entityDropItem(GaiaItems.MISC_SOUL_FIRE.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -253,15 +251,15 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(GaiaItems.BOX_GOLD, 1);
+                        entityDropItem(GaiaItems.BOX_GOLD.get(), 1);
                     case 1:
-                        entityDropItem(GaiaItems.BAG_BOOK, 1);
+                        entityDropItem(GaiaItems.BAG_BOOK.get(), 1);
                 }
             }
 
             // Unique Rare
             if ((rand.nextInt(EntityAttributes.RATE_UNIQUE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaBlocks.DOLL_MAID, 1);
+                entityDropItem(GaiaBlocks.DOLL_MAID.get(), 1);
             }
         }
 
@@ -275,7 +273,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE.get()));
         setEnchantmentBasedOnDifficulty(difficulty);
 
         if (GaiaConfig.COMMON.spawnLevel3.get() && (GaiaConfig.COMMON.spawnLevel3Chance.get() != 0)) {

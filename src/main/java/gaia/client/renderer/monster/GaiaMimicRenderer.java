@@ -2,7 +2,6 @@ package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaMimic;
-import gaia.entity.hostile.GaiaAntEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

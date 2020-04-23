@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobPropEntity;
 import gaia.entity.assist.GaiaDwarfEntity;
 import gaia.init.GaiaBlocks;
 import gaia.init.GaiaEntities;
-import gaia.init.GaiaLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -24,7 +23,6 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -52,7 +50,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 	}
 
 	public GaiaPropCampfireEntity(World worldIn) {
-		this(GaiaEntities.CAMPFIRE, worldIn);
+		this(GaiaEntities.CAMPFIRE.get(), worldIn);
 	}
 
 	@Nullable
@@ -108,7 +106,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 				BlockPos blockpos = new BlockPos(i_block, j_block, k_block);
 
 				if (world.getBlockState(blockpos).getMaterial() == Material.AIR) {
-					world.setBlockState(blockpos, GaiaBlocks.FIRE_CAMP.getDefaultState());
+					world.setBlockState(blockpos, GaiaBlocks.FIRE_CAMP.get().getDefaultState());
 				}
 			}
 		}

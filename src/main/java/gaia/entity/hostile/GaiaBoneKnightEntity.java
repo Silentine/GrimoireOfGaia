@@ -49,7 +49,7 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
     }
 
     public GaiaBoneKnightEntity(World worldIn) {
-        super(GaiaEntities.BONE_KNIGHT, worldIn);
+        super(GaiaEntities.BONE_KNIGHT.get(), worldIn);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        entityDropItem(new ItemStack(GaiaItems.BOX_ORE), 1);
+                        entityDropItem(new ItemStack(GaiaItems.BOX_ORE.get()), 1);
                     case 1:
                         entityDropItem(new ItemStack(Blocks.REDSTONE_BLOCK), 1);
                 }
@@ -197,10 +197,10 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE));
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_STONE.get()));
         setEnchantmentBasedOnDifficulty(difficulty);
 
-        ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_STONE, 1);
+        ItemStack shield = new ItemStack(GaiaItems.SHIELD_PROP_STONE.get(), 1);
         setItemStackToSlot(EquipmentSlotType.OFFHAND, shield);
 
         return entityData;

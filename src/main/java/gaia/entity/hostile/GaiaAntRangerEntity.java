@@ -58,7 +58,7 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
     }
 
     public GaiaAntRangerEntity(World world) {
-        this(GaiaEntities.ANT_RANGER, world);
+        this(GaiaEntities.ANT_RANGER.get(), world);
     }
 
     @Override
@@ -215,7 +215,7 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
             if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(GaiaItems.FOOD_MEAT, 1);
+                entityDropItem(GaiaItems.FOOD_MEAT.get(), 1);
             }
 
             // Nuggets/Fragments
@@ -235,7 +235,7 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
 
             // Rare
             if ((rand.nextInt(EntityAttributes.RATE_RARE_DROP) == 0)) {
-                entityDropItem(GaiaItems.BOX_IRON, 1);
+                entityDropItem(GaiaItems.BOX_IRON.get(), 1);
             }
 
             // Unique Rare

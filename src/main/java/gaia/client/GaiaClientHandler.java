@@ -77,10 +77,14 @@ import gaia.entity.prop.GaiaPropChestMimicEntity;
 import gaia.entity.prop.GaiaPropFlowerCyanEntity;
 import gaia.entity.prop.GaiaPropVaseEntity;
 import gaia.entity.prop.GaiaPropVaseNetherEntity;
+import gaia.item.ItemGaiaSpawnEgg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class GaiaClientHandler {
     private static final float tiny = 0.25F;
@@ -88,7 +92,7 @@ public class GaiaClientHandler {
     private static final float med = 0.5F;
     private static final float large = 0.7F;
 
-    public static void registerRenders() {
+    public static void registerRenders(final FMLClientSetupEvent event) {
         //Props
         RenderingRegistry.registerEntityRenderingHandler(GaiaPropCampfireEntity.class, renderManager -> new GaiaPropCampfireRenderer(renderManager));
         RenderingRegistry.registerEntityRenderingHandler(GaiaPropChestMimicEntity.class, renderManager -> new GaiaPropChestMimicRenderer(renderManager));
@@ -138,5 +142,15 @@ public class GaiaClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(GaiaMimicEntity.class, renderManager -> new GaiaMimicRenderer(renderManager, med));
 
         RenderingRegistry.registerEntityRenderingHandler(GaiaSphinxEntity.class, renderManager -> new GaiaSphinxRenderer(renderManager, large));
+    }
+
+    public static void registerItemColors(final ColorHandlerEvent.Item event) {
+        ItemColors colors = event.getItemColors();
+
+        for(ItemGaiaSpawnEgg spawneggitem : ItemGaiaSpawnEgg.getEggs()) {
+            colors.register((p_198141_1_, p_198141_2_) -> {
+                return spawneggitem.getColor(p_198141_2_);
+            }, spawneggitem);
+        }
     }
 }

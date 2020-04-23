@@ -27,7 +27,7 @@ public class ItemMiscCurrency extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (stack.getItem() == GaiaItems.MISC_CURRENCY_SELL) {
+		if (stack.getItem() == GaiaItems.MISC_CURRENCY_SELL.get()) {
 			tooltip.add(new TranslationTextComponent("item.grimoireofgaia.misc_currency.desc"));
 		}
 	}
