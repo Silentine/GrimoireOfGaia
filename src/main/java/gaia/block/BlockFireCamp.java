@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -16,6 +15,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -36,17 +36,12 @@ public class BlockFireCamp extends BlockBase {
 	}
 
 	@Override
-	public void tick(BlockState state, World worldIn, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 		if(rand.nextInt(100) < 10) {
 			if(!worldIn.getBlockState(pos.down()).isSolid()){
 				worldIn.removeBlock(pos.down(), false);
 			}
 		}
-	}
-
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
 	}
 
 	protected boolean canDie(World worldIn, BlockPos pos) {
@@ -74,7 +69,7 @@ public class BlockFireCamp extends BlockBase {
 			worldIn.playSound((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
 		}
 
-		if (worldIn.getBlockState(pos.down()).func_224755_d(worldIn, pos.down(), Direction.UP) && !this.canCatchFire(worldIn, pos.down(), Direction.UP)) {
+		if (worldIn.getBlockState(pos.down()).isSolidSide(worldIn, pos.down(), Direction.UP) && !this.canCatchFire(worldIn, pos.down(), Direction.UP)) {
 			if (this.canCatchFire(worldIn, pos.west(), Direction.EAST)) {
 				for(int j = 0; j < 2; ++j) {
 					double x = (double)pos.getX() + rand.nextDouble() * (double)0.1F;

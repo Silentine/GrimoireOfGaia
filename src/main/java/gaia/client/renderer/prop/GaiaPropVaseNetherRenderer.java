@@ -21,7 +21,7 @@ public class GaiaPropVaseNetherRenderer extends MobRenderer<GaiaPropVaseNetherEn
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaPropVaseNetherEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaPropVaseNetherEntity entity) {
         return texture;
     }
 }

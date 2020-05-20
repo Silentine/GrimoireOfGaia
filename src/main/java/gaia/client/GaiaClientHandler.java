@@ -81,9 +81,13 @@ import gaia.entity.prop.GaiaPropChestMimicEntity;
 import gaia.entity.prop.GaiaPropFlowerCyanEntity;
 import gaia.entity.prop.GaiaPropVaseEntity;
 import gaia.entity.prop.GaiaPropVaseNetherEntity;
+import gaia.init.GaiaBlocks;
+import gaia.init.GaiaEntities;
 import gaia.item.ItemGaiaSpawnEgg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -98,56 +102,72 @@ public class GaiaClientHandler {
 
     public static void registerRenders(final FMLClientSetupEvent event) {
         //Props
-        RenderingRegistry.registerEntityRenderingHandler(GaiaPropCampfireEntity.class, renderManager -> new GaiaPropCampfireRenderer(renderManager));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaPropChestMimicEntity.class, renderManager -> new GaiaPropChestMimicRenderer(renderManager));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaPropFlowerCyanEntity.class, renderManager -> new GaiaPropFlowerCyanRenderer(renderManager));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaPropVaseEntity.class, renderManager -> new GaiaPropVaseRenderer(renderManager));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaPropVaseNetherEntity.class, renderManager -> new GaiaPropVaseNetherRenderer(renderManager));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CAMPFIRE.get(), renderManager -> new GaiaPropCampfireRenderer(renderManager));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CHEST.get(), renderManager -> new GaiaPropChestMimicRenderer(renderManager));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CYAN_FLOWER.get(), renderManager -> new GaiaPropFlowerCyanRenderer(renderManager));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.VASE.get(), renderManager -> new GaiaPropVaseRenderer(renderManager));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.VASE_NETHER.get(), renderManager -> new GaiaPropVaseNetherRenderer(renderManager));
 
         //Projectiles
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        RenderingRegistry.registerEntityRenderingHandler(GaiaProjectileBombEntity.class, renderManager -> new SpriteRenderer<>(renderManager, itemRenderer, 2.0F));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaProjectileBubbleEntity.class, renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaProjectileMagicEntity.class, renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaProjectilePoisonEntity.class, renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaProjectileWebEntity.class, renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BOMB_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BUBBLE_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MAGIC_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.POISON_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.WEB_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.FIREBALL_PROJECTILE.get(), renderManager -> new SpriteRenderer(renderManager, itemRenderer, 2.0F, true));
 
         //Mobs
-        RenderingRegistry.registerEntityRenderingHandler(GaiaAntEntity.class, renderManager -> new GaiaAntRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaAntRangerEntity.class, renderManager -> new GaiaAntRangerRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaAnubisEntity.class, renderManager -> new GaiaAnubisRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaArachneEntity.class, renderManager -> new GaiaArachneRenderer(renderManager, large));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaBansheeEntity.class, renderManager -> new GaiaBansheeRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaBaphometEntity.class, renderManager -> new GaiaBaphometRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaBeeEntity.class, renderManager -> new GaiaBeeRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaBoneKnightEntity.class, renderManager -> new GaiaBoneKnightRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCecaeliaEntity.class, renderManager -> new GaiaCecaeliaRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCentaurEntity.class, renderManager -> new GaiaCentaurRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCobbleGolemEntity.class, renderManager -> new GaiaCobbleGolemRenderer(renderManager, large));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCobblestoneGolemEntity.class, renderManager -> new GaiaCobblestoneGolemRenderer(renderManager, large));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCreepEntity.class, renderManager -> new GaiaCreepRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaCyclopsEntity.class, renderManager -> new GaiaCyclopsRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaDeathwordEntity.class, renderManager -> new GaiaDeathwordRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaDhampirEntity.class, renderManager -> new GaiaDhampirRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaDryadEntity.class, renderManager -> new GaiaDryadRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaDullahanEntity.class, renderManager -> new GaiaDullahanRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaDwarfEntity.class, renderManager -> new GaiaDwarfRenderer(renderManager, large));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaEnderDragonGirlEntity.class, renderManager -> new GaiaEnderDragonGirlRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaEnderEyeEntity.class, renderManager -> new GaiaEnderEyeRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaFleshLichEntity.class, renderManager -> new GaiaFleshLichRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaGelatinousSlimeEntity.class, renderManager -> new GaiaGelatinousSlimeRenderer(renderManager, large));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaGoblinEntity.class, renderManager -> new GaiaGoblinRenderer(renderManager, tiny));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaGoblinFeralEntity.class, renderManager -> new GaiaGoblinFeralRenderer(renderManager, tiny));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaGryphonEntity.class, renderManager -> new GaiaGryphonRenderer(renderManager, med));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaHarpyEntity.class, renderManager -> new GaiaHarpyRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaHunterEntity.class, renderManager -> new GaiaHunterRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaKikimoraEntity.class, renderManager -> new GaiaKikimoraRenderer(renderManager, small));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaKoboldEntity.class, renderManager -> new GaiaKoboldRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ANT.get() , renderManager -> new GaiaAntRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ANT_RANGER.get() , renderManager -> new GaiaAntRangerRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ANUBIS.get() , renderManager -> new GaiaAnubisRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ARACHNE.get() , renderManager -> new GaiaArachneRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BANSHEE.get() , renderManager -> new GaiaBansheeRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BAPHOMET.get() , renderManager -> new GaiaBaphometRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BEE.get() , renderManager -> new GaiaBeeRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.BONE_KNIGHT.get() , renderManager -> new GaiaBoneKnightRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CECAELIA.get() , renderManager -> new GaiaCecaeliaRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CENTAUR.get() , renderManager -> new GaiaCentaurRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.COBBLE_GOLEM.get() , renderManager -> new GaiaCobbleGolemRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.COBBLESTONE_GOLEM.get() , renderManager -> new GaiaCobblestoneGolemRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CREEP.get() , renderManager -> new GaiaCreepRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.CYCLOPS.get() , renderManager -> new GaiaCyclopsRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.DEATHWORD.get() , renderManager -> new GaiaDeathwordRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.DHAMPIR.get() , renderManager -> new GaiaDhampirRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.DRYAD.get() , renderManager -> new GaiaDryadRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.DULLAHAN.get() , renderManager -> new GaiaDullahanRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.DWARF.get() , renderManager -> new GaiaDwarfRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ENDER_DRAGON_GIRL.get() , renderManager -> new GaiaEnderDragonGirlRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.ENDER_EYE.get() , renderManager -> new GaiaEnderEyeRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.FLESH_LICH.get() , renderManager -> new GaiaFleshLichRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.GELATINOUS_SLIME.get() , renderManager -> new GaiaGelatinousSlimeRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.GOBLIN.get() , renderManager -> new GaiaGoblinRenderer(renderManager, tiny));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.GOBLIN_FERAL.get() , renderManager -> new GaiaGoblinFeralRenderer(renderManager, tiny));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.GRYPHON.get() , renderManager -> new GaiaGryphonRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.HARPY.get() , renderManager -> new GaiaHarpyRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.HUNTER.get() , renderManager -> new GaiaHunterRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.KIKIMORA.get() , renderManager -> new GaiaKikimoraRenderer(renderManager, small));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.KOBOLD.get() , renderManager -> new GaiaKoboldRenderer(renderManager, small));
 
-        RenderingRegistry.registerEntityRenderingHandler(GaiaMandragoraEntity.class, renderManager -> new GaiaMandragoraRenderer(renderManager, tiny));
-        RenderingRegistry.registerEntityRenderingHandler(GaiaMimicEntity.class, renderManager -> new GaiaMimicRenderer(renderManager, med));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MANDRAGORA.get(), renderManager -> new GaiaMandragoraRenderer(renderManager, tiny));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MIMIC.get(), renderManager -> new GaiaMimicRenderer(renderManager, med));
 
-        RenderingRegistry.registerEntityRenderingHandler(GaiaSphinxEntity.class, renderManager -> new GaiaSphinxRenderer(renderManager, large));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.SPHINX.get(), renderManager -> new GaiaSphinxRenderer(renderManager, large));
+
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.BUST_SPHINX.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.BUST_VALKYRIE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.BUST_VAMPIRE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.BUST_MINOTAUR.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DOLL_CREEPER_GIRL.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DOLL_ENDER_GIRL.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DOLL_SLIME_GIRL.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DOLL_MAID.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DECO_GARDEN_GNOME.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DECO_MANDRAGORA_POT.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.DECO_NEST_HARPY.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.WEB_TEMP.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GaiaBlocks.FIRE_CAMP.get(), RenderType.getCutout());
     }
 
     public static void registerItemColors(final ColorHandlerEvent.Item event) {

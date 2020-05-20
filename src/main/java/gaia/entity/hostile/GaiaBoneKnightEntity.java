@@ -146,11 +146,6 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
         playSound(SoundEvents.ENTITY_SKELETON_STEP, 0.15F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_BONE_KNIGHT;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
@@ -220,6 +215,6 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
 
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && super.canSpawn(worldIn, reason);
     }
 }

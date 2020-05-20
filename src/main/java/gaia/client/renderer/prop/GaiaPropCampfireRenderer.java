@@ -21,7 +21,7 @@ public class GaiaPropCampfireRenderer extends MobRenderer<GaiaPropCampfireEntity
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaPropCampfireEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaPropCampfireEntity entity) {
         return texture;
     }
 }

@@ -22,7 +22,7 @@ public class GaiaCecaeliaRenderer extends MobRenderer<GaiaCecaeliaEntity, ModelG
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaCecaeliaEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaCecaeliaEntity entity) {
         return texture;
     }
 }

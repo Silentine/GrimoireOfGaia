@@ -23,7 +23,7 @@ public class GaiaAntRenderer extends MobRenderer<GaiaAntEntity, ModelGaiaAnt<Gai
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaAntEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaAntEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

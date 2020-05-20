@@ -157,13 +157,13 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
         Vec3d motion = getMotion();
         if (motion.x * motion.x + motion.z * motion.z > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
-            int i = MathHelper.floor(posX);
-            int j = MathHelper.floor(posY - 0.20000000298023224D);
-            int k = MathHelper.floor(posZ);
+            int i = MathHelper.floor(getPosX());
+            int j = MathHelper.floor(getPosY() - 0.20000000298023224D);
+            int k = MathHelper.floor(getPosZ());
             BlockState BlockState = world.getBlockState(new BlockPos(i, j, k));
 
             if (BlockState.getMaterial() != Material.AIR) {
-                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, BlockState), posX + (rand.nextDouble() - 0.5D) * getWidth(), getBoundingBox().minY + 0.1D, posZ + (rand.nextDouble() - 0.5D) * getWidth(), 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D);
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, BlockState), getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getBoundingBox().minY + 0.1D, getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D);
             }
         }
     }

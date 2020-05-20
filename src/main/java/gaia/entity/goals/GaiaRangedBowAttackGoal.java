@@ -62,7 +62,7 @@ public class GaiaRangedBowAttackGoal extends Goal {
         LivingEntity target = entity.getAttackTarget();
 
         if (target != null) {
-            double d0 = entity.getDistanceSq(target.posX, target.getBoundingBox().minY, target.posZ);
+            double d0 = entity.getDistanceSq(target.getPosX(), target.getBoundingBox().minY, target.getPosZ());
             boolean flag = entity.getEntitySenses().canSee(target);
             boolean flag1 = seeTime > 0;
 

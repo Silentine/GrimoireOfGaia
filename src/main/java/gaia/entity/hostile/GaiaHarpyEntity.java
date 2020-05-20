@@ -274,9 +274,9 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
         ILivingEntityData entityData = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
 
         if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
+            int i = MathHelper.floor(this.getPosX());
+            int j = MathHelper.floor(this.getPosY());
+            int k = MathHelper.floor(this.getPosZ());
 
             if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
                 setTextureType(2);
@@ -311,7 +311,8 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override

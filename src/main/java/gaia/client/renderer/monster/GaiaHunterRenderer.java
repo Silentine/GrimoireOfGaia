@@ -22,7 +22,7 @@ public class GaiaHunterRenderer extends MobRenderer<GaiaHunterEntity, ModelGaiaH
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaHunterEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaHunterEntity entity) {
         return texture;
     }
 }

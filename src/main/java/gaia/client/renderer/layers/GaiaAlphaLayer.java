@@ -1,40 +1,34 @@
 package gaia.client.renderer.layers;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import gaia.client.model.ModelGaia;
+import gaia.client.model.ModelGaiaGelatinousSlime;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class GaiaAlphaLayer<T extends MobEntity, M extends ModelGaia<T>> extends LayerRenderer<T, M> {
-    private final ResourceLocation ALPHA_TEXTURE;
+    private static RenderType RENDER_TYPE;
+    private static ModelGaia alphaModel;
 
-    public GaiaAlphaLayer(IEntityRenderer<T, M> entityRenderer, ResourceLocation texture) {
+    public GaiaAlphaLayer(IEntityRenderer<T, M> entityRenderer, RenderType renderType, ModelGaia model) {
         super(entityRenderer);
-        this.ALPHA_TEXTURE = texture;
+        this.RENDER_TYPE = renderType;
+        this.alphaModel = model;
     }
 
-    public void render(T livingEntity, float limbswing, float limbswingamount, float partialticks, float ageinticks, float netheadyaw, float headpitch, float scale) {
+    public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!livingEntity.isInvisible()) {
-            this.bindTexture(ALPHA_TEXTURE);
-
-            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.enableNormalize();
-            GlStateManager.enableBlend();
-            GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-
-            getEntityModel().render(livingEntity, limbswing, limbswingamount, ageinticks, netheadyaw, headpitch, scale);
-            this.func_215334_a(livingEntity);
-
-            GlStateManager.disableBlend();
-            GlStateManager.disableNormalize();
+            this.getEntityModel().copyModelAttributesTo(this.alphaModel);
+            this.alphaModel.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+            this.alphaModel.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RENDER_TYPE);
+            this.alphaModel.render(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getPackedOverlay(livingEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
         }
-    }
-
-    public boolean shouldCombineTextures() {
-        return true;
     }
 }

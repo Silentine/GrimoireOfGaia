@@ -1,6 +1,8 @@
 package gaia.client.model;
 
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.util.math.MathHelper;
@@ -9,169 +11,169 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ModelGaiaKobold<T extends MobEntity> extends ModelGaia<T> {
-	private RendererModel head;
-	private RendererModel headeyes;
-	private RendererModel headaccessory;
-	private RendererModel neck;
-	private RendererModel bodytop;
-	private RendererModel bodymiddle;
-	private RendererModel bodymiddlebutton;
-	private RendererModel bodybottom;
-	private RendererModel rightchest;
-	private RendererModel leftchest;
-	private RendererModel rightarm;
-	private RendererModel leftarm;
-	private RendererModel rightleg;
-	private RendererModel leftleg;
-	private RendererModel rightear01;
-	private RendererModel leftear01;
-	private RendererModel rightear02;
-	private RendererModel leftear02;
-	private RendererModel backpack;
-	private RendererModel waist;
-	private RendererModel tail1;
-	private RendererModel tail2;
+	private ModelRenderer head;
+	private ModelRenderer headeyes;
+	private ModelRenderer headaccessory;
+	private ModelRenderer neck;
+	private ModelRenderer bodytop;
+	private ModelRenderer bodymiddle;
+	private ModelRenderer bodymiddlebutton;
+	private ModelRenderer bodybottom;
+	private ModelRenderer rightchest;
+	private ModelRenderer leftchest;
+	private ModelRenderer rightarm;
+	private ModelRenderer leftarm;
+	private ModelRenderer rightleg;
+	private ModelRenderer leftleg;
+	private ModelRenderer rightear01;
+	private ModelRenderer leftear01;
+	private ModelRenderer rightear02;
+	private ModelRenderer leftear02;
+	private ModelRenderer backpack;
+	private ModelRenderer waist;
+	private ModelRenderer tail1;
+	private ModelRenderer tail2;
 
 	public ModelGaiaKobold() {
 		textureWidth = 128;
 		textureHeight = 64;
 
-		head = new RendererModel(this, 0, 0);
+		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-3F, -6F, -3F, 6, 6, 6);
 		head.setRotationPoint(0F, 1F, -1F);
 		setRotation(head, 0F, 0F, 0F);
-		headeyes = new RendererModel(this, 24, 0);
+		headeyes = new ModelRenderer(this, 24, 0);
 		headeyes.addBox(-3F, -6F, -3.1F, 6, 6, 0);
 		headeyes.setRotationPoint(0F, 1F, -1F);
 		setRotation(headeyes, 0F, 0F, 0F);
-		headaccessory = new RendererModel(this, 36, 0);
+		headaccessory = new ModelRenderer(this, 36, 0);
 		headaccessory.addBox(-3.5F, -6.5F, -3.5F, 7, 7, 7);
 		headaccessory.setRotationPoint(0F, 1F, -1F);
 		setRotation(headaccessory, 0F, 0F, 0F);
-		neck = new RendererModel(this, 0, 12);
+		neck = new ModelRenderer(this, 0, 12);
 		neck.addBox(-1F, -1F, -1F, 2, 2, 2);
 		neck.setRotationPoint(0F, 1F, -1F);
 		setRotation(neck, 0F, 0F, 0F);
-		bodytop = new RendererModel(this, 0, 16);
+		bodytop = new ModelRenderer(this, 0, 16);
 		bodytop.addBox(-2.5F, 0F, -1.5F, 5, 6, 3);
 		bodytop.setRotationPoint(0F, 1F, -1F);
 		setRotation(bodytop, 0F, 0F, 0F);
-		bodymiddle = new RendererModel(this, 0, 25);
+		bodymiddle = new ModelRenderer(this, 0, 25);
 		bodymiddle.addBox(-2F, 5.5F, -1.5F, 4, 3, 2);
 		bodymiddle.setRotationPoint(0F, 1F, -1F);
 		setRotation(bodymiddle, 0.0872665F, 0F, 0F);
-		bodymiddlebutton = new RendererModel(this, 0, 25);
+		bodymiddlebutton = new ModelRenderer(this, 0, 25);
 		bodymiddlebutton.addBox(-0.5F, 6F, -1.6F, 1, 2, 0);
 		bodymiddlebutton.setRotationPoint(0F, 1F, -1F);
 		setRotation(bodymiddlebutton, 0.0872665F, 0F, 0F);
-		bodybottom = new RendererModel(this, 0, 30);
+		bodybottom = new ModelRenderer(this, 0, 30);
 		bodybottom.addBox(-3F, 8F, -2.5F, 6, 3, 3);
 		bodybottom.setRotationPoint(0F, 1F, -1F);
 		setRotation(bodybottom, 0.1745329F, 0F, 0F);
-		rightchest = new RendererModel(this, 0, 36);
+		rightchest = new ModelRenderer(this, 0, 36);
 		rightchest.addBox(-1F, -1F, -1F, 2, 2, 2);
 		rightchest.setRotationPoint(-1.3F, 3F, -2.5F);
 		setRotation(rightchest, 0.8726646F, 0.1745329F, 0.0872665F);
-		leftchest = new RendererModel(this, 0, 36);
+		leftchest = new ModelRenderer(this, 0, 36);
 		leftchest.mirror = true;
 		leftchest.addBox(-1F, -1F, -1F, 2, 2, 2);
 		leftchest.setRotationPoint(1.3F, 3F, -2.5F);
 		setRotation(leftchest, 0.8726646F, -0.1745329F, -0.0872665F);
-		rightarm = new RendererModel(this, 16, 12);
+		rightarm = new ModelRenderer(this, 16, 12);
 		rightarm.addBox(-2F, -1F, -1F, 2, 8, 2);
 		rightarm.setRotationPoint(-2.5F, 2.5F, -1F);
 		setRotation(rightarm, 0F, 0F, 0.1745329F);
-		leftarm = new RendererModel(this, 16, 12);
+		leftarm = new ModelRenderer(this, 16, 12);
 		leftarm.mirror = true;
 		leftarm.addBox(0F, -1F, -1F, 2, 8, 2);
 		leftarm.setRotationPoint(2.5F, 2.5F, -1F);
 		setRotation(leftarm, 0F, 0F, -0.1745329F);
-		rightleg = new RendererModel(this, 98, 0);
+		rightleg = new ModelRenderer(this, 98, 0);
 		rightleg.addBox(-1.5F, -2F, -2F, 3, 8, 3);
 		rightleg.setRotationPoint(-2.5F, 12F, 0F);
 		setRotation(rightleg, -0.3490659F, -0.0872665F, -0.0349066F);
-		leftleg = new RendererModel(this, 98, 0);
+		leftleg = new ModelRenderer(this, 98, 0);
 		leftleg.mirror = true;
 		leftleg.addBox(-1.5F, -2F, -2F, 3, 8, 3);
 		leftleg.setRotationPoint(2.5F, 12F, 0F);
 		setRotation(leftleg, -0.3490659F, 0.0872665F, 0.0349066F);
-		RendererModel hair = new RendererModel(this, 36, 14);
+		ModelRenderer hair = new ModelRenderer(this, 36, 14);
 		hair.addBox(-4F, -2.5F, 0F, 8, 4, 4);
 		hair.setRotationPoint(0F, 1F, -1F);
 		setRotation(hair, 0F, 0F, 0F);
-		RendererModel headsnout = new RendererModel(this, 36, 22);
+		ModelRenderer headsnout = new ModelRenderer(this, 36, 22);
 		headsnout.addBox(0F, -2F, -2F, 2, 2, 2);
 		headsnout.setRotationPoint(0F, 1F, -2.5F);
 		setRotation(headsnout, 0F, 0.7853982F, 0F);
-		RendererModel headnose = new RendererModel(this, 44, 22);
+		ModelRenderer headnose = new ModelRenderer(this, 44, 22);
 		headnose.addBox(1F, -2F, -2F, 1, 1, 1);
 		headnose.setRotationPoint(0F, 1F, -2.5F);
 		setRotation(headnose, 0F, 0.7853982F, 0F);
-		rightear01 = new RendererModel(this, 36, 26);
+		rightear01 = new ModelRenderer(this, 36, 26);
 		rightear01.addBox(0F, 0F, -4F, 3, 3, 4);
 		rightear01.setRotationPoint(-2F, -5F, 2F);
 		setRotation(rightear01, -0.7853982F, 0.7853982F, 0F);
-		leftear01 = new RendererModel(this, 36, 26);
+		leftear01 = new ModelRenderer(this, 36, 26);
 		leftear01.mirror = true;
 		leftear01.addBox(-3F, 0F, -4F, 3, 3, 4);
 		leftear01.setRotationPoint(2F, -5F, 2F);
 		setRotation(leftear01, -0.7853982F, -0.7853982F, 0F);
-		rightear02 = new RendererModel(this, 36, 33);
+		rightear02 = new ModelRenderer(this, 36, 33);
 		rightear02.addBox(-1.5F, -7F, -5.5F, 3, 6, 3);
 		rightear02.setRotationPoint(0F, 1F, -1F);
 		setRotation(rightear02, 0F, 0.7853982F, 0F);
-		leftear02 = new RendererModel(this, 36, 33);
+		leftear02 = new ModelRenderer(this, 36, 33);
 		leftear02.mirror = true;
 		leftear02.addBox(-1.5F, -7F, -5.5F, 3, 6, 3);
 		leftear02.setRotationPoint(0F, 1F, -1F);
 		setRotation(leftear02, 0F, -0.7853982F, 0F);
-		RendererModel rightarmlower = new RendererModel(this, 64, 0);
+		ModelRenderer rightarmlower = new ModelRenderer(this, 64, 0);
 		rightarmlower.addBox(-2.5F, 2F, -1.5F, 2, 8, 3);
 		rightarmlower.setRotationPoint(-2.5F, 2.5F, -1F);
 		setRotation(rightarmlower, 0F, 0F, 0.1745329F);
-		RendererModel leftarmlower = new RendererModel(this, 64, 0);
+		ModelRenderer leftarmlower = new ModelRenderer(this, 64, 0);
 		leftarmlower.mirror = true;
 		leftarmlower.addBox(0.5F, 2F, -1.5F, 2, 8, 3);
 		leftarmlower.setRotationPoint(2.5F, 2.5F, -1F);
 		setRotation(leftarmlower, 0F, 0F, -0.1745329F);
-		RendererModel righthand = new RendererModel(this, 64, 11);
+		ModelRenderer righthand = new ModelRenderer(this, 64, 11);
 		righthand.addBox(-2.5F, 8F, -2F, 2, 4, 4);
 		righthand.setRotationPoint(-2.5F, 2.5F, -1F);
 		setRotation(righthand, 0F, 0F, 0.0872665F);
-		RendererModel lefthand = new RendererModel(this, 64, 11);
+		ModelRenderer lefthand = new ModelRenderer(this, 64, 11);
 		lefthand.mirror = true;
 		lefthand.addBox(0.5F, 8F, -2F, 2, 4, 4);
 		lefthand.setRotationPoint(2.5F, 2.5F, -1F);
 		setRotation(lefthand, 0F, 0F, -0.0872665F);
-		backpack = new RendererModel(this, 76, 0);
+		backpack = new ModelRenderer(this, 76, 0);
 		backpack.addBox(-2.5F, 5F, 0.5F, 5, 4, 3);
 		backpack.setRotationPoint(0F, 1F, -1F);
 		setRotation(backpack, 0.1745329F, 0F, 0F);
-		waist = new RendererModel(this, 76, 7);
+		waist = new ModelRenderer(this, 76, 7);
 		waist.addBox(-3.5F, 7.5F, -3F, 7, 4, 4);
 		waist.setRotationPoint(0F, 1F, -1F);
 		setRotation(waist, 0.1745329F, 0F, 0F);
-		tail1 = new RendererModel(this, 76, 15);
+		tail1 = new ModelRenderer(this, 76, 15);
 		tail1.addBox(-1F, 7F, -3.5F, 2, 5, 2);
 		tail1.setRotationPoint(0F, 1F, -1F);
 		setRotation(tail1, 0.5235988F, 0F, 0F);
-		tail2 = new RendererModel(this, 76, 22);
+		tail2 = new ModelRenderer(this, 76, 22);
 		tail2.addBox(-1.5F, 11F, -5F, 3, 8, 3);
 		tail2.setRotationPoint(0F, 1F, -1F);
 		setRotation(tail2, 0.6108652F, 0F, 0F);
-		RendererModel rightleglower = new RendererModel(this, 98, 11);
+		ModelRenderer rightleglower = new ModelRenderer(this, 98, 11);
 		rightleglower.addBox(-1.5F, 3.5F, 1F, 3, 8, 2);
 		rightleglower.setRotationPoint(-2.5F, 12F, 0F);
 		setRotation(rightleglower, -0.3490659F, -0.0872665F, -0.0349066F);
-		RendererModel leftleglower = new RendererModel(this, 98, 11);
+		ModelRenderer leftleglower = new ModelRenderer(this, 98, 11);
 		leftleglower.addBox(-1.5F, 3.5F, 1F, 3, 8, 2);
 		leftleglower.setRotationPoint(2.5F, 12F, 0F);
 		setRotation(leftleglower, -0.3490659F, 0.0872665F, 0.0349066F);
-		RendererModel rightfootlower = new RendererModel(this, 98, 21);
+		ModelRenderer rightfootlower = new ModelRenderer(this, 98, 21);
 		rightfootlower.addBox(-1.5F, 10.5F, -5F, 3, 1, 3);
 		rightfootlower.setRotationPoint(-2.5F, 12F, 0F);
 		setRotation(rightfootlower, 0.0872665F, -0.0872665F, -0.0349066F);
-		RendererModel leftfootlower = new RendererModel(this, 98, 21);
+		ModelRenderer leftfootlower = new ModelRenderer(this, 98, 21);
 		leftfootlower.addBox(-1.5F, 10.5F, -5F, 3, 1, 3);
 		leftfootlower.setRotationPoint(2.5F, 12F, 0F);
 		setRotation(leftfootlower, 0.0872665F, 0.0872665F, 0.0349066F);
@@ -194,34 +196,32 @@ public class ModelGaiaKobold<T extends MobEntity> extends ModelGaia<T> {
 	}
 
 	@Override
-	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		head.render(scale);
-		headaccessory.render(scale);
-		neck.render(scale);
-		bodytop.render(scale);
-		bodymiddle.render(scale);
-		bodymiddlebutton.render(scale);
-		bodybottom.render(scale);
-		rightchest.render(scale);
-		leftchest.render(scale);
-		rightarm.render(scale);
-		leftarm.render(scale);
-		rightleg.render(scale);
-		leftleg.render(scale);
-		backpack.render(scale);
-		waist.render(scale);
-		tail1.render(scale);
-		tail2.render(scale);
+	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+		head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		headaccessory.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		neck.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		bodytop.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		bodymiddle.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		bodymiddlebutton.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		bodybottom.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		rightchest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		leftchest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		rightarm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		leftarm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		rightleg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		leftleg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		backpack.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		waist.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		tail1.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		tail2.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 
-		if (entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.render(scale);
+		if (entityIn.ticksExisted % 60 == 0 && entityIn.limbSwingAmount <= 0.1F) {
+			headeyes.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 		}
 	}
 
 	@Override
-	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -307,11 +307,11 @@ public class ModelGaiaKobold<T extends MobEntity> extends ModelGaia<T> {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	public RendererModel getRightArm() {
+	public ModelRenderer getRightArm() {
 		return rightarm;
 	}
 
-	public RendererModel getLeftArm() {
+	public ModelRenderer getLeftArm() {
 		return leftarm;
 	}
 }

@@ -19,7 +19,7 @@ public class GaiaBaphometRenderer extends MobRenderer<GaiaBaphometEntity, ModelG
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaBaphometEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaBaphometEntity entity) {
         return texture;
     }
 }

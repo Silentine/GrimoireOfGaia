@@ -21,7 +21,7 @@ public class GaiaFleshLichRenderer extends MobRenderer<GaiaFleshLichEntity, Mode
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaFleshLichEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaFleshLichEntity entity) {
         return texture;
     }
 }

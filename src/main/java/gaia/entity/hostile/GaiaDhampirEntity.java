@@ -191,7 +191,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
                 explode();
 
 //                EntityGaiaVampire vampire = new EntityGaiaVampire(world); TODO: Reimplement Vampire spawn
-//                vampire.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+//                vampire.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
 //                vampire.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(vampire)), null, null, null);
 //                world.addEntity(vampire);
         }
@@ -203,7 +203,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
             int explosionRadius = 2;
 
             this.dead = true;
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, explosion$mode);
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionRadius, explosion$mode);
             this.remove();
         }
     }

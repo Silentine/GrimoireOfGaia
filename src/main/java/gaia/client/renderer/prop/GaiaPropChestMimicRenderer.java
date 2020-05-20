@@ -20,7 +20,7 @@ public class GaiaPropChestMimicRenderer extends MobRenderer<GaiaPropChestMimicEn
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaPropChestMimicEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaPropChestMimicEntity entity) {
         return texture;
     }
 }

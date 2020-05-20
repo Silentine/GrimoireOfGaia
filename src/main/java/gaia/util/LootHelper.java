@@ -19,9 +19,8 @@ public class LootHelper {
 
 	public static void dropLootAtPlayersPos(World world, PlayerEntity player, ResourceLocation lootTableName) {
 		List<ItemStack> loot = getLoot(world, player, true, lootTableName);
-		System.out.println(loot.toString());
 		for (ItemStack itemstack : loot) {
-			world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posZ, itemstack));
+			world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), itemstack));
 		}
 	}
 

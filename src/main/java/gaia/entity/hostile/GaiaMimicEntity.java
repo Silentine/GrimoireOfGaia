@@ -177,7 +177,8 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
 
     /* IMMUNITIES */
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
     /* IMMUNITIES */
 

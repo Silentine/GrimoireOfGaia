@@ -183,7 +183,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
             double d0 = rand.nextGaussian() * 0.02D;
             double d1 = rand.nextGaussian() * 0.02D;
             double d2 = rand.nextGaussian() * 0.02D;
-            world.addParticle(enumparticletypes, posX + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), posY + 0.5D + (double) (rand.nextFloat() * getHeight()), posZ + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
+            world.addParticle(enumparticletypes, getPosX() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), getPosY() + 0.5D + (double) (rand.nextFloat() * getHeight()), getPosZ() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
         }
     }
 
@@ -238,7 +238,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
         while (i > 0) {
             int j = ExperienceOrbEntity.getXPSplit(i);
             i -= j;
-            world.addEntity(new ExperienceOrbEntity(world, posX, posY, posZ, j));
+            world.addEntity(new ExperienceOrbEntity(world, getPosX(), getPosY(), getPosZ(), j));
         }
     }
 
@@ -271,7 +271,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
     /* SPAWN CONDITIONS */
 
     protected boolean isValidLightLevel() {
-        BlockPos blockpos = new BlockPos(this.posX, this.getBoundingBox().minY, this.posZ);
+        BlockPos blockpos = new BlockPos(this.getPosX(), this.getBoundingBox().minY, this.getPosZ());
         if (this.world.getLightFor(LightType.SKY, blockpos) > this.rand.nextInt(32)) {
             return false;
         } else {
@@ -287,7 +287,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
     }
     /* SPAWN CONDITIONS */
 

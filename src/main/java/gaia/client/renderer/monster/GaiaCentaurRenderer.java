@@ -22,7 +22,7 @@ public class GaiaCentaurRenderer extends MobRenderer<GaiaCentaurEntity, ModelGai
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaCentaurEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaCentaurEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

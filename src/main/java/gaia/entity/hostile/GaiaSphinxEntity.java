@@ -109,7 +109,7 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
 
         if (getHealth() <= 0.0F) {
             for (int i = 0; i < 2; ++i) {
-                world.addParticle(ParticleTypes.EXPLOSION, posX + (rand.nextDouble() - 0.5D) * getWidth(), posY + rand.nextDouble() * getHeight(), posZ + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
+                world.addParticle(ParticleTypes.EXPLOSION, getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getPosY() + rand.nextDouble() * getHeight(), getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
             }
         } else {
             super.livingTick();
@@ -190,7 +190,8 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override

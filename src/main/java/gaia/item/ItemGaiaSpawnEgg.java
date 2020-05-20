@@ -92,32 +92,32 @@ public class ItemGaiaSpawnEgg extends Item {
         }
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand handIn) {
+    public ActionResult<ItemStack> onItemRisghtClick(World worldIn, PlayerEntity player, Hand handIn) {
         ItemStack stack = player.getHeldItem(handIn);
         RayTraceResult traceResult = rayTrace(worldIn, player, FluidMode.SOURCE_ONLY);
         if (traceResult.getType() != Type.BLOCK) {
-            return ActionResult.newResult(ActionResultType.PASS, stack);
+            return ActionResult.resultPass(stack);
         } else if (worldIn.isRemote) {
-            return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+            return ActionResult.resultSuccess(stack);
         } else {
             BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult)traceResult;
             BlockPos pos = blockRayTraceResult.getPos();
             if (!(worldIn.getBlockState(pos).getBlock() instanceof FlowingFluidBlock)) {
-                return ActionResult.newResult(ActionResultType.PASS, stack);
+                return ActionResult.resultPass(stack);
             } else if (worldIn.isBlockModifiable(player, pos) && player.canPlayerEdit(pos, blockRayTraceResult.getFace(), stack)) {
                 EntityType<?> type = this.getType(stack.getTag());
                 if (type.spawn(worldIn, stack, player, pos, SpawnReason.SPAWN_EGG, false, false) == null) {
-                    return ActionResult.newResult(ActionResultType.PASS, stack);
+                    return ActionResult.resultPass(stack);
                 } else {
                     if (!player.abilities.isCreativeMode) {
                         stack.shrink(1);
                     }
 
                     player.addStat(Stats.ITEM_USED.get(this));
-                    return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+                    return ActionResult.resultSuccess(stack);
                 }
             } else {
-                return ActionResult.newResult(ActionResultType.FAIL, stack);
+                return ActionResult.resultFail(stack);
             }
         }
     }

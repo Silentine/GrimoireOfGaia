@@ -23,7 +23,7 @@ public class GaiaAnubisRenderer extends MobRenderer<GaiaAnubisEntity, ModelGaiaA
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaAnubisEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaAnubisEntity entity) {
         if (!entity.isMale()) {
             return texture;
         } else {

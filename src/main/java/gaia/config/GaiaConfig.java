@@ -652,11 +652,11 @@ public class GaiaConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
-        Gaia.LOGGER.debug("Loaded forge config file {}", configEvent.getConfig().getFileName());
+        Gaia.LOGGER.debug("Loaded Grimoire of Gaia's config file {}", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.ConfigReloading configEvent) {
-        Gaia.LOGGER.fatal("Forge config just got changed on the file system!");
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
+        Gaia.LOGGER.fatal("Grimoire of Gaia's config just got changed on the file system!");
     }
 }

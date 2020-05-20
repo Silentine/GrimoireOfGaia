@@ -21,7 +21,7 @@ public class GaiaPropFlowerCyanRenderer extends MobRenderer<GaiaPropFlowerCyanEn
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaPropFlowerCyanEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaPropFlowerCyanEntity entity) {
         return texture;
     }
 }

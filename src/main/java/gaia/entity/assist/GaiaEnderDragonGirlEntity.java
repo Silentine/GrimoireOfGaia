@@ -101,9 +101,9 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
      * Teleport the enderman to a random nearby position
      */
     protected boolean teleportRandomly() {
-        double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
-        double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
+        double d0 = this.getPosX() + (this.rand.nextDouble() - 0.5D) * 64.0D;
+        double d1 = this.getPosY() + (double)(this.rand.nextInt(64) - 32);
+        double d2 = this.getPosZ() + (this.rand.nextDouble() - 0.5D) * 64.0D;
         return this.teleportTo(d0, d1, d2);
     }
 
@@ -111,12 +111,12 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
      * Teleport the enderman to another entity
      */
     private boolean teleportToEntity(Entity p_70816_1_) {
-        Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getBoundingBox().minY + (double)(this.getHeight() / 2.0F) - p_70816_1_.posY + (double)p_70816_1_.getEyeHeight(), this.posZ - p_70816_1_.posZ);
+        Vec3d vec3d = new Vec3d(this.getPosX() - p_70816_1_.getPosX(), this.getBoundingBox().minY + (double)(this.getHeight() / 2.0F) - p_70816_1_.getPosY() + (double)p_70816_1_.getEyeHeight(), this.getPosZ() - p_70816_1_.getPosZ());
         vec3d = vec3d.normalize();
         double d0 = 16.0D;
-        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
-        double d2 = this.posY + (double)(this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
-        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
+        double d1 = this.getPosX() + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
+        double d2 = this.getPosY() + (double)(this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
+        double d3 = this.getPosZ() + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
         return this.teleportTo(d1, d2, d3);
     }
 
@@ -124,7 +124,7 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
      * Teleport the enderman
      */
     private boolean teleportTo(double x, double y, double z) {
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
+        BlockPos.Mutable blockpos$mutableblockpos = new BlockPos.Mutable(x, y, z);
 
         while(blockpos$mutableblockpos.getY() > 0 && !this.world.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMovement()) {
             blockpos$mutableblockpos.move(Direction.DOWN);
@@ -154,7 +154,7 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
     public void livingTick() {
         if (world.isRemote) {
             for (int i = 0; i < 2; ++i) {
-                world.addParticle(ParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * getWidth(), posY + rand.nextDouble() * getHeight() - 0.25D, posZ + (rand.nextDouble() - 0.5D) * getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+                world.addParticle(ParticleTypes.PORTAL, getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getPosY() + rand.nextDouble() * getHeight() - 0.25D, getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
             }
         }
 
@@ -170,7 +170,7 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
 
         if (this.world.isDaytime() && this.ticksExisted >= this.targetChangeTime + 600) {
             float f = this.getBrightness();
-            if (f > 0.5F && this.world.isSkyLightMax(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+            if (f > 0.5F && this.world.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.setAttackTarget((LivingEntity)null);
                 this.teleportRandomly();
             }
@@ -263,7 +263,8 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
     }
 
     @Override
-    public void fall(float p_180430_1_, float p_180430_2_) {
+    public boolean onLivingFall(float p_180430_1_, float p_180430_2_) {
+        return false;
     }
 
     @Override
@@ -303,7 +304,7 @@ public class GaiaEnderDragonGirlEntity extends AbstractMobAssistEntity implement
             return false;
         } else {
             Vec3d vec3d = player.getLook(1.0F).normalize();
-            Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getBoundingBox().minY + (double)this.getEyeHeight() - (player.posY + (double)player.getEyeHeight()), this.posZ - player.posZ);
+            Vec3d vec3d1 = new Vec3d(this.getPosX() - player.getPosX(), this.getBoundingBox().minY + (double)this.getEyeHeight() - (player.getPosY() + (double)player.getEyeHeight()), this.getPosZ() - player.getPosZ());
             double d0 = vec3d1.length();
             vec3d1 = vec3d1.normalize();
             double d1 = vec3d.dotProduct(vec3d1);

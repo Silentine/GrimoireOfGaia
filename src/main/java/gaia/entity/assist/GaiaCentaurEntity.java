@@ -338,9 +338,9 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
         }
 
         if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.posX);
-            int j = MathHelper.floor(this.posY);
-            int k = MathHelper.floor(this.posZ);
+            int i = MathHelper.floor(this.getPosX());
+            int j = MathHelper.floor(this.getPosY());
+            int k = MathHelper.floor(this.getPosZ());
 
             if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
                 if (isMale()) {

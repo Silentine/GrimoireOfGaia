@@ -244,7 +244,7 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
 
     private void explode() {
         if (!world.isRemote) {
-            world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius * explosionPower, Mode.NONE);
+            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionRadius * explosionPower, Mode.NONE);
             remove();
         }
     }

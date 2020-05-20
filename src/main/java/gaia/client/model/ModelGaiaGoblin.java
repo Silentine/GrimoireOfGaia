@@ -1,6 +1,8 @@
 package gaia.client.model;
 
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.util.math.MathHelper;
@@ -14,107 +16,107 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class ModelGaiaGoblin<T extends MobEntity> extends ModelGaia<T> {
-	RendererModel head;
-	RendererModel rightarm;
-	RendererModel leftarm;
-    RendererModel body;
-    RendererModel backpack;
-	RendererModel rightleg;
-	RendererModel leftleg;
+	ModelRenderer head;
+	ModelRenderer rightarm;
+	ModelRenderer leftarm;
+    ModelRenderer body;
+    ModelRenderer backpack;
+	ModelRenderer rightleg;
+	ModelRenderer leftleg;
 
 	public ModelGaiaGoblin() {
 		textureWidth = 128;
 		textureHeight = 64;
 
-		head = new RendererModel(this, 0, 0);
+		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-4F, -8F, -4F, 8, 8, 8);
 		head.setRotationPoint(0F, 8F, 0F);
 
 		setRotation(head, 0F, 0F, 0F);
-		RendererModel headaccessory = new RendererModel(this, 64, 0);
+		ModelRenderer headaccessory = new ModelRenderer(this, 64, 0);
 		headaccessory.addBox(-4.5F, -8.5F, -4.5F, 9, 9, 9);
 		headaccessory.setRotationPoint(0F, 8F, 0F);
 		setRotation(headaccessory, 0F, 0F, 0F);
-		RendererModel rightear = new RendererModel(this, 64, 10);
+		ModelRenderer rightear = new ModelRenderer(this, 64, 10);
 		rightear.addBox(-5.5F, -7F, 0F, 0, 6, 8);
 		rightear.setRotationPoint(0F, 8F, 0F);
 		setRotation(rightear, 0F, -0.7853982F, 0F);
-		RendererModel leftear = new RendererModel(this, 64, 10);
+		ModelRenderer leftear = new ModelRenderer(this, 64, 10);
 		leftear.mirror = true;
 		leftear.addBox(5.5F, -7F, 0F, 0, 6, 8);
 		leftear.setRotationPoint(0F, 8F, 0F);
 		setRotation(leftear, 0F, 0.7853982F, 0F);
-		RendererModel rightearback = new RendererModel(this, 80, 10);
+		ModelRenderer rightearback = new ModelRenderer(this, 80, 10);
 		rightearback.addBox(-5.4F, -7F, 0F, 0, 6, 8);
 		rightearback.setRotationPoint(0F, 8F, 0F);
 		setRotation(rightearback, 0F, -0.7853982F, 0F);
-		RendererModel leftearback = new RendererModel(this, 80, 10);
+		ModelRenderer leftearback = new ModelRenderer(this, 80, 10);
 		leftearback.mirror = true;
 		leftearback.addBox(5.4F, -7F, 0F, 0, 6, 8);
 		leftearback.setRotationPoint(0F, 8F, 0F);
 		setRotation(leftearback, 0F, 0.7853982F, 0F);
-		RendererModel headnose = new RendererModel(this, 64, 24);
+		ModelRenderer headnose = new ModelRenderer(this, 64, 24);
 		headnose.addBox(-1F, -3F, -7F, 2, 3, 3);
 		headnose.setRotationPoint(0F, 8F, 0F);
 		setRotation(headnose, 0F, 0F, 0F);
-		RendererModel rightarmpauldron = new RendererModel(this, 100, 0);
+		ModelRenderer rightarmpauldron = new ModelRenderer(this, 100, 0);
 		rightarmpauldron.addBox(-3.5F, -2F, -2F, 4, 4, 4);
 		rightarmpauldron.setRotationPoint(-4F, 10F, 0F);
 		setRotation(rightarmpauldron, 0F, 0F, 0F);
-		RendererModel leftarmpauldron = new RendererModel(this, 100, 0);
+		ModelRenderer leftarmpauldron = new ModelRenderer(this, 100, 0);
 		leftarmpauldron.mirror = true;
 		leftarmpauldron.addBox(-0.5F, -2F, -2F, 4, 4, 4);
 		leftarmpauldron.setRotationPoint(4F, 10F, 0F);
 		setRotation(leftarmpauldron, 0F, 0F, 0F);
-		rightarm = new RendererModel(this, 24, 16);
+		rightarm = new ModelRenderer(this, 24, 16);
 		rightarm.addBox(-3F, -1.5F, -1.5F, 3, 8, 3);
 		rightarm.setRotationPoint(-4F, 10F, 0F);
 		setRotation(rightarm, 0F, 0F, 0F);
-		RendererModel rightarmgauntlet = new RendererModel(this, 100, 8);
+		ModelRenderer rightarmgauntlet = new ModelRenderer(this, 100, 8);
 		rightarmgauntlet.addBox(-3.5F, 3F, -2F, 4, 4, 4);
 		rightarmgauntlet.setRotationPoint(-4F, 10F, 0F);
 		setRotation(rightarmgauntlet, 0F, 0F, 0F);
-		RendererModel leftarmgauntlet = new RendererModel(this, 100, 8);
+		ModelRenderer leftarmgauntlet = new ModelRenderer(this, 100, 8);
 		leftarmgauntlet.mirror = true;
 		leftarmgauntlet.addBox(-0.5F, 3F, -2F, 4, 4, 4);
 		leftarmgauntlet.setRotationPoint(4F, 10F, 0F);
 		setRotation(leftarmgauntlet, 0F, 0F, 0F);
-		leftarm = new RendererModel(this, 24, 16);
+		leftarm = new ModelRenderer(this, 24, 16);
 		leftarm.mirror = true;
 		leftarm.addBox(0F, -1.5F, -1.5F, 3, 8, 3);
 		leftarm.setRotationPoint(4F, 10F, 0F);
 		setRotation(leftarm, 0F, 0F, 0F);
-		body = new RendererModel(this, 0, 16);
+		body = new ModelRenderer(this, 0, 16);
 		body.addBox(-4F, 0F, -2F, 8, 8, 4);
 		body.setRotationPoint(0F, 8F, 0F);
 		setRotation(body, 0F, 0F, 0F);
-		backpack = new RendererModel(this, 64, 30);
+		backpack = new ModelRenderer(this, 64, 30);
 		backpack.addBox(-4F, -4F, 0F, 8, 8, 8);
 		backpack.setRotationPoint(0F, 12F, 2F);
 		setRotation(backpack, 0F, 0F, 0F);
-		RendererModel rightlegupper = new RendererModel(this, 100, 16);
+		ModelRenderer rightlegupper = new ModelRenderer(this, 100, 16);
 		rightlegupper.addBox(-2F, 0F, -2F, 4, 4, 4);
 		rightlegupper.setRotationPoint(-2F, 16F, 0F);
 		setRotation(rightlegupper, 0F, 0F, 0F);
-		RendererModel leftlegupper = new RendererModel(this, 100, 16);
+		ModelRenderer leftlegupper = new ModelRenderer(this, 100, 16);
 		leftlegupper.mirror = true;
 		leftlegupper.addBox(-2F, 0F, -2F, 4, 4, 4);
 		leftlegupper.setRotationPoint(2F, 16F, 0F);
 		setRotation(leftlegupper, 0F, 0F, 0F);
-		rightleg = new RendererModel(this, 36, 16);
+		rightleg = new ModelRenderer(this, 36, 16);
 		rightleg.addBox(-1.5F, 0F, -1.5F, 3, 8, 3);
 		rightleg.setRotationPoint(-2F, 16F, 0F);
 		setRotation(rightleg, 0F, 0F, 0F);
-		leftleg = new RendererModel(this, 36, 16);
+		leftleg = new ModelRenderer(this, 36, 16);
 		leftleg.mirror = true;
 		leftleg.addBox(-1.5F, 0F, -1.5F, 3, 8, 3);
 		leftleg.setRotationPoint(2F, 16F, 0F);
 		setRotation(leftleg, 0F, 0F, 0F);
-		RendererModel rightlegboot = new RendererModel(this, 100, 24);
+		ModelRenderer rightlegboot = new ModelRenderer(this, 100, 24);
 		rightlegboot.addBox(-2F, 4F, -2F, 4, 4, 4);
 		rightlegboot.setRotationPoint(-2F, 16F, 0F);
 		setRotation(rightlegboot, 0F, 0F, 0F);
-		RendererModel leftlegboot = new RendererModel(this, 100, 24);
+		ModelRenderer leftlegboot = new ModelRenderer(this, 100, 24);
 		leftlegboot.mirror = true;
 		leftlegboot.addBox(-2F, 4F, -2F, 4, 4, 4);
 		leftlegboot.setRotationPoint(2F, 16F, 0F);
@@ -138,19 +140,17 @@ public class ModelGaiaGoblin<T extends MobEntity> extends ModelGaia<T> {
 	}
 
 	@Override
-	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		head.render(scale);
-		rightarm.render(scale);
-		leftarm.render(scale);
-		body.render(scale);
-		rightleg.render(scale);
-		leftleg.render(scale);
+	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+		head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		rightarm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		leftarm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		rightleg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+		leftleg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 
 	@Override
-	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// head
 		head.rotateAngleY = netHeadYaw / 57.295776F;
 		head.rotateAngleX = headPitch / 57.295776F;
@@ -212,11 +212,11 @@ public class ModelGaiaGoblin<T extends MobEntity> extends ModelGaia<T> {
 		rightarm.rotateAngleZ = (MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F);
 	}
 
-	public RendererModel getRightArm() {
+	public ModelRenderer getRightArm() {
 		return rightarm;
 	}
 
-	public RendererModel getLeftArm() {
+	public ModelRenderer getLeftArm() {
 		return leftarm;
 	}
 }

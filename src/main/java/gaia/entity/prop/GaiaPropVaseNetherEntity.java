@@ -180,7 +180,7 @@ public class GaiaPropVaseNetherEntity extends AbstractMobPropEntity {
             double d0 = rand.nextGaussian() * 0.02D;
             double d1 = rand.nextGaussian() * 0.02D;
             double d2 = rand.nextGaussian() * 0.02D;
-            world.addParticle(enumparticletypes, posX + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), posY + 0.5D + (double) (rand.nextFloat() * getHeight()), posZ + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
+            world.addParticle(enumparticletypes, getPosX() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), getPosY() + 0.5D + (double) (rand.nextFloat() * getHeight()), getPosZ() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
         }
     }
 
@@ -235,7 +235,7 @@ public class GaiaPropVaseNetherEntity extends AbstractMobPropEntity {
         while (i > 0) {
             int j = ExperienceOrbEntity.getXPSplit(i);
             i -= j;
-            world.addEntity(new ExperienceOrbEntity(world, posX, posY, posZ, j));
+            world.addEntity(new ExperienceOrbEntity(world, getPosX(), getPosY(), getPosZ(), j));
         }
     }
 

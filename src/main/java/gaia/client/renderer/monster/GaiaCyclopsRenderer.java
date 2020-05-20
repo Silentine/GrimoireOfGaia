@@ -19,7 +19,7 @@ public class GaiaCyclopsRenderer extends MobRenderer<GaiaCyclopsEntity, ModelGai
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaCyclopsEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaCyclopsEntity entity) {
         return texture;
     }
 }

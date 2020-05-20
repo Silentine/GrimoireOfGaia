@@ -309,7 +309,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
         switch (id) {
             default:
                 SkeletonEntity skeleton = new SkeletonEntity(EntityType.SKELETON, world);
-                skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                skeleton.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), null, null, null);
                 skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
@@ -322,7 +322,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
             case 1:
                 this.explode();
                 GaiaSphinxEntity sphinx = new GaiaSphinxEntity(world);
-                sphinx.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                sphinx.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 sphinx.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(sphinx)), null, null, null);
                 world.addEntity(sphinx);
         }
@@ -330,7 +330,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
 
     private void beaconMonster() {
         if (!world.isRemote) {
-            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(6D);
+            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX() + 1, getPosY() + 1, getPosZ() + 1)).grow(6D);
 
             List<LivingEntity> moblist = world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
 
@@ -348,7 +348,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
             int explosionRadius = 2;
 
             this.dead = true;
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, explosion$mode);
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionRadius, explosion$mode);
             this.remove();
         }
     }

@@ -63,7 +63,7 @@ public abstract class ItemAccessoryBauble extends Item { //implements IBauble {
 //			}
 		}
         
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	@Override

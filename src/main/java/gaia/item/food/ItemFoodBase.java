@@ -15,7 +15,7 @@ public class ItemFoodBase extends Item {
 	 */
 	static void rewardEXP(PlayerEntity player, int value) {
 		World world = player.world;
-		ExperienceOrbEntity entity = new ExperienceOrbEntity(world, player.posX, player.posY + 1, player.posZ, value);
+		ExperienceOrbEntity entity = new ExperienceOrbEntity(world, player.getPosX(), player.getPosY() + 1, player.getPosZ(), value);
 
 		if (!world.isRemote) {
 			world.addEntity(entity);

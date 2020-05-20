@@ -71,7 +71,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
     }
 
     public GaiaCecaeliaEntity(World world) {
-        this(GaiaEntities.CECEALIA.get(), world);
+        this(GaiaEntities.CECAELIA.get(), world);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
     public boolean canAttack(EntityType<?> type) {
-        return super.canAttack(type) && type != GaiaEntities.CECEALIA.get();
+        return super.canAttack(type) && type != GaiaEntities.CECAELIA.get();
     }
 
     @Override
@@ -303,6 +303,6 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-		return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 60.0D && super.canSpawn(worldIn, reason);
+		return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 60.0D && super.canSpawn(worldIn, reason);
 	}
 }

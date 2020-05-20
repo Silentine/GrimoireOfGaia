@@ -1,6 +1,8 @@
 package gaia.client.model;
 
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -8,148 +10,148 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ModelGaiaVampire<T extends MobEntity> extends ModelGaia<T> {
-	private RendererModel anchor;
+	private ModelRenderer anchor;
 
-	private RendererModel head;
-	private RendererModel headeyes;
-	private RendererModel headaccessory;
-	private RendererModel neck;
-	private RendererModel bodytop;
-	private RendererModel bodymiddle;
-	private RendererModel bodymiddlebutton;
-	private RendererModel bodybottom;
-	private RendererModel rightchest;
-	private RendererModel leftchest;
-	private RendererModel rightarm;
-	private RendererModel leftarm;
-	private RendererModel rightleg;
-	private RendererModel leftleg;
-	private RendererModel mantle;
-	private RendererModel cloak1;
-	private RendererModel cloak2;
-	private RendererModel cloak3;
-	private RendererModel cloak4;
-	private RendererModel rightshoulder;
-	private RendererModel leftshoulder;
-	private RendererModel waist;
-	private RendererModel waist1;
-	private RendererModel waist2;
-	private RendererModel waist3;
-	private RendererModel waist4;
+	private ModelRenderer head;
+	private ModelRenderer headeyes;
+	private ModelRenderer headaccessory;
+	private ModelRenderer neck;
+	private ModelRenderer bodytop;
+	private ModelRenderer bodymiddle;
+	private ModelRenderer bodymiddlebutton;
+	private ModelRenderer bodybottom;
+	private ModelRenderer rightchest;
+	private ModelRenderer leftchest;
+	private ModelRenderer rightarm;
+	private ModelRenderer leftarm;
+	private ModelRenderer rightleg;
+	private ModelRenderer leftleg;
+	private ModelRenderer mantle;
+	private ModelRenderer cloak1;
+	private ModelRenderer cloak2;
+	private ModelRenderer cloak3;
+	private ModelRenderer cloak4;
+	private ModelRenderer rightshoulder;
+	private ModelRenderer leftshoulder;
+	private ModelRenderer waist;
+	private ModelRenderer waist1;
+	private ModelRenderer waist2;
+	private ModelRenderer waist3;
+	private ModelRenderer waist4;
 
 	public ModelGaiaVampire() {
 		textureWidth = 128;
 		textureHeight = 64;
 
-		anchor = new RendererModel(this, 0, 0);
+		anchor = new ModelRenderer(this, 0, 0);
 		anchor.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
 		anchor.setRotationPoint(0F, -12F, 0F);
 		setRotation(anchor, 0F, 0F, 0F);
 
-		head = new RendererModel(this, 0, 0);
+		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-3F, -6F, -3F, 6, 6, 6);
 		head.setRotationPoint(0F, -8F, 0F);
 		setRotation(head, 0F, 0F, 0F);
-		headeyes = new RendererModel(this, 24, 0);
+		headeyes = new ModelRenderer(this, 24, 0);
 		headeyes.addBox(-3F, -6F, -3.1F, 6, 6, 0);
 		headeyes.setRotationPoint(0F, -8F, 0F);
 		setRotation(headeyes, 0F, 0F, 0F);
-		headaccessory = new RendererModel(this, 36, 0);
+		headaccessory = new ModelRenderer(this, 36, 0);
 		headaccessory.addBox(-3.5F, -6.5F, -3.5F, 7, 7, 7);
 		headaccessory.setRotationPoint(0F, -8F, 0F);
 		setRotation(headaccessory, 0F, 0F, 0F);
-		neck = new RendererModel(this, 0, 12);
+		neck = new ModelRenderer(this, 0, 12);
 		neck.addBox(-1F, -1F, -1F, 2, 2, 2);
 		neck.setRotationPoint(0F, -8F, 0F);
 		setRotation(neck, 0F, 0F, 0F);
-		bodytop = new RendererModel(this, 0, 16);
+		bodytop = new ModelRenderer(this, 0, 16);
 		bodytop.addBox(-2.5F, 0F, -1.5F, 5, 6, 3);
 		bodytop.setRotationPoint(0F, -8F, 0F);
 		setRotation(bodytop, -0.0872665F, 0F, 0F);
-		bodymiddle = new RendererModel(this, 0, 25);
+		bodymiddle = new ModelRenderer(this, 0, 25);
 		bodymiddle.addBox(-2F, 5.5F, -1.5F, 4, 3, 2);
 		bodymiddle.setRotationPoint(0F, -8F, 0F);
 		setRotation(bodymiddle, 0F, 0F, 0F);
-		bodymiddlebutton = new RendererModel(this, 0, 25);
+		bodymiddlebutton = new ModelRenderer(this, 0, 25);
 		bodymiddlebutton.addBox(-0.5F, 6F, -1.6F, 1, 2, 0);
 		bodymiddlebutton.setRotationPoint(0F, -8F, 0F);
 		setRotation(bodymiddlebutton, 0F, 0F, 0F);
-		bodybottom = new RendererModel(this, 0, 30);
+		bodybottom = new ModelRenderer(this, 0, 30);
 		bodybottom.addBox(-3F, 8F, -2.5F, 6, 3, 3);
 		bodybottom.setRotationPoint(0F, -8F, 0F);
 		setRotation(bodybottom, 0.0872665F, 0F, 0F);
-		rightchest = new RendererModel(this, 0, 36);
+		rightchest = new ModelRenderer(this, 0, 36);
 		rightchest.addBox(-1F, -1F, -1F, 2, 2, 2);
 		rightchest.setRotationPoint(-1.3F, -6F, -1.5F);
 		setRotation(rightchest, 0.7853982F, 0.1745329F, 0.0872665F);
-		leftchest = new RendererModel(this, 0, 36);
+		leftchest = new ModelRenderer(this, 0, 36);
 		leftchest.mirror = true;
 		leftchest.addBox(-1F, -1F, -1F, 2, 2, 2);
 		leftchest.setRotationPoint(1.3F, -6F, -1.5F);
 		setRotation(leftchest, 0.7853982F, -0.1745329F, -0.0872665F);
-		rightarm = new RendererModel(this, 16, 12);
+		rightarm = new ModelRenderer(this, 16, 12);
 		rightarm.addBox(-2F, -1F, -1F, 2, 12, 2);
 		rightarm.setRotationPoint(-2.5F, -6.5F, 0F);
 		setRotation(rightarm, 0.0872665F, 0F, 0.1745329F);
-		leftarm = new RendererModel(this, 16, 12);
+		leftarm = new ModelRenderer(this, 16, 12);
 		leftarm.mirror = true;
 		leftarm.addBox(0F, -1F, -1F, 2, 12, 2);
 		leftarm.setRotationPoint(2.5F, -6.5F, 0F);
 		setRotation(leftarm, 0.0872665F, 0F, -0.1745329F);
-		rightleg = new RendererModel(this, 24, 12);
+		rightleg = new ModelRenderer(this, 24, 12);
 		rightleg.addBox(-1.5F, -1F, -1.5F, 3, 14, 3);
 		rightleg.setRotationPoint(-2F, 2F, 0F);
 		setRotation(rightleg, 0.0872665F, 0F, -0.0349066F);
-		leftleg = new RendererModel(this, 24, 12);
+		leftleg = new ModelRenderer(this, 24, 12);
 		leftleg.addBox(-1.5F, -1F, -1.5F, 3, 14, 3);
 		leftleg.setRotationPoint(2F, 2F, 0F);
 		setRotation(leftleg, -0.0872665F, 0F, 0.0349066F);
-		mantle = new RendererModel(this, 36, 14);
+		mantle = new ModelRenderer(this, 36, 14);
 		mantle.addBox(-5F, -6F, -2F, 10, 7, 6);
 		mantle.setRotationPoint(0F, -8F, 0F);
 		setRotation(mantle, 0F, 0F, 0F);
-		cloak1 = new RendererModel(this, 36, 27);
+		cloak1 = new ModelRenderer(this, 36, 27);
 		cloak1.addBox(-6.5F, 0F, 0F, 13, 4, 3);
 		cloak1.setRotationPoint(0F, -7F, 1F);
 		setRotation(cloak1, 0F, 0F, 0F);
-		cloak2 = new RendererModel(this, 36, 34);
+		cloak2 = new ModelRenderer(this, 36, 34);
 		cloak2.addBox(-7F, 0F, -4F, 14, 5, 4);
 		cloak2.setRotationPoint(0F, -3F, 4F);
 		setRotation(cloak2, 0F, 0F, 0F);
-		cloak3 = new RendererModel(this, 36, 43);
+		cloak3 = new ModelRenderer(this, 36, 43);
 		cloak3.addBox(-7.5F, 0F, -5F, 15, 5, 5);
 		cloak3.setRotationPoint(0F, 2F, 4F);
 		setRotation(cloak3, 0F, 0F, 0F);
-		cloak4 = new RendererModel(this, 36, 53);
+		cloak4 = new ModelRenderer(this, 36, 53);
 		cloak4.addBox(-8F, 0F, -6F, 16, 6, 6);
 		cloak4.setRotationPoint(0F, 7F, 4F);
 		setRotation(cloak4, 0F, 0F, 0F);
-		rightshoulder = new RendererModel(this, 80, 0);
+		rightshoulder = new ModelRenderer(this, 80, 0);
 		rightshoulder.addBox(-2.5F, -1F, -1.5F, 3, 4, 3);
 		rightshoulder.setRotationPoint(-2.5F, -6.5F, 0F);
 		setRotation(rightshoulder, 0.0872665F, 0F, 0.0872665F);
-		leftshoulder = new RendererModel(this, 80, 0);
+		leftshoulder = new ModelRenderer(this, 80, 0);
 		leftshoulder.mirror = true;
 		leftshoulder.addBox(-0.5F, -1F, -1.5F, 3, 4, 3);
 		leftshoulder.setRotationPoint(2.5F, -6.5F, 0F);
 		setRotation(leftshoulder, 0.0872665F, 0F, -0.0872665F);
-		waist = new RendererModel(this, 80, 7);
+		waist = new ModelRenderer(this, 80, 7);
 		waist.addBox(-3F, 5F, -2.5F, 6, 2, 5);
 		waist.setRotationPoint(0F, -8F, 0F);
 		setRotation(waist, 0F, 0F, 0F);
-		waist1 = new RendererModel(this, 80, 14);
+		waist1 = new ModelRenderer(this, 80, 14);
 		waist1.addBox(-3.5F, 7.5F, -3F, 7, 4, 4);
 		waist1.setRotationPoint(0F, -8F, 0F);
 		setRotation(waist1, 0.0872665F, 0F, 0F);
-		waist2 = new RendererModel(this, 80, 22);
+		waist2 = new ModelRenderer(this, 80, 22);
 		waist2.addBox(-3.5F, 0F, -0.5F, 7, 4, 6);
 		waist2.setRotationPoint(0F, -1F, -2.5F);
 		setRotation(waist2, 0F, 0F, 0F);
-		waist3 = new RendererModel(this, 80, 32);
+		waist3 = new ModelRenderer(this, 80, 32);
 		waist3.addBox(-4F, 0F, -0.5666667F, 8, 4, 7);
 		waist3.setRotationPoint(0F, 3F, -3F);
 		setRotation(waist3, 0F, 0F, 0F);
-		waist4 = new RendererModel(this, 80, 43);
+		waist4 = new ModelRenderer(this, 80, 43);
 		waist4.addBox(-4.5F, 0F, -1F, 9, 6, 8);
 		waist4.setRotationPoint(0F, 7F, -3.5F);
 		setRotation(waist4, 0F, 0F, 0F);
@@ -186,14 +188,12 @@ public class ModelGaiaVampire<T extends MobEntity> extends ModelGaia<T> {
 	}
 
 	@Override
-	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		anchor.render(scale);
+	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+		anchor.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 
 	@Override
-	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// anchor
 		anchor.rotationPointY = -2.0F + MathHelper.cos((1.5F + ageInTicks) * 0.5F) * 0.5F;
 
@@ -205,7 +205,7 @@ public class ModelGaiaVampire<T extends MobEntity> extends ModelGaia<T> {
 		headaccessory.rotateAngleY = head.rotateAngleY;
 		headaccessory.rotateAngleX = head.rotateAngleX;
 
-		headeyes.showModel = entityIn.ticksExisted % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.showModel = entityIn.ticksExisted % 60 == 0 && entityIn.limbSwingAmount <= 0.1F;
 
 		// arms
 		rightarm.rotateAngleZ = 0.0F;

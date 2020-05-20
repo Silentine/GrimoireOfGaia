@@ -15,7 +15,7 @@ public class GaiaBeeRenderer extends MobRenderer<GaiaBeeEntity, ModelGaiaBee<Gai
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaBeeEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaBeeEntity entity) {
         return texture;
     }
 }

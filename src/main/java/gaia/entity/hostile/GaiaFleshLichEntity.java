@@ -188,6 +188,6 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 16.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 16.0D && super.canSpawn(worldIn, reason);
     }
 }

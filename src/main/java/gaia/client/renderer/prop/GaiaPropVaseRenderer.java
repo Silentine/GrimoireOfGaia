@@ -21,7 +21,7 @@ public class GaiaPropVaseRenderer extends MobRenderer<GaiaPropVaseEntity, ModelG
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaPropVaseEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaPropVaseEntity entity) {
         return texture;
     }
 }

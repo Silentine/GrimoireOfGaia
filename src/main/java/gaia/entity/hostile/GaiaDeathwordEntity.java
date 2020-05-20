@@ -156,7 +156,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
         motion = getMotion();
         if (motion.x > 0 || motion.y > 0 || motion.z > 0) {
             for (int var5 = 0; var5 < 2; ++var5) {
-                world.addParticle(ParticleTypes.ENCHANT, posX + (rand.nextDouble() - 0.5D) * getWidth(), posY + rand.nextDouble() * getHeight(), posZ + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
+                world.addParticle(ParticleTypes.ENCHANT, getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getPosY() + rand.nextDouble() * getHeight(), getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
             }
         }
 
@@ -172,12 +172,12 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
         switch (id) {
             default:
                 CreeperEntity creeper = new CreeperEntity(EntityType.CREEPER, world);
-                creeper.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                creeper.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 creeper.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(creeper)), null, null, null);
                 world.addEntity(creeper);
             case 1:
                 SkeletonEntity skeleton = new SkeletonEntity(EntityType.SKELETON, world);
-                skeleton.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                skeleton.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), null, null, null);
                 skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
@@ -189,12 +189,12 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
                 world.addEntity(skeleton);
             case 2:
                 SpiderEntity spider = new SpiderEntity(EntityType.SPIDER, world);
-                spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                spider.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 spider.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(spider)), null, null, null);
                 world.addEntity(spider);
             case 3:
                 ZombieEntity zombie = new ZombieEntity(world);
-                zombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                zombie.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 zombie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(zombie)), null, null, null);
                 zombie.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
                 zombie.setDropChance(EquipmentSlotType.MAINHAND, 0);
@@ -227,7 +227,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     private void beaconMonster() {
         if (!world.isRemote) {
-            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(6);
+            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX() + 1, getPosY() + 1, getPosZ() + 1)).grow(6);
             List<LivingEntity> moblist = world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
 
             for (LivingEntity mob : moblist) {
@@ -312,7 +312,8 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override
@@ -329,6 +330,6 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 16.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 16.0D && super.canSpawn(worldIn, reason);
     }
 }

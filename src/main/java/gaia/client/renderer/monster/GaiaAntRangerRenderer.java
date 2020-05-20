@@ -18,7 +18,7 @@ public class GaiaAntRangerRenderer extends MobRenderer<GaiaAntRangerEntity, Mode
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaAntRangerEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaAntRangerEntity entity) {
         return texture;
     }
 }

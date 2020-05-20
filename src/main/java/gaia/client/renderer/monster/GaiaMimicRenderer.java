@@ -2,10 +2,12 @@ package gaia.client.renderer.monster;
 
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaMimic;
+import gaia.entity.assist.GaiaEnderDragonGirlEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -19,17 +21,14 @@ public class GaiaMimicRenderer extends MobRenderer<GaiaMimicEntity, ModelGaiaMim
     }
 
     @Override
-    public void doRender(GaiaMimicEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public Vec3d getRenderOffset(GaiaMimicEntity entityIn, float partialTicks) {
         double d0 = 0.02D;
-        x += this.rand.nextGaussian() * 0.06D;
-        z += this.rand.nextGaussian() * 0.06D;
-
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        return new Vec3d(this.rand.nextGaussian() * 0.06D, 0.0D, this.rand.nextGaussian() * 0.06D);
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaMimicEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaMimicEntity entity) {
         return texture;
     }
 }

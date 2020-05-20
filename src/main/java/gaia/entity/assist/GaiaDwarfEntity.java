@@ -202,7 +202,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
             default:
                 explode();
 //            EntityGaiaValkyrie valyrie = new EntityGaiaValkyrie(world);
-//            valyrie.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+//            valyrie.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
 //            valyrie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(valyrie)), null, null);
 //            world.spawnEntity(valyrie);
         }
@@ -280,7 +280,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
             int explosionRadius = 2;
 
             this.dead = true;
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius, explosion$mode);
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionRadius, explosion$mode);
             this.remove();
         }
     }

@@ -23,7 +23,7 @@ public class GaiaGoblinRenderer extends MobRenderer<GaiaGoblinEntity, ModelGaiaG
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaGoblinEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaGoblinEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

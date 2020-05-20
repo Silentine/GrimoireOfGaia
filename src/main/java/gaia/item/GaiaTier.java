@@ -3,7 +3,6 @@ package gaia.item;
 import gaia.init.GaiaItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
 
 import java.util.function.Supplier;
 
@@ -25,7 +24,7 @@ public enum GaiaTier implements IItemTier {
     private final float attackDamage;
     /** Defines the natural enchantability factor of the material. */
     private final int enchantability;
-    private final LazyLoadBase<Ingredient> repairMaterial;
+    private final Supplier<Ingredient> repairMaterial;
 
     private GaiaTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
         this.harvestLevel = harvestLevelIn;
@@ -33,7 +32,7 @@ public enum GaiaTier implements IItemTier {
         this.efficiency = efficiencyIn;
         this.attackDamage = attackDamageIn;
         this.enchantability = enchantabilityIn;
-        this.repairMaterial = new LazyLoadBase<Ingredient>(repairMaterialIn);
+        this.repairMaterial = repairMaterialIn;
     }
 
     public int getMaxUses() {
@@ -57,6 +56,6 @@ public enum GaiaTier implements IItemTier {
     }
 
     public Ingredient getRepairMaterial() {
-        return (Ingredient)this.repairMaterial.getValue();
+        return this.repairMaterial.get();
     }
 }

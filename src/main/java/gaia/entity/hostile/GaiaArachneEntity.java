@@ -259,7 +259,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
         switch(id) {
             default:
                 CaveSpiderEntity caveSpider = new CaveSpiderEntity(EntityType.CAVE_SPIDER, world);
-                caveSpider.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+                caveSpider.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
                 caveSpider.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(caveSpider)), null, null, null);
                 world.addEntity(caveSpider);
         }
@@ -267,7 +267,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     private void boostSpiderlikes() {
         if (!world.isRemote) {
-            AxisAlignedBB axisalignedbb = new AxisAlignedBB(posX, posY, posZ, (posX + 1), (posY + 1), (posZ + 1)).grow(6D);
+            AxisAlignedBB axisalignedbb = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), (getPosX() + 1), (getPosY() + 1), (getPosZ() + 1)).grow(6D);
             List<LivingEntity> moblist = world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
 
             for (LivingEntity mob : moblist) {
@@ -370,6 +370,6 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && super.canSpawn(worldIn, reason);
     }
 }

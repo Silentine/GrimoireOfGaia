@@ -101,7 +101,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
         }
 
         for (int i = 0; i < 2; ++i) {
-            world.addParticle(ParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * getWidth(), posY + rand.nextDouble() * getHeight(), posZ + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.PORTAL, getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getPosY() + rand.nextDouble() * getHeight(), getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), 0.0D, 0.0D, 0.0D);
         }
 
         super.livingTick();
@@ -343,7 +343,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
 
         public void tick() {
             if (this.action == Action.MOVE_TO) {
-                Vec3d lvt_1_1_ = new Vec3d(this.posX - GaiaBansheeEntity.this.posX, this.posY - GaiaBansheeEntity.this.posY, this.posZ - GaiaBansheeEntity.this.posZ);
+                Vec3d lvt_1_1_ = new Vec3d(GaiaBansheeEntity.this.getPosX() - GaiaBansheeEntity.this.getPosX(), GaiaBansheeEntity.this.getPosY() - GaiaBansheeEntity.this.getPosY(), GaiaBansheeEntity.this.getPosZ() - GaiaBansheeEntity.this.getPosZ());
                 double lvt_2_1_ = lvt_1_1_.length();
                 if (lvt_2_1_ < GaiaBansheeEntity.this.getBoundingBox().getAverageEdgeLength()) {
                     this.action = Action.WAIT;
@@ -355,8 +355,8 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
                         GaiaBansheeEntity.this.rotationYaw = -((float) MathHelper.atan2(lvt_4_1_.x, lvt_4_1_.z)) * 57.295776F;
                         GaiaBansheeEntity.this.renderYawOffset = GaiaBansheeEntity.this.rotationYaw;
                     } else {
-                        double lvt_4_2_ = GaiaBansheeEntity.this.getAttackTarget().posX - GaiaBansheeEntity.this.posX;
-                        double lvt_6_1_ = GaiaBansheeEntity.this.getAttackTarget().posZ - GaiaBansheeEntity.this.posZ;
+                        double lvt_4_2_ = GaiaBansheeEntity.this.getAttackTarget().getPosX() - GaiaBansheeEntity.this.getPosX();
+                        double lvt_6_1_ = GaiaBansheeEntity.this.getAttackTarget().getPosZ() - GaiaBansheeEntity.this.getPosZ();
                         GaiaBansheeEntity.this.rotationYaw = -((float)MathHelper.atan2(lvt_4_2_, lvt_6_1_)) * 57.295776F;
                         GaiaBansheeEntity.this.renderYawOffset = GaiaBansheeEntity.this.rotationYaw;
                     }

@@ -22,7 +22,7 @@ public class GaiaKikimoraRenderer extends MobRenderer<GaiaKikimoraEntity, ModelG
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaKikimoraEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaKikimoraEntity entity) {
         return texture;
     }
 }

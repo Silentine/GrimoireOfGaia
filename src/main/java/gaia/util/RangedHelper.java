@@ -43,9 +43,9 @@ public class RangedHelper {
     public static void rangedAttack(LivingEntity target, LivingEntity host, float bonusdamage) {
         Random rand = new Random();
         ArrowEntity arrowEntity = new ArrowEntity(host.world, host);
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 3.0D - arrowEntity.posY;
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 3.0D - arrowEntity.getPosY();
+        double d2 = target.getPosZ() - host.getPosZ();
         double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
         arrowEntity.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getId() * 4));
         int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, host);
@@ -96,14 +96,15 @@ public class RangedHelper {
 
         host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.posY + host.getHeight() / 2.0D);
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.getPosY() + host.getHeight() / 2.0D);
+        double d2 = target.getPosZ() - host.getPosZ();
         double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
         for (int i = 0; i < 1; ++i) {
             GaiaProjectileSmallFireballEntity smallFireball = new GaiaProjectileSmallFireballEntity(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-            smallFireball.posY = host.posY + host.getHeight() / 2.0D;
+            smallFireball.setPosition(smallFireball.getPosX(), host.getPosY() + host.getHeight() / 2.0D, smallFireball.getPosZ());
+
             host.world.addEntity(smallFireball);
         }
     }
@@ -122,14 +123,14 @@ public class RangedHelper {
 
         host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.posY + host.getHeight() / 2.0D);
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.getPosY() + host.getHeight() / 2.0D);
+        double d2 = target.getPosZ() - host.getPosZ();
         double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
         for (int i = 0; i < 1; ++i) {
             GaiaProjectileMagicEntity projectileMagic = new GaiaProjectileMagicEntity(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-            projectileMagic.posY = host.posY + host.getHeight() / 2.0D;
+            projectileMagic.setPosition(projectileMagic.getPosX(), host.getPosY() + host.getHeight() / 2.0D, projectileMagic.getPosZ());
             host.world.addEntity(projectileMagic);
         }
     }
@@ -149,14 +150,14 @@ public class RangedHelper {
 
         host.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.8F));
 
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.posY + host.getHeight() / 2.0D);
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.getPosY() + host.getHeight() / 2.0D);
+        double d2 = target.getPosZ() - host.getPosZ();
         double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
         for (int i = 0; i < 1; ++i) {
             GaiaProjectileWebEntity projectileWeb = new GaiaProjectileWebEntity(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-            projectileWeb.posY = host.posY + host.getHeight() / 2.0D + height;
+            projectileWeb.setPosition(projectileWeb.getPosX(), host.getPosY() + host.getHeight() / 2.0D + height, projectileWeb.getPosZ());
             host.world.addEntity(projectileWeb);
         }
     }
@@ -173,14 +174,14 @@ public class RangedHelper {
     public static void bubble(LivingEntity target, LivingEntity host, float distanceFactor) {
         Random rand = new Random();
 
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.posY + host.getHeight() / 2.0D);
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.getPosY() + host.getHeight() / 2.0D);
+        double d2 = target.getPosZ() - host.getPosZ();
         double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
         for (int i = 0; i < 1; ++i) {
             GaiaProjectileBubbleEntity projectileBubble = new GaiaProjectileBubbleEntity(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-            projectileBubble.posY = host.posY + host.getHeight() / 2.0D;
+            projectileBubble.setPosition(projectileBubble.getPosX(), host.getPosY() + host.getHeight() / 2.0D + host.getHeight(), projectileBubble.getPosZ());
             host.world.addEntity(projectileBubble);
         }
     }
@@ -197,14 +198,14 @@ public class RangedHelper {
     public static void poison(LivingEntity target, LivingEntity host, float distanceFactor) {
         Random rand = new Random();
 
-        double d0 = target.posX - host.posX;
-        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.posY + host.getHeight() / 2.0D);
-        double d2 = target.posZ - host.posZ;
+        double d0 = target.getPosX() - host.getPosX();
+        double d1 = target.getBoundingBox().minY + target.getHeight() / 2.0D - (host.getPosY() + host.getHeight() / 2.0D);
+        double d2 = target.getPosZ() - host.getPosZ();
         double f1 = MathHelper.sqrt(distanceFactor) * 0.5D;
 
         for (int i = 0; i < 1; ++i) {
             GaiaProjectilePoisonEntity projectilePoison = new GaiaProjectilePoisonEntity(host.world, host, d0 + rand.nextGaussian() * f1, d1, d2 + rand.nextGaussian() * f1);
-            projectilePoison.posY = host.posY + host.getHeight() / 2.0D;
+            projectilePoison.setPosition(projectilePoison.getPosX(), host.getPosY() + host.getHeight() / 2.0D + host.getHeight(), projectilePoison.getPosZ());
             host.world.addEntity(projectilePoison);
         }
     }
@@ -223,10 +224,10 @@ public class RangedHelper {
         Random rand = new Random();
 
         Vec3d motion = target.getMotion();
-        double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
-        double d1 = target.posX + motion.getX() - host.posX;
-        double d2 = d0 - host.posY;
-        double d3 = target.posZ + motion.getZ() - host.posZ;
+        double d0 = target.getPosY() + (double) target.getEyeHeight() - 1.100000023841858D;
+        double d1 = target.getPosX() + motion.getX() - host.getPosX();
+        double d2 = d0 - host.getPosY();
+        double d3 = target.getPosZ() + motion.getZ() - host.getPosZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
 
         for (int i = 0; i < 1; ++i) {
@@ -235,7 +236,7 @@ public class RangedHelper {
             potionEntity.rotationPitch -= -20.0F;
             potionEntity.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
 
-            host.world.playSound((PlayerEntity) null, host.posX, host.posY, host.posZ, SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+            host.world.playSound((PlayerEntity) null, host.getPosX(), host.getPosY(), host.getPosZ(), SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
             host.world.addEntity(potionEntity);
         }
     }
@@ -253,10 +254,10 @@ public class RangedHelper {
         Random rand = new Random();
 
         Vec3d motion = target.getMotion();
-        double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
-        double d1 = target.posX + motion.getX() - host.posX;
-        double d2 = d0 - host.posY;
-        double d3 = target.posZ + motion.getZ() - host.posZ;
+        double d0 = target.getPosY() + (double) target.getEyeHeight() - 1.100000023841858D;
+        double d1 = target.getPosX() + motion.getX() - host.getPosX();
+        double d2 = d0 - host.getPosY();
+        double d3 = target.getPosZ() + motion.getZ() - host.getPosZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
 
         for (int i = 0; i < 1; ++i) {
@@ -264,7 +265,7 @@ public class RangedHelper {
             projectileBomb.rotationPitch -= -20.0F;
             projectileBomb.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
 
-            host.world.playSound((PlayerEntity) null, host.posX, host.posY, host.posZ, SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
+            host.world.playSound((PlayerEntity) null, host.getPosX(), host.getPosY(), host.getPosZ(), SoundEvents.ENTITY_WITCH_THROW, host.getSoundCategory(), 1.0F, 0.8F + rand.nextFloat() * 0.4F);
             host.world.addEntity(projectileBomb);
         }
     }

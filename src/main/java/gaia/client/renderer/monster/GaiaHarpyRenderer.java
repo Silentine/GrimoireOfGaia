@@ -20,7 +20,7 @@ public class GaiaHarpyRenderer extends MobRenderer<GaiaHarpyEntity, ModelGaiaHar
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaHarpyEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaHarpyEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

@@ -21,7 +21,7 @@ public class ItemPickupHeart extends Item {
             return;
 
         PlayerEntity player = (PlayerEntity) entityIn;
-        BlockPos pos = new BlockPos(player.posX, player.posY + player.getYOffset(), player.posZ);
+        BlockPos pos = new BlockPos(player.getPosX(), player.getPosY() + player.getYOffset(), player.getPosZ());
 
         if (!player.abilities.isCreativeMode) {
             player.heal(2);

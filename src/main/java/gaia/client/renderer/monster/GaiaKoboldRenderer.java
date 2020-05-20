@@ -23,7 +23,7 @@ public class GaiaKoboldRenderer extends MobRenderer<GaiaKoboldEntity, ModelGaiaK
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaKoboldEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaKoboldEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

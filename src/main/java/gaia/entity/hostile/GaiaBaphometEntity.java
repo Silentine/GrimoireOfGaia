@@ -178,11 +178,6 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
         playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return GaiaLootTables.ENTITIES_GAIA_BAPHOMET;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {

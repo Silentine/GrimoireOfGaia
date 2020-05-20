@@ -234,9 +234,9 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
     private boolean detectMovement() {
         Vec3d motion = this.getMotion();
         if (motion.getX() * motion.getX() + motion.getZ() * motion.getZ() > 2.500000277905201E-7D) {
-            int i = MathHelper.floor(posX);
-            int j = MathHelper.floor(posY - 0.20000000298023224D);
-            int k = MathHelper.floor(posZ);
+            int i = MathHelper.floor(getPosX());
+            int j = MathHelper.floor(getPosY() - 0.20000000298023224D);
+            int k = MathHelper.floor(getPosZ());
             BlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
             if (iblockstate.getMaterial() != Material.AIR) {
@@ -324,7 +324,8 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override

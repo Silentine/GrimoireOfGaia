@@ -4,12 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -26,20 +24,14 @@ public class BlockWebTemp extends BlockBase {
 		entityIn.setMotionMultiplier(state, new Vec3d(0.25D, (double)0.05F, 0.25D));
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
 	public void tick(World worldIn, BlockPos pos, BlockState state, Random rand) {
 		worldIn.destroyBlock(pos, false);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void randomTick(BlockState state, World worldIn, BlockPos pos, Random rand) {
+	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 		super.randomTick(state, worldIn, pos, rand);
-		
+
 		if (rand.nextInt(10) == 0) {
 			worldIn.addParticle(ParticleTypes.MYCELIUM, (double) ((float) pos.getX() + rand.nextFloat()), (double) ((float) pos.getY() + 1.1F), (double) ((float) pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D);
 		}

@@ -1,5 +1,6 @@
 package gaia.client.renderer.monster;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaGryphon;
@@ -17,13 +18,13 @@ public class GaiaGryphonRenderer extends MobRenderer<GaiaGryphonEntity, ModelGai
     }
 
     @Override
-    protected void preRenderCallback(GaiaGryphonEntity entitylivingbaseIn, float partialTickTime) {
-        super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.scalef(SCALE_AMOUNT, SCALE_AMOUNT, SCALE_AMOUNT);
+    protected void preRenderCallback(GaiaGryphonEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        matrixStackIn.scale(SCALE_AMOUNT, SCALE_AMOUNT, SCALE_AMOUNT);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaGryphonEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaGryphonEntity entity) {
         return texture;
     }
 }

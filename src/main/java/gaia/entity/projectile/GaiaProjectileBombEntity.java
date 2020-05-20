@@ -49,7 +49,7 @@ public class GaiaProjectileBombEntity extends ProjectileItemEntity {
     public void handleStatusUpdate(byte id) {
         if (id == 3) {
             for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+                this.world.addParticle(ParticleTypes.LARGE_SMOKE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -65,7 +65,7 @@ public class GaiaProjectileBombEntity extends ProjectileItemEntity {
         }
 
         if (!this.world.isRemote) {
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, false, Explosion.Mode.NONE);
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 1.5F, false, Explosion.Mode.NONE);
             this.world.setEntityState(this, (byte)3);
             this.remove();
         }

@@ -109,7 +109,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 	public void livingTick() {
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				world.addParticle(ParticleTypes.EXPLOSION, posX + (rand.nextDouble() - 0.5D) * (double) getWidth(), posY + rand.nextDouble() * (double) getHeight(), posZ + (rand.nextDouble() - 0.5D) * (double) getWidth(), 0.0D, 0.0D, 0.0D);
+				world.addParticle(ParticleTypes.EXPLOSION, getPosX() + (rand.nextDouble() - 0.5D) * (double) getWidth(), getPosY() + rand.nextDouble() * (double) getHeight(), getPosZ() + (rand.nextDouble() - 0.5D) * (double) getWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.livingTick();
@@ -119,7 +119,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 	private void setSpawn(byte id) {
 		if (id == 0) {
 			GaiaMandragoraEntity mandragora = new GaiaMandragoraEntity(world);
-			mandragora.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+			mandragora.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
 			mandragora.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(mandragora)), null, null, null);
 			mandragora.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.EGG));
 			world.addEntity(mandragora);
@@ -137,7 +137,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			world.addParticle(data, posX + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), posY + 0.5D + (double) (rand.nextFloat() * getHeight()), posZ + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
+			world.addParticle(data, getPosX() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), getPosY() + 0.5D + (double) (rand.nextFloat() * getHeight()), getPosZ() + (double) (rand.nextFloat() * getWidth() * 2.0F) - (double) getWidth(), d0, d1, d2);
 		}
 	}
 
@@ -258,9 +258,9 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 				if (torchCheck(this.world, this.getPosition())) {
 					return false;
 				} else {
-					int i = MathHelper.floor(posX);
+					int i = MathHelper.floor(getPosX());
 					int j = MathHelper.floor(getBoundingBox().minY);
-					int k = MathHelper.floor(posZ);
+					int k = MathHelper.floor(getPosZ());
 					BlockPos blockpos = new BlockPos(i, j, k);
 					Block var1 = world.getBlockState(blockpos.down()).getBlock();
 

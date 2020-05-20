@@ -220,7 +220,7 @@ public class GaiaItems {
     public static final RegistryObject<Item> BAPHOMET_SPAWN_EGG = ITEMS.register("baphomet_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BAPHOMET.get(), 3559756, 14197864, itemBuilder()));
     public static final RegistryObject<Item> BEE_SPAWN_EGG = ITEMS.register("bee_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BEE.get(), 0x353535, 0x353535, itemBuilder()));
     public static final RegistryObject<Item> BONE_KNIGHT_SPAWN_EGG = ITEMS.register("bone_knight_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.BONE_KNIGHT.get(), 4602533, 13619151, itemBuilder()));
-    public static final RegistryObject<Item> CECEALIA_SPAWN_EGG = ITEMS.register("cecaelia_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CECEALIA.get(), 0xdb5760, 0xd893a9, itemBuilder()));
+    public static final RegistryObject<Item> CECEALIA_SPAWN_EGG = ITEMS.register("cecaelia_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CECAELIA.get(), 0xdb5760, 0xd893a9, itemBuilder()));
     public static final RegistryObject<Item> CENTAUR_SPAWN_EGG = ITEMS.register("centaur_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.CENTAUR.get(), 0x8d4f41, 0x353535, itemBuilder()));
     public static final RegistryObject<Item> COBBLE_GOLEM_SPAWN_EGG = ITEMS.register("cobble_golem_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.COBBLE_GOLEM.get(), 11513775, 11513775, itemBuilder()));
     public static final RegistryObject<Item> COBBLESTONE_GOLEM_SPAWN_EGG = ITEMS.register("cobblestone_golem_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.COBBLESTONE_GOLEM.get(), 11513775, 11513775, itemBuilder()));

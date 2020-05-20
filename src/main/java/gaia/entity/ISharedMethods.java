@@ -46,7 +46,7 @@ public interface ISharedMethods {
     }
 
     default boolean isValidLightLevel(LivingEntity entity) {
-        BlockPos blockpos = new BlockPos(entity.posX, entity.getBoundingBox().minY, entity.posZ);
+        BlockPos blockpos = new BlockPos(entity.getPosX(), entity.getBoundingBox().minY, entity.getPosZ());
         if (entity.getBrightness() > 0.5F && entity.world.canBlockSeeSky(blockpos) && !torchCheck(entity.world, blockpos)) {
             return true;
         } else {
@@ -92,7 +92,7 @@ public interface ISharedMethods {
      * Detects if there's a player nearby
      */
     default boolean playerDetection(LivingEntity entity, int range) {
-        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + 1, entity.posY + 1, entity.posZ + 1)).grow(range);
+        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.getPosX() + 1, entity.getPosY() + 1, entity.getPosZ() + 1)).grow(range);
         List<PlayerEntity> list = entity.world.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
 
         if(!list.isEmpty()) {

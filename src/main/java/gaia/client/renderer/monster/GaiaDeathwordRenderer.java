@@ -15,7 +15,7 @@ public class GaiaDeathwordRenderer extends MobRenderer<GaiaDeathwordEntity, Mode
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GaiaDeathwordEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaDeathwordEntity entity) {
         return texture;
     }
 }

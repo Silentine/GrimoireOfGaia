@@ -8,7 +8,6 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -34,11 +33,6 @@ public class BlockDecoration extends BlockBase {
 	private static final VoxelShape WEST_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
 	private static final VoxelShape EAST_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
 	private static final VoxelShape SOUTH_BOX = Block.makeCuboidShape(3.0F, 0.0F, 3.0F, 13.0F, 20.0F, 13.0F);
-
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
 
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

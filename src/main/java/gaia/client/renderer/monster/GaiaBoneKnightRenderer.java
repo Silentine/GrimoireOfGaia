@@ -22,7 +22,7 @@ public class GaiaBoneKnightRenderer extends MobRenderer<GaiaBoneKnightEntity, Mo
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaBoneKnightEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaBoneKnightEntity entity) {
         return texture;
     }
 }

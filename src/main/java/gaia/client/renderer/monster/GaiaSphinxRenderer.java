@@ -1,5 +1,6 @@
 package gaia.client.renderer.monster;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaSphinx;
@@ -18,13 +19,14 @@ public class GaiaSphinxRenderer extends MobRenderer<GaiaSphinxEntity, ModelGaiaS
     }
 
     @Override
-    protected void preRenderCallback(GaiaSphinxEntity living, float par2) {
-        GlStateManager.scalef(1.25F, 1.25F, 1.25F);
+    protected void preRenderCallback(GaiaSphinxEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        matrixStackIn.scale(1.25F, 1.25F, 1.25F);
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaSphinxEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaSphinxEntity entity) {
         return texture;
     }
 }

@@ -227,7 +227,7 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
             spawnParticles(ParticleTypes.HAPPY_VILLAGER);
         } else if (id == 8) {
             for (int i = 0; i < 8; ++i) {
-                world.addParticle(ParticleTypes.HEART, posX + (double) (rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), posY + 0.5D + (double) (rand.nextFloat() * this.getHeight()), posZ + (double) (rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0.0D, 0.0D, 0.0D);
+                world.addParticle(ParticleTypes.HEART, getPosX() + (double) (rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), getPosY() + 0.5D + (double) (rand.nextFloat() * this.getHeight()), getPosZ() + (double) (rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0.0D, 0.0D, 0.0D);
             }
         } else if (id == 9) {
             spawnParticles(ParticleTypes.FLAME);
@@ -251,7 +251,7 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
             double lvt_3_1_ = this.rand.nextGaussian() * 0.02D;
             double lvt_5_1_ = this.rand.nextGaussian() * 0.02D;
             double lvt_7_1_ = this.rand.nextGaussian() * 0.02D;
-            this.world.addParticle(particleData, this.posX + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), this.posY + 1.0D + (double)(this.rand.nextFloat() * this.getHeight()), this.posZ + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), lvt_3_1_, lvt_5_1_, lvt_7_1_);
+            this.world.addParticle(particleData, this.getPosX() + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), this.getPosY() + 1.0D + (double)(this.rand.nextFloat() * this.getHeight()), this.getPosZ() + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), lvt_3_1_, lvt_5_1_, lvt_7_1_);
         }
     }
 
@@ -260,7 +260,7 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
      */
     protected void rangeDebuff(double range, Effect effect, int duration, int amplifier) {
         if (!world.isRemote) {
-            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(range);
+            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX() + 1, getPosY() + 1, getPosZ() + 1)).grow(range);
             List<LivingEntity> moblist = world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
 
             for (LivingEntity mob : moblist) {
@@ -275,7 +275,7 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
      * Adapted from @EntityCreeper 's spawnLingeringCloud method
      */
     protected void spawnLingeringCloud(LivingEntity sourceMob, Effect potionIn, int durationIn, int amplifierIn) {
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(sourceMob.world, posX, posY, posZ);
+        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(sourceMob.world, getPosX(), getPosY(), getPosZ());
         areaeffectcloudentity.setOwner(sourceMob);
         areaeffectcloudentity.setRadius(2.5F);
         areaeffectcloudentity.setRadiusOnUse(-0.5F);

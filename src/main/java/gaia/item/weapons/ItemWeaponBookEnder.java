@@ -57,7 +57,7 @@ public class ItemWeaponBookEnder extends ItemWeaponBook {
 		itemStackIn.damageItem(5, player, (entity) -> { entity.sendBreakAnimation(hand); });
 		player.addExhaustion(5.0F);
 
-		world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F,
+		world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F,
 				0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		player.getCooldownTracker()
 				.setCooldown(this, 60);

@@ -72,7 +72,7 @@ public class GaiaStrafeGoal extends Goal {
 
         if (target != null)
         {
-            double d0 = this.entity.getDistanceSq(target.posX, target.getBoundingBox().minY, target.posZ);
+            double d0 = this.entity.getDistanceSq(target.getPosX(), target.getBoundingBox().minY, target.getPosZ());
             boolean flag = this.entity.getEntitySenses().canSee(target);
             boolean flag1 = this.seeTime > 0;
 

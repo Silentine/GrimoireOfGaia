@@ -12,6 +12,7 @@ import gaia.init.GaiaLootTables;
 import gaia.item.ItemShard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IChargeableMob;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -39,7 +40,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmingMob {
+public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmingMob, IChargeableMob {
 
     private static final int DETECTION_RANGE = 8;
 
@@ -98,12 +99,12 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
-        super.fall(distance, damageMultiplier);
+    public boolean onLivingFall(float distance, float damageMultiplier) {
         this.timeSinceIgnited = (int)((float)this.timeSinceIgnited + distance * 1.5F);
         if (this.timeSinceIgnited > this.fuseTime - 5) {
             this.timeSinceIgnited = this.fuseTime - 5;
         }
+        return super.onLivingFall(distance, damageMultiplier);
     }
 
     @Override
@@ -208,7 +209,7 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
             Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
             float f = getPowered() ? 2.0F : 1.0F;
             dead = true;
-            world.createExplosion(this, this.posX, this.posY, this.posZ, (float) explosionRadius * f, explosion$mode);
+            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionRadius * f, explosion$mode);
             remove();
         }
     }
@@ -281,6 +282,11 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : posY < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : posY > 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() > 32.0D && super.canSpawn(worldIn, reason);
+    }
+
+    @Override
+    public boolean isCharged() {
+        return this.getPowered();
     }
 }

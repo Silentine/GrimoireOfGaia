@@ -13,14 +13,22 @@ apply plugin: 'net.minecraftforge.gradle'
 // apply plugin: 'eclipse'
 // apply plugin: 'maven-publish'
 
-version = '2.0'
+version = "${version}"
 group = 'gaia' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'GrimoireOfGaia4'
+archivesBaseName = "GrimoireOfGaia4-${mc_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
 minecraft {
-    mappings channel: 'stable', version: '58-1.14.4'
+    mappings  channel: "${mcp_channel}", version: "${mcp_mappings}"
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -80,7 +88,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.2.5'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

@@ -48,8 +48,8 @@ public class GaiaLeapAtTargetGoal extends Goal {
 
     @Override
     public void startExecuting() {
-        double d0 = leapTarget.posX - leaper.posX;
-        double d1 = leapTarget.posZ - leaper.posZ;
+        double d0 = leapTarget.getPosX() - leaper.getPosX();
+        double d1 = leapTarget.getPosZ() - leaper.getPosZ();
         float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
         Vec3d motion = leaper.getMotion();
         double motionX = motion.getX();

@@ -23,7 +23,7 @@ public class GaiaDryadRenderer extends MobRenderer<GaiaDryadEntity, ModelGaiaDry
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaDryadEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaDryadEntity entity) {
         switch (entity.getTextureType()) {
             default:
                 return texture01;

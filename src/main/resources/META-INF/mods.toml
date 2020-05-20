@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[31,)"
 issueTrackerURL="https://github.com/Silentine/GrimoireOfGaia/issues"
 
 [[mods]]
@@ -13,17 +13,3 @@ logoFile="grimoireofgaia.png"
 description='''
 Adds mobs, monsters and monster girls.
 '''
-
-[[dependencies.grimoireofgaia]]
-modId="forge"
-mandatory=true
-versionRange="[28,)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.grimoireofgaia]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.14.4]"
-ordering="NONE"
-side="BOTH"

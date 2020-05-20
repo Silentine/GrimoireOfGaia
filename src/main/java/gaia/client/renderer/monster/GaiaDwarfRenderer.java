@@ -5,6 +5,7 @@ import gaia.client.model.ModelGaiaDwarf;
 import gaia.client.renderer.layers.GaiaGlowingLayer;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.entity.assist.GaiaDwarfEntity;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -17,17 +18,18 @@ public class GaiaDwarfRenderer extends MobRenderer<GaiaDwarfEntity, ModelGaiaDwa
     private static final ResourceLocation texture01 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/dwarf01.png");
     private static final ResourceLocation texture02 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/dwarf02.png");
     private static final ResourceLocation texture03 = new ResourceLocation(GaiaReference.MOD_ID, "textures/entity/alternate/dwarf03.png");
+    private static final RenderType RENDER_TYPE = RenderType.getEyes(dwarfEyesTexture);
 
     public GaiaDwarfRenderer(EntityRendererManager rendererManager, float shadowSize) {
         super(rendererManager, new ModelGaiaDwarf(), shadowSize);
         this.addLayer(new GaiaHeldItemLayer<>(this, getEntityModel().getLeftArm(), EquipmentSlotType.OFFHAND));
         this.addLayer(new GaiaHeldItemLayer<>(this, getEntityModel().getRightArm(), EquipmentSlotType.MAINHAND));
-        this.addLayer(new GaiaGlowingLayer<>(this, dwarfEyesTexture));
+        this.addLayer(new GaiaGlowingLayer<>(this, RENDER_TYPE));
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaDwarfEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaDwarfEntity entity) {
         switch (entity.getMobType()) {
             default:
                 return texture01;

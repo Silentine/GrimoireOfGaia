@@ -21,7 +21,7 @@ public class GaiaDullahanRenderer extends MobRenderer<GaiaDullahanEntity, ModelG
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(GaiaDullahanEntity entity) {
+    public ResourceLocation getEntityTexture(GaiaDullahanEntity entity) {
         return texture;
     }
 }

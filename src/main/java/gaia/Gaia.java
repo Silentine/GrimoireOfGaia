@@ -29,7 +29,7 @@ public class Gaia {
 	public Gaia() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GaiaConfig.commonSpec, "grimoireofgaia.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GaiaConfig.commonSpec, "GrimoireOfGaia.toml");
         eventBus.register(GaiaConfig.class);
 
         GaiaItems.ITEMS.register(eventBus);
