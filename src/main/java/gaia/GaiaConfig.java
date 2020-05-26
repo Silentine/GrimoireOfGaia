@@ -400,54 +400,54 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.beholder.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesBeholder = false;
-		@Config.LangKey("entity.grimoireofgaia.beholderl.name")
+		public boolean biomesBeholderIsBlack = false;
+		@Config.LangKey("entity.grimoireofgaia.beholder.name")
 		@Config.Comment("Beholder")
 		@Config.RequiresMcRestart
-		public int[] biomesBeholder = {9};
+		public int[] biomesBeholderList = {9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_dragon_girl.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesEnderDragonGirl = false;
+		public boolean biomesEnderDragonGirlIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.ender_dragon_girl.name")
 		@Config.Comment("Ender Dragon Girl")
 		@Config.RequiresMcRestart
-		public int[] biomesEnderDragonGirl = {9};
+		public int[] biomesEnderDragonGirlList = {9};
 
 		/*
 		 * NETHER
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vase_nether.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesVaseNether = false;
+		public boolean biomesVaseNetherIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.vase_nether.name")
 		@Config.Comment("Ancient Vase (Nether)")
 		@Config.RequiresMcRestart
-		public int[] biomesVaseNether = {8};
+		public int[] biomesVaseNetherList = {8};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.succubus.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSuccubus = false;
+		public boolean biomesSuccubusIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.succubus.name")
 		@Config.Comment("Succubus")
 		@Config.RequiresMcRestart
-		public int[] biomesSuccubus = {8};
+		public int[] biomesSuccubusList = {8};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.wither_cow.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesWitherCow = false;
+		public boolean biomesWitherCowIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.wither_cow.name")
 		@Config.Comment("Wither Cow")
 		@Config.RequiresMcRestart
-		public int[] biomesWitherCow = {8};
+		public int[] biomesWitherCowList = {8};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.baphomet.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesBaphomet = false;
+		public boolean biomesBaphometIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.baphomet.name")
 		@Config.Comment("Baphomet")
 		@Config.RequiresMcRestart
-		public int[] biomesBaphomet = {8};
+		public int[] biomesBaphometList = {8};
 
 		/*
 		 * OCEAN,
@@ -458,31 +458,31 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cecaelia.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCecaelia = false;
+		public boolean biomesCecaeliaIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.cecaelia.name")
 		@Config.Comment("Cecaelia")
 		@Config.RequiresMcRestart
-		public int[] biomesCecaelia = {
+		public int[] biomesCecaeliaList = {
 				0, 7, 10, 11, 24
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mermaid.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMermaid = false;
+		public boolean biomesMermaidIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.mermaid.name")
 		@Config.Comment("Mermaid")
 		@Config.RequiresMcRestart
-		public int[] biomesMermaid = {
+		public int[] biomesMermaidList = {
 				0, 7, 10, 11, 24
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sharko.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSharko = false;
+		public boolean biomesSharkoIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.sharko.name")
 		@Config.Comment("Sharko")
 		@Config.RequiresMcRestart
-		public int[] biomesSharko = {
+		public int[] biomesSharkoList = {
 				0, 7, 10, 11, 24
 		};
 
@@ -494,51 +494,51 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dwarf.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesDwarf = false;
+		public boolean biomesDwarfIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.dwarf.name")
 		@Config.Comment("Dwarf")
 		@Config.RequiresMcRestart
-		public int[] biomesDwarf = {
+		public int[] biomesDwarfList = {
 				3, 20, 34, 131
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gryphon.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesGryphon = false;
+		public boolean biomesGryphonIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.gryphon.name")
 		@Config.Comment("Gryphon")
 		@Config.RequiresMcRestart
-		public int[] biomesGryphon = {
+		public int[] biomesGryphonList = {
 				3, 20, 34, 131
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.valkyrie.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesValkyrie = false;
+		public boolean biomesValkyrieIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.valkyrie.name")
 		@Config.Comment("Valkyrie")
 		@Config.RequiresMcRestart
-		public int[] biomesValkyrie = {
+		public int[] biomesValkyrieList = {
 				3, 20, 34, 131
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dullahan.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesDullahan = false;
+		public boolean biomesDullahanIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.dullahan.name")
 		@Config.Comment("Dullahan")
 		@Config.RequiresMcRestart
-		public int[] biomesDullahan = {
+		public int[] biomesDullahanList = {
 				3, 20, 34, 131
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.banshee.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesBanshee = false;
+		public boolean biomesBansheeIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.banshee.name")
 		@Config.Comment("Banshee")
 		@Config.RequiresMcRestart
-		public int[] biomesBanshee = {
+		public int[] biomesBansheeList = {
 				3, 20, 34, 131
 		};
 
@@ -548,31 +548,31 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.selkie.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSelkie = false;
+		public boolean biomesSelkieIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.selkie.name")
 		@Config.Comment("Selkie")
 		@Config.RequiresMcRestart
-		public int[] biomesSelkie = {
+		public int[] biomesSelkieList = {
 				12, 13
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.kobold.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesKobold = false;
+		public boolean biomesKoboldIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.kobold.name")
 		@Config.Comment("Kobold")
 		@Config.RequiresMcRestart
-		public int[] biomesKobold = {
+		public int[] biomesKoboldList = {
 				12, 13
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yeti.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesYeti = false;
+		public boolean biomesYetiIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.yeti.name")
 		@Config.Comment("Yeti")
 		@Config.RequiresMcRestart
-		public int[] biomesYeti = {
+		public int[] biomesYetiList = {
 				12, 13
 		};
 
@@ -585,41 +585,41 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.hunter.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesHunter = false;
+		public boolean biomesHunterIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.hunter.name")
 		@Config.Comment("Hunter")
 		@Config.RequiresMcRestart
-		public int[] biomesHunter = {
+		public int[] biomesHunterList = {
 				21, 22, 23, 149, 151
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobble_golem.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCobbleGolem = false;
+		public boolean biomesCobbleGolemIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.cobble_golem.name")
 		@Config.Comment("Cobble Golem")
 		@Config.RequiresMcRestart
-		public int[] biomesCobbleGolem = {
+		public int[] biomesCobbleGolemList = {
 				21, 22, 23, 149, 151
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.shaman.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesShaman = false;
+		public boolean biomesShamanIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.shaman.name")
 		@Config.Comment("Shaman")
 		@Config.RequiresMcRestart
-		public int[] biomesShaman = {
+		public int[] biomesShamanList = {
 				21, 22, 23, 149, 151
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobblestone_golem.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCobblestoneGolem = false;
+		public boolean biomesCobblestoneGolemIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.cobblestone_golem.name")
 		@Config.Comment("Cobblestone Golem")
 		@Config.RequiresMcRestart
-		public int[] biomesCobblestoneGolem = {
+		public int[] biomesCobblestoneGolemList = {
 				21, 22, 23, 149, 151
 		};
 
@@ -629,41 +629,41 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.siren.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSiren = false;
+		public boolean biomesSirenIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.siren.name")
 		@Config.Comment("Siren")
 		@Config.RequiresMcRestart
-		public int[] biomesSiren = {
+		public int[] biomesSirenList = {
 				6, 134
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.naga.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesNaga = false;
+		public boolean biomesNagaIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.naga.name")
 		@Config.Comment("Naga")
 		@Config.RequiresMcRestart
-		public int[] biomesNaga = {
+		public int[] biomesNagaList = {
 				6, 134
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sludge_girl.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSludgeGirl = false;
+		public boolean biomesSludgeGirlIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.sludge_girl.name")
 		@Config.Comment("Sludge Girl")
 		@Config.RequiresMcRestart
-		public int[] biomesSludgeGirl = {
+		public int[] biomesSludgeGirlList = {
 				6, 134
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gelatinous_slime.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesGelatinousSlime = false;
+		public boolean biomesGelatinousSlimeIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.gelatinous_slime.name")
 		@Config.Comment("Gelatinous Slime")
 		@Config.RequiresMcRestart
-		public int[] biomesGelatinousSlime = {
+		public int[] biomesGelatinousSlimeList = {
 				6, 134
 		};
 
@@ -676,51 +676,51 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.satyress.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSatyress = false;
+		public boolean biomesSatyressIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.satyress.name")
 		@Config.Comment("Satyress")
 		@Config.RequiresMcRestart
-		public int[] biomesSatyress = {
+		public int[] biomesSatyressList = {
 				1, 129, 37, 38, 39
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.centaur.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCentaur = false;
+		public boolean biomesCentaurIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.centaur.name")
 		@Config.Comment("Centaur")
 		@Config.RequiresMcRestart
-		public int[] biomesCentaur = {
+		public int[] biomesCentaurList = {
 				1, 129, 37, 38, 39
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesHarpy = false;
+		public boolean biomesHarpyIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.harpy.name")
 		@Config.Comment("Harpy")
 		@Config.RequiresMcRestart
-		public int[] biomesHarpy = {
+		public int[] biomesHarpyList = {
 				1, 129, 37, 38, 39
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaurus.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMinotaurus = false;
+		public boolean biomesMinotaurusIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.minotaurus.name")
 		@Config.Comment("Minotaurus")
 		@Config.RequiresMcRestart
-		public int[] biomesMinotaurus = {
+		public int[] biomesMinotaurusList = {
 				1, 129, 37, 38, 39
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaur.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMinotaur = false;
+		public boolean biomesMinotaurIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.minotaur.name")
 		@Config.Comment("Minotaur")
 		@Config.RequiresMcRestart
-		public int[] biomesMinotaur = {
+		public int[] biomesMinotaurList = {
 				1, 129, 37, 38, 39
 		};
 
@@ -734,19 +734,19 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.goblin.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesGoblin = false;
+		public boolean biomesGoblinIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.goblin.name")
 		@Config.Comment("Goblin")
-		public int[] biomesGoblin = {
+		public int[] biomesGoblinList = {
 				35, 36, 163, 164, 165, 167
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.orc.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesOrc = false;
+		public boolean biomesOrcIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.orc.name")
 		@Config.Comment("Orc")
-		public int[] biomesOrc = {
+		public int[] biomesOrcList = {
 				35, 36, 163, 164, 165, 167
 		};
 
@@ -757,51 +757,51 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ant_hill.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesAntHill = false;
+		public boolean biomesAntHillIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.ant_hill.name")
 		@Config.Comment("Ant Hill")
 		@Config.RequiresMcRestart
-		public int[] biomesAntHill = {
+		public int[] biomesAntHillList = {
 				2, 17, 130
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ant_ranger.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesAntRanger = false;
+		public boolean biomesAntRangerIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.ant_ranger.name")
 		@Config.Comment("Ant Salvager")
 		@Config.RequiresMcRestart
-		public int[] biomesAntRanger = {
+		public int[] biomesAntRangerList = {
 				2, 17, 130
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mummy.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMummy = false;
+		public boolean biomesMummyIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.mummy.name")
 		@Config.Comment("Mummy")
 		@Config.RequiresMcRestart
-		public int[] biomesMummy = {
+		public int[] biomesMummyList = {
 				2, 17, 130
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.anubis.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesAnubis = false;
+		public boolean biomesAnubisIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.anubis.name")
 		@Config.Comment("Anubis")
 		@Config.RequiresMcRestart
-		public int[] biomesAnubis = {
+		public int[] biomesAnubisList = {
 				2, 17, 130
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sphinx.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSphinx = false;
+		public boolean biomesSphinxIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.sphinx.name")
 		@Config.Comment("Sphinx")
 		@Config.RequiresMcRestart
-		public int[] biomesSphinx = {
+		public int[] biomesSphinxList = {
 				2, 17, 130
 		};
 
@@ -816,51 +816,51 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dryad.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesDryad = false;
+		public boolean biomesDryadIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.dryad.name")
 		@Config.Comment("Dryad")
 		@Config.RequiresMcRestart
-		public int[] biomesDryad = {
+		public int[] biomesDryadList = {
 				4, 18, 27, 28, 132, 155, 156
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bee.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesBee = false;
+		public boolean biomesBeeIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.bee.name")
 		@Config.Comment("Bee")
 		@Config.RequiresMcRestart
-		public int[] biomesBee = {
+		public int[] biomesBeeList = {
 				4, 18, 27, 28, 132, 155, 156
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mandragora.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMandragora = false;
+		public boolean biomesMandragoraIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.mandragora.name")
 		@Config.Comment("Mandragora")
 		@Config.RequiresMcRestart
-		public int[] biomesMandragora = {
+		public int[] biomesMandragoraList = {
 				4, 18, 27, 28, 132, 155, 156
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.werecat.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesWerecat = false;
+		public boolean biomesWerecatIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.werecat.name")
 		@Config.Comment("Werecat")
 		@Config.RequiresMcRestart
-		public int[] biomesWerecat = {
+		public int[] biomesWerecatList = {
 				4, 18, 27, 28, 132, 155, 156
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.spriggan.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesSpriggan = false;
+		public boolean biomesSprigganIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.spriggan.name")
 		@Config.Comment("Spriggan")
 		@Config.RequiresMcRestart
-		public int[] biomesSpriggan = {
+		public int[] biomesSprigganList = {
 				4, 18, 27, 28, 132, 155, 156
 		};
 
@@ -872,42 +872,42 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cyclops.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCyclops = false;
+		public boolean biomesCyclopsIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.cyclops.name")
 		@Config.Comment("Cyclops")
 		@Config.RequiresMcRestart
-		public int[] biomesCyclops = {
+		public int[] biomesCyclopsList = {
 				5, 19, 160, 161
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yuki-onna.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesYukiOnna = false;
+		public boolean biomesYukiOnnaIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.yuki-onna.name")
 		@Config.Comment("Yuki-Onna")
 		@Config.RequiresMcRestart
-		public int[] biomesYukiOnna = {
+		public int[] biomesYukiOnnaList = {
 				5, 19, 160, 161
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.oni.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesOni = false;
+		public boolean biomesOniIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.oni.name")
 		@Config.Comment("Oni")
 		@Config.RequiresMcRestart
-		public int[] biomesOni = {
+		public int[] biomesOniList = {
 				5, 19, 160, 161
 		};
 
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.nine_tails.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesNineTails = false;
+		public boolean biomesNineTailsIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.nine_tails.name")
 		@Config.Comment("Nine Tails")
 		@Config.RequiresMcRestart
-		public int[] biomesNineTails = {
+		public int[] biomesNineTailsList = {
 				5, 19, 160, 161
 		};
 
@@ -917,41 +917,41 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.matango.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMatango = false;
+		public boolean biomesMatangoIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.matango.name")
 		@Config.Comment("Matango")
 		@Config.RequiresMcRestart
-		public int[] biomesMatango = {
+		public int[] biomesMatangoList = {
 				29, 157
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.toad.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesToad = false;
+		public boolean biomesToadIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.toad.name")
 		@Config.Comment("Toad")
 		@Config.RequiresMcRestart
-		public int[] biomesToad = {
+		public int[] biomesToadList = {
 				29, 157
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy_wizard.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesHarpyWizard = false;
+		public boolean biomesHarpyWizardIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.harpy_wizard.name")
 		@Config.Comment("Wizard Harpy")
 		@Config.RequiresMcRestart
-		public int[] biomesHarpyWizard = {
+		public int[] biomesHarpyWizardList = {
 				29, 157
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.witch.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesWitch = false;
+		public boolean biomesWitchIsBlack = false;
 		@Config.LangKey("entity.grimoireofgaia.witch.name")
 		@Config.Comment("Witch")
 		@Config.RequiresMcRestart
-		public int[] biomesWitch = {
+		public int[] biomesWitchList = {
 				29, 157
 		};
 
@@ -960,67 +960,67 @@ public class GaiaConfig {
 		 */
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vase.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesVase = true;
+		public boolean biomesVaseIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.vase.name")
 		@Config.Comment("Ancient Vase")
 		@Config.RequiresMcRestart
-		public int[] biomesVase = {8, 9};
+		public int[] biomesVaseList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.creep.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesCreep = true;
+		public boolean biomesCreepIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.creep.name")
 		@Config.Comment("Creep")
 		@Config.RequiresMcRestart
-		public int[] biomesCreep = {8, 9};
+		public int[] biomesCreepList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_eye.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesEnderEye = true;
+		public boolean biomesEnderEyeIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.ender_eye.name")
 		@Config.Comment("Ender Eye")
 		@Config.RequiresMcRestart
-		public int[] biomesEnderEye = {8, 9};
+		public int[] biomesEnderEyeList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.arachne.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesArachne = true;
+		public boolean biomesArachneIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.arachne.name")
 		@Config.Comment("Arachne")
 		@Config.RequiresMcRestart
-		public int[] biomesArachne = {8, 9};
+		public int[] biomesArachneList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mimic.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesMimic = true;
+		public boolean biomesMimicIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.mimic.name")
 		@Config.Comment("Mimic")
 		@Config.RequiresMcRestart
-		public int[] biomesMimic = {8, 9};
+		public int[] biomesMimicList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.deathword.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesDeathword = true;
+		public boolean biomesDeathwordIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.deathword.name")
 		@Config.Comment("Deathword")
 		@Config.RequiresMcRestart
-		public int[] biomesDeathword = {8, 9};
+		public int[] biomesDeathwordList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bone_knight.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesBoneKnight = true;
+		public boolean biomesBoneKnightIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.bone_knight.name")
 		@Config.Comment("Bone Knight")
 		@Config.RequiresMcRestart
-		public int[] biomesBoneKnight = {8, 9};
+		public int[] biomesBoneKnightList = {8, 9};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.flesh_lich.blacklist")
 		@Config.RequiresMcRestart
-		public boolean isBlackListBiomesFleshLich = true;
+		public boolean biomesFleshLichIsBlack = true;
 		@Config.LangKey("entity.grimoireofgaia.flesh_lich.name")
 		@Config.Comment("Flesh Lich")
 		@Config.RequiresMcRestart
-		public int[] biomesFleshLich = {8, 9};
+		public int[] biomesFleshLichList = {8, 9};
 
 	}
 
