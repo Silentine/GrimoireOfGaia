@@ -404,7 +404,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.beholder")
 		@Config.Comment("Beholder")
 		@Config.RequiresMcRestart
-		public int[] biomesBeholderList = {9};
+		public String[] biomesBeholderList = {
+				"minecraft:sky"
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_dragon_girl.blacklist")
 		@Config.RequiresMcRestart
@@ -412,7 +414,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_dragon_girl")
 		@Config.Comment("Ender Dragon Girl")
 		@Config.RequiresMcRestart
-		public int[] biomesEnderDragonGirlList = {9};
+		public String[] biomesEnderDragonGirlList = {
+				"minecraft:sky"
+		};
 
 		/*
 		 * NETHER
@@ -423,7 +427,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vase_nether")
 		@Config.Comment("Ancient Vase (Nether)")
 		@Config.RequiresMcRestart
-		public int[] biomesVaseNetherList = {8};
+		public String[] biomesVaseNetherList = {
+				"minecraft:hell"
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.succubus.blacklist")
 		@Config.RequiresMcRestart
@@ -431,7 +437,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.succubus")
 		@Config.Comment("Succubus")
 		@Config.RequiresMcRestart
-		public int[] biomesSuccubusList = {8};
+		public String[] biomesSuccubusList = {
+				"minecraft:hell"
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.wither_cow.blacklist")
 		@Config.RequiresMcRestart
@@ -439,7 +447,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.wither_cow")
 		@Config.Comment("Wither Cow")
 		@Config.RequiresMcRestart
-		public int[] biomesWitherCowList = {8};
+		public String[] biomesWitherCowList = {
+				"minecraft:hell"
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.baphomet.blacklist")
 		@Config.RequiresMcRestart
@@ -447,7 +457,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.baphomet")
 		@Config.Comment("Baphomet")
 		@Config.RequiresMcRestart
-		public int[] biomesBaphometList = {8};
+		public String[] biomesBaphometList = {
+				"minecraft:hell"
+		};
 
 		/*
 		 * OCEAN,
@@ -462,8 +474,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cecaelia")
 		@Config.Comment("Cecaelia")
 		@Config.RequiresMcRestart
-		public int[] biomesCecaeliaList = {
-				0, 7, 10, 11, 24
+		public String[] biomesCecaeliaList = {
+				"minecraft:ocean",
+				"minecraft:river",
+				"minecraft:frozen_ocean",
+				"minecraft:frozen_river",
+				"minecraft:deep_ocean"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mermaid.blacklist")
@@ -472,8 +488,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mermaid")
 		@Config.Comment("Mermaid")
 		@Config.RequiresMcRestart
-		public int[] biomesMermaidList = {
-				0, 7, 10, 11, 24
+		public String[] biomesMermaidList = {
+				"minecraft:ocean",
+				"minecraft:river",
+				"minecraft:frozen_ocean",
+				"minecraft:frozen_river",
+				"minecraft:deep_ocean"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sharko.blacklist")
@@ -482,8 +502,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sharko")
 		@Config.Comment("Sharko")
 		@Config.RequiresMcRestart
-		public int[] biomesSharkoList = {
-				0, 7, 10, 11, 24
+		public String[] biomesSharkoList = {
+				"minecraft:ocean",
+				"minecraft:river",
+				"minecraft:frozen_ocean",
+				"minecraft:frozen_river",
+				"minecraft:deep_ocean"
 		};
 
 		/*
@@ -498,8 +522,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dwarf")
 		@Config.Comment("Dwarf")
 		@Config.RequiresMcRestart
-		public int[] biomesDwarfList = {
-				3, 20, 34, 131
+		public String[] biomesDwarfList = {
+				"minecraft:extreme_hills",
+				"minecraft:extreme_hills_edge",
+				"minecraft:extreme_hills_with_trees",
+				"minecraft:mutated_extreme_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gryphon.blacklist")
@@ -508,8 +535,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gryphon")
 		@Config.Comment("Gryphon")
 		@Config.RequiresMcRestart
-		public int[] biomesGryphonList = {
-				3, 20, 34, 131
+		public String[] biomesGryphonList = {
+				"minecraft:extreme_hills",
+				"minecraft:extreme_hills_edge",
+				"minecraft:extreme_hills_with_trees",
+				"minecraft:mutated_extreme_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.valkyrie.blacklist")
@@ -518,8 +548,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.valkyrie")
 		@Config.Comment("Valkyrie")
 		@Config.RequiresMcRestart
-		public int[] biomesValkyrieList = {
-				3, 20, 34, 131
+		public String[] biomesValkyrieList = {
+				"minecraft:extreme_hills",
+				"minecraft:extreme_hills_edge",
+				"minecraft:extreme_hills_with_trees",
+				"minecraft:mutated_extreme_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dullahan.blacklist")
@@ -528,8 +561,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dullahan")
 		@Config.Comment("Dullahan")
 		@Config.RequiresMcRestart
-		public int[] biomesDullahanList = {
-				3, 20, 34, 131
+		public String[] biomesDullahanList = {
+				"minecraft:extreme_hills",
+				"minecraft:extreme_hills_edge",
+				"minecraft:extreme_hills_with_trees",
+				"minecraft:mutated_extreme_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.banshee.blacklist")
@@ -538,8 +574,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.banshee")
 		@Config.Comment("Banshee")
 		@Config.RequiresMcRestart
-		public int[] biomesBansheeList = {
-				3, 20, 34, 131
+		public String[] biomesBansheeList = {
+				"minecraft:extreme_hills",
+				"minecraft:extreme_hills_edge",
+				"minecraft:extreme_hills_with_trees",
+				"minecraft:mutated_extreme_hills"
 		};
 
 		/*
@@ -552,8 +591,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.selkie")
 		@Config.Comment("Selkie")
 		@Config.RequiresMcRestart
-		public int[] biomesSelkieList = {
-				12, 13
+		public String[] biomesSelkieList = {
+				"minecraft:ice_plains", "minecraft:ice_mountains"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.kobold.blacklist")
@@ -562,8 +601,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.kobold")
 		@Config.Comment("Kobold")
 		@Config.RequiresMcRestart
-		public int[] biomesKoboldList = {
-				12, 13
+		public String[] biomesKoboldList = {
+				"minecraft:ice_plains", "minecraft:ice_mountains"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yeti.blacklist")
@@ -572,8 +611,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yeti")
 		@Config.Comment("Yeti")
 		@Config.RequiresMcRestart
-		public int[] biomesYetiList = {
-				12, 13
+		public String[] biomesYetiList = {
+				"minecraft:ice_plains", "minecraft:ice_mountains"
 		};
 
 		/*
@@ -589,8 +628,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.hunter")
 		@Config.Comment("Hunter")
 		@Config.RequiresMcRestart
-		public int[] biomesHunterList = {
-				21, 22, 23, 149, 151
+		public String[] biomesHunterList = {
+				"minecraft:jungle",
+				"minecraft:jungle_hills",
+				"minecraft:jungle_edge",
+				"minecraft:mutated_jungle",
+				"minecraft:mutated_jungle_edge"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobble_golem.blacklist")
@@ -599,8 +642,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobble_golem")
 		@Config.Comment("Cobble Golem")
 		@Config.RequiresMcRestart
-		public int[] biomesCobbleGolemList = {
-				21, 22, 23, 149, 151
+		public String[] biomesCobbleGolemList = {
+				"minecraft:jungle",
+				"minecraft:jungle_hills",
+				"minecraft:jungle_edge",
+				"minecraft:mutated_jungle",
+				"minecraft:mutated_jungle_edge"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.shaman.blacklist")
@@ -609,8 +656,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.shaman")
 		@Config.Comment("Shaman")
 		@Config.RequiresMcRestart
-		public int[] biomesShamanList = {
-				21, 22, 23, 149, 151
+		public String[] biomesShamanList = {
+				"minecraft:jungle",
+				"minecraft:jungle_hills",
+				"minecraft:jungle_edge",
+				"minecraft:mutated_jungle",
+				"minecraft:mutated_jungle_edge"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobblestone_golem.blacklist")
@@ -619,8 +670,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cobblestone_golem")
 		@Config.Comment("Cobblestone Golem")
 		@Config.RequiresMcRestart
-		public int[] biomesCobblestoneGolemList = {
-				21, 22, 23, 149, 151
+		public String[] biomesCobblestoneGolemList = {
+				"minecraft:jungle",
+				"minecraft:jungle_hills",
+				"minecraft:jungle_edge",
+				"minecraft:mutated_jungle",
+				"minecraft:mutated_jungle_edge"
 		};
 
 		/*
@@ -633,8 +688,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.siren")
 		@Config.Comment("Siren")
 		@Config.RequiresMcRestart
-		public int[] biomesSirenList = {
-				6, 134
+		public String[] biomesSirenList = {
+				"minecraft:swampland", "minecraft:mutated_swampland"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.naga.blacklist")
@@ -643,8 +698,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.naga")
 		@Config.Comment("Naga")
 		@Config.RequiresMcRestart
-		public int[] biomesNagaList = {
-				6, 134
+		public String[] biomesNagaList = {
+				"minecraft:swampland", "minecraft:mutated_swampland"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sludge_girl.blacklist")
@@ -653,8 +708,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sludge_girl")
 		@Config.Comment("Sludge Girl")
 		@Config.RequiresMcRestart
-		public int[] biomesSludgeGirlList = {
-				6, 134
+		public String[] biomesSludgeGirlList = {
+				"minecraft:swampland", "minecraft:mutated_swampland"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gelatinous_slime.blacklist")
@@ -663,8 +718,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.gelatinous_slime")
 		@Config.Comment("Gelatinous Slime")
 		@Config.RequiresMcRestart
-		public int[] biomesGelatinousSlimeList = {
-				6, 134
+		public String[] biomesGelatinousSlimeList = {
+				"minecraft:swampland", "minecraft:mutated_swampland"
 		};
 
 		/*
@@ -680,8 +735,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.satyress")
 		@Config.Comment("Satyress")
 		@Config.RequiresMcRestart
-		public int[] biomesSatyressList = {
-				1, 129, 37, 38, 39
+		public String[] biomesSatyressList = {
+				"minecraft:plains",
+				"minecraft:mutated_plains",
+				"minecraft:mesa",
+				"minecraft:mesa_rock",
+				"minecraft:mesa_clear_rock",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.centaur.blacklist")
@@ -690,8 +749,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.centaur")
 		@Config.Comment("Centaur")
 		@Config.RequiresMcRestart
-		public int[] biomesCentaurList = {
-				1, 129, 37, 38, 39
+		public String[] biomesCentaurList = {
+				"minecraft:plains",
+				"minecraft:mutated_plains",
+				"minecraft:mesa",
+				"minecraft:mesa_rock",
+				"minecraft:mesa_clear_rock",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy.blacklist")
@@ -700,8 +763,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy")
 		@Config.Comment("Harpy")
 		@Config.RequiresMcRestart
-		public int[] biomesHarpyList = {
-				1, 129, 37, 38, 39
+		public String[] biomesHarpyList = {
+				"minecraft:plains",
+				"minecraft:mutated_plains",
+				"minecraft:mesa",
+				"minecraft:mesa_rock",
+				"minecraft:mesa_clear_rock",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaurus.blacklist")
@@ -710,8 +777,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaurus")
 		@Config.Comment("Minotaurus")
 		@Config.RequiresMcRestart
-		public int[] biomesMinotaurusList = {
-				1, 129, 37, 38, 39
+		public String[] biomesMinotaurusList = {
+				"minecraft:plains",
+				"minecraft:mutated_plains",
+				"minecraft:mesa",
+				"minecraft:mesa_rock",
+				"minecraft:mesa_clear_rock",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaur.blacklist")
@@ -720,8 +791,12 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.minotaur")
 		@Config.Comment("Minotaur")
 		@Config.RequiresMcRestart
-		public int[] biomesMinotaurList = {
-				1, 129, 37, 38, 39
+		public String[] biomesMinotaurList = {
+				"minecraft:plains",
+				"minecraft:mutated_plains",
+				"minecraft:mesa",
+				"minecraft:mesa_rock",
+				"minecraft:mesa_clear_rock",
 		};
 
 		/*
@@ -737,8 +812,13 @@ public class GaiaConfig {
 		public boolean biomesGoblinIsBlack = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.goblin")
 		@Config.Comment("Goblin")
-		public int[] biomesGoblinList = {
-				35, 36, 163, 164, 165, 167
+		public String[] biomesGoblinList = {
+				"minecraft:savanna",
+				"minecraft:savanna_rock",
+				"minecraft:mutated_savanna",
+				"minecraft:mutated_savanna_rock",
+				"minecraft:mutated_mesa_rock",
+				"minecraft:mutated_mesa_clear_rock"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.orc.blacklist")
@@ -746,8 +826,13 @@ public class GaiaConfig {
 		public boolean biomesOrcIsBlack = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.orc")
 		@Config.Comment("Orc")
-		public int[] biomesOrcList = {
-				35, 36, 163, 164, 165, 167
+		public String[] biomesOrcList = {
+				"minecraft:savanna",
+				"minecraft:savanna_rock",
+				"minecraft:mutated_savanna",
+				"minecraft:mutated_savanna_rock",
+				"minecraft:mutated_mesa_rock",
+				"minecraft:mutated_mesa_clear_rock"
 		};
 
 		/*
@@ -761,8 +846,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ant_hill")
 		@Config.Comment("Ant Hill")
 		@Config.RequiresMcRestart
-		public int[] biomesAntHillList = {
-				2, 17, 130
+		public String[] biomesAntHillList = {
+				"minecraft:desert", "minecraft:desert_hills", "minecraft:mutated_desert",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ant_ranger.blacklist")
@@ -771,8 +856,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ant_ranger")
 		@Config.Comment("Ant Salvager")
 		@Config.RequiresMcRestart
-		public int[] biomesAntRangerList = {
-				2, 17, 130
+		public String[] biomesAntRangerList = {
+				"minecraft:desert", "minecraft:desert_hills", "minecraft:mutated_desert",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mummy.blacklist")
@@ -781,8 +866,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mummy")
 		@Config.Comment("Mummy")
 		@Config.RequiresMcRestart
-		public int[] biomesMummyList = {
-				2, 17, 130
+		public String[] biomesMummyList = {
+				"minecraft:desert", "minecraft:desert_hills", "minecraft:mutated_desert",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.anubis.blacklist")
@@ -791,8 +876,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.anubis")
 		@Config.Comment("Anubis")
 		@Config.RequiresMcRestart
-		public int[] biomesAnubisList = {
-				2, 17, 130
+		public String[] biomesAnubisList = {
+				"minecraft:desert", "minecraft:desert_hills", "minecraft:mutated_desert",
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sphinx.blacklist")
@@ -801,8 +886,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.sphinx")
 		@Config.Comment("Sphinx")
 		@Config.RequiresMcRestart
-		public int[] biomesSphinxList = {
-				2, 17, 130
+		public String[] biomesSphinxList = {
+				"minecraft:desert", "minecraft:desert_hills", "minecraft:mutated_desert",
 		};
 
 		/*
@@ -820,8 +905,14 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dryad")
 		@Config.Comment("Dryad")
 		@Config.RequiresMcRestart
-		public int[] biomesDryadList = {
-				4, 18, 27, 28, 132, 155, 156
+		public String[] biomesDryadList = {
+				"minecraft:forest",
+				"minecraft:forest_hills",
+				"minecraft:birch_forest",
+				"minecraft:birch_forest_hills",
+				"minecraft:mutated_forest",
+				"minecraft:mutated_birch_forest",
+				"minecraft:mutated_birch_forest_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bee.blacklist")
@@ -830,8 +921,14 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bee")
 		@Config.Comment("Bee")
 		@Config.RequiresMcRestart
-		public int[] biomesBeeList = {
-				4, 18, 27, 28, 132, 155, 156
+		public String[] biomesBeeList = {
+				"minecraft:forest",
+				"minecraft:forest_hills",
+				"minecraft:birch_forest",
+				"minecraft:birch_forest_hills",
+				"minecraft:mutated_forest",
+				"minecraft:mutated_birch_forest",
+				"minecraft:mutated_birch_forest_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mandragora.blacklist")
@@ -840,8 +937,14 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mandragora")
 		@Config.Comment("Mandragora")
 		@Config.RequiresMcRestart
-		public int[] biomesMandragoraList = {
-				4, 18, 27, 28, 132, 155, 156
+		public String[] biomesMandragoraList = {
+				"minecraft:forest",
+				"minecraft:forest_hills",
+				"minecraft:birch_forest",
+				"minecraft:birch_forest_hills",
+				"minecraft:mutated_forest",
+				"minecraft:mutated_birch_forest",
+				"minecraft:mutated_birch_forest_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.werecat.blacklist")
@@ -850,8 +953,14 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.werecat")
 		@Config.Comment("Werecat")
 		@Config.RequiresMcRestart
-		public int[] biomesWerecatList = {
-				4, 18, 27, 28, 132, 155, 156
+		public String[] biomesWerecatList = {
+				"minecraft:forest",
+				"minecraft:forest_hills",
+				"minecraft:birch_forest",
+				"minecraft:birch_forest_hills",
+				"minecraft:mutated_forest",
+				"minecraft:mutated_birch_forest",
+				"minecraft:mutated_birch_forest_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.spriggan.blacklist")
@@ -860,8 +969,14 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.spriggan")
 		@Config.Comment("Spriggan")
 		@Config.RequiresMcRestart
-		public int[] biomesSprigganList = {
-				4, 18, 27, 28, 132, 155, 156
+		public String[] biomesSprigganList = {
+				"minecraft:forest",
+				"minecraft:forest_hills",
+				"minecraft:birch_forest",
+				"minecraft:birch_forest_hills",
+				"minecraft:mutated_forest",
+				"minecraft:mutated_birch_forest",
+				"minecraft:mutated_birch_forest_hills"
 		};
 
 		/*
@@ -876,8 +991,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.cyclops")
 		@Config.Comment("Cyclops")
 		@Config.RequiresMcRestart
-		public int[] biomesCyclopsList = {
-				5, 19, 160, 161
+		public String[] biomesCyclopsList = {
+				"minecraft:taiga", "minecraft:taiga_hills", "minecraft:redwood_taiga", "minecraft:redwood_taiga_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yuki-onna.blacklist")
@@ -886,8 +1001,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.yuki-onna")
 		@Config.Comment("Yuki-Onna")
 		@Config.RequiresMcRestart
-		public int[] biomesYukiOnnaList = {
-				5, 19, 160, 161
+		public String[] biomesYukiOnnaList = {
+				"minecraft:taiga", "minecraft:taiga_hills", "minecraft:redwood_taiga", "minecraft:redwood_taiga_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.oni.blacklist")
@@ -896,8 +1011,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.oni")
 		@Config.Comment("Oni")
 		@Config.RequiresMcRestart
-		public int[] biomesOniList = {
-				5, 19, 160, 161
+		public String[] biomesOniList = {
+				"minecraft:taiga", "minecraft:taiga_hills", "minecraft:redwood_taiga", "minecraft:redwood_taiga_hills"
 		};
 
 
@@ -907,8 +1022,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.nine_tails")
 		@Config.Comment("Nine Tails")
 		@Config.RequiresMcRestart
-		public int[] biomesNineTailsList = {
-				5, 19, 160, 161
+		public String[] biomesNineTailsList = {
+				"minecraft:taiga", "minecraft:taiga_hills", "minecraft:redwood_taiga", "minecraft:redwood_taiga_hills"
 		};
 
 		/*
@@ -923,8 +1038,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.kikimora")
 		@Config.Comment("Kikimora")
 		@Config.RequiresMcRestart
-		public int[] biomesKikimoraList = {
-				30, 31, 160, 161
+		public String[] biomesKikimoraList = {
+				"minecraft:taiga_cold",
+				"minecraft:taiga_cold_hills",
+				"minecraft:redwood_taiga",
+				"minecraft:redwood_taiga_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dhampir.blacklist")
@@ -933,8 +1051,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.dhampir")
 		@Config.Comment("Dhampir")
 		@Config.RequiresMcRestart
-		public int[] biomesDhampirList = {
-				30, 31, 160, 161
+		public String[] biomesDhampirList = {
+				"minecraft:taiga_cold",
+				"minecraft:taiga_cold_hills",
+				"minecraft:redwood_taiga",
+				"minecraft:redwood_taiga_hills"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vampire.blacklist")
@@ -943,8 +1064,11 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vampire")
 		@Config.Comment("Vampire")
 		@Config.RequiresMcRestart
-		public int[] biomesVampireList = {
-				30, 31, 160, 161
+		public String[] biomesVampireList = {
+				"minecraft:taiga_cold",
+				"minecraft:taiga_cold_hills",
+				"minecraft:redwood_taiga",
+				"minecraft:redwood_taiga_hills"
 		};
 
 		/*
@@ -957,8 +1081,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.matango")
 		@Config.Comment("Matango")
 		@Config.RequiresMcRestart
-		public int[] biomesMatangoList = {
-				29, 157
+		public String[] biomesMatangoList = {
+				"minecraft:roofed_forest", "minecraft:mutated_roofed_forest"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.toad.blacklist")
@@ -967,8 +1091,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.toad")
 		@Config.Comment("Toad")
 		@Config.RequiresMcRestart
-		public int[] biomesToadList = {
-				29, 157
+		public String[] biomesToadList = {
+				"minecraft:roofed_forest", "minecraft:mutated_roofed_forest"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy_wizard.blacklist")
@@ -977,8 +1101,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.harpy_wizard")
 		@Config.Comment("Wizard Harpy")
 		@Config.RequiresMcRestart
-		public int[] biomesHarpyWizardList = {
-				29, 157
+		public String[] biomesHarpyWizardList = {
+				"minecraft:roofed_forest", "minecraft:mutated_roofed_forest"
 		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.witch.blacklist")
@@ -987,8 +1111,8 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.witch")
 		@Config.Comment("Witch")
 		@Config.RequiresMcRestart
-		public int[] biomesWitchList = {
-				29, 157
+		public String[] biomesWitchList = {
+				"minecraft:roofed_forest", "minecraft:mutated_roofed_forest"
 		};
 
 		/*
@@ -1000,7 +1124,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.vase")
 		@Config.Comment("Ancient Vase")
 		@Config.RequiresMcRestart
-		public int[] biomesVaseList = {8, 9};
+		public String[] biomesVaseList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.creep.blacklist")
 		@Config.RequiresMcRestart
@@ -1008,7 +1134,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.creep")
 		@Config.Comment("Creep")
 		@Config.RequiresMcRestart
-		public int[] biomesCreepList = {8, 9};
+		public String[] biomesCreepList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_eye.blacklist")
 		@Config.RequiresMcRestart
@@ -1016,7 +1144,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.ender_eye")
 		@Config.Comment("Ender Eye")
 		@Config.RequiresMcRestart
-		public int[] biomesEnderEyeList = {8, 9};
+		public String[] biomesEnderEyeList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.arachne.blacklist")
 		@Config.RequiresMcRestart
@@ -1024,7 +1154,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.arachne")
 		@Config.Comment("Arachne")
 		@Config.RequiresMcRestart
-		public int[] biomesArachneList = {8, 9};
+		public String[] biomesArachneList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mimic.blacklist")
 		@Config.RequiresMcRestart
@@ -1032,7 +1164,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.mimic")
 		@Config.Comment("Mimic")
 		@Config.RequiresMcRestart
-		public int[] biomesMimicList = {8, 9};
+		public String[] biomesMimicList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.deathword.blacklist")
 		@Config.RequiresMcRestart
@@ -1040,7 +1174,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.deathword")
 		@Config.Comment("Deathword")
 		@Config.RequiresMcRestart
-		public int[] biomesDeathwordList = {8, 9};
+		public String[] biomesDeathwordList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bone_knight.blacklist")
 		@Config.RequiresMcRestart
@@ -1048,7 +1184,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.bone_knight")
 		@Config.Comment("Bone Knight")
 		@Config.RequiresMcRestart
-		public int[] biomesBoneKnightList = {8, 9};
+		public String[] biomesBoneKnightList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.flesh_lich.blacklist")
 		@Config.RequiresMcRestart
@@ -1056,7 +1194,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.biome.flesh_lich")
 		@Config.Comment("Flesh Lich")
 		@Config.RequiresMcRestart
-		public int[] biomesFleshLichList = {8, 9};
+		public String[] biomesFleshLichList = {
+				"minecraft:hell", "minecraft:sky",
+		};
 
 	}
 

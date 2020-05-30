@@ -83,6 +83,7 @@ import gaia.entity.prop.spawner.EntityGaiaSpawnerSphinx;
 import gaia.entity.prop.spawner.EntityGaiaSpawnerVampire;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
@@ -545,22 +546,19 @@ public class GaiaSpawning {
 	/*
 	 * Bridge of add method used in addBiomeSPAWN
 	 */
-	private static void addToEachBiomes(int weight, Class<? extends EntityLiving> entityClass, int groupCountMin, int groupCountMax, boolean isBlackList, int... biomeIDs) {
-		Gaia.LOGGER.info(() -> "isBlackList: " + isBlackList);
-		final int[] existIDs = Arrays.stream(biomeIDs).filter(b -> Objects.nonNull(Biome.getBiome(b))).toArray();
+	private static void addToEachBiomes(int weight, Class<? extends EntityLiving> entityClass, int groupCountMin, int groupCountMax, boolean isBlackList, String... biomeIDs) {
+		final Biome[] existBiomes = Arrays.stream(biomeIDs).map(ResourceLocation::new).map(Biome.REGISTRY::getObject).filter(Objects::nonNull).toArray(Biome[]::new);
 
 		if (isBlackList) {
-			Predicate<Biome> isIgnored = biome -> Objects.nonNull(biome) && Arrays.stream(existIDs).mapToObj(Biome::getBiome).filter(Objects::nonNull).anyMatch(b -> biome.getBiomeName() == b.getBiomeName());
+			Predicate<Biome> isIgnored = biome -> Objects.nonNull(biome) && Arrays.stream(existBiomes).anyMatch(b -> biome.equals(b));
 			for (Biome biome : Biome.REGISTRY) {
 				if (!isIgnored.test(biome)) {
 					add(weight, entityClass, groupCountMin, groupCountMax, biome);
-					Gaia.LOGGER.info(entityClass.getName() + " will spawn in " + biome.getBiomeName());
 				}
 			}
 		} else {
-			for (int existID : existIDs) {
-				add(weight, entityClass, groupCountMin, groupCountMax, Biome.getBiome(existID));
-				Gaia.LOGGER.info(entityClass.getName() + " will spawn in " + Biome.getBiome(existID).getBiomeName());
+			for (Biome existBiome : existBiomes) {
+				add(weight, entityClass, groupCountMin, groupCountMax, existBiome);
 			}
 		}
 	}
