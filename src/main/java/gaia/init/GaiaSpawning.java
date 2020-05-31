@@ -1,14 +1,20 @@
 package gaia.init;
 
 import static gaia.GaiaConfig.GENERAL;
+import static gaia.GaiaConfig.BIOMES;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import com.google.common.collect.ImmutableSet;
 
+import com.google.common.collect.Streams;
+import gaia.Gaia;
 import gaia.GaiaConfig;
 import gaia.GaiaReference;
 import gaia.entity.EntityMobAssist;
@@ -76,8 +82,10 @@ import gaia.entity.prop.spawner.EntityGaiaSpawnerGorgon;
 import gaia.entity.prop.spawner.EntityGaiaSpawnerMinotaur;
 import gaia.entity.prop.spawner.EntityGaiaSpawnerSphinx;
 import gaia.entity.prop.spawner.EntityGaiaSpawnerVampire;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
@@ -96,7 +104,7 @@ public class GaiaSpawning {
 
 	/**
 	 * Bridge Method for simpler spawning registry
-	 * 
+	 *
 	 * @param weight        Spawn rate
 	 * @param entityclassIn Entity
 	 * @param groupCountMin Minimum amount (always 1)
@@ -136,26 +144,31 @@ public class GaiaSpawning {
 	 * Register Mobs based on Biome sub Types
 	 */
 	public static void register() {
-		Map<Type, Set<Biome>> biomeMap = buildBiomeListByType();
+		Gaia.LOGGER.info(() -> "enableSpawnSettingsEachBiomes: " + BIOMES.enableSpawnSettingsEachBiomes);
+		if (BIOMES.enableSpawnSettingsEachBiomes) {
+			addBiomesSPAWN();
 
-		addForestSPAWN(biomeMap);
-		addSandySPAWN(biomeMap);
-		addPlainsSPAWN(biomeMap);
-		addSwampSPAWN(biomeMap);
-		addJungleSPAWN(biomeMap);
-		addSnowySPAWN(biomeMap);
-		addMountainSPAWN(biomeMap);
-		addSavannaSPAWN(biomeMap);
-		addMesaSPAWN(biomeMap);
-		addWaterSPAWN(biomeMap);
-		addBeachSPAWN(biomeMap);
-		addNetherSPAWN(biomeMap);
-		addEndSPAWN(biomeMap);
+		} else {
+			Map<Type, Set<Biome>> biomeMap = buildBiomeListByType();
+			addForestSPAWN(biomeMap);
+			addSandySPAWN(biomeMap);
+			addPlainsSPAWN(biomeMap);
+			addSwampSPAWN(biomeMap);
+			addJungleSPAWN(biomeMap);
+			addSnowySPAWN(biomeMap);
+			addMountainSPAWN(biomeMap);
+			addSavannaSPAWN(biomeMap);
+			addMesaSPAWN(biomeMap);
+			addWaterSPAWN(biomeMap);
+			addBeachSPAWN(biomeMap);
+			addNetherSPAWN(biomeMap);
+			addEndSPAWN(biomeMap);
+		}
 	}
 
 	/*
 	 * List of missing Biomes;
-	 * 
+	 *
 	 * MUTATED_REDWOOD_TAIGA
 	 * MUTATED_REDWOOD_TAIGA_HILLS
 	 * MUTATED_MESA_ROCK
@@ -224,7 +237,7 @@ public class GaiaSpawning {
 				add(GENERAL.spawnGryphon, EntityGaiaGryphon.class, 1, 2, biome);
 				add(GENERAL.spawnDwarf, EntityGaiaDwarf.class, 4, 6, biome);
 				add(GENERAL.spawnValkyrie, EntityGaiaValkyrie.class, 1, 2, biome);
-					
+
 				add(GENERAL.spawnDullahan, EntityGaiaDullahan.class, 4, 6, biome);
 				add(GENERAL.spawnBanshee, EntityGaiaBanshee.class, 2, 4, biome);
 				underground(biome);
@@ -262,7 +275,7 @@ public class GaiaSpawning {
 		for (Biome biome : biomeMap.get(Type.JUNGLE)) {
 			add(GENERAL.spawnHunter, EntityGaiaHunter.class, 2, 4, biome);
 			add(GENERAL.spawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, biome);
-			
+
 			add(GENERAL.spawnShaman, EntityGaiaShaman.class, 2, 4, biome);
 			add(GENERAL.spawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, biome);
 
@@ -279,7 +292,7 @@ public class GaiaSpawning {
 			add(GENERAL.spawnSiren, EntityGaiaSiren.class, 4, 6, biome);
 			add(GENERAL.spawnNaga, EntityGaiaNaga.class, 1, 2, biome);
 //			add(GENERAL.spawnGorgon, EntityGaiaSpawnerGorgon.class, 1, 1, biome);
-			
+
 			add(GENERAL.spawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, biome);
 			add(GENERAL.spawnGelatinousSlime, EntityGaiaGelatinousSlime.class, 1, 2, biome);
 
@@ -296,7 +309,7 @@ public class GaiaSpawning {
 			if (!BiomeDictionary.hasType(biome, Type.SAVANNA)) {
 				add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
 				add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
-				
+
 				add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
 				add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
 				add(GENERAL.spawnMinotaur, EntityGaiaSpawnerMinotaur.class, 1, 1, biome);
@@ -332,7 +345,7 @@ public class GaiaSpawning {
 		for (Biome biome : biomeMap.get(Type.MESA)) {
 			add(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, biome);
 			add(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, biome);
-			
+
 			add(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, biome);
 			add(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, biome);
 			add(GENERAL.spawnMinotaur, EntityGaiaSpawnerMinotaur.class, 1, 1, biome);
@@ -351,7 +364,7 @@ public class GaiaSpawning {
 			if (!BiomeDictionary.hasType(biome, Type.MESA)) {
 				add(GENERAL.spawnAntHill, EntityGaiaPropAntHill.class, 1, 1, biome);
 				add(GENERAL.spawnAntRanger, EntityGaiaAntRanger.class, 2, 4, biome);
-				
+
 				add(GENERAL.spawnMummy, EntityGaiaMummy.class, 2, 4, biome);
 				add(GENERAL.spawnAnubis, EntityGaiaAnubis.class, 2, 4, biome);
 				add(GENERAL.spawnSphinx, EntityGaiaSpawnerSphinx.class, 1, 1, biome);
@@ -431,7 +444,7 @@ public class GaiaSpawning {
 			if (BiomeDictionary.hasType(biome, Type.CONIFEROUS) && 
 					(BiomeDictionary.hasType(biome, Type.SNOWY))) {
 				add(GENERAL.spawnKikimora, EntityGaiaKikimora.class, 2, 4, biome);
-				
+
 				add(GENERAL.spawnDhampir, EntityGaiaDhampir.class, 2, 4, biome);
 				add(GENERAL.spawnVampire, EntityGaiaSpawnerVampire.class, 1, 1, biome);
 
@@ -451,6 +464,102 @@ public class GaiaSpawning {
 				underground(biome);
 			}
 		}
+	}
+
+	/*
+	 * Spawn registration to the biomes assigned to each mobs
+	 */
+	private static void addBiomesSPAWN() {
+		addToEachBiomes(GENERAL.spawnCreep, EntityGaiaCreep.class, 2, 4, BIOMES.biomesCreepIsBlack, BIOMES.biomesCreepList);
+		addToEachBiomes(GENERAL.spawnEnderEye, EntityGaiaEnderEye.class, 2, 4, BIOMES.biomesEnderEyeIsBlack, BIOMES.biomesEnderEyeList);
+		addToEachBiomes(GENERAL.spawnVase, EntityGaiaPropVase.class, 1, 1, BIOMES.biomesVaseIsBlack, BIOMES.biomesVaseList);
+		addToEachBiomes(GENERAL.spawnMimic, EntityGaiaPropChestMimic.class, 1, 1, BIOMES.biomesMimicIsBlack, BIOMES.biomesMimicList);
+		addToEachBiomes(GENERAL.spawnArachne, EntityGaiaArachne.class, 1, 2, BIOMES.biomesArachneIsBlack, BIOMES.biomesArachneList);
+		addToEachBiomes(GENERAL.spawnDeathword, EntityGaiaDeathword.class, 1, 2, BIOMES.biomesDeathwordIsBlack, BIOMES.biomesDeathwordList);
+		addToEachBiomes(GENERAL.spawnBoneKnight, EntityGaiaBoneKnight.class, 1, 2, BIOMES.biomesBoneKnightIsBlack, BIOMES.biomesBoneKnightList);
+		addToEachBiomes(GENERAL.spawnFleshLich, EntityGaiaFleshLich.class, 1, 2, BIOMES.biomesFleshLichIsBlack, BIOMES.biomesFleshLichList);
+		addToEachBiomes(GENERAL.spawnCecaelia, EntityGaiaCecaelia.class, 4, 6, BIOMES.biomesCecaeliaIsBlack, BIOMES.biomesCecaeliaList);
+		addToEachBiomes(GENERAL.spawnMermaid, EntityGaiaMermaid.class, 2, 4, BIOMES.biomesMermaidIsBlack, BIOMES.biomesMermaidList);
+		addToEachBiomes(GENERAL.spawnSharko, EntityGaiaSharko.class, 2, 4, BIOMES.biomesSharkoIsBlack, BIOMES.biomesSharkoList);
+		addToEachBiomes(GENERAL.spawnBeholder, EntityGaiaSpawnerBeholder.class, 1, 1, BIOMES.biomesBeholderIsBlack, BIOMES.biomesBeholderList);
+		addToEachBiomes(GENERAL.spawnEnderDragonGirl, EntityGaiaSpawnerEnderDragonGirl.class, 1, 1, BIOMES.biomesEnderDragonGirlIsBlack, BIOMES.biomesEnderDragonGirlList);
+		addToEachBiomes(GENERAL.spawnVaseNether, EntityGaiaPropVaseNether.class, 1, 1, BIOMES.biomesVaseNetherIsBlack, BIOMES.biomesVaseNetherList);
+		addToEachBiomes(GENERAL.spawnSuccubus, EntityGaiaSuccubus.class, 2, 4, BIOMES.biomesSuccubusIsBlack, BIOMES.biomesSuccubusList);
+		addToEachBiomes(GENERAL.spawnWitherCow, EntityGaiaWitherCow.class, 2, 4, BIOMES.biomesWitherCowIsBlack, BIOMES.biomesWitherCowList);
+		addToEachBiomes(GENERAL.spawnBaphomet, EntityGaiaBaphomet.class, 2, 4, BIOMES.biomesBaphometIsBlack, BIOMES.biomesBaphometList);
+		addToEachBiomes(GENERAL.spawnGryphon, EntityGaiaGryphon.class, 1, 2, BIOMES.biomesGryphonIsBlack, BIOMES.biomesGryphonList);
+		addToEachBiomes(GENERAL.spawnDwarf, EntityGaiaDwarf.class, 4, 6, BIOMES.biomesDwarfIsBlack, BIOMES.biomesDwarfList);
+		addToEachBiomes(GENERAL.spawnValkyrie, EntityGaiaValkyrie.class, 1, 2, BIOMES.biomesValkyrieIsBlack, BIOMES.biomesValkyrieList);
+		addToEachBiomes(GENERAL.spawnDullahan, EntityGaiaDullahan.class, 4, 6, BIOMES.biomesDullahanIsBlack, BIOMES.biomesDullahanList);
+		addToEachBiomes(GENERAL.spawnBanshee, EntityGaiaBanshee.class, 2, 4, BIOMES.biomesBansheeIsBlack, BIOMES.biomesBansheeList);
+		addToEachBiomes(GENERAL.spawnSelkie, EntityGaiaSelkie.class, 2, 4, BIOMES.biomesSelkieIsBlack, BIOMES.biomesSelkieList);
+		addToEachBiomes(GENERAL.spawnKobold, EntityGaiaKobold.class, 4, 6, BIOMES.biomesKoboldIsBlack, BIOMES.biomesKoboldList);
+		addToEachBiomes(GENERAL.spawnYeti, EntityGaiaYeti.class, 2, 4, BIOMES.biomesYetiIsBlack, BIOMES.biomesYetiList);
+		addToEachBiomes(GENERAL.spawnHunter, EntityGaiaHunter.class, 2, 4, BIOMES.biomesHunterIsBlack, BIOMES.biomesHunterList);
+		addToEachBiomes(GENERAL.spawnCobbleGolem, EntityGaiaCobbleGolem.class, 2, 4, BIOMES.biomesCobbleGolemIsBlack, BIOMES.biomesCobbleGolemList);
+		addToEachBiomes(GENERAL.spawnShaman, EntityGaiaShaman.class, 2, 4, BIOMES.biomesShamanIsBlack, BIOMES.biomesShamanList);
+		addToEachBiomes(GENERAL.spawnCobblestoneGolem, EntityGaiaCobblestoneGolem.class, 2, 4, BIOMES.biomesCobblestoneGolemIsBlack, BIOMES.biomesCobblestoneGolemList);
+		addToEachBiomes(GENERAL.spawnSiren, EntityGaiaSiren.class, 4, 6, BIOMES.biomesSirenIsBlack, BIOMES.biomesSirenList);
+		addToEachBiomes(GENERAL.spawnNaga, EntityGaiaNaga.class, 1, 2, BIOMES.biomesNagaIsBlack, BIOMES.biomesNagaList);
+		//		addToEachBiomes(GENERAL.spawnGorgon, EntityGaiaSpawnerGorgon.class, 1, 1, BIOMES.biomesGorgonIsBlack, BIOMES.biomesGorgonList);
+		addToEachBiomes(GENERAL.spawnSludgeGirl, EntityGaiaSludgeGirl.class, 2, 4, BIOMES.biomesSludgeGirlIsBlack, BIOMES.biomesSludgeGirlList);
+		addToEachBiomes(GENERAL.spawnGelatinousSlime, EntityGaiaGelatinousSlime.class, 1, 2, BIOMES.biomesGelatinousSlimeIsBlack, BIOMES.biomesGelatinousSlimeList);
+		addToEachBiomes(GENERAL.spawnSatyress, EntityGaiaSatyress.class, 2, 4, BIOMES.biomesSatyressIsBlack, BIOMES.biomesSatyressList);
+		addToEachBiomes(GENERAL.spawnCentaur, EntityGaiaCentaur.class, 4, 6, BIOMES.biomesCentaurIsBlack, BIOMES.biomesCentaurList);
+		addToEachBiomes(GENERAL.spawnHarpy, EntityGaiaHarpy.class, 2, 4, BIOMES.biomesHarpyIsBlack, BIOMES.biomesHarpyList);
+		addToEachBiomes(GENERAL.spawnMinotaurus, EntityGaiaMinotaurus.class, 2, 4, BIOMES.biomesMinotaurusIsBlack, BIOMES.biomesMinotaurusList);
+		addToEachBiomes(GENERAL.spawnMinotaur, EntityGaiaSpawnerMinotaur.class, 1, 1, BIOMES.biomesMinotaurIsBlack, BIOMES.biomesMinotaurList);
+		addToEachBiomes(GENERAL.spawnGoblin, EntityGaiaGoblin.class, 2, 6, BIOMES.biomesGoblinIsBlack, BIOMES.biomesGoblinList);
+		addToEachBiomes(GENERAL.spawnOrc, EntityGaiaOrc.class, 2, 6, BIOMES.biomesOrcIsBlack, BIOMES.biomesOrcList);
+		addToEachBiomes(GENERAL.spawnAntHill, EntityGaiaPropAntHill.class, 1, 1, BIOMES.biomesAntHillIsBlack, BIOMES.biomesAntHillList);
+		addToEachBiomes(GENERAL.spawnAntRanger, EntityGaiaAntRanger.class, 2, 4, BIOMES.biomesAntRangerIsBlack, BIOMES.biomesAntRangerList);
+		addToEachBiomes(GENERAL.spawnMummy, EntityGaiaMummy.class, 2, 4, BIOMES.biomesMummyIsBlack, BIOMES.biomesMummyList);
+		addToEachBiomes(GENERAL.spawnAnubis, EntityGaiaAnubis.class, 2, 4, BIOMES.biomesAnubisIsBlack, BIOMES.biomesAnubisList);
+		addToEachBiomes(GENERAL.spawnSphinx, EntityGaiaSpawnerSphinx.class, 1, 1, BIOMES.biomesSphinxIsBlack, BIOMES.biomesSphinxList);
+		addToEachBiomes(GENERAL.spawnDryad, EntityGaiaDryad.class, 4, 6, BIOMES.biomesDryadIsBlack, BIOMES.biomesDryadList);
+		addToEachBiomes(GENERAL.spawnBee, EntityGaiaBee.class, 2, 4, BIOMES.biomesBeeIsBlack, BIOMES.biomesBeeList);
+		addToEachBiomes(GENERAL.spawnMandragora, EntityGaiaPropFlowerCyan.class, 1, 1, BIOMES.biomesMandragoraIsBlack, BIOMES.biomesMandragoraList);
+		addToEachBiomes(GENERAL.spawnWerecat, EntityGaiaWerecat.class, 4, 6, BIOMES.biomesWerecatIsBlack, BIOMES.biomesWerecatList);
+		addToEachBiomes(GENERAL.spawnSpriggan, EntityGaiaSpriggan.class, 2, 4, BIOMES.biomesSprigganIsBlack, BIOMES.biomesSprigganList);
+		addToEachBiomes(GENERAL.spawnCyclops, EntityGaiaMonoeye.class, 4, 6, BIOMES.biomesCyclopsIsBlack, BIOMES.biomesCyclopsList);
+		addToEachBiomes(GENERAL.spawnYukiOnna, EntityGaiaYukiOnna.class, 2, 4, BIOMES.biomesYukiOnnaIsBlack, BIOMES.biomesYukiOnnaList);
+		addToEachBiomes(GENERAL.spawnOni, EntityGaiaOni.class, 4, 6, BIOMES.biomesOniIsBlack, BIOMES.biomesOniList);
+		addToEachBiomes(GENERAL.spawnNineTails, EntityGaiaNineTails.class, 2, 4, BIOMES.biomesNineTailsIsBlack, BIOMES.biomesNineTailsList);
+		addToEachBiomes(GENERAL.spawnKikimora, EntityGaiaKikimora.class, 2, 4, BIOMES.biomesKikimoraIsBlack, BIOMES.biomesKikimoraList);
+		addToEachBiomes(GENERAL.spawnDhampir, EntityGaiaDhampir.class, 2, 4, BIOMES.biomesDhampirIsBlack, BIOMES.biomesDhampirList);
+		addToEachBiomes(GENERAL.spawnVampire, EntityGaiaSpawnerVampire.class, 1, 1, BIOMES.biomesVampireIsBlack, BIOMES.biomesVampireList);
+		addToEachBiomes(GENERAL.spawnMatango, EntityGaiaMatango.class, 2, 4, BIOMES.biomesMatangoIsBlack, BIOMES.biomesMatangoList);
+		addToEachBiomes(GENERAL.spawnToad, EntityGaiaToad.class, 2, 4, BIOMES.biomesToadIsBlack, BIOMES.biomesToadList);
+		addToEachBiomes(GENERAL.spawnHarpyWizard, EntityGaiaHarpyWizard.class, 1, 2, BIOMES.biomesHarpyWizardIsBlack, BIOMES.biomesHarpyWizardList);
+		addToEachBiomes(GENERAL.spawnWitch, EntityGaiaWitch.class, 2, 4, BIOMES.biomesWitchIsBlack, BIOMES.biomesWitchList);
+	}
+
+	/*
+	 * Bridge of add method used in addBiomeSPAWN
+	 */
+	private static void addToEachBiomes(int weight, Class<? extends EntityLiving> entityClass, int groupCountMin, int groupCountMax, boolean isBlackList, String... biomeIDs) {
+
+		final ResourceLocation mobName = EntityList.getKey(entityClass);
+
+		// Warning not exist biome name
+		Arrays.stream(biomeIDs)
+		      .map(ResourceLocation::new)
+		      .filter(id -> Streams.stream(Biome.REGISTRY).map(Biome::getRegistryName).noneMatch(id::equals))
+		      .forEach(id -> Gaia.LOGGER.warn(
+				      () -> String.format("%s - %s is not found in game! This biome will be ignored.", mobName.toString(), id.toString())
+		      ));
+
+		final Predicate<Biome> filter = biome -> Objects.nonNull(biome) && Arrays.stream(biomeIDs)
+		                                                                         .map(ResourceLocation::new)
+		                                                                         .anyMatch(biome.getRegistryName()::equals);
+		final Biome[] targetBiomes = Streams.stream(Biome.REGISTRY.iterator())
+		                                    .filter(b -> isBlackList ^ filter.test(b))
+		                                    .toArray(Biome[]::new);
+
+		Arrays.stream(targetBiomes).forEach(biome -> {
+			Gaia.LOGGER.info(String.format("%s will spawn in %s", mobName.toString(), biome.getRegistryName().toString()));
+			add(weight, entityClass, groupCountMin, groupCountMax, biome);
+		});
 	}
 
 	private static Map<Type, Set<Biome>> buildBiomeListByType() {
@@ -474,7 +583,7 @@ public class GaiaSpawning {
 	public static class DimensionHandler {
 		@SubscribeEvent
 		public static void onSpawn(final LivingSpawnEvent.CheckSpawn event) {
-			if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase|| event.getEntity() instanceof EntityMobProp) {
+			if (event.getEntity() instanceof EntityMobAssist || event.getEntity() instanceof EntityMobHostileBase || event.getEntity() instanceof EntityMobProp) {
 				if (GaiaConfig.DIMENSIONS.dimensionBlacklist.length > 0) {
 					event.setResult(Event.Result.DEFAULT);
 					for (int i : GaiaConfig.DIMENSIONS.dimensionBlacklist) {
