@@ -78,10 +78,6 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
         spawnLevel3Chance = 0;
     }
 
-    public GaiaAnubisEntity(World world) {
-        this(GaiaEntities.ANUBIS.get(), world);
-    }
-
     @Override
     public void setAttackTask() {
         setCombatTask();
@@ -90,7 +86,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
     @Override
     protected void registerData() {
         super.registerData();
-        this.getDataManager().register(MALE, Boolean.valueOf(false));
+        this.getDataManager().register(MALE, Boolean.FALSE);
         this.getDataManager().register(CAN_SPAWN_LEVEL3, GaiaConfig.COMMON.spawnLevel3.get());
     }
 
@@ -155,7 +151,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
                 spawnLevel3Chance += (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.05);
             }
         }
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -264,7 +260,7 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
                             spawnLevel3Chance = (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.5);
                         }
 
-                        if ((rand.nextInt(GaiaConfig.COMMON.spawnLevel3Chance.get() - spawnLevel3Chance) == 0 || rand.nextInt(1) > 0)) {
+                        if ((rand.nextInt(GaiaConfig.COMMON.spawnLevel3Chance.get() - spawnLevel3Chance) == 0 || rand.nextInt(2) > 0)) {
                             spawnLevel3 = 1;
                         }
 
@@ -308,23 +304,30 @@ public class GaiaAnubisEntity extends AbstractMobHostileEntity implements ISwimm
     private void summonMinion(int id) {
         switch (id) {
             default:
-                SkeletonEntity skeleton = new SkeletonEntity(EntityType.SKELETON, world);
-                skeleton.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-                skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), null, null, null);
-                skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
-                skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
-                skeleton.setDropChance(EquipmentSlotType.OFFHAND, 0);
-                skeleton.setDropChance(EquipmentSlotType.FEET, 0);
-                skeleton.setDropChance(EquipmentSlotType.LEGS, 0);
-                skeleton.setDropChance(EquipmentSlotType.CHEST, 0);
-                skeleton.setDropChance(EquipmentSlotType.HEAD, 0);
-                world.addEntity(skeleton);
+                SkeletonEntity skeleton = EntityType.SKELETON.create(world);
+                if(skeleton != null) {
+
+                    skeleton.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
+                    skeleton.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(skeleton)), SpawnReason.MOB_SUMMONED, null, null);
+                    skeleton.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(GaiaItems.ACCESSORY_HEADGEAR_MOB.get(), 1));
+                    skeleton.setDropChance(EquipmentSlotType.MAINHAND, 0);
+                    skeleton.setDropChance(EquipmentSlotType.OFFHAND, 0);
+                    skeleton.setDropChance(EquipmentSlotType.FEET, 0);
+                    skeleton.setDropChance(EquipmentSlotType.LEGS, 0);
+                    skeleton.setDropChance(EquipmentSlotType.CHEST, 0);
+                    skeleton.setDropChance(EquipmentSlotType.HEAD, 0);
+                    world.addEntity(skeleton);
+                }
+                break;
             case 1:
                 this.explode();
-                GaiaSphinxEntity sphinx = new GaiaSphinxEntity(world);
-                sphinx.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-                sphinx.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(sphinx)), null, null, null);
-                world.addEntity(sphinx);
+                GaiaSphinxEntity sphinx = GaiaEntities.SPHINX.get().create(world);
+                if(sphinx != null) {
+                    sphinx.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
+                    sphinx.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(sphinx)), SpawnReason.MOB_SUMMONED, null, null);
+                    world.addEntity(sphinx);
+                }
+                break;
         }
     }
 

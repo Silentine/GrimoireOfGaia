@@ -27,6 +27,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -83,10 +84,6 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
         }
     }
 
-    public GaiaDwarfEntity(World world) {
-        this(GaiaEntities.DWARF.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 2;
@@ -110,8 +107,8 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
-        float attackDamage2 = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage2 = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         if (damage > EntityAttributes.BASE_DEFENSE_2) {
             if (canSpawnLevel3) {
                 spawnLevel3Chance += (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.05);
@@ -129,11 +126,7 @@ public class GaiaDwarfEntity extends AbstractMobAssistEntity implements ISwimmin
     private boolean hasShield() {
         ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
 
-        if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
-            return true;
-        } else {
-            return false;
-        }
+        return itemstack.getItem() instanceof ShieldItem || itemstack.getItem() instanceof ItemShieldProp;
     }
 
     @Override

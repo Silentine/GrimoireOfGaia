@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -48,10 +47,6 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
         spawnTime = 0;
     }
 
-    public GaiaSphinxEntity(World world) {
-        this(GaiaEntities.SPHINX.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 3;
@@ -69,7 +64,7 @@ public class GaiaSphinxEntity extends AbstractMobHostileEntity implements ISwimm
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_3);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_3);
         return !(source instanceof IndirectEntityDamageSource) && super.attackEntityFrom(source, attackDamage);
     }
 

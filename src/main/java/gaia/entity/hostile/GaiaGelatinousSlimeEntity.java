@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.item.ItemShard;
 import net.minecraft.entity.Entity;
@@ -55,10 +54,6 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
         this.setCanPickUpLoot(true);
     }
 
-    public GaiaGelatinousSlimeEntity(World world) {
-        this(GaiaEntities.GELATINOUS_SLIME.get(), world);
-    }
-
     @Override
     public void setAttackTask() {
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_0, true));
@@ -82,7 +77,7 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
 
         Entity entity = source.getImmediateSource();
 
@@ -158,11 +153,7 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
     }
 
     private boolean hasItem() {
-        if (!this.getItemStackFromSlot(EquipmentSlotType.MAINHAND).isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !this.getItemStackFromSlot(EquipmentSlotType.MAINHAND).isEmpty();
     }
 
     @Override
@@ -259,7 +250,7 @@ public class GaiaGelatinousSlimeEntity extends AbstractMobHostileEntity {
 
     @Override
     public boolean isPotionApplicable(EffectInstance potioneffectIn) {
-        return potioneffectIn.getPotion() == Effects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != Effects.POISON && super.isPotionApplicable(potioneffectIn);
     }
 
     @Override

@@ -4,7 +4,6 @@ import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaMandragora;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.entity.hostile.GaiaMandragoraEntity;
-import gaia.entity.hostile.GaiaMimicEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.inventory.EquipmentSlotType;

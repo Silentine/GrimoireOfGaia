@@ -3,7 +3,6 @@ package gaia.entity.hostile;
 import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -44,7 +43,7 @@ public class GaiaKoboldEntity extends AbstractMobHostileEntity implements IRange
     private static final String MOB_TYPE_TAG = "MobType";
     private static final DataParameter<Integer> SKIN = EntityDataManager.createKey(GaiaKoboldEntity.class, DataSerializers.VARINT);
 
-    private MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
+    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
     private final RangedBowAttackGoal arrowAttackGoal = new RangedBowAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 
     private static final ItemStack TIPPED_ARROW_CUSTOM = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), Potions.SLOWNESS);
@@ -62,10 +61,6 @@ public class GaiaKoboldEntity extends AbstractMobHostileEntity implements IRange
         timer = 0;
         switchDetect = 0;
         switchEquip = 0;
-    }
-
-    public GaiaKoboldEntity(World world) {
-        this(GaiaEntities.KOBOLD.get(), world);
     }
 
     private void setCombatTask(int id) {
@@ -145,7 +140,7 @@ public class GaiaKoboldEntity extends AbstractMobHostileEntity implements IRange
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 

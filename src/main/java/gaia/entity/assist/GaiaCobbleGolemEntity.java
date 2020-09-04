@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaValidateTargetPlayerGoal;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -50,10 +49,6 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
         setPathPriority(PathNodeType.WATER, -1.0F);
     }
 
-    public GaiaCobbleGolemEntity(World world) {
-        this(GaiaEntities.COBBLE_GOLEM.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -91,7 +86,7 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float input = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         Entity entity = source.getTrueSource();
 
         if (entity instanceof PlayerEntity) {
@@ -219,7 +214,7 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean isPotionApplicable(EffectInstance instance) {
-        return instance.getPotion() == Effects.POISON || instance.getPotion() == Effects.INSTANT_DAMAGE ? false : super.isPotionApplicable(instance);
+        return instance.getPotion() != Effects.POISON && instance.getPotion() != Effects.INSTANT_DAMAGE && super.isPotionApplicable(instance);
     }
 
     @Override

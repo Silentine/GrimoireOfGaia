@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -49,10 +48,6 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
         stepHeight = 1.0F;
     }
 
-    public GaiaAntEntity(World world) {
-        this(GaiaEntities.ANT.get(), world);
-    }
-
     @Override
     public void setAttackTask() {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true));
@@ -74,7 +69,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
     }
 
     public boolean isChild() {
-        return (getDataManager().get(IS_CHILD)).booleanValue();
+        return getDataManager().get(IS_CHILD);
     }
 
     public void setChild(boolean isChild) {
@@ -116,7 +111,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -206,11 +201,10 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
 
         if (world.rand.nextInt(2) == 0) {
             setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
-            setEnchantmentBasedOnDifficulty(difficulty);
         } else {
             setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD.get()));
-            setEnchantmentBasedOnDifficulty(difficulty);
         }
+        setEnchantmentBasedOnDifficulty(difficulty);
 
         return super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
     }
@@ -238,7 +232,7 @@ public class GaiaAntEntity extends AbstractMobHostileEntity implements IDayMob {
 
     @Override
     public boolean isPotionApplicable(EffectInstance potioneffectIn) {
-        return potioneffectIn.getPotion() == Effects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != Effects.POISON && super.isPotionApplicable(potioneffectIn);
     }
 
     @Override

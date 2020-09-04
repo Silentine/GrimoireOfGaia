@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -59,10 +58,6 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
         spawnLevel3Chance = 0;
     }
 
-    public GaiaDhampirEntity(World world) {
-        this(GaiaEntities.DHAMPIR.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 2;
@@ -84,7 +79,7 @@ public class GaiaDhampirEntity extends AbstractMobHostileEntity implements IDayM
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         if (damage > EntityAttributes.BASE_DEFENSE_2) {
             if (canSpawnLevel3) {
                 spawnLevel3Chance += (int) (GaiaConfig.COMMON.spawnLevel3Chance.get() * 0.05);

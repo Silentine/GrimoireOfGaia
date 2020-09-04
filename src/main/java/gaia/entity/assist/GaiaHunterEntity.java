@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaRangedBowAttackGoal;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -61,10 +60,6 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
         switchEquip = 0;
     }
 
-    public GaiaHunterEntity(World world) {
-        this(GaiaEntities.HUNTER.get(), world);
-    }
-
     private void setCombatTask() {
         goalSelector.removeGoal(meleeAttackGoal);
         goalSelector.removeGoal(rangedAttackGoal);
@@ -111,7 +106,7 @@ public class GaiaHunterEntity extends AbstractMobAssistEntity implements IDayMob
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 

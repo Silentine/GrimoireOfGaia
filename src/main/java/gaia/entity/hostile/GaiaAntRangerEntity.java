@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -55,10 +54,6 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
         stepHeight = 1.0F;
 
         canHide = false;
-    }
-
-    public GaiaAntRangerEntity(World world) {
-        this(GaiaEntities.ANT_RANGER.get(), world);
     }
 
     @Override
@@ -123,9 +118,9 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         if (isHiding()) {
-            return source == source.OUT_OF_WORLD ? super.attackEntityFrom(source, attackDamage) : false;
+            return source == DamageSource.OUT_OF_WORLD && super.attackEntityFrom(source, attackDamage);
         } else {
             return super.attackEntityFrom(source, attackDamage);
         }
@@ -280,7 +275,7 @@ public class GaiaAntRangerEntity extends AbstractMobHostileEntity implements IDa
 
     @Override
     public boolean isPotionApplicable(EffectInstance potioneffectIn) {
-        return potioneffectIn.getPotion() == Effects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != Effects.POISON && super.isPotionApplicable(potioneffectIn);
     }
 
     @Override

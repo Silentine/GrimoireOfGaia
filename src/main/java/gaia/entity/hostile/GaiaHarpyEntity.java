@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaLeapAtTargetGoal;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -64,10 +63,6 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
         switchHealth = 0;
     }
 
-    public GaiaHarpyEntity(World world) {
-        this(GaiaEntities.HARPY.get(), world);
-    }
-
     @Override
     public void setAttackTask() {
         goalSelector.removeGoal(meleeAttackGoal);
@@ -112,7 +107,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
     }
 
     public boolean isChild() {
-        return (getDataManager().get(IS_CHILD)).booleanValue();
+        return getDataManager().get(IS_CHILD);
     }
 
     public void setChild(boolean isChild) {
@@ -154,7 +149,7 @@ public class GaiaHarpyEntity extends AbstractMobHostileEntity implements IDayMob
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 

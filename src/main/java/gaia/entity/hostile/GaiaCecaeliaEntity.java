@@ -41,8 +41,8 @@ import java.util.HashMap;
 public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDayMob, ISwimmingMob, IRangedAttackMob {
     private static final int DETECTION_RANGE = 3;
 
-    private RangedAttackGoal aiArrowAttack = new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
-    private MeleeAttackGoal aiAttackOnCollide = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
+    private final RangedAttackGoal aiArrowAttack = new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
+    private final MeleeAttackGoal aiAttackOnCollide = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
 
     private int timer;
     private int switchDetect;
@@ -68,10 +68,6 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
         animationTimer = 0;
 
         inWaterTimer = 0;
-    }
-
-    public GaiaCecaeliaEntity(World world) {
-        this(GaiaEntities.CECAELIA.get(), world);
     }
 
     @Override
@@ -105,7 +101,7 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -303,6 +299,6 @@ public class GaiaCecaeliaEntity extends AbstractMobHostileEntity implements IDay
 
     @Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-		return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 60.0D && super.canSpawn(worldIn, reason);
+		return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 60.0D && super.canSpawn(worldIn, reason);
 	}
 }

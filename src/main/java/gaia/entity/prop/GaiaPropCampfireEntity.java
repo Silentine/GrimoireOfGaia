@@ -49,10 +49,6 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 		renderYawOffset = 180.0F;
 	}
 
-	public GaiaPropCampfireEntity(World worldIn) {
-		this(GaiaEntities.CAMPFIRE.get(), worldIn);
-	}
-
 	@Nullable
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData livingdata, @Nullable CompoundNBT itemNbt) {
@@ -65,21 +61,16 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 
 		if (canSpawn()) {
 			for (int i = 0; i < 2; i++) {
-				GaiaDwarfEntity dwarf;
-
-				if (i == 0) {
-					dwarf = new GaiaDwarfEntity(world);
-					dwarf.classID = 2;
+				GaiaDwarfEntity dwarf = GaiaEntities.DWARF.get().create(world);
+				if(dwarf != null) {
+					if (i == 0) {
+						dwarf.classID = 2;
+					} else {
+						dwarf.classID = rand.nextInt(2);
+					}
 					dwarf.randomClass = false;
 					dwarf.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-					dwarf.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(dwarf)), null, null, null);
-					world.addEntity(dwarf);
-				} else {
-					dwarf = new GaiaDwarfEntity(world);
-					dwarf.classID = rand.nextInt(2);
-					dwarf.randomClass = false;
-					dwarf.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-					dwarf.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(dwarf)), null, null, null);
+					dwarf.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(dwarf)), SpawnReason.MOB_SUMMONED, null, null);
 					world.addEntity(dwarf);
 				}
 			}
@@ -95,14 +86,10 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 		}
 
 		if (!world.isRemote) {
-			int i_block = MathHelper.floor(getPosX());
-			int j_block = MathHelper.floor(getPosY());
-			int k_block = MathHelper.floor(getPosZ());
-
 			for (int l = 0; l < 4; ++l) {
-				i_block = MathHelper.floor(getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				j_block = MathHelper.floor(getPosY());
-				k_block = MathHelper.floor(getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+				int i_block = MathHelper.floor(getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+				int j_block = MathHelper.floor(getPosY());
+				int k_block = MathHelper.floor(getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(i_block, j_block, k_block);
 
 				if (world.getBlockState(blockpos).getMaterial() == Material.AIR) {
@@ -125,11 +112,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 		int k1 = MathHelper.floor(getPosZ());
 		BlockState iblockstate_j = world.getBlockState(new BlockPos(i1, j1, k1));
 
-		if (iblockstate.getMaterial() == Material.AIR && iblockstate_j.getMaterial() == Material.AIR) {
-			return true;
-		} else {
-			return false;
-		}
+		return iblockstate.getMaterial() == Material.AIR && iblockstate_j.getMaterial() == Material.AIR;
 	}
 
 	@Override
@@ -156,14 +139,10 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 	public void livingTick() {
 		if (getHealth() <= 0.0F) {
 			if (!world.isRemote) {
-				int i = MathHelper.floor(getPosX());
-				int j = MathHelper.floor(getPosY());
-				int k = MathHelper.floor(getPosZ());
-
 				for (int l = 0; l < 4; ++l) {
-					i = MathHelper.floor(getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-					j = MathHelper.floor(getPosY());
-					k = MathHelper.floor(getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+					int i = MathHelper.floor(getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+					int j = MathHelper.floor(getPosY());
+					int k = MathHelper.floor(getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 					BlockPos blockpos = new BlockPos(i, j, k);
 
 					world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
@@ -278,11 +257,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 
 	private boolean isValidLightLevel() {
 		BlockPos blockpos = new BlockPos(this.getPosX(), this.getBoundingBox().minY, this.getPosZ());
-		if (this.getBrightness() > 0.5F && this.world.canBlockSeeSky(blockpos)) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.getBrightness() > 0.5F && this.world.canBlockSeeSky(blockpos);
 	}
 
 	/* SPAWN CONDITIONS */
@@ -293,7 +268,7 @@ public class GaiaPropCampfireEntity extends AbstractMobPropEntity {
 
 	@Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason value) {
-		return GaiaConfig.COMMON.disableYRestriction.get() ? true : GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() > 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
+		return GaiaConfig.COMMON.disableYRestriction.get() || (getPosY() < 60.0D && getPosY() > 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value));
 	}
 	/* SPAWN CONDITIONS */
 

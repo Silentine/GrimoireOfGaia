@@ -6,7 +6,6 @@ import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaCreepSwellGoal;
 import gaia.entity.types.ISwimmingMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaLootTables;
 import gaia.item.ItemShard;
@@ -47,7 +46,6 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
     private static final DataParameter<Integer> STATE = EntityDataManager.createKey(GaiaCreepEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(GaiaCreepEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(GaiaCreepEntity.class, DataSerializers.BOOLEAN);
-    private static final String EXPLOSION_RADIUS_TAG = "ExplosionRadius";
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
@@ -58,10 +56,6 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
 
         experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
         stepHeight = 1.0F;
-    }
-
-    public GaiaCreepEntity(World world) {
-        this(GaiaEntities.CREEP.get(), world);
     }
 
     @Override
@@ -282,7 +276,7 @@ public class GaiaCreepEntity extends AbstractMobHostileEntity implements ISwimmi
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 60.0D && GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() > 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() || (getPosY() < 60.0D && getPosY() > 32.0D && super.canSpawn(worldIn, reason));
     }
 
     @Override

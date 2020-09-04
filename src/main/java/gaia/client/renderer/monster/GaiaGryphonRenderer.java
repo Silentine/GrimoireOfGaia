@@ -1,7 +1,6 @@
 package gaia.client.renderer.monster;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaGryphon;
 import gaia.entity.assist.GaiaGryphonEntity;

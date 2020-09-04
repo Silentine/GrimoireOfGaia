@@ -78,10 +78,6 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
         animationTimer = 0;
     }
 
-    public GaiaArachneEntity(World world) {
-        this(GaiaEntities.ARACHNE.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -156,7 +152,7 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return !(source instanceof IndirectEntityDamageSource) && super.attackEntityFrom(source, attackDamage);
     }
 
@@ -370,6 +366,6 @@ public class GaiaArachneEntity extends AbstractMobHostileEntity implements ISwim
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 32.0D && super.canSpawn(worldIn, reason);
     }
 }

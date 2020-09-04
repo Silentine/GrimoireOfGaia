@@ -23,6 +23,7 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -77,10 +78,6 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
         setCanPickUpLoot(true);
     }
 
-    public GaiaGoblinFeralEntity(World world) {
-        this(GaiaEntities.GOBLIN_FERAL.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -104,7 +101,7 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         if (hasShield()) {
             Entity entity = source.getImmediateSource();
             return !(entity instanceof ArrowEntity) && super.attackEntityFrom(source, attackDamage);
@@ -116,11 +113,7 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
     private boolean hasShield() {
         ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
 
-        if (itemstack.getItem() == Items.SHIELD || itemstack.getItem() instanceof ItemShieldProp) {
-            return true;
-        } else {
-            return false;
-        }
+        return itemstack.getItem() instanceof ShieldItem || itemstack.getItem() instanceof ItemShieldProp;
     }
 
     @Override
@@ -330,11 +323,10 @@ public class GaiaGoblinFeralEntity extends AbstractMobAssistEntity implements ID
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         if (rand.nextInt(4) == 0) {
             setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_SWORD_WOOD.get()));
-            setEnchantmentBasedOnDifficulty(difficulty);
         } else {
             setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(GaiaItems.WEAPON_PROP_AXE_WOOD.get()));
-            setEnchantmentBasedOnDifficulty(difficulty);
         }
+        setEnchantmentBasedOnDifficulty(difficulty);
     }
 
     @Override

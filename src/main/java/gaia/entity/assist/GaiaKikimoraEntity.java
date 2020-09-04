@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -39,10 +38,6 @@ public class GaiaKikimoraEntity extends AbstractMobAssistEntity implements IDayM
         stepHeight = 1.0F;
     }
 
-    public GaiaKikimoraEntity(World world) {
-        this(GaiaEntities.KIKIMORA.get(), world);
-    }
-
     public void setAttackTask() {
         goalSelector.addGoal(1, new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true));
     }
@@ -54,7 +49,7 @@ public class GaiaKikimoraEntity extends AbstractMobAssistEntity implements IDayM
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 

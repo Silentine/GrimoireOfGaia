@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -50,10 +49,6 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
         this.moveController = new GaiaBansheeEntity.MoveHelperController(this);
     }
 
-    public GaiaBansheeEntity(World world) {
-        this(GaiaEntities.BANSHEE.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 2;
@@ -76,7 +71,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
         if (entity instanceof SpectralArrowEntity) {
             damage += 4;
         }
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -124,7 +119,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
     @Override
     protected void registerData() {
         super.registerData();
-        this.getDataManager().register(VEX_FLAGS, Byte.valueOf((byte) 0));
+        this.getDataManager().register(VEX_FLAGS, (byte) 0);
     }
 
     @Override
@@ -157,12 +152,12 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
     }
 
     private boolean getVexFlag(int mask) {
-        int i = ((Byte) this.dataManager.get(VEX_FLAGS)).byteValue();
+        int i = this.dataManager.get(VEX_FLAGS);
         return (i & mask) != 0;
     }
 
     private void setVexFlag(int mask, boolean value) {
-        int i = ((Byte) this.dataManager.get(VEX_FLAGS)).byteValue();
+        int i = this.dataManager.get(VEX_FLAGS);
 
         if (value) {
             i = i | mask;
@@ -170,7 +165,7 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
             i = i & ~mask;
         }
 
-        this.dataManager.set(VEX_FLAGS, Byte.valueOf((byte) (i & 255)));
+        this.dataManager.set(VEX_FLAGS, (byte) (i & 255));
     }
 
     public boolean isCharging() {
@@ -309,9 +304,11 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
         }
 
         public void startExecuting() {
-            LivingEntity lvt_1_1_ = GaiaBansheeEntity.this.getAttackTarget();
-            Vec3d lvt_2_1_ = lvt_1_1_.getEyePosition(1.0F);
-            GaiaBansheeEntity.this.moveController.setMoveTo(lvt_2_1_.x, lvt_2_1_.y, lvt_2_1_.z, 1.0D);
+            LivingEntity target = GaiaBansheeEntity.this.getAttackTarget();
+            Vec3d eyePos = target != null ? target.getEyePosition(1.0F) : null;
+            if(eyePos != null) {
+                GaiaBansheeEntity.this.moveController.setMoveTo(eyePos.x, eyePos.y, eyePos.z, 1.0D);
+            }
             GaiaBansheeEntity.this.setCharging(true);
             GaiaBansheeEntity.this.playSound(SoundEvents.ENTITY_VEX_CHARGE, 1.0F, 1.0F);
         }
@@ -351,15 +348,14 @@ public class GaiaBansheeEntity extends AbstractMobHostileEntity implements ISwim
                 } else {
                     GaiaBansheeEntity.this.setMotion(GaiaBansheeEntity.this.getMotion().add(lvt_1_1_.scale(this.speed * 0.05D / lvt_2_1_)));
                     if (GaiaBansheeEntity.this.getAttackTarget() == null) {
-                        Vec3d lvt_4_1_ = GaiaBansheeEntity.this.getMotion();
-                        GaiaBansheeEntity.this.rotationYaw = -((float) MathHelper.atan2(lvt_4_1_.x, lvt_4_1_.z)) * 57.295776F;
-                        GaiaBansheeEntity.this.renderYawOffset = GaiaBansheeEntity.this.rotationYaw;
+                        Vec3d motion = GaiaBansheeEntity.this.getMotion();
+                        GaiaBansheeEntity.this.rotationYaw = -((float) MathHelper.atan2(motion.x, motion.z)) * 57.295776F;
                     } else {
                         double lvt_4_2_ = GaiaBansheeEntity.this.getAttackTarget().getPosX() - GaiaBansheeEntity.this.getPosX();
                         double lvt_6_1_ = GaiaBansheeEntity.this.getAttackTarget().getPosZ() - GaiaBansheeEntity.this.getPosZ();
                         GaiaBansheeEntity.this.rotationYaw = -((float)MathHelper.atan2(lvt_4_2_, lvt_6_1_)) * 57.295776F;
-                        GaiaBansheeEntity.this.renderYawOffset = GaiaBansheeEntity.this.rotationYaw;
                     }
+                    GaiaBansheeEntity.this.renderYawOffset = GaiaBansheeEntity.this.rotationYaw;
                 }
 
             }

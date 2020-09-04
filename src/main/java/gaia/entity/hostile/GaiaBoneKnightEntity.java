@@ -4,9 +4,7 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.item.ItemShard;
 import gaia.item.ItemShieldProp;
 import net.minecraft.block.BlockState;
@@ -24,11 +22,11 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -46,10 +44,6 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
 
         experienceValue = EntityAttributes.EXPERIENCE_VALUE_2;
         stepHeight = 1.0F;
-    }
-
-    public GaiaBoneKnightEntity(World worldIn) {
-        super(GaiaEntities.BONE_KNIGHT.get(), worldIn);
     }
 
     @Override
@@ -88,11 +82,8 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
 
     private boolean hasShield() {
         ItemStack stack = this.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
-        if (stack.getItem() == Items.SHIELD || stack.getItem() instanceof ItemShieldProp) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return itemstack.getItem() instanceof ShieldItem || itemstack.getItem() instanceof ItemShieldProp;
     }
 
     @Override

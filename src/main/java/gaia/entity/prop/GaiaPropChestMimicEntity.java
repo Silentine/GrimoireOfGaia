@@ -51,10 +51,6 @@ public class GaiaPropChestMimicEntity extends AbstractMobPropEntity {
 		renderYawOffset = 180.0F;
 		spawned = false;
 	}
-
-	public GaiaPropChestMimicEntity(World worldIn) {
-		super(GaiaEntities.CHEST.get(), worldIn);
-	}
 	
 	@Override
 	@Nullable
@@ -127,11 +123,13 @@ public class GaiaPropChestMimicEntity extends AbstractMobPropEntity {
 
 	private void setSpawn(int id) {
 		if ((id == 0) && !spawned) {
-			GaiaMimicEntity mimic = new GaiaMimicEntity(world);
-			mimic.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-			mimic.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(mimic)), null, null, null);
-			world.addEntity(mimic);
-			spawned = true;
+			GaiaMimicEntity mimic = GaiaEntities.MIMIC.get().create(world);
+			if(mimic != null) {
+				mimic.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
+				mimic.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(mimic)), SpawnReason.MOB_SUMMONED, null, null);
+				world.addEntity(mimic);
+				spawned = true;
+			}
 		}
 	}
 
@@ -272,7 +270,7 @@ public class GaiaPropChestMimicEntity extends AbstractMobPropEntity {
 	
 	@Override
 	public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-		return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && worldIn.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, reason);
+		return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 32.0D && worldIn.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, reason);
 	}
 	/* SPAWN CONDITIONS */
 

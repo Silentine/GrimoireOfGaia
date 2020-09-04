@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -64,10 +63,6 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
         inWaterTimer = 0;
     }
 
-    public GaiaMandragoraEntity(World world) {
-        this(GaiaEntities.MANDRAGORA.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -87,7 +82,7 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float input = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         Entity entity = source.getTrueSource();
 
         if (entity instanceof PlayerEntity) {
@@ -305,7 +300,7 @@ public class GaiaMandragoraEntity extends AbstractMobHostileEntity implements ID
 
     @Override
     public boolean isPotionApplicable(EffectInstance instance) {
-        return instance.getPotion() == Effects.POISON ? false : super.isPotionApplicable(instance);
+        return instance.getPotion() != Effects.POISON && super.isPotionApplicable(instance);
     }
 
     @Override

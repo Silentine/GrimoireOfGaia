@@ -89,10 +89,6 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
         regenerateHealth = 0;
     }
 
-    public GaiaCentaurEntity(World world) {
-        this(GaiaEntities.CENTAUR.get(), world);
-    }
-
     @Override
     public void setValidateTargetPlayerTask() {
         if (this.world != null && !this.world.isRemote) {
@@ -120,7 +116,7 @@ public class GaiaCentaurEntity extends AbstractMobAssistEntity implements IDayMo
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 

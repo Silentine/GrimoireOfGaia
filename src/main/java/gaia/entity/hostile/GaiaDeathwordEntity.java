@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaStrafeGoal;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -46,8 +45,8 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     private static final int DETECTION_RANGE = 6;
 
-    private MeleeAttackGoal aiMeleeAttack = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
-    private GaiaStrafeGoal aiStrafe = new GaiaStrafeGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
+    private final MeleeAttackGoal aiMeleeAttack = new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, true);
+    private final GaiaStrafeGoal aiStrafe = new GaiaStrafeGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 15.0F);
 
     private boolean canSpawn;
     private int spawnTimer;
@@ -64,10 +63,6 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
         spawnLimit = 0;
     }
 
-    public GaiaDeathwordEntity(World world) {
-        this(GaiaEntities.DEATHWORD.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -75,7 +70,7 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -330,6 +325,6 @@ public class GaiaDeathwordEntity extends AbstractMobHostileEntity implements ISw
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 16.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 16.0D && super.canSpawn(worldIn, reason);
     }
 }

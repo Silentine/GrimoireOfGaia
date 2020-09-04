@@ -3,7 +3,6 @@ package gaia.entity.hostile;
 import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.item.ItemShard;
 import net.minecraft.entity.Entity;
@@ -37,10 +36,6 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
         this.setCanPickUpLoot(true);
     }
 
-    public GaiaMimicEntity(World world) {
-        this(GaiaEntities.MIMIC.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -60,7 +55,7 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -111,11 +106,7 @@ public class GaiaMimicEntity extends AbstractMobHostileEntity {
     }
 
     private boolean hasItem() {
-        if (!this.getItemStackFromSlot(EquipmentSlotType.MAINHAND).isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !this.getItemStackFromSlot(EquipmentSlotType.MAINHAND).isEmpty();
     }
 
     @Override

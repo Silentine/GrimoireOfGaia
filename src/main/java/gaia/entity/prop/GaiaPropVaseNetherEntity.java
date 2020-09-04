@@ -1,7 +1,6 @@
 package gaia.entity.prop;
 
 import gaia.entity.AbstractMobPropEntity;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -45,10 +44,6 @@ public class GaiaPropVaseNetherEntity extends AbstractMobPropEntity {
         experienceValue = 0;
         prevRenderYawOffset = 180.0F;
         renderYawOffset = 180.0F;
-    }
-
-    public GaiaPropVaseNetherEntity(World worldIn) {
-        this(GaiaEntities.VASE_NETHER.get(), worldIn);
     }
 
     @Override

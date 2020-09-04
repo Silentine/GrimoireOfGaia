@@ -1,14 +1,12 @@
 package gaia.client.renderer.monster;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaGoblinFeral;
 import gaia.client.renderer.layers.GaiaHeldItemLayer;
 import gaia.entity.assist.GaiaGoblinFeralEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;

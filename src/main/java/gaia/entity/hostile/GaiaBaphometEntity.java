@@ -4,9 +4,7 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
-import gaia.init.GaiaLootTables;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -28,7 +26,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -59,10 +56,6 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
 
         animationPlay = false;
         animationTimer = 0;
-    }
-
-    public GaiaBaphometEntity(World world) {
-        this(GaiaEntities.BAPHOMET.get(), world);
     }
 
     @Override
@@ -110,7 +103,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         return !(source instanceof IndirectEntityDamageSource) && super.attackEntityFrom(source, attackDamage);
     }
 
@@ -183,7 +176,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
         if (wasRecentlyHit) {
             int drop = rand.nextInt(3 + lootingModifier);
 
-            if ((rand.nextInt(2) == 0 || rand.nextInt(1) > 0)) {
+            if ((rand.nextInt(2) == 0 || rand.nextInt(2) > 0)) {
                 for (int i = 0; i < drop; ++i) {
                     entityDropItem(GaiaItems.MISC_SOUL_FIERY.get(), 1);
                 }
@@ -243,7 +236,7 @@ public class GaiaBaphometEntity extends AbstractMobHostileEntity implements ISwi
 
     @Override
     public boolean isPotionApplicable(EffectInstance instance) {
-        return instance.getPotion() == Effects.WITHER ? false : super.isPotionApplicable(instance);
+        return instance.getPotion() != Effects.WITHER && super.isPotionApplicable(instance);
     }
 
     @Override

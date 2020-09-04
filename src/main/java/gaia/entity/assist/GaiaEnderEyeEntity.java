@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IEnderMob;
 import gaia.init.GaiaBlocks;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -25,6 +24,7 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -56,10 +56,6 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
         setPathPriority(PathNodeType.WATER, -1.0F);
     }
 
-    public GaiaEnderEyeEntity(World world) {
-        this(GaiaEntities.ENDER_EYE.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -67,6 +63,13 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
 
     private void setCombatTask() {
         goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, false));
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+
+        this.setCombatTask();
     }
 
     @Override
@@ -115,7 +118,6 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
     private boolean teleportToEntity(Entity p_70816_1_) {
         Vec3d vec3d = new Vec3d(this.getPosX() - p_70816_1_.getPosX(), this.getBoundingBox().minY + (double)(this.getHeight() / 2.0F) - p_70816_1_.getPosY() + (double)p_70816_1_.getEyeHeight(), this.getPosZ() - p_70816_1_.getPosZ());
         vec3d = vec3d.normalize();
-        double d0 = 16.0D;
         double d1 = this.getPosX() + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
         double d2 = this.getPosY() + (double)(this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
         double d3 = this.getPosZ() + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
@@ -188,11 +190,11 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
 
         if (livingEntity == null) {
             targetChangeTime = 0;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(false));
+            this.dataManager.set(SCREAMING, Boolean.FALSE);
             iattributeinstance.removeModifier(ATTACKING_SPEED_BOOST);
         } else {
             targetChangeTime = ticksExisted;
-            this.dataManager.set(SCREAMING, Boolean.valueOf(true));
+            this.dataManager.set(SCREAMING, Boolean.TRUE);
 
             if (!iattributeinstance.hasModifier(ATTACKING_SPEED_BOOST)) {
                 iattributeinstance.applyModifier(ATTACKING_SPEED_BOOST);
@@ -274,7 +276,7 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
     @Override
     protected void registerData() {
         super.registerData();
-        this.getDataManager().register(SCREAMING, Boolean.valueOf(false));
+        this.getDataManager().register(SCREAMING, Boolean.FALSE);
     }
 
     public boolean isScreaming() {
@@ -300,7 +302,7 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
             double d0 = vec3d1.length();
             vec3d1 = vec3d1.normalize();
             double d1 = vec3d.dotProduct(vec3d1);
-            return d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(this) : false;
+            return d1 > 1.0D - 0.025D / d0 && player.canEntityBeSeen(this);
         }
     }
 
@@ -316,9 +318,7 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
         public FindPlayerGoal(GaiaEnderEyeEntity entity) {
             super(entity, PlayerEntity.class, false);
             this.dragonGirl = entity;
-            this.field_220791_m = (new EntityPredicate()).setDistance(this.getTargetDistance()).setCustomPredicate((p_220790_1_) -> {
-                return entity.shouldAttackPlayer((PlayerEntity)p_220790_1_);
-            });
+            this.field_220791_m = (new EntityPredicate()).setDistance(this.getTargetDistance()).setCustomPredicate((p_220790_1_) -> entity.shouldAttackPlayer((PlayerEntity)p_220790_1_));
         }
 
         /**
@@ -357,7 +357,7 @@ public class GaiaEnderEyeEntity extends AbstractMobAssistEntity implements IEnde
                     return true;
                 }
             } else {
-                return this.nearestTarget != null && this.field_220792_n.canTarget(this.dragonGirl, this.nearestTarget) ? true : super.shouldContinueExecuting();
+                return this.nearestTarget != null && this.field_220792_n.canTarget(this.dragonGirl, this.nearestTarget) || super.shouldContinueExecuting();
             }
         }
 

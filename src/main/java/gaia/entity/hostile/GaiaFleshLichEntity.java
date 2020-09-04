@@ -3,7 +3,6 @@ package gaia.entity.hostile;
 import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.item.ItemShard;
 import gaia.util.RangedHelper;
@@ -47,10 +46,6 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
         animationTimer = 0;
     }
 
-    public GaiaFleshLichEntity(World world) {
-        this(GaiaEntities.FLESH_LICH.get(), world);
-    }
-
     @Override
     public void setAttackTask() {
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_2, 20, 60, 15.0F));
@@ -72,7 +67,7 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_2);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -188,6 +183,6 @@ public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRa
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 16.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 16.0D && super.canSpawn(worldIn, reason);
     }
 }

@@ -1,10 +1,8 @@
 package gaia.client.renderer.monster;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import gaia.GaiaReference;
 import gaia.client.model.ModelGaiaCobblestoneGolem;
-import gaia.entity.assist.GaiaCobbleGolemEntity;
 import gaia.entity.hostile.GaiaCobblestoneGolemEntity;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

@@ -26,6 +26,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -207,7 +208,7 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
                     PlayerEntity player = (PlayerEntity) entity;
                     ItemStack itemstack = player.getActiveItemStack();
 
-                    if (itemstack.getItem() == Items.SHIELD) {
+                    if (itemstack.getItem() instanceof ShieldItem) {
                         return true;
                     }
                 }

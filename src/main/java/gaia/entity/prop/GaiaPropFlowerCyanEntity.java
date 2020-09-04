@@ -52,10 +52,6 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 		shovelAttack = 0;
 	}
 
-	public GaiaPropFlowerCyanEntity(World worldIn) {
-		this(GaiaEntities.CYAN_FLOWER.get(), worldIn);
-	}
-
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData livingdata, @Nullable CompoundNBT itemNbt) {
 		renderYawOffset = 180.0F;
@@ -116,13 +112,15 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 		}
 	}
 
-	private void setSpawn(byte id) {
+	private void setSpawn(int id) {
 		if (id == 0) {
-			GaiaMandragoraEntity mandragora = new GaiaMandragoraEntity(world);
-			mandragora.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
-			mandragora.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(mandragora)), null, null, null);
-			mandragora.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.EGG));
-			world.addEntity(mandragora);
+			GaiaMandragoraEntity mandragora = GaiaEntities.MANDRAGORA.get().create(world);
+			if(mandragora != null) {
+				mandragora.setLocationAndAngles(getPosX(), getPosY(), getPosZ(), rotationYaw, 0.0F);
+				mandragora.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(mandragora)), SpawnReason.MOB_SUMMONED, null, null);
+				mandragora.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.EGG));
+				world.addEntity(mandragora);
+			}
 		}
 	}
 
@@ -162,7 +160,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 		if (wasRecentlyHit) {
 			if (world.rand.nextInt(4) == 0) {
 				world.setEntityState(this, (byte) 7);
-				setSpawn((byte) 0);
+				setSpawn(0);
 			} else {
 				world.setEntityState(this, (byte) 6);
 
@@ -262,12 +260,12 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 					int j = MathHelper.floor(getBoundingBox().minY);
 					int k = MathHelper.floor(getPosZ());
 					BlockPos blockpos = new BlockPos(i, j, k);
-					Block var1 = world.getBlockState(blockpos.down()).getBlock();
+					Block block = world.getBlockState(blockpos.down()).getBlock();
 
-					Set<String> additionalBlocks = new HashSet<String>(GaiaConfig.COMMON.additionalFlowerSpawnBlocks.get());
+					Set<String> additionalBlocks = new HashSet<>(GaiaConfig.COMMON.additionalFlowerSpawnBlocks.get());
 
-					boolean defaultFlag = spawnBlocks.contains(var1);
-					boolean additionalFlag = !additionalBlocks.isEmpty() && additionalBlocks.contains(var1.getRegistryName().toString());
+					boolean defaultFlag = spawnBlocks.contains(block);
+					boolean additionalFlag = !additionalBlocks.isEmpty() && block.getRegistryName() != null && additionalBlocks.contains(block.getRegistryName().toString());
 
 					return world.getDifficulty() != Difficulty.PEACEFUL && (defaultFlag || additionalFlag) && !world.containsAnyLiquid(getBoundingBox());
 				}
@@ -276,7 +274,7 @@ public class GaiaPropFlowerCyanEntity extends AbstractMobPropEntity {
 		return false;
 	}
 
-	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD.get());
+	private static Set<Block> blackList = Sets.newHashSet(GaiaBlocks.SPAWN_GUARD.get()); //TODO: Redo the SpawnBlocks / BlackList to use tags instead
 	/* SPAWN CONDITIONS */
 
 	@Override

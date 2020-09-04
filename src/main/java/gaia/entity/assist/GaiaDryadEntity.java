@@ -5,7 +5,6 @@ import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.goals.GaiaValidateTargetPlayerGoal;
 import gaia.entity.types.ISwimmingMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -70,10 +69,6 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
         inWaterTimer = 0;
     }
 
-    public GaiaDryadEntity(World world) {
-        this(GaiaEntities.DRYAD.get(), world);
-    }
-
     @Override
     public int getGaiaTier() {
         return 1;
@@ -116,8 +111,7 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
-        float input = Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         Entity entity = source.getTrueSource();
 
         if (entity instanceof PlayerEntity) {
@@ -130,7 +124,7 @@ public class GaiaDryadEntity extends AbstractMobAssistEntity implements ISwimmin
             }
         }
 
-        return super.attackEntityFrom(source, attackDamage);
+        return super.attackEntityFrom(source, input);
     }
 
     @Override

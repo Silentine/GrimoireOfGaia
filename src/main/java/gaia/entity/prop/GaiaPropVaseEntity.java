@@ -2,7 +2,6 @@ package gaia.entity.prop;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobPropEntity;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -41,17 +40,11 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
     private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(GaiaPropVaseEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DROP = EntityDataManager.createKey(GaiaPropVaseEntity.class, DataSerializers.VARINT);
 
-    private BlockPos blockPosition;
-
     public GaiaPropVaseEntity(EntityType<? extends GaiaPropVaseEntity> type, World worldIn) {
         super(type, worldIn);
         experienceValue = 0;
         prevRenderYawOffset = 180.0F;
         renderYawOffset = 180.0F;
-    }
-
-    public GaiaPropVaseEntity(World worldIn) {
-        this(GaiaEntities.VASE.get(), worldIn);
     }
 
     @Override
@@ -287,7 +280,7 @@ public class GaiaPropVaseEntity extends AbstractMobPropEntity {
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
+        return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 32.0D && world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.canSpawn(worldIn, value);
     }
     /* SPAWN CONDITIONS */
 

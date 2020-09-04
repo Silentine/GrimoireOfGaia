@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.entity.AbstractMobAssistEntity;
 import gaia.entity.EntityAttributes;
 import gaia.entity.types.IDayMob;
-import gaia.init.GaiaEntities;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
@@ -48,9 +47,9 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     private static final DataParameter<Boolean> IS_MOVING = EntityDataManager.<Boolean>createKey(GaiaBeeEntity.class, DataSerializers.BOOLEAN);
 
-    private RangedAttackGoal aiArrowAttack = new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
-    private LeapAtTargetGoal aiAttackLeapAtTarget = new LeapAtTargetGoal(this, 0.2F);
-    private LeapAtTarget aiAttackLeapAtTargetAI = new GaiaBeeEntity.LeapAtTarget(this);
+    private final RangedAttackGoal aiArrowAttack = new RangedAttackGoal(this, EntityAttributes.ATTACK_SPEED_1, 20, 60, 15.0F);
+    private final LeapAtTargetGoal aiAttackLeapAtTarget = new LeapAtTargetGoal(this, 0.2F);
+    private final LeapAtTarget aiAttackLeapAtTargetAI = new GaiaBeeEntity.LeapAtTarget(this);
 
     private int timer;
     private int switchDetect;
@@ -71,10 +70,6 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
         animationPlay = false;
         animationTimer = 0;
-    }
-
-    public GaiaBeeEntity(World world) {
-        this(GaiaEntities.BEE.get(), world);
     }
 
     private void setCombatTask() {
@@ -133,7 +128,7 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         return super.attackEntityFrom(source, attackDamage);
     }
 
@@ -237,11 +232,9 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
             int i = MathHelper.floor(getPosX());
             int j = MathHelper.floor(getPosY() - 0.20000000298023224D);
             int k = MathHelper.floor(getPosZ());
-            BlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
+            BlockState blockstate = world.getBlockState(new BlockPos(i, j, k));
 
-            if (iblockstate.getMaterial() != Material.AIR) {
-                return true;
-            }
+            return blockstate.getMaterial() != Material.AIR;
         }
 
         return false;
@@ -320,7 +313,7 @@ public class GaiaBeeEntity extends AbstractMobAssistEntity implements IDayMob, I
 
     @Override
     public boolean isPotionApplicable(EffectInstance potioneffectIn) {
-        return potioneffectIn.getPotion() == Effects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != Effects.POISON && super.isPotionApplicable(potioneffectIn);
     }
 
     @Override
