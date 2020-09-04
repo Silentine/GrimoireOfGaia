@@ -83,7 +83,7 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
     private boolean hasShield() {
         ItemStack stack = this.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
 
-        return itemstack.getItem() instanceof ShieldItem || itemstack.getItem() instanceof ItemShieldProp;
+        return stack.getItem() instanceof ShieldItem || stack.getItem() instanceof ItemShieldProp;
     }
 
     @Override
@@ -205,7 +205,6 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-
         return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && super.canSpawn(worldIn, reason);
     }
 }
