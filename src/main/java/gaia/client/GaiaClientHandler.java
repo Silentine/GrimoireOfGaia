@@ -31,6 +31,7 @@ import gaia.client.renderer.monster.GaiaHunterRenderer;
 import gaia.client.renderer.monster.GaiaKikimoraRenderer;
 import gaia.client.renderer.monster.GaiaKoboldRenderer;
 import gaia.client.renderer.monster.GaiaMandragoraRenderer;
+import gaia.client.renderer.monster.GaiaMatangoRenderer;
 import gaia.client.renderer.monster.GaiaMimicRenderer;
 import gaia.client.renderer.monster.GaiaSphinxRenderer;
 import gaia.client.renderer.prop.GaiaPropCampfireRenderer;
@@ -107,6 +108,7 @@ public class GaiaClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.KOBOLD.get() , renderManager -> new GaiaKoboldRenderer(renderManager, small));
 
         RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MANDRAGORA.get(), renderManager -> new GaiaMandragoraRenderer(renderManager, tiny));
+        RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MATANGO.get(), renderManager -> new GaiaMatangoRenderer(renderManager, small));
         RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.MIMIC.get(), renderManager -> new GaiaMimicRenderer(renderManager, med));
 
         RenderingRegistry.registerEntityRenderingHandler(GaiaEntities.SPHINX.get(), renderManager -> new GaiaSphinxRenderer(renderManager, large));

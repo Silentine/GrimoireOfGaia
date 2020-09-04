@@ -78,7 +78,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class GaiaItems {
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, GaiaReference.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GaiaReference.MOD_ID);
 
     /**
      * Debug items
@@ -242,7 +242,7 @@ public class GaiaItems {
     public static final RegistryObject<Item> HUNTER_SPAWN_EGG = ITEMS.register("hunter_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.HUNTER.get(), 0xae6b3c, 0x353535, itemBuilder()));
     public static final RegistryObject<Item> KIKIMORA_SPAWN_EGG = ITEMS.register("kikimora_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.KIKIMORA.get(), 0x191919, 0xd3bdac, itemBuilder()));
     public static final RegistryObject<Item> KOBOLD_SPAWN_EGG = ITEMS.register("kobold_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.KOBOLD.get(), 0x938dab, 0xafa7c1, itemBuilder()));
-//    public static final RegistryObject<Item> MATANGO_SPAWN_EGG = ITEMS.register("matango_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.MATANGO.get(), 0xab1311, 0xd8d8d8, itemBuilder()));
+    public static final RegistryObject<Item> MATANGO_SPAWN_EGG = ITEMS.register("matango_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.MATANGO.get(), 0xab1311, 0xd8d8d8, itemBuilder()));
 //    public static final RegistryObject<Item> MERMAID_SPAWN_EGG = ITEMS.register("mermaid_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.MERMAID.get(), 0x5c70b1, 0xa4452d, itemBuilder()));
 //    public static final RegistryObject<Item> MINOTAUR_SPAWN_EGG = ITEMS.register("minotaur_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.MINOTAUR.get(), 0x8d4f41, 0xd54242, itemBuilder()));
 //    public static final RegistryObject<Item> MINOTAURUS_SPAWN_EGG = ITEMS.register("minotaurus_spawn_egg", () -> new ItemGaiaSpawnEgg(() -> GaiaEntities.MINOTAURUS.get(), 0x8d4f41, 0xa9a9a9, itemBuilder()));

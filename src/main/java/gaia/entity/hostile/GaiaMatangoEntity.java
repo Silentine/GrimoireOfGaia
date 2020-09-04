@@ -1,52 +1,60 @@
-package gaia.entity.assist;
+package gaia.entity.hostile;
 
 import gaia.config.GaiaConfig;
-import gaia.entity.AbstractMobAssistEntity;
+import gaia.entity.AbstractMobHostileEntity;
 import gaia.entity.EntityAttributes;
-import gaia.entity.goals.GaiaValidateTargetPlayerGoal;
-import gaia.entity.types.IDayMob;
 import gaia.init.GaiaItems;
 import gaia.init.GaiaSounds;
 import gaia.item.ItemShard;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.PickaxeItem;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements IDayMob {
+import javax.annotation.Nullable;
+import java.util.HashMap;
 
-    private int attackTimer;
-    private final GaiaValidateTargetPlayerGoal targetPlayerGoal = new GaiaValidateTargetPlayerGoal(this);
+public class GaiaMatangoEntity extends AbstractMobHostileEntity {
+    private static final ItemStack[] matangoDrops = new ItemStack[] { new ItemStack(Blocks.RED_MUSHROOM, 1), new ItemStack(Blocks.BROWN_MUSHROOM, 1) };
 
-    public GaiaCobbleGolemEntity(EntityType<? extends GaiaCobbleGolemEntity> entityType, World world) {
+    private int spawnLimit;
+    private int spawnTime;
+    private boolean canSpawn;
+
+    public GaiaMatangoEntity(EntityType<? extends GaiaMatangoEntity> entityType, World world) {
         super(entityType, world);
 
         experienceValue = EntityAttributes.EXPERIENCE_VALUE_1;
         stepHeight = 1.0F;
 
-        setPathPriority(PathNodeType.WATER, -1.0F);
+        spawnLimit = 0;
+        spawnTime = 0;
+        canSpawn = true;
     }
 
     @Override
@@ -56,32 +64,13 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public void setAttackTask() {
-        goalSelector.addGoal(0, new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_0, true));
-    }
-
-    @Override
-    public void setValidateTargetPlayerTask() {
-        if (this.world != null && !this.world.isRemote) {
-            if (GaiaConfig.COMMON.passiveHostileAllMobs.get()) {
-                this.targetSelector.addGoal(2, targetPlayerGoal);
-            }
-
-            if(this.isNeutral()) {
-                this.targetSelector.removeGoal(this.targetPlayerGoal);
-            }
-        }
-    }
-
-    @Override
-    public double wanderSpeed() {
-        return 0.5D;
+        goalSelector.addGoal(1, new MeleeAttackGoal(this, EntityAttributes.ATTACK_SPEED_0, true));
     }
 
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
         getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.00D);
-        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(EntityAttributes.MOVE_SPEED_0);
     }
 
     @Override
@@ -92,8 +81,9 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
             ItemStack itemstack = player.getHeldItem(getActiveHand());
-            if (itemstack.getItem() instanceof PickaxeItem) {
-                input = input + 5;
+
+            if (itemstack.getItem() instanceof AxeItem) {
+                input = input * 1.5F;
             }
         }
 
@@ -107,48 +97,20 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
-        attackTimer = 10;
-        world.setEntityState(this, (byte) 4);
-        boolean attackEntity = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) 7 + rand.nextInt(15));
-        if (attackEntity) {
-            Vec3d motion = getMotion();
-            double motionY = motion.getY();
-            motionY += 0.2D;
-            setMotion(motion.x, motionY, motion.z);
-        }
+        if (super.attackEntityAsMob(entityIn)) {
+            HashMap<Effect, Integer> effects = new HashMap<>();
+            effects.put(Effects.NAUSEA, 0);
 
-        playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
-        return attackEntity;
-    }
-
-    @Override
-    public boolean isTameable() {
-        return true;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 4) {
-            attackTimer = 10;
-            playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
+            ApplyDebuff(world, entityIn, effects);
+            return true;
         } else {
-            super.handleStatusUpdate(id);
+            return false;
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public int getAttackTimer() {
-        return attackTimer;
     }
 
     @Override
     public void livingTick() {
-        super.livingTick();
-
-        if (attackTimer > 0) {
-            --attackTimer;
-        }
+        rangeDebuff(2, Effects.SPEED, 300, 0);
 
         Vec3d motion = getMotion();
         if (motion.x * motion.x + motion.z * motion.z > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
@@ -161,33 +123,75 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
                 world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, blockstate), getPosX() + (rand.nextDouble() - 0.5D) * getWidth(), getBoundingBox().minY + 0.1D, getPosZ() + (rand.nextDouble() - 0.5D) * getWidth(), 4.0D * (rand.nextDouble() - 0.5D), 0.5D, (rand.nextDouble() - 0.5D) * 4.0D);
             }
         }
+
+        if (getHealth() < EntityAttributes.MAX_HEALTH_1 * 0.90F && getHealth() > EntityAttributes.MAX_HEALTH_1 * 0.10F) {
+            if (canSpawn) {
+                if (spawnLimit < 5) {
+                    if ((spawnTime >= 0) && (spawnTime <= 140)) {
+                        ++spawnTime;
+                    } else {
+                        world.setEntityState(this, (byte) 9);
+
+                        if (!world.isRemote) {
+                            setSpawn(0);
+                        }
+
+                        world.setEntityState(this, (byte) 8);
+                        heal(EntityAttributes.MAX_HEALTH_1 * 0.20F);
+
+                        spawnLimit += 1;
+                        spawnTime = 0;
+
+                    }
+                } else {
+                    canSpawn = false;
+                }
+            }
+        }
+
+        if (isBurning()) {
+            addPotionEffect(new EffectInstance(Effects.SLOWNESS, 100, 0));
+            addPotionEffect(new EffectInstance(Effects.WEAKNESS, 100, 0));
+        }
+
+        super.livingTick();
+    }
+
+    private void setSpawn(int id) {
+        if (!isNeutral()) {
+            if (id == 0) {
+//                GaiaSporelingEntity sporeling = new GaiaSporelingEntity(world); TODO: Spawn Sporeling here
+//                sporeling.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
+//                sporeling.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(sporeling)), null, null);
+//                world.spawnEntity(sporeling);
+            }
+        }
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return GaiaSounds.NONE;
+        return GaiaSounds.MATANGO_SAY;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.BLOCK_STONE_BREAK;
+        return GaiaSounds.MATANGO_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_IRON_GOLEM_DEATH;
-    }
-
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        playSound(SoundEvents.ENTITY_IRON_GOLEM_STEP, 1.0F, 1.0F);
+        return GaiaSounds.MATANGO_DEATH;
     }
 
     @Override
     protected void dropSpecialItems(DamageSource source, int lootingModifier, boolean wasRecentlyHit) {
         if (wasRecentlyHit) {
-            if ((rand.nextInt(2) == 0 || rand.nextInt(1 + lootingModifier) > 0)) {
-                entityDropItem(Items.IRON_NUGGET, 1);
+            for (int i = 0; i < 1; ++i) {
+                ItemStack dropList = matangoDrops[rand.nextInt(matangoDrops.length)];
+
+                for (int j = 0; j < 1; ++j) {
+                    entityDropItem(dropList, 1);
+                }
             }
 
             // Nuggets/Fragments
@@ -212,25 +216,25 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
         }
     }
 
+    @Nullable
     @Override
-    public boolean isPotionApplicable(EffectInstance instance) {
-        return instance.getPotion() != Effects.POISON && instance.getPotion() != Effects.INSTANT_DAMAGE && super.isPotionApplicable(instance);
+    public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData entityLivingData, @Nullable CompoundNBT itemNbt) {
+        ILivingEntityData ret = super.onInitialSpawn(worldIn, difficulty, reason, entityLivingData, itemNbt);
+
+        ItemStack weaponCustom = new ItemStack(GaiaItems.WEAPON_PROP_ENCHANTED.get(), 1);
+        weaponCustom.addEnchantment(Enchantments.KNOCKBACK, 1);
+        setItemStackToSlot(EquipmentSlotType.MAINHAND, weaponCustom);
+
+        return ret;
     }
 
+    /* IMMUNITIES */
+
     @Override
-    protected float applyPotionDamageCalculations(DamageSource source, float damage) {
-        damage = super.applyPotionDamageCalculations(source, damage);
-
-        if (source.getTrueSource() == this) {
-            damage = 0.0F;
-        }
-
-        if (source.isMagicDamage()) {
-            damage = (float) ((double) damage * 0.15D);
-        }
-
-        return damage;
+    public boolean isPotionApplicable(EffectInstance potioneffectIn) {
+        return potioneffectIn.getPotion() != Effects.POISON && super.isPotionApplicable(potioneffectIn);
     }
+    /* IMMUNITIES */
 
     @Override
     public int getMaxSpawnedInChunk() {
@@ -239,6 +243,6 @@ public class GaiaCobbleGolemEntity extends AbstractMobAssistEntity implements ID
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return canEntitySeeSky(worldIn, this) && super.canSpawn(worldIn, reason);
+        return getPosY() > 60.0D && super.canSpawn(world, reason);
     }
 }

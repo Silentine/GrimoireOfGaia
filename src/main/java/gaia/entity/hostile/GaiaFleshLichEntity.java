@@ -32,7 +32,6 @@ import javax.annotation.Nullable;
 
 public class GaiaFleshLichEntity extends AbstractMobHostileEntity implements IRangedAttackMob {
 
-
     private boolean animationPlay;
     private int animationTimer;
 

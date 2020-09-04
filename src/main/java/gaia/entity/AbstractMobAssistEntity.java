@@ -470,6 +470,9 @@ public abstract class AbstractMobAssistEntity extends CreatureEntity implements 
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
+        if(value != SpawnReason.NATURAL) {
+            return true;
+        }
         boolean blacklisted = this.isDimensionBlacklisted(world);
         boolean flag = true;
 

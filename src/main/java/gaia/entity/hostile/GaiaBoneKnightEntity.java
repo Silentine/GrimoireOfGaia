@@ -71,7 +71,7 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        float attackDamage = source == source.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
+        float attackDamage = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, EntityAttributes.BASE_DEFENSE_1);
         if (hasShield()) {
             Entity entity = source.getImmediateSource();
             return !(entity instanceof ArrowEntity) && super.attackEntityFrom(source, attackDamage);
@@ -205,6 +205,6 @@ public class GaiaBoneKnightEntity extends AbstractMobHostileEntity implements IS
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
-        return GaiaConfig.COMMON.disableYRestriction.get() ? true : getPosY() < 32.0D && super.canSpawn(worldIn, reason);
+        return GaiaConfig.COMMON.disableYRestriction.get() || getPosY() < 32.0D && super.canSpawn(worldIn, reason);
     }
 }

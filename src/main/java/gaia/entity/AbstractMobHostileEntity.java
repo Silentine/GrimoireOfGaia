@@ -319,6 +319,9 @@ public abstract class AbstractMobHostileEntity extends MonsterEntity implements 
     /* SPAWN CONDITIONS */
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
+        if(value != SpawnReason.NATURAL) {
+            return true;
+        }
         boolean blacklisted = this.isDimensionBlacklisted(world);
         boolean flag = true;
 

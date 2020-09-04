@@ -18,6 +18,9 @@ public abstract class AbstractMobPropEntity extends AgeableEntity implements IDa
     /* SPAWN CONDITIONS */
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason value) {
+        if(value != SpawnReason.NATURAL) {
+            return true;
+        }
         boolean blacklisted = this.isDimensionBlacklisted(world);
 
         if (GaiaConfig.COMMON.spawnDaysPassed.get()) {

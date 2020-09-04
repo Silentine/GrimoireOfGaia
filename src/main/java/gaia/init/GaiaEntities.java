@@ -32,6 +32,7 @@ import gaia.entity.hostile.GaiaGelatinousSlimeEntity;
 import gaia.entity.hostile.GaiaHarpyEntity;
 import gaia.entity.hostile.GaiaKoboldEntity;
 import gaia.entity.hostile.GaiaMandragoraEntity;
+import gaia.entity.hostile.GaiaMatangoEntity;
 import gaia.entity.hostile.GaiaMimicEntity;
 import gaia.entity.hostile.GaiaSphinxEntity;
 import gaia.entity.projectile.GaiaProjectileBombEntity;
@@ -53,7 +54,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class GaiaEntities {
-	public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, GaiaReference.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GaiaReference.MOD_ID);
 
 //	public static final RegistryObject<EntityType<EntityDebugMob>> DEBUG_MOB = ENTITIES.register("debug_mob", () -> register("debug_mob", EntityType.Builder.create(EntityDebugMob::new, EntityDebugMob::new));
 	public static final RegistryObject<EntityType<GaiaAntEntity>> ANT = ENTITIES.register("ant", () -> register("ant", EntityType.Builder.<GaiaAntEntity>create(GaiaAntEntity::new, EntityClassification.MONSTER)));
@@ -84,9 +85,9 @@ public class GaiaEntities {
 	public static final RegistryObject<EntityType<GaiaGryphonEntity>> GRYPHON = ENTITIES.register("gryphon", () -> register("gryphon", EntityType.Builder.<GaiaGryphonEntity>create(GaiaGryphonEntity::new, EntityClassification.MONSTER).size(1.2F, 1.8F)));
 	public static final RegistryObject<EntityType<GaiaHarpyEntity>> HARPY = ENTITIES.register("harpy", () -> register("harpy", EntityType.Builder.<GaiaHarpyEntity>create(GaiaHarpyEntity::new, EntityClassification.MONSTER)));
 	public static final RegistryObject<EntityType<GaiaHunterEntity>> HUNTER = ENTITIES.register("hunter", () -> register("hunter", EntityType.Builder.<GaiaHunterEntity>create(GaiaHunterEntity::new, EntityClassification.MONSTER)));
-	public static final RegistryObject<EntityType<GaiaKikimoraEntity>> KIKIMORA = ENTITIES.register("kikimora", () -> register("kikimora", EntityType.Builder.create(GaiaKikimoraEntity::new, EntityClassification.MONSTER)));
-	public static final RegistryObject<EntityType<GaiaKoboldEntity>> KOBOLD = ENTITIES.register("kobold", () -> register("kobold", EntityType.Builder.create(GaiaKoboldEntity::new, EntityClassification.MONSTER)));
-//	public static final RegistryObject<EntityType<EntityGaiaMatango>> MATANGO = ENTITIES.register("matango", () -> register("matango", EntityType.Builder.create(EntityGaiaMatango::new, EntityClassification.MONSTER)));
+	public static final RegistryObject<EntityType<GaiaKikimoraEntity>> KIKIMORA = ENTITIES.register("kikimora", () -> register("kikimora", EntityType.Builder.<GaiaKikimoraEntity>create(GaiaKikimoraEntity::new, EntityClassification.MONSTER)));
+	public static final RegistryObject<EntityType<GaiaKoboldEntity>> KOBOLD = ENTITIES.register("kobold", () -> register("kobold", EntityType.Builder.<GaiaKoboldEntity>create(GaiaKoboldEntity::new, EntityClassification.MONSTER)));
+	public static final RegistryObject<EntityType<GaiaMatangoEntity>> MATANGO = ENTITIES.register("matango", () -> register("matango", EntityType.Builder.<GaiaMatangoEntity>create(GaiaMatangoEntity::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaMermaid>> MERMAID = ENTITIES.register("mermaid", () -> register("mermaid", EntityType.Builder.create(EntityGaiaMermaid::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaMinotaur>> MINOTAUR = ENTITIES.register("minotaur", () -> register("minotaur", EntityType.Builder.create(EntityGaiaMinotaur::new, EntityClassification.MONSTER)));
 //	public static final RegistryObject<EntityType<EntityGaiaMinotaurus>> MINOTAURUS = ENTITIES.register("minotaurus", () -> register("minotaurus", EntityType.Builder.create(EntityGaiaMinotaurus::new, EntityClassification.MONSTER)));

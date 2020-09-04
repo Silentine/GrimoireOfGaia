@@ -13,7 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class GaiaBlocks {
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, GaiaReference.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, GaiaReference.MOD_ID);
 
     public static final RegistryObject<Block> BUST_SPHINX = BLOCKS.register("bust_sphinx", () -> new BlockBust(Block.Properties.create(Material.ROCK)));
     public static final RegistryObject<Block> BUST_VALKYRIE = BLOCKS.register("bust_valkyrie", () -> new BlockBust(Block.Properties.create(Material.ROCK)));
