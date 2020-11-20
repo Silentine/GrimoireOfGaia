@@ -13,7 +13,7 @@ public class CreativeTabGaia extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return new ItemStack(GaiaItems.MISC_BOOK, 1, 0);
 	}
 }

@@ -99,7 +99,7 @@ public class CommandBiome extends CommandBase {
 			for (int start2 = -(max / 2); start2 < max; ++start2) {
 
 				BlockPos pos = new BlockPos(posp.getX() + start, posp.getY(), posp.getZ() + start2);
-				Chunk chunk = world.getChunkFromBlockCoords(pos);
+				Chunk chunk = world.getChunk(pos);
 
 				ChunkPos chunkPos = new ChunkPos(pos);
 				int rx = chunkPos.x;

@@ -258,7 +258,7 @@ public class EntityGaiaGorgon extends EntityMobHostileDay implements GaiaIRanged
 	private boolean shouldAttackPlayer(EntityPlayer player) {
 		Vec3d vec3d = player.getLook(1.0F).normalize();
 		Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()), this.posZ - player.posZ);
-		double d0 = vec3d1.lengthVector();
+		double d0 = vec3d1.length();
 		vec3d1 = vec3d1.normalize();
 		double d1 = vec3d.dotProduct(vec3d1);
 		return d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(this) : false;

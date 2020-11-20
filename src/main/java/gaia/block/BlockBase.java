@@ -15,7 +15,7 @@ class BlockBase extends Block implements IClientRegister {
 	public BlockBase(Material materialIn, String blockName) {
 		super(materialIn);
 		setRegistryName(new ResourceLocation(GaiaReference.MOD_ID, blockName));
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + blockName);
+		setTranslationKey(GaiaReference.MOD_ID + "." + blockName);
 		setCreativeTab(CreativeTabGaia.INSTANCE);
 		Gaia.proxy.addClientRegister(this);
 	}

@@ -21,7 +21,7 @@ public class ItemWeaponBook extends ItemSword implements IClientRegister {
 
 		setCreativeTab(CreativeTabGaia.INSTANCE);
 		setRegistryName(GaiaReference.MOD_ID, name);
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + name);
+		setTranslationKey(GaiaReference.MOD_ID + "." + name);
 		Gaia.proxy.addClientRegister(this);
 	}
 

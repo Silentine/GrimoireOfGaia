@@ -56,6 +56,6 @@ public class ModelLoaderHelper {
 
 	public static ModelResourceLocation getSuffixedLocation(Item item, String suffix) {
 		// noinspection ConstantConditions
-		return new ModelResourceLocation(item.getRegistryName().getResourceDomain() + ":" + item.getRegistryName().getResourcePath() + suffix, "inventory");
+		return new ModelResourceLocation(item.getRegistryName().getNamespace() + ":" + item.getRegistryName().getPath() + suffix, "inventory");
 	}
 }

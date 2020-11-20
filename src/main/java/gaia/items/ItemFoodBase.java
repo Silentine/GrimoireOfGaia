@@ -14,7 +14,7 @@ public class ItemFoodBase extends ItemFood implements IClientRegister {
 	public ItemFoodBase(String name, int amount, float saturation, boolean isWolfFood) {
 		super(amount, saturation, isWolfFood);
 		setRegistryName(GaiaReference.MOD_ID, name);
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + name);
+		setTranslationKey(GaiaReference.MOD_ID + "." + name);
 		setCreativeTab(CreativeTabGaia.INSTANCE);
 		Gaia.proxy.addClientRegister(this);
 	}

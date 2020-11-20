@@ -33,7 +33,7 @@ public class TileEntityBust extends TileEntity {
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		direction = EnumFacing.getHorizontal(nbt.getInteger("direction"));
+		direction = EnumFacing.byHorizontalIndex(nbt.getInteger("direction"));
 	}
 
 	@Override

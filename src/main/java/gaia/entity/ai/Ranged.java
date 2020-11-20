@@ -51,11 +51,11 @@ public class Ranged {
 		double d1 = target.getEntityBoundingBox().minY + target.height / 3.0D - entitytippedarrow.posY;
 		double d2 = target.posZ - host.posZ;
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		entitytippedarrow.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getDifficultyId() * 4));
+		entitytippedarrow.shoot(d0, d1 + d3 * 0.2D, d2, 1.6F, (float) (14 - host.world.getDifficulty().getId() * 4));
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, host);
 		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, host);
 
-		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getDifficultyId() * 0.11D);
+		entitytippedarrow.setDamage(bonusdamage * 2.0D + rand.nextGaussian() * 0.25D + host.world.getDifficulty().getId() * 0.11D);
 
 		if (host.world.getDifficulty() == HARD && GaiaConfig.DAMAGE.baseDamageArchers) {
 			entitytippedarrow.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 1, 0));

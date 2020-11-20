@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemBase extends Item implements IClientRegister {
 	public ItemBase(String name) {
 		setRegistryName(GaiaReference.MOD_ID, name);
-		setUnlocalizedName(GaiaReference.MOD_ID + "." + name);
+		setTranslationKey(GaiaReference.MOD_ID + "." + name);
 		setCreativeTab(CreativeTabGaia.INSTANCE);
 		Gaia.proxy.addClientRegister(this);
 	}
@@ -25,7 +25,7 @@ public class ItemBase extends Item implements IClientRegister {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return getHasSubtypes() ? getUnlocalizedName() + "_" + stack.getItemDamage() : getUnlocalizedName();
+	public String getTranslationKey(ItemStack stack) {
+		return getHasSubtypes() ? getTranslationKey() + "_" + stack.getItemDamage() : getTranslationKey();
 	}
 }
