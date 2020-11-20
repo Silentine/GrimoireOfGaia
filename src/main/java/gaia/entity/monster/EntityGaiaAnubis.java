@@ -345,14 +345,14 @@ public class EntityGaiaAnubis extends EntityMobHostileBase implements IRangedAtt
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		if (wasRecentlyHit) {
 			// Nuggets/Fragments
-			int dropNugget = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(GaiaConfig.DROPS.maxNuggetCount) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
 				dropItem(Items.GOLD_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
-				int dropNuggetAlt = rand.nextInt(3) + 1;
+			if (GaiaConfig.DROPS.additionalOre) {
+				int dropNuggetAlt = rand.nextInt(GaiaConfig.DROPS.maxNuggetCount) + 1;
 
 				for (int i = 0; i < dropNuggetAlt; ++i) {
 					ItemShard.dropNugget(this, 5);

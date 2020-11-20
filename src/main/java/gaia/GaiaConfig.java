@@ -455,18 +455,27 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs")
 		@Config.Comment("All mobs are now hostile")
 		public boolean passiveHostileAllMobs = false;
-		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu3.AdditionalOre")
-		@Config.Comment("Gaia mobs can now drop Copper and Silver Nuggets")
-		public boolean additionalOre = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu4.StrafingArchers")
 		@Config.Comment("Archers will strafe and avoid attacks (like Skeletons)")
 		public boolean strafingArchers = true;
-		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu5.DisableDrops")
-		@Config.Comment("Disable drops not using loot tables.")
-		public boolean disableDrops = false;
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility")
 		@Config.Comment("Disable mobs that use the Invisibility status effect when far from a player.")
 		public boolean disableInvisibility = false;
+	}
+
+	@Config.LangKey("configgui.grimoireofgaia.category.Menu8.drops")
+	public static final Drops DROPS = new Drops();
+
+	public static class Drops {
+		@Config.LangKey("configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre")
+		@Config.Comment("Gaia mobs can now drop Copper and Silver Nuggets")
+		public boolean additionalOre = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.drops.Menu5.DisableDrops")
+		@Config.Comment("Disable drops not using loot tables.")
+		public boolean disableDrops = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.drops.Menu8.MaxNuggetCount")
+		@Config.Comment("Changes the max amount of nuggets an eligible mob can drop")
+		public int maxNuggetCount = 3;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu6.debug")

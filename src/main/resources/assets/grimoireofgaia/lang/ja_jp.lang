@@ -347,12 +347,12 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=日中の�
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=日中にスポーンする攻撃的なモブが積極的にプレイヤーを攻撃しなくなります。
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=全モブの凶暴化
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=すべてのモブがプレイヤーを襲うようになります。
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=ナゲットの追加
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\n Grimoire of Gaiaのモブが銅塊、銀塊をドロップするようになります。
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=ナゲットの追加
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\n Grimoire of Gaiaのモブが銅塊、銀塊をドロップするようになります。
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=弓使いの射ち方
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\n弓使いは攻撃を避けるように弓を撃ちます。(スケルトンの様に)
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops=ルートテーブルを使用しないモブドロップの無効化
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(注意)\nモブドロップを無効にし、ルートテーブルを使用します
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops=ルートテーブルを使用しないモブドロップの無効化
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops.tooltip=(注意)\nモブドロップを無効にし、ルートテーブルを使用します
 configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility=透明ポーションエフェクトの無効化
 configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility.tooltip=プレイヤーから遠い場所にある場合、透明ポーションエフェクトを使うモブを無効化します
 #CONFIG_DEBUG

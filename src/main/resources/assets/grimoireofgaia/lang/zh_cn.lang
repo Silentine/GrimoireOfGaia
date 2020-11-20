@@ -333,8 +333,8 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=设置敌�
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=\n敌对日间怪物将不再主动攻击视线中的玩家.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=设置所有怪物为敌对
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=\n所有怪物都对玩家充满敌意.
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=额外金属
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\n盖亚怪物可以掉落铜粒和银粒.
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=额外金属
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\n盖亚怪物可以掉落铜粒和银粒.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=射手扫射
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\n射手会扫射并避开攻击(如骷髅).
 #CONFIG_DEBUG

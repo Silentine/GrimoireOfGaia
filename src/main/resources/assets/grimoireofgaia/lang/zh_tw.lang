@@ -347,12 +347,12 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=設定白�
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=\n白天的敵對怪物不會在看到玩家時攻擊.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=設定全怪物變成敵對
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=\n全怪物變成主動敵對.
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=額外礦粒
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\n蓋亞怪物可以掉落銅粒和銀粒.
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=額外礦粒
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\n蓋亞怪物可以掉落銅粒和銀粒.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=掃射弓箭手
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\n弓箭手會掃射和閃躲攻擊 (像骷髏一樣).
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops=關閉沒使用掉落表的掉落
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(WARNING)\n關閉掉落並使用掉落表.
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops=關閉沒使用掉落表的掉落
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops.tooltip=(WARNING)\n關閉掉落並使用掉落表.
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=統一礦物碎片掉落
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\n怪物可以掉落其他Mod的礦粒/碎片.\n(關閉這個假如你碰到問題)

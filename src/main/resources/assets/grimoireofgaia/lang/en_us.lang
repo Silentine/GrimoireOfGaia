@@ -299,6 +299,8 @@ configgui.grimoireofgaia.category.Menu6.debug=Debug
 configgui.grimoireofgaia.category.Menu6.debug.tooltip=\nCompatibility and debugging options.
 configgui.grimoireofgaia.category.Menu7.dimensions=Dimensional Settings
 configgui.grimoireofgaia.category.Menu7.dimensions.tooltip=\nSetup Dimensional settings.
+configgui.grimoireofgaia.category.Menu8.drops=Drop Settings
+configgui.grimoireofgaia.category.Menu8.drops.tooltip=\nSetup drop related settings.
 #CONFIG_SPAWN
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed=Spawn Day Delay
 configgui.grimoireofgaia.category.spawn.Menu0.SpawnDaysPassed.tooltip=\nMobs only spawn after a certain amount of days have passed.
@@ -348,12 +350,12 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=Sets hostil
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=Hostile day mobs will no longer attack players on sight.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=Sets all mobs to be hostile
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=All mobs are now hostile.
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Additional Nuggets
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=Additional Nuggets
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\nGaia mobs can now drop Copper and Silver Nuggets.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Strafing Archers
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nArchers will strafe and avoid attacks (like Skeletons).
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops=Disable drops not using loot tables
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(WARNING)\nDisable drops and use loot tables.
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops=Disable drops not using loot tables
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops.tooltip=(WARNING)\nDisable drops and use loot tables.
 configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility=Disable Invisibility status effect
 configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility.tooltip=Disable mobs that use the Invisibility status effect when far from a player.
 #CONFIG_DEBUG
@@ -366,6 +368,10 @@ configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=Enables dev
 #CONFIG_DIMENSIONS
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Dimension ID blacklist
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Disables Gaia mobs from spawning in the specified dimension ids.
+#CONFIG_SPAWNS
+configgui.grimoireofgaia.category.drops.Menu8.MaxNuggetCount=Max Nugget Count
+configgui.grimoireofgaia.category.drops.Menu8.MaxNuggetCount.tooltip=Changes the max amount of nuggets an eligible mob can drop
+
 #JEI
 gaia.box.loot=Box Loot
 gui.gaia.box.loot=Box Loot

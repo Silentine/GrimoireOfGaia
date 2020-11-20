@@ -337,13 +337,13 @@ public class EntityGaiaValkyrie extends EntityMobAssistDay {
 			}
 
 			// Nuggets/Shards
-			int dropNugget = rand.nextInt(3) + 1;
+			int dropNugget = rand.nextInt(GaiaConfig.DROPS.maxNuggetCount) + 1;
 
 			for (int i = 0; i < dropNugget; ++i) {
 				ItemShard.dropNugget(this, 2);
 			}
 
-			int dropNuggetAlt = rand.nextInt(3) + 1;
+			int dropNuggetAlt = rand.nextInt(GaiaConfig.DROPS.maxNuggetCount) + 1;
 
 			for (int i = 0; i < dropNuggetAlt; ++i) {
 				ItemShard.dropNugget(this, 3);

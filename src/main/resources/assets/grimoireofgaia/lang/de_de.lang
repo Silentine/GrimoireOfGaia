@@ -347,12 +347,12 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=Macht aggre
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=Aggressive tagaktive Kreaturen greifen Spieler bei Sichtkontakt nicht mehr an.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=Macht alle Kreaturen aggressiv
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=Alle Kreaturen sind nun aggressiv.
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Zusätzliche Klumpen
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nGaia-Kreaturen können nun Kupfer- und Silberklumpen hinterlassen.
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=Zusätzliche Klumpen
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\nGaia-Kreaturen können nun Kupfer- und Silberklumpen hinterlassen.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers= Bogenschützen-Strafing
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nBogenschützen verwenden Strafing und weichen Angriffen aus (wie Skelette).
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops=Deaktiviert Drops ohne Beutetabellen
-configgui.grimoireofgaia.category.options.Menu5.DisableDrops.tooltip=(WARNING)\nDeaktiviert Drops und benutzt Beutetabellen.
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops=Deaktiviert Drops ohne Beutetabellen
+configgui.grimoireofgaia.category.drops.Menu5.DisableDrops.tooltip=(WARNING)\nDeaktiviert Drops und benutzt Beutetabellen.
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Splitter-Drops vereinen
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nKreaturen können Splitter/Klumpen aus anderen Mods hinterlassen.\n(Deaktivieren bei Problemen)

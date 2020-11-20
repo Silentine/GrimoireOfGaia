@@ -288,7 +288,7 @@ public class EntityGaiaEnderEye extends EntityMobAssistBase {
 				dropItem(Items.IRON_NUGGET, 1);
 			}
 
-			if (GaiaConfig.OPTIONS.additionalOre) {
+			if (GaiaConfig.DROPS.additionalOre) {
 				int drop_nugget_alt = rand.nextInt(3) + 1;
 
 				for (int i = 0; i < drop_nugget_alt; ++i) {

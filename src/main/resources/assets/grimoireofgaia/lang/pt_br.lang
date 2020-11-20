@@ -344,8 +344,8 @@ configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs=Definir mob
 configgui.grimoireofgaia.category.options.Menu1.Passive_Hostile_Mobs.tooltip=Mobs diurnos hostis deixará de atacar os jogadores à vista.
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs=Definir todos os mobs para serem hostis
 configgui.grimoireofgaia.category.options.Menu2.Passive_Hostile_All_Mobs.tooltip=Todos os mobs agora são hostis.
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre=Pepitas Adicionais
-configgui.grimoireofgaia.category.options.Menu3.AdditionalOre.tooltip=\nMobs de Gaia podem agora dropar Pepitas de Cobre e Prata.
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre=Pepitas Adicionais
+configgui.grimoireofgaia.category.drops.Menu3.AdditionalOre.tooltip=\nMobs de Gaia podem agora dropar Pepitas de Cobre e Prata.
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Arqueiros Atacantes
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nArqueiros irão atacar e evitar ataques (como esqueletos).
 

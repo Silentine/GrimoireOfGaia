@@ -278,7 +278,7 @@ public abstract class EntityMobHostileBase extends EntityMob implements IRangedA
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
 		super.dropLoot(wasRecentlyHit, lootingModifier, source);
-		if (!GaiaConfig.OPTIONS.disableDrops)
+		if (!GaiaConfig.DROPS.disableDrops)
 			dropFewItems(wasRecentlyHit, lootingModifier);
 	}
 
