@@ -1,5 +1,6 @@
 package gaia.entity;
 
+import gaia.GaiaConfig;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
@@ -212,8 +213,14 @@ public abstract class EntityMobMerchant extends EntityVillager implements INpc, 
 		}
 	}
 
+
+	@Override
+	public boolean getIsWillingToMate(boolean updateFirst) {
+		return GaiaConfig.OPTIONS.AllowVillagerMating && super.getIsWillingToMate(updateFirst);
+	}
+
 	@Override
 	public boolean getCanSpawnHere() {
-		return posY < 0.0D && super.getCanSpawnHere();
+		return (GaiaConfig.SPAWN.disableYRestriction || posY < 0.0D) && super.getCanSpawnHere();
 	}
 }

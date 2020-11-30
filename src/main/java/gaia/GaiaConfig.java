@@ -461,6 +461,9 @@ public class GaiaConfig {
 		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility")
 		@Config.Comment("Disable mobs that use the Invisibility status effect when far from a player.")
 		public boolean disableInvisibility = false;
+		@Config.LangKey("configgui.grimoireofgaia.category.options.Menu7.AllowVillagerMating")
+		@Config.Comment("Decides if merchants can mate with villagers")
+		public boolean AllowVillagerMating = false;
 	}
 
 	@Config.LangKey("configgui.grimoireofgaia.category.Menu8.drops")
