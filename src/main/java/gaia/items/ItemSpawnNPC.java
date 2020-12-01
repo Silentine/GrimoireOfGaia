@@ -2,7 +2,7 @@ package gaia.items;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -21,9 +21,9 @@ import java.util.function.Function;
 public class ItemSpawnNPC extends ItemBase {
 	private final String name;
 	private final EnumRarity rarity;
-	private final Function<World, Entity> createNPC;
+	private final Function<World, EntityLiving> createNPC;
 
-	public ItemSpawnNPC(String name, EnumRarity rarity, Function<World, Entity> createNPC) {
+	public ItemSpawnNPC(String name, EnumRarity rarity, Function<World, EntityLiving> createNPC) {
 		super(name);
 		this.name = name;
 		this.rarity = rarity;
@@ -57,7 +57,8 @@ public class ItemSpawnNPC extends ItemBase {
 			}
 
 			if (worldIn.isAirBlock(offsetPos) && !worldIn.isRemote) {
-				Entity spawnEntity = createNPC.apply(worldIn);
+				EntityLiving spawnEntity = createNPC.apply(worldIn);
+				spawnEntity.enablePersistence();
 				spawnEntity.setLocationAndAngles(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5, 0, 0);
 				worldIn.spawnEntity(spawnEntity);
 			}
