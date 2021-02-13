@@ -351,12 +351,10 @@ public class EntityGaiaOrc extends EntityMobHostileBase implements IRangedAttack
 	@Nullable
 	protected ResourceLocation getLootTable() {
 		switch (getMobType()) {
-		case 0:
-			return GaiaLootTables.ENTITIES_GAIA_ORC_MELEE;
-		case 1:
-			return GaiaLootTables.ENTITIES_GAIA_ORC_RANGED;
 		default:
-			return LootTableList.EMPTY;
+			return GaiaLootTables.ENTITIES_GAIA_ORC_MELEE;
+		case 2:
+			return GaiaLootTables.ENTITIES_GAIA_ORC_RANGED;
 		}
 	}
 
