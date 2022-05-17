@@ -86,7 +86,7 @@ item.grimoireofgaia.weapon_prop_projectile_magic_random.name=Снаряд слу
 item.grimoireofgaia.weapon_prop_projectile_poison.name=Ядовитый снаряд
 item.grimoireofgaia.weapon_prop_projectile_web.name=Паутинный снаряд
 item.grimoireofgaia.weapon_prop_enchanted.name=Зачарованный подшипник
-item.grimoireofgaia.weapon_prop_3.name=Метла
+item.grimoireofgaia.weapon_prop_broom.name=Метла
 item.grimoireofgaia.weapon_prop_hammer_minotaur.name=Молот Минотавра
 item.grimoireofgaia.shield_prop_0.name=Каменный щит
 item.grimoireofgaia.shield_prop_1.name=Железный щит
@@ -139,6 +139,7 @@ tile.grimoireofgaia.doll_maid.name=Кукла горничной
 tile.grimoireofgaia.doll_dullahan.name=Кукла даллахана
 tile.grimoireofgaia.doll_mermaid.name=Кукла русалки
 tile.grimoireofgaia.doll_nine_tails.name=Кукла девятихвостой
+tile.grimoireofgaia.doll_dryad.name=Кукла дриады
 tile.grimoireofgaia.deco_bust_minotaur.name=Бюст минотавра
 tile.grimoireofgaia.deco_garden_gnome.name=Садовый гном
 tile.grimoireofgaia.deco_mandragora_pot.name=Мандрагора в горшке
@@ -232,7 +233,7 @@ entity.grimoireofgaia.butler.name=Дворецкий
 entity.grimoireofgaia.sporeling.name=Спора
 #ACTIONS
 text.grimoireofgaia.grimoireofgaia.desc=Действует только на мобов из Grimoire of Gaia
-text.grimoireofgaia.NegativeStatus.desc=Очищает от негативных статус-эффектов
+text.grimoireofgaia.NegativeStatus.desc=Очищает от негативных эффектов
 text.grimoireofgaia.HeartsGain=Восстанавливает %d сердец
 text.grimoireofgaia.HungerLose=Истощает на %d единиц(ы) голода
 text.grimoireofgaia.GainExperience=Даёт опыт
@@ -261,7 +262,7 @@ text.grimoireofgaia.Debug.tag=Для отладки
 text.grimoireofgaia.HoldShift=<Удерживайте Shift>
 #ITEMS_DESC
 item.grimoireofgaia.FoodExperienceIron.desc=Даёт уровень опыта
-item.grimoireofgaia.food_monster_feed.desc=Делает нейтральных монстров 1 Уровня дружелюбными
+item.grimoireofgaia.food_monster_feed.desc=Делает нейтральных монстров 1 уровня дружелюбными
 item.grimoireofgaia.misc_soul_fire.desc=ПКМ, чтобы раскалить землю
 item.grimoireofgaia.misc_soul_fiery.desc=ПКМ, чтобы расплавить землю
 item.grimoireofgaia.misc_giga_gear.desc=Всё, что осталось от Гига-рыцаря
@@ -274,7 +275,7 @@ item.grimoireofgaia.spawn_holstaurus.desc=Призывает гольштавр�
 item.grimoireofgaia.spawn_weresheep.desc=Призывает девушку-овечку
 item.grimoireofgaia.spawn_tame.desc=Избавляет от враждебности
 item.grimoireofgaia.spawn_tame2.desc=Не влияет на уже спровоцированных
-item.grimoireofgaia.WeaponBookEnder.desc=ПКМ, чтобы бросить Жемчуг Края
+item.grimoireofgaia.WeaponBookEnder.desc=ПКМ, чтобы бросить жемчуг-эндера
 item.grimoireofgaia.weapon_debug.desc=Используется для тестирования
 #BLOCK_DESC
 block.grimoireofgaia.spawn_guard.desc=Предотвращает появление дневных мобов в радиусе %d блоков(ка)
@@ -305,14 +306,16 @@ configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet=Установить 
 configgui.grimoireofgaia.category.spawn.Menu1.SpawnDaysSet.tooltip=\nКоличество дней, по прошествии которого\nмобы начнут спавниться.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain=(Уровень 3) Спавн только в непогоду.
 configgui.grimoireofgaia.category.spawn.Menu2.SpawnLevel3Rain.tooltip=\nМобы 3-го уровня спавняться только в непогоду.
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3=(Уровень 3) Отключить естественный спавн
-configgui.grimoireofgaia.category.spawn.Menu3.SpawnLevel3.tooltip=\nМобы 3-го уровня не спавняться естественно,\nа только из определённых мобов.
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance=(Уровень 3) Шанс спавна
 configgui.grimoireofgaia.category.spawn.Menu4.SpawnLevel3Chance.tooltip=\nШанс того, что моб 3-го уровня заспавнится из определённого моба.\n((1/<значение>)*100)
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks=Дополнительные блоки для спавна
 configgui.grimoireofgaia.category.spawn.Menu5.AdditionalSpawnBlocks.tooltip=\nДополнительные блоки, на которых могут спавнится мобы Гайи.
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks=Дополнительные блоки для спавна цветка
 configgui.grimoireofgaia.category.spawn.Menu6.AdditionalFlowerSpawnBlocks.tooltip=\nДополнительные блоки, на которых могеж спавнится бирюзовый цветок.
+configgui.grimoireofgaia.category.spawn.Menu7.Weather=Удалить погодные условия
+configgui.grimoireofgaia.category.spawn.Menu7.Weather.tooltip=\nУбраны условия появления, связанные с погодой.
+configgui.grimoireofgaia.category.spawn.Menu8.Height=Удалить условия высоты
+configgui.grimoireofgaia.category.spawn.Menu8.Height.tooltip=(ВНИМАНИЕ)\nУдалите условия появления, связанные с высотой (ось Y).
 #CONFIG_DAMAGE
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage=Базовый урон
 configgui.grimoireofgaia.category.damage.Menu0.BaseDamage.tooltip=\nБлижние атаки наносят дополнительно 2.0 единицы (1 сердце) урона.
@@ -353,6 +356,8 @@ configgui.grimoireofgaia.category.options.Menu4.StrafingArchers=Умные лу�
 configgui.grimoireofgaia.category.options.Menu4.StrafingArchers.tooltip=\nЛучники будут вести себя подобно скелетам (уровачиваться и отходить).
 configgui.grimoireofgaia.category.drops.Menu5.DisableDrops=Отключение дропов не из таблиц лута
 configgui.grimoireofgaia.category.drops.Menu5.DisableDrops.tooltip=(ВНИМАНИЕ)\nОтключить дропы и использовать вместо этого таблицы лута.
+configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility=Отключить эффект невидимости
+configgui.grimoireofgaia.category.options.Menu6.DisableInvisibility.tooltip=Отключите мобов, которые используют эффект невидимости, когда они находятся далеко от игрока.
 #CONFIG_DEBUG
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity=Унифицировать выпадение осколков
 configgui.grimoireofgaia.category.debug.Menu0.Ore_Unity.tooltip=\nПозволяет самородкам/осколкам из других модов выпадать из мобов.\n(Отключите, если возникают ошибки)
@@ -363,8 +368,12 @@ configgui.grimoireofgaia.category.debug.Menu2.Debug_Commands.tooltip=Включ�
 #CONFIG_DIMENSIONS
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist=Чёрный список биомов
 configgui.grimoireofgaia.category.dimensions.Menu0.Dimension_Blacklist.tooltip=Запрещает мобам Гайи спавниться в перечисленных измерениях.
+#CONFIG_SPAWNS
+configgui.grimoireofgaia.category.drops.Menu8.MaxNuggetCount=Макс. количество кусочков руды
+configgui.grimoireofgaia.category.drops.Menu8.MaxNuggetCount.tooltip=Изменяет макс. количество кусочков руды, которое может выпасть из моба
+
 #JEI
-gaia.box.loot=Лут из коробок
-gui.gaia.box.loot=Лут из коробок
-gaia.satchel.loot=Лут из рюкзаков
-gui.gaia.satchel.loot=Лут из рюкзаков
+gaia.box.loot=Добыча из коробки
+gui.gaia.box.loot=Добыча из коробки
+gaia.satchel.loot=Добыча из рюкзака
+gui.gaia.satchel.loot=Добыча из рюкзака
