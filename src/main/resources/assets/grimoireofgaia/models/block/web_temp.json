@@ -1,6 +1,0 @@
-{
-    "parent": "block/cross",
-    "textures": {
-        "cross": "grimoireofgaia:blocks/web_temp"
-    }
-}

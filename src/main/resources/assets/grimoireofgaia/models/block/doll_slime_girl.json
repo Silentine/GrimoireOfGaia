@@ -1,8 +1,8 @@
 {
 	"credit": "Made by Silentine, with Blockbench",
 	"textures": {
-        "0": "grimoireofgaia:blocks/models/doll_slime_girl",
-		"particle": "grimoireofgaia:blocks/models/doll_slime_girl"
+        "0": "grimoireofgaia:block/doll_slime_girl",
+		"particle": "grimoireofgaia:block/doll_slime_girl"
 	},
 	"elements": [
 		{

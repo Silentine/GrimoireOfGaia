@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:doll_maid"
+    }
+  ],
+  "result": {
+    "item": "grimoireofgaia:headgear_doll"
+  }
+}

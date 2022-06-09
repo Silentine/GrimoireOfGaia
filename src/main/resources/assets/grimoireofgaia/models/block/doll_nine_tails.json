@@ -1,8 +1,8 @@
 {
 	"credit": "Made by Silentine, with Blockbench",
 	"textures": {
-        "0": "grimoireofgaia:blocks/models/doll_nine_tails",
-		"particle": "grimoireofgaia:blocks/models/doll_nine_tails"
+        "0": "grimoireofgaia:block/doll_nine_tails",
+		"particle": "grimoireofgaia:block/doll_nine_tails"
 	},
 	"elements": [
 		{

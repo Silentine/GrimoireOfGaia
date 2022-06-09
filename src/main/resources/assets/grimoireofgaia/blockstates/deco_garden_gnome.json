@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=north":   { "model": "grimoireofgaia:deco_garden_gnome", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:deco_garden_gnome", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:deco_garden_gnome"                     },
-        "type=east":    { "model": "grimoireofgaia:deco_garden_gnome", "y": 90            }
-    }
-}

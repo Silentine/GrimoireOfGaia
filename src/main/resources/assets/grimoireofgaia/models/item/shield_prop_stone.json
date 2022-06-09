@@ -1,6 +1,0 @@
-{
-    "parent": "grimoireofgaia:item/shield_prop",
-    "textures": {
-        "0": "grimoireofgaia:items/models/shield/shield_prop_stone"
-    }
-}

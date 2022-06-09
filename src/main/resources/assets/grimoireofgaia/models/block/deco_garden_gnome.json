@@ -1,8 +1,8 @@
 {
-	"credit": "Made by Silentine, with Blockbench",
+	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:blocks/models/deco_garden_gnome",
-		"particle": "grimoireofgaia:blocks/models/deco_garden_gnome"
+		"0": "grimoireofgaia:block/deco_garden_gnome",
+		"particle": "grimoireofgaia:block/deco_garden_gnome"
 	},
 	"elements": [
 		{
@@ -69,7 +69,6 @@
 				"east": {"uv": [1.5, 1.5, 0, 3], "texture": "#0"},
 				"south": {"uv": [3, 1.5, 1.5, 3], "texture": "#0"},
 				"west": {"uv": [4.5, 1.5, 3, 3], "texture": "#0"},
-				"up": {"uv": [1.5, 1.5, 3, 0], "texture": "#0"},
 				"down": {"uv": [3, 1.5, 4.5, 0], "texture": "#0"}
 			}
 		},
@@ -106,7 +105,6 @@
 			"faces": {
 				"north": {"uv": [2.5, 6.25, 2, 7], "texture": "#0"},
 				"east": {"uv": [0.75, 6.25, 0, 7], "texture": "#0"},
-				"south": {"uv": [2, 0, 0, 3], "texture": "#missing"},
 				"up": {"uv": [0.75, 6.25, 1.25, 5.5], "texture": "#0"},
 				"down": {"uv": [1.25, 6.25, 1.75, 5.5], "texture": "#0"}
 			}
@@ -118,7 +116,6 @@
 			"rotation": {"angle": 22.5, "axis": "y", "origin": [5, 10.5, 10]},
 			"faces": {
 				"north": {"uv": [2.5, 6.25, 2, 7], "texture": "#0"},
-				"south": {"uv": [2, 0, 0, 3], "texture": "#missing"},
 				"west": {"uv": [0.75, 6.25, 0, 7], "texture": "#0"},
 				"up": {"uv": [0.75, 6.25, 1.25, 5.5], "texture": "#0"},
 				"down": {"uv": [1.25, 6.25, 1.75, 5.5], "texture": "#0"}
@@ -133,7 +130,6 @@
 				"east": {"uv": [1, 8, 0, 9], "texture": "#0"},
 				"south": {"uv": [2.5, 8, 1, 9], "texture": "#0"},
 				"west": {"uv": [3.5, 8, 2.5, 9], "texture": "#0"},
-				"up": {"uv": [0, 4, 6, 0], "texture": "#missing"},
 				"down": {"uv": [2.5, 8, 4, 7], "texture": "#0"}
 			}
 		},
@@ -172,8 +168,6 @@
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [7, 9, 9]},
 			"faces": {
 				"north": {"uv": [2, 11, 0.5, 11.5], "texture": "#0"},
-				"south": {"uv": [4, 11, 2.5, 11.5], "texture": "#0"},
-				"up": {"uv": [0.5, 11.5, 2, 11], "texture": "#0"},
 				"down": {"uv": [2, 11, 3.5, 10.5], "texture": "#0"}
 			}
 		},
@@ -186,7 +180,6 @@
 				"east": {"uv": [0.5, 12, 0, 12.5], "texture": "#0"},
 				"south": {"uv": [2, 12, 0.5, 12.5], "texture": "#0"},
 				"west": {"uv": [2.5, 12, 2, 12.5], "texture": "#0"},
-				"up": {"uv": [0, 2, 6, 0], "texture": "#missing"},
 				"down": {"uv": [2, 12, 3.5, 11.5], "texture": "#0"}
 			}
 		},

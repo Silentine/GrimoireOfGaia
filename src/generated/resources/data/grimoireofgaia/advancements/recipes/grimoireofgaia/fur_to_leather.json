@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:fur_to_leather"
+    ]
+  },
+  "criteria": {
+    "has_fur": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:fur"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:fur_to_leather"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fur",
+      "has_the_recipe"
+    ]
+  ]
+}

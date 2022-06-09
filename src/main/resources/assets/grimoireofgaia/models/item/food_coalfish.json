@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "grimoireofgaia:items/food_coalfish"
-    } 
-}

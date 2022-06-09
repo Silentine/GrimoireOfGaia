@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:bag_book"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:giga_gear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:weapon_book_wither"
+        }
+      ]
+    }
+  ]
+}

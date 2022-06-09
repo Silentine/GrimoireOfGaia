@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:headgear_doll"
+    ]
+  },
+  "criteria": {
+    "has_maid_doll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:doll_maid"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:headgear_doll"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_maid_doll",
+      "has_the_recipe"
+    ]
+  ]
+}

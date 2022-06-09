@@ -1,0 +1,103 @@
+{
+	"credit": "Made by Silentine, with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"1": "grimoireofgaia:item/headgear/headgear_arrow"
+	},
+	"elements": [
+		{
+			"name": "body1",
+			"from": [1, 7.5, 7.5],
+			"to": [16, 8.5, 8.5],
+			"faces": {
+				"north": {"uv": [0, 1, 8, 1.5], "texture": "#1"},
+				"south": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [7.5, 1.5, 8, 1], "texture": "#1"},
+				"up": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0, 1, 8, 1.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "bodyup",
+			"from": [0, 7, 5.5],
+			"to": [16, 8, 10.5],
+			"faces": {
+				"up": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "bodynorth",
+			"from": [0, 5.5, 8.1],
+			"to": [16, 10.5, 9.1],
+			"faces": {
+				"north": {"uv": [0, 2.5, 8, 0], "texture": "#1"}
+			}
+		},
+		{
+			"name": "bodydown",
+			"from": [0, 8.1, 5.5],
+			"to": [16, 9.1, 10.5],
+			"faces": {
+				"down": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "bodysouth",
+			"from": [0, 5.5, 7],
+			"to": [16, 10.5, 8],
+			"faces": {
+				"south": {"uv": [0, 2.5, 8, 0], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "bodybottom",
+			"from": [15, 5.5, 5.5],
+			"to": [16, 10.5, 10.5],
+			"faces": {
+				"east": {"uv": [0, 2.5, 2.5, 5], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, 180, 0],
+			"translation": [0, 0, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"rotation": [180, 180, 180],
+			"translation": [0, 1.2, 0],
+			"scale": [2, 2, 2]
+		},
+		"fixed": {
+			"rotation": [0, 0, 0],
+			"translation": [0, 0, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"ground": {
+			"rotation": [0, 0, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"scale": [0.375, 0.375, 0.375],
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0]
+		},
+		"firstperson_righthand": {
+			"scale": [0.4, 0.4, 0.4],
+			"rotation": [0, 45, 0],
+			"translation": [0, 0, 0]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.4, 0.4, 0.4],
+			"rotation": [0, 225, 0],
+			"translation": [0, 0, 0]
+		}
+	}
+}

@@ -1,0 +1,62 @@
+name: 🐛 Bug / Crash Report
+description: File a bug / crash report
+title: "[Bug]: "
+labels: [bug, crash]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: general-info
+    attributes:
+      label: General Info
+      description: You may select more than one.
+      options:
+        - label: I am running a modpack
+        - label: I can reproduce this issue consistently in single-player
+        - label: I can reproduce this issue consistently in multi-player
+        - label: I have searched for this issue previously and it was either (1) not previously reported, or (2) previously fixed and I am having the same problem.
+          required: true
+        - label: I am crashing and can provide my crash report(s)
+        - label: I am using the latest version of the mod
+    validations:
+      required: false
+  - type: input
+    id: forge-info
+    attributes:
+      label: Forge version
+      placeholder: ex. 36.2.0
+    validations:
+      required: true
+  - type: input
+    id: mod-info
+    attributes:
+      label: Mod version
+      placeholder: ex. 0.0.1
+    validations:
+      required: true
+  - type: input
+    id: java-info
+    attributes:
+      label: Java version
+      placeholder: ex. Java 8 update 51
+    validations:
+      required: true
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Issue Description
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Additional Information
+      description: Please post any crash reports, screenshots, etc. here. (use Pastebin or Imgur accordingly)
+      placeholder: Please put crash reports onto pastebin
+    validations:
+      required: false

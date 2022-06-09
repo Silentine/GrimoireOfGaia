@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=north":   { "model": "grimoireofgaia:doll_nine_tails", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:doll_nine_tails", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:doll_nine_tails"                     },
-        "type=east":    { "model": "grimoireofgaia:doll_nine_tails", "y": 90            }
-    }
-}

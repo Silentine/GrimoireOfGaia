@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=north":   { "model": "grimoireofgaia:bust_sphinx", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:bust_sphinx", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:bust_sphinx"                     },
-        "type=east":    { "model": "grimoireofgaia:bust_sphinx", "y": 90            }
-    }
-}

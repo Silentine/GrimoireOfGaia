@@ -1,7 +1,7 @@
 {
     "parent": "grimoireofgaia:block/doll_base",
     "textures": {
-        "0": "grimoireofgaia:blocks/models/doll_creeper_girl",
-		"particle": "grimoireofgaia:blocks/models/doll_creeper_girl"
+        "0": "grimoireofgaia:block/doll_creeper_girl",
+		"particle": "grimoireofgaia:block/doll_creeper_girl"
     }
 }

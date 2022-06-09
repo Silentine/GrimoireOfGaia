@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "grimoireofgaia:block/deco_nest_harpy",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "grimoireofgaia:block/deco_nest_harpy"
+    },
+    "facing=west": {
+      "model": "grimoireofgaia:block/deco_nest_harpy",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "grimoireofgaia:block/deco_nest_harpy",
+      "y": 270
+    }
+  }
+}

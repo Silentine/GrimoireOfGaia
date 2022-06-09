@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_book"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_mob"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_bolt"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_arrow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_doll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:headgear_ears_elf"
+        }
+      ]
+    }
+  ]
+}

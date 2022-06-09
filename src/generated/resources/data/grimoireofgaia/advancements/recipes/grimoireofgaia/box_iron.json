@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:box_iron"
+    ]
+  },
+  "criteria": {
+    "has_iron_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:box_iron"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:box_iron"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_box",
+      "has_the_recipe"
+    ]
+  ]
+}

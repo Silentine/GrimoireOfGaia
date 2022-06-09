@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "grimoireofgaia:box_overworld",
+    "grimoireofgaia:box_nether",
+    "grimoireofgaia:box_end"
+  ]
+}

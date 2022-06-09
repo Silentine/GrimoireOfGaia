@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=north":   { "model": "grimoireofgaia:deco_mandragora_pot", "y": 180           },
-        "type=south":   { "model": "grimoireofgaia:deco_mandragora_pot", "y": 270           },
-        "type=west":    { "model": "grimoireofgaia:deco_mandragora_pot"                     },
-        "type=east":    { "model": "grimoireofgaia:deco_mandragora_pot", "y": 90            }
-    }
-}

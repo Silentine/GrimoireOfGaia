@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:golden_apple_pie"
+    ]
+  },
+  "criteria": {
+    "has_golden_apple_pie_slice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:golden_apple_pie_slice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:golden_apple_pie"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_apple_pie_slice",
+      "has_the_recipe"
+    ]
+  ]
+}

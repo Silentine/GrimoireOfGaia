@@ -1,0 +1,6 @@
+{
+  "parent": "grimoireofgaia:item/weapon_book",
+  "textures": {
+    "0": "grimoireofgaia:item/weapon/book/weapon_book_nature"
+  }
+}

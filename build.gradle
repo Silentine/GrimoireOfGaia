@@ -1,128 +1,134 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1+"
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
+}
+//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'net.minecraftforge.gradle'
+
+version = "${version}"
+group = "${package_group}"
+archivesBaseName = "${mod_name}-${mc_version}"
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
+    mappings  channel: "${mcp_channel}", version: "${mcp_mappings}"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+            // Recommended logging data for a userdev environment
+            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'grimoireofgaia'
+
+            mods {
+                grimoireofgaia {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+            // Recommended logging data for a userdev environment
+            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'grimoireofgaia'
+
+            mods {
+                grimoireofgaia {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+            // Recommended logging data for a userdev environment
+            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', 'grimoireofgaia', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'grimoireofgaia'
+
+            mods {
+                grimoireofgaia {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.8.1"
-    id "org.sonarqube" version "2.6.2"
-}
-
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-version = "${mod_version}"
-						//." + getBuildNumber() + getStable()
-group= "${package_group}"
-archivesBaseName = "${mod_name}-${mc_version}"
-
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-minecraft {
-    version = mc_version + "-" + forge_version
-    runDir = "run"
-
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = mappings_version
-
-    replace '@VERSION@', project.version
-    //replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here. 
-	//^I believe this part was just copied from Botania
-
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
 	maven {
-		// location of a maven mirror for JEI files, as a fallback
-		name = "ModMaven"
-		url = "modmaven.k-4u.nl"
-	}
-	maven {
-        name = "thiakil"
-        url = "http://maven.thiakil.com"
+		url = "https://dvs1.progwml6.com/files/maven"
 	}
     maven {
-        name 'Curseforge Maven' // Baubles + Thaumcraft
-        url 'http://minecraft.curseforge.com/api/maven/'
+        url = "https://maven.theillusivec4.top/"
     }
 }
 
 dependencies {
-    deobfCompile "baubles:Baubles:${baubles_mc_version}:${baubles_version}"
-    deobfCompile "thaumcraft:Thaumcraft:${mc_version}:${thaumcraft_version}"
-	deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+	
+    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curios_version}")
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "grimoireofgaia",
+                "Specification-Vendor"    : "Silentine",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "Silentine",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.compilerArgs.add('-Xlint:unchecked')
-}
-
-def getBuildNumber() {
-    if (System.getenv("TRAVIS_BUILD_NUMBER") != null) {
-        return System.getenv("TRAVIS_BUILD_NUMBER").toString()
-    }
-    return ""
-}
-
-def getStable() {
-    if ((System.getenv("DRONE_BRANCH") == null || System.getenv("DRONE_BRANCH").endsWith("-dev"))
-            && (System.getenv("TRAVIS_BRANCH") == null || System.getenv("TRAVIS_BRANCH").endsWith("-dev"))) {
-        return "unstable"
-    }
-    return ""
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publish = true
-    filesSpec {
-        from 'build/libs'
-        into '.'
-        exclude '*sources.jar'
-    }
-    pkg {
-        version {
-            name = "${project.version}"
-            released = new Date()
-        }
-        repo = 'maven'
-        name = 'GrimoireOfGaia'
-        licenses = ['CC0-1.0']
-        vcsUrl = 'https://github.com/P3pp3rF1y/GrimoireOfGaia.git'
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

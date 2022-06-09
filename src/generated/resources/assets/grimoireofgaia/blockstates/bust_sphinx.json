@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "grimoireofgaia:block/bust_sphinx",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "grimoireofgaia:block/bust_sphinx"
+    },
+    "facing=west": {
+      "model": "grimoireofgaia:block/bust_sphinx",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "grimoireofgaia:block/bust_sphinx",
+      "y": 270
+    }
+  }
+}
