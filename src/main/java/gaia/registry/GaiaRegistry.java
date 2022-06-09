@@ -69,26 +69,26 @@ public class GaiaRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GrimoireOfGaia.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GrimoireOfGaia.MOD_ID);
 
-	public static final MobReg ANUBIS = new MobReg("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
-	public static final MobReg CENTAUR = new MobReg("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
-	public static final MobReg CREEP = new MobReg("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
-	public static final MobReg CYCLOPS = new MobReg("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
-	public static final MobReg DRYAD = new MobReg("dryad", EntityType.Builder.<Dryad>of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460);
-	public static final MobReg DULLAHAN = new MobReg("dullahan", EntityType.Builder.<Dullahan>of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d);
-	public static final MobReg HARPY = new MobReg("harpy", EntityType.Builder.<Harpy>of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e);
-	public static final MobReg HUNTER = new MobReg("hunter", EntityType.Builder.<Hunter>of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535);
-	public static final MobReg KOBOLD = new MobReg("kobold", EntityType.Builder.<Kobold>of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1);
-	public static final MobReg MATANGO = new MobReg("matango", EntityType.Builder.<Matango>of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8);
-	public static final MobReg NINE_TAILS = new MobReg("nine_tails", EntityType.Builder.<NineTails>of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145);
-	public static final MobReg SHAMAN = new MobReg("shaman", EntityType.Builder.<Shaman>of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134);
-	public static final MobReg SIREN = new MobReg("siren", EntityType.Builder.<Siren>of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
-	public static final MobReg SLUDGE_GIRL = new MobReg("sludge_girl", EntityType.Builder.<SludgeGirl>of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172);
-	public static final MobReg SPORELING = new MobReg("sporeling", EntityType.Builder.<Sporeling>of(Sporeling::new, MobCategory.MONSTER).sized(0.25F, 0.50F).clientTrackingRange(8), 0xc32826, 0x977251);
-	public static final MobReg SUCCUBUS = new MobReg("succubus", EntityType.Builder.<Succubus>of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145, true);
-	public static final MobReg WERECAT = new MobReg("werecat", EntityType.Builder.<Werecat>of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb);
-	public static final MobReg YUKI_ONNA = new MobReg("yuki_onna", EntityType.Builder.<YukiOnna>of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330);
+	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
+	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
+	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
+	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
+	public static final MobReg<Dryad> DRYAD = new MobReg<>("dryad", EntityType.Builder.of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460);
+	public static final MobReg<Dullahan> DULLAHAN = new MobReg<>("dullahan", EntityType.Builder.of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d);
+	public static final MobReg<Harpy> HARPY = new MobReg<>("harpy", EntityType.Builder.of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e);
+	public static final MobReg<Hunter> HUNTER = new MobReg<>("hunter", EntityType.Builder.of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535);
+	public static final MobReg<Kobold> KOBOLD = new MobReg<>("kobold", EntityType.Builder.of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1);
+	public static final MobReg<Matango> MATANGO = new MobReg<>("matango", EntityType.Builder.of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8);
+	public static final MobReg<NineTails> NINE_TAILS = new MobReg<>("nine_tails", EntityType.Builder.of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145);
+	public static final MobReg<Shaman> SHAMAN = new MobReg<>("shaman", EntityType.Builder.of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134);
+	public static final MobReg<Siren> SIREN = new MobReg<>("siren", EntityType.Builder.of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
+	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg<>("sludge_girl", EntityType.Builder.of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172);
+	public static final MobReg<Sporeling> SPORELING = new MobReg<>("sporeling", EntityType.Builder.of(Sporeling::new, MobCategory.MONSTER).sized(0.25F, 0.50F).clientTrackingRange(8), 0xc32826, 0x977251);
+	public static final MobReg<Succubus> SUCCUBUS = new MobReg<>("succubus", EntityType.Builder.of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145, true);
+	public static final MobReg<Werecat> WERECAT = new MobReg<>("werecat", EntityType.Builder.of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb);
+	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg<>("yuki_onna", EntityType.Builder.of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330);
 
-	public static final MobReg HORSE = new MobReg("horse", EntityType.Builder.<GaiaHorse>of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a);
+	public static final MobReg<GaiaHorse> HORSE = new MobReg<>("horse", EntityType.Builder.of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a);
 
 	//Projectiles
 	public static final RegistryObject<EntityType<GaiaSmallFireball>> SMALL_FIREBALL = ENTITIES.register("small_fireball", () ->

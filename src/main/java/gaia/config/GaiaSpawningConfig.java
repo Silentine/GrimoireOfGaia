@@ -113,8 +113,9 @@ public class GaiaSpawningConfig {
 		}
 	}
 
+	@SafeVarargs
 	public static List<String> generateList(ResourceKey<Biome>... biomes) {
-		List<String> list = new ArrayList();
+		List<String> list = new ArrayList<>();
 		for (ResourceKey<Biome> biome : biomes) {
 			list.add(biome.location().toString());
 		}

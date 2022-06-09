@@ -6,6 +6,7 @@ import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Mob;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
@@ -106,7 +107,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
 	}
 
-	private void setupMobSounds(MobReg mobReg) {
+	private <T extends Mob> void setupMobSounds(MobReg<T> mobReg) {
 		this.add(mobReg.getSay(), definition()
 				.subtitle(modSubtitle(mobReg.getSay().getLocation()))
 				.with(sound(modLoc("none"))));
