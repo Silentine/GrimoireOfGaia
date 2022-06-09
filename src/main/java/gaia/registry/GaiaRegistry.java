@@ -69,7 +69,7 @@ public class GaiaRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GrimoireOfGaia.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GrimoireOfGaia.MOD_ID);
 
-	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 0x353535, 0xb19534, true);
+	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
 	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
