@@ -35,64 +35,85 @@ public class GaiaSpawningConfig {
 					.push("Spawning");
 
 			List<? extends String> anubisBiomes = generateList(Biomes.DESERT);
-			anubisSpawning = new SpawningInfo(builder, "Anubis", 80, 2, 4, anubisBiomes);
+			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,PLAINS,!SAVANNA", "OVERWORLD,MESA");
+			anubisSpawning = new SpawningInfo(builder, "Anubis", 80, 2, 4, anubisBiomes, anubisBiomeDictionary);
 
-			List<? extends String> centaurBiomes = generateList(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA);
-			centaurSpawning = new SpawningInfo(builder, "Centaur", 80, 2, 4, centaurBiomes);
+			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
+			List<? extends String> centaurBiomeDictionary = List.of(
+					"OVERWORLD,SANDY,!MESA",
+					"OVERWORLD,MESA");
+			centaurSpawning = new SpawningInfo(builder, "Centaur", 80, 2, 4, centaurBiomes, centaurBiomeDictionary);
 
-			List<? extends String> creepBiomes = generateList(Biomes.NETHER_WASTES, Biomes.THE_END, Biomes.SMALL_END_ISLANDS,
-					Biomes.END_BARRENS, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.MUSHROOM_FIELDS, Biomes.NETHER_WASTES,
-					Biomes.SOUL_SAND_VALLEY, Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
-			creepSpawning = new SpawningInfo(builder, "Creep", 20, 4, 6, creepBiomes, true);
+			List<? extends String> creepBiomeDictionary = List.of("OVERWORLD");
+			creepSpawning = new SpawningInfo(builder, "Creep", 20, 4, 6, List.of(), creepBiomeDictionary, true);
 
 			List<? extends String> cyclopsBiomes = generateList(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-			cyclopsSpawning = new SpawningInfo(builder, "Cyclops", 40, 4, 6, cyclopsBiomes);
+			List<? extends String> cyclopsBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
+			cyclopsSpawning = new SpawningInfo(builder, "Cyclops", 40, 4, 6, cyclopsBiomes, cyclopsBiomeDictionary);
 
 			List<? extends String> dryadBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
-			dryadSpawning = new SpawningInfo(builder, "Dryad", 60, 4, 6, dryadBiomes);
+			List<? extends String> dryadBiomeDictionary = List.of(
+					"OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,SPOOKY,!DENSE",
+					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,SPOOKY");
+			dryadSpawning = new SpawningInfo(builder, "Dryad", 60, 4, 6, dryadBiomes, dryadBiomeDictionary);
 
 			List<? extends String> dullahanBiomes = generateList(Biomes.MEADOW);
-			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes);
+			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT");
+			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
 
 			List<? extends String> harpyBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
-			harpySpawning = new SpawningInfo(builder, "Harpy", 100, 2, 4, harpyBiomes);
+			List<? extends String> harpyBiomeDictionary = List.of(
+					"OVERWORLD,PLAINS,!SAVANNA",
+					"OVERWORLD,MESA",
+					"OVERWORLD,FOREST,SPOOKY");
+			harpySpawning = new SpawningInfo(builder, "Harpy", 100, 2, 4, harpyBiomes, harpyBiomeDictionary);
 
 			List<? extends String> hunterBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
-			hunterSpawning = new SpawningInfo(builder, "Hunter", 60, 2, 4, hunterBiomes);
+			List<? extends String> hunterBiomeDictionary = List.of("OVERWORLD,JUNGLE");
+			hunterSpawning = new SpawningInfo(builder, "Hunter", 60, 2, 4, hunterBiomes, hunterBiomeDictionary);
 
 			List<? extends String> koboldBiomes = generateList(Biomes.SNOWY_PLAINS, Biomes.SNOWY_SLOPES);
-			koboldSpawning = new SpawningInfo(builder, "Kobold", 60, 4, 6, koboldBiomes);
+			List<? extends String> koboldBiomeDictionary = List.of("OVERWORLD,SNOWY,!OCEAN,!RIVER,!BEACH,!FOREST");
+			koboldSpawning = new SpawningInfo(builder, "Kobold", 60, 4, 6, koboldBiomes, koboldBiomeDictionary);
 
 			List<? extends String> matangoBiomes = generateList(Biomes.DARK_FOREST);
-			matangoSpawning = new SpawningInfo(builder, "Matango", 60, 2, 4, matangoBiomes);
+			List<? extends String> matangoBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
+			matangoSpawning = new SpawningInfo(builder, "Matango", 60, 2, 4, matangoBiomes, matangoBiomeDictionary);
 
-			List<? extends String> nineTailsBiomes = generateList(Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-			nineTailsSpawning = new SpawningInfo(builder, "NineTails", 40, 2, 4, nineTailsBiomes);
+			List<? extends String> nineTailsBiomes = generateList(Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
+			List<? extends String> nineTailsBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
+			nineTailsSpawning = new SpawningInfo(builder, "NineTails", 40, 2, 4, nineTailsBiomes, nineTailsBiomeDictionary);
 
 			List<? extends String> shamanBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
-			shamanSpawning = new SpawningInfo(builder, "Shaman", 60, 2, 4, shamanBiomes);
+			List<? extends String> shamanBiomeDictionary = List.of("OVERWORLD,JUNGLE");
+			shamanSpawning = new SpawningInfo(builder, "Shaman", 60, 2, 4, shamanBiomes, shamanBiomeDictionary);
 
 			List<? extends String> sirenBiomes = generateList(Biomes.SWAMP);
-			sirenSpawning = new SpawningInfo(builder, "Siren", 60, 4, 6, sirenBiomes);
+			List<? extends String> sirenBiomeDictionary = List.of("OVERWORLD,SWAMP");
+			sirenSpawning = new SpawningInfo(builder, "Siren", 60, 4, 6, sirenBiomes, sirenBiomeDictionary);
 
 			List<? extends String> sludgeGirlBiomes = generateList(Biomes.SWAMP);
-			sludgeGirlSpawning = new SpawningInfo(builder, "SludgeGirl", 100, 2, 4, sludgeGirlBiomes);
+			List<? extends String> sludgeBiomeDictionary = List.of("OVERWORLD,SWAMP");
+			sludgeGirlSpawning = new SpawningInfo(builder, "SludgeGirl", 100, 2, 4, sludgeGirlBiomes, sludgeBiomeDictionary);
 
 			List<? extends String> succubusBiomes = generateList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY,
 					Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
-			succubusSpawning = new SpawningInfo(builder, "Succubus", 16, 2, 4, succubusBiomes);
+			List<? extends String> succubusBiomeDictionary = List.of("NETHER");
+			succubusSpawning = new SpawningInfo(builder, "Succubus", 16, 2, 4, succubusBiomes, succubusBiomeDictionary);
 
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
-			werecatSpawning = new SpawningInfo(builder, "Werecat", 80, 4, 6, werecatBiomes);
+			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,BEACH,!MUSHROOM");
+			werecatSpawning = new SpawningInfo(builder, "Werecat", 80, 4, 6, werecatBiomes, werecatBiomeDictionary);
 
 			List<? extends String> yukiOnnaBiomes = generateList(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-			yukiOnnaSpawning = new SpawningInfo(builder, "YukiOnna", 60, 2, 4, yukiOnnaBiomes);
+			List<? extends String> yukiOnnaBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
+			yukiOnnaSpawning = new SpawningInfo(builder, "YukiOnna", 60, 2, 4, yukiOnnaBiomes, yukiOnnaBiomeDictionary);
 
 			builder.pop();
 		}
 	}
 
-	public static List<? extends String> generateList(ResourceKey<Biome>... biomes) {
+	public static List<String> generateList(ResourceKey<Biome>... biomes) {
 		List<String> list = new ArrayList();
 		for (ResourceKey<Biome> biome : biomes) {
 			list.add(biome.location().toString());

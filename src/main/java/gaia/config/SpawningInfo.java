@@ -13,9 +13,11 @@ public class SpawningInfo {
 	public final IntValue minGroup;
 	public final IntValue maxGroup;
 	public final ConfigValue<List<? extends String>> spawnBiomes;
+	public final ConfigValue<List<? extends String>> spawnBiomeDictionary;
 	public final BooleanValue invertList;
+	public final BooleanValue logAdditions;
 
-	public SpawningInfo(ForgeConfigSpec.Builder builder, String mobName, int weight, int minGroup, int maxGroup, List<? extends String> biomeList, boolean invertList) {
+	public SpawningInfo(ForgeConfigSpec.Builder builder, String mobName, int weight, int minGroup, int maxGroup, List<? extends String> biomeList, List<? extends String> spawnBiomeTags, boolean invertList) {
 		String lowerCaseName = mobName.toLowerCase(Locale.ROOT);
 
 		builder.comment(mobName + " settings")
@@ -32,14 +34,20 @@ public class SpawningInfo {
 		this.spawnBiomes = builder
 				.comment("The biomes where " + mobName + "'s can spawn")
 				.defineListAllowEmpty(List.of(lowerCaseName + "Biomes"), () -> biomeList, o -> (o instanceof String));
+		this.spawnBiomeDictionary = builder
+				.comment("The biome's matching the biome dictionary entries in which " + mobName + "'s can spawn")
+				.defineListAllowEmpty(List.of(lowerCaseName + "BiomeDictionary"), () -> spawnBiomeTags, o -> (o instanceof String));
 		this.invertList = builder
-				.comment("Inverts the " + mobName + " biome list to become a blacklist instead [default: " + invertList + "]")
+				.comment("Inverts the " + mobName + " biome list to become a blacklist instead (Does not affect tags) [default: " + invertList + "]")
 				.define(lowerCaseName + "InvertList", invertList);
+		this.logAdditions = builder
+				.comment("Logs to which biomes " + mobName + " is being added [default: false]")
+				.define(lowerCaseName + "LogAdditions", false);
 		builder.pop();
 	}
 
-	public SpawningInfo(ForgeConfigSpec.Builder builder, String mobName, int weight, int minGroup, int maxGroup, List<? extends String> biomeList) {
-		this(builder, mobName, weight, minGroup, maxGroup, biomeList, false);
+	public SpawningInfo(ForgeConfigSpec.Builder builder, String mobName, int weight, int minGroup, int maxGroup, List<? extends String> biomeList, List<? extends String> spawnBiomeTags) {
+		this(builder, mobName, weight, minGroup, maxGroup, biomeList, spawnBiomeTags, false);
 	}
 
 	public boolean isDisabled() {

@@ -1,6 +1,7 @@
 package gaia.item.weapon.book;
 
 import gaia.registry.GaiaSounds;
+import gaia.util.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -26,7 +27,7 @@ public class MetalBookItem extends WeaponBookItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
 
-		final Player player = net.minecraft.client.Minecraft.getInstance().player;
+		final Player player = RandomUtil.getPlayer();
 		if (player == null) {
 			return;
 		}

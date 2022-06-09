@@ -22,10 +22,14 @@ import gaia.entity.Sporeling;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
+import gaia.util.BiomeHelper;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -33,6 +37,8 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = GrimoireOfGaia.MOD_ID)
 public class GaiaSpawning {
@@ -59,9 +65,41 @@ public class GaiaSpawning {
 
 	private static void addSpawn(EntityType<?> entityType, SpawningInfo info, BiomeLoadingEvent event) {
 		if (!info.isDisabled()) {
-			if (info.invertList.get() ? !info.spawnBiomes.get().contains(event.getName().toString()) : info.spawnBiomes.get().contains(event.getName().toString())) {
-				event.getSpawns().addSpawn(MobCategory.MONSTER,
-						new SpawnerData(entityType, info.weight.get(), info.minGroup.get(), info.maxGroup.get()));
+			ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
+			if (!info.spawnBiomes.get().isEmpty()) {
+				String biomeName = event.getName().toString();
+				if (info.invertList.get() ? !info.spawnBiomes.get().contains(biomeName) : info.spawnBiomes.get().contains(biomeName)) {
+					event.getSpawns().addSpawn(MobCategory.MONSTER, new SpawnerData(entityType, info.weight.get(), info.minGroup.get(), info.maxGroup.get()));
+					if (info.logAdditions.get()) {
+						GrimoireOfGaia.LOGGER.info("Added " + entityType.getRegistryName() + " to " + biomeKey.location());
+					}
+				}
+			}
+
+			if (!info.spawnBiomeDictionary.get().isEmpty()) {
+				List<SpawnerData> spawnerDataList = event.getSpawns().getSpawner(MobCategory.MONSTER);
+				if (!spawnerDataList.stream().anyMatch(data -> data.type == entityType)) {
+					for (String biome : info.spawnBiomeDictionary.get()) {
+						boolean validBiome = true;
+						if (biome.contains(",")) {
+							String[] tags = biome.split(",");
+							if (!BiomeHelper.matchesDictionary(tags, biomeKey)) {
+								validBiome = false;
+							}
+						} else {
+							if (!BiomeHelper.matchesDictionary(biome, biomeKey)) {
+								validBiome = false;
+							}
+						}
+
+						if (validBiome) {
+							event.getSpawns().addSpawn(MobCategory.MONSTER, new SpawnerData(entityType, info.weight.get(), info.minGroup.get(), info.maxGroup.get()));
+							if (info.logAdditions.get()) {
+								GrimoireOfGaia.LOGGER.info("Added " + entityType.getRegistryName() + " to " + biomeKey.location());
+							}
+						}
+					}
+				}
 			}
 		}
 	}

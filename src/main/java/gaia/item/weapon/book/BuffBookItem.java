@@ -2,6 +2,7 @@ package gaia.item.weapon.book;
 
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
+import gaia.util.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -30,7 +31,7 @@ public class BuffBookItem extends Item {
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
 
-		final Player player = net.minecraft.client.Minecraft.getInstance().player;
+		final Player player = RandomUtil.getPlayer();
 		if (player == null) {
 			return;
 		}

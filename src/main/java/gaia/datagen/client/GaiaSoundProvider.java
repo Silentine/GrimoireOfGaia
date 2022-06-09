@@ -69,6 +69,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.subtitle(modSubtitle(GaiaSounds.GAIA_SHOOT.getId()))
 				.with(sound(new ResourceLocation("mob/ghast/fireball4"))));
 
+		this.setupMobSounds(GaiaRegistry.ANUBIS);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);
 		this.setupMobSounds(GaiaRegistry.DULLAHAN);
