@@ -27,7 +27,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -49,7 +49,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> THROWING = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> WEAPON_TYPE = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.INT);
 
-	private final RangedBowAttackGoal<NineTails> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
+	private final RangedAttackGoal bowAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 
