@@ -59,7 +59,7 @@ public class CuriosCompat {
 			}
 		};
 
-		ICapabilityProvider provider = new ICapabilityProvider() {
+		return new ICapabilityProvider() {
 			private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
 
 			@Nonnull
@@ -69,6 +69,5 @@ public class CuriosCompat {
 				return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
 			}
 		};
-		return provider;
 	}
 }
