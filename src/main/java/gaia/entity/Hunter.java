@@ -217,7 +217,7 @@ public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssi
 
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		if (!target.isAlive()) {
+		if (target.isAlive()) {
 			RangedUtil.rangedAttack(target, this, distanceFactor);
 		}
 	}

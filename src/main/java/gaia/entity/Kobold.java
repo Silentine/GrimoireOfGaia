@@ -203,7 +203,7 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		if (!target.isAlive()) {
+		if (target.isAlive()) {
 			RangedUtil.rangedAttack(target, this, distanceFactor);
 		}
 	}

@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -50,7 +50,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.INT);
 
-	private final RangedBowAttackGoal<Anubis> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
+	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 
@@ -130,7 +130,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		if (!target.isAlive()) {
+		if (target.isAlive()) {
 			RangedUtil.magic(target, this, distanceFactor);
 
 			setAnimationState(1);
@@ -241,11 +241,11 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 	private void setGoals(int id) {
 		if (id == 1) {
-			this.goalSelector.removeGoal(bowAttackGoal);
+			this.goalSelector.removeGoal(rangedAttackGoal);
 			this.goalSelector.addGoal(1, mobAttackGoal);
 		} else {
 			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(2, bowAttackGoal);
+			this.goalSelector.addGoal(1, rangedAttackGoal);
 
 			setAnimationState(0);
 			animationPlay = false;
@@ -283,9 +283,8 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 	}
 
-	@Override
-	public boolean canAttack(LivingEntity livingEntity) {
-		return super.canAttack(livingEntity) && !(livingEntity instanceof Anubis);
+	public boolean canAttackType(EntityType<?> type) {
+		return type != GaiaRegistry.ANUBIS.getEntityType();
 	}
 
 	@Override
