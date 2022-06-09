@@ -148,7 +148,7 @@ public class GaiaLanguage extends LanguageProvider {
 		this.add(path, name);
 	}
 
-	private void addMobTranslation(MobReg reg, String name) {
+	private void addMobTranslation(MobReg<?> reg, String name) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 

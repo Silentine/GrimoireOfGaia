@@ -103,10 +103,7 @@ public class YukiOnnaModel extends EntityModel<YukiOnna> implements HeadedModel,
 
 	@Override
 	public void setupAnim(YukiOnna yukiOnna, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (yukiOnna.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = yukiOnna.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

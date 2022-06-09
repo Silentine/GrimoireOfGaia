@@ -112,10 +112,7 @@ public class CyclopsModel extends EntityModel<Cyclops> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Cyclops cyclops, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (cyclops.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = cyclops.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

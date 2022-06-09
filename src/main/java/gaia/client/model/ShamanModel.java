@@ -109,6 +109,8 @@ public class ShamanModel extends EntityModel<Shaman> implements HeadedModel, Arm
 
 	@Override
 	public void setupAnim(Shaman shaman, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		headeyes.visible = shaman.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
 		head.xRot = headPitch / 57.295776F;

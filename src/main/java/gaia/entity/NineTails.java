@@ -49,7 +49,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> THROWING = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> WEAPON_TYPE = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.INT);
 
-	private final RangedBowAttackGoal bowAttackGoal = new RangedBowAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
+	private final RangedBowAttackGoal<NineTails> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 
@@ -76,7 +76,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(NineTails.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

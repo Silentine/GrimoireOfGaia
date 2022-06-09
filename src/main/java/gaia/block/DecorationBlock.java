@@ -24,7 +24,7 @@ public class DecorationBlock extends HorizontalDirectionalBlock implements Simpl
 
 	public DecorationBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.valueOf(false)));
+		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
 	}
 
 	@Override
@@ -47,6 +47,6 @@ public class DecorationBlock extends HorizontalDirectionalBlock implements Simpl
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		BlockPos blockpos = context.getClickedPos();
 		FluidState fluidstate = context.getLevel().getFluidState(blockpos);
-		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
+		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
 	}
 }

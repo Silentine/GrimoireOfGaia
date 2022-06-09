@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
-	private final RangedBowAttackGoal bowAttackGoal = new RangedBowAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
+	private final RangedBowAttackGoal<Kobold> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 
 	private int timer;
@@ -68,7 +68,7 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Kobold.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

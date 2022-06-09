@@ -16,7 +16,6 @@ import net.minecraft.util.Mth;
 public class CreepModel extends EntityModel<Creep> {
 	private final ModelPart root;
 	private final ModelPart body1;
-	private final ModelPart body2;
 	private final ModelPart head1;
 	private final ModelPart head2;
 	private final ModelPart head3;
@@ -33,7 +32,7 @@ public class CreepModel extends EntityModel<Creep> {
 	public CreepModel(ModelPart root) {
 		this.root = root.getChild("creep");
 		this.body1 = this.root.getChild("body1");
-		this.body2 = this.body1.getChild("body2");
+		ModelPart body2 = this.body1.getChild("body2");
 
 		this.head1 = body2.getChild("head1");
 		this.head2 = body2.getChild("head2");

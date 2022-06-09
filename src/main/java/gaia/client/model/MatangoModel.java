@@ -19,7 +19,6 @@ import net.minecraft.world.entity.HumanoidArm;
 
 public class MatangoModel extends EntityModel<Matango> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
-	private final ModelPart bodytop;
 	private final ModelPart head;
 	private final ModelPart headeyes;
 	private final ModelPart chest;
@@ -32,12 +31,12 @@ public class MatangoModel extends EntityModel<Matango> implements HeadedModel, A
 	public MatangoModel(ModelPart root) {
 		this.root = root.getChild("matango");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
-		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
-		this.head = this.bodytop.getChild("head");
+		ModelPart bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
+		this.head = bodytop.getChild("head");
 		this.headeyes = this.head.getChild("headeyes");
-		this.chest = this.bodytop.getChild("chest");
-		this.leftarm = this.bodytop.getChild("leftarm");
-		this.rightarm = this.bodytop.getChild("rightarm");
+		this.chest = bodytop.getChild("chest");
+		this.leftarm = bodytop.getChild("leftarm");
+		this.rightarm = bodytop.getChild("rightarm");
 		this.waist1 = bodybottom.getChild("waist1");
 		this.leftleg = this.root.getChild("leftleg");
 		this.rightleg = this.root.getChild("rightleg");
@@ -114,10 +113,7 @@ public class MatangoModel extends EntityModel<Matango> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Matango entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (entity.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = entity.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

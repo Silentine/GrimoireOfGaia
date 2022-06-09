@@ -155,10 +155,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Centaur centaur, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (centaur.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = centaur.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

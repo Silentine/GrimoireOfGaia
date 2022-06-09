@@ -106,7 +106,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
 	}
 
-	private void setupMobSounds(MobReg mobReg) {
+	private void setupMobSounds(MobReg<?> mobReg) {
 		this.add(mobReg.getSay(), definition()
 				.subtitle(modSubtitle(mobReg.getSay().getLocation()))
 				.with(sound(modLoc("none"))));

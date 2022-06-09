@@ -55,7 +55,7 @@ public class Centaur extends AbstractGaiaEntity implements RangedAttackMob, IAss
 	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Centaur.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Centaur.class, EntityDataSerializers.BOOLEAN);
 
-	private final RangedBowAttackGoal bowAttackGoal = new RangedBowAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 15.0F);
+	private final RangedBowAttackGoal<Centaur> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 20, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 	private final AvoidEntityGoal<Player> avoidPlayerGoal = new AvoidEntityGoal<>(this, Player.class, 4.0F, SharedEntityData.ATTACK_SPEED_1, SharedEntityData.ATTACK_SPEED_3);
 	private final AvoidEntityGoal<PathfinderMob> avoidMobGoal = new AvoidEntityGoal<>(this, PathfinderMob.class, 4.0F, SharedEntityData.ATTACK_SPEED_1, SharedEntityData.ATTACK_SPEED_3);

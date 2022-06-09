@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ExperienceItem extends Item {
-	private int levels;
+	private final int levels;
 
 	public ExperienceItem(Properties properties, int levels) {
 		super(properties);

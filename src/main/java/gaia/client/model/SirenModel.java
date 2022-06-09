@@ -21,7 +21,7 @@ import net.minecraft.world.item.BowItem;
 
 public class SirenModel extends EntityModel<Siren> implements HeadedModel, ArmedModel {
 	private static final double CYCLES_PER_BLOCK = 0.1D;
-	private float[][] undulationCycle = new float[][]{
+	private final float[][] undulationCycle = new float[][]{
 			{5F, 0F, -11.25F, -45F, -22.5F, 0F, 22.5F, 45F},
 			{10F, 10F, 0F, -22.5F, -45F, -22.5F, 0F, 22.5F},
 			{5F, 20F, 11.25F, 0F, -22.5F, -45F, -22.5F, 0F},
@@ -149,10 +149,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 
 	@Override
 	public void setupAnim(Siren siren, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (siren.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = siren.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

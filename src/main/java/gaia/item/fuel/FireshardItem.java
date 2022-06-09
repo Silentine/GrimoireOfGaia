@@ -85,7 +85,7 @@ public class FireshardItem extends FuelItem {
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
 		double d0 = player.getAttribute(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get()).getValue();
-		;
+
 		Vec3 vec31 = vec3.add((double) f6 * d0, (double) f5 * d0, (double) f7 * d0);
 		return level.clip(new ClipContext(vec3, vec31, Block.OUTLINE, fluid, player));
 	}

@@ -22,7 +22,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -38,8 +37,6 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
@@ -53,7 +50,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.INT);
 
-	private final RangedBowAttackGoal bowAttackGoal = new RangedBowAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
+	private final RangedBowAttackGoal<Anubis> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 60, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 
@@ -84,7 +81,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Anubis.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

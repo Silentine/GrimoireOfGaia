@@ -58,7 +58,7 @@ public class SoulfireItem extends FuelItem {
 			}
 		} else {
 			level.playSound(player, blockpos, SoundEvents.GHAST_SCREAM, SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-			level.setBlock(blockpos, blockstate.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
+			level.setBlock(blockpos, blockstate.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
 			level.gameEvent(player, GameEvent.BLOCK_PLACE, blockpos);
 			if (player != null) {
 				context.getItemInHand().hurtAndBreak(1, player, (p_41303_) -> {

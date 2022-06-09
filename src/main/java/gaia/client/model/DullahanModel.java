@@ -24,9 +24,7 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 	private final ModelPart headeyes;
 	private final ModelPart chest;
 	private final ModelPart leftarm;
-	private final ModelPart leftarmlower;
 	private final ModelPart rightarm;
-	private final ModelPart rightarmlower;
 	private final ModelPart leftleg;
 	private final ModelPart rightleg;
 
@@ -36,10 +34,10 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
 		this.chest = this.bodytop.getChild("chest");
 		this.leftarm = this.bodytop.getChild("leftarm");
-		this.leftarmlower = this.leftarm.getChild("leftarmlower");
+		ModelPart leftarmlower = this.leftarm.getChild("leftarmlower");
 		this.rightarm = this.bodytop.getChild("rightarm");
-		this.rightarmlower = this.rightarm.getChild("rightarmlower");
-		this.head = this.rightarmlower.getChild("head");
+		ModelPart rightarmlower = this.rightarm.getChild("rightarmlower");
+		this.head = rightarmlower.getChild("head");
 		this.headeyes = this.head.getChild("headeyes");
 		this.leftleg = this.root.getChild("leftleg");
 		this.rightleg = this.root.getChild("rightleg");
@@ -107,10 +105,7 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 
 	@Override
 	public void setupAnim(Dullahan dullahan, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = false;
-		if (dullahan.tickCount % 60 == 0 && limbSwingAmount <= 0.1F) {
-			headeyes.visible = true;
-		}
+		headeyes.visible = dullahan.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.xRot = headPitch * ((float) Math.PI / 180F) + 90F;
