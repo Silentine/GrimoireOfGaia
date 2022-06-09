@@ -1,5 +1,5 @@
 {
-    "__comment": "Model animated using Fizzy's model animator - http://fizzy81.github.io/animated-models/", 
+    "__comment": "Model animated using Fizzy's model animator - https://fizzy81.github.io/animated-models/",
     "textures": {
         "main": "grimoireofgaia:item/projectile/_projectile_web"
     }, 
