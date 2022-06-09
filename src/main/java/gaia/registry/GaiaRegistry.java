@@ -178,20 +178,20 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> PROJECTILE_MAGIC = ITEMS.register("projectile_magic", () -> new Item(itemBuilder().stacksTo(1)));
 
 	//Lootable Item
-	public static final RegistryObject<Item> BAG_ARROWS = ITEMS.register("bag_arrows", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN::get));
-	public static final RegistryObject<Item> BAG_BOOK = ITEMS.register("bag_book", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_BOOK, GaiaSounds.BAG_OPEN::get));
-	public static final RegistryObject<Item> BAG_RECORD = ITEMS.register("bag_record", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_RECORD, GaiaSounds.BAG_OPEN::get));
-	public static final RegistryObject<Item> BOX_DIAMOND = ITEMS.register("box_diamond", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_DIAMOND, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_END = ITEMS.register("box_end", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_END, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_GOLD = ITEMS.register("box_gold", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_GOLD, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_HAT = ITEMS.register("box_hat", () -> new LootableItem(itemBuilder(), GaiaLootTables.BOXES_HAT, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_IRON = ITEMS.register("box_iron", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_IRON, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_NETHER = ITEMS.register("box_nether", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_NETHER, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_OLD = ITEMS.register("box_old", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_OLD, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> BOX_OVERWORLD = ITEMS.register("box_overworld", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE).rarity(Rarity.RARE), GaiaLootTables.BOXES_OVERWORLD, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> CHEST_DESERT = ITEMS.register("chest_desert", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.DESERT_PYRAMID, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> CHEST_DUNGEON = ITEMS.register("chest_dungeon", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.SIMPLE_DUNGEON, GaiaSounds.BOX_OPEN::get));
-	public static final RegistryObject<Item> CHEST_JUNGLE = ITEMS.register("chest_jungle", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.JUNGLE_TEMPLE, GaiaSounds.BOX_OPEN::get));
+	public static final RegistryObject<Item> BAG_ARROWS = ITEMS.register("bag_arrows", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN));
+	public static final RegistryObject<Item> BAG_BOOK = ITEMS.register("bag_book", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_BOOK, GaiaSounds.BAG_OPEN));
+	public static final RegistryObject<Item> BAG_RECORD = ITEMS.register("bag_record", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_RECORD, GaiaSounds.BAG_OPEN));
+	public static final RegistryObject<Item> BOX_DIAMOND = ITEMS.register("box_diamond", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_DIAMOND, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_END = ITEMS.register("box_end", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_END, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_GOLD = ITEMS.register("box_gold", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_GOLD, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_HAT = ITEMS.register("box_hat", () -> new LootableItem(itemBuilder(), GaiaLootTables.BOXES_HAT, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_IRON = ITEMS.register("box_iron", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_IRON, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_NETHER = ITEMS.register("box_nether", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_NETHER, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_OLD = ITEMS.register("box_old", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_OLD, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_OVERWORLD = ITEMS.register("box_overworld", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE).rarity(Rarity.RARE), GaiaLootTables.BOXES_OVERWORLD, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> CHEST_DESERT = ITEMS.register("chest_desert", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.DESERT_PYRAMID, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> CHEST_DUNGEON = ITEMS.register("chest_dungeon", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.SIMPLE_DUNGEON, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> CHEST_JUNGLE = ITEMS.register("chest_jungle", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.JUNGLE_TEMPLE, GaiaSounds.BOX_OPEN));
 
 	private static Item.Properties itemBuilder() {
 		return new Item.Properties().tab(GaiaTabs.GAIA_TAB);

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class KnucklesItem extends AbstractAccessoryItem {
-	private static int damage = 2;
+	private static final int damage = 2;
 	private static final AttributeModifier BOOST = new AttributeModifier(UUID.fromString("d2cc095e-1f15-49a9-a32b-993e7f5c4910"), "GoG Knuckles Damage boost", (double) damage, Operation.ADDITION);
 
 	public KnucklesItem(Properties properties) {
