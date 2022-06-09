@@ -18,6 +18,6 @@ logoFile="logo.png"
 [[dependencies.grimoireofgaia]]
 modId="forge"
 mandatory=true
-versionRange="[40.1.0,)"
+versionRange="[40.1.16,)"
 ordering="NONE"
 side="BOTH"
