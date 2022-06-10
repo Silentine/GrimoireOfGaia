@@ -29,8 +29,8 @@ public class HeadgearRenderer implements ICurioRenderer {
 			ICurioRenderer.followHeadRotations(slotContext.entity(), headedModel.getHead());
 			headedModel.getHead().translateAndRotate(poseStack);
 
-			poseStack.scale(1.25F, -1.25F, -1.25F);
-			poseStack.translate(0, 0.5F, 0);
+			poseStack.scale(0.625F, -0.625F, -0.625F);
+			poseStack.translate(0, 0.4375F, 0);
 
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.HEAD, light,
 					OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, 0);
