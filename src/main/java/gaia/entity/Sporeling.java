@@ -12,7 +12,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -92,8 +91,8 @@ public class Sporeling extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean canAttack(LivingEntity livingEntity) {
-		return super.canAttack(livingEntity) && !(livingEntity instanceof Matango);
+	public boolean canAttackType(EntityType<?> type) {
+		return type != GaiaRegistry.MATANGO.getEntityType();
 	}
 
 	@Nullable

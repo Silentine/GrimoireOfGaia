@@ -262,8 +262,8 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttack(LivingEntity livingEntity) {
-		return super.canAttack(livingEntity) && !(livingEntity instanceof Shaman);
+	public boolean canAttackType(EntityType<?> type) {
+		return type != GaiaRegistry.SHAMAN.getEntityType();
 	}
 
 	@Override

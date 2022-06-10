@@ -219,8 +219,8 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttack(LivingEntity livingEntity) {
-		return super.canAttack(livingEntity) && !(livingEntity instanceof Siren);
+	public boolean canAttackType(EntityType<?> type) {
+		return type != GaiaRegistry.SIREN.getEntityType();
 	}
 
 	@Override

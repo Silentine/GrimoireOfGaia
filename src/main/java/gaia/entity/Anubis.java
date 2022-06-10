@@ -283,6 +283,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 	}
 
+	@Override
 	public boolean canAttackType(EntityType<?> type) {
 		return type != GaiaRegistry.ANUBIS.getEntityType();
 	}

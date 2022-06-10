@@ -211,8 +211,8 @@ public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssi
 	}
 
 	@Override
-	public boolean canAttack(LivingEntity livingEntity) {
-		return super.canAttack(livingEntity) && !(livingEntity instanceof Hunter);
+	public boolean canAttackType(EntityType<?> type) {
+		return type != GaiaRegistry.HUNTER.getEntityType();
 	}
 
 	@Override
