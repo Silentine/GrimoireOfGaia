@@ -18,26 +18,26 @@ public class GaiaLanguage extends LanguageProvider {
 	protected void addTranslations() {
 		add("itemGroup.grimoireofgaia", "Grimoire of Gaia 4");
 
-		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis");
-		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur");
-		addMobTranslation(GaiaRegistry.CREEP, "Creep");
-		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops");
-		addMobTranslation(GaiaRegistry.DRYAD, "Dryad");
-		addMobTranslation(GaiaRegistry.DULLAHAN, "Dullahan");
-		addMobTranslation(GaiaRegistry.HARPY, "Harpy");
-		addMobTranslation(GaiaRegistry.HUNTER, "Hunter");
-		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold");
-		addMobTranslation(GaiaRegistry.MATANGO, "Matango");
-		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails");
-		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman");
-		addMobTranslation(GaiaRegistry.SIREN, "Siren");
-		addMobTranslation(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl");
-		addMobTranslation(GaiaRegistry.SPORELING, "Sporeling");
-		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus");
-		addMobTranslation(GaiaRegistry.WERECAT, "Werecat");
-		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna");
+		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
+		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
+		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
+		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
+		addMobTranslation(GaiaRegistry.DRYAD, "Dryad", "murmurs");
+		addMobTranslation(GaiaRegistry.DULLAHAN, "Dullahan", "speaks");
+		addMobTranslation(GaiaRegistry.HARPY, "Harpy", "shrieks");
+		addMobTranslation(GaiaRegistry.HUNTER, "Hunter", "whispers");
+		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold", "barks");
+		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
+		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
+		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman", "chants");
+		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
+		addMobTranslation(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl", "bubbles");
+		addMobTranslation(GaiaRegistry.SPORELING, "Sporeling", "squeaks");
+		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus", "whispers");
+		addMobTranslation(GaiaRegistry.WERECAT, "Werecat", "hisses");
+		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna", "speaks");
 
-		addMobTranslation(GaiaRegistry.HORSE, "Wild Horse");
+		addMobTranslation(GaiaRegistry.HORSE, "Wild Horse", "neighs");
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
 
 		addBlock(GaiaRegistry.BUST_GORGON, "The Gorgon");
@@ -117,7 +117,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.METAL_BOOK_HIT, "Metal Book Clunks");
 		addSubtitle(GaiaSounds.BOX_OPEN, "Box Opened");
 		addSubtitle(GaiaSounds.CREEP_PRIMED, "Creep Hisses");
-		addSubtitle(GaiaSounds.GAIA_SHOOT, "Gaia shoots");
+		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");
@@ -148,16 +148,16 @@ public class GaiaLanguage extends LanguageProvider {
 		this.add(path, name);
 	}
 
-	private void addMobTranslation(MobReg<?> reg, String name) {
+	private void addMobTranslation(MobReg<?> reg, String name, String say) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 
-		addSubtitle(reg.getSay(), name + " says");
+		addSubtitle(reg.getSay(), name + " " + say);
 		addSubtitle(reg.getHurt(), name + " hurts");
 		addSubtitle(reg.getDeath(), name + " dies");
 
 		if (reg.hasGender()) {
-			addSubtitle(reg.getMaleSay(), name + " says");
+			addSubtitle(reg.getMaleSay(), name + " " + say);
 			addSubtitle(reg.getMaleHurt(), name + " hurts");
 			addSubtitle(reg.getMaleDeath(), name + " dies");
 		}
