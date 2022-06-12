@@ -35,12 +35,12 @@ public class GaiaSpawningConfig {
 					.push("Spawning");
 
 			List<? extends String> anubisBiomes = generateList(Biomes.DESERT);
-			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,PLAINS,!SAVANNA", "OVERWORLD,MESA");
+			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
 			anubisSpawning = new SpawningInfo(builder, "Anubis", 80, 2, 4, anubisBiomes, anubisBiomeDictionary);
 
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(
-					"OVERWORLD,SANDY,!MESA",
+					"OVERWORLD,PLAINS,!SAVANNA",
 					"OVERWORLD,MESA");
 			centaurSpawning = new SpawningInfo(builder, "Centaur", 80, 2, 4, centaurBiomes, centaurBiomeDictionary);
 

@@ -50,6 +50,7 @@ public class Harpy extends AbstractGaiaEntity {
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_MODIFIER_UUID, "Knockback boost", 2.0D, Operation.ADDITION);
 
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Harpy.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Harpy.class, EntityDataSerializers.BOOLEAN);
 
 
 	private final LeapAtTargetGoal leapAtTargetGoal = new LeapAtTargetGoal(this, 0.4F);
@@ -93,6 +94,7 @@ public class Harpy extends AbstractGaiaEntity {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.getEntityData().define(DATA_BABY_ID, false);
 		this.entityData.define(FLEEING, false);
 	}
 
@@ -219,11 +221,13 @@ public class Harpy extends AbstractGaiaEntity {
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
+		tag.putBoolean("IsBaby", this.isBaby());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
+		this.setBaby(tag.getBoolean("IsBaby"));
 
 		setGoals(0);
 	}
@@ -246,6 +250,26 @@ public class Harpy extends AbstractGaiaEntity {
 	@Override
 	public int getMaxSpawnClusterSize() {
 		return SharedEntityData.CHUNK_LIMIT_1;
+	}
+
+	/*
+	 * Baby stuff
+	 */
+	public boolean isBaby() {
+		return this.getEntityData().get(DATA_BABY_ID);
+	}
+
+	public void setBaby(boolean value) {
+		this.getEntityData().set(DATA_BABY_ID, value);
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> dataAccessor) {
+		if (DATA_BABY_ID.equals(dataAccessor)) {
+			this.refreshDimensions();
+		}
+
+		super.onSyncedDataUpdated(dataAccessor);
 	}
 
 	public static boolean checkHarpySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {

@@ -42,6 +42,7 @@ import java.util.Random;
 
 public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Dryad.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Dryad.class, EntityDataSerializers.BOOLEAN);
 
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 	private final AvoidEntityGoal<Player> avoidPlayerGoal = new AvoidEntityGoal<>(this, Player.class, 4.0F, SharedEntityData.ATTACK_SPEED_1, SharedEntityData.ATTACK_SPEED_3);
@@ -83,6 +84,7 @@ public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.getEntityData().define(DATA_BABY_ID, false);
 		this.entityData.define(FLEEING, false);
 	}
 
@@ -187,6 +189,7 @@ public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 		if (random.nextInt(10) == 0) {
 			setBaby(true);
 		}
+		setBaby(true);
 
 		setGoals(0);
 
@@ -196,11 +199,13 @@ public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
+		tag.putBoolean("IsBaby", this.isBaby());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
+		this.setBaby(tag.getBoolean("IsBaby"));
 
 		setGoals(0);
 	}
@@ -223,6 +228,26 @@ public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 	@Override
 	public int getMaxSpawnClusterSize() {
 		return SharedEntityData.CHUNK_LIMIT_1;
+	}
+
+	/*
+	 * Baby stuff
+	 */
+	public boolean isBaby() {
+		return this.getEntityData().get(DATA_BABY_ID);
+	}
+
+	public void setBaby(boolean value) {
+		this.getEntityData().set(DATA_BABY_ID, value);
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> dataAccessor) {
+		if (DATA_BABY_ID.equals(dataAccessor)) {
+			this.refreshDimensions();
+		}
+
+		super.onSyncedDataUpdated(dataAccessor);
 	}
 
 	public static boolean checkDryadSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
