@@ -197,11 +197,11 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob {
 
 	private void setGoals(int id) {
 		if (id == 1) {
-			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(1, bowAttackGoal);
-		} else {
 			this.goalSelector.removeGoal(bowAttackGoal);
 			this.goalSelector.addGoal(1, mobAttackGoal);
+		} else {
+			this.goalSelector.removeGoal(mobAttackGoal);
+			this.goalSelector.addGoal(1, bowAttackGoal);
 		}
 	}
 
