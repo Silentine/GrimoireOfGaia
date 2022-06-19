@@ -35,9 +35,10 @@ public class SludgeGirlModel extends EntityModel<SludgeGirl> implements HeadedMo
 		this.root = root.getChild("sludge_girl");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
-		this.head = this.bodytop.getChild("head");
+		ModelPart neck = this.bodytop.getChild("neck");
+		this.head = neck.getChild("head");
 		this.headtop = this.head.getChild("headtop");
-		this.headslime1 = this.bodytop.getChild("headslime1");
+		this.headslime1 = neck.getChild("headslime1");
 		this.headslime2 = this.headslime1.getChild("headslime2");
 		this.headeyes = this.head.getChild("headeyes");
 		this.chest = this.bodytop.getChild("chest");
@@ -59,21 +60,22 @@ public class SludgeGirlModel extends EntityModel<SludgeGirl> implements HeadedMo
 		PartDefinition bodymiddle = bodybottom.addOrReplaceChild("bodymiddle", CubeListBuilder.create().texOffs(0, 25).addBox(-2.0F, -2.5F, -1.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(0, 25).addBox(-0.5F, -2.0F, -1.6F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.5F, 0.5F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition bodytop = bodymiddle.addOrReplaceChild("bodytop", CubeListBuilder.create().texOffs(0, 16).addBox(-2.5F, -6.0F, -2.5F, 5.0F, 6.0F, 3.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 12).addBox(-1.0F, -7.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 0.5F, -0.0873F, 0.0F, 0.0F));
+		PartDefinition bodytop = bodymiddle.addOrReplaceChild("bodytop", CubeListBuilder.create().texOffs(0, 16).addBox(-2.5F, -6.0F, -2.5F, 5.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 0.5F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition head = bodytop.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
+		PartDefinition neck = bodytop.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(0, 12).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+
+		PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
 				.texOffs(36, 0).addBox(-3.5F, -6.5F, -3.5F, 7.0F, 7.0F, 7.0F, new CubeDeformation(0.0F))
 				.texOffs(84, 0).addBox(-3.0F, -7.0F, -4.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(84, 0).addBox(1.0F, -7.0F, -4.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(36, 14).addBox(-4.5F, -7.5F, -4.5F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+				.texOffs(36, 14).addBox(-4.5F, -7.5F, -4.5F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition headeyes = head.addOrReplaceChild("headeyes", CubeListBuilder.create().texOffs(24, 0).addBox(-3.0F, -6.0F, -3.1F, 6.0F, 6.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition headtop = head.addOrReplaceChild("headtop", CubeListBuilder.create().texOffs(72, -6).addBox(0.0F, -12.5F, -5.5F, 0.0F, 7.0F, 6.0F, new CubeDeformation(0.0F))
 				.texOffs(72, 7).addBox(-1.0F, -10.5F, -6.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition headslime1 = bodytop.addOrReplaceChild("headslime1", CubeListBuilder.create().texOffs(36, 32).addBox(-5.0F, -6.5F, 1.0F, 10.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+		PartDefinition headslime1 = neck.addOrReplaceChild("headslime1", CubeListBuilder.create().texOffs(36, 32).addBox(-5.0F, -6.5F, 1.0F, 10.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition headslime2 = headslime1.addOrReplaceChild("headslime2", CubeListBuilder.create().texOffs(36, 46).addBox(-5.5F, -0.5F, -2.0F, 11.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 3.5F));
 

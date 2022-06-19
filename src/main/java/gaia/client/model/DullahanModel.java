@@ -111,7 +111,7 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 		head.xRot = headPitch * ((float) Math.PI / 180F) + 90F;
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F;
 		leftarm.xRot = 0.0F;
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;

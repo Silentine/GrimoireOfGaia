@@ -139,7 +139,7 @@ public class GaiaLoot extends LootTableProvider {
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get()).when(LootItemRandomChanceCondition.randomChance(0.025F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(Items.ENCHANTED_BOOK)
+							.add(LootItem.lootTableItem(Items.BOOK)
 									.apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.SHARPNESS, ConstantValue.exactly(1.0F)))
 									.when(LootItemRandomChanceCondition.randomChance(0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))

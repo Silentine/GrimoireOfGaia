@@ -63,7 +63,7 @@ public class GaiaUncheckedLoot extends LootTableProvider {
 			consumer.accept(GaiaLootTables.BAG_BOOK, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.name("main")
-							.add(LootItem.lootTableItem(Items.ENCHANTED_BOOK)
+							.add(LootItem.lootTableItem(Items.BOOK)
 									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(5, 20)).allowTreasure()))
 					)
 			);

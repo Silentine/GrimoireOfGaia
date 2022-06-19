@@ -36,9 +36,10 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 		this.root = root.getChild("anubis");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
-		this.head = this.bodytop.getChild("head");
+		ModelPart neck = this.bodytop.getChild("neck");
+		this.head = neck.getChild("head");
 		this.headeyes = this.head.getChild("headeyes");
-		this.hair1 = this.bodytop.getChild("hair1");
+		this.hair1 = neck.getChild("hair1");
 		this.hair2 = this.hair1.getChild("hair2");
 		this.chest = this.bodytop.getChild("bodytop_female").getChild("chest");
 		this.leftarm = this.bodytop.getChild("leftarm");
@@ -59,16 +60,17 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 
 		PartDefinition bodymiddle = bodybottom.addOrReplaceChild("bodymiddle", CubeListBuilder.create().texOffs(0, 25).addBox(-0.5F, -2.0F, -1.6F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.5F, 1.0F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition bodymiddleFemale = bodymiddle.addOrReplaceChild("bodymiddleFemale", CubeListBuilder.create().texOffs(0, 25).addBox(-2.0F, 5.5F, -1.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, 0.0F));
+		PartDefinition bodymiddle_female = bodymiddle.addOrReplaceChild("bodymiddle_female", CubeListBuilder.create().texOffs(0, 25).addBox(-2.0F, 5.5F, -1.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, 0.0F));
 
-		PartDefinition bodymiddleMale = bodymiddle.addOrReplaceChild("bodymiddleMale", CubeListBuilder.create().texOffs(0, 59).addBox(-2.5F, 5.5F, -1.5F, 5.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, 0.0F));
+		PartDefinition bodymiddle_male = bodymiddle.addOrReplaceChild("bodymiddle_male", CubeListBuilder.create().texOffs(0, 59).addBox(-2.5F, 5.5F, -1.5F, 5.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, 0.0F));
 
-		PartDefinition bodytop = bodymiddle.addOrReplaceChild("bodytop", CubeListBuilder.create().texOffs(0, 12).addBox(-1.0F, -7.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(36, 50).addBox(-5.0F, -6.0F, -3.0F, 10.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 0.5F, -0.0873F, 0.0F, 0.0F));
+		PartDefinition bodytop = bodymiddle.addOrReplaceChild("bodytop", CubeListBuilder.create().texOffs(36, 50).addBox(-5.0F, -6.0F, -3.0F, 10.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 0.5F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition head = bodytop.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
+		PartDefinition neck = bodytop.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(0, 12).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+
+		PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
 				.texOffs(36, 0).addBox(-3.5F, -6.5F, -3.5F, 7.0F, 9.0F, 7.0F, new CubeDeformation(0.0F))
-				.texOffs(36, 39).addBox(-1.0F, -8.0F, -4.6F, 2.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+				.texOffs(36, 39).addBox(-1.0F, -8.0F, -4.6F, 2.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition headeyes = head.addOrReplaceChild("headeyes", CubeListBuilder.create().texOffs(24, 0).addBox(-3.0F, -6.0F, -3.1F, 6.0F, 6.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -76,7 +78,7 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 
 		PartDefinition leftear = head.addOrReplaceChild("leftear", CubeListBuilder.create().texOffs(36, 43).mirror().addBox(1.5F, -10.0F, -1.5F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition hair1 = bodytop.addOrReplaceChild("hair1", CubeListBuilder.create().texOffs(36, 16).addBox(-4.0F, -6.0F, 1.0F, 8.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.0F, -1.0F, 0.0873F, 0.0F, 0.0F));
+		PartDefinition hair1 = neck.addOrReplaceChild("hair1", CubeListBuilder.create().texOffs(36, 16).addBox(-4.0F, -6.0F, 1.0F, 8.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition hair2 = hair1.addOrReplaceChild("hair2", CubeListBuilder.create().texOffs(36, 27).addBox(-4.5F, -1.0F, 1.5F, 9.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -85,7 +87,7 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 		PartDefinition chest = bodytop_female.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(0, 36).addBox(-2.3F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(0, 36).mirror().addBox(0.3F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.5F, -1.5F, 0.7854F, 0.0F, 0.0F));
 
-		PartDefinition bodytopMale = bodytop.addOrReplaceChild("bodytopMale", CubeListBuilder.create().texOffs(0, 50).addBox(-3.0F, 0.0F, -1.5F, 6.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, -1.0F));
+		PartDefinition bodytop_male = bodytop.addOrReplaceChild("bodytop_male", CubeListBuilder.create().texOffs(0, 50).addBox(-3.0F, 0.0F, -1.5F, 6.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, -1.0F));
 
 		PartDefinition rightarm = bodytop.addOrReplaceChild("rightarm", CubeListBuilder.create().texOffs(16, 12).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -4.5F, -1.0F, 0.0873F, 0.0F, 0.1745F));
 
