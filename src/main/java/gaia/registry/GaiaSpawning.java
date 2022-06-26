@@ -15,6 +15,7 @@ import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
 import gaia.entity.NineTails;
+import gaia.entity.Oni;
 import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
@@ -55,6 +56,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.KOBOLD.getEntityType(), GaiaSpawningConfig.COMMON.koboldSpawning, event);
 		addSpawn(GaiaRegistry.MATANGO.getEntityType(), GaiaSpawningConfig.COMMON.matangoSpawning, event);
 		addSpawn(GaiaRegistry.NINE_TAILS.getEntityType(), GaiaSpawningConfig.COMMON.nineTailsSpawning, event);
+		addSpawn(GaiaRegistry.ONI.getEntityType(), GaiaSpawningConfig.COMMON.oniSpawning, event);
 		addSpawn(GaiaRegistry.SHAMAN.getEntityType(), GaiaSpawningConfig.COMMON.shamanSpawning, event);
 		addSpawn(GaiaRegistry.SIREN.getEntityType(), GaiaSpawningConfig.COMMON.sirenSpawning, event);
 		addSpawn(GaiaRegistry.SLUDGE_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.sludgeGirlSpawning, event);
@@ -116,6 +118,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.KOBOLD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kobold::checkKoboldSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MATANGO.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Matango::checkMatangoSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.NINE_TAILS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NineTails::checkNineTailsSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ONI.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Oni::checkOniSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SHAMAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SIREN.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Siren::checkSirenSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SludgeGirl::checkSludgeGirlSpawnRules);
@@ -139,6 +142,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.KOBOLD.getEntityType(), Kobold.createAttributes().build());
 		event.put(GaiaRegistry.MATANGO.getEntityType(), Matango.createAttributes().build());
 		event.put(GaiaRegistry.NINE_TAILS.getEntityType(), NineTails.createAttributes().build());
+		event.put(GaiaRegistry.ONI.getEntityType(), Oni.createAttributes().build());
 		event.put(GaiaRegistry.SHAMAN.getEntityType(), Shaman.createAttributes().build());
 		event.put(GaiaRegistry.SIREN.getEntityType(), Siren.createAttributes().build());
 		event.put(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SludgeGirl.createAttributes().build());

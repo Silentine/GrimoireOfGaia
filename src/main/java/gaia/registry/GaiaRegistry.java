@@ -14,6 +14,7 @@ import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
 import gaia.entity.NineTails;
+import gaia.entity.Oni;
 import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
@@ -80,6 +81,7 @@ public class GaiaRegistry {
 	public static final MobReg<Kobold> KOBOLD = new MobReg<>("kobold", EntityType.Builder.<Kobold>of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1);
 	public static final MobReg<Matango> MATANGO = new MobReg<>("matango", EntityType.Builder.<Matango>of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8);
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg<>("nine_tails", EntityType.Builder.<NineTails>of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145);
+	public static final MobReg<Oni> ONI = new MobReg<>("oni", EntityType.Builder.<Oni>of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161);
 	public static final MobReg<Shaman> SHAMAN = new MobReg<>("shaman", EntityType.Builder.<Shaman>of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134);
 	public static final MobReg<Siren> SIREN = new MobReg<>("siren", EntityType.Builder.<Siren>of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
 	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg<>("sludge_girl", EntityType.Builder.<SludgeGirl>of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172);
