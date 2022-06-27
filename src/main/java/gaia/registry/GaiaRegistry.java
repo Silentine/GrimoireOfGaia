@@ -151,7 +151,8 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> WEAPON_BOOK_NATURE = ITEMS.register("weapon_book_nature", () -> new NatureBookItem(GaiaTiers.BOOK, itemBuilder().rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> WEAPON_BOOK_WITHER = ITEMS.register("weapon_book_wither", () -> new WitherBookItem(GaiaTiers.BOOK, itemBuilder().rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> WEAPON_BOOK_BUFF = ITEMS.register("weapon_book_buff", () -> new BuffBookItem(itemBuilder().durability(64).rarity(Rarity.RARE)));
-	public static final RegistryObject<Item> CURSED_METAL_SWORD = ITEMS.register("cursed_metal_sword", () -> new SwordItem(Tiers.IRON, 3, -2.2F, itemBuilder().rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> CURSED_METAL_SWORD = ITEMS.register("cursed_metal_sword", () -> new SwordItem(GaiaTiers.CURSED_METAL, 3, -2.2F, itemBuilder().rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> METAL_CLUB = ITEMS.register("metal_club", () -> new SwordItem(Tiers.IRON, 4, -2.3F, itemBuilder().rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> EXPERIENCE_IRON = ITEMS.register("experience_iron", () -> new ExperienceItem(itemBuilder().rarity(Rarity.RARE), 1));
 	public static final RegistryObject<Item> EXPERIENCE_GOLD = ITEMS.register("experience_gold", () -> new ExperienceItem(itemBuilder().rarity(Rarity.RARE), 2));
 	public static final RegistryObject<Item> EXPERIENCE_DIAMOND = ITEMS.register("experience_diamond", () -> new ExperienceItem(itemBuilder().rarity(Rarity.RARE), 4));

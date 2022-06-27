@@ -88,8 +88,8 @@
             {
               "function": "minecraft:set_enchantments",
               "enchantments": {
-                "minecraft:fire_aspect": 2.0,
-                "minecraft:knockback": 1.0
+                "minecraft:knockback": 1.0,
+                "minecraft:fire_aspect": 2.0
               },
               "add": false
             }

@@ -57,6 +57,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedBook(GaiaRegistry.WEAPON_BOOK_WITHER.get());
 		this.generatedBook(GaiaRegistry.WEAPON_BOOK_BUFF.get());
 		this.handheldItem(GaiaRegistry.CURSED_METAL_SWORD.get(), "weapon");
+		this.handheldItem(GaiaRegistry.METAL_CLUB.get(), "weapon");
 		this.generatedItem(GaiaRegistry.EXPERIENCE_IRON.get());
 		this.generatedItem(GaiaRegistry.EXPERIENCE_GOLD.get());
 		this.generatedItem(GaiaRegistry.EXPERIENCE_DIAMOND.get());

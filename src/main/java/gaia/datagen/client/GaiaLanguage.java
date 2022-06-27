@@ -70,6 +70,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.WEAPON_BOOK_WITHER, "Book of Withering");
 		addItem(GaiaRegistry.WEAPON_BOOK_BUFF, "Combat Manual");
 		addItem(GaiaRegistry.CURSED_METAL_SWORD, "Cursed Metal Sword");
+		addItem(GaiaRegistry.METAL_CLUB, "Metal Club");
 		addItem(GaiaRegistry.EXPERIENCE_IRON, "Crystallized Experience (Small)");
 		addItem(GaiaRegistry.EXPERIENCE_GOLD, "Crystallized Experience (Medium)");
 		addItem(GaiaRegistry.EXPERIENCE_DIAMOND, "Crystallized Experience (Large)");

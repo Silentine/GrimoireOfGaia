@@ -31,7 +31,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.ForgeMod;
@@ -167,7 +166,7 @@ public class Oni extends AbstractGaiaEntity {
 
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
-		setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.STICK)); //GaiaRegistry.CLUB.get()
+		setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.METAL_CLUB.get()));
 	}
 
 	@Nullable
