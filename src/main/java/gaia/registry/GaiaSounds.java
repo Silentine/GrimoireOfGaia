@@ -16,4 +16,5 @@ public class GaiaSounds {
 	public static final RegistryObject<SoundEvent> BOX_OPEN = SOUND_EVENTS.register("box_open", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "box_open")));
 	public static final RegistryObject<SoundEvent> CREEP_PRIMED = SOUND_EVENTS.register("creep_primed", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep_primed")));
 	public static final RegistryObject<SoundEvent> GAIA_SHOOT = SOUND_EVENTS.register("gaia_shoot", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "gaia_shoot")));
+	public static final RegistryObject<SoundEvent> ANT_HILL_DEATH = SOUND_EVENTS.register("ant_hill_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_hill_death")));
 }

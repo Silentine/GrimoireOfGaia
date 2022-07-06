@@ -16,6 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public class GaiaItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> HEAD = ItemTags.create(new ResourceLocation("curios", "head"));
 	public static final TagKey<Item> CHARM = ItemTags.create(new ResourceLocation("curios", "charm"));
+
 	public GaiaItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
 		super(dataGenerator, blockTagsProvider, GrimoireOfGaia.MOD_ID, existingFileHelper);
 	}

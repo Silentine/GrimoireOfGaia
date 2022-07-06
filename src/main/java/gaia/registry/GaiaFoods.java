@@ -23,4 +23,7 @@ public class GaiaFoods {
 			.effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1000, 0), 1.0F)
 			.effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1000, 0), 1.0F).build();
 
+	public static final FoodProperties HONEYDEW = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.4F).alwaysEat()
+			.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10 * 20, 0), 0.2F)
+			.effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 10 * 20, 0), 0.2F).build();
 }

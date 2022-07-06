@@ -90,6 +90,22 @@ public class GaiaLoot extends LootTableProvider {
 
 		@Override
 		protected void addTables() {
+			this.add(GaiaRegistry.ANT_HILL.getEntityType(), LootTable.lootTable());
+			this.add(GaiaRegistry.ANT_WORKER.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.GREEN_DYE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.HONEYDEW.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get()).when(LootItemRandomChanceCondition.randomChance(0.025F))))
+			);
 			this.add(GaiaRegistry.ANUBIS.getEntityType(), LootTable.lootTable()
 							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 									.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)

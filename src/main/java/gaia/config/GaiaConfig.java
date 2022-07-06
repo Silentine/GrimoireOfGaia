@@ -23,6 +23,7 @@ public class GaiaConfig {
 
 	public static class Common {
 		public final BooleanValue disableInvisibility;
+		public final BooleanValue allPassiveMobsHostile;
 
 		public final IntValue tier1maxHealth;
 		public final IntValue tier1attackDamage;
@@ -52,6 +53,10 @@ public class GaiaConfig {
 			disableInvisibility = builder
 					.comment("Disable mobs that use the Invisibility status effect when far from a player [Default: false]")
 					.define("disableInvisibility", false);
+
+			allPassiveMobsHostile = builder
+					.comment("All mobs are now hostile [Default: false]")
+					.define("allPassiveMobsHostile", false);
 
 			builder.pop();
 			builder.comment("Attribute settings")

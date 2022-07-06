@@ -4,6 +4,7 @@ import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
+import gaia.registry.helper.PropReg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -18,6 +19,7 @@ public class GaiaLanguage extends LanguageProvider {
 	protected void addTranslations() {
 		add("itemGroup.grimoireofgaia", "Grimoire of Gaia 4");
 
+		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
 		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
 		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
 		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
@@ -37,6 +39,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus", "whispers");
 		addMobTranslation(GaiaRegistry.WERECAT, "Werecat", "hisses");
 		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna", "speaks");
+
+		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
 
 		addMobTranslation(GaiaRegistry.HORSE, "Wild Horse", "neighs");
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
@@ -120,6 +124,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.BOX_OPEN, "Box Opened");
 		addSubtitle(GaiaSounds.CREEP_PRIMED, "Creep Hisses");
 		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
+		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill Dies");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");
@@ -163,5 +168,10 @@ public class GaiaLanguage extends LanguageProvider {
 			addSubtitle(reg.getMaleHurt(), name + " hurts");
 			addSubtitle(reg.getMaleDeath(), name + " dies");
 		}
+	}
+
+	private void addPropReg(PropReg<?> reg, String name) {
+		add(reg.getEntityType(), name);
+		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 	}
 }

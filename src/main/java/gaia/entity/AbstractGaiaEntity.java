@@ -1,6 +1,7 @@
 package gaia.entity;
 
 import gaia.config.GaiaConfig;
+import gaia.entity.type.IAssistMob;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
@@ -126,19 +127,20 @@ public abstract class AbstractGaiaEntity extends Monster {
 		}
 	}
 
-	public static boolean checkGaiaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDarkEnough(levelAccessor, pos, random) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	@Override
+	public boolean canAttackType(EntityType<?> type) {
+		if (this instanceof IAssistMob) {
+			return type != getType() && (type != EntityType.CREEPER && super.canAttackType(type));
+		}
+		return super.canAttackType(type);
 	}
 
-	protected static boolean checkDarkEnough(ServerLevelAccessor levelAccessor, BlockPos pos, Random random) {
-		if (levelAccessor.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) {
-			return false;
-		} else if (levelAccessor.getBrightness(LightLayer.BLOCK, pos) > 0) {
-			return false;
-		} else {
-			int i = levelAccessor.getLevel().isThundering() ? levelAccessor.getMaxLocalRawBrightness(pos, 10) : levelAccessor.getMaxLocalRawBrightness(pos);
-			return i <= random.nextInt(8);
-		}
+	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	}
+
+	protected static boolean checkDaylight(ServerLevelAccessor levelAccessor, BlockPos pos) {
+		return levelAccessor.canSeeSky(pos) && levelAccessor.getBrightness(LightLayer.BLOCK, pos) == 0;
 	}
 
 	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {

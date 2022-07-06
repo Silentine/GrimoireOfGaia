@@ -68,7 +68,11 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaSounds.GAIA_SHOOT, definition()
 				.subtitle(modSubtitle(GaiaSounds.GAIA_SHOOT.getId()))
 				.with(sound(new ResourceLocation("mob/ghast/fireball4"))));
+		this.add(GaiaSounds.ANT_HILL_DEATH, definition()
+				.subtitle(modSubtitle(GaiaSounds.ANT_HILL_DEATH.getId()))
+				.with(sound(modLoc("none"))));
 
+		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
 		this.setupMobSounds(GaiaRegistry.ANUBIS);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);

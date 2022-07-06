@@ -3,6 +3,7 @@ package gaia.registry;
 import gaia.GrimoireOfGaia;
 import gaia.config.GaiaSpawningConfig;
 import gaia.config.SpawningInfo;
+import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
@@ -23,6 +24,7 @@ import gaia.entity.Sporeling;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
+import gaia.entity.prop.AntHill;
 import gaia.util.BiomeHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -45,6 +47,7 @@ import java.util.List;
 public class GaiaSpawning {
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void addSpawn(BiomeLoadingEvent event) {
+		addSpawn(GaiaRegistry.ANT_HILL.getEntityType(), GaiaSpawningConfig.COMMON.antHillSpawning, event);
 		addSpawn(GaiaRegistry.ANUBIS.getEntityType(), GaiaSpawningConfig.COMMON.anubisSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
 		addSpawn(GaiaRegistry.CREEP.getEntityType(), GaiaSpawningConfig.COMMON.creepSpawning, event);
@@ -107,6 +110,8 @@ public class GaiaSpawning {
 	}
 
 	public static void entityAttributes() {
+		SpawnPlacements.register(GaiaRegistry.ANT_HILL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntHill::checkAntHillSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ANT_WORKER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntWorker::checkAntSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ANUBIS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Anubis::checkAnubisSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CREEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Creep::checkCreepSpawnRules);
@@ -131,6 +136,8 @@ public class GaiaSpawning {
 	}
 
 	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+		event.put(GaiaRegistry.ANT_HILL.getEntityType(), AntHill.createAttributes().build());
+		event.put(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorker.createAttributes().build());
 		event.put(GaiaRegistry.ANUBIS.getEntityType(), Anubis.createAttributes().build());
 		event.put(GaiaRegistry.CENTAUR.getEntityType(), Centaur.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());

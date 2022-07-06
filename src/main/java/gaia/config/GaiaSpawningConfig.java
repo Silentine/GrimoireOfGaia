@@ -12,6 +12,7 @@ import java.util.List;
 public class GaiaSpawningConfig {
 
 	public static class Common {
+		public final SpawningInfo antHillSpawning;
 		public final SpawningInfo anubisSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo creepSpawning;
@@ -34,6 +35,10 @@ public class GaiaSpawningConfig {
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Spawning settings")
 					.push("Spawning");
+
+			List<? extends String> antHillBiomes = generateList(Biomes.DESERT);
+			List<? extends String> antHillBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
+			antHillSpawning = new SpawningInfo(builder, "AntHill", 20, 1, 1, antHillBiomes, antHillBiomeDictionary);
 
 			List<? extends String> anubisBiomes = generateList(Biomes.DESERT);
 			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");

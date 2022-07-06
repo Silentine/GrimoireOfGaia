@@ -1,6 +1,8 @@
 package gaia.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.client.model.AntHillModel;
+import gaia.client.model.AntWorkerModel;
 import gaia.client.model.AnubisModel;
 import gaia.client.model.CentaurModel;
 import gaia.client.model.CreepModel;
@@ -20,6 +22,7 @@ import gaia.client.model.SporelingModel;
 import gaia.client.model.SuccubusModel;
 import gaia.client.model.WerecatModel;
 import gaia.client.model.YukiOnnaModel;
+import gaia.client.renderer.AntWorkerRenderer;
 import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.CentaurRenderer;
 import gaia.client.renderer.CreepRenderer;
@@ -40,6 +43,7 @@ import gaia.client.renderer.SporelingRenderer;
 import gaia.client.renderer.SuccubusRenderer;
 import gaia.client.renderer.WerecatRenderer;
 import gaia.client.renderer.YukiOnnaRenderer;
+import gaia.client.renderer.prop.AntHillRenderer;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -59,6 +63,8 @@ public class ClientHandler {
 	public static final float medShadow = 0.5F;
 	public static final float largeShadow = 0.7F;
 
+	public static final ModelLayerLocation ANT_HILL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_hill"), "main");
+	public static final ModelLayerLocation ANT_WORKER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_worker"), "main");
 	public static final ModelLayerLocation ANUBIS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "anubis"), "main");
 	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "centaur"), "main");
 	public static final ModelLayerLocation CREEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep"), "main");
@@ -109,6 +115,8 @@ public class ClientHandler {
 	}
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+		event.registerEntityRenderer(GaiaRegistry.ANT_HILL.getEntityType(), AntHillRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorkerRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ANUBIS.getEntityType(), AnubisRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CENTAUR.getEntityType(), CentaurRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CREEP.getEntityType(), CreepRenderer::new);
@@ -136,6 +144,8 @@ public class ClientHandler {
 	}
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(ANT_HILL, AntHillModel::createBodyLayer);
+		event.registerLayerDefinition(ANT_WORKER, AntWorkerModel::createBodyLayer);
 		event.registerLayerDefinition(ANUBIS, AnubisModel::createBodyLayer);
 		event.registerLayerDefinition(CENTAUR, CentaurModel::createBodyLayer);
 		event.registerLayerDefinition(CREEP, () -> CreepModel.createBodyLayer(CubeDeformation.NONE));

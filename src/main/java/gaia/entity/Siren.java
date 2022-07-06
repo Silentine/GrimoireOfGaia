@@ -1,6 +1,7 @@
 package gaia.entity;
 
 import gaia.entity.goal.MobAttackGoal;
+import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import gaia.util.RangedUtil;
@@ -47,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class Siren extends AbstractGaiaEntity implements RangedAttackMob {
+public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMob {
 	private final RangedBowAttackGoal<Siren> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 
@@ -220,7 +221,7 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public boolean canAttackType(EntityType<?> type) {
-		return type != GaiaRegistry.SIREN.getEntityType();
+		return super.canAttackType(type) && type != GaiaRegistry.SIREN.getEntityType();
 	}
 
 	@Override
@@ -319,6 +320,6 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob {
 
 	public static boolean checkSirenSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
-				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

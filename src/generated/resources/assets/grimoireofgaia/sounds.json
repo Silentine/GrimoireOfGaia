@@ -101,6 +101,30 @@
       "mob/ghast/fireball4"
     ]
   },
+  "ant_hill_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_hill_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_say": {
+    "subtitle": "grimoireofgaia.subtitle.ant_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ant_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "anubis_say": {
     "subtitle": "grimoireofgaia.subtitle.anubis_say",
     "sounds": [

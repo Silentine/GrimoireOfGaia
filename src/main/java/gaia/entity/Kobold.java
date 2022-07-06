@@ -198,7 +198,7 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public boolean canAttackType(EntityType<?> type) {
-		return type != GaiaRegistry.KOBOLD.getEntityType();
+		return super.canAttackType(type) && type != GaiaRegistry.KOBOLD.getEntityType();
 	}
 
 	@Override
