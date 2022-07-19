@@ -23,8 +23,6 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 	private final ModelPart bodytop;
 	private final ModelPart head;
 	private final ModelPart headeyes;
-	private final ModelPart hair1;
-	private final ModelPart hair2;
 	private final ModelPart chest;
 	private final ModelPart tail;
 	private final ModelPart leftarm;
@@ -39,8 +37,6 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 		ModelPart neck = this.bodytop.getChild("neck");
 		this.head = neck.getChild("head");
 		this.headeyes = this.head.getChild("headeyes");
-		this.hair1 = neck.getChild("hair1");
-		this.hair2 = this.hair1.getChild("hair2");
 		this.chest = this.bodytop.getChild("chest");
 		this.tail = bodybottom.getChild("tail");
 		this.leftarm = this.bodytop.getChild("leftarm");
@@ -131,9 +127,6 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
 		head.xRot = headPitch / 57.295776F;
-		hair1.yRot = head.yRot;
-		hair1.xRot = head.xRot;
-		hair2.xRot = (head.xRot) * 0.75F;
 
 		// arms
 		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
@@ -218,7 +211,7 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-//		poseStack.translate(0, 0.5, 0);
+		poseStack.translate(0, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
