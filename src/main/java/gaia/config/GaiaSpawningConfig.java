@@ -25,6 +25,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo matangoSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
+		public final SpawningInfo satyressSpawning;
 		public final SpawningInfo shamanSpawning;
 		public final SpawningInfo sirenSpawning;
 		public final SpawningInfo sludgeGirlSpawning;
@@ -93,6 +94,12 @@ public class GaiaSpawningConfig {
 			List<? extends String> oniBiomes = generateList(Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> oniBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
 			oniSpawning = new SpawningInfo(builder, "Oni", 80, 4, 6, oniBiomes, oniBiomeDictionary);
+
+			List<? extends String> satyressBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
+			List<? extends String> satyressBiomeDictionary = List.of(
+					"OVERWORLD,PLAINS,!SAVANNA",
+					"OVERWORLD,MESA");
+			satyressSpawning = new SpawningInfo(builder, "Satyress", 20, 2, 4, satyressBiomes, satyressBiomeDictionary);
 
 			List<? extends String> shamanBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
 			List<? extends String> shamanBiomeDictionary = List.of("OVERWORLD,JUNGLE");

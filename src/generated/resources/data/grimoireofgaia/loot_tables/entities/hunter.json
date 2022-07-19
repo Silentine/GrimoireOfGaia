@@ -52,8 +52,9 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.025
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.025,
+              "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:box_iron"
@@ -68,8 +69,9 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.01
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.01,
+              "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:bag_arrows"

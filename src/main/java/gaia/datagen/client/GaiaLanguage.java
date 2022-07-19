@@ -32,6 +32,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
 		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
 		addMobTranslation(GaiaRegistry.ONI, "Oni", "speaks");
+		addMobTranslation(GaiaRegistry.SATYRESS, "Satyress", "speaks");
 		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman", "chants");
 		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
 		addMobTranslation(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl", "bubbles");
