@@ -3,6 +3,7 @@ package gaia.util;
 import gaia.config.GaiaConfig;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
+import gaia.entity.projectile.WebProjectile;
 import gaia.registry.GaiaSounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -136,5 +137,27 @@ public class RangedUtil {
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		magic.setPos(magic.getX(), shooter.getY(0.5D) + 0.5D, magic.getZ());
 		shooter.level.addFreshEntity(magic);
+	}
+
+	/**
+	 * Shortcut Method for entities using web attacks. Use this to replace entity RangedAttackMob#performRangedAttack.
+	 *
+	 * @param target         the entity to fire at
+	 * @param shooter        the entity that is shooting
+	 * @param distanceFactor bonus damage (Unused)
+	 * @see net.minecraft.world.entity.monster.Blaze
+	 */
+	public static void web(LivingEntity target, LivingEntity shooter, float distanceFactor) {
+		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
+
+		double d0 = target.getX() - shooter.getX();
+		double d1 = target.getY(0.5D) - target.getY(0.5D);
+		double d2 = target.getZ() - shooter.getZ();
+		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
+
+		WebProjectile web = new WebProjectile(shooter.level, shooter,
+				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
+		web.setPos(web.getX(), shooter.getY(0.5D) + 0.5D, web.getZ());
+		shooter.level.addFreshEntity(web);
 	}
 }

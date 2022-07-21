@@ -21,6 +21,7 @@ public class GaiaLanguage extends LanguageProvider {
 
 		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
 		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
+		addMobTranslation(GaiaRegistry.ARACHNE, "Arachne", "communicates");
 		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
 		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
 		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
@@ -84,6 +85,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.FAN_ICE, "Ornate Ice Fan");
 		addItem(GaiaRegistry.FIRESHARD, "Fireshard");
 		addItem(GaiaRegistry.SOULFIRE, "Soulfire");
+		addItem(GaiaRegistry.STONE_COAL, "Stone Coal");
 		addItem(GaiaRegistry.FUR, "Fur");
 		addItem(GaiaRegistry.GIGA_GEAR, "Heart of Giga Knight");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE, "Golden Apple Pie");
@@ -101,8 +103,11 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.METAL_DAGGER, "Metal Dagger");
 		addItem(GaiaRegistry.TAPROOT, "Taproot");
 		addItem(GaiaRegistry.ZOMBIE_STAFF, "Zombie Staff");
+		addItem(GaiaRegistry.SKELETON_STAFF, "Skeleton Staff");
+		addItem(GaiaRegistry.CAVE_SPIDER_STAFF, "Cave Spider Staff");
 
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");
+		addItem(GaiaRegistry.PROJECTILE_WEB, "Web Projectile");
 
 		addItem(GaiaRegistry.BAG_ARROWS, "Sealed Quiver");
 		addItem(GaiaRegistry.BAG_BOOK, "Book Satchel");
@@ -137,7 +142,7 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.giga_gear.desc", "All that remains of Giga Knight");
 		add("text.grimoireofgaia.fireshard.desc", "Right-click to spawn Lava");
 		add("text.grimoireofgaia.soulfire.desc", "Right-click to spawn Fire");
-		add("text.grimoireofgaia.zombie_staff.desc", "Hold Right-click to spawn Zombie");
+		add("text.grimoireofgaia.summoning_staff.desc", "Hold Right-click to spawn %s");
 
 		add("text.grimoireofgaia.headgear.tag", "Headgear");
 		add("text.grimoireofgaia.charm.tag", "Charm");

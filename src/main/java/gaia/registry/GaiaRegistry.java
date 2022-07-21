@@ -4,6 +4,7 @@ import gaia.GrimoireOfGaia;
 import gaia.block.DecorationBlock;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
+import gaia.entity.Arachne;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
 import gaia.entity.Cyclops;
@@ -26,6 +27,7 @@ import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
+import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
 import gaia.item.ExperienceItem;
 import gaia.item.LootableItem;
@@ -37,12 +39,13 @@ import gaia.item.edible.HoneydewItem;
 import gaia.item.edible.TaprootItem;
 import gaia.item.edible.XPEdibleItem;
 import gaia.item.fuel.FireshardItem;
+import gaia.item.fuel.FuelItem;
 import gaia.item.fuel.GigaGearItem;
 import gaia.item.fuel.SoulfireItem;
 import gaia.item.weapon.FanItem;
 import gaia.item.weapon.FireFanItem;
 import gaia.item.weapon.IceFanItem;
-import gaia.item.weapon.ZombieStaffItem;
+import gaia.item.weapon.SummonStaffItem;
 import gaia.item.weapon.book.BattleBookItem;
 import gaia.item.weapon.book.BuffBookItem;
 import gaia.item.weapon.book.EnderBookItem;
@@ -77,6 +80,7 @@ public class GaiaRegistry {
 
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
+	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
 	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
@@ -111,6 +115,10 @@ public class GaiaRegistry {
 			EntityType.Builder.<MagicProjectile>of(MagicProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
 					.setCustomClientFactory(MagicProjectile::new).build("magic"));
+	public static final RegistryObject<EntityType<WebProjectile>> WEB = ENTITIES.register("web", () ->
+			EntityType.Builder.<WebProjectile>of(WebProjectile::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
+					.setCustomClientFactory(WebProjectile::new).build("web"));
 
 
 	//Blocks
@@ -187,9 +195,13 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> QUILL = ITEMS.register("quill", () -> new Item(itemBuilder()));
 	public static final RegistryObject<Item> ROTTEN_HEART = ITEMS.register("rotten_heart", () -> new EdibleEffectItem(itemBuilder().food(GaiaFoods.ROTTEN_HEART).stacksTo(1)));
 	public static final RegistryObject<Item> SOULFIRE = ITEMS.register("soulfire", () -> new SoulfireItem(itemBuilder()));
+	public static final RegistryObject<Item> STONE_COAL = ITEMS.register("stone_coal", () -> new FuelItem(itemBuilder(), 3600));
 	public static final RegistryObject<Item> TAPROOT = ITEMS.register("taproot", () -> new TaprootItem(itemBuilder().food(GaiaFoods.TAPROOT)));
-	public static final RegistryObject<Item> ZOMBIE_STAFF = ITEMS.register("zombie_staff", () -> new ZombieStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10)));
+	public static final RegistryObject<Item> ZOMBIE_STAFF = ITEMS.register("zombie_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.ZOMBIE));
+	public static final RegistryObject<Item> SKELETON_STAFF = ITEMS.register("skeleton_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.SKELETON));
+	public static final RegistryObject<Item> CAVE_SPIDER_STAFF = ITEMS.register("cave_spider_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.CAVE_SPIDER));
 	public static final RegistryObject<Item> PROJECTILE_MAGIC = ITEMS.register("projectile_magic", () -> new Item(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
 
 	//Lootable Item
 	public static final RegistryObject<Item> BAG_ARROWS = ITEMS.register("bag_arrows", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN::get));

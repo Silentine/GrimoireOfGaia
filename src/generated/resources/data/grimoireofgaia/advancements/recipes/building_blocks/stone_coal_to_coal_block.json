@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:stone_coal_to_coal_block"
+    ]
+  },
+  "criteria": {
+    "has_stone_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:stone_coal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:stone_coal_to_coal_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stone_coal",
+      "has_the_recipe"
+    ]
+  ]
+}

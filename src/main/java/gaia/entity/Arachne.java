@@ -9,8 +9,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -31,27 +34,33 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
 
-public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
-	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.INT);
+public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
+	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Arachne.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Integer> ATTACK_TYPE = SynchedEntityData.defineId(Arachne.class, EntityDataSerializers.INT);
 
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
-	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
+	private final MobAttackGoal collideAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 
 	private int switchHealth;
@@ -61,9 +70,9 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private boolean animationPlay;
 	private int animationTimer;
 
-	public Anubis(EntityType<? extends Monster> entityType, Level level) {
+	public Arachne(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
-		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
+		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
 
 		switchHealth = 0;
 		spawn = 0;
@@ -79,43 +88,39 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Anubis.class));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Arachne.class));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+	}
+
+	protected PathNavigation createNavigation(Level level) {
+		return new WallClimberNavigation(this, level);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
-				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
-				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
-				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
+				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
+				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
+				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
+				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(MALE, false);
-		this.entityData.define(ANIMATION_STATE, 0);
+		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
+		this.entityData.define(ATTACK_TYPE, 0);
 	}
 
-	public boolean isMale() {
-		return this.entityData.get(MALE);
+	public int getAttackType() {
+		return this.entityData.get(ATTACK_TYPE);
 	}
 
-	public void setMale(boolean flag) {
-		this.entityData.set(MALE, flag);
-	}
-
-	public int getAnimationState() {
-		return this.entityData.get(ANIMATION_STATE);
-	}
-
-	public void setAnimationState(int state) {
-		this.entityData.set(ANIMATION_STATE, state);
+	public void setAttackType(int type) {
+		this.entityData.set(ATTACK_TYPE, type);
 	}
 
 	@Override
@@ -125,18 +130,23 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public float getBaseDefense() {
-		return SharedEntityData.getBaseDefense2();
+		return SharedEntityData.getBaseDefense1();
 	}
 
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			RangedUtil.magic(target, this, distanceFactor);
+			RangedUtil.web(target, this, distanceFactor);
 
-			setAnimationState(1);
+			setAttackType(1);
 			animationPlay = true;
 			animationTimer = 0;
 		}
+	}
+
+	@Override
+	public boolean canAttackType(EntityType<?> type) {
+		return super.canAttackType(type) && type != GaiaRegistry.ARACHNE.getEntityType();
 	}
 
 	@Override
@@ -152,8 +162,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
 				}
 			}
 
@@ -167,20 +176,20 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	public void aiStep() {
 		beaconMonster();
 
-		if ((getHealth() < getMaxHealth() * 0.75F) && (switchHealth == 0)) {
+		if ((getHealth() < getMaxHealth() * 0.5F) && (switchHealth == 0)) {
 			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.METAL_DAGGER.get()));
 			setGoals(1);
 			switchHealth = 1;
 		}
 
-		if ((getHealth() > getMaxHealth() * 0.75F) && (switchHealth == 1)) {
-			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.SKELETON_STAFF.get()));
+		if ((getHealth() > getMaxHealth() * 0.5F) && (switchHealth == 1)) {
+			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.CAVE_SPIDER_STAFF.get()));
 			setGoals(0);
 			switchHealth = 0;
 		}
 
 		if (getHealth() < getMaxHealth() * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			setAnimationState(2);
+			setAttackType(2);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -188,9 +197,11 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 			if (spawnTimer == 30) {
 				level.broadcastEntityEvent(this, (byte) 9);
-				setAnimationState(0);
+				setAttackType(0);
 
-				setSpawn(0);
+				if (!level.isClientSide) {
+					setSpawn(0);
+				}
 
 				spawnTimer = 0;
 				spawn = 1;
@@ -198,7 +209,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 
 		if (getHealth() < getMaxHealth() * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			setAnimationState(2);
+			setAttackType(2);
 
 			if (spawnTimer != 30) {
 				spawnTimer += 1;
@@ -206,9 +217,11 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 
 			if (spawnTimer == 30) {
 				level.broadcastEntityEvent(this, (byte) 9);
-				setAnimationState(0);
+				setAttackType(0);
 
-				setSpawn(0);
+				if (!level.isClientSide) {
+					setSpawn(0);
+				}
 
 				spawnTimer = 0;
 				spawn = 2;
@@ -219,12 +232,40 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 			if (animationTimer != 20) {
 				animationTimer += 1;
 			} else {
-				setAnimationState(0);
+				setAttackType(0);
 				animationPlay = false;
 			}
 		}
 
+		if (!level.isClientSide) {
+			this.setClimbing(this.horizontalCollision);
+		}
+
 		super.aiStep();
+	}
+
+	private void setSpawn(int id) {
+		if (level.getDifficulty() != Difficulty.PEACEFUL) {
+			if (id == 0) {
+				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(level);
+				if (caveSpider != null) {
+					caveSpider.moveTo(blockPosition(), 0.0F, 0.0F);
+					caveSpider.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					level.addFreshEntity(caveSpider);
+				}
+			}
+		}
+
+		level.broadcastEntityEvent(this, (byte) 6);
+	}
+
+	private void setCombatTask() {
+		ItemStack itemstack = getMainHandItem();
+		if (itemstack.is(GaiaRegistry.CAVE_SPIDER_STAFF.get())) {
+			setGoals(0);
+		} else {
+			setGoals(1);
+		}
 	}
 
 	private void beaconMonster() {
@@ -232,8 +273,8 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(6D);
 			List<Monster> monsters = level.getEntitiesOfClass(Monster.class, aabb);
 			for (Monster monster : monsters) {
-				if (monster instanceof Zombie || monster instanceof Skeleton) {
-					monster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+				if (monster instanceof Spider spider) {
+					spider.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
 				}
 			}
 		}
@@ -242,55 +283,42 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private void setGoals(int id) {
 		if (id == 1) {
 			this.goalSelector.removeGoal(rangedAttackGoal);
-			this.goalSelector.addGoal(1, mobAttackGoal);
+			this.goalSelector.addGoal(1, collideAttackGoal);
 		} else {
-			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(1, rangedAttackGoal);
+			this.goalSelector.removeGoal(collideAttackGoal);
+			this.goalSelector.addGoal(2, rangedAttackGoal);
 
-			setAnimationState(0);
+			setAttackType((byte) 0);
 			animationPlay = false;
 			animationTimer = 0;
 		}
 	}
 
-	private void setSpawn(int id) {
-		if (!level.isClientSide) {
-			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
-
-			if (id == 0) {
-				Skeleton summon = EntityType.SKELETON.create(level);
-				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
-					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
-					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
-					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
-					summon.setDropChance(EquipmentSlot.FEET, 0);
-					summon.setDropChance(EquipmentSlot.LEGS, 0);
-					summon.setDropChance(EquipmentSlot.CHEST, 0);
-					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					level.addFreshEntity(summon);
-				}
-			}
-		}
+	public boolean isClimbing() {
+		return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
 	}
 
-	private void setCombatTask() {
-		if (getMainHandItem().is(GaiaRegistry.SKELETON_STAFF.get())) {
-			setGoals(0);
+	public void setClimbing(boolean p_33820_) {
+		byte b0 = this.entityData.get(DATA_FLAGS_ID);
+		if (p_33820_) {
+			b0 = (byte) (b0 | 1);
 		} else {
-			setGoals(1);
+			b0 = (byte) (b0 & -2);
 		}
+
+		this.entityData.set(DATA_FLAGS_ID, b0);
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.ANUBIS.getEntityType();
+	protected ResourceLocation getDefaultLootTable() {
+		return random.nextInt(2) == 0 ? super.getDefaultLootTable() : EntityType.WITCH.getDefaultLootTable();
 	}
 
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
-		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.SKELETON_STAFF.get()));
+		ItemStack staffStack = new ItemStack(GaiaRegistry.CAVE_SPIDER_STAFF.get());
+		staffStack.enchant(Enchantments.KNOCKBACK, 2);
+		setItemSlot(EquipmentSlot.MAINHAND, staffStack);
 	}
 
 	@Nullable
@@ -298,10 +326,6 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
-
-		if (random.nextInt(4) == 0) {
-			setMale(true);
-		}
 
 		this.populateDefaultEquipmentSlots(difficultyInstance);
 
@@ -313,49 +337,69 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
-		tag.putBoolean("Male", isMale());
-		tag.putInt("AnimationState", getAnimationState());
+		tag.putInt("WeaponType", getAttackType());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-		if (tag.contains("Male")) {
-			boolean male = tag.getBoolean("Male");
-			setMale(male);
+		if (tag.contains("WeaponType")) {
+			int weaponType = tag.getInt("WeaponType");
+			setAttackType(weaponType);
 		}
-		if (tag.contains("AnimationState")) {
-			int state = tag.getInt("AnimationState");
-			setAnimationState(state);
-		}
+		setCombatTask();
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return !isMale() ? GaiaRegistry.ANUBIS.getSay() : GaiaRegistry.ANUBIS.getMaleSay();
+		return GaiaRegistry.ARACHNE.getSay();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return !isMale() ? GaiaRegistry.ANUBIS.getHurt() : GaiaRegistry.ANUBIS.getMaleHurt();
+		return GaiaRegistry.ARACHNE.getHurt();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return !isMale() ? GaiaRegistry.ANUBIS.getDeath() : GaiaRegistry.ANUBIS.getMaleDeath();
+		return GaiaRegistry.ARACHNE.getDeath();
+	}
+
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+	}
+
+	public boolean onClimbable() {
+		return this.isClimbing();
+	}
+
+	public void makeStuckInBlock(BlockState state, Vec3 speedMultiplier) {
+		if (!state.is(Blocks.COBWEB)) {
+			super.makeStuckInBlock(state, speedMultiplier);
+		}
+
+	}
+
+	public MobType getMobType() {
+		return MobType.ARTHROPOD;
 	}
 
 	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
+	public boolean canBeAffected(MobEffectInstance effectInstance) {
+		return effectInstance.getEffect() != MobEffects.POISON && super.canBeAffected(effectInstance);
+	}
+
+	@Override
+	public boolean fireImmune() {
+		return true;
 	}
 
 	@Override
 	public int getMaxSpawnClusterSize() {
-		return SharedEntityData.CHUNK_LIMIT_2;
+		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkAnubisSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	public static boolean checkArachneSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

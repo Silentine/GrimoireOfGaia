@@ -14,6 +14,7 @@ public class GaiaSpawningConfig {
 	public static class Common {
 		public final SpawningInfo antHillSpawning;
 		public final SpawningInfo anubisSpawning;
+		public final SpawningInfo arachneSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo creepSpawning;
 		public final SpawningInfo cyclopsSpawning;
@@ -44,6 +45,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> anubisBiomes = generateList(Biomes.DESERT);
 			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
 			anubisSpawning = new SpawningInfo(builder, "Anubis", 80, 2, 4, anubisBiomes, anubisBiomeDictionary);
+
+			List<? extends String> arachneBiomeDictionary = List.of("OVERWORLD");
+			arachneSpawning = new SpawningInfo(builder, "Arachne", 80, 1, 2, List.of(), arachneBiomeDictionary);
 
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(

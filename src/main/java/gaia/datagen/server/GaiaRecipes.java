@@ -4,6 +4,7 @@ import gaia.registry.GaiaRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Items;
@@ -30,6 +31,10 @@ public class GaiaRecipes extends RecipeProvider {
 				.requires(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get()).requires(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get())
 				.unlockedBy("has_golden_apple_pie_slice", has(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get()))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(Items.COAL_BLOCK)
+				.pattern("CCC").pattern("CCC").pattern("CCC")
+				.define('C', GaiaRegistry.STONE_COAL.get())
+				.unlockedBy("has_stone_coal", has(GaiaRegistry.STONE_COAL.get())).save(consumer, "grimoireofgaia:stone_coal_to_coal_block");
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.EXPERIENCE_IRON.get()),
 						GaiaRegistry.BOX_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))

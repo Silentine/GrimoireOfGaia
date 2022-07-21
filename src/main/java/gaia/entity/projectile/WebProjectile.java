@@ -2,40 +2,42 @@ package gaia.entity.projectile;
 
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
-public class MagicProjectile extends SmallFireball {
-	public MagicProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
+public class WebProjectile extends SmallFireball {
+	public WebProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public MagicProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
+	public WebProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
 		super(level, livingEntity, accelX, accelY, accelZ);
 	}
 
 	@Override
 	public ItemStack getItem() {
 		ItemStack itemstack = this.getItemRaw();
-		return itemstack.isEmpty() ? new ItemStack(GaiaRegistry.PROJECTILE_MAGIC.get()) : itemstack;
+		return itemstack.isEmpty() ? new ItemStack(GaiaRegistry.PROJECTILE_WEB.get()) : itemstack;
 	}
 
-	public MagicProjectile(SpawnEntity spawnEntity, Level level) {
+	public WebProjectile(SpawnEntity spawnEntity, Level level) {
 		this(GaiaRegistry.MAGIC.get(), level);
 	}
 
@@ -46,12 +48,12 @@ public class MagicProjectile extends SmallFireball {
 
 	@Override
 	public EntityType<?> getType() {
-		return GaiaRegistry.MAGIC.get();
+		return GaiaRegistry.WEB.get();
 	}
 
 	@Override
 	protected ParticleOptions getTrailParticle() {
-		return ParticleTypes.END_ROD;
+		return ParticleTypes.EXPLOSION_EMITTER;
 	}
 
 	@Override
@@ -69,22 +71,24 @@ public class MagicProjectile extends SmallFireball {
 		if (!this.level.isClientSide && result instanceof EntityHitResult entityResult) {
 			Entity entity = entityResult.getEntity();
 			entity.hurt(DamageSource.indirectMagic(this, entity), SharedEntityData.getAttackDamage2() / 2.0F);
-
-			if (entity instanceof LivingEntity livingEntity) {
-				int effectTime = 0;
-
-				if (level.getDifficulty() == Difficulty.NORMAL) {
-					effectTime = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
-					effectTime = 20;
-				}
-
-				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
-				}
-			}
 		}
 		discard();
+	}
+
+	@Override
+	protected void onHitBlock(BlockHitResult result) {
+		BlockState blockstate = this.level.getBlockState(result.getBlockPos());
+		blockstate.onProjectileHit(this.level, blockstate, result, this);
+		if (!this.level.isClientSide) {
+			Entity entity = this.getOwner();
+			if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+				BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
+				if (this.level.isEmptyBlock(blockpos)) {
+					this.level.setBlockAndUpdate(blockpos, Blocks.COBWEB.defaultBlockState()); //TODO: WEB BLOCK
+				}
+			}
+
+		}
 	}
 
 	@Override

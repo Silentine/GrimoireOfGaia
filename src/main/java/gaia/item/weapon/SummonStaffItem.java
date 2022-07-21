@@ -14,10 +14,10 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,14 +26,19 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeI18n;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
-public class ZombieStaffItem extends Item {
+public class SummonStaffItem extends Item {
 
-	public ZombieStaffItem(Properties properties) {
+	private final Supplier<EntityType<? extends Mob>> typeSupplier;
+
+	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier) {
 		super(properties);
+		this.typeSupplier = typeSupplier;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class ZombieStaffItem extends Item {
 
 			if (!level.isClientSide) {
 				BlockPos spawnPos = player.eyeBlockPosition().relative(player.getDirection());
-				Zombie summon = EntityType.ZOMBIE.create(level);
+				Mob summon = typeSupplier.get().create(level);
 				summon.moveTo(spawnPos, 0.0F, 0.0F);
 				summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(spawnPos), null, (SpawnGroupData) null, (CompoundTag) null);
 				summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_BOLT.get()));
@@ -90,7 +95,7 @@ public class ZombieStaffItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.zombie_staff.desc").withStyle(ChatFormatting.GRAY));
+		list.add(new TranslatableComponent("text.grimoireofgaia.summoning_staff.desc", ForgeI18n.getPattern(typeSupplier.get().getDescriptionId())).withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

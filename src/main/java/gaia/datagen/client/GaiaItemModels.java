@@ -73,8 +73,11 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.QUILL.get());
 		this.generatedItem(GaiaRegistry.ROTTEN_HEART.get());
 		this.generatedItem(GaiaRegistry.SOULFIRE.get());
+		this.generatedItem(GaiaRegistry.STONE_COAL.get());
 		this.generatedItem(GaiaRegistry.TAPROOT.get());
-		this.handheldItem(GaiaRegistry.ZOMBIE_STAFF.get(), "weapon");
+		this.handheldItem(GaiaRegistry.ZOMBIE_STAFF.get(), "weapon", "summoning_staff");
+		this.handheldItem(GaiaRegistry.SKELETON_STAFF.get(), "weapon", "summoning_staff");
+		this.handheldItem(GaiaRegistry.CAVE_SPIDER_STAFF.get(), "weapon", "summoning_staff");
 		this.parentItem(GaiaRegistry.FAN_FIRE.get(), modLoc("item/fan"), "weapon/fan");
 		this.parentItem(GaiaRegistry.FAN_ICE.get(), modLoc("item/fan"), "weapon/fan");
 
@@ -109,6 +112,12 @@ public class GaiaItemModels extends ItemModelProvider {
 		ResourceLocation location = item.getRegistryName();
 		singleTexture(location.getPath(), new ResourceLocation("item/handheld"),
 				"layer0", new ResourceLocation(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + location.getPath()));
+	}
+
+	private void handheldItem(Item item, String subFolder, String textureName) {
+		ResourceLocation location = item.getRegistryName();
+		singleTexture(location.getPath(), new ResourceLocation("item/handheld"),
+				"layer0", new ResourceLocation(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + textureName));
 	}
 
 	private void generatedItem(Item item, String subFolder) {

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "grimoireofgaia:stone_coal"
+    }
+  },
+  "result": {
+    "item": "minecraft:coal_block"
+  }
+}

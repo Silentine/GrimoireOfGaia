@@ -218,7 +218,7 @@ public class AntWorkerModel extends EntityModel<AntWorker> implements HeadedMode
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-		poseStack.translate(0.0625F, ((1/16F) * 6), 0);
+		poseStack.translate(0.0625F, ((1 / 16F) * 6), 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }

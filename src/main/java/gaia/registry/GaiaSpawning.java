@@ -5,6 +5,7 @@ import gaia.config.GaiaSpawningConfig;
 import gaia.config.SpawningInfo;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
+import gaia.entity.Arachne;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
 import gaia.entity.Cyclops;
@@ -50,6 +51,7 @@ public class GaiaSpawning {
 	public static void addSpawn(BiomeLoadingEvent event) {
 		addSpawn(GaiaRegistry.ANT_HILL.getEntityType(), GaiaSpawningConfig.COMMON.antHillSpawning, event);
 		addSpawn(GaiaRegistry.ANUBIS.getEntityType(), GaiaSpawningConfig.COMMON.anubisSpawning, event);
+		addSpawn(GaiaRegistry.ARACHNE.getEntityType(), GaiaSpawningConfig.COMMON.arachneSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
 		addSpawn(GaiaRegistry.CREEP.getEntityType(), GaiaSpawningConfig.COMMON.creepSpawning, event);
 		addSpawn(GaiaRegistry.CYCLOPS.getEntityType(), GaiaSpawningConfig.COMMON.cyclopsSpawning, event);
@@ -114,6 +116,7 @@ public class GaiaSpawning {
 	public static void entityAttributes() {
 		SpawnPlacements.register(GaiaRegistry.ANT_HILL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntHill::checkAntHillSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ANT_WORKER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntWorker::checkAntSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ARACHNE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Arachne::checkArachneSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ANUBIS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Anubis::checkAnubisSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CREEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Creep::checkCreepSpawnRules);
@@ -142,6 +145,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.ANT_HILL.getEntityType(), AntHill.createAttributes().build());
 		event.put(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorker.createAttributes().build());
 		event.put(GaiaRegistry.ANUBIS.getEntityType(), Anubis.createAttributes().build());
+		event.put(GaiaRegistry.ARACHNE.getEntityType(), Arachne.createAttributes().build());
 		event.put(GaiaRegistry.CENTAUR.getEntityType(), Centaur.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());
 		event.put(GaiaRegistry.CYCLOPS.getEntityType(), Cyclops.createAttributes().build());
