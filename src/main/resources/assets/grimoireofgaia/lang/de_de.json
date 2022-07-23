@@ -244,5 +244,5 @@
   "text.grimoireofgaia.magic_staff.desc": "Rechte Maustaste gedrückt halten um ein magisches Projektil abzufeuern",
   "text.grimoireofgaia.right_click_use": "Rechtsklicken zum Öffnen",
   "text.grimoireofgaia.soulfire.desc": "Rechtsklicken um Feuer zu beschwören",
-  "text.grimoireofgaia.zombie_staff.desc": "Rechtsklicken um einen Zombie zu beschwören"
+  "text.grimoireofgaia.summoning_staff.desc": "Rechtsklicken um %s zu beschwören"
 }
