@@ -28,14 +28,14 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.DRYAD, "Dryad", "murmurs");
 		addMobTranslation(GaiaRegistry.DULLAHAN, "Dullahan", "speaks");
 		addMobTranslation(GaiaRegistry.GOBLIN, "Goblin", "speaks");
-		addMobTranslation(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin", "speaks");
+		addMobTranslation(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin", "murmurs");
 		addMobTranslation(GaiaRegistry.HARPY, "Harpy", "shrieks");
 		addMobTranslation(GaiaRegistry.HUNTER, "Hunter", "whispers");
 		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold", "barks");
 		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
 		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
-		addMobTranslation(GaiaRegistry.ONI, "Oni", "speaks");
-		addMobTranslation(GaiaRegistry.ORC, "Orc", "speaks");
+		addMobTranslation(GaiaRegistry.ONI, "Oni", "snorts");
+		addMobTranslation(GaiaRegistry.ORC, "Orc", "growls");
 		addMobTranslation(GaiaRegistry.SATYRESS, "Satyress", "speaks");
 		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman", "chants");
 		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
