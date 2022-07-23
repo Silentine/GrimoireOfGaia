@@ -1,5 +1,6 @@
 package gaia.entity;
 
+import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
@@ -74,7 +75,9 @@ public class YukiOnna extends AbstractGaiaEntity implements IAssistMob, IDayMob 
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(YukiOnna.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
+			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		}
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -140,14 +143,12 @@ public class YukiOnna extends AbstractGaiaEntity implements IAssistMob, IDayMob 
 		/* FLEE DATA */
 		if ((getHealth() < getMaxHealth() * 0.25F) && (switchHealth == 0)) {
 			switch (random.nextInt(2)) {
-				case 0:
+				case 0 -> {
 					setGoals(1);
 					setFleeing(true);
 					switchHealth = 1;
-					break;
-				case 1:
-					switchHealth = 2;
-					break;
+				}
+				case 1 -> switchHealth = 2;
 			}
 		}
 

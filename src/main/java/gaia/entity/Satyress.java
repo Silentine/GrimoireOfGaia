@@ -1,5 +1,6 @@
 package gaia.entity;
 
+import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
@@ -73,7 +74,9 @@ public class Satyress extends AbstractGaiaEntity implements IAssistMob, IDayMob 
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Satyress.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
+			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		}
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

@@ -209,7 +209,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 	private void beaconMonster() {
 		if (!level.isClientSide) {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1))
-					.inflate(6).expandTowards(0.0D, 0.0D, 0.0D);
+					.inflate(6);
 			List<Monster> monsters = level.getEntitiesOfClass(Monster.class, aabb);
 			for (Monster monster : monsters) {
 				if (monster instanceof Zombie || monster instanceof Skeleton) {

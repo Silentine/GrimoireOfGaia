@@ -1,0 +1,14 @@
+{
+    "parent": "grimoireofgaia:item/shield",
+    "textures": {
+        "0": "grimoireofgaia:item/shield/iron_shield"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "blocking": 1
+            },
+            "model": "grimoireofgaia:item/gold_shield_blocking"
+        }
+    ]
+}

@@ -11,12 +11,15 @@ import gaia.entity.Cyclops;
 import gaia.entity.Dryad;
 import gaia.entity.Dullahan;
 import gaia.entity.GaiaHorse;
+import gaia.entity.Goblin;
+import gaia.entity.GoblinFeral;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
+import gaia.entity.Orc;
 import gaia.entity.Satyress;
 import gaia.entity.Shaman;
 import gaia.entity.Siren;
@@ -25,6 +28,7 @@ import gaia.entity.Sporeling;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
+import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.WebProjectile;
@@ -42,9 +46,12 @@ import gaia.item.fuel.FireshardItem;
 import gaia.item.fuel.FuelItem;
 import gaia.item.fuel.GigaGearItem;
 import gaia.item.fuel.SoulfireItem;
+import gaia.item.shield.TieredShieldItem;
+import gaia.item.weapon.BombItem;
 import gaia.item.weapon.FanItem;
 import gaia.item.weapon.FireFanItem;
 import gaia.item.weapon.IceFanItem;
+import gaia.item.weapon.MagicStaffItem;
 import gaia.item.weapon.SummonStaffItem;
 import gaia.item.weapon.book.BattleBookItem;
 import gaia.item.weapon.book.BuffBookItem;
@@ -65,10 +72,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -80,18 +89,21 @@ public class GaiaRegistry {
 
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
-	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 0x353535, 0xb19534, true);
+	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
 	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
 	public static final MobReg<Dryad> DRYAD = new MobReg<>("dryad", EntityType.Builder.<Dryad>of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460);
 	public static final MobReg<Dullahan> DULLAHAN = new MobReg<>("dullahan", EntityType.Builder.<Dullahan>of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d);
+	public static final MobReg<Goblin> GOBLIN = new MobReg<>("goblin", EntityType.Builder.<Goblin>of(Goblin::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8d4f41);
+	public static final MobReg<GoblinFeral> GOBLIN_FERAL = new MobReg<>("goblin_feral", EntityType.Builder.<GoblinFeral>of(GoblinFeral::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8a1d3e);
 	public static final MobReg<Harpy> HARPY = new MobReg<>("harpy", EntityType.Builder.<Harpy>of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e);
 	public static final MobReg<Hunter> HUNTER = new MobReg<>("hunter", EntityType.Builder.<Hunter>of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535);
 	public static final MobReg<Kobold> KOBOLD = new MobReg<>("kobold", EntityType.Builder.<Kobold>of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1);
 	public static final MobReg<Matango> MATANGO = new MobReg<>("matango", EntityType.Builder.<Matango>of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8);
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg<>("nine_tails", EntityType.Builder.<NineTails>of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145);
 	public static final MobReg<Oni> ONI = new MobReg<>("oni", EntityType.Builder.<Oni>of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161);
+	public static final MobReg<Orc> ORC = new MobReg<>("orc", EntityType.Builder.<Orc>of(Orc::new, MobCategory.MONSTER).sized(0.8F, 2.2F).clientTrackingRange(8), 0x718a60, 0xc0d696);
 	public static final MobReg<Satyress> SATYRESS = new MobReg<>("satyress", EntityType.Builder.<Satyress>of(Satyress::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x707b4f, 0xa4452d);
 	public static final MobReg<Shaman> SHAMAN = new MobReg<>("shaman", EntityType.Builder.<Shaman>of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134);
 	public static final MobReg<Siren> SIREN = new MobReg<>("siren", EntityType.Builder.<Siren>of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
@@ -119,6 +131,10 @@ public class GaiaRegistry {
 			EntityType.Builder.<WebProjectile>of(WebProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
 					.setCustomClientFactory(WebProjectile::new).build("web"));
+	public static final RegistryObject<EntityType<BombProjectile>> BOMB = ENTITIES.register("bomb", () ->
+			EntityType.Builder.<BombProjectile>of(BombProjectile::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
+					.setCustomClientFactory(BombProjectile::new).build("bomb"));
 
 
 	//Blocks
@@ -200,8 +216,14 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> ZOMBIE_STAFF = ITEMS.register("zombie_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.ZOMBIE));
 	public static final RegistryObject<Item> SKELETON_STAFF = ITEMS.register("skeleton_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.SKELETON));
 	public static final RegistryObject<Item> CAVE_SPIDER_STAFF = ITEMS.register("cave_spider_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.CAVE_SPIDER));
+	public static final RegistryObject<Item> MAGIC_STAFF = ITEMS.register("magic_staff", () -> new MagicStaffItem(itemBuilder().rarity(Rarity.RARE).durability(64), () -> EntityType.CAVE_SPIDER));
 	public static final RegistryObject<Item> PROJECTILE_MAGIC = ITEMS.register("projectile_magic", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
+
+	public static final RegistryObject<Item> STONE_SHIELD = ITEMS.register("stone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(150), () -> Ingredient.of(Tags.Items.COBBLESTONE)));
+	public static final RegistryObject<Item> IRON_SHIELD = ITEMS.register("iron_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(336), () -> Ingredient.of(Tags.Items.INGOTS_IRON)));
+	public static final RegistryObject<Item> GOLD_SHIELD = ITEMS.register("gold_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(260), () -> Ingredient.of(Tags.Items.INGOTS_GOLD)));
 
 	//Lootable Item
 	public static final RegistryObject<Item> BAG_ARROWS = ITEMS.register("bag_arrows", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN::get));

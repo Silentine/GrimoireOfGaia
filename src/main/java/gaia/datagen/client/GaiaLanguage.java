@@ -27,12 +27,15 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
 		addMobTranslation(GaiaRegistry.DRYAD, "Dryad", "murmurs");
 		addMobTranslation(GaiaRegistry.DULLAHAN, "Dullahan", "speaks");
+		addMobTranslation(GaiaRegistry.GOBLIN, "Goblin", "speaks");
+		addMobTranslation(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin", "speaks");
 		addMobTranslation(GaiaRegistry.HARPY, "Harpy", "shrieks");
 		addMobTranslation(GaiaRegistry.HUNTER, "Hunter", "whispers");
 		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold", "barks");
 		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
 		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
 		addMobTranslation(GaiaRegistry.ONI, "Oni", "speaks");
+		addMobTranslation(GaiaRegistry.ORC, "Orc", "speaks");
 		addMobTranslation(GaiaRegistry.SATYRESS, "Satyress", "speaks");
 		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman", "chants");
 		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
@@ -105,7 +108,12 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.ZOMBIE_STAFF, "Zombie Staff");
 		addItem(GaiaRegistry.SKELETON_STAFF, "Skeleton Staff");
 		addItem(GaiaRegistry.CAVE_SPIDER_STAFF, "Cave Spider Staff");
+		addItem(GaiaRegistry.MAGIC_STAFF, "Magic Staff");
+		addItem(GaiaRegistry.STONE_SHIELD, "Stone Shield");
+		addItem(GaiaRegistry.IRON_SHIELD, "Iron Shield");
+		addItem(GaiaRegistry.GOLD_SHIELD, "Gold Shield");
 
+		addItem(GaiaRegistry.PROJECTILE_BOMB, "Bomb Projectile");
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");
 		addItem(GaiaRegistry.PROJECTILE_WEB, "Web Projectile");
 
@@ -129,8 +137,10 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.METAL_BOOK_HIT, "Metal Book Clunks");
 		addSubtitle(GaiaSounds.BOX_OPEN, "Box Opened");
 		addSubtitle(GaiaSounds.CREEP_PRIMED, "Creep Hisses");
+		addSubtitle(GaiaSounds.GOBLIN_FERAL_PRIMED, "Feral Goblin Primed");
 		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
 		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill Dies");
+		addSubtitle(GaiaSounds.BOMB_THROW, "Bomb thrown");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");
@@ -143,6 +153,7 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.fireshard.desc", "Right-click to spawn Lava");
 		add("text.grimoireofgaia.soulfire.desc", "Right-click to spawn Fire");
 		add("text.grimoireofgaia.summoning_staff.desc", "Hold Right-click to spawn %s");
+		add("text.grimoireofgaia.magic_staff.desc", "Hold Right-click to fire a magic projectile");
 
 		add("text.grimoireofgaia.headgear.tag", "Headgear");
 		add("text.grimoireofgaia.charm.tag", "Charm");

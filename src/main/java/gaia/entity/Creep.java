@@ -193,7 +193,6 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 			this.discard();
 			this.spawnLingeringCloud(this.getActiveEffects().stream().toList());
 		}
-
 	}
 
 	public boolean isIgnited() {

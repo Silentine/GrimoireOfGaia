@@ -1,6 +1,7 @@
 package gaia.entity;
 
 import gaia.capability.CapabilityHandler;
+import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
@@ -78,7 +79,9 @@ public class Centaur extends AbstractGaiaEntity implements RangedAttackMob, IAss
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Centaur.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
+			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		}
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -169,22 +172,22 @@ public class Centaur extends AbstractGaiaEntity implements RangedAttackMob, IAss
 
 	private void setGoals(int id) {
 		switch (id) {
-			default:
+			default -> {
 				this.goalSelector.removeGoal(avoidPlayerGoal);
 				this.goalSelector.removeGoal(avoidMobGoal);
 				this.goalSelector.addGoal(1, bowAttackGoal);
-				break;
-			case 1:
+			}
+			case 1 -> {
 				this.goalSelector.removeGoal(bowAttackGoal);
 				this.goalSelector.removeGoal(mobAttackGoal);
 				this.goalSelector.addGoal(1, avoidPlayerGoal);
 				this.goalSelector.addGoal(1, avoidMobGoal);
-				break;
-			case 2:
+			}
+			case 2 -> {
 				this.goalSelector.removeGoal(avoidPlayerGoal);
 				this.goalSelector.removeGoal(avoidMobGoal);
 				this.goalSelector.addGoal(1, mobAttackGoal);
-				break;
+			}
 		}
 	}
 

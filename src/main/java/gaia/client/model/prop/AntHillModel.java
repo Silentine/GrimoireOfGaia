@@ -1,4 +1,4 @@
-package gaia.client.model;
+package gaia.client.model.prop;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

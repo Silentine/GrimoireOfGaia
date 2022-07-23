@@ -136,14 +136,12 @@ public class Werecat extends AbstractGaiaEntity {
 		/* FLEE DATA */
 		if ((getHealth() < getMaxHealth() * 0.25F) && (switchHealth == 0)) {
 			switch (random.nextInt(2)) {
-				case 0:
+				case 0 -> {
 					setGoals(1);
 					setFleeing(true);
 					switchHealth = 1;
-					break;
-				case 1:
-					switchHealth = 2;
-					break;
+				}
+				case 1 -> switchHealth = 2;
 			}
 		}
 

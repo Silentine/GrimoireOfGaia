@@ -2,7 +2,7 @@ package gaia.client.renderer.prop;
 
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
-import gaia.client.model.AntHillModel;
+import gaia.client.model.prop.AntHillModel;
 import gaia.entity.prop.AntHill;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;

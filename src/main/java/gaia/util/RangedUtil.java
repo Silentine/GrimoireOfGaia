@@ -1,6 +1,7 @@
 package gaia.util;
 
 import gaia.config.GaiaConfig;
+import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.WebProjectile;
@@ -159,5 +160,29 @@ public class RangedUtil {
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		web.setPos(web.getX(), shooter.getY(0.5D) + 0.5D, web.getZ());
 		shooter.level.addFreshEntity(web);
+	}
+
+	/**
+	 * Shortcut Method for entities using bomb attacks. Use this to replace entity RangedAttackMob#performRangedAttack.
+	 *
+	 * @param target         the entity to fire at
+	 * @param shooter        the entity that is shooting
+	 * @param distanceFactor bonus damage (Unused)
+	 * @see net.minecraft.world.entity.monster.Witch
+	 */
+	public static void bomb(LivingEntity target, LivingEntity shooter, float distanceFactor) {
+		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
+
+		Vec3 targetVector = target.getDeltaMovement();
+		double d0 = target.getY() + (double) target.getEyeHeight() - 1.100000023841858D;
+		double d1 = target.getX() + targetVector.x - shooter.getX();
+		double d2 = d0 - shooter.getY();
+		double d3 = target.getZ() + target.getZ() - shooter.getZ();
+		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
+
+		BombProjectile bomb = new BombProjectile(shooter.level, shooter);
+		bomb.shoot(d1, d2 + (double) (f1 * 0.2F), d3, 0.75F, 8.0F);
+		bomb.setPos(bomb.getX(), shooter.getY(0.5D) + 0.5D, bomb.getZ());
+		shooter.level.addFreshEntity(bomb);
 	}
 }

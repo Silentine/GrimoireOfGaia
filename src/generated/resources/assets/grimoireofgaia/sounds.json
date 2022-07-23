@@ -95,8 +95,20 @@
       "random/fuse"
     ]
   },
+  "goblin_feral_primed": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_primed",
+    "sounds": [
+      "random/fuse"
+    ]
+  },
   "gaia_shoot": {
     "subtitle": "grimoireofgaia.subtitle.gaia_shoot",
+    "sounds": [
+      "mob/ghast/fireball4"
+    ]
+  },
+  "bomb_throw": {
+    "subtitle": "grimoireofgaia.subtitle.bomb_throw",
     "sounds": [
       "mob/ghast/fireball4"
     ]
@@ -161,6 +173,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "arachne_say": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "arachne_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "arachne_death": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "cyclops_say": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_say",
     "sounds": [
@@ -211,6 +241,42 @@
   },
   "dullahan_death": {
     "subtitle": "grimoireofgaia.subtitle.dullahan_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_say": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_death": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_feral_say": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_feral_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_feral_death": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_death",
     "sounds": [
       "grimoireofgaia:none"
     ]
@@ -301,6 +367,60 @@
   },
   "nine_tails_death": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "oni_say": {
+    "subtitle": "grimoireofgaia.subtitle.oni_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "oni_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.oni_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "oni_death": {
+    "subtitle": "grimoireofgaia.subtitle.oni_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "orc_say": {
+    "subtitle": "grimoireofgaia.subtitle.orc_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "orc_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.orc_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "orc_death": {
+    "subtitle": "grimoireofgaia.subtitle.orc_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "satyress_say": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "satyress_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "satyress_death": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_death",
     "sounds": [
       "grimoireofgaia:none"
     ]

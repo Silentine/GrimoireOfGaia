@@ -20,12 +20,14 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo cyclopsSpawning;
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
+		public final SpawningInfo goblinSpawning;
 		public final SpawningInfo harpySpawning;
 		public final SpawningInfo hunterSpawning;
 		public final SpawningInfo koboldSpawning;
 		public final SpawningInfo matangoSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
+		public final SpawningInfo orcSpawning;
 		public final SpawningInfo satyressSpawning;
 		public final SpawningInfo shamanSpawning;
 		public final SpawningInfo sirenSpawning;
@@ -72,6 +74,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT");
 			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
 
+			List<? extends String> goblinBiomes = generateList(Biomes.SAVANNA);
+			List<? extends String> goblinBiomeDictionary = List.of("OVERWORLD,SAVANNA");
+			goblinSpawning = new SpawningInfo(builder, "Goblin", 30, 2, 6, goblinBiomes, goblinBiomeDictionary);
+
 			List<? extends String> harpyBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
 			List<? extends String> harpyBiomeDictionary = List.of(
 					"OVERWORLD,PLAINS,!SAVANNA",
@@ -98,6 +104,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> oniBiomes = generateList(Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> oniBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
 			oniSpawning = new SpawningInfo(builder, "Oni", 80, 4, 6, oniBiomes, oniBiomeDictionary);
+
+			List<? extends String> orcBiomes = generateList(Biomes.SAVANNA);
+			List<? extends String> orcBiomeDictionary = List.of("OVERWORLD,SAVANNA");
+			orcSpawning = new SpawningInfo(builder, "Orc", 80, 2, 6, orcBiomes, orcBiomeDictionary);
 
 			List<? extends String> satyressBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> satyressBiomeDictionary = List.of(

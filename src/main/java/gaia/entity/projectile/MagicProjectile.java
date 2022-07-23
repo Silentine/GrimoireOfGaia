@@ -25,6 +25,10 @@ public class MagicProjectile extends SmallFireball {
 		super(entityType, level);
 	}
 
+	public MagicProjectile(Level level) {
+		this(GaiaRegistry.MAGIC.get(), level);
+	}
+
 	public MagicProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
 		super(level, livingEntity, accelX, accelY, accelZ);
 	}

@@ -65,8 +65,14 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaSounds.CREEP_PRIMED, definition()
 				.subtitle(modSubtitle(GaiaSounds.CREEP_PRIMED.getId()))
 				.with(sound(new ResourceLocation("random/fuse"))));
+		this.add(GaiaSounds.GOBLIN_FERAL_PRIMED, definition()
+				.subtitle(modSubtitle(GaiaSounds.GOBLIN_FERAL_PRIMED.getId()))
+				.with(sound(new ResourceLocation("random/fuse"))));
 		this.add(GaiaSounds.GAIA_SHOOT, definition()
 				.subtitle(modSubtitle(GaiaSounds.GAIA_SHOOT.getId()))
+				.with(sound(new ResourceLocation("mob/ghast/fireball4"))));
+		this.add(GaiaSounds.BOMB_THROW, definition()
+				.subtitle(modSubtitle(GaiaSounds.BOMB_THROW.getId()))
 				.with(sound(new ResourceLocation("mob/ghast/fireball4"))));
 		this.add(GaiaSounds.ANT_HILL_DEATH, definition()
 				.subtitle(modSubtitle(GaiaSounds.ANT_HILL_DEATH.getId()))
@@ -74,14 +80,20 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 
 		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
 		this.setupMobSounds(GaiaRegistry.ANUBIS);
+		this.setupMobSounds(GaiaRegistry.ARACHNE);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);
 		this.setupMobSounds(GaiaRegistry.DULLAHAN);
+		this.setupMobSounds(GaiaRegistry.GOBLIN);
+		this.setupMobSounds(GaiaRegistry.GOBLIN_FERAL);
 		this.setupMobSounds(GaiaRegistry.HARPY);
 		this.setupMobSounds(GaiaRegistry.HUNTER);
 		this.setupMobSounds(GaiaRegistry.KOBOLD);
 		this.setupMobSounds(GaiaRegistry.MATANGO);
 		this.setupMobSounds(GaiaRegistry.NINE_TAILS);
+		this.setupMobSounds(GaiaRegistry.ONI);
+		this.setupMobSounds(GaiaRegistry.ORC);
+		this.setupMobSounds(GaiaRegistry.SATYRESS);
 		this.setupMobSounds(GaiaRegistry.SHAMAN);
 		this.setupMobSounds(GaiaRegistry.SIREN);
 		this.setupMobSounds(GaiaRegistry.SLUDGE_GIRL);

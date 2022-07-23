@@ -1,7 +1,6 @@
 package gaia.client;
 
 import gaia.GrimoireOfGaia;
-import gaia.client.model.AntHillModel;
 import gaia.client.model.AntWorkerModel;
 import gaia.client.model.AnubisModel;
 import gaia.client.model.ArachneModel;
@@ -10,12 +9,14 @@ import gaia.client.model.CreepModel;
 import gaia.client.model.CyclopsModel;
 import gaia.client.model.DryadModel;
 import gaia.client.model.DullahanModel;
+import gaia.client.model.GoblinModel;
 import gaia.client.model.HarpyModel;
 import gaia.client.model.HunterModel;
 import gaia.client.model.KoboldModel;
 import gaia.client.model.MatangoModel;
 import gaia.client.model.NineTailsModel;
 import gaia.client.model.OniModel;
+import gaia.client.model.OrcModel;
 import gaia.client.model.SatyressModel;
 import gaia.client.model.ShamanModel;
 import gaia.client.model.SirenModel;
@@ -24,6 +25,7 @@ import gaia.client.model.SporelingModel;
 import gaia.client.model.SuccubusModel;
 import gaia.client.model.WerecatModel;
 import gaia.client.model.YukiOnnaModel;
+import gaia.client.model.prop.AntHillModel;
 import gaia.client.renderer.AntWorkerRenderer;
 import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.ArachneRenderer;
@@ -33,12 +35,15 @@ import gaia.client.renderer.CyclopsRenderer;
 import gaia.client.renderer.DryadRenderer;
 import gaia.client.renderer.DullahanRenderer;
 import gaia.client.renderer.GaiaHorseRenderer;
+import gaia.client.renderer.GoblinFeralRenderer;
+import gaia.client.renderer.GoblinRenderer;
 import gaia.client.renderer.HarpyRenderer;
 import gaia.client.renderer.HunterRenderer;
 import gaia.client.renderer.KoboldRenderer;
 import gaia.client.renderer.MatangoRenderer;
 import gaia.client.renderer.NineTailsRenderer;
 import gaia.client.renderer.OniRenderer;
+import gaia.client.renderer.OrcRenderer;
 import gaia.client.renderer.SatyressRenderer;
 import gaia.client.renderer.ShamanRenderer;
 import gaia.client.renderer.SirenRenderer;
@@ -57,6 +62,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -79,12 +85,15 @@ public class ClientHandler {
 	public static final ModelLayerLocation CYCLOPS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "cyclops"), "main");
 	public static final ModelLayerLocation DRYAD = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "dryad"), "main");
 	public static final ModelLayerLocation DULLAHAN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "dullahan"), "main");
+	public static final ModelLayerLocation GOBLIN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "goblin"), "main");
+	public static final ModelLayerLocation GOBLIN_FERAL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "goblin"), "feral");
 	public static final ModelLayerLocation HARPY = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "harpy"), "main");
 	public static final ModelLayerLocation HUNTER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "hunter"), "main");
 	public static final ModelLayerLocation KOBOLD = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "kobold"), "main");
 	public static final ModelLayerLocation MATANGO = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "matango"), "main");
 	public static final ModelLayerLocation NINE_TAILS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "nine_tails"), "main");
 	public static final ModelLayerLocation ONI = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "oni"), "main");
+	public static final ModelLayerLocation ORC = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "orc"), "main");
 	public static final ModelLayerLocation SATYRESS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "satyress"), "main");
 	public static final ModelLayerLocation SHAMAN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "shaman"), "main");
 	public static final ModelLayerLocation SIREN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "siren"), "main");
@@ -122,6 +131,13 @@ public class ClientHandler {
 		}
 
 		ClientRegistry.registerEntityShader(Arachne.class, new ResourceLocation("shaders/post/spider.json"));
+
+		ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+		ItemProperties.register(GaiaRegistry.IRON_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+		ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
 	}
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -134,12 +150,15 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.CYCLOPS.getEntityType(), CyclopsRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.DRYAD.getEntityType(), DryadRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.DULLAHAN.getEntityType(), DullahanRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.GOBLIN.getEntityType(), GoblinRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.GOBLIN_FERAL.getEntityType(), GoblinFeralRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.HARPY.getEntityType(), HarpyRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.HUNTER.getEntityType(), HunterRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.KOBOLD.getEntityType(), KoboldRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.MATANGO.getEntityType(), MatangoRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.NINE_TAILS.getEntityType(), NineTailsRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ONI.getEntityType(), OniRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.ORC.getEntityType(), OrcRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SATYRESS.getEntityType(), SatyressRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SHAMAN.getEntityType(), ShamanRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SIREN.getEntityType(), SirenRenderer::new);
@@ -153,6 +172,8 @@ public class ClientHandler {
 
 		event.registerEntityRenderer(GaiaRegistry.SMALL_FIREBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.MAGIC.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		event.registerEntityRenderer(GaiaRegistry.WEB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		event.registerEntityRenderer(GaiaRegistry.BOMB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 	}
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -166,12 +187,15 @@ public class ClientHandler {
 		event.registerLayerDefinition(CYCLOPS, CyclopsModel::createBodyLayer);
 		event.registerLayerDefinition(DRYAD, DryadModel::createBodyLayer);
 		event.registerLayerDefinition(DULLAHAN, DullahanModel::createBodyLayer);
+		event.registerLayerDefinition(GOBLIN, GoblinModel::createBodyLayer);
+		event.registerLayerDefinition(GOBLIN_FERAL, GoblinModel::createBodyLayer);
 		event.registerLayerDefinition(HARPY, HarpyModel::createBodyLayer);
 		event.registerLayerDefinition(HUNTER, HunterModel::createBodyLayer);
 		event.registerLayerDefinition(KOBOLD, KoboldModel::createBodyLayer);
 		event.registerLayerDefinition(MATANGO, MatangoModel::createBodyLayer);
 		event.registerLayerDefinition(NINE_TAILS, NineTailsModel::createBodyLayer);
 		event.registerLayerDefinition(ONI, OniModel::createBodyLayer);
+		event.registerLayerDefinition(ORC, OrcModel::createBodyLayer);
 		event.registerLayerDefinition(SATYRESS, SatyressModel::createBodyLayer);
 		event.registerLayerDefinition(SHAMAN, ShamanModel::createBodyLayer);
 		event.registerLayerDefinition(SIREN, SirenModel::createBodyLayer);
