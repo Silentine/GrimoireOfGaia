@@ -139,7 +139,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.CREEP_PRIMED, "Creep Hisses");
 		addSubtitle(GaiaSounds.GOBLIN_FERAL_PRIMED, "Feral Goblin Primed");
 		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
-		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill Dies");
+		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill is destroyed");
 		addSubtitle(GaiaSounds.BOMB_THROW, "Bomb thrown");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
