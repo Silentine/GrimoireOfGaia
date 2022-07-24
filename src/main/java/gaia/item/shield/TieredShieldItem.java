@@ -25,11 +25,11 @@ public class TieredShieldItem extends Item {
 		this.repairIngredient = new LazyLoadedValue<>(ingredientSupplier);
 	}
 
-	public UseAnim getUseAnimation(ItemStack p_43105_) {
+	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BLOCK;
 	}
 
-	public int getUseDuration(ItemStack p_43107_) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 

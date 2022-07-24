@@ -2,6 +2,7 @@ package gaia.entity;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.type.IAssistMob;
+import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
@@ -138,7 +139,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader levelReader) {
-		return 0.0F;
+		return this instanceof IDayMob ? 0.0F : super.getWalkTargetValue(pos, levelReader);
 	}
 
 	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {

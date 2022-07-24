@@ -24,7 +24,7 @@ public class GaiaHorse extends AbstractHorse {
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double p_27598_) {
+	public boolean removeWhenFarAway(double distance) {
 		return true;
 	}
 

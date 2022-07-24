@@ -38,8 +38,8 @@ public class MagicStaffItem extends Item {
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
 		if (livingEntity instanceof Player player) {
-			stack.hurtAndBreak(1, player, (p_40665_) -> {
-				p_40665_.broadcastBreakEvent(player.getUsedItemHand());
+			stack.hurtAndBreak(1, player, (p) -> {
+				p.broadcastBreakEvent(player.getUsedItemHand());
 			});
 
 			if (!level.isClientSide) {

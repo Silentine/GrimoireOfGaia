@@ -249,8 +249,8 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 	}
 
 	@Override
-	protected void playSwimSound(float p_20213_) {
-		super.playSwimSound(p_20213_);
+	protected void playSwimSound(float volume) {
+		super.playSwimSound(volume);
 	}
 
 	@Nullable

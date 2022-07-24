@@ -47,8 +47,8 @@ public class SoulfireItem extends FuelItem {
 				ItemStack stack = context.getItemInHand();
 				if (player instanceof ServerPlayer) {
 					CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) player, relativePos, stack);
-					stack.hurtAndBreak(1, player, (p_41300_) -> {
-						p_41300_.broadcastBreakEvent(context.getHand());
+					stack.hurtAndBreak(1, player, (p) -> {
+						p.broadcastBreakEvent(context.getHand());
 					});
 				}
 
@@ -61,8 +61,8 @@ public class SoulfireItem extends FuelItem {
 			level.setBlock(blockpos, blockstate.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
 			level.gameEvent(player, GameEvent.BLOCK_PLACE, blockpos);
 			if (player != null) {
-				context.getItemInHand().hurtAndBreak(1, player, (p_41303_) -> {
-					p_41303_.broadcastBreakEvent(context.getHand());
+				context.getItemInHand().hurtAndBreak(1, player, (p) -> {
+					p.broadcastBreakEvent(context.getHand());
 				});
 			}
 

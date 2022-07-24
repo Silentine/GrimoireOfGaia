@@ -298,9 +298,9 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 		return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
 	}
 
-	public void setClimbing(boolean p_33820_) {
+	public void setClimbing(boolean value) {
 		byte b0 = this.entityData.get(DATA_FLAGS_ID);
-		if (p_33820_) {
+		if (value) {
 			b0 = (byte) (b0 | 1);
 		} else {
 			b0 = (byte) (b0 & -2);

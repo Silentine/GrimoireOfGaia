@@ -63,8 +63,8 @@ public class BuffBookItem extends Item {
 
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity) {
 		if (state.getDestroySpeed(level, pos) != 0.0F) {
-			stack.hurtAndBreak(2, livingEntity, (p_43276_) -> {
-				p_43276_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
+			stack.hurtAndBreak(2, livingEntity, (living) -> {
+				living.broadcastBreakEvent(EquipmentSlot.MAINHAND);
 			});
 		}
 
