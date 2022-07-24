@@ -23,6 +23,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -133,6 +134,11 @@ public abstract class AbstractGaiaEntity extends Monster {
 			return type != getType() && (type != EntityType.CREEPER && super.canAttackType(type));
 		}
 		return super.canAttackType(type);
+	}
+
+	@Override
+	public boolean checkSpawnRules(LevelAccessor levelAccessor, MobSpawnType spawnType) {
+		return true;
 	}
 
 	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
