@@ -1,11 +1,15 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.entity.type.IAssistMob;
+import gaia.entity.type.IHostileMob;
+import gaia.entity.type.IPassiveMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
@@ -78,6 +82,29 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.subtitle(modSubtitle(GaiaSounds.ANT_HILL_DEATH.getId()))
 				.with(sound(modLoc("none"))));
 
+		this.generateMobSound();
+
+		this.add(GaiaRegistry.HORSE.getSay(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.HORSE.getSay().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/horse/zombie/idle1")),
+						sound(new ResourceLocation("mob/horse/zombie/idle2")),
+						sound(new ResourceLocation("mob/horse/zombie/idle3"))
+				));
+		this.add(GaiaRegistry.HORSE.getHurt(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.HORSE.getHurt().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/horse/zombie/hit1")),
+						sound(new ResourceLocation("mob/horse/zombie/hit2")),
+						sound(new ResourceLocation("mob/horse/zombie/hit3")),
+						sound(new ResourceLocation("mob/horse/zombie/hit4"))
+				));
+		this.add(GaiaRegistry.HORSE.getDeath(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.HORSE.getDeath().getLocation()))
+				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
+	}
+
+	public void generateMobSound() {
 		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
 		this.setupMobSounds(GaiaRegistry.ANUBIS);
 		this.setupMobSounds(GaiaRegistry.ARACHNE);
@@ -101,37 +128,57 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.SUCCUBUS);
 		this.setupMobSounds(GaiaRegistry.WERECAT);
 		this.setupMobSounds(GaiaRegistry.YUKI_ONNA);
-
-		this.add(GaiaRegistry.HORSE.getSay(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getSay().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/horse/zombie/idle1")),
-						sound(new ResourceLocation("mob/horse/zombie/idle2")),
-						sound(new ResourceLocation("mob/horse/zombie/idle3"))
-				));
-		this.add(GaiaRegistry.HORSE.getHurt(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getHurt().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/horse/zombie/hit1")),
-						sound(new ResourceLocation("mob/horse/zombie/hit2")),
-						sound(new ResourceLocation("mob/horse/zombie/hit3")),
-						sound(new ResourceLocation("mob/horse/zombie/hit4"))
-				));
-		this.add(GaiaRegistry.HORSE.getDeath(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getDeath().getLocation()))
-				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
 	}
 
-	private void setupMobSounds(MobReg<?> mobReg) {
+	public void setupMobSounds(MobReg<?> mobReg) {
+		boolean generateOptional = false;
+		if (generateOptional) { //Only true if the sound pack needs updating
+			this.setupOptionalMobSounds(mobReg);
+		} else {
+			this.add(mobReg.getSay(), definition()
+					.subtitle(modSubtitle(mobReg.getSay().getLocation()))
+					.with(sound(modLoc("none"))));
+			this.add(mobReg.getHurt(), definition()
+					.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
+					.with(sound(modLoc("none"))));
+			this.add(mobReg.getDeath(), definition()
+					.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
+					.with(sound(modLoc("none"))));
+
+			if (mobReg.hasGender()) {
+				this.add(mobReg.getMaleSay(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
+						.with(sound(modLoc("none"))));
+				this.add(mobReg.getMaleHurt(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
+						.with(sound(modLoc("none"))));
+				this.add(mobReg.getMaleDeath(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
+						.with(sound(modLoc("none"))));
+			}
+		}
+	}
+
+	public void setupOptionalMobSounds(MobReg<?> mobReg) {
+		EntityType<?> type = mobReg.getEntityType();
+		String base = "anime/aggressive_";
+		if (type.getBaseClass().isInstance(IAssistMob.class)) {
+			base = "anime/assist_";
+		} else if (type.getBaseClass().isInstance(IPassiveMob.class)) {
+			base = "anime/passive_";
+		}
+
 		this.add(mobReg.getSay(), definition()
 				.subtitle(modSubtitle(mobReg.getSay().getLocation()))
 				.with(sound(modLoc("none"))));
 		this.add(mobReg.getHurt(), definition()
 				.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
-				.with(sound(modLoc("none"))));
+				.with(sound(modLoc(base + "hurt1")),
+						sound(modLoc(base + "hurt2")),
+						sound(modLoc(base + "hurt3"))));
 		this.add(mobReg.getDeath(), definition()
 				.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
-				.with(sound(modLoc("none"))));
+				.with(sound(modLoc(base + "death"))));
 
 		if (mobReg.hasGender()) {
 			this.add(mobReg.getMaleSay(), definition()
@@ -139,10 +186,12 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 					.with(sound(modLoc("none"))));
 			this.add(mobReg.getMaleHurt(), definition()
 					.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
-					.with(sound(modLoc("none"))));
+					.with(sound(modLoc(base + "hurt1")),
+							sound(modLoc(base + "hurt2")),
+							sound(modLoc(base + "hurt3"))));
 			this.add(mobReg.getMaleDeath(), definition()
 					.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
-					.with(sound(modLoc("none"))));
+					.with(sound(modLoc(base + "death"))));
 		}
 	}
 
