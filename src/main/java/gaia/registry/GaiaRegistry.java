@@ -25,6 +25,7 @@ import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
 import gaia.entity.Sporeling;
+import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
@@ -109,6 +110,7 @@ public class GaiaRegistry {
 	public static final MobReg<Siren> SIREN = new MobReg<>("siren", EntityType.Builder.<Siren>of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
 	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg<>("sludge_girl", EntityType.Builder.<SludgeGirl>of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172);
 	public static final MobReg<Sporeling> SPORELING = new MobReg<>("sporeling", EntityType.Builder.<Sporeling>of(Sporeling::new, MobCategory.MONSTER).sized(0.25F, 0.50F).clientTrackingRange(8), 0xc32826, 0x977251);
+	public static final MobReg<Spriggan> SPRIGGAN = new MobReg<>("spriggan", EntityType.Builder.<Spriggan>of(Spriggan::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc32826, 0x977251);
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg<>("succubus", EntityType.Builder.<Succubus>of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145, true);
 	public static final MobReg<Werecat> WERECAT = new MobReg<>("werecat", EntityType.Builder.<Werecat>of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb);
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg<>("yuki_onna", EntityType.Builder.<YukiOnna>of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330);

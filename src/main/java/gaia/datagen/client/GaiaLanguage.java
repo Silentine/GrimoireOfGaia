@@ -41,6 +41,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
 		addMobTranslation(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl", "bubbles");
 		addMobTranslation(GaiaRegistry.SPORELING, "Sporeling", "squeaks");
+		addMobTranslation(GaiaRegistry.SPRIGGAN, "Spriggan", "rustles");
 		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus", "whispers");
 		addMobTranslation(GaiaRegistry.WERECAT, "Werecat", "hisses");
 		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna", "speaks");

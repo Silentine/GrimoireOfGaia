@@ -33,6 +33,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo sirenSpawning;
 		public final SpawningInfo sludgeGirlSpawning;
 		public final SpawningInfo succubusSpawning;
+		public final SpawningInfo sprigganSpawning;
 		public final SpawningInfo werecatSpawning;
 		public final SpawningInfo yukiOnnaSpawning;
 
@@ -132,8 +133,14 @@ public class GaiaSpawningConfig {
 			List<? extends String> succubusBiomeDictionary = List.of("NETHER");
 			succubusSpawning = new SpawningInfo(builder, "Succubus", 16, 2, 4, succubusBiomes, succubusBiomeDictionary);
 
+			List<? extends String> sprigganBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
+			List<? extends String> sprigganBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
+					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
+			sprigganSpawning = new SpawningInfo(builder, "Spriggan", 80, 2, 4, sprigganBiomes, sprigganBiomeDictionary);
+
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
-			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,BEACH,!MUSHROOM");
+			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
+					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
 			werecatSpawning = new SpawningInfo(builder, "Werecat", 80, 4, 6, werecatBiomes, werecatBiomeDictionary);
 
 			List<? extends String> yukiOnnaBiomes = generateList(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);

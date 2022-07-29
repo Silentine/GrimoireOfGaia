@@ -22,12 +22,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.AABB;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -101,6 +104,16 @@ public abstract class AbstractGaiaEntity extends Monster {
 		int i = localdate.get(ChronoField.DAY_OF_MONTH);
 		int j = localdate.get(ChronoField.MONTH_OF_YEAR);
 		return j == 10 && i >= 20 || j == 11 && i <= 3;
+	}
+
+	/**
+	 * Detects if there are any EntityPlayer nearby
+	 */
+	protected boolean playerDetection(int range, TargetingConditions conditions) {
+		AABB box = new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1).inflate(range);
+		List<Player> list = level.getNearbyPlayers(conditions, this, box);
+
+		return !list.isEmpty();
 	}
 
 	@Override

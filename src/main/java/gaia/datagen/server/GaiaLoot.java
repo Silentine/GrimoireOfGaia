@@ -404,6 +404,28 @@ public class GaiaLoot extends LootTableProvider {
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 			);
 			this.add(GaiaRegistry.SPORELING.getEntityType(), LootTable.lootTable());
+			this.add(GaiaRegistry.SPRIGGAN.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.TAPROOT.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.OAK_LOG)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER,
+									EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(GaiaTags.TOOLS_AXES).build()).build()))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get()))
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_NATURE.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+			);
 			this.add(GaiaRegistry.SUCCUBUS.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.FIRESHARD.get())

@@ -497,6 +497,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "spriggan_say": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "spriggan_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "spriggan_death": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "succubus_say": {
     "subtitle": "grimoireofgaia.subtitle.succubus_say",
     "sounds": [

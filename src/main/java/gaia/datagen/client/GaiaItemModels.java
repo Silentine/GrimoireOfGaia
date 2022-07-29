@@ -23,11 +23,6 @@ public class GaiaItemModels extends ItemModelProvider {
 				this.withExistingParent(item.get().getRegistryName().getPath(), new ResourceLocation("item/template_spawn_egg"));
 			}
 		}
-		for (RegistryObject<Item> item : GaiaRegistry.ITEMS.getEntries()) {
-			if (item.get() instanceof ForgeSpawnEggItem) {
-				this.withExistingParent(item.get().getRegistryName().getPath(), new ResourceLocation("item/template_spawn_egg"));
-			}
-		}
 
 		this.withBlockParent(GaiaRegistry.BUST_GORGON.get());
 		this.withBlockParent(GaiaRegistry.BUST_MINOTAUR.get());

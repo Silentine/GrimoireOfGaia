@@ -125,6 +125,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.SIREN);
 		this.setupMobSounds(GaiaRegistry.SLUDGE_GIRL);
 		this.setupMobSounds(GaiaRegistry.SPORELING);
+		this.setupMobSounds(GaiaRegistry.SPRIGGAN);
 		this.setupMobSounds(GaiaRegistry.SUCCUBUS);
 		this.setupMobSounds(GaiaRegistry.WERECAT);
 		this.setupMobSounds(GaiaRegistry.YUKI_ONNA);

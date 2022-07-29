@@ -122,7 +122,7 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void aiStep() {
-		if (playerDetection()) {
+		if (playerDetection(3, TargetingConditions.forCombat())) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
 			}
@@ -161,16 +161,6 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 
 		super.aiStep();
-	}
-
-	/**
-	 * Detects if there are any EntityPlayer nearby
-	 */
-	private boolean playerDetection() {
-		AABB box = new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1).inflate(3);
-		List<Player> list = level.getNearbyPlayers(TargetingConditions.forCombat(), this, box);
-
-		return !list.isEmpty();
 	}
 
 	private void setGoals(int id) {

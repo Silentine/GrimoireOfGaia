@@ -26,6 +26,7 @@ import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
 import gaia.entity.Sporeling;
+import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.YukiOnna;
@@ -73,6 +74,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.SIREN.getEntityType(), GaiaSpawningConfig.COMMON.sirenSpawning, event);
 		addSpawn(GaiaRegistry.SLUDGE_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.sludgeGirlSpawning, event);
 		addSpawn(GaiaRegistry.SUCCUBUS.getEntityType(), GaiaSpawningConfig.COMMON.succubusSpawning, event);
+		addSpawn(GaiaRegistry.SPRIGGAN.getEntityType(), GaiaSpawningConfig.COMMON.sprigganSpawning, event);
 		addSpawn(GaiaRegistry.WERECAT.getEntityType(), GaiaSpawningConfig.COMMON.werecatSpawning, event);
 		addSpawn(GaiaRegistry.YUKI_ONNA.getEntityType(), GaiaSpawningConfig.COMMON.yukiOnnaSpawning, event);
 	}
@@ -142,6 +144,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.SIREN.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Siren::checkSirenSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SludgeGirl::checkSludgeGirlSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SPORELING.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sporeling::checkSporelingSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.SPRIGGAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Spriggan::checkSprigganSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SUCCUBUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Succubus::checkSuccubusSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WERECAT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Werecat::checkWerecatSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.YUKI_ONNA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, YukiOnna::checkYukiOnnaSpawnRules);
@@ -173,6 +176,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.SIREN.getEntityType(), Siren.createAttributes().build());
 		event.put(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SludgeGirl.createAttributes().build());
 		event.put(GaiaRegistry.SPORELING.getEntityType(), Sporeling.createAttributes().build());
+		event.put(GaiaRegistry.SPRIGGAN.getEntityType(), Spriggan.createAttributes().build());
 		event.put(GaiaRegistry.SUCCUBUS.getEntityType(), Succubus.createAttributes().build());
 		event.put(GaiaRegistry.WERECAT.getEntityType(), Werecat.createAttributes().build());
 		event.put(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnna.createAttributes().build());
