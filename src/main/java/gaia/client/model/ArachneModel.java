@@ -128,7 +128,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 	@Override
 	public void prepareMobModel(Arachne arachne, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(arachne, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !arachne.isBaby();
 	}
 
 	@Override

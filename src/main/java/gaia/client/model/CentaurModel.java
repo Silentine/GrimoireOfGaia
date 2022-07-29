@@ -153,7 +153,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 	@Override
 	public void prepareMobModel(Centaur centaur, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(centaur, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !centaur.isBaby();
 	}
 
 	@Override

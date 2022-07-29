@@ -117,7 +117,7 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 	@Override
 	public void prepareMobModel(Satyress satyress, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(satyress, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !satyress.isBaby();
 	}
 
 	@Override

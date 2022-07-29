@@ -118,7 +118,7 @@ public class WerecatModel extends EntityModel<Werecat> implements HeadedModel, A
 	@Override
 	public void prepareMobModel(Werecat werecat, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(werecat, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !werecat.isBaby();
 	}
 
 	@Override

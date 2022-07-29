@@ -123,7 +123,7 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 	@Override
 	public void prepareMobModel(Anubis anubis, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(anubis, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !anubis.isBaby();
 	}
 
 	@Override

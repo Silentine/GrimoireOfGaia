@@ -128,7 +128,7 @@ public class HarpyModel extends EntityModel<Harpy> implements HeadedModel, Armed
 	@Override
 	public void prepareMobModel(Harpy harpy, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(harpy, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !harpy.isBaby();
 	}
 
 	@Override

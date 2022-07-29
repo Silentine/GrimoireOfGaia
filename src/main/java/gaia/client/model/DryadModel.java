@@ -115,7 +115,7 @@ public class DryadModel extends EntityModel<Dryad> implements HeadedModel, Armed
 	public void prepareMobModel(Dryad dryad, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(dryad, limbSwing, limbSwingAmount, partialTick);
 		this.headFlower.visible = !dryad.isBaby();
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !dryad.isBaby();
 	}
 
 	@Override

@@ -99,7 +99,7 @@ public class YukiOnnaModel extends EntityModel<YukiOnna> implements HeadedModel,
 	@Override
 	public void prepareMobModel(YukiOnna yukiOnna, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(yukiOnna, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !yukiOnna.isBaby();
 	}
 
 	@Override

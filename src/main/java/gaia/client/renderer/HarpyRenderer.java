@@ -5,10 +5,9 @@ import gaia.client.ClientHandler;
 import gaia.client.model.HarpyModel;
 import gaia.entity.Harpy;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class HarpyRenderer extends MobRenderer<Harpy, HarpyModel> {
+public class HarpyRenderer extends GaiaBabyMobRenderer<Harpy, HarpyModel> {
 	public static final ResourceLocation[] HARPY_LOCATIONS = new ResourceLocation[]{
 			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/harpy/harpy01.png"),
 			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/harpy/harpy02.png"),

@@ -102,7 +102,7 @@ public class OniModel extends EntityModel<Oni> implements HeadedModel, ArmedMode
 	@Override
 	public void prepareMobModel(Oni oni, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(oni, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !oni.isBaby();
 	}
 
 	@Override

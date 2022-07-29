@@ -146,7 +146,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 	@Override
 	public void prepareMobModel(Siren siren, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(siren, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !siren.isBaby();
 	}
 
 	@Override

@@ -109,7 +109,7 @@ public class CyclopsModel extends EntityModel<Cyclops> implements HeadedModel, A
 	@Override
 	public void prepareMobModel(Cyclops cyclops, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(cyclops, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !cyclops.isBaby();
 	}
 
 	@Override

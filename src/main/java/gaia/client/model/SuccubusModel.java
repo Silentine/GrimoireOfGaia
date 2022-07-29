@@ -140,7 +140,7 @@ public class SuccubusModel extends EntityModel<Succubus> implements HeadedModel,
 	@Override
 	public void prepareMobModel(Succubus succubus, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(succubus, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !succubus.isBaby();
 	}
 
 	@Override

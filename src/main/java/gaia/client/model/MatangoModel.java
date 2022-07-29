@@ -109,7 +109,7 @@ public class MatangoModel extends EntityModel<Matango> implements HeadedModel, A
 	@Override
 	public void prepareMobModel(Matango matango, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(matango, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !matango.isBaby();
 	}
 
 	@Override

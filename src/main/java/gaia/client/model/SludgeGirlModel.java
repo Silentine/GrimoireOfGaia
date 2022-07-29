@@ -104,7 +104,7 @@ public class SludgeGirlModel extends EntityModel<SludgeGirl> implements HeadedMo
 	@Override
 	public void prepareMobModel(SludgeGirl sludgeGirl, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(sludgeGirl, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !sludgeGirl.isBaby();
 	}
 
 	@Override

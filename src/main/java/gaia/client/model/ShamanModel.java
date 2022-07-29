@@ -105,7 +105,7 @@ public class ShamanModel extends EntityModel<Shaman> implements HeadedModel, Arm
 	@Override
 	public void prepareMobModel(Shaman shaman, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(shaman, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !shaman.isBaby();
 	}
 
 	@Override

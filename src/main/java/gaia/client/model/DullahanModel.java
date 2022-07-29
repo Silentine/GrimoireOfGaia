@@ -34,7 +34,6 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
 		this.chest = this.bodytop.getChild("chest");
 		this.leftarm = this.bodytop.getChild("leftarm");
-		ModelPart leftarmlower = this.leftarm.getChild("leftarmlower");
 		this.rightarm = this.bodytop.getChild("rightarm");
 		ModelPart rightarmlower = this.rightarm.getChild("rightarmlower");
 		this.head = rightarmlower.getChild("head");
@@ -100,7 +99,7 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 	@Override
 	public void prepareMobModel(Dullahan dullahan, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(dullahan, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !dullahan.isBaby();
 	}
 
 	@Override

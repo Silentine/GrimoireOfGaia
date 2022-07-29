@@ -180,7 +180,7 @@ public class NineTailsModel extends EntityModel<NineTails> implements HeadedMode
 	@Override
 	public void prepareMobModel(NineTails nineTails, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(nineTails, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !nineTails.isBaby();
 	}
 
 	@Override

@@ -131,7 +131,7 @@ public class AntWorkerModel extends EntityModel<AntWorker> implements HeadedMode
 	@Override
 	public void prepareMobModel(AntWorker ant, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(ant, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !ant.isBaby();
 	}
 
 

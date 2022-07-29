@@ -139,7 +139,7 @@ public class KoboldModel extends EntityModel<Kobold> implements HeadedModel, Arm
 	@Override
 	public void prepareMobModel(Kobold kobold, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(kobold, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get();
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !kobold.isBaby();
 	}
 
 	@Override
