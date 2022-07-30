@@ -5,6 +5,7 @@ import gaia.datagen.client.GaiaItemModels;
 import gaia.datagen.client.GaiaLanguage;
 import gaia.datagen.client.GaiaSoundProvider;
 import gaia.datagen.server.GaiaBlockTags;
+import gaia.datagen.server.GaiaEntityTags;
 import gaia.datagen.server.GaiaItemTags;
 import gaia.datagen.server.GaiaLoot;
 import gaia.datagen.server.GaiaRecipes;
@@ -31,6 +32,7 @@ public class GaiaDatagen {
 			BlockTagsProvider provider;
 			generator.addProvider(provider = new GaiaBlockTags(generator, helper));
 			generator.addProvider(new GaiaItemTags(generator, provider, helper));
+			generator.addProvider(new GaiaEntityTags(generator, helper));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(new GaiaLanguage(generator));

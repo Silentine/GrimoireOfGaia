@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public class FriendedCapability implements IFriended, ICapabilitySerializable<CompoundTag>, ICapabilityProvider {
 	private boolean friended = false;
+	private boolean changed = false;
 
 	@Override
 	public boolean isFriendly() {
@@ -20,8 +21,19 @@ public class FriendedCapability implements IFriended, ICapabilitySerializable<Co
 	}
 
 	@Override
+	public boolean isChanged() {
+		return changed;
+	}
+
+	@Override
 	public void setFriendly(boolean value) {
 		this.friended = value;
+		this.setChanged(true);
+	}
+
+	@Override
+	public void setChanged(boolean value) {
+		this.changed = value;
 	}
 
 	@Override

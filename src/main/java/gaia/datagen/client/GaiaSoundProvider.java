@@ -2,7 +2,6 @@ package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
 import gaia.entity.type.IAssistMob;
-import gaia.entity.type.IHostileMob;
 import gaia.entity.type.IPassiveMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
@@ -108,6 +107,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
 		this.setupMobSounds(GaiaRegistry.ANUBIS);
 		this.setupMobSounds(GaiaRegistry.ARACHNE);
+		this.setupMobSounds(GaiaRegistry.BEE);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);
 		this.setupMobSounds(GaiaRegistry.DULLAHAN);

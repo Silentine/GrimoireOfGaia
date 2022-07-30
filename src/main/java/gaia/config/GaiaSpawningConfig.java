@@ -15,6 +15,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo antHillSpawning;
 		public final SpawningInfo anubisSpawning;
 		public final SpawningInfo arachneSpawning;
+		public final SpawningInfo beeSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo creepSpawning;
 		public final SpawningInfo cyclopsSpawning;
@@ -51,6 +52,11 @@ public class GaiaSpawningConfig {
 
 			List<? extends String> arachneBiomeDictionary = List.of("OVERWORLD");
 			arachneSpawning = new SpawningInfo(builder, "Arachne", 80, 1, 2, List.of(), arachneBiomeDictionary);
+
+			List<? extends String> beeBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
+			List<? extends String> beeBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
+					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
+			beeSpawning = new SpawningInfo(builder, "Bee", 40, 2, 4, beeBiomes, beeBiomeDictionary);
 
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(
@@ -136,7 +142,7 @@ public class GaiaSpawningConfig {
 			List<? extends String> sprigganBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> sprigganBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
 					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
-			sprigganSpawning = new SpawningInfo(builder, "Spriggan", 80, 2, 4, sprigganBiomes, sprigganBiomeDictionary);
+			sprigganSpawning = new SpawningInfo(builder, "Spriggan", 40, 2, 4, sprigganBiomes, sprigganBiomeDictionary);
 
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",

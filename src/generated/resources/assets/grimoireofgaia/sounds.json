@@ -191,6 +191,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "bee_say": {
+    "subtitle": "grimoireofgaia.subtitle.bee_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "bee_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.bee_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "bee_death": {
+    "subtitle": "grimoireofgaia.subtitle.bee_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "cyclops_say": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_say",
     "sounds": [

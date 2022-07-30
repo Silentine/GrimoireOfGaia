@@ -4,6 +4,7 @@ import gaia.GrimoireOfGaia;
 import gaia.client.model.AntWorkerModel;
 import gaia.client.model.AnubisModel;
 import gaia.client.model.ArachneModel;
+import gaia.client.model.BeeModel;
 import gaia.client.model.CentaurModel;
 import gaia.client.model.CreepModel;
 import gaia.client.model.CyclopsModel;
@@ -30,6 +31,7 @@ import gaia.client.model.prop.AntHillModel;
 import gaia.client.renderer.AntWorkerRenderer;
 import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.ArachneRenderer;
+import gaia.client.renderer.BeeRenderer;
 import gaia.client.renderer.CentaurRenderer;
 import gaia.client.renderer.CreepRenderer;
 import gaia.client.renderer.CyclopsRenderer;
@@ -81,6 +83,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation ANT_WORKER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_worker"), "main");
 	public static final ModelLayerLocation ANUBIS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "anubis"), "main");
 	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "arachne"), "main");
+	public static final ModelLayerLocation BEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bee"), "main");
 	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "centaur"), "main");
 	public static final ModelLayerLocation CREEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep"), "main");
 	public static final ModelLayerLocation CREEP_ARMOR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep"), "armor");
@@ -148,6 +151,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorkerRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ANUBIS.getEntityType(), AnubisRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ARACHNE.getEntityType(), ArachneRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.BEE.getEntityType(), BeeRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CENTAUR.getEntityType(), CentaurRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CREEP.getEntityType(), CreepRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CYCLOPS.getEntityType(), CyclopsRenderer::new);
@@ -178,6 +182,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.MAGIC.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.WEB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.BOMB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		event.registerEntityRenderer(GaiaRegistry.POISON.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 	}
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -185,6 +190,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(ANT_WORKER, AntWorkerModel::createBodyLayer);
 		event.registerLayerDefinition(ANUBIS, AnubisModel::createBodyLayer);
 		event.registerLayerDefinition(ARACHNE, ArachneModel::createBodyLayer);
+		event.registerLayerDefinition(BEE, BeeModel::createBodyLayer);
 		event.registerLayerDefinition(CENTAUR, CentaurModel::createBodyLayer);
 		event.registerLayerDefinition(CREEP, () -> CreepModel.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(CREEP_ARMOR, () -> CreepModel.createBodyLayer(new CubeDeformation(2.0F)));

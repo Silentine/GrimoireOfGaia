@@ -5,6 +5,7 @@ import gaia.block.DecorationBlock;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Arachne;
+import gaia.entity.Bee;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
 import gaia.entity.Cyclops;
@@ -32,6 +33,7 @@ import gaia.entity.YukiOnna;
 import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
+import gaia.entity.projectile.PoisonProjectile;
 import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
 import gaia.item.ExperienceItem;
@@ -91,6 +93,7 @@ public class GaiaRegistry {
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
+	public static final MobReg<Bee> BEE = new MobReg<>("bee", EntityType.Builder.<Bee>of(Bee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0x353535);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
 	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
@@ -110,7 +113,7 @@ public class GaiaRegistry {
 	public static final MobReg<Siren> SIREN = new MobReg<>("siren", EntityType.Builder.<Siren>of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de);
 	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg<>("sludge_girl", EntityType.Builder.<SludgeGirl>of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172);
 	public static final MobReg<Sporeling> SPORELING = new MobReg<>("sporeling", EntityType.Builder.<Sporeling>of(Sporeling::new, MobCategory.MONSTER).sized(0.25F, 0.50F).clientTrackingRange(8), 0xc32826, 0x977251);
-	public static final MobReg<Spriggan> SPRIGGAN = new MobReg<>("spriggan", EntityType.Builder.<Spriggan>of(Spriggan::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc32826, 0x977251);
+	public static final MobReg<Spriggan> SPRIGGAN = new MobReg<>("spriggan", EntityType.Builder.<Spriggan>of(Spriggan::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7c623e, 0xc2dda5);
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg<>("succubus", EntityType.Builder.<Succubus>of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145, true);
 	public static final MobReg<Werecat> WERECAT = new MobReg<>("werecat", EntityType.Builder.<Werecat>of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb);
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg<>("yuki_onna", EntityType.Builder.<YukiOnna>of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330);
@@ -133,6 +136,11 @@ public class GaiaRegistry {
 			EntityType.Builder.<WebProjectile>of(WebProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
 					.setCustomClientFactory(WebProjectile::new).build("web"));
+
+	public static final RegistryObject<EntityType<PoisonProjectile>> POISON = ENTITIES.register("poison", () ->
+			EntityType.Builder.<PoisonProjectile>of(PoisonProjectile::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
+					.setCustomClientFactory(PoisonProjectile::new).build("poison"));
 	public static final RegistryObject<EntityType<BombProjectile>> BOMB = ENTITIES.register("bomb", () ->
 			EntityType.Builder.<BombProjectile>of(BombProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
@@ -222,6 +230,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> PROJECTILE_MAGIC = ITEMS.register("projectile_magic", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> PROJECTILE_POISON = ITEMS.register("projectile_poison", () -> new Item(itemBuilder().stacksTo(1)));
 
 	public static final RegistryObject<Item> STONE_SHIELD = ITEMS.register("stone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(150), () -> Ingredient.of(Tags.Items.COBBLESTONE)));
 	public static final RegistryObject<Item> IRON_SHIELD = ITEMS.register("iron_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(336), () -> Ingredient.of(Tags.Items.INGOTS_IRON)));

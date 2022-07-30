@@ -20,27 +20,27 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
-public class MagicProjectile extends SmallFireball {
-	public MagicProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
+public class PoisonProjectile extends SmallFireball {
+	public PoisonProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public MagicProjectile(Level level) {
+	public PoisonProjectile(Level level) {
 		this(GaiaRegistry.MAGIC.get(), level);
 	}
 
-	public MagicProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
+	public PoisonProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
 		super(level, livingEntity, accelX, accelY, accelZ);
 	}
 
 	@Override
 	public ItemStack getItem() {
 		ItemStack itemstack = this.getItemRaw();
-		return itemstack.isEmpty() ? new ItemStack(GaiaRegistry.PROJECTILE_MAGIC.get()) : itemstack;
+		return itemstack.isEmpty() ? new ItemStack(GaiaRegistry.PROJECTILE_POISON.get()) : itemstack;
 	}
 
-	public MagicProjectile(SpawnEntity spawnEntity, Level level) {
-		this(GaiaRegistry.MAGIC.get(), level);
+	public PoisonProjectile(SpawnEntity spawnEntity, Level level) {
+		this(GaiaRegistry.POISON.get(), level);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class MagicProjectile extends SmallFireball {
 
 	@Override
 	public EntityType<?> getType() {
-		return GaiaRegistry.MAGIC.get();
+		return GaiaRegistry.POISON.get();
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class MagicProjectile extends SmallFireball {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, effectTime * 20, 1));
 				}
 			}
 		}

@@ -257,26 +257,26 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 		switch (getVariant()) {
 			case 0:
 				switch (random.nextInt(2)) {
-					case 0:
+					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 						populateDefaultEquipmentEnchantments(instance);
-						break;
-					case 1:
+					}
+					case 1 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
 						populateDefaultEquipmentEnchantments(instance);
-						break;
+					}
 				}
 				break;
 			case 1:
 				switch (random.nextInt(2)) {
-					case 0:
+					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
 						populateDefaultEquipmentEnchantments(instance);
-						break;
-					case 1:
+					}
+					case 1 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 						populateDefaultEquipmentEnchantments(instance);
-						break;
+					}
 				}
 				break;
 		}
@@ -288,29 +288,27 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 		ItemStack armor_chestplate = ItemStack.EMPTY;
 
 		switch (getVariant()) {
-			case 0:
+			case 0 -> {
 				if (itemstack.getItem() == Items.STONE_AXE) {
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 				}
-
 				if (itemstack.getItem() == Items.IRON_AXE) {
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 					armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
 				}
-				break;
-			case 1:
+			}
+			case 1 -> {
 				if (itemstack.getItem() == Items.WOODEN_AXE) {
 					shield = new ItemStack(GaiaRegistry.STONE_SHIELD.get());
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 					armor_chestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
 				}
-
 				if (itemstack.getItem() == Items.STONE_AXE) {
 					shield = new ItemStack(GaiaRegistry.IRON_SHIELD.get());
 					armor_leggings = new ItemStack(Items.LEATHER_LEGGINGS);
 					armor_chestplate = new ItemStack(Items.IRON_CHESTPLATE);
 				}
-				break;
+			}
 		}
 
 		setItemSlot(EquipmentSlot.OFFHAND, shield);
@@ -332,12 +330,8 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 			setVariant(2);
 		} else {
 			switch (random.nextInt(2)) {
-				case 0:
-					setVariant(0);
-					break;
-				case 1:
-					setVariant(1);
-					break;
+				case 0 -> setVariant(0);
+				case 1 -> setVariant(1);
 			}
 		}
 

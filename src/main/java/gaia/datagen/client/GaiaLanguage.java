@@ -22,6 +22,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
 		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
 		addMobTranslation(GaiaRegistry.ARACHNE, "Arachne", "communicates");
+		addMobTranslation(GaiaRegistry.BEE, "Honey Bee", "buzzes");
 		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
 		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
 		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
@@ -50,6 +51,9 @@ public class GaiaLanguage extends LanguageProvider {
 
 		addMobTranslation(GaiaRegistry.HORSE, "Wild Horse", "neighs");
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
+		addEntityType(GaiaRegistry.MAGIC, "Magic Projectile");
+		addEntityType(GaiaRegistry.POISON, "Poison Projectile");
+		addEntityType(GaiaRegistry.BOMB, "Bomb Projectile");
 
 		addBlock(GaiaRegistry.BUST_GORGON, "The Gorgon");
 		addBlock(GaiaRegistry.BUST_MINOTAUR, "Minotaur Bust");
@@ -117,6 +121,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.PROJECTILE_BOMB, "Bomb Projectile");
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");
 		addItem(GaiaRegistry.PROJECTILE_WEB, "Web Projectile");
+		addItem(GaiaRegistry.PROJECTILE_POISON, "Poison Projectile");
 
 		addItem(GaiaRegistry.BAG_ARROWS, "Sealed Quiver");
 		addItem(GaiaRegistry.BAG_BOOK, "Book Satchel");
