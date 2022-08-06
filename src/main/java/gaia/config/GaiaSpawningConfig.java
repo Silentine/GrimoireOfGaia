@@ -15,6 +15,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo antHillSpawning;
 		public final SpawningInfo anubisSpawning;
 		public final SpawningInfo arachneSpawning;
+		public final SpawningInfo bansheeSpawning;
 		public final SpawningInfo beeSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo creepSpawning;
@@ -53,10 +54,15 @@ public class GaiaSpawningConfig {
 			List<? extends String> arachneBiomeDictionary = List.of("OVERWORLD");
 			arachneSpawning = new SpawningInfo(builder, "Arachne", 80, 1, 2, List.of(), arachneBiomeDictionary);
 
+			List<? extends String> bansheeBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> bansheeBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
+					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+			bansheeSpawning = new SpawningInfo(builder, "Banshee", 40, 2, 4, bansheeBiomes, bansheeBiomeDictionary);
+
 			List<? extends String> beeBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> beeBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
 					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
-			beeSpawning = new SpawningInfo(builder, "Bee", 40, 2, 4, beeBiomes, beeBiomeDictionary);
+			beeSpawning = new SpawningInfo(builder, "Bee", 80, 2, 4, beeBiomes, beeBiomeDictionary);
 
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(
@@ -78,7 +84,8 @@ public class GaiaSpawningConfig {
 			dryadSpawning = new SpawningInfo(builder, "Dryad", 60, 4, 6, dryadBiomes, dryadBiomeDictionary);
 
 			List<? extends String> dullahanBiomes = generateList(Biomes.MEADOW);
-			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT");
+			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
+					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
 			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
 
 			List<? extends String> goblinBiomes = generateList(Biomes.SAVANNA);

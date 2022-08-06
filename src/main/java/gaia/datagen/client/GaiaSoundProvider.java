@@ -107,6 +107,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
 		this.setupMobSounds(GaiaRegistry.ANUBIS);
 		this.setupMobSounds(GaiaRegistry.ARACHNE);
+		this.setupMobSounds(GaiaRegistry.BANSHEE);
 		this.setupMobSounds(GaiaRegistry.BEE);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);

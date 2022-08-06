@@ -6,6 +6,7 @@ import gaia.config.SpawningInfo;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Arachne;
+import gaia.entity.Banshee;
 import gaia.entity.Bee;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
@@ -57,6 +58,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.ANT_HILL.getEntityType(), GaiaSpawningConfig.COMMON.antHillSpawning, event);
 		addSpawn(GaiaRegistry.ANUBIS.getEntityType(), GaiaSpawningConfig.COMMON.anubisSpawning, event);
 		addSpawn(GaiaRegistry.ARACHNE.getEntityType(), GaiaSpawningConfig.COMMON.arachneSpawning, event);
+		addSpawn(GaiaRegistry.BANSHEE.getEntityType(), GaiaSpawningConfig.COMMON.bansheeSpawning, event);
 		addSpawn(GaiaRegistry.BEE.getEntityType(), GaiaSpawningConfig.COMMON.beeSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
 		addSpawn(GaiaRegistry.CREEP.getEntityType(), GaiaSpawningConfig.COMMON.creepSpawning, event);
@@ -127,6 +129,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.ANT_WORKER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntWorker::checkAntSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ARACHNE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Arachne::checkArachneSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ANUBIS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Anubis::checkAnubisSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.BANSHEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Banshee::checkBansheeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Bee::checkBeeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CREEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Creep::checkCreepSpawnRules);
@@ -160,6 +163,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorker.createAttributes().build());
 		event.put(GaiaRegistry.ANUBIS.getEntityType(), Anubis.createAttributes().build());
 		event.put(GaiaRegistry.ARACHNE.getEntityType(), Arachne.createAttributes().build());
+		event.put(GaiaRegistry.BANSHEE.getEntityType(), Banshee.createAttributes().build());
 		event.put(GaiaRegistry.BEE.getEntityType(), Bee.createAttributes().build());
 		event.put(GaiaRegistry.CENTAUR.getEntityType(), Centaur.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());

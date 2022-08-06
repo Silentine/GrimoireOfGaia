@@ -22,6 +22,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
 		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
 		addMobTranslation(GaiaRegistry.ARACHNE, "Arachne", "communicates");
+		addMobTranslation(GaiaRegistry.BANSHEE, "Banshee", "shrieks");
 		addMobTranslation(GaiaRegistry.BEE, "Honey Bee", "buzzes");
 		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
 		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");

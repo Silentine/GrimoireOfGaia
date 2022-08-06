@@ -5,6 +5,7 @@ import gaia.block.DecorationBlock;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Arachne;
+import gaia.entity.Banshee;
 import gaia.entity.Bee;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
@@ -93,6 +94,7 @@ public class GaiaRegistry {
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
+	public static final MobReg<Banshee> BANSHEE = new MobReg<>("banshee", EntityType.Builder.<Banshee>of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed);
 	public static final MobReg<Bee> BEE = new MobReg<>("bee", EntityType.Builder.<Bee>of(Bee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0x353535);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);

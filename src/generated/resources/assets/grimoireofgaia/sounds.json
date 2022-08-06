@@ -191,6 +191,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "banshee_say": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "banshee_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "banshee_death": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "bee_say": {
     "subtitle": "grimoireofgaia.subtitle.bee_say",
     "sounds": [
