@@ -142,7 +142,7 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 		hair1.zRot = (15 * Mth.DEG_TO_RAD);
 		hair2.zRot = (15 * Mth.DEG_TO_RAD);
 		hair3.zRot = (15 * Mth.DEG_TO_RAD);
-		hair4.zRot += (2 * Mth.DEG_TO_RAD) * 0.01F;
+		hair4.zRot += (2 * Mth.DEG_TO_RAD) * 0.1F;
 
 		// arms
 		rightarm.zRot = 0.0F;
