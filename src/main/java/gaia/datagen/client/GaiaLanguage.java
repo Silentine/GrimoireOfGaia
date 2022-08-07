@@ -46,6 +46,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.SPRIGGAN, "Spriggan", "rustles");
 		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus", "whispers");
 		addMobTranslation(GaiaRegistry.WERECAT, "Werecat", "hisses");
+		addMobTranslation(GaiaRegistry.WITCH, "Witch", "laughs");
 		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna", "speaks");
 
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
@@ -118,6 +119,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.STONE_SHIELD, "Stone Shield");
 		addItem(GaiaRegistry.IRON_SHIELD, "Iron Shield");
 		addItem(GaiaRegistry.GOLD_SHIELD, "Gold Shield");
+		addItem(GaiaRegistry.NETHER_WART_JAM, "Nether Wart Jam");
 
 		addItem(GaiaRegistry.PROJECTILE_BOMB, "Bomb Projectile");
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");

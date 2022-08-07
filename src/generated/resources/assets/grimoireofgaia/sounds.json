@@ -605,6 +605,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "witch_say": {
+    "subtitle": "grimoireofgaia.subtitle.witch_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "witch_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.witch_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "witch_death": {
+    "subtitle": "grimoireofgaia.subtitle.witch_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "yuki_onna_say": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_say",
     "sounds": [

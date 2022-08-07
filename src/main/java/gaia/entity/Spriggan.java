@@ -32,7 +32,6 @@ import net.minecraftforge.common.ToolActions;
 import java.util.Random;
 
 public class Spriggan extends AbstractGaiaEntity {
-	private int axeAttack;
 
 	private byte inWaterTimer;
 
@@ -40,7 +39,6 @@ public class Spriggan extends AbstractGaiaEntity {
 		super(entityType, level);
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
 
-		axeAttack = 0;
 		inWaterTimer = 0;
 	}
 
@@ -90,7 +88,6 @@ public class Spriggan extends AbstractGaiaEntity {
 
 			if (itemstack.canPerformAction(ToolActions.AXE_DIG)) {
 				input = input * 1.5F;
-				axeAttack += 1;
 			}
 		}
 

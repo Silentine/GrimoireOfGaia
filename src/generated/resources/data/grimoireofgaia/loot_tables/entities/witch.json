@@ -26,7 +26,7 @@
               }
             }
           ],
-          "name": "grimoireofgaia:nether_wart_jam"
+          "name": "grimoireofgaia:meat"
         }
       ]
     },
@@ -47,8 +47,46 @@
               "add": false
             }
           ],
-          "name": "forge:nuggets/gold",
+          "name": "forge:nuggets/iron",
           "expand": true
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:box_gold"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:bag_book"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.01,
+              "looting_multiplier": 0.01
+            }
+          ],
+          "name": "grimoireofgaia:book_of_memory"
         }
       ]
     },
@@ -65,7 +103,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:box_iron"
+          "name": "grimoireofgaia:deco_mandragora_pot"
         }
       ]
     }

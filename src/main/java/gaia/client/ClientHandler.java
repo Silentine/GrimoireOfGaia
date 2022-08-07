@@ -27,6 +27,7 @@ import gaia.client.model.SporelingModel;
 import gaia.client.model.SprigganModel;
 import gaia.client.model.SuccubusModel;
 import gaia.client.model.WerecatModel;
+import gaia.client.model.WitchModel;
 import gaia.client.model.YukiOnnaModel;
 import gaia.client.model.prop.AntHillModel;
 import gaia.client.renderer.AntWorkerRenderer;
@@ -57,6 +58,7 @@ import gaia.client.renderer.SporelingRenderer;
 import gaia.client.renderer.SprigganRenderer;
 import gaia.client.renderer.SuccubusRenderer;
 import gaia.client.renderer.WerecatRenderer;
+import gaia.client.renderer.WitchRenderer;
 import gaia.client.renderer.YukiOnnaRenderer;
 import gaia.client.renderer.prop.AntHillRenderer;
 import gaia.entity.Arachne;
@@ -110,6 +112,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation SPRIGGAN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "spriggan"), "main");
 	public static final ModelLayerLocation SUCCUBUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "succubus"), "main");
 	public static final ModelLayerLocation WERECAT = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "werecat"), "main");
+	public static final ModelLayerLocation WITCH = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "witch"), "main");
 	public static final ModelLayerLocation YUKI_ONNA = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "yuki_onna"), "main");
 
 	public static final ModelLayerLocation HORSE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "horse"), "main");
@@ -178,6 +181,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.SPRIGGAN.getEntityType(), SprigganRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SUCCUBUS.getEntityType(), SuccubusRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.WERECAT.getEntityType(), WerecatRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.WITCH.getEntityType(), WitchRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnnaRenderer::new);
 
 		event.registerEntityRenderer(GaiaRegistry.HORSE.getEntityType(), GaiaHorseRenderer::new);
@@ -219,6 +223,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(SPRIGGAN, SprigganModel::createBodyLayer);
 		event.registerLayerDefinition(SUCCUBUS, SuccubusModel::createBodyLayer);
 		event.registerLayerDefinition(WERECAT, WerecatModel::createBodyLayer);
+		event.registerLayerDefinition(WITCH, WitchModel::createBodyLayer);
 		event.registerLayerDefinition(YUKI_ONNA, YukiOnnaModel::createBodyLayer);
 
 		event.registerLayerDefinition(HORSE, () -> LayerDefinition.create(HorseModel.createBodyMesh(CubeDeformation.NONE), 64, 64));

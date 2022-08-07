@@ -344,7 +344,7 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 		return effectInstance.getEffect() != MobEffects.POISON && super.canBeAffected(effectInstance);
 	}
 
-	public boolean causeFallDamage(float p_148750_, float p_148751_, DamageSource damageSource) {
+	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
 		return false;
 	}
 

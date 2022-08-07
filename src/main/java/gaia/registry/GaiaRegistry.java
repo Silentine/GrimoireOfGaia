@@ -30,6 +30,7 @@ import gaia.entity.Sporeling;
 import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
+import gaia.entity.Witch;
 import gaia.entity.YukiOnna;
 import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
@@ -45,6 +46,7 @@ import gaia.item.armor.HeadgearItem;
 import gaia.item.edible.EdibleEffectItem;
 import gaia.item.edible.HoneydewItem;
 import gaia.item.edible.TaprootItem;
+import gaia.item.edible.WartJamItem;
 import gaia.item.edible.XPEdibleItem;
 import gaia.item.fuel.FireshardItem;
 import gaia.item.fuel.FuelItem;
@@ -118,6 +120,7 @@ public class GaiaRegistry {
 	public static final MobReg<Spriggan> SPRIGGAN = new MobReg<>("spriggan", EntityType.Builder.<Spriggan>of(Spriggan::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7c623e, 0xc2dda5);
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg<>("succubus", EntityType.Builder.<Succubus>of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145, true);
 	public static final MobReg<Werecat> WERECAT = new MobReg<>("werecat", EntityType.Builder.<Werecat>of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb);
+	public static final MobReg<Witch> WITCH = new MobReg<>("witch", EntityType.Builder.<Witch>of(Witch::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x943dbb);
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg<>("yuki_onna", EntityType.Builder.<YukiOnna>of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330);
 
 	public static final MobReg<GaiaHorse> HORSE = new MobReg<>("horse", EntityType.Builder.<GaiaHorse>of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a);
@@ -187,6 +190,7 @@ public class GaiaRegistry {
 
 	//Items
 	public static final RegistryObject<Item> BOOK_OF_MEMORY = ITEMS.register("book_of_memory", () -> new MemoryBookItem(itemBuilder().rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> BROOM = ITEMS.register("broom", () -> new Item(itemBuilder().rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> WEAPON_BOOK = ITEMS.register("weapon_book", () -> new WeaponBookItem(GaiaTiers.BOOK, itemBuilder().rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> WEAPON_BOOK_FREEZING = ITEMS.register("weapon_book_freezing", () -> new FreezingBookItem(GaiaTiers.BOOK, itemBuilder().rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> WEAPON_BOOK_NIGHTMARE = ITEMS.register("weapon_book_nightmare", () -> new NightmareBookItem(GaiaTiers.BOOK, itemBuilder().rarity(Rarity.RARE)));
@@ -233,6 +237,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_POISON = ITEMS.register("projectile_poison", () -> new Item(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> NETHER_WART_JAM = ITEMS.register("nether_wart_jam", () -> new WartJamItem(itemBuilder().food(GaiaFoods.NETHER_WART_JAM)));
 
 	public static final RegistryObject<Item> STONE_SHIELD = ITEMS.register("stone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(150), () -> Ingredient.of(Tags.Items.COBBLESTONE)));
 	public static final RegistryObject<Item> IRON_SHIELD = ITEMS.register("iron_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(336), () -> Ingredient.of(Tags.Items.INGOTS_IRON)));

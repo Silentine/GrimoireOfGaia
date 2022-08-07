@@ -26,4 +26,8 @@ public class GaiaFoods {
 	public static final FoodProperties HONEYDEW = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.4F).alwaysEat()
 			.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10 * 20, 0), 0.2F)
 			.effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 10 * 20, 0), 0.2F).build();
+
+	public static final FoodProperties NETHER_WART_JAM = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.4F).alwaysEat()
+			.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 30 * 20, 0), 0.4F)
+			.effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 30 * 20, 0), 0.4F).build();
 }

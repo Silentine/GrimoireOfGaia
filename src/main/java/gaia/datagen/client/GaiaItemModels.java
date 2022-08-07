@@ -76,6 +76,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.handheldItem(GaiaRegistry.MAGIC_STAFF.get(), "weapon", "summoning_staff");
 		this.parentItem(GaiaRegistry.FAN_FIRE.get(), modLoc("item/fan"), "weapon/fan");
 		this.parentItem(GaiaRegistry.FAN_ICE.get(), modLoc("item/fan"), "weapon/fan");
+		this.generatedItem(GaiaRegistry.NETHER_WART_JAM.get());
 
 		this.generatedBox(GaiaRegistry.BOX_DIAMOND.get());
 		this.generatedBox(GaiaRegistry.BOX_END.get());
