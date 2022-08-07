@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -191,21 +192,18 @@ public class RangedUtil {
 	 * @param target         the entity to fire at
 	 * @param shooter        the entity that is shooting
 	 * @param distanceFactor bonus damage (Unused)
-	 * @see net.minecraft.world.entity.monster.Witch
+	 * @see net.minecraft.world.entity.animal.SnowGolem#performRangedAttack
 	 */
 	public static void bomb(LivingEntity target, LivingEntity shooter, float distanceFactor) {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
-		Vec3 targetVector = target.getDeltaMovement();
-		double d0 = target.getY() + (double) target.getEyeHeight() - 1.100000023841858D;
-		double d1 = target.getX() + targetVector.x - shooter.getX();
-		double d2 = d0 - shooter.getY();
-		double d3 = target.getZ() + target.getZ() - shooter.getZ();
-		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
-
 		BombProjectile bomb = new BombProjectile(shooter.level, shooter);
-		bomb.shoot(d1, d2 + (double) (f1 * 0.2F), d3, 0.75F, 8.0F);
-		bomb.setPos(bomb.getX(), shooter.getY(0.5D) + 0.5D, bomb.getZ());
+		double d0 = target.getEyeY() - (double)1.1F;
+		double d1 = target.getX() - shooter.getX();
+		double d2 = d0 - bomb.getY();
+		double d3 = target.getZ() - shooter.getZ();
+		double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
+		bomb.shoot(d1, d2 + d4, d3, 0.75F, 8.0F);
 		shooter.level.addFreshEntity(bomb);
 	}
 }

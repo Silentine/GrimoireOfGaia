@@ -169,6 +169,7 @@ public class GoblinModel<T extends AbstractGaiaEntity> extends EntityModel<T> im
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		poseStack.translate(0, 0.3125D, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }

@@ -99,7 +99,7 @@ public class Goblin extends AbstractGaiaEntity implements IAssistMob, IDayMob, R
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			RangedUtil.bomb(this, target, distanceFactor);
+			RangedUtil.bomb(target, this, distanceFactor);
 		}
 	}
 

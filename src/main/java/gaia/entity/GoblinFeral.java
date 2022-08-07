@@ -150,7 +150,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			RangedUtil.rangedAttack(this, target, distanceFactor);
+			RangedUtil.rangedAttack(target, this, distanceFactor);
 		}
 	}
 
@@ -169,7 +169,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 
 			int i = this.getSwellDir();
 			if (i > 0 && this.swell == 0) {
-				this.playSound(GaiaSounds.CREEP_PRIMED.get(), 1.0F, 0.5F);
+				this.playSound(GaiaSounds.GOBLIN_FERAL_PRIMED.get(), 1.0F, 0.5F);
 				this.gameEvent(GameEvent.PRIME_FUSE);
 			}
 

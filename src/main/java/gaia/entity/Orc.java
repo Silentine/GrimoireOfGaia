@@ -136,7 +136,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			RangedUtil.magic(this, target, distanceFactor);
+			RangedUtil.magic(target, this, distanceFactor);
 
 			setAnimationState(1);
 			animationPlay = true;
