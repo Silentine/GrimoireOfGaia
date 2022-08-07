@@ -140,7 +140,6 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	public boolean doHurtTarget(Entity entityIn) {
 		boolean flag = super.doHurtTarget(entityIn);
 		if (getVariant() == 2 && entityIn instanceof LivingEntity) {
-			goalSelector.removeGoal(collideAttackGoal);
 			ignite();
 		}
 
@@ -155,15 +154,11 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void aiStep() {
-		super.aiStep();
-	}
-
-	@Override
 	public void tick() {
 		if (this.isAlive()) {
 			this.oldSwell = this.swell;
 			if (this.isIgnited()) {
+				this.goalSelector.removeGoal(collideAttackGoal);
 				this.setSwellDir(1);
 			}
 
