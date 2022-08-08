@@ -1,9 +1,9 @@
 package gaia.entity;
 
-import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
+import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -19,23 +19,21 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,45 +42,53 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class AntWorker extends AbstractGaiaEntity implements IDayMob {
-	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(AntWorker.class, EntityDataSerializers.BOOLEAN);
+public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAttackMob {
+	private static final EntityDataAccessor<Boolean> HIDING = SynchedEntityData.defineId(AntSalvager.class, EntityDataSerializers.BOOLEAN);
+	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, 20, 60, 15.0F);
 
-	public AntWorker(EntityType<? extends Monster> entityType, Level level) {
+	private boolean canHide;
+
+	public AntSalvager(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
+		canHide = false;
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true));
-		this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(AntWorker.class, Sporeling.class));
+		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(AntSalvager.class, Sporeling.class));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
-				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
-				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
+				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE * 0.5)
+				.add(Attributes.MOVEMENT_SPEED, -0.25F)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
-				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
+				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.getEntityData().define(DATA_BABY_ID, false);
+		this.getEntityData().define(HIDING, false);
 	}
 
+	public boolean isHiding() {
+		return this.getEntityData().get(HIDING);
+	}
+
+	public void setHiding(boolean value) {
+		this.getEntityData().set(HIDING, value);
+	}
 
 	@Override
 	public int maxVariants() {
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -92,8 +98,18 @@ public class AntWorker extends AbstractGaiaEntity implements IDayMob {
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
+		if (isHiding() && source != DamageSource.OUT_OF_WORLD) {
+			return false;
+		}
 		float input = getBaseDamage(source, damage);
 		return super.hurt(source, input);
+	}
+
+	@Override
+	public void performRangedAttack(LivingEntity target, float distanceFactor) {
+		if (target.isAlive()) {
+			RangedUtil.poison(target, this, distanceFactor);
+		}
 	}
 
 	@Override
@@ -121,15 +137,55 @@ public class AntWorker extends AbstractGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
-		if (!isBaby()) {
-			if (random.nextBoolean()) {
-				if (random.nextInt(2) == 0) {
-					setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_SWORD));
-				} else {
-					setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-				}
+	public void aiStep() {
+		if (!level.isClientSide && isPassenger()) {
+			stopRiding();
+		}
+
+		if (!isOnGround() && tickCount > 40) {
+			level.broadcastEntityEvent(this, (byte) 11);
+			remove(RemovalReason.KILLED);
+		}
+
+		if (tickCount % 60 == 0 && !canHide) {
+			canHide = true;
+		}
+
+		if (isHiding() && !hasEffect(MobEffects.INVISIBILITY)) {
+			if (!hasEffect(MobEffects.INVISIBILITY)) {
+				addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1, 0));
 			}
+		}
+
+		if (playerDetection(4, TargetingConditions.forCombat())) {
+			if (canHide && !isHiding()) {
+				setGoals(1);
+				setHiding(true);
+			}
+		} else {
+			if (isHiding()) {
+				level.broadcastEntityEvent(this, (byte) 12);
+				setGoals(0);
+				removeEffect(MobEffects.INVISIBILITY);
+				setHiding(false);
+				canHide = false;
+			}
+		}
+
+		super.aiStep();
+	}
+
+	private void setGoals(int id) {
+		if (id == 1) {
+			this.goalSelector.removeGoal(rangedAttackGoal);
+		} else {
+			this.goalSelector.addGoal(1, rangedAttackGoal);
+		}
+	}
+
+	private void setCombatTask() {
+		if (!isHiding()) {
+			setGoals(0);
 		}
 	}
 
@@ -139,13 +195,7 @@ public class AntWorker extends AbstractGaiaEntity implements IDayMob {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		setVariant(random.nextInt(2) == 0 ? 0 : 1);
-
-		if (random.nextInt(10) == 0) {
-			setBaby(true);
-		}
-
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		setCombatTask();
 
 		return data;
 	}
@@ -158,28 +208,30 @@ public class AntWorker extends AbstractGaiaEntity implements IDayMob {
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
-		tag.putBoolean("IsBaby", this.isBaby());
+		tag.putBoolean("canHide", isHiding());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-		this.setBaby(tag.getBoolean("IsBaby"));
+		if (tag.contains("Hiding")) {
+			setHiding(tag.getBoolean("Hiding"));
+		}
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return GaiaRegistry.ANT_WORKER.getSay();
+		return GaiaRegistry.ANT_SALVAGER.getSay();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaRegistry.ANT_WORKER.getHurt();
+		return GaiaRegistry.ANT_SALVAGER.getHurt();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaRegistry.ANT_WORKER.getDeath();
+		return GaiaRegistry.ANT_SALVAGER.getDeath();
 	}
 
 	@Override
@@ -202,27 +254,7 @@ public class AntWorker extends AbstractGaiaEntity implements IDayMob {
 		return true;
 	}
 
-	/*
-	 * Baby stuff
-	 */
-	public boolean isBaby() {
-		return this.getEntityData().get(DATA_BABY_ID);
-	}
-
-	public void setBaby(boolean value) {
-		this.getEntityData().set(DATA_BABY_ID, value);
-	}
-
-	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> dataAccessor) {
-		if (DATA_BABY_ID.equals(dataAccessor)) {
-			this.refreshDimensions();
-		}
-
-		super.onSyncedDataUpdated(dataAccessor);
-	}
-
-	public static boolean checkAntWorkerSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkAntSalvagerSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

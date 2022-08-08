@@ -124,6 +124,12 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
+	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
 			RangedUtil.fireball(target, this, distanceFactor);

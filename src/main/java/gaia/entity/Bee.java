@@ -172,6 +172,12 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 	}
 
 	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
+	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
 			RangedUtil.poison(target, this, distanceFactor);

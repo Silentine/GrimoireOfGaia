@@ -103,6 +103,12 @@ public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssi
 	}
 
 	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
+	@Override
 	public boolean doHurtTarget(Entity entityIn) {
 		if (super.doHurtTarget(entityIn)) {
 			if (entityIn instanceof LivingEntity livingEntity) {

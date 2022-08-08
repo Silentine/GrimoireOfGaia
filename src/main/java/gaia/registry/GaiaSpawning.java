@@ -3,6 +3,7 @@ package gaia.registry;
 import gaia.GrimoireOfGaia;
 import gaia.config.GaiaSpawningConfig;
 import gaia.config.SpawningInfo;
+import gaia.entity.AntSalvager;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Arachne;
@@ -57,6 +58,7 @@ public class GaiaSpawning {
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void addSpawn(BiomeLoadingEvent event) {
 		addSpawn(GaiaRegistry.ANT_HILL.getEntityType(), GaiaSpawningConfig.COMMON.antHillSpawning, event);
+		addSpawn(GaiaRegistry.ANT_SALVAGER.getEntityType(), GaiaSpawningConfig.COMMON.antSalvagerSpawning, event);
 		addSpawn(GaiaRegistry.ANUBIS.getEntityType(), GaiaSpawningConfig.COMMON.anubisSpawning, event);
 		addSpawn(GaiaRegistry.ARACHNE.getEntityType(), GaiaSpawningConfig.COMMON.arachneSpawning, event);
 		addSpawn(GaiaRegistry.BANSHEE.getEntityType(), GaiaSpawningConfig.COMMON.bansheeSpawning, event);
@@ -128,7 +130,8 @@ public class GaiaSpawning {
 
 	public static void entityAttributes() {
 		SpawnPlacements.register(GaiaRegistry.ANT_HILL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntHill::checkAntHillSpawnRules);
-		SpawnPlacements.register(GaiaRegistry.ANT_WORKER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntWorker::checkAntSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ANT_WORKER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntWorker::checkAntWorkerSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ANT_SALVAGER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AntSalvager::checkAntSalvagerSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ARACHNE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Arachne::checkArachneSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ANUBIS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Anubis::checkAnubisSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BANSHEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Banshee::checkBansheeSpawnRules);
@@ -164,6 +167,7 @@ public class GaiaSpawning {
 	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		event.put(GaiaRegistry.ANT_HILL.getEntityType(), AntHill.createAttributes().build());
 		event.put(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorker.createAttributes().build());
+		event.put(GaiaRegistry.ANT_SALVAGER.getEntityType(), AntSalvager.createAttributes().build());
 		event.put(GaiaRegistry.ANUBIS.getEntityType(), Anubis.createAttributes().build());
 		event.put(GaiaRegistry.ARACHNE.getEntityType(), Arachne.createAttributes().build());
 		event.put(GaiaRegistry.BANSHEE.getEntityType(), Banshee.createAttributes().build());

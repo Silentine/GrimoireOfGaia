@@ -13,6 +13,7 @@ public class GaiaSpawningConfig {
 
 	public static class Common {
 		public final SpawningInfo antHillSpawning;
+		public final SpawningInfo antSalvagerSpawning;
 		public final SpawningInfo anubisSpawning;
 		public final SpawningInfo arachneSpawning;
 		public final SpawningInfo bansheeSpawning;
@@ -48,9 +49,13 @@ public class GaiaSpawningConfig {
 			List<? extends String> antHillBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
 			antHillSpawning = new SpawningInfo(builder, "AntHill", 20, 1, 1, antHillBiomes, antHillBiomeDictionary);
 
+			List<? extends String> antSalvagerBiomes = generateList(Biomes.DESERT);
+			List<? extends String> antSalvagerBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
+			antSalvagerSpawning = new SpawningInfo(builder, "AntSalvager", 20, 2, 5, antSalvagerBiomes, antSalvagerBiomeDictionary);
+
 			List<? extends String> anubisBiomes = generateList(Biomes.DESERT);
 			List<? extends String> anubisBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
-			anubisSpawning = new SpawningInfo(builder, "Anubis", 80, 2, 4, anubisBiomes, anubisBiomeDictionary);
+			anubisSpawning = new SpawningInfo(builder, "Anubis", 20, 2, 4, anubisBiomes, anubisBiomeDictionary);
 
 			List<? extends String> arachneBiomeDictionary = List.of("OVERWORLD");
 			arachneSpawning = new SpawningInfo(builder, "Arachne", 80, 1, 2, List.of(), arachneBiomeDictionary);

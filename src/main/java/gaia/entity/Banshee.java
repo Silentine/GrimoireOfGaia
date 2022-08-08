@@ -84,7 +84,7 @@ public class Banshee extends AbstractGaiaEntity {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(DATA_FLAGS_ID, (byte)0);
+		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
 	}
 
 	@Nullable
@@ -109,7 +109,7 @@ public class Banshee extends AbstractGaiaEntity {
 			i &= ~mask;
 		}
 
-		this.entityData.set(DATA_FLAGS_ID, (byte)(i & 255));
+		this.entityData.set(DATA_FLAGS_ID, (byte) (i & 255));
 	}
 
 	public boolean isCharging() {
@@ -132,7 +132,7 @@ public class Banshee extends AbstractGaiaEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
-		float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, SharedEntityData.getBaseDefense2());
+		float input = getBaseDamage(source, damage);
 		Entity entity = source.getDirectEntity();
 
 		if (entity instanceof Arrow) {

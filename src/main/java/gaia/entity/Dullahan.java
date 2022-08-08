@@ -105,7 +105,7 @@ public class Dullahan extends AbstractGaiaEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
-		float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, getBaseDefense());
+		float input = getBaseDamage(source, damage);
 
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());

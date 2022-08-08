@@ -132,6 +132,12 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.getBaseDefense2();
 	}
 
+	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (!this.isDrinkingPotion()) {
 			Vec3 vec3 = target.getDeltaMovement();
@@ -177,8 +183,8 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 
 		beaconMonster();
 
-		if (!level.isClientSide && isVehicle() && isRidingBroom()) {
-			ejectPassengers();
+		if (!level.isClientSide && isPassenger() && isRidingBroom()) {
+			stopRiding();
 		}
 
 		motion = this.getDeltaMovement();

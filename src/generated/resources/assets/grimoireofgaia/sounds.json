@@ -137,6 +137,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "ant_salvager_say": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_salvager_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_salvager_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "anubis_say": {
     "subtitle": "grimoireofgaia.subtitle.anubis_say",
     "sounds": [

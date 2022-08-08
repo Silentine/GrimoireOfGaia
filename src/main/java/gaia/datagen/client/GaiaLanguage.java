@@ -20,6 +20,7 @@ public class GaiaLanguage extends LanguageProvider {
 		add("itemGroup.grimoireofgaia", "Grimoire of Gaia 4");
 
 		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
+		addMobTranslation(GaiaRegistry.ANT_SALVAGER, "Ant Salvager", "communicates");
 		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
 		addMobTranslation(GaiaRegistry.ARACHNE, "Arachne", "communicates");
 		addMobTranslation(GaiaRegistry.BANSHEE, "Banshee", "shrieks");

@@ -1,6 +1,7 @@
 package gaia.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.client.model.AntSalvagerModel;
 import gaia.client.model.AntWorkerModel;
 import gaia.client.model.AnubisModel;
 import gaia.client.model.ArachneModel;
@@ -30,6 +31,7 @@ import gaia.client.model.WerecatModel;
 import gaia.client.model.WitchModel;
 import gaia.client.model.YukiOnnaModel;
 import gaia.client.model.prop.AntHillModel;
+import gaia.client.renderer.AntSalvagerRenderer;
 import gaia.client.renderer.AntWorkerRenderer;
 import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.ArachneRenderer;
@@ -85,6 +87,7 @@ public class ClientHandler {
 
 	public static final ModelLayerLocation ANT_HILL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_hill"), "main");
 	public static final ModelLayerLocation ANT_WORKER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_worker"), "main");
+	public static final ModelLayerLocation ANT_SALVAGER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_salvager"), "main");
 	public static final ModelLayerLocation ANUBIS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "anubis"), "main");
 	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "arachne"), "main");
 	public static final ModelLayerLocation BANSHEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "banshee"), "main");
@@ -155,6 +158,7 @@ public class ClientHandler {
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(GaiaRegistry.ANT_HILL.getEntityType(), AntHillRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ANT_WORKER.getEntityType(), AntWorkerRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.ANT_SALVAGER.getEntityType(), AntSalvagerRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ANUBIS.getEntityType(), AnubisRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.ARACHNE.getEntityType(), ArachneRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BANSHEE.getEntityType(), BansheeRenderer::new);
@@ -196,6 +200,7 @@ public class ClientHandler {
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(ANT_HILL, AntHillModel::createBodyLayer);
 		event.registerLayerDefinition(ANT_WORKER, AntWorkerModel::createBodyLayer);
+		event.registerLayerDefinition(ANT_SALVAGER, AntSalvagerModel::createBodyLayer);
 		event.registerLayerDefinition(ANUBIS, AnubisModel::createBodyLayer);
 		event.registerLayerDefinition(ARACHNE, ArachneModel::createBodyLayer);
 		event.registerLayerDefinition(BANSHEE, BansheeModel::createBodyLayer);

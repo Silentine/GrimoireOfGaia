@@ -127,10 +127,11 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
 		if (!getOffhandItem().isEmpty() && getOffhandItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
-			return !(source.getDirectEntity() instanceof Projectile) && super.hurt(source, damage);
+			return !(source.getDirectEntity() instanceof Projectile) && super.hurt(source, input);
 		}
-		return super.hurt(source, damage);
+		return super.hurt(source, input);
 	}
 
 	@Override

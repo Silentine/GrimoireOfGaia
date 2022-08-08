@@ -19,7 +19,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -37,7 +36,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public abstract class AbstractGaiaEntity extends Monster {
 	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AbstractGaiaEntity.class, EntityDataSerializers.INT);
@@ -65,10 +63,8 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	public abstract float getBaseDefense();
 
-	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, getBaseDefense());
-		return super.hurt(source, input);
+	protected float getBaseDamage(DamageSource source, float damage) {
+		return source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, getBaseDefense());
 	}
 
 	protected void spawnLingeringCloud(List<MobEffectInstance> effectInstances) {

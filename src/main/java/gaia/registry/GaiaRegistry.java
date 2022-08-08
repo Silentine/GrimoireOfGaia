@@ -2,6 +2,7 @@ package gaia.registry;
 
 import gaia.GrimoireOfGaia;
 import gaia.block.DecorationBlock;
+import gaia.entity.AntSalvager;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
 import gaia.entity.Arachne;
@@ -94,6 +95,7 @@ public class GaiaRegistry {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GrimoireOfGaia.MOD_ID);
 
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
+	public static final MobReg<AntSalvager> ANT_SALVAGER = new MobReg<>("ant_salvager", EntityType.Builder.<AntSalvager>of(AntSalvager::new, MobCategory.MONSTER).sized(0.5F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
 	public static final MobReg<Banshee> BANSHEE = new MobReg<>("banshee", EntityType.Builder.<Banshee>of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed);

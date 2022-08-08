@@ -53,7 +53,6 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
-
 	private int switchHealth;
 	private int spawn;
 	private int spawnTimer;
@@ -126,6 +125,12 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
+	}
+
+	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
 	}
 
 	@Override

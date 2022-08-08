@@ -81,6 +81,12 @@ public class Sporeling extends AbstractGaiaEntity {
 	}
 
 	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
+	@Override
 	public void aiStep() {
 		if (!level.isClientSide && isVehicle()) {
 			removeVehicle();

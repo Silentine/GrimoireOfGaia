@@ -129,6 +129,12 @@ public class Centaur extends AbstractGaiaEntity implements RangedAttackMob, IAss
 	}
 
 	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		return super.hurt(source, input);
+	}
+
+	@Override
 	public void aiStep() {
 		/* REGENERATE DATA */
 		if ((getHealth() < getMaxHealth() * 0.25F) && (fullHealth == 0)) {
