@@ -27,6 +27,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -66,13 +68,16 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final UUID SPEED_MODIFIER_DRINKING_UUID = UUID.fromString("E5EEE9D2-C325-415F-ADAF-A320D2AABC8B");
 	private static final AttributeModifier SPEED_MODIFIER_DRINKING = new AttributeModifier(SPEED_MODIFIER_DRINKING_UUID, "Drinking speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
 
+	protected final FlyingMoveControl flyingControl;
+	protected final MoveControl normalControl;
 	private int spawn;
 	private int usingTime;
 
 	public Witch(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
-
+		this.flyingControl = new FlyingMoveControl(this, 20, true);
+		this.normalControl = new MoveControl(this);
 		spawn = 0;
 	}
 
@@ -260,13 +265,21 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 		/* WITCH CODE */
 
-		if (getItemBySlot(EquipmentSlot.OFFHAND).is(GaiaRegistry.BROOM.get())) {
-			setRidingBroom(true);
-		} else {
-			setRidingBroom(false);
-		}
-
 		super.aiStep();
+	}
+
+	@Override
+	public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack stack) {
+		if (equipmentSlot == EquipmentSlot.OFFHAND) {
+			if (stack.is(GaiaRegistry.BROOM.get())) {
+				this.moveControl = this.flyingControl;
+				setRidingBroom(true);
+			} else {
+				this.moveControl = this.normalControl;
+				setRidingBroom(false);
+			}
+		}
+		super.setItemSlot(equipmentSlot, stack);
 	}
 
 	private void beaconMonster() {
