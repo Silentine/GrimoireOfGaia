@@ -26,7 +26,7 @@
               }
             }
           ],
-          "name": "grimoireofgaia:soulfire"
+          "name": "minecraft:leather"
         }
       ]
     },
@@ -79,41 +79,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.01,
-              "looting_multiplier": 0.01
-            }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_enchantments",
-              "enchantments": {
-                "minecraft:knockback": 1.0,
-                "minecraft:fire_aspect": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "grimoireofgaia:fan_fire"
+          "name": "grimoireofgaia:weapon_book_battle"
         }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
+      ],
+      "conditions": [
         {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.01,
-              "looting_multiplier": 0.01
-            }
-          ],
-          "name": "grimoireofgaia:doll_nine_tails"
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.01,
+          "looting_multiplier": 0.01
         }
       ]
     }

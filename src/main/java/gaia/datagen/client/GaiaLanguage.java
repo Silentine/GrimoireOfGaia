@@ -36,6 +36,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.HUNTER, "Hunter", "whispers");
 		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold", "barks");
 		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
+		addMobTranslation(GaiaRegistry.MINOTAURUS, "Minotaurus", "growls");
 		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
 		addMobTranslation(GaiaRegistry.ONI, "Oni", "snorts");
 		addMobTranslation(GaiaRegistry.ORC, "Orc", "growls");

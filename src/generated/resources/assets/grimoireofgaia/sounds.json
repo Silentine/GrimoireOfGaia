@@ -407,6 +407,24 @@
       "grimoireofgaia:none"
     ]
   },
+  "minotaurus_say": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "minotaurus_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "minotaurus_death": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "nine_tails_say": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_say",
     "sounds": [

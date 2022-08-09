@@ -119,6 +119,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.HUNTER);
 		this.setupMobSounds(GaiaRegistry.KOBOLD);
 		this.setupMobSounds(GaiaRegistry.MATANGO);
+		this.setupMobSounds(GaiaRegistry.MINOTAURUS);
 		this.setupMobSounds(GaiaRegistry.NINE_TAILS);
 		this.setupMobSounds(GaiaRegistry.ONI);
 		this.setupMobSounds(GaiaRegistry.ORC);

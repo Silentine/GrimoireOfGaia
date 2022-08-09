@@ -20,6 +20,7 @@ import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
+import gaia.entity.Minotaurus;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
 import gaia.entity.Orc;
@@ -95,7 +96,7 @@ public class GaiaRegistry {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GrimoireOfGaia.MOD_ID);
 
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg<>("ant", EntityType.Builder.<AntWorker>of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
-	public static final MobReg<AntSalvager> ANT_SALVAGER = new MobReg<>("ant_salvager", EntityType.Builder.<AntSalvager>of(AntSalvager::new, MobCategory.MONSTER).sized(0.5F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264, false);
+	public static final MobReg<AntSalvager> ANT_SALVAGER = new MobReg<>("ant_salvager", EntityType.Builder.<AntSalvager>of(AntSalvager::new, MobCategory.MONSTER).sized(0.5F, 1.99F).clientTrackingRange(8), 0x8a7264, 0x303030);
 	public static final MobReg<Anubis> ANUBIS = new MobReg<>("anubis", EntityType.Builder.<Anubis>of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534, true);
 	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
 	public static final MobReg<Banshee> BANSHEE = new MobReg<>("banshee", EntityType.Builder.<Banshee>of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed);
@@ -111,6 +112,7 @@ public class GaiaRegistry {
 	public static final MobReg<Hunter> HUNTER = new MobReg<>("hunter", EntityType.Builder.<Hunter>of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535);
 	public static final MobReg<Kobold> KOBOLD = new MobReg<>("kobold", EntityType.Builder.<Kobold>of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1);
 	public static final MobReg<Matango> MATANGO = new MobReg<>("matango", EntityType.Builder.<Matango>of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8);
+	public static final MobReg<Minotaurus> MINOTAURUS = new MobReg<>("minotaurus", EntityType.Builder.<Minotaurus>of(Minotaurus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0xa9a9a9);
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg<>("nine_tails", EntityType.Builder.<NineTails>of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145);
 	public static final MobReg<Oni> ONI = new MobReg<>("oni", EntityType.Builder.<Oni>of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161);
 	public static final MobReg<Orc> ORC = new MobReg<>("orc", EntityType.Builder.<Orc>of(Orc::new, MobCategory.MONSTER).sized(0.8F, 2.2F).clientTrackingRange(8), 0x718a60, 0xc0d696);

@@ -2,6 +2,7 @@ package gaia.datagen.server;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import gaia.registry.GaiaLootTables;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
@@ -346,6 +347,36 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 			);
+			this.add(GaiaRegistry.MINOTAURUS.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.LEATHER)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_BATTLE.get())))
+			);
+			this.add(GaiaLootTables.MINOTAURUS_RANGED, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.ARROW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())))
+			);
 			this.add(GaiaRegistry.NINE_TAILS.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.SOULFIRE.get())
@@ -555,7 +586,10 @@ public class GaiaLoot extends LootTableProvider {
 
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
-		List<ResourceLocation> ignored = List.of(GaiaRegistry.HORSE.getEntityType().getDefaultLootTable(), GaiaRegistry.SIREN.getEntityType().getDefaultLootTable());
+		List<ResourceLocation> ignored = List.of(
+				GaiaRegistry.HORSE.getEntityType().getDefaultLootTable(),
+				GaiaRegistry.SIREN.getEntityType().getDefaultLootTable()
+		);
 		map.forEach((name, table) -> {
 			if (!ignored.contains(name)) {
 				LootTables.validate(validationContext, name, table);

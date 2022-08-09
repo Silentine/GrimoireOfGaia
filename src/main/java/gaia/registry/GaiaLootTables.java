@@ -15,4 +15,6 @@ public class GaiaLootTables {
 	public static final ResourceLocation BOXES_END = new ResourceLocation(GrimoireOfGaia.MOD_ID, "lootbox/box_end");
 	public static final ResourceLocation BOXES_OLD = new ResourceLocation(GrimoireOfGaia.MOD_ID, "lootbox/box_old");
 	public static final ResourceLocation BOXES_HAT = new ResourceLocation(GrimoireOfGaia.MOD_ID, "lootbox/box_hat");
+
+	public static final ResourceLocation MINOTAURUS_RANGED = new ResourceLocation(GrimoireOfGaia.MOD_ID, "entities/minotaurus_ranged");
 }

@@ -28,6 +28,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo hunterSpawning;
 		public final SpawningInfo koboldSpawning;
 		public final SpawningInfo matangoSpawning;
+		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
 		public final SpawningInfo orcSpawning;
@@ -116,6 +117,13 @@ public class GaiaSpawningConfig {
 			List<? extends String> matangoBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> matangoBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			matangoSpawning = new SpawningInfo(builder, "Matango", 60, 2, 4, matangoBiomes, matangoBiomeDictionary);
+			
+			List<? extends String> minotaurusBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
+			List<? extends String> minotaurusBiomeDictionary = List.of(
+					"OVERWORLD,PLAINS,!SAVANNA",
+					"OVERWORLD,MESA",
+					"OVERWORLD,FOREST,SPOOKY");
+			minotaurusSpawning = new SpawningInfo(builder, "Minotaurus", 80, 2, 4, minotaurusBiomes, minotaurusBiomeDictionary);
 
 			List<? extends String> nineTailsBiomes = generateList(Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> nineTailsBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
