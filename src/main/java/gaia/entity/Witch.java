@@ -101,6 +101,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
+				.add(Attributes.FLYING_SPEED, (double) 0.6F)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
 	}
 
