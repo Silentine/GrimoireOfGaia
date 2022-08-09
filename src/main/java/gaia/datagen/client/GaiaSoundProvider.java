@@ -101,6 +101,62 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaRegistry.HORSE.getDeath(), definition()
 				.subtitle(modSubtitle(GaiaRegistry.HORSE.getDeath().getLocation()))
 				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
+
+		this.add(GaiaRegistry.BONE_KNIGHT.getSay(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getSay().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/skeleton/say1")),
+						sound(new ResourceLocation("mob/skeleton/say2")),
+						sound(new ResourceLocation("mob/skeleton/say3"))
+				));
+		this.add(GaiaRegistry.BONE_KNIGHT.getHurt(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getHurt().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/skeleton/hurt1")),
+						sound(new ResourceLocation("mob/skeleton/hurt2")),
+						sound(new ResourceLocation("mob/skeleton/hurt3")),
+						sound(new ResourceLocation("mob/skeleton/hurt4"))
+				));
+		this.add(GaiaRegistry.BONE_KNIGHT.getDeath(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getDeath().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/skeleton/death"))
+				));
+		this.add(GaiaSounds.BONE_KNIGHT_STEP, definition()
+				.subtitle(modSubtitle(GaiaSounds.BONE_KNIGHT_STEP.getId()))
+				.with(
+						sound(new ResourceLocation("mob/skeleton/step1")),
+						sound(new ResourceLocation("mob/skeleton/step2")),
+						sound(new ResourceLocation("mob/skeleton/step3")),
+						sound(new ResourceLocation("mob/skeleton/step4"))
+				));
+
+		this.add(GaiaRegistry.FLESH_LICH.getSay(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getSay().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/zombie/say1")),
+						sound(new ResourceLocation("mob/zombie/say2")),
+						sound(new ResourceLocation("mob/zombie/say3"))
+				));
+		this.add(GaiaRegistry.FLESH_LICH.getHurt(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getHurt().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/zombie/hurt1")),
+						sound(new ResourceLocation("mob/zombie/hurt2"))
+				));
+		this.add(GaiaRegistry.FLESH_LICH.getDeath(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getDeath().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/zombie/death"))
+				));
+		this.add(GaiaSounds.FLESH_LICH_STEP, definition()
+				.subtitle(modSubtitle(GaiaSounds.BONE_KNIGHT_STEP.getId()))
+				.with(
+						sound(new ResourceLocation("mob/skeleton/step1")),
+						sound(new ResourceLocation("mob/skeleton/step2")),
+						sound(new ResourceLocation("mob/skeleton/step3")),
+						sound(new ResourceLocation("mob/skeleton/step4"))
+				));
 	}
 
 	public void generateMobSound() {

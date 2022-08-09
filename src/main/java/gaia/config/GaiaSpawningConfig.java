@@ -18,11 +18,13 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo arachneSpawning;
 		public final SpawningInfo bansheeSpawning;
 		public final SpawningInfo beeSpawning;
+		public final SpawningInfo boneKnightSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo creepSpawning;
 		public final SpawningInfo cyclopsSpawning;
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
+		public final SpawningInfo fleshLichSpawning;
 		public final SpawningInfo goblinSpawning;
 		public final SpawningInfo harpySpawning;
 		public final SpawningInfo hunterSpawning;
@@ -71,6 +73,9 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
 			beeSpawning = new SpawningInfo(builder, "Bee", 80, 2, 4, beeBiomes, beeBiomeDictionary);
 
+			List<? extends String> boneKnightBiomeDictionary = List.of("OVERWORLD");
+			boneKnightSpawning = new SpawningInfo(builder, "BoneKnight", 80, 2, 4, List.of(), boneKnightBiomeDictionary, true);
+
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(
 					"OVERWORLD,PLAINS,!SAVANNA",
@@ -95,6 +100,9 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
 			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
 
+			List<? extends String> fleshLichBiomeDictionary = List.of("OVERWORLD");
+			fleshLichSpawning = new SpawningInfo(builder, "FleshLich", 100, 4, 6, List.of(), fleshLichBiomeDictionary);
+
 			List<? extends String> goblinBiomes = generateList(Biomes.SAVANNA);
 			List<? extends String> goblinBiomeDictionary = List.of("OVERWORLD,SAVANNA");
 			goblinSpawning = new SpawningInfo(builder, "Goblin", 30, 2, 6, goblinBiomes, goblinBiomeDictionary);
@@ -117,7 +125,7 @@ public class GaiaSpawningConfig {
 			List<? extends String> matangoBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> matangoBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			matangoSpawning = new SpawningInfo(builder, "Matango", 60, 2, 4, matangoBiomes, matangoBiomeDictionary);
-			
+
 			List<? extends String> minotaurusBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
 			List<? extends String> minotaurusBiomeDictionary = List.of(
 					"OVERWORLD,PLAINS,!SAVANNA",

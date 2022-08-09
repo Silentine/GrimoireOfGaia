@@ -699,5 +699,67 @@
     "sounds": [
       "mob/horse/zombie/death"
     ]
+  },
+  "bone_knight_say": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_say",
+    "sounds": [
+      "mob/skeleton/say1",
+      "mob/skeleton/say2",
+      "mob/skeleton/say3"
+    ]
+  },
+  "bone_knight_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_hurt",
+    "sounds": [
+      "mob/skeleton/hurt1",
+      "mob/skeleton/hurt2",
+      "mob/skeleton/hurt3",
+      "mob/skeleton/hurt4"
+    ]
+  },
+  "bone_knight_death": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_death",
+    "sounds": [
+      "mob/skeleton/death"
+    ]
+  },
+  "bone_knight_step": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
+    "sounds": [
+      "mob/skeleton/step1",
+      "mob/skeleton/step2",
+      "mob/skeleton/step3",
+      "mob/skeleton/step4"
+    ]
+  },
+  "flesh_lich_say": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_say",
+    "sounds": [
+      "mob/zombie/say1",
+      "mob/zombie/say2",
+      "mob/zombie/say3"
+    ]
+  },
+  "flesh_lich_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_hurt",
+    "sounds": [
+      "mob/zombie/hurt1",
+      "mob/zombie/hurt2"
+    ]
+  },
+  "flesh_lich_death": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_death",
+    "sounds": [
+      "mob/zombie/death"
+    ]
+  },
+  "flesh_lich_step": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
+    "sounds": [
+      "mob/skeleton/step1",
+      "mob/skeleton/step2",
+      "mob/skeleton/step3",
+      "mob/skeleton/step4"
+    ]
   }
 }

@@ -7,6 +7,7 @@ import gaia.client.model.AnubisModel;
 import gaia.client.model.ArachneModel;
 import gaia.client.model.BansheeModel;
 import gaia.client.model.BeeModel;
+import gaia.client.model.BoneKnightModel;
 import gaia.client.model.CentaurModel;
 import gaia.client.model.CreepModel;
 import gaia.client.model.CyclopsModel;
@@ -38,6 +39,7 @@ import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.ArachneRenderer;
 import gaia.client.renderer.BansheeRenderer;
 import gaia.client.renderer.BeeRenderer;
+import gaia.client.renderer.BoneKnightRenderer;
 import gaia.client.renderer.CentaurRenderer;
 import gaia.client.renderer.CreepRenderer;
 import gaia.client.renderer.CyclopsRenderer;
@@ -94,6 +96,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "arachne"), "main");
 	public static final ModelLayerLocation BANSHEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "banshee"), "main");
 	public static final ModelLayerLocation BEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bee"), "main");
+	public static final ModelLayerLocation BONE_KNIGHT = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bone_knight"), "main");
 	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "centaur"), "main");
 	public static final ModelLayerLocation CREEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep"), "main");
 	public static final ModelLayerLocation CREEP_ARMOR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creep"), "armor");
@@ -156,6 +159,8 @@ public class ClientHandler {
 				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
 		ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
 				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+		ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
 	}
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -166,6 +171,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.ARACHNE.getEntityType(), ArachneRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BANSHEE.getEntityType(), BansheeRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BEE.getEntityType(), BeeRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.BONE_KNIGHT.getEntityType(), BoneKnightRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CENTAUR.getEntityType(), CentaurRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CREEP.getEntityType(), CreepRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CYCLOPS.getEntityType(), CyclopsRenderer::new);
@@ -209,6 +215,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(ARACHNE, ArachneModel::createBodyLayer);
 		event.registerLayerDefinition(BANSHEE, BansheeModel::createBodyLayer);
 		event.registerLayerDefinition(BEE, BeeModel::createBodyLayer);
+		event.registerLayerDefinition(BONE_KNIGHT, BoneKnightModel::createBodyLayer);
 		event.registerLayerDefinition(CENTAUR, CentaurModel::createBodyLayer);
 		event.registerLayerDefinition(CREEP, () -> CreepModel.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(CREEP_ARMOR, () -> CreepModel.createBodyLayer(new CubeDeformation(2.0F)));

@@ -70,16 +70,16 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 
 		PartDefinition centaur = partdefinition.addOrReplaceChild("centaur", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition bodybottom = centaur.addOrReplaceChild("bodybottom", CubeListBuilder.create().texOffs(0, 30).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -19.0F, -6.0F));
+		PartDefinition bodybottom = centaur.addOrReplaceChild("bodybottom", CubeListBuilder.create().texOffs(0, 30).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -18.5F, -6.0F));
 
 		PartDefinition waist = bodybottom.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(64, 0).addBox(-3.5F, 0.0F, -2.0F, 7.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -3.5F, -1.5F, -0.1745F, 0.0F, 0.0F));
 
 		PartDefinition bodymiddle = bodybottom.addOrReplaceChild("bodymiddle", CubeListBuilder.create(), PartPose.offset(0.0F, -3.0F, -1.0F));
 
-		PartDefinition bonemiddle_female = bodymiddle.addOrReplaceChild("bonemiddle_female", CubeListBuilder.create().texOffs(0, 25).addBox(-2.0F, -0.5F, -2.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
+		PartDefinition bonemiddleFemale = bodymiddle.addOrReplaceChild("bonemiddleFemale", CubeListBuilder.create().texOffs(0, 25).addBox(-2.0F, -0.5F, -2.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(0, 25).addBox(-0.5F, 0.0F, -2.6F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 1.0F));
 
-		PartDefinition bodymid_male = bodymiddle.addOrReplaceChild("bodymid_male", CubeListBuilder.create().texOffs(0, 59).addBox(-2.5F, -2.5F, -1.5F, 5.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition bodymidMale = bodymiddle.addOrReplaceChild("bodymidMale", CubeListBuilder.create().texOffs(0, 59).addBox(-2.5F, -2.5F, -1.5F, 5.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition bodytop = bodymiddle.addOrReplaceChild("bodytop", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -2.0F, 0.5F, -0.1745F, 0.0F, 0.0F));
 
@@ -101,9 +101,9 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 		PartDefinition chest = bodytop.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(0, 36).addBox(0.3F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(0, 36).addBox(-2.3F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.5F, -2.5F, 0.7854F, 0.0F, 0.0F));
 
-		PartDefinition bonetop_female = bodytop.addOrReplaceChild("bonetop_female", CubeListBuilder.create().texOffs(0, 16).addBox(-2.5F, -6.0F, -3.0F, 5.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.5F));
+		PartDefinition bonetopFemale = bodytop.addOrReplaceChild("bonetopFemale", CubeListBuilder.create().texOffs(0, 16).addBox(-2.5F, -6.0F, -3.0F, 5.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.5F));
 
-		PartDefinition bodytop_male = bodytop.addOrReplaceChild("bodytop_male", CubeListBuilder.create().texOffs(0, 50).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.5F));
+		PartDefinition bodytopmale = bodytop.addOrReplaceChild("bodytopmale", CubeListBuilder.create().texOffs(0, 50).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.5F));
 
 		PartDefinition rightarm = bodytop.addOrReplaceChild("rightarm", CubeListBuilder.create().texOffs(24, 12).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, -5.0F, -1.0F, 0.1745F, 0.0F, 0.1745F));
 
@@ -117,7 +117,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 
 		PartDefinition leftpauldron = leftarm.addOrReplaceChild("leftpauldron", CubeListBuilder.create().texOffs(36, 41).addBox(-0.5F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition body1 = centaur.addOrReplaceChild("body1", CubeListBuilder.create().texOffs(64, 11).addBox(-4.0F, -1.0F, -1.0F, 8.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -19.0F, -8.5F));
+		PartDefinition body1 = centaur.addOrReplaceChild("body1", CubeListBuilder.create().texOffs(64, 11).addBox(-4.0F, -1.0F, -1.0F, 8.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -18.5F, -8.5F));
 
 		PartDefinition body2 = body1.addOrReplaceChild("body2", CubeListBuilder.create().texOffs(64, 29).addBox(-3.5F, -0.5F, -2.0F, 7.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.5F, 8.0F, 0.0873F, 0.0F, 0.0F));
 

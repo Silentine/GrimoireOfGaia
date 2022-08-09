@@ -8,11 +8,13 @@ import gaia.entity.Anubis;
 import gaia.entity.Arachne;
 import gaia.entity.Banshee;
 import gaia.entity.Bee;
+import gaia.entity.BoneKnight;
 import gaia.entity.Centaur;
 import gaia.entity.Creep;
 import gaia.entity.Cyclops;
 import gaia.entity.Dryad;
 import gaia.entity.Dullahan;
+import gaia.entity.FleshLich;
 import gaia.entity.GaiaHorse;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
@@ -86,6 +88,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.Tags.Items;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -101,11 +104,13 @@ public class GaiaRegistry {
 	public static final MobReg<Arachne> ARACHNE = new MobReg<>("arachne", EntityType.Builder.<Arachne>of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646);
 	public static final MobReg<Banshee> BANSHEE = new MobReg<>("banshee", EntityType.Builder.<Banshee>of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed);
 	public static final MobReg<Bee> BEE = new MobReg<>("bee", EntityType.Builder.<Bee>of(Bee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0x353535);
+	public static final MobReg<BoneKnight> BONE_KNIGHT = new MobReg<>("bone_knight", EntityType.Builder.<BoneKnight>of(BoneKnight::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4602533, 13619151);
 	public static final MobReg<Centaur> CENTAUR = new MobReg<>("centaur", EntityType.Builder.<Centaur>of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535, true);
 	public static final MobReg<Creep> CREEP = new MobReg<>("creep", EntityType.Builder.<Creep>of(Creep::new, MobCategory.MONSTER).sized(0.75F, 0.75F).clientTrackingRange(8), 7917159, 2053400);
 	public static final MobReg<Cyclops> CYCLOPS = new MobReg<>("cyclops", EntityType.Builder.<Cyclops>of(Cyclops::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4936602, 3487029);
 	public static final MobReg<Dryad> DRYAD = new MobReg<>("dryad", EntityType.Builder.<Dryad>of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460);
 	public static final MobReg<Dullahan> DULLAHAN = new MobReg<>("dullahan", EntityType.Builder.<Dullahan>of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d);
+	public static final MobReg<FleshLich> FLESH_LICH = new MobReg<>("flesh_lich", EntityType.Builder.<FleshLich>of(FleshLich::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x00cccc, 0x799c65);
 	public static final MobReg<Goblin> GOBLIN = new MobReg<>("goblin", EntityType.Builder.<Goblin>of(Goblin::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8d4f41);
 	public static final MobReg<GoblinFeral> GOBLIN_FERAL = new MobReg<>("goblin_feral", EntityType.Builder.<GoblinFeral>of(GoblinFeral::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8a1d3e);
 	public static final MobReg<Harpy> HARPY = new MobReg<>("harpy", EntityType.Builder.<Harpy>of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e);
@@ -246,6 +251,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> STONE_SHIELD = ITEMS.register("stone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(150), () -> Ingredient.of(Tags.Items.COBBLESTONE)));
 	public static final RegistryObject<Item> IRON_SHIELD = ITEMS.register("iron_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(336), () -> Ingredient.of(Tags.Items.INGOTS_IRON)));
 	public static final RegistryObject<Item> GOLD_SHIELD = ITEMS.register("gold_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(260), () -> Ingredient.of(Tags.Items.INGOTS_GOLD)));
+	public static final RegistryObject<Item> BONE_SHIELD = ITEMS.register("bone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(200), () -> Ingredient.of(Items.BONES)));
 
 	//Lootable Item
 	public static final RegistryObject<Item> BAG_ARROWS = ITEMS.register("bag_arrows", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN::get));

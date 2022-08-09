@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -92,7 +93,7 @@ public class Goblin extends AbstractGaiaEntity implements IAssistMob, IDayMob, R
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (!getOffhandItem().isEmpty() && getOffhandItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
-			return !(source.getDirectEntity() instanceof Projectile) && super.hurt(source, input);
+			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
