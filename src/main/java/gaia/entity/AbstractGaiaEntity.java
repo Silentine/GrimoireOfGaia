@@ -146,10 +146,18 @@ public abstract class AbstractGaiaEntity extends Monster {
 		setupFriendGoals(isFriendly());
 	}
 
+	/**
+	 * @return true if this entity is a friend of the player
+	 */
 	public boolean isFriendly() {
 		return this.getCapability(CapabilityHandler.CAPABILITY_FRIENDED).map(cap -> cap.isFriendly()).orElse(false);
 	}
 
+	/**
+	 * Sets the entity to friendly or not friendly
+	 * @param value true for friendly, false for not friendly
+	 * @param friendedBy the player who set the entity to friendly
+	 */
 	public void setFriendly(boolean value, UUID friendedBy) {
 		this.getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
 			cap.setFriendly(value);
@@ -158,9 +166,14 @@ public abstract class AbstractGaiaEntity extends Monster {
 		});
 	}
 
+	/**
+	 * Adjusts AI goals based on if the entity is friendly or not
+	 * @param friendly true if the entity is friendly, false if not
+	 */
 	private void setupFriendGoals(boolean friendly) {
 		switch (getGaiaLevel()) {
 			case 1 -> {
+				//Iron Golem AI
 				if (friendly) {
 					this.targetSelector.removeGoal(this.targetPlayerGoal);
 					this.targetSelector.addGoal(2, this.targetMobGoal);
@@ -176,6 +189,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 				}
 			}
 			case 2 -> {
+				//Just don't target players actively
 				if (friendly) {
 					this.targetSelector.removeGoal(this.targetPlayerGoal);
 				} else {
@@ -206,6 +220,10 @@ public abstract class AbstractGaiaEntity extends Monster {
 		super.aiStep();
 	}
 
+	/**
+	 * Called when the friendly status of the entity changes
+	 * @param cap the capability
+	 */
 	public void onFriendlyChange(IFriended cap) {
 
 	}
