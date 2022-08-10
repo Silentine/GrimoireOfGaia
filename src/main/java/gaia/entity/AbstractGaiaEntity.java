@@ -136,14 +136,14 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * Gets nearby entities and applies the given consumer to them
 	 *
 	 * @param range The range to search for entities
-	 * @param livingEntityConsumer The consumer to apply to the entities
+	 * @param action The action to apply to the entities
 	 */
-	protected void beaconMonster(int range, Consumer<LivingEntity> livingEntityConsumer) {
+	protected void beaconMonster(int range, Consumer<LivingEntity> action) {
 		if (!level.isClientSide) {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(range);
 			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, aabb);
 			for (LivingEntity livingEntity : entities) {
-				livingEntityConsumer.accept(livingEntity);
+				action.accept(livingEntity);
 			}
 		}
 	}
