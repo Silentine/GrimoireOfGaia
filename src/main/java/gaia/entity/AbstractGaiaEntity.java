@@ -256,30 +256,51 @@ public abstract class AbstractGaiaEntity extends Monster {
 		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
+	/**
+	 * Check if the lighting is good for spawning
+	 */
 	protected static boolean checkDaylight(ServerLevelAccessor levelAccessor, BlockPos pos) {
 		return levelAccessor.canSeeSky(pos) && levelAccessor.getBrightness(LightLayer.BLOCK, pos) == 0;
 	}
 
+	/**
+	 * Checks if the position is above sea level so the entity can spawn
+	 */
 	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
 		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel() - 16;
 	}
 
+	/**
+	 * Checks if the position is below sea level so the entity can spawn
+	 */
 	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
 		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel() - 16;
 	}
 
+	/**
+	 * Checks if the block under the spawn location is in the given tag so the entity can spawn
+	 */
 	protected static boolean checkTagBlocks(ServerLevelAccessor levelAccessor, BlockPos pos, TagKey<Block> blockTag) {
 		return levelAccessor.getBlockState(pos.below()).is(blockTag);
 	}
 
+	/**
+	 * Checks if it's day time so the entity can spawn
+	 */
 	protected static boolean checkDaytime(ServerLevelAccessor levelAccessor) {
 		return !levelAccessor.dimensionType().hasFixedTime() && levelAccessor.getSkyDarken() < 4;
 	}
 
+	/**
+	 * Checks if it's raining so the entity can spawn
+	 */
 	protected static boolean checkRaining(ServerLevelAccessor levelAccessor) {
 		return GaiaConfig.COMMON.spawnWeather.get() || levelAccessor.getLevelData().isRaining();
 	}
 
+	/**
+	 * Checks if the configured amount of days have passed so the entity can spawn
+	 */
 	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
 			return GaiaConfig.COMMON.spawnDaysSet.get() <= levelAccessor.dayTime() % 24000;
