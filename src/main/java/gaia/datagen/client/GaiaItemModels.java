@@ -64,6 +64,8 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.HONEYDEW.get());
 		this.generatedItem(GaiaRegistry.KNUCKLES.get(), "accessory");
 		this.generatedItem(GaiaRegistry.MEAT.get());
+		this.generatedItem(GaiaRegistry.MONSTER_FEED.get());
+		this.generatedItem(GaiaRegistry.PREMIUM_MONSTER_FEED.get());
 		this.generatedItem(GaiaRegistry.METAL_DAGGER.get(), "weapon");
 		this.generatedItem(GaiaRegistry.QUILL.get());
 		this.generatedItem(GaiaRegistry.ROTTEN_HEART.get());

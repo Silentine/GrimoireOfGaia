@@ -10,14 +10,26 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class FriendedCapability implements IFriended, ICapabilitySerializable<CompoundTag>, ICapabilityProvider {
 	private boolean friended = false;
+	private UUID friendedBy = null;
 	private boolean changed = false;
 
 	@Override
 	public boolean isFriendly() {
 		return friended;
+	}
+
+	@Override
+	public UUID getFriendedBy() {
+		return friendedBy;
+	}
+
+	@Override
+	public void setFriendedBy(UUID friendedBy) {
+		this.friendedBy = friendedBy;
 	}
 
 	@Override
@@ -40,12 +52,16 @@ public class FriendedCapability implements IFriended, ICapabilitySerializable<Co
 	public CompoundTag serializeNBT() {
 		CompoundTag tag = new CompoundTag();
 		tag.putBoolean("friended", this.isFriendly());
+		if (this.getFriendedBy() != null)
+			tag.putUUID("friendedBy", this.getFriendedBy());
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(CompoundTag tag) {
 		this.setFriendly(tag.getBoolean("friended"));
+		if (tag.contains("friendedBy"))
+			this.setFriendedBy(tag.getUUID("friendedBy"));
 	}
 
 	@Nonnull

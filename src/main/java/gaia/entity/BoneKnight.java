@@ -60,7 +60,7 @@ public class BoneKnight extends AbstractGaiaEntity {
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(BoneKnight.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -72,6 +72,11 @@ public class BoneKnight extends AbstractGaiaEntity {
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
+	}
+
+	@Override
+	public int getGaiaLevel() {
+		return 2;
 	}
 
 	@Override

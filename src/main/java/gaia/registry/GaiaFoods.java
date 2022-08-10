@@ -30,4 +30,7 @@ public class GaiaFoods {
 	public static final FoodProperties NETHER_WART_JAM = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.4F).alwaysEat()
 			.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 30 * 20, 0), 0.4F)
 			.effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 30 * 20, 0), 0.4F).build();
+
+	public static final FoodProperties MONSTER_FEED = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.2F).meat().build();
+	public static final FoodProperties PREMIUM_MONSTER_FEED = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.6F).meat().build();
 }

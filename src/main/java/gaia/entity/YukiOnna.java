@@ -75,8 +75,9 @@ public class YukiOnna extends AbstractGaiaEntity implements IAssistMob, IDayMob 
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(YukiOnna.class));
+		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
-			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+			this.targetSelector.addGoal(2, this.targetPlayerGoal);
 		}
 	}
 
@@ -89,6 +90,11 @@ public class YukiOnna extends AbstractGaiaEntity implements IAssistMob, IDayMob 
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
+	}
+
+	@Override
+	public int getGaiaLevel() {
+		return 2;
 	}
 
 	@Override

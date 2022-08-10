@@ -1,6 +1,7 @@
 package gaia.entity;
 
 import gaia.capability.CapabilityHandler;
+import gaia.capability.friended.IFriended;
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IAssistMob;
@@ -96,8 +97,9 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Bee.class));
+		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
-			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+			this.targetSelector.addGoal(2, this.targetPlayerGoal);
 		}
 	}
 
@@ -223,16 +225,6 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 			}
 		}
 
-		getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
-			if (cap.isFriendly() && cap.isChanged()) {
-				setGoals(1);
-				timer = 0;
-				switchEquip = 1;
-
-				cap.setChanged(false);
-			}
-		});
-
 		if (playerDetection(3, TargetingConditions.forCombat())) {
 			if (switchDetect == 0) {
 				switchDetect = 1;
@@ -273,6 +265,15 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 		}
 
 		super.aiStep();
+	}
+
+	@Override
+	public void onFriendlyChange(IFriended cap) {
+		if (cap.isFriendly()) {
+			setGoals(1);
+			timer = 0;
+			switchEquip = 1;
+		}
 	}
 
 	private boolean detectMovement() {

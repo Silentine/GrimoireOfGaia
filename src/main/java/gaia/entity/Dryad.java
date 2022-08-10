@@ -67,8 +67,9 @@ public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Dryad.class));
+		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
-			this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+			this.targetSelector.addGoal(2, this.targetPlayerGoal);
 		}
 	}
 

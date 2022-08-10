@@ -49,6 +49,7 @@ import gaia.item.accessory.KnucklesItem;
 import gaia.item.armor.HeadgearItem;
 import gaia.item.edible.EdibleEffectItem;
 import gaia.item.edible.HoneydewItem;
+import gaia.item.edible.MonsterFeedItem;
 import gaia.item.edible.TaprootItem;
 import gaia.item.edible.WartJamItem;
 import gaia.item.edible.XPEdibleItem;
@@ -233,6 +234,8 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> KNUCKLES = ITEMS.register("knuckles", () -> new KnucklesItem(itemBuilder()));
 	public static final RegistryObject<Item> MEAT = ITEMS.register("meat", () -> new Item(itemBuilder().food(GaiaFoods.MEAT)));
 	public static final RegistryObject<Item> METAL_DAGGER = ITEMS.register("metal_dagger", () -> new SwordItem(Tiers.IRON, 0, -3.0F, itemBuilder()));
+	public static final RegistryObject<Item> MONSTER_FEED = ITEMS.register("monster_feed", () -> new MonsterFeedItem(itemBuilder().stacksTo(1).food(GaiaFoods.MONSTER_FEED)));
+	public static final RegistryObject<Item> PREMIUM_MONSTER_FEED = ITEMS.register("premium_monster_feed", () -> new MonsterFeedItem(itemBuilder().stacksTo(1).food(GaiaFoods.PREMIUM_MONSTER_FEED)));
 	public static final RegistryObject<Item> QUILL = ITEMS.register("quill", () -> new Item(itemBuilder()));
 	public static final RegistryObject<Item> ROTTEN_HEART = ITEMS.register("rotten_heart", () -> new EdibleEffectItem(itemBuilder().food(GaiaFoods.ROTTEN_HEART).stacksTo(1)));
 	public static final RegistryObject<Item> SOULFIRE = ITEMS.register("soulfire", () -> new SoulfireItem(itemBuilder()));

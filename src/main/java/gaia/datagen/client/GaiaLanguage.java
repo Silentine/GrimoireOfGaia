@@ -112,6 +112,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.HEADGEAR_EARS_ELF, "Elven Ears");
 		addItem(GaiaRegistry.KNUCKLES, "Knuckles");
 		addItem(GaiaRegistry.MEAT, "Meat");
+		addItem(GaiaRegistry.MONSTER_FEED, "Monster Feed");
+		addItem(GaiaRegistry.PREMIUM_MONSTER_FEED, "Premium Monster Feed");
 		addItem(GaiaRegistry.QUILL, "Diamond Tipped Quill");
 		addItem(GaiaRegistry.ROTTEN_HEART, "Rotten Heart");
 		addItem(GaiaRegistry.METAL_DAGGER, "Metal Dagger");
@@ -177,6 +179,11 @@ public class GaiaLanguage extends LanguageProvider {
 
 		add("text.grimoireofgaia.bless.main_hand", "When in main hand:");
 		add("text.grimoireofgaia.bless.off_hand", "When in off-hand, main hand:");
+
+		add("text.grimoireofgaia.monster_feed.desc", "Solely effects Grimoire of Gaia mobs");
+		add("text.grimoireofgaia.food_monster_feed.desc", "Adds friendliness to Level 1 Assist mobs");
+		add("text.grimoireofgaia.premium_food_monster_feed.desc", "Removes initial hostility");
+		add("item.grimoireofgaia.food_monster_feed2.desc", "Does not affect damaged mobs");
 	}
 
 	public void addSubtitle(RegistryObject<SoundEvent> sound, String name) {

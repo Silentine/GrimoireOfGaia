@@ -1,5 +1,7 @@
 package gaia.entity;
 
+import gaia.capability.CapabilityHandler;
+import gaia.capability.friended.IFriended;
 import gaia.config.GaiaConfig;
 import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
@@ -19,10 +21,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -36,9 +43,14 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class AbstractGaiaEntity extends Monster {
 	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AbstractGaiaEntity.class, EntityDataSerializers.INT);
+	protected Goal targetPlayerGoal;
+	protected final Goal targetMobGoal = new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
+		return livingEntity instanceof Enemy && !(livingEntity instanceof Creeper);
+	});
 
 	public AbstractGaiaEntity(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
@@ -49,6 +61,10 @@ public abstract class AbstractGaiaEntity extends Monster {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, 0);
+	}
+
+	public int getGaiaLevel() {
+		return 1;
 	}
 
 	public int getVariant() {
@@ -127,6 +143,71 @@ public abstract class AbstractGaiaEntity extends Monster {
 			int variant = tag.getInt("Variant");
 			setVariant(variant);
 		}
+		setupFriendGoals(isFriendly());
+	}
+
+	public boolean isFriendly() {
+		return this.getCapability(CapabilityHandler.CAPABILITY_FRIENDED).map(cap -> cap.isFriendly()).orElse(false);
+	}
+
+	public void setFriendly(boolean value, UUID friendedBy) {
+		this.getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
+			cap.setFriendly(value);
+			cap.setFriendedBy(friendedBy);
+			setupFriendGoals(value);
+		});
+	}
+
+	private void setupFriendGoals(boolean friendly) {
+		switch (getGaiaLevel()) {
+			case 1 -> {
+				if (friendly) {
+					this.targetSelector.removeGoal(this.targetPlayerGoal);
+					this.targetSelector.addGoal(2, this.targetMobGoal);
+				} else {
+					this.targetSelector.removeGoal(this.targetMobGoal);
+					if (this instanceof IAssistMob) {
+						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
+							this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+						}
+					} else {
+						this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+					}
+				}
+			}
+			case 2 -> {
+				if (friendly) {
+					this.targetSelector.removeGoal(this.targetPlayerGoal);
+				} else {
+					if (this instanceof IAssistMob) {
+						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
+							this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+						}
+					} else {
+						this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void aiStep() {
+		if (getCapability(CapabilityHandler.CAPABILITY_FRIENDED).isPresent()) {
+			IFriended cap = getCapability(CapabilityHandler.CAPABILITY_FRIENDED).orElse(null);
+			if (cap != null) {
+				if (cap.isChanged()) {
+					onFriendlyChange(cap);
+					cap.setChanged(false);
+				}
+			}
+		}
+
+		super.aiStep();
+	}
+
+	public void onFriendlyChange(IFriended cap) {
+
 	}
 
 	public double getMyRidingOffset() {

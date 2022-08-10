@@ -67,7 +67,7 @@ public class Banshee extends AbstractGaiaEntity {
 		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
 		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, LivingEntity.class, 8.0F));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Banshee.class));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -79,6 +79,11 @@ public class Banshee extends AbstractGaiaEntity {
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
+	}
+
+	@Override
+	public int getGaiaLevel() {
+		return 2;
 	}
 
 	@Override
