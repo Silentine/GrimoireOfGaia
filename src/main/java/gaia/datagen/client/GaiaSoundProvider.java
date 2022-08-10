@@ -122,8 +122,8 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.with(
 						sound(new ResourceLocation("mob/skeleton/death"))
 				));
-		this.add(GaiaSounds.BONE_KNIGHT_STEP, definition()
-				.subtitle(modSubtitle(GaiaSounds.BONE_KNIGHT_STEP.getId()))
+		this.add(GaiaRegistry.BONE_KNIGHT.getStep(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getStep().getLocation()))
 				.with(
 						sound(new ResourceLocation("mob/skeleton/step1")),
 						sound(new ResourceLocation("mob/skeleton/step2")),
@@ -149,13 +149,42 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.with(
 						sound(new ResourceLocation("mob/zombie/death"))
 				));
-		this.add(GaiaSounds.FLESH_LICH_STEP, definition()
-				.subtitle(modSubtitle(GaiaSounds.BONE_KNIGHT_STEP.getId()))
+		this.add(GaiaRegistry.FLESH_LICH.getStep(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getStep().getLocation()))
 				.with(
-						sound(new ResourceLocation("mob/skeleton/step1")),
-						sound(new ResourceLocation("mob/skeleton/step2")),
-						sound(new ResourceLocation("mob/skeleton/step3")),
-						sound(new ResourceLocation("mob/skeleton/step4"))
+						sound(new ResourceLocation("mob/zombie/step1")),
+						sound(new ResourceLocation("mob/zombie/step2")),
+						sound(new ResourceLocation("mob/zombie/step3")),
+						sound(new ResourceLocation("mob/zombie/step4")),
+						sound(new ResourceLocation("mob/zombie/step5"))
+				));
+
+		this.add(GaiaRegistry.COBBLE_GOLEM.getStep(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.COBBLE_GOLEM.getStep().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/irongolem/walk1")),
+						sound(new ResourceLocation("mob/irongolem/walk2")),
+						sound(new ResourceLocation("mob/irongolem/walk3")),
+						sound(new ResourceLocation("mob/irongolem/walk4"))
+				));
+		this.add(GaiaRegistry.COBBLE_GOLEM.getAttack(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.COBBLE_GOLEM.getAttack().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/irongolem/throw"))
+				));
+
+		this.add(GaiaRegistry.COBBLESTONE_GOLEM.getStep(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.COBBLESTONE_GOLEM.getStep().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/irongolem/walk1")),
+						sound(new ResourceLocation("mob/irongolem/walk2")),
+						sound(new ResourceLocation("mob/irongolem/walk3")),
+						sound(new ResourceLocation("mob/irongolem/walk4"))
+				));
+		this.add(GaiaRegistry.COBBLESTONE_GOLEM.getAttack(), definition()
+				.subtitle(modSubtitle(GaiaRegistry.COBBLESTONE_GOLEM.getAttack().getLocation()))
+				.with(
+						sound(new ResourceLocation("mob/irongolem/throw"))
 				));
 	}
 
@@ -196,26 +225,32 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		if (generateOptional) { //Only true if the sound pack needs updating
 			this.setupOptionalMobSounds(mobReg);
 		} else {
-			this.add(mobReg.getSay(), definition()
-					.subtitle(modSubtitle(mobReg.getSay().getLocation()))
-					.with(sound(modLoc("none"))));
-			this.add(mobReg.getHurt(), definition()
-					.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
-					.with(sound(modLoc("none"))));
-			this.add(mobReg.getDeath(), definition()
-					.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
-					.with(sound(modLoc("none"))));
+			if (mobReg.getSay() != null)
+				this.add(mobReg.getSay(), definition()
+						.subtitle(modSubtitle(mobReg.getSay().getLocation()))
+						.with(sound(modLoc("none"))));
+			if (mobReg.getHurt() != null)
+				this.add(mobReg.getHurt(), definition()
+						.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
+						.with(sound(modLoc("none"))));
+			if (mobReg.getDeath() != null)
+				this.add(mobReg.getDeath(), definition()
+						.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
+						.with(sound(modLoc("none"))));
 
 			if (mobReg.hasGender()) {
-				this.add(mobReg.getMaleSay(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
-						.with(sound(modLoc("none"))));
-				this.add(mobReg.getMaleHurt(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
-						.with(sound(modLoc("none"))));
-				this.add(mobReg.getMaleDeath(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
-						.with(sound(modLoc("none"))));
+				if (mobReg.getMaleSay() != null)
+					this.add(mobReg.getMaleSay(), definition()
+							.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
+							.with(sound(modLoc("none"))));
+				if (mobReg.getMaleHurt() != null)
+					this.add(mobReg.getMaleHurt(), definition()
+							.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
+							.with(sound(modLoc("none"))));
+				if (mobReg.getMaleDeath() != null)
+					this.add(mobReg.getMaleDeath(), definition()
+							.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
+							.with(sound(modLoc("none"))));
 			}
 		}
 	}
@@ -229,30 +264,36 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 			base = "anime/passive_";
 		}
 
-		this.add(mobReg.getSay(), definition()
-				.subtitle(modSubtitle(mobReg.getSay().getLocation()))
-				.with(sound(modLoc("none"))));
-		this.add(mobReg.getHurt(), definition()
-				.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
-				.with(sound(modLoc(base + "hurt1")),
-						sound(modLoc(base + "hurt2")),
-						sound(modLoc(base + "hurt3"))));
-		this.add(mobReg.getDeath(), definition()
-				.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
-				.with(sound(modLoc(base + "death"))));
-
-		if (mobReg.hasGender()) {
-			this.add(mobReg.getMaleSay(), definition()
-					.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
+		if (mobReg.getSay() != null)
+			this.add(mobReg.getSay(), definition()
+					.subtitle(modSubtitle(mobReg.getSay().getLocation()))
 					.with(sound(modLoc("none"))));
-			this.add(mobReg.getMaleHurt(), definition()
-					.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
+		if (mobReg.getHurt() != null)
+			this.add(mobReg.getHurt(), definition()
+					.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
 					.with(sound(modLoc(base + "hurt1")),
 							sound(modLoc(base + "hurt2")),
 							sound(modLoc(base + "hurt3"))));
-			this.add(mobReg.getMaleDeath(), definition()
-					.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
+		if (mobReg.getDeath() != null)
+			this.add(mobReg.getDeath(), definition()
+					.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
 					.with(sound(modLoc(base + "death"))));
+
+		if (mobReg.hasGender()) {
+			if (mobReg.getMaleSay() != null)
+				this.add(mobReg.getMaleSay(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
+						.with(sound(modLoc("none"))));
+			if (mobReg.getMaleHurt() != null)
+				this.add(mobReg.getMaleHurt(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
+						.with(sound(modLoc(base + "hurt1")),
+								sound(modLoc(base + "hurt2")),
+								sound(modLoc(base + "hurt3"))));
+			if (mobReg.getMaleDeath() != null)
+				this.add(mobReg.getMaleDeath(), definition()
+						.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
+						.with(sound(modLoc(base + "death"))));
 		}
 	}
 

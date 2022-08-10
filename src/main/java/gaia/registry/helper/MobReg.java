@@ -23,13 +23,17 @@ public class MobReg<T extends Mob> {
 	protected final RegistryObject<EntityType<? extends T>> entityType;
 	protected final RegistryObject<Item> spawnEgg;
 
-	protected final RegistryObject<SoundEvent> SAY;
-	protected final RegistryObject<SoundEvent> HURT;
-	protected final RegistryObject<SoundEvent> DEATH;
-	protected final RegistryObject<SoundEvent> SAY_MALE;
-	protected final RegistryObject<SoundEvent> HURT_MALE;
-	protected final RegistryObject<SoundEvent> DEATH_MALE;
-	protected final boolean hasGenders;
+	protected RegistryObject<SoundEvent> SAY;
+	protected RegistryObject<SoundEvent> HURT;
+	protected RegistryObject<SoundEvent> DEATH;
+	protected RegistryObject<SoundEvent> STEP;
+	protected RegistryObject<SoundEvent> ATTACK;
+	protected RegistryObject<SoundEvent> SAY_MALE;
+	protected RegistryObject<SoundEvent> HURT_MALE;
+	protected RegistryObject<SoundEvent> DEATH_MALE;
+	protected RegistryObject<SoundEvent> STEP_MALE;
+	protected RegistryObject<SoundEvent> ATTACK_MALE;
+	protected boolean hasGenders;
 
 	/**
 	 * @return The registry name of the mob
@@ -74,6 +78,20 @@ public class MobReg<T extends Mob> {
 		return DEATH == null ? null : DEATH.get();
 	}
 
+	/**
+	 * @return The Step SoundEvent of the mob.
+	 */
+	public SoundEvent getStep() {
+		return STEP == null ? null : STEP.get();
+	}
+
+	/**
+	 * @return The Attack SoundEvent of the mob.
+	 */
+	public SoundEvent getAttack() {
+		return ATTACK == null ? null : ATTACK.get();
+	}
+
 	public boolean hasGender() {
 		return hasGenders;
 	}
@@ -102,28 +120,96 @@ public class MobReg<T extends Mob> {
 		return DEATH_MALE == null ? null : DEATH_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor, boolean hasGenders) {
+	/**
+	 * @return The Step SoundEvent of the mob.
+	 */
+	@Nullable
+	public SoundEvent getMaleStep() {
+		return STEP_MALE == null ? null : STEP_MALE.get();
+	}
+
+	/**
+	 * @return The Attack SoundEvent of the mob.
+	 */
+	@Nullable
+	public SoundEvent getMaleAttack() {
+		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
+	}
+
+	public MobReg(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders) {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
 		this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
 				new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
 
-		this.SAY = GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_say")));
-		this.HURT = GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_hurt")));
-		this.DEATH = GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_death")));
+		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
+		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_hurt"))) : null;
+		this.DEATH = death ? GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_death"))) : null;
+		this.STEP = step ? GaiaSounds.SOUND_EVENTS.register(name + "_step", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_step"))) : null;
+		this.ATTACK = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_attack", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_attack"))) : null;
+
 		if (hasGenders) {
-			this.SAY_MALE = GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_say")));
-			this.HURT_MALE = GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_hurt")));
-			this.DEATH_MALE = GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_death")));
-		} else {
-			this.SAY_MALE = null;
-			this.HURT_MALE = null;
-			this.DEATH_MALE = null;
+			this.SAY_MALE = say ? GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_say"))) : null;
+			this.HURT_MALE = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_hurt"))) : null;
+			this.DEATH_MALE = death ? GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_death"))) : null;
+			this.STEP_MALE = step ? GaiaSounds.SOUND_EVENTS.register(name + "_male_step", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_step"))) : null;
+			this.ATTACK_MALE = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_male_attack", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_male_attack"))) : null;
 		}
 		this.hasGenders = hasGenders;
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
-		this(name, builder, backgroundColor, highlightColor, false);
+	public static class Builder<T extends Mob> {
+		private final String name;
+		private final EntityType.Builder<T> builder;
+		private final int backgroundColor, highlightColor;
+		private boolean say, hurt, death, step, attack, hasGenders;
+
+		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
+			this.name = name;
+			this.builder = builder;
+			this.backgroundColor = backgroundColor;
+			this.highlightColor = highlightColor;
+		}
+
+		public Builder<T> withDefaultSounds() {
+			this.say = true;
+			this.hurt = true;
+			this.death = true;
+			return this;
+		}
+
+		public Builder<T> withSay() {
+			this.say = true;
+			return this;
+		}
+
+		public Builder<T> withHurt() {
+			this.hurt = true;
+			return this;
+		}
+
+		public Builder<T> withDeath() {
+			this.death = true;
+			return this;
+		}
+
+		public Builder<T> withGender() {
+			this.hasGenders = true;
+			return this;
+		}
+
+		public Builder<T> withStep() {
+			this.step = true;
+			return this;
+		}
+
+		public Builder<T> withAttack() {
+			this.attack = true;
+			return this;
+		}
+
+		public MobReg<T> build() {
+			return new MobReg<>(name, builder, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders);
+		}
 	}
 }

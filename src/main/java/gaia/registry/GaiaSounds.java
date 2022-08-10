@@ -20,6 +20,4 @@ public class GaiaSounds {
 	public static final RegistryObject<SoundEvent> ANT_HILL_DEATH = SOUND_EVENTS.register("ant_hill_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_hill_death")));
 	public static final RegistryObject<SoundEvent> BOMB_THROW = SOUND_EVENTS.register("bomb_throw", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bomb_throw")));
 
-	public static final RegistryObject<SoundEvent> BONE_KNIGHT_STEP = SOUND_EVENTS.register("bone_knight_step", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bone_knight_step")));
-	public static final RegistryObject<SoundEvent> FLESH_LICH_STEP = SOUND_EVENTS.register("flesh_lich_step", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "flesh_lich_step")));
 }

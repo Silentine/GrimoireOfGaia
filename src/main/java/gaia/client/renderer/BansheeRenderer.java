@@ -7,7 +7,6 @@ import gaia.client.renderer.layer.BansheeGlowLayer;
 import gaia.entity.Banshee;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BansheeRenderer extends MobRenderer<Banshee, BansheeModel> {

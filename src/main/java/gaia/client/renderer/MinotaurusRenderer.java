@@ -3,8 +3,6 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.MinotaurusModel;
-import gaia.client.model.MinotaurusModel;
-import gaia.entity.Minotaurus;
 import gaia.entity.Minotaurus;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;

@@ -754,12 +754,43 @@
     ]
   },
   "flesh_lich_step": {
-    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_step",
     "sounds": [
-      "mob/skeleton/step1",
-      "mob/skeleton/step2",
-      "mob/skeleton/step3",
-      "mob/skeleton/step4"
+      "mob/zombie/step1",
+      "mob/zombie/step2",
+      "mob/zombie/step3",
+      "mob/zombie/step4",
+      "mob/zombie/step5"
+    ]
+  },
+  "cobble_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "cobble_golem_attack": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_attack",
+    "sounds": [
+      "mob/irongolem/throw"
+    ]
+  },
+  "cobblestone_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "cobblestone_golem_attack": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_attack",
+    "sounds": [
+      "mob/irongolem/throw"
     ]
   }
 }

@@ -2,7 +2,6 @@ package gaia.entity;
 
 import gaia.entity.goal.MobAttackGoal;
 import gaia.registry.GaiaRegistry;
-import gaia.registry.GaiaSounds;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -209,7 +208,7 @@ public class BoneKnight extends AbstractGaiaEntity {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(GaiaSounds.BONE_KNIGHT_STEP.get(), 0.15F, 1.0F);
+		this.playSound(GaiaRegistry.BONE_KNIGHT.getStep(), 0.15F, 1.0F);
 	}
 
 	@Override

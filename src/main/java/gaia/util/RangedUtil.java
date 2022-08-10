@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -198,11 +197,11 @@ public class RangedUtil {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		BombProjectile bomb = new BombProjectile(shooter.level, shooter);
-		double d0 = target.getEyeY() - (double)1.1F;
+		double d0 = target.getEyeY() - (double) 1.1F;
 		double d1 = target.getX() - shooter.getX();
 		double d2 = d0 - bomb.getY();
 		double d3 = target.getZ() - shooter.getZ();
-		double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
+		double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double) 0.2F;
 		bomb.shoot(d1, d2 + d4, d3, 0.75F, 8.0F);
 		shooter.level.addFreshEntity(bomb);
 	}

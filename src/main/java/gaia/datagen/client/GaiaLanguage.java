@@ -27,6 +27,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(GaiaRegistry.BEE, "Honey Bee", "buzzes");
 		addMobTranslation(GaiaRegistry.BONE_KNIGHT, "Bone Knight", "rattles");
 		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
+		addMobTranslation(GaiaRegistry.COBBLE_GOLEM, "Cobble Golem");
+		addMobTranslation(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem");
 		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
 		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
 		addMobTranslation(GaiaRegistry.DRYAD, "Dryad", "murmurs");
@@ -157,8 +159,6 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
 		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill is destroyed");
 		addSubtitle(GaiaSounds.BOMB_THROW, "Bomb thrown");
-		addSubtitle(GaiaSounds.BONE_KNIGHT_STEP, "Bone Knight steps");
-		addSubtitle(GaiaSounds.FLESH_LICH_STEP, "Flesh Lich steps");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");
@@ -195,18 +195,36 @@ public class GaiaLanguage extends LanguageProvider {
 		this.add(path, name);
 	}
 
+	private void addMobTranslation(MobReg<?> reg, String name) {
+		addMobTranslation(reg, name, "");
+	}
+
 	private void addMobTranslation(MobReg<?> reg, String name, String say) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 
-		addSubtitle(reg.getSay(), name + " " + say);
-		addSubtitle(reg.getHurt(), name + " hurts");
-		addSubtitle(reg.getDeath(), name + " dies");
+		if (reg.getSay() != null)
+			addSubtitle(reg.getSay(), name + " " + say);
+		if (reg.getHurt() != null)
+			addSubtitle(reg.getHurt(), name + " hurts");
+		if (reg.getDeath() != null)
+			addSubtitle(reg.getDeath(), name + " dies");
+		if (reg.getStep() != null)
+			addSubtitle(reg.getStep(), name + " steps");
+		if (reg.getAttack() != null)
+			addSubtitle(reg.getAttack(), name + " attacks");
 
 		if (reg.hasGender()) {
-			addSubtitle(reg.getMaleSay(), name + " " + say);
-			addSubtitle(reg.getMaleHurt(), name + " hurts");
-			addSubtitle(reg.getMaleDeath(), name + " dies");
+			if (reg.getMaleSay() != null)
+				addSubtitle(reg.getMaleSay(), name + " " + say);
+			if (reg.getMaleHurt() != null)
+				addSubtitle(reg.getMaleHurt(), name + " hurts");
+			if (reg.getMaleDeath() != null)
+				addSubtitle(reg.getMaleDeath(), name + " dies");
+			if (reg.getMaleStep() != null)
+				addSubtitle(reg.getMaleStep(), name + " steps");
+			if (reg.getMaleAttack() != null)
+				addSubtitle(reg.getMaleAttack(), name + " attacks");
 		}
 	}
 

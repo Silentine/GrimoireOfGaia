@@ -135,7 +135,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	/**
 	 * Gets nearby entities and applies the given consumer to them
 	 *
-	 * @param range The range to search for entities
+	 * @param range  The range to search for entities
 	 * @param action The action to apply to the entities
 	 */
 	protected void beaconMonster(int range, Consumer<LivingEntity> action) {

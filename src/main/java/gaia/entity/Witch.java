@@ -351,8 +351,8 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effectInstance) {
-		return effectInstance.getEffect() != MobEffects.POISON &&
-				effectInstance.getEffect() != MobEffects.HARM && super.canBeAffected(effectInstance);
+		return effectInstance.getEffect() == MobEffects.POISON ||
+				effectInstance.getEffect() == MobEffects.HARM ? false : super.canBeAffected(effectInstance);
 	}
 
 	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {

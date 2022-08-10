@@ -20,6 +20,8 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo beeSpawning;
 		public final SpawningInfo boneKnightSpawning;
 		public final SpawningInfo centaurSpawning;
+		public final SpawningInfo cobbleGolemSpawning;
+		public final SpawningInfo cobblestoneGolemSpawning;
 		public final SpawningInfo creepSpawning;
 		public final SpawningInfo cyclopsSpawning;
 		public final SpawningInfo dryadSpawning;
@@ -81,6 +83,14 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,PLAINS,!SAVANNA",
 					"OVERWORLD,MESA");
 			centaurSpawning = new SpawningInfo(builder, "Centaur", 80, 2, 4, centaurBiomes, centaurBiomeDictionary);
+
+			List<? extends String> cobbleGolemBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
+			List<? extends String> cobbleGolemBiomeDictionary = List.of("OVERWORLD,JUNGLE");
+			cobbleGolemSpawning = new SpawningInfo(builder, "CobbleGolem", 60, 2, 4, cobbleGolemBiomes, cobbleGolemBiomeDictionary);
+
+			List<? extends String> cobblestoneGolemBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
+			List<? extends String> cobblestoneGolemBiomeDictionary = List.of("OVERWORLD,JUNGLE");
+			cobblestoneGolemSpawning = new SpawningInfo(builder, "CobblestoneGolem", 60, 2, 4, cobblestoneGolemBiomes, cobblestoneGolemBiomeDictionary);
 
 			List<? extends String> creepBiomeDictionary = List.of("OVERWORLD");
 			creepSpawning = new SpawningInfo(builder, "Creep", 20, 4, 6, List.of(), creepBiomeDictionary, true);

@@ -1,7 +1,6 @@
 package gaia.entity;
 
 import gaia.registry.GaiaRegistry;
-import gaia.registry.GaiaSounds;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
@@ -214,7 +213,7 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(GaiaSounds.FLESH_LICH_STEP.get(), 0.15F, 1.0F);
+		this.playSound(GaiaRegistry.FLESH_LICH.getStep(), 0.15F, 1.0F);
 	}
 
 	@Override
