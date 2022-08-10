@@ -36,6 +36,19 @@ public class GaiaRecipes extends RecipeProvider {
 				.define('C', GaiaRegistry.STONE_COAL.get())
 				.unlockedBy("has_stone_coal", has(GaiaRegistry.STONE_COAL.get())).save(consumer, "grimoireofgaia:stone_coal_to_coal_block");
 
+		ShapelessRecipeBuilder.shapeless(GaiaRegistry.MONSTER_FEED.get())
+				.requires(Tags.Items.SEEDS_WHEAT).requires(Tags.Items.SEEDS_WHEAT).requires(GaiaRegistry.EXPERIENCE_IRON.get())
+				.unlockedBy("has_experience_iron", has(GaiaRegistry.EXPERIENCE_IRON.get()))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(GaiaRegistry.MONSTER_FEED.get(), 2)
+				.requires(Tags.Items.SEEDS_WHEAT).requires(Tags.Items.SEEDS_WHEAT).requires(GaiaRegistry.EXPERIENCE_GOLD.get())
+				.unlockedBy("has_experience_gold", has(GaiaRegistry.EXPERIENCE_GOLD.get()))
+				.save(consumer, "grimoireofgaia:monster_feed_1");
+		ShapelessRecipeBuilder.shapeless(GaiaRegistry.MONSTER_FEED.get(), 4)
+				.requires(Tags.Items.SEEDS_WHEAT).requires(Tags.Items.SEEDS_WHEAT).requires(GaiaRegistry.EXPERIENCE_DIAMOND.get())
+				.unlockedBy("has_experience_diamond", has(GaiaRegistry.EXPERIENCE_DIAMOND.get()))
+				.save(consumer, "grimoireofgaia:monster_feed_2");
+
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.EXPERIENCE_IRON.get()),
 						GaiaRegistry.BOX_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))
 				.save(consumer);

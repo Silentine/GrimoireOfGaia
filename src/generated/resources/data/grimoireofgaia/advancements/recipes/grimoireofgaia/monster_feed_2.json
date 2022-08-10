@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:monster_feed_2"
+    ]
+  },
+  "criteria": {
+    "has_experience_diamond": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:experience_diamond"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:monster_feed_2"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_experience_diamond",
+      "has_the_recipe"
+    ]
+  ]
+}

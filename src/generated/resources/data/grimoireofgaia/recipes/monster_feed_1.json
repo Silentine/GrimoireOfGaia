@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:seeds/wheat"
+    },
+    {
+      "tag": "forge:seeds/wheat"
+    },
+    {
+      "item": "grimoireofgaia:experience_gold"
+    }
+  ],
+  "result": {
+    "item": "grimoireofgaia:monster_feed",
+    "count": 2
+  }
+}

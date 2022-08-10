@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:monster_feed"
+    ]
+  },
+  "criteria": {
+    "has_experience_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:experience_iron"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:monster_feed"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_experience_iron",
+      "has_the_recipe"
+    ]
+  ]
+}
