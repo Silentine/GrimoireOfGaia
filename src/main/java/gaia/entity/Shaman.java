@@ -155,7 +155,11 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void aiStep() {
-		this.beaconMonster();
+		this.beaconMonster(6, (entity) -> {
+			if (entity instanceof Zombie || entity instanceof Skeleton) {
+				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+			}
+		});
 
 		if ((getHealth() < getMaxHealth() * 0.75F) && (switchHealth == 0)) {
 			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.METAL_DAGGER.get()));
@@ -215,19 +219,6 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 
 		super.aiStep();
-	}
-
-	private void beaconMonster() {
-		if (!level.isClientSide) {
-			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1))
-					.inflate(6);
-			List<Monster> monsters = level.getEntitiesOfClass(Monster.class, aabb);
-			for (Monster monster : monsters) {
-				if (monster instanceof Zombie || monster instanceof Skeleton) {
-					monster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
-				}
-			}
-		}
 	}
 
 	private void setGoals(int id) {

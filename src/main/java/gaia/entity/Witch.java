@@ -20,7 +20,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -51,7 +50,6 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
@@ -192,7 +190,11 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		beaconMonster();
+		this.beaconMonster(6, (entity) -> {
+			if (entity instanceof Zombie || entity instanceof Skeleton) {
+				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+			}
+		});
 
 		if (!level.isClientSide && isPassenger() && isRidingBroom()) {
 			stopRiding();
@@ -286,18 +288,6 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 		}
 		super.setItemSlot(equipmentSlot, stack);
-	}
-
-	private void beaconMonster() {
-		if (!level.isClientSide) {
-			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(6);
-			List<Mob> mobs = level.getEntitiesOfClass(Mob.class, aabb);
-			for (Mob mob : mobs) {
-				if (mob instanceof Zombie || mob instanceof Skeleton) {
-					mob.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
-				}
-			}
-		}
 	}
 
 	private void setSpawn(int id) {

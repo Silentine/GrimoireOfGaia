@@ -47,12 +47,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Random;
 
 public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
@@ -180,7 +178,11 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void aiStep() {
-		beaconMonster();
+		this.beaconMonster(6, (entity) -> {
+			if (entity instanceof Spider) {
+				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+			}
+		});
 
 		if ((getHealth() < getMaxHealth() * 0.5F) && (switchHealth == 0)) {
 			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.METAL_DAGGER.get()));
@@ -271,18 +273,6 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			setGoals(0);
 		} else {
 			setGoals(1);
-		}
-	}
-
-	private void beaconMonster() {
-		if (!level.isClientSide) {
-			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(6D);
-			List<Monster> monsters = level.getEntitiesOfClass(Monster.class, aabb);
-			for (Monster monster : monsters) {
-				if (monster instanceof Spider spider) {
-					spider.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
-				}
-			}
 		}
 	}
 

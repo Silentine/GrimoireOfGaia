@@ -116,7 +116,11 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 
 	@Override
 	public void aiStep() {
-		this.beaconMonster();
+		this.beaconMonster(2, (entity) -> {
+			if (entity instanceof Sporeling) {
+				entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1, true, true));
+			}
+		});
 
 		if (this.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F && this.random.nextInt(5) == 0) {
 			int i = Mth.floor(this.getX());
@@ -154,16 +158,6 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 		}
 
 		super.aiStep();
-	}
-
-	private void beaconMonster() {
-		if (!level.isClientSide) {
-			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(2);
-			List<Sporeling> sporelings = level.getEntitiesOfClass(Sporeling.class, aabb);
-			for (Sporeling sporeling : sporelings) {
-				sporeling.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1, true, true));
-			}
-		}
 	}
 
 	private void setSpawn(int id) {

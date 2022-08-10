@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -44,6 +45,7 @@ import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public abstract class AbstractGaiaEntity extends Monster {
 	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AbstractGaiaEntity.class, EntityDataSerializers.INT);
@@ -121,13 +123,29 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	/**
-	 * Detects if there are any EntityPlayer nearby
+	 * Detects if there are any Player nearby
 	 */
 	protected boolean playerDetection(int range, TargetingConditions conditions) {
 		AABB box = new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1).inflate(range);
 		List<Player> list = level.getNearbyPlayers(conditions, this, box);
 
 		return !list.isEmpty();
+	}
+
+	/**
+	 * Gets nearby entities and applies the given consumer to them
+	 *
+	 * @param range The range to search for entities
+	 * @param livingEntityConsumer The consumer to apply to the entities
+	 */
+	protected void beaconMonster(int range, Consumer<LivingEntity> livingEntityConsumer) {
+		if (!level.isClientSide) {
+			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(range);
+			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, aabb);
+			for (LivingEntity livingEntity : entities) {
+				livingEntityConsumer.accept(livingEntity);
+			}
+		}
 	}
 
 	@Override
@@ -155,7 +173,8 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	/**
 	 * Sets the entity to friendly or not friendly
-	 * @param value true for friendly, false for not friendly
+	 *
+	 * @param value      true for friendly, false for not friendly
 	 * @param friendedBy the player who set the entity to friendly
 	 */
 	public void setFriendly(boolean value, UUID friendedBy) {
@@ -168,6 +187,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	/**
 	 * Adjusts AI goals based on if the entity is friendly or not
+	 *
 	 * @param friendly true if the entity is friendly, false if not
 	 */
 	private void setupFriendGoals(boolean friendly) {
@@ -222,6 +242,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	/**
 	 * Called when the friendly status of the entity changes
+	 *
 	 * @param cap the capability
 	 */
 	public void onFriendlyChange(IFriended cap) {

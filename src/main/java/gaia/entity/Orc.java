@@ -40,12 +40,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -174,7 +172,11 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 			/* BUFF */
 		} else if (getVariant() == 1) {
-			beaconMonster();
+			this.beaconMonster(6, (entity) -> {
+				if (entity instanceof Orc) {
+					entity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 1, true, true));
+				}
+			});
 
 			if ((getHealth() < getMaxHealth() * 0.5F) && (switchHealth == 0)) {
 				setGoals(1);
@@ -221,17 +223,6 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 	private void setBuff() {
 		level.broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
-	}
-
-	private void beaconMonster() {
-		if (!level.isClientSide) {
-			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1))
-					.inflate(6D);
-			List<Orc> orcs = level.getEntitiesOfClass(Orc.class, aabb);
-			for (Orc orc : orcs) {
-				orc.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 1, true, true));
-			}
-		}
 	}
 
 	@Override
