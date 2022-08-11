@@ -1,6 +1,7 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.datagen.client.language.MobLangHelper;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
@@ -19,45 +20,45 @@ public class GaiaLanguage extends LanguageProvider {
 	protected void addTranslations() {
 		add("itemGroup.grimoireofgaia", "Grimoire of Gaia 4");
 
-		addMobTranslation(GaiaRegistry.ANT_WORKER, "Ant Worker", "communicates");
-		addMobTranslation(GaiaRegistry.ANT_SALVAGER, "Ant Salvager", "communicates");
-		addMobTranslation(GaiaRegistry.ANUBIS, "Anubis", "speaks");
-		addMobTranslation(GaiaRegistry.ARACHNE, "Arachne", "communicates");
-		addMobTranslation(GaiaRegistry.BANSHEE, "Banshee", "shrieks");
-		addMobTranslation(GaiaRegistry.BEE, "Honey Bee", "buzzes");
-		addMobTranslation(GaiaRegistry.BONE_KNIGHT, "Bone Knight", "rattles");
-		addMobTranslation(GaiaRegistry.CENTAUR, "Centaur", "speaks");
-		addMobTranslation(GaiaRegistry.COBBLE_GOLEM, "Cobble Golem");
-		addMobTranslation(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem");
-		addMobTranslation(GaiaRegistry.CREEP, "Creep", "hisses");
-		addMobTranslation(GaiaRegistry.CYCLOPS, "Cyclops", "speaks");
-		addMobTranslation(GaiaRegistry.DRYAD, "Dryad", "murmurs");
-		addMobTranslation(GaiaRegistry.DULLAHAN, "Dullahan", "speaks");
-		addMobTranslation(GaiaRegistry.FLESH_LICH, "Flesh Lich", "groans");
-		addMobTranslation(GaiaRegistry.GOBLIN, "Goblin", "speaks");
-		addMobTranslation(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin", "murmurs");
-		addMobTranslation(GaiaRegistry.HARPY, "Harpy", "shrieks");
-		addMobTranslation(GaiaRegistry.HUNTER, "Hunter", "whispers");
-		addMobTranslation(GaiaRegistry.KOBOLD, "Kobold", "barks");
-		addMobTranslation(GaiaRegistry.MATANGO, "Matango", "speaks");
-		addMobTranslation(GaiaRegistry.MINOTAURUS, "Minotaurus", "growls");
-		addMobTranslation(GaiaRegistry.NINE_TAILS, "Nine Tails", "speaks");
-		addMobTranslation(GaiaRegistry.ONI, "Oni", "snorts");
-		addMobTranslation(GaiaRegistry.ORC, "Orc", "growls");
-		addMobTranslation(GaiaRegistry.SATYRESS, "Satyress", "speaks");
-		addMobTranslation(GaiaRegistry.SHAMAN, "Shaman", "chants");
-		addMobTranslation(GaiaRegistry.SIREN, "Siren", "sings");
-		addMobTranslation(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl", "bubbles");
-		addMobTranslation(GaiaRegistry.SPORELING, "Sporeling", "squeaks");
-		addMobTranslation(GaiaRegistry.SPRIGGAN, "Spriggan", "rustles");
-		addMobTranslation(GaiaRegistry.SUCCUBUS, "Succubus", "whispers");
-		addMobTranslation(GaiaRegistry.WERECAT, "Werecat", "hisses");
-		addMobTranslation(GaiaRegistry.WITCH, "Witch", "laughs");
-		addMobTranslation(GaiaRegistry.YUKI_ONNA, "Yuki-Onna", "speaks");
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ANT_WORKER, "Ant Worker").withSay("communicates").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ANT_SALVAGER, "Ant Salvager").withSay("communicates").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ANUBIS, "Anubis").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ARACHNE, "Arachne").withSay("communicates").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BANSHEE, "Banshee").withSay("shrieks").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BEE, "Honey Bee").withSay("buzzes").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BONE_KNIGHT, "Bone Knight").withSay("rattles").withDeath("crumbles").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CENTAUR, "Centaur").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.COBBLE_GOLEM, "Cobble Golem").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CREEP, "Creep").withSay("hisses").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CYCLOPS, "Cyclops").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DRYAD, "Dryad").withSay("murmurs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DULLAHAN, "Dullahan").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.FLESH_LICH, "Flesh Lich").withSay("groans").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN, "Goblin").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin").withSay("murmurs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HARPY, "Harpy").withSay("shrieks").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HUNTER, "Hunter").withSay("whispers").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MATANGO, "Matango").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAURUS, "Minotaurus").withSay("growls").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NINE_TAILS, "Nine Tails").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ONI, "Oni").withSay("snorts").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ORC, "Orc").withSay("growls").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SATYRESS, "Satyress").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SHAMAN, "Shaman").withSay("chants").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SIREN, "Siren").withSay("sings").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl").withSay("bubbles").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SPORELING, "Sporeling").withSay("squeaks").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SPRIGGAN, "Spriggan").withSay("rustles").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SUCCUBUS, "Succubus").withSay("whispers").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WERECAT, "Werecat").withSay("hisses").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WITCH, "Witch").withSay("laughs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.YUKI_ONNA, "Yuki-Onna").build());
 
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
 
-		addMobTranslation(GaiaRegistry.HORSE, "Wild Horse", "neighs");
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HORSE, "Wild Horse").withSay("neighs").build());
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
 		addEntityType(GaiaRegistry.MAGIC, "Magic Projectile");
 		addEntityType(GaiaRegistry.POISON, "Poison Projectile");
@@ -195,36 +196,35 @@ public class GaiaLanguage extends LanguageProvider {
 		this.add(path, name);
 	}
 
-	private void addMobTranslation(MobReg<?> reg, String name) {
-		addMobTranslation(reg, name, "");
-	}
+	private void addMobTranslation(MobLangHelper mobHelper) {
+		MobReg<?> reg = mobHelper.getMobReg();
+		String name = mobHelper.getName();
 
-	private void addMobTranslation(MobReg<?> reg, String name, String say) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 
 		if (reg.getSay() != null)
-			addSubtitle(reg.getSay(), name + " " + say);
+			addSubtitle(reg.getSay(), name + mobHelper.getSay());
 		if (reg.getHurt() != null)
-			addSubtitle(reg.getHurt(), name + " hurts");
+			addSubtitle(reg.getHurt(), name + mobHelper.getHurt());
 		if (reg.getDeath() != null)
-			addSubtitle(reg.getDeath(), name + " dies");
+			addSubtitle(reg.getDeath(), name + mobHelper.getDeath());
 		if (reg.getStep() != null)
-			addSubtitle(reg.getStep(), name + " steps");
+			addSubtitle(reg.getStep(), name + mobHelper.getStep());
 		if (reg.getAttack() != null)
-			addSubtitle(reg.getAttack(), name + " attacks");
+			addSubtitle(reg.getAttack(), name + mobHelper.getAttack());
 
 		if (reg.hasGender()) {
 			if (reg.getMaleSay() != null)
-				addSubtitle(reg.getMaleSay(), name + " " + say);
+				addSubtitle(reg.getMaleSay(), name + mobHelper.getSay());
 			if (reg.getMaleHurt() != null)
-				addSubtitle(reg.getMaleHurt(), name + " hurts");
+				addSubtitle(reg.getMaleHurt(), name + mobHelper.getHurt());
 			if (reg.getMaleDeath() != null)
-				addSubtitle(reg.getMaleDeath(), name + " dies");
+				addSubtitle(reg.getMaleDeath(), name + mobHelper.getDeath());
 			if (reg.getMaleStep() != null)
-				addSubtitle(reg.getMaleStep(), name + " steps");
+				addSubtitle(reg.getMaleStep(), name + mobHelper.getStep());
 			if (reg.getMaleAttack() != null)
-				addSubtitle(reg.getMaleAttack(), name + " attacks");
+				addSubtitle(reg.getMaleAttack(), name + mobHelper.getAttack());
 		}
 	}
 
