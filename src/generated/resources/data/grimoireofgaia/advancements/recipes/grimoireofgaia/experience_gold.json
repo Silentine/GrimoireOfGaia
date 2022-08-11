@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "grimoireofgaia:box_iron"
+      "grimoireofgaia:experience_gold"
     ]
   },
   "criteria": {
-    "has_iron_box": {
+    "has_gold_box": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:box_iron"
+              "grimoireofgaia:box_gold"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "grimoireofgaia:box_iron"
+        "recipe": "grimoireofgaia:experience_gold"
       }
     }
   },
   "requirements": [
     [
-      "has_iron_box",
+      "has_gold_box",
       "has_the_recipe"
     ]
   ]

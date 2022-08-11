@@ -49,17 +49,17 @@ public class GaiaRecipes extends RecipeProvider {
 				.unlockedBy("has_experience_diamond", has(GaiaRegistry.EXPERIENCE_DIAMOND.get()))
 				.save(consumer, "grimoireofgaia:monster_feed_2");
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.EXPERIENCE_IRON.get()),
-						GaiaRegistry.BOX_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.BOX_IRON.get()),
+						GaiaRegistry.EXPERIENCE_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))
 				.save(consumer);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.EXPERIENCE_GOLD.get()),
-						GaiaRegistry.BOX_GOLD.get(), 0.1F, 200).unlockedBy("has_gold_box", has(GaiaRegistry.BOX_GOLD.get()))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.BOX_GOLD.get()),
+						GaiaRegistry.EXPERIENCE_GOLD.get(), 0.1F, 200).unlockedBy("has_gold_box", has(GaiaRegistry.BOX_GOLD.get()))
 				.save(consumer);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.EXPERIENCE_DIAMOND.get()),
-						GaiaRegistry.BOX_DIAMOND.get(), 0.1F, 200).unlockedBy("has_diamond_box", has(GaiaRegistry.BOX_DIAMOND.get()))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.BOX_DIAMOND.get()),
+						GaiaRegistry.EXPERIENCE_DIAMOND.get(), 0.1F, 200).unlockedBy("has_diamond_box", has(GaiaRegistry.BOX_DIAMOND.get()))
 				.save(consumer);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.LEATHER),
-						GaiaRegistry.FUR.get(), 0.1F, 200).unlockedBy("has_fur", has(GaiaRegistry.FUR.get()))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.FUR.get()),
+						Items.LEATHER, 0.1F, 200).unlockedBy("has_fur", has(GaiaRegistry.FUR.get()))
 				.save(consumer, "grimoireofgaia:fur_to_leather");
 	}
 }

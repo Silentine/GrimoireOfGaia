@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "grimoireofgaia:box_diamond"
+      "grimoireofgaia:experience_diamond"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "grimoireofgaia:box_diamond"
+        "recipe": "grimoireofgaia:experience_diamond"
       }
     }
   },

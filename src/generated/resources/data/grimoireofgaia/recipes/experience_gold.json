@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "grimoireofgaia:experience_gold"
+    "item": "grimoireofgaia:box_gold"
   },
-  "result": "grimoireofgaia:box_gold",
+  "result": "grimoireofgaia:experience_gold",
   "experience": 0.1,
   "cookingtime": 200
 }
