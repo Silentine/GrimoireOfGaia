@@ -1,0 +1,862 @@
+{
+  "bag_open": {
+    "subtitle": "grimoireofgaia.subtitle.bag_open",
+    "sounds": [
+      "grimoireofgaia:item/bag_open"
+    ]
+  },
+  "book_hit": {
+    "subtitle": "grimoireofgaia.subtitle.book_hit",
+    "sounds": [
+      "grimoireofgaia:item/book_hit1",
+      "grimoireofgaia:item/book_hit2",
+      "grimoireofgaia:item/book_hit3",
+      "grimoireofgaia:item/book_hit4"
+    ]
+  },
+  "metal_book_hit": {
+    "subtitle": "grimoireofgaia.subtitle.book_hit",
+    "sounds": [
+      "step/stone1",
+      "step/stone2",
+      "step/stone3",
+      "step/stone4",
+      "step/stone5",
+      "step/stone6"
+    ]
+  },
+  "box_open": {
+    "subtitle": "grimoireofgaia.subtitle.box_open",
+    "sounds": [
+      "grimoireofgaia:item/box_open1",
+      "grimoireofgaia:item/box_open2"
+    ]
+  },
+  "creep_say": {
+    "subtitle": "grimoireofgaia.subtitle.creep_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "creep_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.creep_hurt",
+    "sounds": [
+      "mob/creeper/say1",
+      "mob/creeper/say2",
+      "mob/creeper/say3",
+      "mob/creeper/say4"
+    ]
+  },
+  "creep_death": {
+    "subtitle": "grimoireofgaia.subtitle.creep_death",
+    "sounds": [
+      "mob/creeper/death"
+    ]
+  },
+  "creep_primed": {
+    "subtitle": "grimoireofgaia.subtitle.creep_primed",
+    "sounds": [
+      "random/fuse"
+    ]
+  },
+  "goblin_feral_primed": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_primed",
+    "sounds": [
+      "random/fuse"
+    ]
+  },
+  "gaia_shoot": {
+    "subtitle": "grimoireofgaia.subtitle.gaia_shoot",
+    "sounds": [
+      "mob/ghast/fireball4"
+    ]
+  },
+  "bomb_throw": {
+    "subtitle": "grimoireofgaia.subtitle.bomb_throw",
+    "sounds": [
+      "mob/ghast/fireball4"
+    ]
+  },
+  "ant_hill_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_hill_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_say": {
+    "subtitle": "grimoireofgaia.subtitle.ant_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ant_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "ant_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "ant_salvager_say": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "ant_salvager_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "ant_salvager_death": {
+    "subtitle": "grimoireofgaia.subtitle.ant_salvager_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "anubis_say": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "anubis_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "anubis_death": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "anubis_male_say": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_male_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "anubis_male_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_male_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "anubis_male_death": {
+    "subtitle": "grimoireofgaia.subtitle.anubis_male_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "arachne_say": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "arachne_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "arachne_death": {
+    "subtitle": "grimoireofgaia.subtitle.arachne_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "banshee_say": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "banshee_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "banshee_death": {
+    "subtitle": "grimoireofgaia.subtitle.banshee_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "bee_say": {
+    "subtitle": "grimoireofgaia.subtitle.bee_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "bee_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.bee_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "bee_death": {
+    "subtitle": "grimoireofgaia.subtitle.bee_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "centaur_say": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "centaur_death": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "centaur_male_say": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_male_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "centaur_male_death": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "cyclops_say": {
+    "subtitle": "grimoireofgaia.subtitle.cyclops_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "cyclops_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.cyclops_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "cyclops_death": {
+    "subtitle": "grimoireofgaia.subtitle.cyclops_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "dryad_say": {
+    "subtitle": "grimoireofgaia.subtitle.dryad_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "dryad_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.dryad_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "dryad_death": {
+    "subtitle": "grimoireofgaia.subtitle.dryad_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "dullahan_say": {
+    "subtitle": "grimoireofgaia.subtitle.dullahan_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "dullahan_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.dullahan_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "dullahan_death": {
+    "subtitle": "grimoireofgaia.subtitle.dullahan_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "goblin_say": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "goblin_death": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "goblin_feral_say": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "goblin_feral_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "goblin_feral_death": {
+    "subtitle": "grimoireofgaia.subtitle.goblin_feral_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "harpy_say": {
+    "subtitle": "grimoireofgaia.subtitle.harpy_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "harpy_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.harpy_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "harpy_death": {
+    "subtitle": "grimoireofgaia.subtitle.harpy_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "hunter_say": {
+    "subtitle": "grimoireofgaia.subtitle.hunter_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "hunter_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.hunter_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "hunter_death": {
+    "subtitle": "grimoireofgaia.subtitle.hunter_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "kobold_say": {
+    "subtitle": "grimoireofgaia.subtitle.kobold_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "kobold_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.kobold_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "kobold_death": {
+    "subtitle": "grimoireofgaia.subtitle.kobold_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "matango_say": {
+    "subtitle": "grimoireofgaia.subtitle.matango_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "matango_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.matango_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "matango_death": {
+    "subtitle": "grimoireofgaia.subtitle.matango_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "minotaurus_say": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "minotaurus_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "minotaurus_death": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "nine_tails_say": {
+    "subtitle": "grimoireofgaia.subtitle.nine_tails_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "nine_tails_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.nine_tails_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "nine_tails_death": {
+    "subtitle": "grimoireofgaia.subtitle.nine_tails_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "oni_say": {
+    "subtitle": "grimoireofgaia.subtitle.oni_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "oni_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.oni_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "oni_death": {
+    "subtitle": "grimoireofgaia.subtitle.oni_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "orc_say": {
+    "subtitle": "grimoireofgaia.subtitle.orc_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "orc_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.orc_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "orc_death": {
+    "subtitle": "grimoireofgaia.subtitle.orc_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "satyress_say": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "satyress_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "satyress_death": {
+    "subtitle": "grimoireofgaia.subtitle.satyress_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "shaman_say": {
+    "subtitle": "grimoireofgaia.subtitle.shaman_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "shaman_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.shaman_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "shaman_death": {
+    "subtitle": "grimoireofgaia.subtitle.shaman_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "siren_say": {
+    "subtitle": "grimoireofgaia.subtitle.siren_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "siren_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.siren_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "siren_death": {
+    "subtitle": "grimoireofgaia.subtitle.siren_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "sludge_girl_say": {
+    "subtitle": "grimoireofgaia.subtitle.sludge_girl_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "sludge_girl_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.sludge_girl_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "sludge_girl_death": {
+    "subtitle": "grimoireofgaia.subtitle.sludge_girl_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "sporeling_say": {
+    "subtitle": "grimoireofgaia.subtitle.sporeling_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "sporeling_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.sporeling_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "sporeling_death": {
+    "subtitle": "grimoireofgaia.subtitle.sporeling_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "spriggan_say": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "spriggan_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "spriggan_death": {
+    "subtitle": "grimoireofgaia.subtitle.spriggan_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "succubus_say": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "succubus_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "succubus_death": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "succubus_male_say": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_male_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "succubus_male_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_male_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "succubus_male_death": {
+    "subtitle": "grimoireofgaia.subtitle.succubus_male_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "werecat_say": {
+    "subtitle": "grimoireofgaia.subtitle.werecat_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "werecat_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.werecat_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "werecat_death": {
+    "subtitle": "grimoireofgaia.subtitle.werecat_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "witch_say": {
+    "subtitle": "grimoireofgaia.subtitle.witch_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "witch_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.witch_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "witch_death": {
+    "subtitle": "grimoireofgaia.subtitle.witch_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "yuki_onna_say": {
+    "subtitle": "grimoireofgaia.subtitle.yuki_onna_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "yuki_onna_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.yuki_onna_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_hurt1",
+      "grimoireofgaia:anime/aggressive_hurt2",
+      "grimoireofgaia:anime/aggressive_hurt3"
+    ]
+  },
+  "yuki_onna_death": {
+    "subtitle": "grimoireofgaia.subtitle.yuki_onna_death",
+    "sounds": [
+      "grimoireofgaia:anime/aggressive_death"
+    ]
+  },
+  "horse_say": {
+    "subtitle": "grimoireofgaia.subtitle.horse_say",
+    "sounds": [
+      "mob/horse/zombie/idle1",
+      "mob/horse/zombie/idle2",
+      "mob/horse/zombie/idle3"
+    ]
+  },
+  "horse_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.horse_hurt",
+    "sounds": [
+      "mob/horse/zombie/hit1",
+      "mob/horse/zombie/hit2",
+      "mob/horse/zombie/hit3",
+      "mob/horse/zombie/hit4"
+    ]
+  },
+  "horse_death": {
+    "subtitle": "grimoireofgaia.subtitle.horse_death",
+    "sounds": [
+      "mob/horse/zombie/death"
+    ]
+  },
+  "bone_knight_say": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_say",
+    "sounds": [
+      "mob/skeleton/say1",
+      "mob/skeleton/say2",
+      "mob/skeleton/say3"
+    ]
+  },
+  "bone_knight_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_hurt",
+    "sounds": [
+      "mob/skeleton/hurt1",
+      "mob/skeleton/hurt2",
+      "mob/skeleton/hurt3",
+      "mob/skeleton/hurt4"
+    ]
+  },
+  "bone_knight_death": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_death",
+    "sounds": [
+      "mob/skeleton/death"
+    ]
+  },
+  "bone_knight_step": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
+    "sounds": [
+      "mob/skeleton/step1",
+      "mob/skeleton/step2",
+      "mob/skeleton/step3",
+      "mob/skeleton/step4"
+    ]
+  },
+  "flesh_lich_say": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_say",
+    "sounds": [
+      "mob/zombie/say1",
+      "mob/zombie/say2",
+      "mob/zombie/say3"
+    ]
+  },
+  "flesh_lich_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_hurt",
+    "sounds": [
+      "mob/zombie/hurt1",
+      "mob/zombie/hurt2"
+    ]
+  },
+  "flesh_lich_death": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_death",
+    "sounds": [
+      "mob/zombie/death"
+    ]
+  },
+  "flesh_lich_step": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_step",
+    "sounds": [
+      "mob/zombie/step1",
+      "mob/zombie/step2",
+      "mob/zombie/step3",
+      "mob/zombie/step4",
+      "mob/zombie/step5"
+    ]
+  },
+  "cobble_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "cobble_golem_attack": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_attack",
+    "sounds": [
+      "mob/irongolem/throw"
+    ]
+  },
+  "cobblestone_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "cobblestone_golem_attack": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_attack",
+    "sounds": [
+      "mob/irongolem/throw"
+    ]
+  }
+}

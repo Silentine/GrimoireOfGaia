@@ -83,11 +83,20 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.resource.PathResourcePack;
+
+import java.io.IOException;
 
 public class ClientHandler {
 	public static final float tinyShadow = 0.25F;
@@ -170,6 +179,24 @@ public class ClientHandler {
 				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
 		ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
 				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+	}
+
+	public static void addPackFinders(AddPackFindersEvent event) {
+		try {
+			if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+				var resourcePath = ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().findResource("optional_sound_pack");
+				var pack = new PathResourcePack(ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().getFileName() + ":" + resourcePath, resourcePath);
+				var metadataSection = pack.getMetadataSection(PackMetadataSection.SERIALIZER);
+				if (metadataSection != null) {
+					event.addRepositorySource((packConsumer, packConstructor) ->
+							packConsumer.accept(packConstructor.create(
+									"builtin/add_pack_finders_test", new TextComponent("\u00A76Optional GoG4 sound pack"), false,
+									() -> pack, metadataSection, Pack.Position.TOP, PackSource.BUILT_IN, false)));
+				}
+			}
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {

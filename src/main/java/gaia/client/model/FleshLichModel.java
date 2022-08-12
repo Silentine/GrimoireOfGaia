@@ -163,7 +163,6 @@ public class FleshLichModel extends EntityModel<FleshLich> implements HeadedMode
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-		poseStack.translate(0, 1.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }

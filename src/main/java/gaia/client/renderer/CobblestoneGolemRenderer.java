@@ -13,7 +13,7 @@ public class CobblestoneGolemRenderer extends MobRenderer<CobblestoneGolem, Cobb
 			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/cobblestone_golem/cobblestone_golem.png")};
 
 	public CobblestoneGolemRenderer(Context context) {
-		super(context, new CobblestoneGolemModel(context.bakeLayer(ClientHandler.COBBLE_GOLEM)), ClientHandler.smallShadow);
+		super(context, new CobblestoneGolemModel(context.bakeLayer(ClientHandler.COBBLESTONE_GOLEM)), ClientHandler.smallShadow);
 	}
 
 	@Override
