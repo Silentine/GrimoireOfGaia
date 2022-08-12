@@ -26,7 +26,7 @@
               }
             }
           ],
-          "name": "grimoireofgaia:nether_wart_jam"
+          "name": "grimoireofgaia:meat"
         }
       ]
     },
@@ -47,7 +47,7 @@
               "add": false
             }
           ],
-          "name": "forge:nuggets/gold",
+          "name": "forge:nuggets/iron",
           "expand": true
         }
       ]
