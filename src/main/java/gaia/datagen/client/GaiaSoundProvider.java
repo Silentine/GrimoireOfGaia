@@ -49,8 +49,6 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("item/box_open2"))
 				));
 
-		this.setupMobSounds(GaiaRegistry.CENTAUR);
-
 		this.add(GaiaRegistry.CREEP.getSay(), definition()
 				.subtitle(modSubtitle(GaiaRegistry.CREEP.getSay().getLocation()))
 				.with(sound(modLoc("none"))));
@@ -195,6 +193,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.ARACHNE);
 		this.setupMobSounds(GaiaRegistry.BANSHEE);
 		this.setupMobSounds(GaiaRegistry.BEE);
+		this.setupMobSounds(GaiaRegistry.CENTAUR);
 		this.setupMobSounds(GaiaRegistry.CYCLOPS);
 		this.setupMobSounds(GaiaRegistry.DRYAD);
 		this.setupMobSounds(GaiaRegistry.DULLAHAN);

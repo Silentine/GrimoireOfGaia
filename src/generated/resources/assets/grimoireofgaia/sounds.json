@@ -32,42 +32,6 @@
       "grimoireofgaia:item/box_open2"
     ]
   },
-  "centaur_say": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_say",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "centaur_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_hurt",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "centaur_death": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_death",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "centaur_male_say": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_male_say",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "centaur_male_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_male_hurt",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "centaur_male_death": {
-    "subtitle": "grimoireofgaia.subtitle.centaur_male_death",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
   "creep_say": {
     "subtitle": "grimoireofgaia.subtitle.creep_say",
     "sounds": [
@@ -241,6 +205,42 @@
   },
   "bee_death": {
     "subtitle": "grimoireofgaia.subtitle.bee_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_say": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_death": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_death",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_male_say": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_male_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_hurt",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "centaur_male_death": {
+    "subtitle": "grimoireofgaia.subtitle.centaur_male_death",
     "sounds": [
       "grimoireofgaia:none"
     ]
