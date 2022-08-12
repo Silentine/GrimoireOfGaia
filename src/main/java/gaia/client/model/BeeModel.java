@@ -131,8 +131,6 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 
 	@Override
 	public void setupAnim(Bee bee, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = bee.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
-
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
 		head.xRot = headPitch / 57.295776F;
