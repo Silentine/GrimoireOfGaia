@@ -83,7 +83,7 @@ public class RangedUtil {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.getX() - shooter.getX();
-		double d1 = target.getY(0.5D) - target.getY(0.5D);
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
@@ -131,7 +131,7 @@ public class RangedUtil {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.getX() - shooter.getX();
-		double d1 = target.getY(0.5D) - target.getY(0.5D);
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
@@ -153,7 +153,7 @@ public class RangedUtil {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.getX() - shooter.getX();
-		double d1 = target.getY(0.5D) - target.getY(0.5D);
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
@@ -175,7 +175,7 @@ public class RangedUtil {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		double d0 = target.getX() - shooter.getX();
-		double d1 = target.getY(0.5D) - target.getY(0.5D);
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
