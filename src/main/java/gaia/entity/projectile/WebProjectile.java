@@ -53,7 +53,7 @@ public class WebProjectile extends SmallFireball {
 
 	@Override
 	protected ParticleOptions getTrailParticle() {
-		return ParticleTypes.EXPLOSION_EMITTER;
+		return ParticleTypes.SPIT;
 	}
 
 	@Override
