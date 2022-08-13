@@ -65,7 +65,7 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
-				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
+				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_RANGED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)

@@ -30,7 +30,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -60,7 +59,6 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Bee.class, EntityDataSerializers.INT);
 
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
-	private final LeapAtTargetGoal leapAtTargetGoal = new LeapAtTargetGoal(this, 0.2F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
 	private int timer;
@@ -127,7 +125,7 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
-				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
+				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_RANGED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
 				.add(Attributes.FLYING_SPEED, (double) 0.5F)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
@@ -290,12 +288,10 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 	private void setGoals(int id) {
 		if (id == 1) {
 			this.goalSelector.removeGoal(rangedAttackGoal);
-//			this.goalSelector.addGoal(1, leapAtTargetGoal);
 			this.goalSelector.addGoal(2, mobAttackGoal);
 		} else {
 			getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
 				if (!cap.isFriendly()) {
-//					this.goalSelector.removeGoal(leapAtTargetGoal);
 					this.goalSelector.removeGoal(mobAttackGoal);
 					this.goalSelector.addGoal(1, rangedAttackGoal);
 

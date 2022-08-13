@@ -91,7 +91,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
-				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_NETHER)
+				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_MIXED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)

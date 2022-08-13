@@ -73,5 +73,7 @@ public class SharedEntityData {
 	public static final int RATE_RARE_DROP = 40;
 	public static final int RATE_UNIQUE_RARE_DROP = 100;
 	public static final double FOLLOW_RANGE = 40.0D;
+	public static final double FOLLOW_RANGE_RANGED = 20.0D;
+	public static final double FOLLOW_RANGE_MIXED = 26.0D;
 	public static final double FOLLOW_RANGE_NETHER = 30.0D;
 }

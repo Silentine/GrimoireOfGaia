@@ -64,7 +64,7 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
-				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE * 0.5)
+				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_RANGED)
 				.add(Attributes.MOVEMENT_SPEED, -0.25F)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
