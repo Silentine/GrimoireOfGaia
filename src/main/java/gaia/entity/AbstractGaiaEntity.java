@@ -182,6 +182,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 			cap.setFriendly(value);
 			cap.setFriendedBy(friendedBy);
 			setupFriendGoals(value);
+			if (GaiaConfig.COMMON.friendlyPersistence.get()) {
+				setPersistenceRequired();
+			}
 		});
 	}
 

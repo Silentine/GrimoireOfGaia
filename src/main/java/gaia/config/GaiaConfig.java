@@ -25,6 +25,8 @@ public class GaiaConfig {
 		public final BooleanValue disableInvisibility;
 		public final BooleanValue allPassiveMobsHostile;
 
+		public final BooleanValue friendlyPersistence;
+
 		public final IntValue tier1maxHealth;
 		public final IntValue tier1attackDamage;
 		public final IntValue tier1baseDefense;
@@ -57,6 +59,10 @@ public class GaiaConfig {
 			allPassiveMobsHostile = builder
 					.comment("All mobs are now hostile [Default: false]")
 					.define("allPassiveMobsHostile", false);
+
+			friendlyPersistence = builder
+					.comment("Stop befriended mobs from despawning [Default: false]")
+					.define("friendlyPersistence", false);
 
 			builder.pop();
 			builder.comment("Attribute settings")

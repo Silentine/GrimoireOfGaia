@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
@@ -71,10 +72,11 @@ public class PoisonProjectile extends SmallFireball {
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level.isClientSide) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
-			this.discard();
-		}
+	}
+
+	@Override
+	protected void onHitBlock(BlockHitResult hitResult) {
+		//No fire
 	}
 
 	@Override

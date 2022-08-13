@@ -1,13 +1,19 @@
 package gaia.entity.projectile;
 
 import gaia.registry.GaiaRegistry;
+import gaia.util.SharedEntityData;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
@@ -38,7 +44,12 @@ public class GaiaSmallFireball extends SmallFireball {
 
 	@Override
 	protected void onHit(HitResult result) {
-		if (!this.level.isClientSide && result instanceof EntityHitResult entityResult) {
+		super.onHit(result);
+	}
+
+	@Override
+	protected void onHitEntity(EntityHitResult entityResult) {
+		if (!this.level.isClientSide) {
 			Entity entity = entityResult.getEntity();
 			if (!entity.fireImmune()) {
 				Entity entity1 = this.getOwner();
@@ -52,7 +63,11 @@ public class GaiaSmallFireball extends SmallFireball {
 				}
 			}
 		}
-		discard();
+	}
+
+	@Override
+	protected void onHitBlock(BlockHitResult result) {
+		//No fire
 	}
 
 	@Override
