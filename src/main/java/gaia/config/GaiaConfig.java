@@ -138,7 +138,7 @@ public class GaiaConfig {
 					.define("disableYRestriction", false);
 
 			spawnWeather = builder
-					.comment("Remove spawn conditions related to height (Y-axis) [Default: false]")
+					.comment("Remove spawn conditions related to weather [Default: false]")
 					.define("spawnWeather", false);
 
 			builder.pop();
