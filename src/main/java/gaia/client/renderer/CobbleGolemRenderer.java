@@ -2,13 +2,10 @@ package gaia.client.renderer;
 
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
-import gaia.client.model.BeeModel;
 import gaia.client.model.CobbleGolemModel;
-import gaia.entity.Bee;
 import gaia.entity.CobbleGolem;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CobbleGolemRenderer extends MobRenderer<CobbleGolem, CobbleGolemModel> {

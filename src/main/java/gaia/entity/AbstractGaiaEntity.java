@@ -327,7 +327,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return GaiaConfig.COMMON.spawnDaysSet.get() <= levelAccessor.dayTime() % 24000;
+			return GaiaConfig.COMMON.spawnDaysSet.get() <= (int) (levelAccessor.dayTime() % 24000L);
 		} else {
 			return true;
 		}
