@@ -6,6 +6,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeTier;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.TierSortingRegistry;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public class GaiaTiers {
 	public static final Tier CURSED_METAL = TierSortingRegistry.registerTier(
 			new ForgeTier(2, 300, 5.0F, 1.0F, 16,
 					GaiaTags.REQUIRES_BOOK_TAG,
-					() -> Ingredient.EMPTY),
+					() -> Ingredient.of(Tags.Items.OBSIDIAN)),
 			new ResourceLocation(GrimoireOfGaia.MOD_ID, "cursed_metal"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
 }

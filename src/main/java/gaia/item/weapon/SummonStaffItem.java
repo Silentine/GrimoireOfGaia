@@ -27,6 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -39,6 +40,11 @@ public class SummonStaffItem extends Item {
 	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier) {
 		super(properties);
 		this.typeSupplier = typeSupplier;
+	}
+
+	@Override
+	public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
+		return repairStack.is(Tags.Items.ENDER_PEARLS);
 	}
 
 	@Override
