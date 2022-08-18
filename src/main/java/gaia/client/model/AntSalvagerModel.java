@@ -37,7 +37,7 @@ public class AntSalvagerModel extends EntityModel<AntSalvager> {
 
 		PartDefinition ant_ranger = partdefinition.addOrReplaceChild("ant_ranger", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition bodylower = ant_ranger.addOrReplaceChild("bodylower", CubeListBuilder.create().texOffs(32, 10).addBox(-2.5F, 5.0F, -1.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+		PartDefinition bodylower = ant_ranger.addOrReplaceChild("bodylower", CubeListBuilder.create().texOffs(32, 10).addBox(-2.5F, 5.0F, -1.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.5F, 0.0F));
 
 		PartDefinition bodyupper = bodylower.addOrReplaceChild("bodyupper", CubeListBuilder.create().texOffs(32, 0).addBox(-2.0F, -4.0F, -4.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 5.0F, 2.5F, 0.2182F, 0.0F, 0.0F));
 

@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -151,16 +152,13 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 			canHide = true;
 		}
 
-		if (isHiding() && !hasEffect(MobEffects.INVISIBILITY)) {
-			if (!hasEffect(MobEffects.INVISIBILITY)) {
-				addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1, 0));
-			}
-		}
-
 		if (playerDetection(4, TargetingConditions.forCombat())) {
 			if (canHide && !isHiding()) {
 				setGoals(1);
 				setHiding(true);
+			}
+			if(isHiding()) {
+				addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0));
 			}
 		} else {
 			if (isHiding()) {
