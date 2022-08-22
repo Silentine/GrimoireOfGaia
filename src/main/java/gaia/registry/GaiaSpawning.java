@@ -38,6 +38,7 @@ import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.Witch;
+import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.prop.AntHill;
 import gaia.util.BiomeHelper;
@@ -94,6 +95,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.SPRIGGAN.getEntityType(), GaiaSpawningConfig.COMMON.sprigganSpawning, event);
 		addSpawn(GaiaRegistry.WERECAT.getEntityType(), GaiaSpawningConfig.COMMON.werecatSpawning, event);
 		addSpawn(GaiaRegistry.WITCH.getEntityType(), GaiaSpawningConfig.COMMON.witchSpawning, event);
+		addSpawn(GaiaRegistry.WIZARD_HARPY.getEntityType(), GaiaSpawningConfig.COMMON.wizardHarpySpawning, event);
 		addSpawn(GaiaRegistry.YUKI_ONNA.getEntityType(), GaiaSpawningConfig.COMMON.yukiOnnaSpawning, event);
 	}
 
@@ -174,6 +176,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.SUCCUBUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Succubus::checkSuccubusSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WERECAT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Werecat::checkWerecatSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WITCH.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Witch::checkWitchSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.WIZARD_HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WizardHarpy::checkWizardHarpySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.YUKI_ONNA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, YukiOnna::checkYukiOnnaSpawnRules);
 
 		SpawnPlacements.register(GaiaRegistry.HORSE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
@@ -215,6 +218,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.SUCCUBUS.getEntityType(), Succubus.createAttributes().build());
 		event.put(GaiaRegistry.WERECAT.getEntityType(), Werecat.createAttributes().build());
 		event.put(GaiaRegistry.WITCH.getEntityType(), Witch.createAttributes().build());
+		event.put(GaiaRegistry.WIZARD_HARPY.getEntityType(), WizardHarpy.createAttributes().build());
 		event.put(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnna.createAttributes().build());
 
 		event.put(GaiaRegistry.HORSE.getEntityType(), GaiaHorse.createBaseHorseAttributes().build());

@@ -104,6 +104,13 @@ public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssi
 	}
 
 	@Override
+	public void performRangedAttack(LivingEntity target, float distanceFactor) {
+		if (target.isAlive()) {
+			RangedUtil.rangedAttack(target, this, distanceFactor);
+		}
+	}
+
+	@Override
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		return super.hurt(source, input);
@@ -211,13 +218,6 @@ public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssi
 	@Override
 	public boolean canAttackType(EntityType<?> type) {
 		return super.canAttackType(type) && type != GaiaRegistry.HUNTER.getEntityType();
-	}
-
-	@Override
-	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		if (target.isAlive()) {
-			RangedUtil.rangedAttack(target, this, distanceFactor);
-		}
 	}
 
 	@Override

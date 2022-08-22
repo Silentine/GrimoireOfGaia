@@ -37,11 +37,13 @@ import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.Witch;
+import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.PoisonProjectile;
+import gaia.entity.projectile.RandomMagicProjectile;
 import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
 import gaia.item.ExperienceItem;
@@ -135,6 +137,7 @@ public class GaiaRegistry {
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg.Builder<>("succubus", EntityType.Builder.<Succubus>of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145).withDefaultSounds().withGender().build();
 	public static final MobReg<Werecat> WERECAT = new MobReg.Builder<>("werecat", EntityType.Builder.<Werecat>of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb).withDefaultSounds().build();
 	public static final MobReg<Witch> WITCH = new MobReg.Builder<>("witch", EntityType.Builder.<Witch>of(Witch::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x943dbb).withDefaultSounds().build();
+	public static final MobReg<WizardHarpy> WIZARD_HARPY = new MobReg.Builder<>("wizard_harpy", EntityType.Builder.<WizardHarpy>of(WizardHarpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xdddadb, 0xba9b53).withDefaultSounds().build();
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg.Builder<>("yuki_onna", EntityType.Builder.<YukiOnna>of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330).withDefaultSounds().build();
 
 	public static final MobReg<GaiaHorse> HORSE = new MobReg.Builder<>("horse", EntityType.Builder.<GaiaHorse>of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().build();
@@ -151,6 +154,10 @@ public class GaiaRegistry {
 			EntityType.Builder.<MagicProjectile>of(MagicProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
 					.setCustomClientFactory(MagicProjectile::new).build("magic"));
+	public static final RegistryObject<EntityType<RandomMagicProjectile>> RANDOM_MAGIC = ENTITIES.register("random_magic", () ->
+			EntityType.Builder.<RandomMagicProjectile>of(RandomMagicProjectile::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
+					.setCustomClientFactory(RandomMagicProjectile::new).build("random_magic"));
 	public static final RegistryObject<EntityType<WebProjectile>> WEB = ENTITIES.register("web", () ->
 			EntityType.Builder.<WebProjectile>of(WebProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
@@ -250,6 +257,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> CAVE_SPIDER_STAFF = ITEMS.register("cave_spider_staff", () -> new SummonStaffItem(itemBuilder().rarity(Rarity.RARE).durability(10), () -> EntityType.CAVE_SPIDER));
 	public static final RegistryObject<Item> MAGIC_STAFF = ITEMS.register("magic_staff", () -> new MagicStaffItem(itemBuilder().rarity(Rarity.RARE).durability(64), () -> EntityType.CAVE_SPIDER));
 	public static final RegistryObject<Item> PROJECTILE_MAGIC = ITEMS.register("projectile_magic", () -> new Item(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> PROJECTILE_RANDOM_MAGIC = ITEMS.register("projectile_random_magic", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_POISON = ITEMS.register("projectile_poison", () -> new Item(itemBuilder().stacksTo(1)));

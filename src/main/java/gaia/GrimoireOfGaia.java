@@ -6,6 +6,7 @@ import gaia.client.ClientHandler;
 import gaia.config.GaiaConfig;
 import gaia.config.GaiaSpawningConfig;
 import gaia.handler.DropHandler;
+import gaia.registry.GaiaDataSerializers;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.GaiaSpawning;
@@ -38,6 +39,7 @@ public class GrimoireOfGaia {
 		GaiaRegistry.ITEMS.register(eventBus);
 		GaiaRegistry.ENTITIES.register(eventBus);
 		GaiaSounds.SOUND_EVENTS.register(eventBus);
+		GaiaDataSerializers.DATA_SERIALIZERS.register(eventBus);
 
 		if (ModList.get().isLoaded("curios")) {
 			eventBus.addListener(gaia.compat.curios.CuriosCompat::sendImc);

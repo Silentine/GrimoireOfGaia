@@ -44,6 +44,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo sprigganSpawning;
 		public final SpawningInfo werecatSpawning;
 		public final SpawningInfo witchSpawning;
+		public final SpawningInfo wizardHarpySpawning;
 		public final SpawningInfo yukiOnnaSpawning;
 
 		Common(ForgeConfigSpec.Builder builder) {
@@ -191,6 +192,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> witchBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> witchBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			witchSpawning = new SpawningInfo(builder, "Witch", 60, 2, 4, witchBiomes, witchBiomeDictionary);
+
+			List<? extends String> wizardHarpyBiomes = generateList(Biomes.DARK_FOREST);
+			List<? extends String> wizardHarpyBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
+			wizardHarpySpawning = new SpawningInfo(builder, "WizardHarpy", 60, 1, 2, wizardHarpyBiomes, wizardHarpyBiomeDictionary);
 
 			List<? extends String> yukiOnnaBiomes = generateList(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> yukiOnnaBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");

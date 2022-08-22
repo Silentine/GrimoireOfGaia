@@ -5,11 +5,13 @@ import gaia.entity.projectile.BombProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.PoisonProjectile;
+import gaia.entity.projectile.RandomMagicProjectile;
 import gaia.entity.projectile.WebProjectile;
 import gaia.registry.GaiaSounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -138,6 +140,29 @@ public class RangedUtil {
 		MagicProjectile magic = new MagicProjectile(shooter.level, shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		magic.setPos(magic.getX(), shooter.getY(0.5D) + 0.5D, magic.getZ());
+		shooter.level.addFreshEntity(magic);
+	}
+
+	/**
+	 * Shortcut Method for entities using magic attacks. Use this to replace entity RangedAttackMob#performRangedAttack.
+	 *
+	 * @param target         the entity to fire at
+	 * @param shooter        the entity that is shooting
+	 * @param distanceFactor bonus damage (Unused)
+	 * @see net.minecraft.world.entity.monster.Blaze
+	 */
+	public static void magicRandom(LivingEntity target, LivingEntity shooter, float distanceFactor, double yOffset, MobEffect mobEffect) {
+		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
+
+		double d0 = target.getX() - shooter.getX();
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
+		double d2 = target.getZ() - shooter.getZ();
+		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
+
+		RandomMagicProjectile magic = new RandomMagicProjectile(shooter.level, shooter,
+				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
+		magic.setPos(magic.getX(), shooter.getY(0.5D) + 0.5D + yOffset, magic.getZ());
+		magic.setEffect(mobEffect);
 		shooter.level.addFreshEntity(magic);
 	}
 

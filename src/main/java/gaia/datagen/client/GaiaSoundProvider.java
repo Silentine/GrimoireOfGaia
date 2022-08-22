@@ -216,6 +216,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(GaiaRegistry.SUCCUBUS);
 		this.setupMobSounds(GaiaRegistry.WERECAT);
 		this.setupMobSounds(GaiaRegistry.WITCH);
+		this.setupMobSounds(GaiaRegistry.WIZARD_HARPY);
 		this.setupMobSounds(GaiaRegistry.YUKI_ONNA);
 	}
 

@@ -54,6 +54,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SUCCUBUS, "Succubus").withSay("whispers").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WERECAT, "Werecat").withSay("hisses").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WITCH, "Witch").withSay("laughs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WIZARD_HARPY, "Wizard Harpy").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.YUKI_ONNA, "Yuki-Onna").build());
 
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
@@ -61,6 +62,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HORSE, "Wild Horse").withSay("neighs").build());
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
 		addEntityType(GaiaRegistry.MAGIC, "Magic Projectile");
+		addEntityType(GaiaRegistry.RANDOM_MAGIC, "Random Magic Projectile");
 		addEntityType(GaiaRegistry.POISON, "Poison Projectile");
 		addEntityType(GaiaRegistry.BOMB, "Bomb Projectile");
 
@@ -133,6 +135,7 @@ public class GaiaLanguage extends LanguageProvider {
 
 		addItem(GaiaRegistry.PROJECTILE_BOMB, "Bomb Projectile");
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");
+		addItem(GaiaRegistry.PROJECTILE_RANDOM_MAGIC, "Random Magic Projectile");
 		addItem(GaiaRegistry.PROJECTILE_WEB, "Web Projectile");
 		addItem(GaiaRegistry.PROJECTILE_POISON, "Poison Projectile");
 
