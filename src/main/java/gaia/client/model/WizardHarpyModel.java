@@ -20,6 +20,7 @@ public class WizardHarpyModel extends EntityModel<WizardHarpy> implements Headed
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart head;
+	private final ModelPart headeyes;
 	private final ModelPart leftarm;
 	private final ModelPart rightarm;
 	private final ModelPart leftleg;
@@ -31,6 +32,7 @@ public class WizardHarpyModel extends EntityModel<WizardHarpy> implements Headed
 		this.bodytop = bodybottom.getChild("bodytop");
 		ModelPart neck = this.bodytop.getChild("neck");
 		this.head = neck.getChild("head");
+		this.headeyes = this.head.getChild("headeyes");
 		this.leftarm = this.bodytop.getChild("leftarm");
 		this.rightarm = this.bodytop.getChild("rightarm");
 		this.leftleg = this.root.getChild("leftleg");
@@ -81,13 +83,15 @@ public class WizardHarpyModel extends EntityModel<WizardHarpy> implements Headed
 	}
 
 	@Override
-	public void setupAnim(WizardHarpy entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(WizardHarpy wizardHarpy, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		headeyes.visible = wizardHarpy.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
 		head.xRot = headPitch / 57.295776F;
 
 		// arms
-		if (entity.getAnimationState() == 0) {
+		if (wizardHarpy.getAnimationState() == 0) {
 			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -103,9 +107,9 @@ public class WizardHarpyModel extends EntityModel<WizardHarpy> implements Headed
 
 			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
 			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
-		} else if (entity.getAnimationState() == 1) {
+		} else if (wizardHarpy.getAnimationState() == 1) {
 			animationCast();
-		} else if (entity.getAnimationState() == 2) {
+		} else if (wizardHarpy.getAnimationState() == 2) {
 			rightarm.xRot = 0.0F;
 			leftarm.xRot = 0.0F;
 
