@@ -212,15 +212,15 @@
   "bee_hurt": {
     "subtitle": "grimoireofgaia.subtitle.bee_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "bee_death": {
     "subtitle": "grimoireofgaia.subtitle.bee_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "centaur_say": {
@@ -232,15 +232,15 @@
   "centaur_hurt": {
     "subtitle": "grimoireofgaia.subtitle.centaur_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "centaur_death": {
     "subtitle": "grimoireofgaia.subtitle.centaur_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "centaur_male_say": {
@@ -252,15 +252,15 @@
   "centaur_male_hurt": {
     "subtitle": "grimoireofgaia.subtitle.centaur_male_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "centaur_male_death": {
     "subtitle": "grimoireofgaia.subtitle.centaur_male_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "cyclops_say": {
@@ -272,15 +272,15 @@
   "cyclops_hurt": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "cyclops_death": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "dryad_say": {
@@ -292,15 +292,15 @@
   "dryad_hurt": {
     "subtitle": "grimoireofgaia.subtitle.dryad_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "dryad_death": {
     "subtitle": "grimoireofgaia.subtitle.dryad_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "dullahan_say": {
@@ -332,15 +332,15 @@
   "goblin_hurt": {
     "subtitle": "grimoireofgaia.subtitle.goblin_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "goblin_death": {
     "subtitle": "grimoireofgaia.subtitle.goblin_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "goblin_feral_say": {
@@ -392,15 +392,15 @@
   "hunter_hurt": {
     "subtitle": "grimoireofgaia.subtitle.hunter_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "hunter_death": {
     "subtitle": "grimoireofgaia.subtitle.hunter_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "kobold_say": {
@@ -532,15 +532,15 @@
   "satyress_hurt": {
     "subtitle": "grimoireofgaia.subtitle.satyress_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "satyress_death": {
     "subtitle": "grimoireofgaia.subtitle.satyress_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "shaman_say": {
@@ -723,6 +723,26 @@
       "grimoireofgaia:anime/aggressive_death"
     ]
   },
+  "wizard_harpy_say": {
+    "subtitle": "grimoireofgaia.subtitle.wizard_harpy_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "wizard_harpy_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.wizard_harpy_hurt",
+    "sounds": [
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
+    ]
+  },
+  "wizard_harpy_death": {
+    "subtitle": "grimoireofgaia.subtitle.wizard_harpy_death",
+    "sounds": [
+      "grimoireofgaia:anime/assist_death"
+    ]
+  },
   "yuki_onna_say": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_say",
     "sounds": [
@@ -732,15 +752,15 @@
   "yuki_onna_hurt": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_hurt",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_hurt1",
-      "grimoireofgaia:anime/aggressive_hurt2",
-      "grimoireofgaia:anime/aggressive_hurt3"
+      "grimoireofgaia:anime/assist_hurt1",
+      "grimoireofgaia:anime/assist_hurt2",
+      "grimoireofgaia:anime/assist_hurt3"
     ]
   },
   "yuki_onna_death": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_death",
     "sounds": [
-      "grimoireofgaia:anime/aggressive_death"
+      "grimoireofgaia:anime/assist_death"
     ]
   },
   "horse_say": {

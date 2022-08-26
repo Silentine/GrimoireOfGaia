@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 public class MobReg<T extends Mob> {
 	protected final String name;
 	protected final RegistryObject<EntityType<? extends T>> entityType;
+	protected final GaiaMobType gaiaMobType;
 	protected final RegistryObject<Item> spawnEgg;
 
 	protected RegistryObject<SoundEvent> SAY;
@@ -48,6 +49,13 @@ public class MobReg<T extends Mob> {
 	 */
 	public EntityType<? extends T> getEntityType() {
 		return entityType.get();
+	}
+
+	/**
+	 * @return The gaia mob type of the mob used for the sound pack generation.
+	 */
+	public GaiaMobType getGaiaMobType() {
+		return gaiaMobType;
 	}
 
 	/**
@@ -136,9 +144,10 @@ public class MobReg<T extends Mob> {
 		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders) {
+	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders) {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
+		this.gaiaMobType = mobType;
 		this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
 				new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
 
@@ -161,12 +170,22 @@ public class MobReg<T extends Mob> {
 	public static class Builder<T extends Mob> {
 		private final String name;
 		private final EntityType.Builder<T> builder;
+		private final GaiaMobType gaiaMobType;
 		private final int backgroundColor, highlightColor;
 		private boolean say, hurt, death, step, attack, hasGenders;
 
 		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
 			this.builder = builder;
+			this.gaiaMobType = GaiaMobType.AGGRESSIVE;
+			this.backgroundColor = backgroundColor;
+			this.highlightColor = highlightColor;
+		}
+
+		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
+			this.name = name;
+			this.builder = builder;
+			this.gaiaMobType = mobType;
 			this.backgroundColor = backgroundColor;
 			this.highlightColor = highlightColor;
 		}
@@ -209,7 +228,7 @@ public class MobReg<T extends Mob> {
 		}
 
 		public MobReg<T> build() {
-			return new MobReg<>(name, builder, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders);
+			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders);
 		}
 	}
 }

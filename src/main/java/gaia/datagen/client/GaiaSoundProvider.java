@@ -1,14 +1,12 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
-import gaia.entity.type.IAssistMob;
-import gaia.entity.type.IPassiveMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
+import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
@@ -256,11 +254,11 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public void setupOptionalMobSounds(MobReg<?> mobReg) {
-		EntityType<?> type = mobReg.getEntityType();
 		String base = "anime/aggressive_";
-		if (type.getBaseClass().isInstance(IAssistMob.class)) {
+		GaiaMobType mobType = mobReg.getGaiaMobType();
+		if (mobType == GaiaMobType.ASSIST) {
 			base = "anime/assist_";
-		} else if (type.getBaseClass().isInstance(IPassiveMob.class)) {
+		} else if (mobType == GaiaMobType.PASSIVE) {
 			base = "anime/passive_";
 		}
 
