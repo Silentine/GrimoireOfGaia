@@ -3,7 +3,6 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.WizardHarpyModel;
-import gaia.client.renderer.layer.ArachneEyesLayer;
 import gaia.client.renderer.layer.WizardHarpyEyesLayer;
 import gaia.entity.WizardHarpy;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

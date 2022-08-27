@@ -109,6 +109,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.GIGA_GEAR, "Heart of Giga Knight");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE, "Golden Apple Pie");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE, "Golden Apple Pie Slice");
+		addItem(GaiaRegistry.HONEYDEW, "Honeydew");
 		addItem(GaiaRegistry.HEADGEAR_BOOK, "Book on Face");
 		addItem(GaiaRegistry.HEADGEAR_MOB, "Cage");
 		addItem(GaiaRegistry.HEADGEAR_BOLT, "Bolts");
