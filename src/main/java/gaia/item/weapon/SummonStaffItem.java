@@ -23,28 +23,31 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class SummonStaffItem extends Item {
 
 	private final Supplier<EntityType<? extends Mob>> typeSupplier;
+	private final Supplier<Ingredient> repairIngredient;
 
-	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier) {
+	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier, @Nonnull Supplier<Ingredient> repairIngredient) {
 		super(properties);
 		this.typeSupplier = typeSupplier;
+		this.repairIngredient = repairIngredient;
 	}
 
 	@Override
 	public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
-		return repairStack.is(Tags.Items.ENDER_PEARLS);
+		return repairIngredient.get().test(repairStack);
 	}
 
 	@Override
