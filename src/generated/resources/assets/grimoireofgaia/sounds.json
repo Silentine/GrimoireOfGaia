@@ -86,613 +86,744 @@
   "ant_say": {
     "subtitle": "grimoireofgaia.subtitle.ant_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "ant_hurt": {
     "subtitle": "grimoireofgaia.subtitle.ant_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "ant_death": {
     "subtitle": "grimoireofgaia.subtitle.ant_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "ant_salvager_say": {
     "subtitle": "grimoireofgaia.subtitle.ant_salvager_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/ant_salvager/say1",
+      "grimoireofgaia:entity/ant_salvager/say2"
     ]
   },
   "ant_salvager_hurt": {
     "subtitle": "grimoireofgaia.subtitle.ant_salvager_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/ant_salvager/hurt1",
+      "grimoireofgaia:entity/ant_salvager/hurt2"
     ]
   },
   "ant_salvager_death": {
     "subtitle": "grimoireofgaia.subtitle.ant_salvager_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/ant_salvager/death"
     ]
   },
   "anubis_say": {
     "subtitle": "grimoireofgaia.subtitle.anubis_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "anubis_hurt": {
     "subtitle": "grimoireofgaia.subtitle.anubis_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "anubis_death": {
     "subtitle": "grimoireofgaia.subtitle.anubis_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "anubis_male_say": {
     "subtitle": "grimoireofgaia.subtitle.anubis_male_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/anubis_male/say1",
+      "grimoireofgaia:entity/anubis_male/say2",
+      "grimoireofgaia:entity/anubis_male/say3"
     ]
   },
   "anubis_male_hurt": {
     "subtitle": "grimoireofgaia.subtitle.anubis_male_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/anubis_male/hurt1",
+      "grimoireofgaia:entity/anubis_male/hurt2",
+      "grimoireofgaia:entity/anubis_male/hurt3"
     ]
   },
   "anubis_male_death": {
     "subtitle": "grimoireofgaia.subtitle.anubis_male_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/anubis_male/death"
     ]
   },
   "arachne_say": {
     "subtitle": "grimoireofgaia.subtitle.arachne_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "arachne_hurt": {
     "subtitle": "grimoireofgaia.subtitle.arachne_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "arachne_death": {
     "subtitle": "grimoireofgaia.subtitle.arachne_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "banshee_say": {
     "subtitle": "grimoireofgaia.subtitle.banshee_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "banshee_hurt": {
     "subtitle": "grimoireofgaia.subtitle.banshee_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "banshee_death": {
     "subtitle": "grimoireofgaia.subtitle.banshee_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "bee_say": {
     "subtitle": "grimoireofgaia.subtitle.bee_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/bee/say1",
+      "grimoireofgaia:entity/bee/say2",
+      "grimoireofgaia:entity/bee/say3",
+      "grimoireofgaia:entity/bee/say4",
+      "grimoireofgaia:entity/bee/say5"
     ]
   },
   "bee_hurt": {
     "subtitle": "grimoireofgaia.subtitle.bee_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/bee/hurt1",
+      "grimoireofgaia:entity/bee/hurt2",
+      "grimoireofgaia:entity/bee/hurt3"
     ]
   },
   "bee_death": {
     "subtitle": "grimoireofgaia.subtitle.bee_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/bee/death1",
+      "grimoireofgaia:entity/bee/death2"
     ]
   },
   "centaur_say": {
     "subtitle": "grimoireofgaia.subtitle.centaur_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "centaur_hurt": {
     "subtitle": "grimoireofgaia.subtitle.centaur_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "centaur_death": {
     "subtitle": "grimoireofgaia.subtitle.centaur_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "centaur_male_say": {
     "subtitle": "grimoireofgaia.subtitle.centaur_male_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/centaur_male/say1",
+      "grimoireofgaia:entity/centaur_male/say2",
+      "grimoireofgaia:entity/centaur_male/say3"
     ]
   },
   "centaur_male_hurt": {
     "subtitle": "grimoireofgaia.subtitle.centaur_male_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/centaur_male/hurt1",
+      "grimoireofgaia:entity/centaur_male/hurt2",
+      "grimoireofgaia:entity/centaur_male/hurt3"
     ]
   },
   "centaur_male_death": {
     "subtitle": "grimoireofgaia.subtitle.centaur_male_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/centaur_male/death"
     ]
   },
   "cyclops_say": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "cyclops_hurt": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "cyclops_death": {
     "subtitle": "grimoireofgaia.subtitle.cyclops_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "dryad_say": {
     "subtitle": "grimoireofgaia.subtitle.dryad_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "dryad_hurt": {
     "subtitle": "grimoireofgaia.subtitle.dryad_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "dryad_death": {
     "subtitle": "grimoireofgaia.subtitle.dryad_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "dullahan_say": {
     "subtitle": "grimoireofgaia.subtitle.dullahan_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "dullahan_hurt": {
     "subtitle": "grimoireofgaia.subtitle.dullahan_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "dullahan_death": {
     "subtitle": "grimoireofgaia.subtitle.dullahan_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "goblin_say": {
     "subtitle": "grimoireofgaia.subtitle.goblin_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/goblin/say1",
+      "grimoireofgaia:entity/goblin/say2"
     ]
   },
   "goblin_hurt": {
     "subtitle": "grimoireofgaia.subtitle.goblin_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/goblin/hurt1",
+      "grimoireofgaia:entity/goblin/hurt2"
     ]
   },
   "goblin_death": {
     "subtitle": "grimoireofgaia.subtitle.goblin_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/goblin/death"
     ]
   },
   "goblin_feral_say": {
     "subtitle": "grimoireofgaia.subtitle.goblin_feral_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "goblin_feral_hurt": {
     "subtitle": "grimoireofgaia.subtitle.goblin_feral_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "goblin_feral_death": {
     "subtitle": "grimoireofgaia.subtitle.goblin_feral_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "harpy_say": {
     "subtitle": "grimoireofgaia.subtitle.harpy_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "harpy_hurt": {
     "subtitle": "grimoireofgaia.subtitle.harpy_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "harpy_death": {
     "subtitle": "grimoireofgaia.subtitle.harpy_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "hunter_say": {
     "subtitle": "grimoireofgaia.subtitle.hunter_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "hunter_hurt": {
     "subtitle": "grimoireofgaia.subtitle.hunter_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "hunter_death": {
     "subtitle": "grimoireofgaia.subtitle.hunter_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "kobold_say": {
     "subtitle": "grimoireofgaia.subtitle.kobold_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "kobold_hurt": {
     "subtitle": "grimoireofgaia.subtitle.kobold_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "kobold_death": {
     "subtitle": "grimoireofgaia.subtitle.kobold_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "matango_say": {
     "subtitle": "grimoireofgaia.subtitle.matango_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "matango_hurt": {
     "subtitle": "grimoireofgaia.subtitle.matango_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "matango_death": {
     "subtitle": "grimoireofgaia.subtitle.matango_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "minotaurus_say": {
     "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/minotaur/say1",
+      "grimoireofgaia:entity/minotaur/say2"
     ]
   },
   "minotaurus_hurt": {
     "subtitle": "grimoireofgaia.subtitle.minotaurus_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/minotaur/hurt1",
+      "grimoireofgaia:entity/minotaur/hurt2"
     ]
   },
   "minotaurus_death": {
     "subtitle": "grimoireofgaia.subtitle.minotaurus_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "nine_tails_say": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "nine_tails_hurt": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "nine_tails_death": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "oni_say": {
     "subtitle": "grimoireofgaia.subtitle.oni_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "oni_hurt": {
     "subtitle": "grimoireofgaia.subtitle.oni_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "oni_death": {
     "subtitle": "grimoireofgaia.subtitle.oni_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "orc_say": {
     "subtitle": "grimoireofgaia.subtitle.orc_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/orc/say1",
+      "grimoireofgaia:entity/orc/say2"
     ]
   },
   "orc_hurt": {
     "subtitle": "grimoireofgaia.subtitle.orc_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/orc/hurt1",
+      "grimoireofgaia:entity/orc/hurt2"
     ]
   },
   "orc_death": {
     "subtitle": "grimoireofgaia.subtitle.orc_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/orc/death"
     ]
   },
   "satyress_say": {
     "subtitle": "grimoireofgaia.subtitle.satyress_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "satyress_hurt": {
     "subtitle": "grimoireofgaia.subtitle.satyress_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "satyress_death": {
     "subtitle": "grimoireofgaia.subtitle.satyress_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "shaman_say": {
     "subtitle": "grimoireofgaia.subtitle.shaman_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "shaman_hurt": {
     "subtitle": "grimoireofgaia.subtitle.shaman_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "shaman_death": {
     "subtitle": "grimoireofgaia.subtitle.shaman_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "siren_say": {
     "subtitle": "grimoireofgaia.subtitle.siren_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "siren_hurt": {
     "subtitle": "grimoireofgaia.subtitle.siren_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "siren_death": {
     "subtitle": "grimoireofgaia.subtitle.siren_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "sludge_girl_say": {
     "subtitle": "grimoireofgaia.subtitle.sludge_girl_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "sludge_girl_hurt": {
     "subtitle": "grimoireofgaia.subtitle.sludge_girl_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "sludge_girl_death": {
     "subtitle": "grimoireofgaia.subtitle.sludge_girl_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "sporeling_say": {
     "subtitle": "grimoireofgaia.subtitle.sporeling_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "sporeling_hurt": {
     "subtitle": "grimoireofgaia.subtitle.sporeling_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "sporeling_death": {
     "subtitle": "grimoireofgaia.subtitle.sporeling_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "spriggan_say": {
     "subtitle": "grimoireofgaia.subtitle.spriggan_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "spriggan_hurt": {
     "subtitle": "grimoireofgaia.subtitle.spriggan_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "spriggan_death": {
     "subtitle": "grimoireofgaia.subtitle.spriggan_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "succubus_say": {
     "subtitle": "grimoireofgaia.subtitle.succubus_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "succubus_hurt": {
     "subtitle": "grimoireofgaia.subtitle.succubus_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "succubus_death": {
     "subtitle": "grimoireofgaia.subtitle.succubus_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "succubus_male_say": {
     "subtitle": "grimoireofgaia.subtitle.succubus_male_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/succubus_male/say1",
+      "grimoireofgaia:entity/succubus_male/say2",
+      "grimoireofgaia:entity/succubus_male/say3"
     ]
   },
   "succubus_male_hurt": {
     "subtitle": "grimoireofgaia.subtitle.succubus_male_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/succubus_male/hurt1",
+      "grimoireofgaia:entity/succubus_male/hurt2",
+      "grimoireofgaia:entity/succubus_male/hurt3"
     ]
   },
   "succubus_male_death": {
     "subtitle": "grimoireofgaia.subtitle.succubus_male_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:entity/succubus_male/death"
     ]
   },
   "werecat_say": {
     "subtitle": "grimoireofgaia.subtitle.werecat_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "werecat_hurt": {
     "subtitle": "grimoireofgaia.subtitle.werecat_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "werecat_death": {
     "subtitle": "grimoireofgaia.subtitle.werecat_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "witch_say": {
     "subtitle": "grimoireofgaia.subtitle.witch_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
     ]
   },
   "witch_hurt": {
     "subtitle": "grimoireofgaia.subtitle.witch_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "witch_death": {
     "subtitle": "grimoireofgaia.subtitle.witch_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:aggressive_death"
     ]
   },
   "wizard_harpy_say": {
     "subtitle": "grimoireofgaia.subtitle.wizard_harpy_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "wizard_harpy_hurt": {
     "subtitle": "grimoireofgaia.subtitle.wizard_harpy_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "wizard_harpy_death": {
     "subtitle": "grimoireofgaia.subtitle.wizard_harpy_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "yuki_onna_say": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_say",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
     ]
   },
   "yuki_onna_hurt": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_hurt",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
     ]
   },
   "yuki_onna_death": {
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_death",
     "sounds": [
-      "grimoireofgaia:none"
+      "grimoireofgaia:assist_death"
     ]
   },
   "horse_say": {

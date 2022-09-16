@@ -1,14 +1,17 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.datagen.client.helper.MobSoundHelper;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
-import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.SoundDefinition.Sound;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
+
+import java.util.List;
 
 public class GaiaSoundProvider extends SoundDefinitionsProvider {
 
@@ -185,113 +188,134 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public void generateMobSound() {
-		this.setupMobSounds(GaiaRegistry.ANT_WORKER);
-		this.setupMobSounds(GaiaRegistry.ANT_SALVAGER);
-		this.setupMobSounds(GaiaRegistry.ANUBIS);
-		this.setupMobSounds(GaiaRegistry.ARACHNE);
-		this.setupMobSounds(GaiaRegistry.BANSHEE);
-		this.setupMobSounds(GaiaRegistry.BEE);
-		this.setupMobSounds(GaiaRegistry.CENTAUR);
-		this.setupMobSounds(GaiaRegistry.CYCLOPS);
-		this.setupMobSounds(GaiaRegistry.DRYAD);
-		this.setupMobSounds(GaiaRegistry.DULLAHAN);
-		this.setupMobSounds(GaiaRegistry.GOBLIN);
-		this.setupMobSounds(GaiaRegistry.GOBLIN_FERAL);
-		this.setupMobSounds(GaiaRegistry.HARPY);
-		this.setupMobSounds(GaiaRegistry.HUNTER);
-		this.setupMobSounds(GaiaRegistry.KOBOLD);
-		this.setupMobSounds(GaiaRegistry.MATANGO);
-		this.setupMobSounds(GaiaRegistry.MINOTAURUS);
-		this.setupMobSounds(GaiaRegistry.NINE_TAILS);
-		this.setupMobSounds(GaiaRegistry.ONI);
-		this.setupMobSounds(GaiaRegistry.ORC);
-		this.setupMobSounds(GaiaRegistry.SATYRESS);
-		this.setupMobSounds(GaiaRegistry.SHAMAN);
-		this.setupMobSounds(GaiaRegistry.SIREN);
-		this.setupMobSounds(GaiaRegistry.SLUDGE_GIRL);
-		this.setupMobSounds(GaiaRegistry.SPORELING);
-		this.setupMobSounds(GaiaRegistry.SPRIGGAN);
-		this.setupMobSounds(GaiaRegistry.SUCCUBUS);
-		this.setupMobSounds(GaiaRegistry.WERECAT);
-		this.setupMobSounds(GaiaRegistry.WITCH);
-		this.setupMobSounds(GaiaRegistry.WIZARD_HARPY);
-		this.setupMobSounds(GaiaRegistry.YUKI_ONNA);
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ANT_WORKER).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ANT_SALVAGER)
+				.withSay(sound(modLoc("entity/ant_salvager/say1")),
+						sound(modLoc("entity/ant_salvager/say2")))
+				.withHurt(sound(modLoc("entity/ant_salvager/hurt1")),
+						sound(modLoc("entity/ant_salvager/hurt2")))
+				.withDeath(sound(modLoc("entity/ant_salvager/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ANUBIS).withDefaults()
+				.withSayMale(sound(modLoc("entity/anubis_male/say1")),
+						sound(modLoc("entity/anubis_male/say2")),
+						sound(modLoc("entity/anubis_male/say3")))
+				.withHurtMale(sound(modLoc("entity/anubis_male/hurt1")),
+						sound(modLoc("entity/anubis_male/hurt2")),
+						sound(modLoc("entity/anubis_male/hurt3")))
+				.withDeathMale(sound(modLoc("entity/anubis_male/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ARACHNE).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BANSHEE).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BEE).withDefaults()
+				.withSay(sound(modLoc("entity/bee/say1")),
+						sound(modLoc("entity/bee/say2")),
+						sound(modLoc("entity/bee/say3")),
+						sound(modLoc("entity/bee/say4")),
+						sound(modLoc("entity/bee/say5")))
+				.withHurt(sound(modLoc("entity/bee/hurt1")),
+						sound(modLoc("entity/bee/hurt2")),
+						sound(modLoc("entity/bee/hurt3")))
+				.withDeath(sound(modLoc("entity/bee/death1")),
+						sound(modLoc("entity/bee/death2"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CENTAUR).withDefaults()
+				.withSayMale(sound(modLoc("entity/centaur_male/say1")),
+						sound(modLoc("entity/centaur_male/say2")),
+						sound(modLoc("entity/centaur_male/say3")))
+				.withHurtMale(sound(modLoc("entity/centaur_male/hurt1")),
+						sound(modLoc("entity/centaur_male/hurt2")),
+						sound(modLoc("entity/centaur_male/hurt3")))
+				.withDeathMale(sound(modLoc("entity/centaur_male/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CYCLOPS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DRYAD).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DULLAHAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN).withDefaults()
+				.withSay(sound(modLoc("entity/goblin/say1")),
+						sound(modLoc("entity/goblin/say2")))
+				.withHurt(sound(modLoc("entity/goblin/hurt1")),
+						sound(modLoc("entity/goblin/hurt2")))
+				.withDeath(sound(modLoc("entity/goblin/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN_FERAL).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HARPY).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HUNTER).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MATANGO).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults()
+				.withSay(sound(modLoc("entity/minotaur/say1")),
+						sound(modLoc("entity/minotaur/say2")))
+				.withHurt(sound(modLoc("entity/minotaur/hurt1")),
+						sound(modLoc("entity/minotaur/hurt2"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.NINE_TAILS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ONI).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ORC).withDefaults()
+				.withSay(sound(modLoc("entity/orc/say1")),
+						sound(modLoc("entity/orc/say2")))
+				.withHurt(sound(modLoc("entity/orc/hurt1")),
+						sound(modLoc("entity/orc/hurt2")))
+				.withDeath(sound(modLoc("entity/orc/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SATYRESS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SHAMAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SIREN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SLUDGE_GIRL).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPORELING).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPRIGGAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SUCCUBUS).withDefaults()
+				.withSayMale(sound(modLoc("entity/succubus_male/say1")),
+						sound(modLoc("entity/succubus_male/say2")),
+						sound(modLoc("entity/succubus_male/say3")))
+				.withHurtMale(sound(modLoc("entity/succubus_male/hurt1")),
+						sound(modLoc("entity/succubus_male/hurt2")),
+						sound(modLoc("entity/succubus_male/hurt3")))
+				.withDeathMale(sound(modLoc("entity/succubus_male/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WERECAT).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITCH).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WIZARD_HARPY).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.YUKI_ONNA).withDefaults().build());
 	}
 
-	public void setupMobSounds(MobReg<?> mobReg) {
-		boolean generateOptional = false;
-		if (generateOptional) { //Only true if the sound pack needs updating
-			this.setupOptionalMobSounds(mobReg);
-		} else {
-			if (mobReg.getSay() != null)
-				this.add(mobReg.getSay(), definition()
-						.subtitle(modSubtitle(mobReg.getSay().getLocation()))
-						.with(sound(modLoc("none"))));
-			if (mobReg.getHurt() != null)
-				this.add(mobReg.getHurt(), definition()
-						.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
-						.with(sound(modLoc("none"))));
-			if (mobReg.getDeath() != null)
-				this.add(mobReg.getDeath(), definition()
-						.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
-						.with(sound(modLoc("none"))));
+	public void setupMobSounds(MobSoundHelper helper) {
+		MobReg<?> mobReg = helper.getMobReg();
 
-			if (mobReg.hasGender()) {
-				if (mobReg.getMaleSay() != null)
-					this.add(mobReg.getMaleSay(), definition()
-							.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
-							.with(sound(modLoc("none"))));
-				if (mobReg.getMaleHurt() != null)
-					this.add(mobReg.getMaleHurt(), definition()
-							.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
-							.with(sound(modLoc("none"))));
-				if (mobReg.getMaleDeath() != null)
-					this.add(mobReg.getMaleDeath(), definition()
-							.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
-							.with(sound(modLoc("none"))));
-			}
-		}
-	}
-
-	public void setupOptionalMobSounds(MobReg<?> mobReg) {
-		String base = "anime/aggressive_";
-		GaiaMobType mobType = mobReg.getGaiaMobType();
-		if (mobType == GaiaMobType.ASSIST) {
-			base = "anime/assist_";
-		} else if (mobType == GaiaMobType.PASSIVE) {
-			base = "anime/passive_";
-		}
-
-		if (mobReg.getSay() != null)
+		if (mobReg.getSay() != null) {
+			List<Sound> sounds = helper.getSay().length > 0 ? List.of(helper.getSay()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getSay(), definition()
 					.subtitle(modSubtitle(mobReg.getSay().getLocation()))
-					.with(sound(modLoc("none"))));
-		if (mobReg.getHurt() != null)
+					.with(sounds.toArray(new Sound[]{})));
+		}
+
+		if (mobReg.getHurt() != null) {
+			List<Sound> sounds = helper.getHurt().length > 0 ? List.of(helper.getHurt()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getHurt(), definition()
 					.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
-					.with(sound(modLoc(base + "hurt1")),
-							sound(modLoc(base + "hurt2")),
-							sound(modLoc(base + "hurt3"))));
-		if (mobReg.getDeath() != null)
+					.with(sounds.toArray(new Sound[]{})));
+		}
+
+		if (mobReg.getDeath() != null) {
+			List<Sound> sounds = helper.getDeath().length > 0 ? List.of(helper.getDeath()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getDeath(), definition()
 					.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
-					.with(sound(modLoc(base + "death"))));
+					.with(sounds.toArray(new Sound[]{})));
+		}
 
 		if (mobReg.hasGender()) {
-			if (mobReg.getMaleSay() != null)
+			if (mobReg.getMaleSay() != null) {
+				List<Sound> sounds = helper.getMaleSay().length > 0 ? List.of(helper.getMaleSay()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleSay(), definition()
 						.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
-						.with(sound(modLoc("none"))));
-			if (mobReg.getMaleHurt() != null)
+						.with(sounds.toArray(new Sound[]{})));
+			}
+
+			if (mobReg.getMaleHurt() != null) {
+				List<Sound> sounds = helper.getMaleHurt().length > 0 ? List.of(helper.getMaleHurt()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleHurt(), definition()
 						.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
-						.with(sound(modLoc(base + "hurt1")),
-								sound(modLoc(base + "hurt2")),
-								sound(modLoc(base + "hurt3"))));
-			if (mobReg.getMaleDeath() != null)
+						.with(sounds.toArray(new Sound[]{})));
+			}
+
+			if (mobReg.getMaleDeath() != null) {
+				List<Sound> sounds = helper.getMaleDeath().length > 0 ? List.of(helper.getMaleDeath()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleDeath(), definition()
 						.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
-						.with(sound(modLoc(base + "death"))));
+						.with(sounds.toArray(new Sound[]{})));
+			}
 		}
 	}
 

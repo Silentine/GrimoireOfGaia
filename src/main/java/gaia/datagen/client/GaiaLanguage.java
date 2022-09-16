@@ -1,7 +1,7 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
-import gaia.datagen.client.language.MobLangHelper;
+import gaia.datagen.client.helper.MobLangHelper;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
