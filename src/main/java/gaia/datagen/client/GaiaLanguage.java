@@ -54,6 +54,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SUCCUBUS, "Succubus").withSay("whispers").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WERECAT, "Werecat").withSay("hisses").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WITCH, "Witch").withSay("laughs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WITHER_COW, "Wither Cow").withSay("moos").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WIZARD_HARPY, "Wizard Harpy").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.YUKI_ONNA, "Yuki-Onna").build());
 
@@ -133,6 +134,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.GOLD_SHIELD, "Gold Shield");
 		addItem(GaiaRegistry.BONE_SHIELD, "Bone Shield");
 		addItem(GaiaRegistry.NETHER_WART_JAM, "Nether Wart Jam");
+		addItem(GaiaRegistry.WITHERED_BRAIN, "Withered Brain");
 
 		addItem(GaiaRegistry.PROJECTILE_BOMB, "Bomb Projectile");
 		addItem(GaiaRegistry.PROJECTILE_MAGIC, "Magic Projectile");

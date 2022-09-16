@@ -37,6 +37,7 @@ import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Werecat;
 import gaia.entity.Witch;
+import gaia.entity.WitherCow;
 import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.projectile.BombProjectile;
@@ -138,6 +139,7 @@ public class GaiaRegistry {
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg.Builder<>("succubus", EntityType.Builder.of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145).withDefaultSounds().withGender().build();
 	public static final MobReg<Werecat> WERECAT = new MobReg.Builder<>("werecat", EntityType.Builder.of(Werecat::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7a7e8a, 0xdddadb).withDefaultSounds().build();
 	public static final MobReg<Witch> WITCH = new MobReg.Builder<>("witch", EntityType.Builder.of(Witch::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x943dbb).withDefaultSounds().build();
+	public static final MobReg<WitherCow> WITHER_COW = new MobReg.Builder<>("wither_cow", EntityType.Builder.of(WitherCow::new, MobCategory.MONSTER).sized(0.9F, 1.4F).clientTrackingRange(8), 5791069, 16777215).withDefaultSounds().withStep().build();
 	public static final MobReg<WizardHarpy> WIZARD_HARPY = new MobReg.Builder<>("wizard_harpy", GaiaSoundType.ASSIST, EntityType.Builder.of(WizardHarpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xdddadb, 0xba9b53).withDefaultSounds().build();
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg.Builder<>("yuki_onna", GaiaSoundType.ASSIST, EntityType.Builder.of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330).withDefaultSounds().build();
 
@@ -263,6 +265,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_POISON = ITEMS.register("projectile_poison", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> NETHER_WART_JAM = ITEMS.register("nether_wart_jam", () -> new WartJamItem(itemBuilder().food(GaiaFoods.NETHER_WART_JAM)));
+	public static final RegistryObject<Item> WITHERED_BRAIN = ITEMS.register("withered_brain", () -> new EdibleEffectItem(itemBuilder().stacksTo(1).food(GaiaFoods.WITHERED_BRAIN)));
 
 	public static final RegistryObject<Item> STONE_SHIELD = ITEMS.register("stone_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(150), () -> Ingredient.of(Tags.Items.COBBLESTONE)));
 	public static final RegistryObject<Item> IRON_SHIELD = ITEMS.register("iron_shield", () -> new TieredShieldItem(itemBuilder().rarity(Rarity.UNCOMMON).durability(336), () -> Ingredient.of(Tags.Items.INGOTS_IRON)));

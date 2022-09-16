@@ -44,6 +44,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo sprigganSpawning;
 		public final SpawningInfo werecatSpawning;
 		public final SpawningInfo witchSpawning;
+		public final SpawningInfo witherCowSpawning;
 		public final SpawningInfo wizardHarpySpawning;
 		public final SpawningInfo yukiOnnaSpawning;
 
@@ -192,6 +193,11 @@ public class GaiaSpawningConfig {
 			List<? extends String> witchBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> witchBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			witchSpawning = new SpawningInfo(builder, "Witch", 60, 2, 4, witchBiomes, witchBiomeDictionary);
+
+			List<? extends String> witherCowBiomes = generateList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY,
+					Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
+			List<? extends String> witherCowBiomeDictionary = List.of("NETHER");
+			witherCowSpawning = new SpawningInfo(builder, "WitherCow", 12, 2, 4, witchBiomes, witchBiomeDictionary);
 
 			List<? extends String> wizardHarpyBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> wizardHarpyBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");

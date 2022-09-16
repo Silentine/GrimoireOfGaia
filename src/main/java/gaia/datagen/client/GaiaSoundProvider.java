@@ -50,20 +50,6 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("item/box_open2"))
 				));
 
-		this.add(GaiaRegistry.CREEP.getSay(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.CREEP.getSay().getLocation()))
-				.with(sound(modLoc("none"))));
-		this.add(GaiaRegistry.CREEP.getHurt(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.CREEP.getHurt().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/creeper/say1")),
-						sound(new ResourceLocation("mob/creeper/say2")),
-						sound(new ResourceLocation("mob/creeper/say3")),
-						sound(new ResourceLocation("mob/creeper/say4"))
-				));
-		this.add(GaiaRegistry.CREEP.getDeath(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.CREEP.getDeath().getLocation()))
-				.with(sound(new ResourceLocation("mob/creeper/death"))));
 		this.add(GaiaSounds.CREEP_PRIMED, definition()
 				.subtitle(modSubtitle(GaiaSounds.CREEP_PRIMED.getId()))
 				.with(sound(new ResourceLocation("random/fuse"))));
@@ -81,82 +67,6 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.with(sound(modLoc("none"))));
 
 		this.generateMobSound();
-
-		this.add(GaiaRegistry.HORSE.getSay(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getSay().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/horse/zombie/idle1")),
-						sound(new ResourceLocation("mob/horse/zombie/idle2")),
-						sound(new ResourceLocation("mob/horse/zombie/idle3"))
-				));
-		this.add(GaiaRegistry.HORSE.getHurt(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getHurt().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/horse/zombie/hit1")),
-						sound(new ResourceLocation("mob/horse/zombie/hit2")),
-						sound(new ResourceLocation("mob/horse/zombie/hit3")),
-						sound(new ResourceLocation("mob/horse/zombie/hit4"))
-				));
-		this.add(GaiaRegistry.HORSE.getDeath(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.HORSE.getDeath().getLocation()))
-				.with(sound(new ResourceLocation("mob/horse/zombie/death"))));
-
-		this.add(GaiaRegistry.BONE_KNIGHT.getSay(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getSay().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/skeleton/say1")),
-						sound(new ResourceLocation("mob/skeleton/say2")),
-						sound(new ResourceLocation("mob/skeleton/say3"))
-				));
-		this.add(GaiaRegistry.BONE_KNIGHT.getHurt(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getHurt().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/skeleton/hurt1")),
-						sound(new ResourceLocation("mob/skeleton/hurt2")),
-						sound(new ResourceLocation("mob/skeleton/hurt3")),
-						sound(new ResourceLocation("mob/skeleton/hurt4"))
-				));
-		this.add(GaiaRegistry.BONE_KNIGHT.getDeath(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getDeath().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/skeleton/death"))
-				));
-		this.add(GaiaRegistry.BONE_KNIGHT.getStep(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.BONE_KNIGHT.getStep().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/skeleton/step1")),
-						sound(new ResourceLocation("mob/skeleton/step2")),
-						sound(new ResourceLocation("mob/skeleton/step3")),
-						sound(new ResourceLocation("mob/skeleton/step4"))
-				));
-
-		this.add(GaiaRegistry.FLESH_LICH.getSay(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getSay().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/zombie/say1")),
-						sound(new ResourceLocation("mob/zombie/say2")),
-						sound(new ResourceLocation("mob/zombie/say3"))
-				));
-		this.add(GaiaRegistry.FLESH_LICH.getHurt(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getHurt().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/zombie/hurt1")),
-						sound(new ResourceLocation("mob/zombie/hurt2"))
-				));
-		this.add(GaiaRegistry.FLESH_LICH.getDeath(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getDeath().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/zombie/death"))
-				));
-		this.add(GaiaRegistry.FLESH_LICH.getStep(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.FLESH_LICH.getStep().getLocation()))
-				.with(
-						sound(new ResourceLocation("mob/zombie/step1")),
-						sound(new ResourceLocation("mob/zombie/step2")),
-						sound(new ResourceLocation("mob/zombie/step3")),
-						sound(new ResourceLocation("mob/zombie/step4")),
-						sound(new ResourceLocation("mob/zombie/step5"))
-				));
 
 		this.add(GaiaRegistry.COBBLE_GOLEM.getStep(), definition()
 				.subtitle(modSubtitle(GaiaRegistry.COBBLE_GOLEM.getStep().getLocation()))
@@ -216,6 +126,26 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/bee/hurt3")))
 				.withDeath(sound(modLoc("entity/bee/death1")),
 						sound(modLoc("entity/bee/death2"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BONE_KNIGHT)
+				.withSay(
+						sound(new ResourceLocation("mob/skeleton/say1")),
+						sound(new ResourceLocation("mob/skeleton/say2")),
+						sound(new ResourceLocation("mob/skeleton/say3"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/skeleton/hurt1")),
+						sound(new ResourceLocation("mob/skeleton/hurt2")),
+						sound(new ResourceLocation("mob/skeleton/hurt3")),
+						sound(new ResourceLocation("mob/skeleton/hurt4"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/skeleton/death"))
+				).withStep(
+						sound(new ResourceLocation("mob/skeleton/step1")),
+						sound(new ResourceLocation("mob/skeleton/step2")),
+						sound(new ResourceLocation("mob/skeleton/step3")),
+						sound(new ResourceLocation("mob/skeleton/step4"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CENTAUR).withDefaults()
 				.withSayMale(sound(modLoc("entity/centaur_male/say1")),
 						sound(modLoc("entity/centaur_male/say2")),
@@ -225,8 +155,40 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/centaur_male/hurt3")))
 				.withDeathMale(sound(modLoc("entity/centaur_male/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CYCLOPS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CREEP)
+				.withSay(
+						sound(modLoc("none"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/creeper/say1")),
+						sound(new ResourceLocation("mob/creeper/say2")),
+						sound(new ResourceLocation("mob/creeper/say3")),
+						sound(new ResourceLocation("mob/creeper/say4"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/creeper/death"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DRYAD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DULLAHAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.FLESH_LICH)
+				.withSay(
+						sound(new ResourceLocation("mob/zombie/say1")),
+						sound(new ResourceLocation("mob/zombie/say2")),
+						sound(new ResourceLocation("mob/zombie/say3"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/zombie/hurt1")),
+						sound(new ResourceLocation("mob/zombie/hurt2"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/zombie/death"))
+				).withStep(
+						sound(new ResourceLocation("mob/zombie/step1")),
+						sound(new ResourceLocation("mob/zombie/step2")),
+						sound(new ResourceLocation("mob/zombie/step3")),
+						sound(new ResourceLocation("mob/zombie/step4")),
+						sound(new ResourceLocation("mob/zombie/step5"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN).withDefaults()
 				.withSay(sound(modLoc("entity/goblin/say1")),
 						sound(modLoc("entity/goblin/say2")))
@@ -236,6 +198,21 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN_FERAL).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HARPY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HUNTER).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HORSE)
+				.withSay(
+						sound(new ResourceLocation("mob/horse/zombie/idle1")),
+						sound(new ResourceLocation("mob/horse/zombie/idle2")),
+						sound(new ResourceLocation("mob/horse/zombie/idle3"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/horse/zombie/hit1")),
+						sound(new ResourceLocation("mob/horse/zombie/hit2")),
+						sound(new ResourceLocation("mob/horse/zombie/hit3")),
+						sound(new ResourceLocation("mob/horse/zombie/hit4"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/horse/zombie/death"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MATANGO).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults()
@@ -267,6 +244,23 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.withDeathMale(sound(modLoc("entity/succubus_male/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WERECAT).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITCH).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITHER_COW)
+				.withSay(
+						sound(new ResourceLocation("mob/cow/say1")),
+						sound(new ResourceLocation("mob/cow/say2")),
+						sound(new ResourceLocation("mob/cow/say3")),
+						sound(new ResourceLocation("mob/cow/say4"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/cow/hurt1")),
+						sound(new ResourceLocation("mob/cow/hurt2")),
+						sound(new ResourceLocation("mob/cow/hurt3"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/cow/hurt1")),
+						sound(new ResourceLocation("mob/cow/hurt2")),
+						sound(new ResourceLocation("mob/cow/hurt3"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WIZARD_HARPY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.YUKI_ONNA).withDefaults().build());
 	}

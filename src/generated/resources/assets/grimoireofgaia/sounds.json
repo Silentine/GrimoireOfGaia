@@ -32,27 +32,6 @@
       "grimoireofgaia:item/box_open2"
     ]
   },
-  "creep_say": {
-    "subtitle": "grimoireofgaia.subtitle.creep_say",
-    "sounds": [
-      "grimoireofgaia:none"
-    ]
-  },
-  "creep_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.creep_hurt",
-    "sounds": [
-      "mob/creeper/say1",
-      "mob/creeper/say2",
-      "mob/creeper/say3",
-      "mob/creeper/say4"
-    ]
-  },
-  "creep_death": {
-    "subtitle": "grimoireofgaia.subtitle.creep_death",
-    "sounds": [
-      "mob/creeper/death"
-    ]
-  },
   "creep_primed": {
     "subtitle": "grimoireofgaia.subtitle.creep_primed",
     "sounds": [
@@ -238,6 +217,29 @@
       "grimoireofgaia:entity/bee/death2"
     ]
   },
+  "bone_knight_say": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_say",
+    "sounds": [
+      "mob/skeleton/say1",
+      "mob/skeleton/say2",
+      "mob/skeleton/say3"
+    ]
+  },
+  "bone_knight_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_hurt",
+    "sounds": [
+      "mob/skeleton/hurt1",
+      "mob/skeleton/hurt2",
+      "mob/skeleton/hurt3",
+      "mob/skeleton/hurt4"
+    ]
+  },
+  "bone_knight_death": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_death",
+    "sounds": [
+      "mob/skeleton/death"
+    ]
+  },
   "centaur_say": {
     "subtitle": "grimoireofgaia.subtitle.centaur_say",
     "sounds": [
@@ -304,6 +306,27 @@
       "grimoireofgaia:assist_death"
     ]
   },
+  "creep_say": {
+    "subtitle": "grimoireofgaia.subtitle.creep_say",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
+  "creep_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.creep_hurt",
+    "sounds": [
+      "mob/creeper/say1",
+      "mob/creeper/say2",
+      "mob/creeper/say3",
+      "mob/creeper/say4"
+    ]
+  },
+  "creep_death": {
+    "subtitle": "grimoireofgaia.subtitle.creep_death",
+    "sounds": [
+      "mob/creeper/death"
+    ]
+  },
   "dryad_say": {
     "subtitle": "grimoireofgaia.subtitle.dryad_say",
     "sounds": [
@@ -346,6 +369,27 @@
     "subtitle": "grimoireofgaia.subtitle.dullahan_death",
     "sounds": [
       "grimoireofgaia:aggressive_death"
+    ]
+  },
+  "flesh_lich_say": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_say",
+    "sounds": [
+      "mob/zombie/say1",
+      "mob/zombie/say2",
+      "mob/zombie/say3"
+    ]
+  },
+  "flesh_lich_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_hurt",
+    "sounds": [
+      "mob/zombie/hurt1",
+      "mob/zombie/hurt2"
+    ]
+  },
+  "flesh_lich_death": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_death",
+    "sounds": [
+      "mob/zombie/death"
     ]
   },
   "goblin_say": {
@@ -432,6 +476,29 @@
     "subtitle": "grimoireofgaia.subtitle.hunter_death",
     "sounds": [
       "grimoireofgaia:assist_death"
+    ]
+  },
+  "horse_say": {
+    "subtitle": "grimoireofgaia.subtitle.horse_say",
+    "sounds": [
+      "mob/horse/zombie/idle1",
+      "mob/horse/zombie/idle2",
+      "mob/horse/zombie/idle3"
+    ]
+  },
+  "horse_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.horse_hurt",
+    "sounds": [
+      "mob/horse/zombie/hit1",
+      "mob/horse/zombie/hit2",
+      "mob/horse/zombie/hit3",
+      "mob/horse/zombie/hit4"
+    ]
+  },
+  "horse_death": {
+    "subtitle": "grimoireofgaia.subtitle.horse_death",
+    "sounds": [
+      "mob/horse/zombie/death"
     ]
   },
   "kobold_say": {
@@ -782,6 +849,31 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "wither_cow_say": {
+    "subtitle": "grimoireofgaia.subtitle.wither_cow_say",
+    "sounds": [
+      "mob/cow/say1",
+      "mob/cow/say2",
+      "mob/cow/say3",
+      "mob/cow/say4"
+    ]
+  },
+  "wither_cow_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.wither_cow_hurt",
+    "sounds": [
+      "mob/cow/hurt1",
+      "mob/cow/hurt2",
+      "mob/cow/hurt3"
+    ]
+  },
+  "wither_cow_death": {
+    "subtitle": "grimoireofgaia.subtitle.wither_cow_death",
+    "sounds": [
+      "mob/cow/hurt1",
+      "mob/cow/hurt2",
+      "mob/cow/hurt3"
+    ]
+  },
   "wizard_harpy_say": {
     "subtitle": "grimoireofgaia.subtitle.wizard_harpy_say",
     "sounds": [
@@ -824,92 +916,6 @@
     "subtitle": "grimoireofgaia.subtitle.yuki_onna_death",
     "sounds": [
       "grimoireofgaia:assist_death"
-    ]
-  },
-  "horse_say": {
-    "subtitle": "grimoireofgaia.subtitle.horse_say",
-    "sounds": [
-      "mob/horse/zombie/idle1",
-      "mob/horse/zombie/idle2",
-      "mob/horse/zombie/idle3"
-    ]
-  },
-  "horse_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.horse_hurt",
-    "sounds": [
-      "mob/horse/zombie/hit1",
-      "mob/horse/zombie/hit2",
-      "mob/horse/zombie/hit3",
-      "mob/horse/zombie/hit4"
-    ]
-  },
-  "horse_death": {
-    "subtitle": "grimoireofgaia.subtitle.horse_death",
-    "sounds": [
-      "mob/horse/zombie/death"
-    ]
-  },
-  "bone_knight_say": {
-    "subtitle": "grimoireofgaia.subtitle.bone_knight_say",
-    "sounds": [
-      "mob/skeleton/say1",
-      "mob/skeleton/say2",
-      "mob/skeleton/say3"
-    ]
-  },
-  "bone_knight_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.bone_knight_hurt",
-    "sounds": [
-      "mob/skeleton/hurt1",
-      "mob/skeleton/hurt2",
-      "mob/skeleton/hurt3",
-      "mob/skeleton/hurt4"
-    ]
-  },
-  "bone_knight_death": {
-    "subtitle": "grimoireofgaia.subtitle.bone_knight_death",
-    "sounds": [
-      "mob/skeleton/death"
-    ]
-  },
-  "bone_knight_step": {
-    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
-    "sounds": [
-      "mob/skeleton/step1",
-      "mob/skeleton/step2",
-      "mob/skeleton/step3",
-      "mob/skeleton/step4"
-    ]
-  },
-  "flesh_lich_say": {
-    "subtitle": "grimoireofgaia.subtitle.flesh_lich_say",
-    "sounds": [
-      "mob/zombie/say1",
-      "mob/zombie/say2",
-      "mob/zombie/say3"
-    ]
-  },
-  "flesh_lich_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.flesh_lich_hurt",
-    "sounds": [
-      "mob/zombie/hurt1",
-      "mob/zombie/hurt2"
-    ]
-  },
-  "flesh_lich_death": {
-    "subtitle": "grimoireofgaia.subtitle.flesh_lich_death",
-    "sounds": [
-      "mob/zombie/death"
-    ]
-  },
-  "flesh_lich_step": {
-    "subtitle": "grimoireofgaia.subtitle.flesh_lich_step",
-    "sounds": [
-      "mob/zombie/step1",
-      "mob/zombie/step2",
-      "mob/zombie/step3",
-      "mob/zombie/step4",
-      "mob/zombie/step5"
     ]
   },
   "cobble_golem_step": {

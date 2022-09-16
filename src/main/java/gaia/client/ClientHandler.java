@@ -34,6 +34,7 @@ import gaia.client.model.SprigganModel;
 import gaia.client.model.SuccubusModel;
 import gaia.client.model.WerecatModel;
 import gaia.client.model.WitchModel;
+import gaia.client.model.WitherCowModel;
 import gaia.client.model.WizardHarpyModel;
 import gaia.client.model.YukiOnnaModel;
 import gaia.client.model.prop.AntHillModel;
@@ -74,6 +75,7 @@ import gaia.client.renderer.WerecatRenderer;
 import gaia.client.renderer.WitchRenderer;
 import gaia.client.renderer.WizardHarpyRenderer;
 import gaia.client.renderer.YukiOnnaRenderer;
+import gaia.client.renderer.layer.WitherCowRenderer;
 import gaia.client.renderer.prop.AntHillRenderer;
 import gaia.entity.Arachne;
 import gaia.registry.GaiaRegistry;
@@ -142,6 +144,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation SUCCUBUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "succubus"), "main");
 	public static final ModelLayerLocation WERECAT = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "werecat"), "main");
 	public static final ModelLayerLocation WITCH = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "witch"), "main");
+	public static final ModelLayerLocation WITHER_COW = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "wither_cow"), "main");
 	public static final ModelLayerLocation WIZARD_HARPY = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "wizard_harpy"), "main");
 	public static final ModelLayerLocation YUKI_ONNA = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "yuki_onna"), "main");
 
@@ -174,14 +177,16 @@ public class ClientHandler {
 
 		ClientRegistry.registerEntityShader(Arachne.class, new ResourceLocation("shaders/post/spider.json"));
 
-		ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
-				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-		ItemProperties.register(GaiaRegistry.IRON_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
-				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-		ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
-				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-		ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
-				livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+		event.enqueueWork(() -> {
+			ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+			ItemProperties.register(GaiaRegistry.IRON_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+			ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+			ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
+					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+		});
 	}
 
 	public static void addPackFinders(AddPackFindersEvent event) {
@@ -238,6 +243,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.SUCCUBUS.getEntityType(), SuccubusRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.WERECAT.getEntityType(), WerecatRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.WITCH.getEntityType(), WitchRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.WITHER_COW.getEntityType(), WitherCowRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.WIZARD_HARPY.getEntityType(), WizardHarpyRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnnaRenderer::new);
 
@@ -287,6 +293,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(SUCCUBUS, SuccubusModel::createBodyLayer);
 		event.registerLayerDefinition(WERECAT, WerecatModel::createBodyLayer);
 		event.registerLayerDefinition(WITCH, WitchModel::createBodyLayer);
+		event.registerLayerDefinition(WITHER_COW, WitherCowModel::createBodyLayer);
 		event.registerLayerDefinition(WIZARD_HARPY, WizardHarpyModel::createBodyLayer);
 		event.registerLayerDefinition(YUKI_ONNA, YukiOnnaModel::createBodyLayer);
 

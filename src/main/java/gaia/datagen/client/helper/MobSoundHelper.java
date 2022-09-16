@@ -13,9 +13,11 @@ public class MobSoundHelper {
 	private final SoundDefinition.Sound[] say;
 	private final SoundDefinition.Sound[] hurt;
 	private final SoundDefinition.Sound[] death;
+	private final SoundDefinition.Sound[] step;
 	private final SoundDefinition.Sound[] sayMale;
 	private final SoundDefinition.Sound[] hurtMale;
 	private final SoundDefinition.Sound[] deathMale;
+	private final SoundDefinition.Sound[] stepMale;
 
 	public MobReg<?> getMobReg() {
 		return mobReg;
@@ -33,6 +35,10 @@ public class MobSoundHelper {
 		return death;
 	}
 
+	public SoundDefinition.Sound[] getStep() {
+		return step;
+	}
+
 	public SoundDefinition.Sound[] getMaleSay() {
 		return sayMale;
 	}
@@ -45,16 +51,22 @@ public class MobSoundHelper {
 		return deathMale;
 	}
 
+	public SoundDefinition.Sound[] getMaleStep() {
+		return stepMale;
+	}
+
 	public MobSoundHelper(MobReg<?> mobReg,
-						  SoundDefinition.Sound[] say, SoundDefinition.Sound[] hurt, SoundDefinition.Sound[] death,
-						  SoundDefinition.Sound[] sayMale, SoundDefinition.Sound[] hurtMale, SoundDefinition.Sound[] deathMale) {
+						  SoundDefinition.Sound[] say, SoundDefinition.Sound[] hurt, SoundDefinition.Sound[] death, SoundDefinition.Sound[] step,
+						  SoundDefinition.Sound[] sayMale, SoundDefinition.Sound[] hurtMale, SoundDefinition.Sound[] deathMale, SoundDefinition.Sound[] stepMale) {
 		this.mobReg = mobReg;
 		this.say = say;
 		this.hurt = hurt;
 		this.death = death;
+		this.step = step;
 		this.sayMale = sayMale;
 		this.hurtMale = hurtMale;
 		this.deathMale = deathMale;
+		this.stepMale = stepMale;
 	}
 
 	public static class Builder {
@@ -62,9 +74,11 @@ public class MobSoundHelper {
 		private SoundDefinition.Sound[] say = new SoundDefinition.Sound[]{};
 		private SoundDefinition.Sound[] hurt = new SoundDefinition.Sound[]{};
 		private SoundDefinition.Sound[] death = new SoundDefinition.Sound[]{};
+		private SoundDefinition.Sound[] step = new SoundDefinition.Sound[]{};
 		private SoundDefinition.Sound[] sayMale = new SoundDefinition.Sound[]{};
 		private SoundDefinition.Sound[] hurtMale = new SoundDefinition.Sound[]{};
 		private SoundDefinition.Sound[] deathMale = new SoundDefinition.Sound[]{};
+		private SoundDefinition.Sound[] stepMale = new SoundDefinition.Sound[]{};
 
 		public Builder(MobReg<?> reg) {
 			this.mobReg = reg;
@@ -116,6 +130,11 @@ public class MobSoundHelper {
 			return this;
 		}
 
+		public Builder withStep(Sound... sounds) {
+			this.step = sounds;
+			return this;
+		}
+
 		public Builder withSayMale(Sound... sounds) {
 			this.sayMale = sounds;
 			return this;
@@ -131,12 +150,17 @@ public class MobSoundHelper {
 			return this;
 		}
 
+		public Builder withStepMale(Sound... sounds) {
+			this.stepMale = sounds;
+			return this;
+		}
+
 		private SoundDefinition.Sound sound(String name) {
 			return SoundDefinition.Sound.sound(new ResourceLocation(GrimoireOfGaia.MOD_ID, name), SoundType.SOUND);
 		}
 
 		public MobSoundHelper build() {
-			return new MobSoundHelper(mobReg, say, hurt, death, sayMale, hurtMale, deathMale);
+			return new MobSoundHelper(mobReg, say, hurt, death, step, sayMale, hurtMale, deathMale, stepMale);
 		}
 	}
 }

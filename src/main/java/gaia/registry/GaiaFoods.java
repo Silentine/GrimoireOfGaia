@@ -31,6 +31,8 @@ public class GaiaFoods {
 			.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 30 * 20, 0), 0.4F)
 			.effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 30 * 20, 0), 0.4F).build();
 
+	public static final FoodProperties WITHERED_BRAIN = (new FoodProperties.Builder()).nutrition(8).saturationMod(0.8F).meat()
+			.effect(() -> new MobEffectInstance(MobEffects.WITHER, 10 * 20, 0), 0.6F).build();
 	public static final FoodProperties MONSTER_FEED = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.2F).meat().build();
 	public static final FoodProperties PREMIUM_MONSTER_FEED = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.6F).meat().build();
 }
