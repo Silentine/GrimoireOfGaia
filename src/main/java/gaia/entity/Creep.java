@@ -102,7 +102,7 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 	}
 
 	public void tick() {
-		if (this.isAlive() && isInvisible()) {
+		if (this.isAlive() && !isInvisible()) {
 			this.oldSwell = this.swell;
 			if (this.isIgnited()) {
 				this.setSwellDir(1);
