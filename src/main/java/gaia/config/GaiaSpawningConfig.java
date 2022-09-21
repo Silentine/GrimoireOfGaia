@@ -197,7 +197,7 @@ public class GaiaSpawningConfig {
 			List<? extends String> witherCowBiomes = generateList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY,
 					Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
 			List<? extends String> witherCowBiomeDictionary = List.of("NETHER");
-			witherCowSpawning = new SpawningInfo(builder, "WitherCow", 12, 2, 4, witchBiomes, witchBiomeDictionary);
+			witherCowSpawning = new SpawningInfo(builder, "WitherCow", 12, 2, 4, witherCowBiomes, witherCowBiomeDictionary);
 
 			List<? extends String> wizardHarpyBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> wizardHarpyBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
