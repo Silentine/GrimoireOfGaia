@@ -64,7 +64,7 @@ public class SporelingModel extends EntityModel<Sporeling> implements HeadedMode
 		headalt.yRot = netHeadYaw / 57.295776F;
 
 		// body
-		if (attackTime > -9990.0F) {
+		if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

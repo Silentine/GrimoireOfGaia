@@ -90,7 +90,7 @@ public class GoblinModel<T extends AbstractGaiaEntity> extends EntityModel<T> im
 
 		if (gaiaEntity.isAggressive() && (gaiaEntity.getMainHandItem().getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
-		} else if (attackTime > -9990.0F) {
+		} else if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

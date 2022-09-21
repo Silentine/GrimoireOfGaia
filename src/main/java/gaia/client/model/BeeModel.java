@@ -193,7 +193,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > -9990.0F) {
+			if (attackTime > 0.0F) {
 				holdingMelee();
 			}
 

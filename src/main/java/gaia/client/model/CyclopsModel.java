@@ -130,7 +130,7 @@ public class CyclopsModel extends EntityModel<Cyclops> implements HeadedModel, A
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > -9990.0F) {
+			if (attackTime > 0.0F) {
 				holdingMelee();
 			}
 

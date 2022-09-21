@@ -149,7 +149,7 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 		rightarm.xRot = 0.0F;
 		leftarm.zRot = 0.0F;
 		leftarm.xRot = 0.0F;
-		if (attackTime > -9990.0F) {
+		if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

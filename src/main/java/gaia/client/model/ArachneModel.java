@@ -148,7 +148,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 				leftarm.zRot = 0.0F;
 				rightarm.zRot = 0.0F;
 
-				if (attackTime > -9990.0F) {
+				if (attackTime > 0.0F) {
 					holdingMelee();
 				}
 

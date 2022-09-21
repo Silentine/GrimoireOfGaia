@@ -18,6 +18,8 @@ public class GaiaSounds {
 	public static final RegistryObject<SoundEvent> GOBLIN_FERAL_PRIMED = SOUND_EVENTS.register("goblin_feral_primed", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "goblin_feral_primed")));
 	public static final RegistryObject<SoundEvent> GAIA_SHOOT = SOUND_EVENTS.register("gaia_shoot", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "gaia_shoot")));
 	public static final RegistryObject<SoundEvent> ANT_HILL_DEATH = SOUND_EVENTS.register("ant_hill_death", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ant_hill_death")));
+	public static final RegistryObject<SoundEvent> ENDER_EYE_TELEPORT = SOUND_EVENTS.register("ender_eye_teleport", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ender_eye_teleport")));
+	public static final RegistryObject<SoundEvent> ENDER_EYE_SCREAM = SOUND_EVENTS.register("ender_eye_scream", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ender_eye_scream")));
 	public static final RegistryObject<SoundEvent> BOMB_THROW = SOUND_EVENTS.register("bomb_throw", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bomb_throw")));
 
 }

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WitherCowRenderer extends MobRenderer<WitherCow, WitherCowModel> {
 	public static final ResourceLocation[] WITHER_COW_LOCATIONS = new ResourceLocation[]{
-			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/wither_cow.png")};
+			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/wither_cow/wither_cow.png")};
 
 	public WitherCowRenderer(Context context) {
 		super(context, new WitherCowModel(context.bakeLayer(ClientHandler.WITHER_COW)), ClientHandler.smallShadow);

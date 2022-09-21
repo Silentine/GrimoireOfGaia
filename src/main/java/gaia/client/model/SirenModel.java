@@ -171,7 +171,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 
 		if (siren.isAggressive() && (siren.getMainHandItem().getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
-		} else if (attackTime > -9990.0F) {
+		} else if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

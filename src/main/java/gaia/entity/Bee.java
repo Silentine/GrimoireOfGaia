@@ -355,7 +355,7 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 
 	@Override
 	public int getMaxSpawnClusterSize() {
-		return SharedEntityData.CHUNK_LIMIT_1;
+		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
 	public static boolean checkBeeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {

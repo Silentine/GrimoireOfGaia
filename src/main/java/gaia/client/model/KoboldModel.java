@@ -173,7 +173,7 @@ public class KoboldModel extends EntityModel<Kobold> implements HeadedModel, Arm
 
 		if (kobold.isAggressive() && (kobold.getMainHandItem().getItem() instanceof BowItem)) {
 			holdingBow(ageInTicks);
-		} else if (attackTime > -9990.0F) {
+		} else if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

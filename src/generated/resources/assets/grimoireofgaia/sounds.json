@@ -62,6 +62,22 @@
       "grimoireofgaia:none"
     ]
   },
+  "ender_eye_scream": {
+    "subtitle": "grimoireofgaia.subtitle.ender_eye_scream",
+    "sounds": [
+      "mob/endermen/scream1",
+      "mob/endermen/scream2",
+      "mob/endermen/scream3",
+      "mob/endermen/scream4"
+    ]
+  },
+  "ender_eye_teleport": {
+    "subtitle": "grimoireofgaia.subtitle.ender_eye_teleport",
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ]
+  },
   "ant_say": {
     "subtitle": "grimoireofgaia.subtitle.ant_say",
     "sounds": [
@@ -240,6 +256,15 @@
       "mob/skeleton/death"
     ]
   },
+  "bone_knight_step": {
+    "subtitle": "grimoireofgaia.subtitle.bone_knight_step",
+    "sounds": [
+      "mob/skeleton/step1",
+      "mob/skeleton/step2",
+      "mob/skeleton/step3",
+      "mob/skeleton/step4"
+    ]
+  },
   "centaur_say": {
     "subtitle": "grimoireofgaia.subtitle.centaur_say",
     "sounds": [
@@ -327,6 +352,36 @@
       "mob/creeper/death"
     ]
   },
+  "cobble_golem_death": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_death",
+    "sounds": [
+      "mob/irongolem/death"
+    ]
+  },
+  "cobble_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobble_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "cobblestone_golem_death": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_death",
+    "sounds": [
+      "mob/irongolem/death"
+    ]
+  },
+  "cobblestone_golem_step": {
+    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
   "dryad_say": {
     "subtitle": "grimoireofgaia.subtitle.dryad_say",
     "sounds": [
@@ -371,6 +426,31 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "ender_eye_say": {
+    "subtitle": "grimoireofgaia.subtitle.ender_eye_say",
+    "sounds": [
+      "mob/endermen/idle1",
+      "mob/endermen/idle2",
+      "mob/endermen/idle3",
+      "mob/endermen/idle4",
+      "mob/endermen/idle5"
+    ]
+  },
+  "ender_eye_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ender_eye_hurt",
+    "sounds": [
+      "mob/endermen/hit1",
+      "mob/endermen/hit2",
+      "mob/endermen/hit3",
+      "mob/endermen/hit4"
+    ]
+  },
+  "ender_eye_death": {
+    "subtitle": "grimoireofgaia.subtitle.ender_eye_death",
+    "sounds": [
+      "mob/endermen/death"
+    ]
+  },
   "flesh_lich_say": {
     "subtitle": "grimoireofgaia.subtitle.flesh_lich_say",
     "sounds": [
@@ -390,6 +470,16 @@
     "subtitle": "grimoireofgaia.subtitle.flesh_lich_death",
     "sounds": [
       "mob/zombie/death"
+    ]
+  },
+  "flesh_lich_step": {
+    "subtitle": "grimoireofgaia.subtitle.flesh_lich_step",
+    "sounds": [
+      "mob/zombie/step1",
+      "mob/zombie/step2",
+      "mob/zombie/step3",
+      "mob/zombie/step4",
+      "mob/zombie/step5"
     ]
   },
   "goblin_say": {
@@ -874,6 +964,12 @@
       "mob/cow/hurt3"
     ]
   },
+  "wither_cow_step": {
+    "subtitle": "grimoireofgaia.subtitle.wither_cow_step",
+    "sounds": [
+      "grimoireofgaia:none"
+    ]
+  },
   "wizard_harpy_say": {
     "subtitle": "grimoireofgaia.subtitle.wizard_harpy_say",
     "sounds": [
@@ -918,28 +1014,10 @@
       "grimoireofgaia:assist_death"
     ]
   },
-  "cobble_golem_step": {
-    "subtitle": "grimoireofgaia.subtitle.cobble_golem_step",
-    "sounds": [
-      "mob/irongolem/walk1",
-      "mob/irongolem/walk2",
-      "mob/irongolem/walk3",
-      "mob/irongolem/walk4"
-    ]
-  },
   "cobble_golem_attack": {
     "subtitle": "grimoireofgaia.subtitle.cobble_golem_attack",
     "sounds": [
       "mob/irongolem/throw"
-    ]
-  },
-  "cobblestone_golem_step": {
-    "subtitle": "grimoireofgaia.subtitle.cobblestone_golem_step",
-    "sounds": [
-      "mob/irongolem/walk1",
-      "mob/irongolem/walk2",
-      "mob/irongolem/walk3",
-      "mob/irongolem/walk4"
     ]
   },
   "cobblestone_golem_attack": {

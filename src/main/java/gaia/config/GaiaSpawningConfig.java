@@ -26,6 +26,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo cyclopsSpawning;
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
+		public final SpawningInfo enderEyeSpawning;
 		public final SpawningInfo fleshLichSpawning;
 		public final SpawningInfo goblinSpawning;
 		public final SpawningInfo harpySpawning;
@@ -111,6 +112,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
 					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
 			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
+
+			List<? extends String> enderEyeBiomeDictionary = List.of("OVERWORLD");
+			enderEyeSpawning = new SpawningInfo(builder, "EnderEye", 40, 2, 4, List.of(), enderEyeBiomeDictionary, true);
 
 			List<? extends String> fleshLichBiomeDictionary = List.of("OVERWORLD");
 			fleshLichSpawning = new SpawningInfo(builder, "FleshLich", 100, 4, 6, List.of(), fleshLichBiomeDictionary);

@@ -34,6 +34,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CYCLOPS, "Cyclops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DRYAD, "Dryad").withSay("murmurs").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DULLAHAN, "Dullahan").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_EYE, "Ender Eye").withSay("vwoops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.FLESH_LICH, "Flesh Lich").withSay("groans").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN, "Goblin").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin").withSay("murmurs").build());
@@ -166,6 +167,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.GAIA_SHOOT, "Creature shoots");
 		addSubtitle(GaiaSounds.ANT_HILL_DEATH, "Ant Hill is destroyed");
 		addSubtitle(GaiaSounds.BOMB_THROW, "Bomb thrown");
+		addSubtitle(GaiaSounds.ENDER_EYE_SCREAM, "Ender Eye Screams");
+		addSubtitle(GaiaSounds.ENDER_EYE_TELEPORT, "Ender Eye Vwoops");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");

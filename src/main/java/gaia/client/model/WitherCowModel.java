@@ -69,10 +69,10 @@ public class WitherCowModel extends EntityModel<WitherCow> implements HeadedMode
 	public void setupAnim(WitherCow witherCow, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.xRot = -90 + (headPitch / 57.295776F);
 		head.yRot -= 0.1745329F;
 
-		if (attackTime > -9990.0F) {
+		if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 
