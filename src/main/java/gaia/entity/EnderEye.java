@@ -14,7 +14,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
@@ -32,7 +31,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -76,14 +75,23 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Hunter.class));
+		this.targetSelector.addGoal(1, new LookForPlayerGoal(this, this::isAngryAt));
+		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(Hunter.class));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);
+		}
+	}
+
+	public boolean isAngryAt(LivingEntity livingEntity) {
+		if (!this.canAttack(livingEntity)) {
+			return false;
+		} else {
+			return this.getTarget() != null && livingEntity.getType() == EntityType.PLAYER;
 		}
 	}
 
@@ -113,7 +121,7 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.FLYING_SPEED, SharedEntityData.MOVE_SPEED_1)
+				.add(Attributes.FLYING_SPEED, 0.35D)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
