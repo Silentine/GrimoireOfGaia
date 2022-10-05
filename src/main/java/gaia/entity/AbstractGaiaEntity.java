@@ -26,6 +26,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -39,6 +41,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -146,6 +149,43 @@ public abstract class AbstractGaiaEntity extends Monster {
 				action.accept(livingEntity);
 			}
 		}
+	}
+
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
+										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
+
+		//Setup health changes
+		switch (getGaiaLevel()) {
+			default -> {
+				AttributeInstance healthAttribute = this.getAttribute(Attributes.MAX_HEALTH);
+				if (healthAttribute != null)
+					healthAttribute.setBaseValue(SharedEntityData.getMaxHealth1());
+				AttributeInstance damageAttribute = this.getAttribute(Attributes.ATTACK_DAMAGE);
+				if (damageAttribute != null)
+					damageAttribute.setBaseValue(SharedEntityData.getAttackDamage1());
+			}
+			case 2 -> {
+				AttributeInstance healthAttribute = this.getAttribute(Attributes.MAX_HEALTH);
+				if (healthAttribute != null)
+					healthAttribute.setBaseValue(SharedEntityData.getMaxHealth2());
+				AttributeInstance damageAttribute = this.getAttribute(Attributes.ATTACK_DAMAGE);
+				if (damageAttribute != null)
+					damageAttribute.setBaseValue(SharedEntityData.getAttackDamage2());
+			}
+			case 3 -> {
+				AttributeInstance healthAttribute = this.getAttribute(Attributes.MAX_HEALTH);
+				if (healthAttribute != null)
+					healthAttribute.setBaseValue(SharedEntityData.getMaxHealth3());
+				AttributeInstance damageAttribute = this.getAttribute(Attributes.ATTACK_DAMAGE);
+				if (damageAttribute != null)
+					damageAttribute.setBaseValue(SharedEntityData.getAttackDamage3());
+			}
+		}
+
+		return data;
 	}
 
 	@Override
