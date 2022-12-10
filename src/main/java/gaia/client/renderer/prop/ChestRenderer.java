@@ -11,6 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ChestRenderer extends MobRenderer<Chest, ChestModel> {
 	public static final ResourceLocation CHEST_LOCATION = new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/mimic/mimic_chest.png");
+	public static final ResourceLocation LOOTR_LOCATION = new ResourceLocation("lootr", "textures/chest.png");
+
+	public static final ResourceLocation[] LOOTR_LOCATION = new ResourceLocation[]{
+			new ResourceLocation("lootr", "textures/chest.png")
+	};
 
 	public ChestRenderer(Context context) {
 		super(context, new ChestModel(context.bakeLayer(ClientHandler.CHEST)), 0.0F);
