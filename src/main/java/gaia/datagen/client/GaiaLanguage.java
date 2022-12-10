@@ -44,6 +44,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MATANGO, "Matango").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAURUS, "Minotaurus").withSay("growls").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MIMIC, "Mimic").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NINE_TAILS, "Nine Tails").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ONI, "Oni").withSay("snorts").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ORC, "Orc").withSay("growls").build());
@@ -61,6 +62,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.YUKI_ONNA, "Yuki-Onna").build());
 
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
+		addPropReg(GaiaRegistry.CHEST, "Chest");
 
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HORSE, "Wild Horse").withSay("neighs").build());
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");

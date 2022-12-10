@@ -27,6 +27,7 @@ import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
+import gaia.entity.Mimic;
 import gaia.entity.Minotaurus;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
@@ -44,6 +45,7 @@ import gaia.entity.WitherCow;
 import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.prop.AntHill;
+import gaia.entity.prop.Chest;
 import gaia.util.BiomeHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -74,6 +76,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.BEE.getEntityType(), GaiaSpawningConfig.COMMON.beeSpawning, event);
 		addSpawn(GaiaRegistry.BONE_KNIGHT.getEntityType(), GaiaSpawningConfig.COMMON.boneKnightSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
+		addSpawn(GaiaRegistry.CHEST.getEntityType(), GaiaSpawningConfig.COMMON.mimicSpawning, event);
 		addSpawn(GaiaRegistry.COBBLE_GOLEM.getEntityType(), GaiaSpawningConfig.COMMON.cobbleGolemSpawning, event);
 		addSpawn(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), GaiaSpawningConfig.COMMON.cobblestoneGolemSpawning, event);
 		addSpawn(GaiaRegistry.CREEP.getEntityType(), GaiaSpawningConfig.COMMON.creepSpawning, event);
@@ -156,6 +159,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.BEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Bee::checkBeeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BONE_KNIGHT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BoneKnight::checkBoneKnightSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.CHEST.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Chest::checkChestSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.COBBLE_GOLEM.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CobbleGolem::checkCobbleGolemSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CobblestoneGolem::checkCobblestoneGolemSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CREEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Creep::checkCreepSpawnRules);
@@ -172,6 +176,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.KOBOLD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kobold::checkKoboldSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MATANGO.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Matango::checkMatangoSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MINOTAURUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Minotaurus::checkMinotaurusSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.MIMIC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mimic::checkMimicSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.NINE_TAILS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NineTails::checkNineTailsSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ONI.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Oni::checkOniSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ORC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Orc::checkOrcSpawnRules);
@@ -201,6 +206,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.BEE.getEntityType(), Bee.createAttributes().build());
 		event.put(GaiaRegistry.BONE_KNIGHT.getEntityType(), BoneKnight.createAttributes().build());
 		event.put(GaiaRegistry.CENTAUR.getEntityType(), Centaur.createAttributes().build());
+		event.put(GaiaRegistry.CHEST.getEntityType(), Chest.createAttributes().build());
 		event.put(GaiaRegistry.COBBLE_GOLEM.getEntityType(), CobbleGolem.createAttributes().build());
 		event.put(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), CobblestoneGolem.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());
@@ -217,6 +223,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.KOBOLD.getEntityType(), Kobold.createAttributes().build());
 		event.put(GaiaRegistry.MATANGO.getEntityType(), Matango.createAttributes().build());
 		event.put(GaiaRegistry.MINOTAURUS.getEntityType(), Minotaurus.createAttributes().build());
+		event.put(GaiaRegistry.MIMIC.getEntityType(), Mimic.createAttributes().build());
 		event.put(GaiaRegistry.NINE_TAILS.getEntityType(), NineTails.createAttributes().build());
 		event.put(GaiaRegistry.ONI.getEntityType(), Oni.createAttributes().build());
 		event.put(GaiaRegistry.ORC.getEntityType(), Orc.createAttributes().build());

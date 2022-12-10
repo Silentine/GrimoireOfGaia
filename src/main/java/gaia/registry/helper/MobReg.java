@@ -22,7 +22,7 @@ public class MobReg<T extends Mob> {
 	protected final String name;
 	protected final RegistryObject<EntityType<? extends T>> entityType;
 	protected final GaiaSoundType gaiaSoundType;
-	protected final RegistryObject<Item> spawnEgg;
+	protected RegistryObject<Item> spawnEgg;
 
 	protected RegistryObject<SoundEvent> SAY;
 	protected RegistryObject<SoundEvent> HURT;
@@ -144,12 +144,14 @@ public class MobReg<T extends Mob> {
 		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, GaiaSoundType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders) {
+	public MobReg(String name, EntityType.Builder<T> builder, GaiaSoundType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg) {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
 		this.gaiaSoundType = mobType;
-		this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
-				new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+		if (!noSpawnEgg) {
+			this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
+					new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+		}
 
 		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
 		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_hurt"))) : null;
@@ -172,7 +174,7 @@ public class MobReg<T extends Mob> {
 		private final EntityType.Builder<T> builder;
 		private final GaiaSoundType gaiaMobType;
 		private final int backgroundColor, highlightColor;
-		private boolean say, hurt, death, step, attack, hasGenders;
+		private boolean say, hurt, death, step, attack, hasGenders, noSpawnEgg;
 
 		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
@@ -194,6 +196,11 @@ public class MobReg<T extends Mob> {
 			this.say = true;
 			this.hurt = true;
 			this.death = true;
+			return this;
+		}
+
+		public Builder<T> noSpawnEgg() {
+			this.noSpawnEgg = true;
 			return this;
 		}
 
@@ -228,7 +235,7 @@ public class MobReg<T extends Mob> {
 		}
 
 		public MobReg<T> build() {
-			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders);
+			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders, noSpawnEgg);
 		}
 	}
 }

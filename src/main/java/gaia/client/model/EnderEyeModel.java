@@ -6,7 +6,6 @@ import gaia.entity.EnderEye;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -38,21 +37,21 @@ public class EnderEyeModel extends EntityModel<EnderEye> {
 
 		PartDefinition ender_eye = partdefinition.addOrReplaceChild("ender_eye", CubeListBuilder.create(), PartPose.offset(0.0F, 15.0F, 0.0F));
 
-		PartDefinition body = ender_eye.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -3.0F, 8.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.5F));
+		PartDefinition body = ender_eye.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -3.0F, 8.0F, 8.0F, 6.0F), PartPose.offset(0.0F, 0.0F, 0.5F));
 
-		PartDefinition eyelid1 = body.addOrReplaceChild("eyelid1", CubeListBuilder.create().texOffs(0, 14).addBox(-5.0F, -5.0F, -9.0F, 10.0F, 5.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, 3.5F, -0.0873F, 0.0F, 0.0F));
+		PartDefinition eyelid1 = body.addOrReplaceChild("eyelid1", CubeListBuilder.create().texOffs(0, 14).addBox(-5.0F, -5.0F, -9.0F, 10.0F, 5.0F, 10.0F), PartPose.offsetAndRotation(0.0F, -1.0F, 3.5F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition eyelid2 = body.addOrReplaceChild("eyelid2", CubeListBuilder.create().texOffs(0, 29).addBox(-5.0F, 0.0F, -10.0F, 10.0F, 5.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, 4.5F, 0.3491F, 0.0F, 0.0F));
+		PartDefinition eyelid2 = body.addOrReplaceChild("eyelid2", CubeListBuilder.create().texOffs(0, 29).addBox(-5.0F, 0.0F, -10.0F, 10.0F, 5.0F, 10.0F), PartPose.offsetAndRotation(0.0F, -1.0F, 4.5F, 0.3491F, 0.0F, 0.0F));
 
-		PartDefinition tail1 = eyelid2.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 44).addBox(-1.5F, 0.0F, 0.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 5.0F, -3.0F, 0.3491F, 0.0F, 0.0F));
+		PartDefinition tail1 = eyelid2.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 44).addBox(-1.5F, 0.0F, 0.0F, 3.0F, 3.0F, 3.0F), PartPose.offsetAndRotation(0.0F, 5.0F, -3.0F, 0.3491F, 0.0F, 0.0F));
 
-		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(0, 50).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, 1.5F, 0.3054F, 0.0F, 0.0F));
+		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(0, 50).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 4.0F, 2.0F), PartPose.offsetAndRotation(0.0F, 3.0F, 1.5F, 0.3054F, 0.0F, 0.0F));
 
-		PartDefinition tail3 = tail2.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(0, 56).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 4.0F, 0.0F, 0.3491F, 0.0F, 0.0F));
+		PartDefinition tail3 = tail2.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(0, 56).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F), PartPose.offsetAndRotation(0.0F, 4.0F, 0.0F, 0.3491F, 0.0F, 0.0F));
 
-		PartDefinition rightwing = body.addOrReplaceChild("rightwing", CubeListBuilder.create().texOffs(98, 38).addBox(0.0F, 0.0F, -3.0F, 0.0F, 16.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 0.0F, 2.0F, 0.0F, 0.0F, 1.5708F));
+		PartDefinition rightwing = body.addOrReplaceChild("rightwing", CubeListBuilder.create().texOffs(98, 38).addBox(0.0F, 0.0F, -3.0F, 0.0F, 16.0F, 10.0F), PartPose.offsetAndRotation(-2.0F, 0.0F, 2.0F, 0.0F, 0.0F, 1.5708F));
 
-		PartDefinition leftwing = body.addOrReplaceChild("leftwing", CubeListBuilder.create().texOffs(98, 38).mirror().addBox(0.0F, 0.0F, -3.0F, 0.0F, 16.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(2.0F, 0.0F, 2.0F, 0.0F, 0.0F, -1.5708F));
+		PartDefinition leftwing = body.addOrReplaceChild("leftwing", CubeListBuilder.create().texOffs(98, 38).mirror().addBox(0.0F, 0.0F, -3.0F, 0.0F, 16.0F, 10.0F).mirror(false), PartPose.offsetAndRotation(2.0F, 0.0F, 2.0F, 0.0F, 0.0F, -1.5708F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}

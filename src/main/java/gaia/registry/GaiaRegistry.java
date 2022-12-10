@@ -26,6 +26,7 @@ import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
 import gaia.entity.Matango;
+import gaia.entity.Mimic;
 import gaia.entity.Minotaurus;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
@@ -49,6 +50,7 @@ import gaia.entity.projectile.PoisonProjectile;
 import gaia.entity.projectile.RandomMagicProjectile;
 import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
+import gaia.entity.prop.Chest;
 import gaia.item.ExperienceItem;
 import gaia.item.LootableItem;
 import gaia.item.MemoryBookItem;
@@ -130,6 +132,7 @@ public class GaiaRegistry {
 	public static final MobReg<Hunter> HUNTER = new MobReg.Builder<>("hunter", GaiaSoundType.ASSIST, EntityType.Builder.of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535).withDefaultSounds().build();
 	public static final MobReg<Kobold> KOBOLD = new MobReg.Builder<>("kobold", EntityType.Builder.of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1).withDefaultSounds().build();
 	public static final MobReg<Matango> MATANGO = new MobReg.Builder<>("matango", EntityType.Builder.of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8).withDefaultSounds().build();
+	public static final MobReg<Mimic> MIMIC = new MobReg.Builder<>("mimic", EntityType.Builder.of(Mimic::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 11237677, 4274991).build();
 	public static final MobReg<Minotaurus> MINOTAURUS = new MobReg.Builder<>("minotaurus", EntityType.Builder.of(Minotaurus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0xa9a9a9).withDefaultSounds().build();
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg.Builder<>("nine_tails", EntityType.Builder.of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145).withDefaultSounds().build();
 	public static final MobReg<Oni> ONI = new MobReg.Builder<>("oni", EntityType.Builder.of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161).withDefaultSounds().build();
@@ -151,6 +154,7 @@ public class GaiaRegistry {
 
 	//Props
 	public static final PropReg<AntHill> ANT_HILL = new PropReg<>("ant_hill", EntityType.Builder.of(AntHill::new, MobCategory.CREATURE).sized(1.0F, 0.5F).clientTrackingRange(10), 0xe4dea7, 0x545454);
+	public static final PropReg<Chest> CHEST = new PropReg<>("chest", EntityType.Builder.of(Chest::new, MobCategory.CREATURE).sized(0.8F, 0.8F).clientTrackingRange(10), 11237677, 4274991);
 
 	//Projectiles
 	public static final RegistryObject<EntityType<GaiaSmallFireball>> SMALL_FIREBALL = ENTITIES.register("small_fireball", () ->

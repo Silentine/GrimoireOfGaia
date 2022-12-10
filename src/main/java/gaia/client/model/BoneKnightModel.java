@@ -45,33 +45,33 @@ public class BoneKnightModel extends EntityModel<BoneKnight> implements HeadedMo
 
 		PartDefinition bone_knight = partdefinition.addOrReplaceChild("bone_knight", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition head = bone_knight.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+		PartDefinition head = bone_knight.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.offset(0.0F, -24.0F, 0.0F));
 
-		PartDefinition body = bone_knight.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+		PartDefinition body = bone_knight.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F), PartPose.offset(0.0F, -24.0F, 0.0F));
 
-		PartDefinition chest = body.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(40, 12).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, -2.0F, -0.3054F, 0.0F, 0.0F));
+		PartDefinition chest = body.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(40, 12).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 4.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, -2.0F, -0.3054F, 0.0F, 0.0F));
 
-		PartDefinition chestlower_r1 = chest.addOrReplaceChild("chestlower_r1", CubeListBuilder.create().texOffs(40, 20).addBox(-3.0F, 0.0F, 0.0F, 6.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 4.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
+		PartDefinition chestlower_r1 = chest.addOrReplaceChild("chestlower_r1", CubeListBuilder.create().texOffs(40, 20).addBox(-3.0F, 0.0F, 0.0F, 6.0F, 4.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 4.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
 
-		PartDefinition waist = body.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(0, 32).addBox(-4.5F, 10.0F, -2.5F, 9.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 45).addBox(-5.0F, 12.0F, -2.0F, 10.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition waist = body.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(0, 32).addBox(-4.5F, 10.0F, -2.5F, 9.0F, 8.0F, 5.0F)
+				.texOffs(0, 45).addBox(-5.0F, 12.0F, -2.0F, 10.0F, 6.0F, 5.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition rightarm = bone_knight.addOrReplaceChild("rightarm", CubeListBuilder.create().texOffs(24, 16).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(40, 28).addBox(-1.5F, 4.5F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F))
+		PartDefinition rightarm = bone_knight.addOrReplaceChild("rightarm", CubeListBuilder.create().texOffs(24, 16).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F)
+				.texOffs(40, 28).addBox(-1.5F, 4.5F, -1.5F, 3.0F, 6.0F, 3.0F)
 				.texOffs(40, 0).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(-1.0F)), PartPose.offset(-5.0F, -22.0F, 0.0F));
 
-		PartDefinition shield = rightarm.addOrReplaceChild("shield", CubeListBuilder.create().texOffs(88, 0).mirror().addBox(-3.0F, -1.5F, -6.0F, 1.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(88, 0).mirror().addBox(-2.5F, 8.5F, -1.5F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition shield = rightarm.addOrReplaceChild("shield", CubeListBuilder.create().texOffs(88, 0).mirror().addBox(-3.0F, -1.5F, -6.0F, 1.0F, 22.0F, 12.0F).mirror(false)
+				.texOffs(88, 0).mirror().addBox(-2.5F, 8.5F, -1.5F, 3.0F, 1.0F, 3.0F).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition leftarm = bone_knight.addOrReplaceChild("leftarm", CubeListBuilder.create().texOffs(24, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(40, 28).mirror().addBox(-1.5F, 4.5F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
+		PartDefinition leftarm = bone_knight.addOrReplaceChild("leftarm", CubeListBuilder.create().texOffs(24, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F).mirror(false)
+				.texOffs(40, 28).mirror().addBox(-1.5F, 4.5F, -1.5F, 3.0F, 6.0F, 3.0F).mirror(false)
 				.texOffs(40, 0).mirror().addBox(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(-1.0F)).mirror(false), PartPose.offset(5.0F, -22.0F, 0.0F));
 
-		PartDefinition rightleg = bone_knight.addOrReplaceChild("rightleg", CubeListBuilder.create().texOffs(32, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(40, 37).addBox(-1.5F, 6.0F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, 0.0F));
+		PartDefinition rightleg = bone_knight.addOrReplaceChild("rightleg", CubeListBuilder.create().texOffs(32, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F)
+				.texOffs(40, 37).addBox(-1.5F, 6.0F, -1.5F, 3.0F, 6.0F, 3.0F), PartPose.offset(-2.0F, -12.0F, 0.0F));
 
-		PartDefinition leftleg = bone_knight.addOrReplaceChild("leftleg", CubeListBuilder.create().texOffs(32, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(40, 37).mirror().addBox(-1.5F, 6.0F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, -12.0F, 0.0F));
+		PartDefinition leftleg = bone_knight.addOrReplaceChild("leftleg", CubeListBuilder.create().texOffs(32, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F)
+				.texOffs(40, 37).mirror().addBox(-1.5F, 6.0F, -1.5F, 3.0F, 6.0F, 3.0F).mirror(false), PartPose.offset(2.0F, -12.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}

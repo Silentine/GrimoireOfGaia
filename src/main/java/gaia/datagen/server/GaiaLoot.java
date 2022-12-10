@@ -219,6 +219,10 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
+			this.add(GaiaRegistry.CHEST.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootTableReference.lootTableReference(BuiltInLootTables.SIMPLE_DUNGEON)))
+			);
 			this.add(GaiaRegistry.COBBLE_GOLEM.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
@@ -473,6 +477,30 @@ public class GaiaLoot extends LootTableProvider {
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())))
 			);
+			this.add(GaiaRegistry.MIMIC.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootTableReference.lootTableReference(EntityType.CREEPER.getDefaultLootTable()))
+							.add(LootTableReference.lootTableReference(EntityType.SPIDER.getDefaultLootTable()))
+							.add(LootTableReference.lootTableReference(EntityType.ENDERMAN.getDefaultLootTable()))
+							.add(LootTableReference.lootTableReference(EntityType.SLIME.getDefaultLootTable()))
+							.add(LootTableReference.lootTableReference(EntityType.ZOMBIE.getDefaultLootTable()))
+							.add(LootTableReference.lootTableReference(EntityType.SKELETON.getDefaultLootTable())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_OVERWORLD.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.PREMIUM_MONSTER_FEED.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_RECORD.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_HUNGER.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+			);
 			this.add(GaiaRegistry.NINE_TAILS.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.SOULFIRE.get())
@@ -714,7 +742,9 @@ public class GaiaLoot extends LootTableProvider {
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
 		List<ResourceLocation> ignored = List.of(
 				GaiaRegistry.HORSE.getEntityType().getDefaultLootTable(),
-				GaiaRegistry.SIREN.getEntityType().getDefaultLootTable()
+				GaiaRegistry.SIREN.getEntityType().getDefaultLootTable(),
+				GaiaRegistry.MIMIC.getEntityType().getDefaultLootTable(),
+				GaiaRegistry.CHEST.getEntityType().getDefaultLootTable()
 		);
 		map.forEach((name, table) -> {
 			if (!ignored.contains(name)) {
