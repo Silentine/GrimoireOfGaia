@@ -3,11 +3,11 @@ package gaia.client.renderer.prop;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.prop.ChestModel;
-import gaia.entity.prop.AntHill;
 import gaia.entity.prop.Chest;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.ModList;
 
 public class ChestRenderer extends MobRenderer<Chest, ChestModel> {
 	public static final ResourceLocation CHEST_LOCATION = new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/mimic/mimic_chest.png");
@@ -19,6 +19,9 @@ public class ChestRenderer extends MobRenderer<Chest, ChestModel> {
 
 	@Override
 	public ResourceLocation getTextureLocation(Chest chest) {
+		if (ModList.get().isLoaded("lootr")) {
+			return LOOTR_LOCATION;
+		}
 		return CHEST_LOCATION;
 	}
 }
