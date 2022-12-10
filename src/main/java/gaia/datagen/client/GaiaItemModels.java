@@ -56,6 +56,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.EXPERIENCE_IRON.get());
 		this.generatedItem(GaiaRegistry.EXPERIENCE_GOLD.get());
 		this.generatedItem(GaiaRegistry.EXPERIENCE_DIAMOND.get());
+		this.generatedItem(GaiaRegistry.ELYTRA_FRAGMENT.get());
 		this.generatedItem(GaiaRegistry.FIRESHARD.get());
 		this.generatedItem(GaiaRegistry.FUR.get());
 		this.generatedItem(GaiaRegistry.GIGA_GEAR.get());

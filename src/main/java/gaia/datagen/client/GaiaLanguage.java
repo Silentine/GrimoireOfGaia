@@ -35,6 +35,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DRYAD, "Dryad").withSay("murmurs").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DULLAHAN, "Dullahan").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_EYE, "Ender Eye").withSay("vwoops").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_DRAGON_GIRL, "Ender Dragon Girl").withSay("vwoops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.FLESH_LICH, "Flesh Lich").withSay("groans").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN, "Goblin").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin").withSay("murmurs").build());
@@ -101,6 +102,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.EXPERIENCE_IRON, "Crystallized Experience (Small)");
 		addItem(GaiaRegistry.EXPERIENCE_GOLD, "Crystallized Experience (Medium)");
 		addItem(GaiaRegistry.EXPERIENCE_DIAMOND, "Crystallized Experience (Large)");
+		addItem(GaiaRegistry.ELYTRA_FRAGMENT, "Elytra Fragment");
 		addItem(GaiaRegistry.FAN, "Hand Fan");
 		addItem(GaiaRegistry.FAN_FIRE, "Ornate Fire Fan");
 		addItem(GaiaRegistry.FAN_ICE, "Ornate Ice Fan");
@@ -169,6 +171,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addSubtitle(GaiaSounds.BOMB_THROW, "Bomb thrown");
 		addSubtitle(GaiaSounds.ENDER_EYE_SCREAM, "Ender Eye Screams");
 		addSubtitle(GaiaSounds.ENDER_EYE_TELEPORT, "Ender Eye Vwoops");
+		addSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_SCREAM, "Ender Dragon Girl Screams");
+		addSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT, "Ender Dragon Girl Vwoops");
 
 		add("text.grimoireofgaia.right_click_use", "Right-click to open");
 		add("text.grimoireofgaia.hold_shift", "<Hold Shift>");

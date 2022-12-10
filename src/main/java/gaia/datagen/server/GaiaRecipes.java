@@ -48,6 +48,11 @@ public class GaiaRecipes extends RecipeProvider {
 				.requires(Tags.Items.SEEDS_WHEAT).requires(Tags.Items.SEEDS_WHEAT).requires(GaiaRegistry.EXPERIENCE_DIAMOND.get())
 				.unlockedBy("has_experience_diamond", has(GaiaRegistry.EXPERIENCE_DIAMOND.get()))
 				.save(consumer, "grimoireofgaia:monster_feed_2");
+		ShapelessRecipeBuilder.shapeless(Items.ELYTRA)
+				.requires(GaiaRegistry.ELYTRA_FRAGMENT.get()).requires(GaiaRegistry.ELYTRA_FRAGMENT.get())
+				.requires(Items.POPPED_CHORUS_FRUIT)
+				.unlockedBy("has_elytra_fragment", has(GaiaRegistry.ELYTRA_FRAGMENT.get()))
+				.save(consumer);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.BOX_IRON.get()),
 						GaiaRegistry.EXPERIENCE_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))

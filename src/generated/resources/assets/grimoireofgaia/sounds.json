@@ -78,6 +78,22 @@
       "mob/endermen/portal2"
     ]
   },
+  "ender_dragon_girl_scream": {
+    "subtitle": "grimoireofgaia.subtitle.ender_dragon_girl_scream",
+    "sounds": [
+      "mob/endermen/scream1",
+      "mob/endermen/scream2",
+      "mob/endermen/scream3",
+      "mob/endermen/scream4"
+    ]
+  },
+  "ender_dragon_girl_teleport": {
+    "subtitle": "grimoireofgaia.subtitle.ender_dragon_girl_teleport",
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ]
+  },
   "ant_say": {
     "subtitle": "grimoireofgaia.subtitle.ant_say",
     "sounds": [
@@ -447,6 +463,31 @@
   },
   "ender_eye_death": {
     "subtitle": "grimoireofgaia.subtitle.ender_eye_death",
+    "sounds": [
+      "mob/endermen/death"
+    ]
+  },
+  "ender_dragon_girl_say": {
+    "subtitle": "grimoireofgaia.subtitle.ender_dragon_girl_say",
+    "sounds": [
+      "mob/endermen/idle1",
+      "mob/endermen/idle2",
+      "mob/endermen/idle3",
+      "mob/endermen/idle4",
+      "mob/endermen/idle5"
+    ]
+  },
+  "ender_dragon_girl_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ender_dragon_girl_hurt",
+    "sounds": [
+      "mob/endermen/hit1",
+      "mob/endermen/hit2",
+      "mob/endermen/hit3",
+      "mob/endermen/hit4"
+    ]
+  },
+  "ender_dragon_girl_death": {
+    "subtitle": "grimoireofgaia.subtitle.ender_dragon_girl_death",
     "sounds": [
       "mob/endermen/death"
     ]

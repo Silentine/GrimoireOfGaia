@@ -79,6 +79,20 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/endermen/portal")),
 						sound(new ResourceLocation("mob/endermen/portal2"))
 				));
+		this.add(GaiaSounds.ENDER_DRAGON_GIRL_SCREAM, definition()
+				.subtitle(modSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_SCREAM.getId()))
+				.with(
+						sound(new ResourceLocation("mob/endermen/scream1")),
+						sound(new ResourceLocation("mob/endermen/scream2")),
+						sound(new ResourceLocation("mob/endermen/scream3")),
+						sound(new ResourceLocation("mob/endermen/scream4"))
+				));
+		this.add(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT, definition()
+				.subtitle(modSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.getId()))
+				.with(
+						sound(new ResourceLocation("mob/endermen/portal")),
+						sound(new ResourceLocation("mob/endermen/portal2"))
+				));
 
 		this.generateMobSound();
 
@@ -189,6 +203,21 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DRYAD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DULLAHAN).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_EYE).withDefaults()
+				.withSay(
+						sound(new ResourceLocation("mob/endermen/idle1")),
+						sound(new ResourceLocation("mob/endermen/idle2")),
+						sound(new ResourceLocation("mob/endermen/idle3")),
+						sound(new ResourceLocation("mob/endermen/idle4")),
+						sound(new ResourceLocation("mob/endermen/idle5"))
+				).withHurt(
+						sound(new ResourceLocation("mob/endermen/hit1")),
+						sound(new ResourceLocation("mob/endermen/hit2")),
+						sound(new ResourceLocation("mob/endermen/hit3")),
+						sound(new ResourceLocation("mob/endermen/hit4"))
+				).withDeath(
+						sound(new ResourceLocation("mob/endermen/death"))
+				).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_DRAGON_GIRL).withDefaults()
 				.withSay(
 						sound(new ResourceLocation("mob/endermen/idle1")),
 						sound(new ResourceLocation("mob/endermen/idle2")),

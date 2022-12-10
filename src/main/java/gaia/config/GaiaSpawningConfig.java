@@ -27,6 +27,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
 		public final SpawningInfo enderEyeSpawning;
+		public final SpawningInfo enderDragonGirlSpawning;
 		public final SpawningInfo fleshLichSpawning;
 		public final SpawningInfo goblinSpawning;
 		public final SpawningInfo harpySpawning;
@@ -115,6 +116,9 @@ public class GaiaSpawningConfig {
 
 			List<? extends String> enderEyeBiomeDictionary = List.of("OVERWORLD");
 			enderEyeSpawning = new SpawningInfo(builder, "EnderEye", 40, 2, 4, List.of(), enderEyeBiomeDictionary, true);
+
+			List<? extends String> enderDragonGirlBiomeDictionary = List.of("END");
+			enderDragonGirlSpawning = new SpawningInfo(builder, "EnderDragonGirl", 1, 1, 1, List.of(), enderDragonGirlBiomeDictionary, true);
 
 			List<? extends String> fleshLichBiomeDictionary = List.of("OVERWORLD");
 			fleshLichSpawning = new SpawningInfo(builder, "FleshLich", 100, 4, 6, List.of(), fleshLichBiomeDictionary);

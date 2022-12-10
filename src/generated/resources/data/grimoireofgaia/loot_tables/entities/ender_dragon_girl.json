@@ -26,7 +26,7 @@
               }
             }
           ],
-          "name": "grimoireofgaia:soulfire"
+          "name": "minecraft:ender_pearl"
         }
       ]
     },
@@ -58,7 +58,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "grimoireofgaia:box_gold"
+          "name": "grimoireofgaia:box_end"
         },
         {
           "type": "minecraft:item",
@@ -86,17 +86,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "functions": [
-            {
-              "function": "minecraft:set_enchantments",
-              "enchantments": {
-                "minecraft:knockback": 1.0,
-                "minecraft:fire_aspect": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "grimoireofgaia:fan_fire"
+          "name": "grimoireofgaia:doll_ender_girl"
         }
       ]
     },
@@ -113,7 +103,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:doll_nine_tails"
+          "name": "grimoireofgaia:elytra_fragment"
         }
       ]
     }

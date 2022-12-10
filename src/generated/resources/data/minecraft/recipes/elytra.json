@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:elytra_fragment"
+    },
+    {
+      "item": "grimoireofgaia:elytra_fragment"
+    },
+    {
+      "item": "minecraft:popped_chorus_fruit"
+    }
+  ],
+  "result": {
+    "item": "minecraft:elytra"
+  }
+}

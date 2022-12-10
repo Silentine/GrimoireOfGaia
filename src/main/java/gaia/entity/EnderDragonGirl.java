@@ -1,10 +1,10 @@
 package gaia.entity;
 
 import gaia.config.GaiaConfig;
+import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IAssistMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
-import gaia.registry.GaiaTags;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,16 +26,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -45,7 +41,6 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -58,29 +53,28 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
+public class EnderDragonGirl extends AbstractGaiaEntity implements IAssistMob {
 	private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("411AF4FD-812A-4D90-802A-6FD57A7777C2");
 	private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", SharedEntityData.ATTACK_SPEED_BOOST, AttributeModifier.Operation.ADDITION);
-	private static final EntityDataAccessor<Boolean> SCREAMING = SynchedEntityData.defineId(EnderEye.class, EntityDataSerializers.BOOLEAN);
-
+	private static final EntityDataAccessor<Boolean> SCREAMING = SynchedEntityData.defineId(EnderDragonGirl.class, EntityDataSerializers.BOOLEAN);
 	private int targetChangeTime;
 
-	public EnderEye(EntityType<? extends Monster> entityType, Level level) {
+	public EnderDragonGirl(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 
-		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
 	}
 
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
-		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, new LookForPlayerGoal(this, this::isAngryAt));
-		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(EnderEye.class));
+		this.goalSelector.addGoal(0, new MobAttackGoal(this, 1.0D, false));
+
+		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, new EnderDragonGirl.LookForPlayerGoal(this, this::isAngryAt));
+		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(EnderDragonGirl.class));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);
@@ -95,36 +89,14 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 		}
 	}
 
-	public float getWalkTargetValue(BlockPos pos, LevelReader reader) {
-		return reader.getBlockState(pos).isAir() ? 10.0F : 0.0F;
-	}
-
-	@Override
-	protected PathNavigation createNavigation(Level level) {
-		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
-			public boolean isStableDestination(BlockPos pos) {
-				return !this.level.getBlockState(pos.below()).isAir();
-			}
-
-			public void tick() {
-				super.tick();
-			}
-		};
-		flyingpathnavigation.setCanOpenDoors(false);
-		flyingpathnavigation.setCanFloat(false);
-		flyingpathnavigation.setCanPassDoors(true);
-		return flyingpathnavigation;
-	}
-
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
-				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.FLYING_SPEED, 0.35D)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
-				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
-				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
+				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
+				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
+				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 
 				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -203,22 +175,15 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 
 	@Override
 	public float getBaseDefense() {
-		return SharedEntityData.getBaseDefense1();
+		return SharedEntityData.getBaseDefense2();
 	}
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && isPassenger()) {
-			stopRiding();
-		}
-
-		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
-			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
-		}
-
-		for (int i = 0; i < 2; ++i) {
-			this.level.addParticle(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() - 0.25D, this.getRandomZ(0.5D), (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+		if (!level.isClientSide) {
+			for (int i = 0; i < 2; ++i) {
+				this.level.addParticle(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() - 0.25D, this.getRandomZ(0.5D), (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+			}
 		}
 
 		this.jumping = false;
@@ -282,8 +247,8 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 			if (event.isCanceled()) return false;
 			boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
 			if (flag2 && !this.isSilent()) {
-				this.level.playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.ENDER_EYE_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
-				this.playSound(GaiaSounds.ENDER_EYE_TELEPORT.get(), 1.0F, 1.0F);
+				this.level.playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
+				this.playSound(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.get(), 1.0F, 1.0F);
 			}
 
 			return flag2;
@@ -311,21 +276,17 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return isScreaming() ? GaiaSounds.ENDER_EYE_SCREAM.get() : GaiaRegistry.ENDER_EYE.getSay();
+		return isScreaming() ? GaiaSounds.ENDER_DRAGON_GIRL_SCREAM.get() : GaiaRegistry.ENDER_DRAGON_GIRL.getSay();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaRegistry.ENDER_EYE.getHurt();
+		return GaiaRegistry.ENDER_DRAGON_GIRL.getHurt();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaRegistry.ENDER_EYE.getDeath();
-	}
-
-	@Override
-	protected void playStepSound(BlockPos pos, BlockState state) {
+		return GaiaRegistry.ENDER_DRAGON_GIRL.getDeath();
 	}
 
 	@Override
@@ -339,17 +300,21 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 	}
 
 	@Override
-	public int getMaxSpawnClusterSize() {
-		return SharedEntityData.CHUNK_LIMIT_2;
+	public boolean fireImmune() {
+		return true;
 	}
 
-	public static boolean checkEnderEyeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
-				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	@Override
+	public int getMaxSpawnClusterSize() {
+		return SharedEntityData.CHUNK_LIMIT_1;
+	}
+
+	public static boolean checkEnderDragonGirlSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return checkDaysPassed(levelAccessor) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
 	static class LookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
-		private final EnderEye enderEye;
+		private final EnderDragonGirl enderDragonGirl;
 		@Nullable
 		private Player pendingTarget;
 		private int aggroTime;
@@ -357,16 +322,16 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 		private final TargetingConditions startAggroTargetConditions;
 		private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
 
-		public LookForPlayerGoal(EnderEye enderEye, @Nullable Predicate<LivingEntity> livingEntityPredicate) {
-			super(enderEye, Player.class, 10, false, false, livingEntityPredicate);
-			this.enderEye = enderEye;
+		public LookForPlayerGoal(EnderDragonGirl enderDragonGirl, @Nullable Predicate<LivingEntity> livingEntityPredicate) {
+			super(enderDragonGirl, Player.class, 10, false, false, livingEntityPredicate);
+			this.enderDragonGirl = enderDragonGirl;
 			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((livingEntity) -> {
-				return enderEye.shouldAttackPlayer((Player) livingEntity);
+				return enderDragonGirl.shouldAttackPlayer((Player) livingEntity);
 			});
 		}
 
 		public boolean canUse() {
-			this.pendingTarget = this.enderEye.level.getNearestPlayer(this.startAggroTargetConditions, this.enderEye);
+			this.pendingTarget = this.enderDragonGirl.level.getNearestPlayer(this.startAggroTargetConditions, this.enderDragonGirl);
 			return this.pendingTarget != null;
 		}
 
@@ -382,19 +347,19 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 
 		public boolean canContinueToUse() {
 			if (this.pendingTarget != null) {
-				if (!this.enderEye.shouldAttackPlayer(this.pendingTarget)) {
+				if (!this.enderDragonGirl.shouldAttackPlayer(this.pendingTarget)) {
 					return false;
 				} else {
-					this.enderEye.lookAt(this.pendingTarget, 10.0F, 10.0F);
+					this.enderDragonGirl.lookAt(this.pendingTarget, 10.0F, 10.0F);
 					return true;
 				}
 			} else {
-				return this.target != null && this.continueAggroTargetConditions.test(this.enderEye, this.target) ? true : super.canContinueToUse();
+				return this.target != null && this.continueAggroTargetConditions.test(this.enderDragonGirl, this.target) ? true : super.canContinueToUse();
 			}
 		}
 
 		public void tick() {
-			if (this.enderEye.getTarget() == null) {
+			if (this.enderDragonGirl.getTarget() == null) {
 				super.setTarget((LivingEntity) null);
 			}
 
@@ -405,14 +370,14 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 					super.start();
 				}
 			} else {
-				if (this.target != null && !this.enderEye.isPassenger()) {
-					if (this.enderEye.shouldAttackPlayer((Player) this.target)) {
-						if (this.target.distanceToSqr(this.enderEye) < 16.0D) {
-							this.enderEye.teleportRandomly();
+				if (this.target != null && !this.enderDragonGirl.isPassenger()) {
+					if (this.enderDragonGirl.shouldAttackPlayer((Player) this.target)) {
+						if (this.target.distanceToSqr(this.enderDragonGirl) < 16.0D) {
+							this.enderDragonGirl.teleportRandomly();
 						}
 
 						this.teleportTime = 0;
-					} else if (this.target.distanceToSqr(this.enderEye) > 256.0D && this.teleportTime++ >= this.adjustedTickDelay(30) && this.enderEye.teleportTowards(this.target)) {
+					} else if (this.target.distanceToSqr(this.enderDragonGirl) > 256.0D && this.teleportTime++ >= this.adjustedTickDelay(30) && this.enderDragonGirl.teleportTowards(this.target)) {
 						this.teleportTime = 0;
 					}
 				}
