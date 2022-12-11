@@ -6,6 +6,7 @@ import gaia.client.model.FleshLichModel;
 import gaia.entity.FleshLich;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +16,7 @@ public class FleshLichRenderer extends MobRenderer<FleshLich, FleshLichModel> {
 
 	public FleshLichRenderer(Context context) {
 		super(context, new FleshLichModel(context.bakeLayer(ClientHandler.FLESH_LICH)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

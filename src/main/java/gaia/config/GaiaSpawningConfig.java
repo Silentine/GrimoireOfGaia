@@ -44,6 +44,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo shamanSpawning;
 		public final SpawningInfo sirenSpawning;
 		public final SpawningInfo sludgeGirlSpawning;
+		public final SpawningInfo sphinxSpawning;
 		public final SpawningInfo succubusSpawning;
 		public final SpawningInfo sprigganSpawning;
 		public final SpawningInfo werecatSpawning;
@@ -190,6 +191,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> sludgeGirlBiomes = generateList(Biomes.SWAMP);
 			List<? extends String> sludgeBiomeDictionary = List.of("OVERWORLD,SWAMP");
 			sludgeGirlSpawning = new SpawningInfo(builder, "SludgeGirl", 100, 2, 4, sludgeGirlBiomes, sludgeBiomeDictionary);
+
+			List<? extends String> sphinxBiomes = generateList(Biomes.DESERT);
+			List<? extends String> sphinxBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
+			sphinxSpawning = new SpawningInfo(builder, "Sphinx", 10, 1, 1, sphinxBiomes, sphinxBiomeDictionary);
 
 			List<? extends String> succubusBiomes = generateList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY,
 					Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);

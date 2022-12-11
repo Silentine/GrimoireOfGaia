@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:emerald_shard_to_emerald"
+    ]
+  },
+  "criteria": {
+    "has_emerald_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:emerald_shard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:emerald_shard_to_emerald"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_emerald_shard",
+      "has_the_recipe"
+    ]
+  ]
+}

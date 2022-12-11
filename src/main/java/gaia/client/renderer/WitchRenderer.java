@@ -6,6 +6,7 @@ import gaia.client.model.WitchModel;
 import gaia.entity.Witch;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WitchRenderer extends MobRenderer<Witch, WitchModel> {
@@ -15,6 +16,7 @@ public class WitchRenderer extends MobRenderer<Witch, WitchModel> {
 
 	public WitchRenderer(Context context) {
 		super(context, new WitchModel(context.bakeLayer(ClientHandler.WITCH)), ClientHandler.tinyShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 	}
 
 	@Override

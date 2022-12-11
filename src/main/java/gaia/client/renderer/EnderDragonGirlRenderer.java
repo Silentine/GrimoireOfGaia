@@ -7,6 +7,7 @@ import gaia.client.renderer.layer.EnderDragonGirlEyesLayer;
 import gaia.entity.EnderDragonGirl;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
@@ -21,6 +22,7 @@ public class EnderDragonGirlRenderer extends MobRenderer<EnderDragonGirl, EnderD
 
 	public EnderDragonGirlRenderer(Context context) {
 		super(context, new EnderDragonGirlModel(context.bakeLayer(ClientHandler.ENDER_DRAGON_GIRL)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 		this.addLayer(new EnderDragonGirlEyesLayer(this));
 	}

@@ -6,6 +6,7 @@ import gaia.client.model.AnubisModel;
 import gaia.entity.Anubis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -19,6 +20,7 @@ public class AnubisRenderer extends MobRenderer<Anubis, AnubisModel> {
 
 	public AnubisRenderer(Context context) {
 		super(context, new AnubisModel(context.bakeLayer(ClientHandler.ANUBIS)), ClientHandler.medShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

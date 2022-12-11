@@ -5,6 +5,7 @@ import gaia.client.ClientHandler;
 import gaia.client.model.YukiOnnaModel;
 import gaia.entity.YukiOnna;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -14,6 +15,7 @@ public class YukiOnnaRenderer extends GaiaBabyMobRenderer<YukiOnna, YukiOnnaMode
 
 	public YukiOnnaRenderer(Context context) {
 		super(context, new YukiOnnaModel(context.bakeLayer(ClientHandler.YUKI_ONNA)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

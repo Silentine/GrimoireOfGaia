@@ -7,6 +7,7 @@ import gaia.client.renderer.layer.ArachneEyesLayer;
 import gaia.entity.Arachne;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +17,7 @@ public class ArachneRenderer extends MobRenderer<Arachne, ArachneModel> {
 
 	public ArachneRenderer(Context context) {
 		super(context, new ArachneModel(context.bakeLayer(ClientHandler.ARACHNE)), ClientHandler.largeShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 		this.addLayer(new ArachneEyesLayer(this));
 	}

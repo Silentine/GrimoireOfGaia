@@ -7,6 +7,7 @@ import gaia.client.model.GoblinModel;
 import gaia.entity.GoblinFeral;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -19,6 +20,7 @@ public class GoblinFeralRenderer extends MobRenderer<GoblinFeral, GoblinModel<Go
 
 	public GoblinFeralRenderer(Context context) {
 		super(context, new GoblinModel(context.bakeLayer(ClientHandler.GOBLIN_FERAL)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

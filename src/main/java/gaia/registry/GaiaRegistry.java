@@ -36,6 +36,7 @@ import gaia.entity.Satyress;
 import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
+import gaia.entity.Sphinx;
 import gaia.entity.Sporeling;
 import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
@@ -110,8 +111,8 @@ public class GaiaRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GrimoireOfGaia.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, GrimoireOfGaia.MOD_ID);
 
-	public static final MobReg<AntWorker> ANT_WORKER = new MobReg.Builder<>("ant", EntityType.Builder.of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264).withDefaultSounds().build();
 	public static final MobReg<AntSalvager> ANT_SALVAGER = new MobReg.Builder<>("ant_salvager", EntityType.Builder.of(AntSalvager::new, MobCategory.MONSTER).sized(0.5F, 0.5F).clientTrackingRange(8), 0x8a7264, 0x303030).withDefaultSounds().build();
+	public static final MobReg<AntWorker> ANT_WORKER = new MobReg.Builder<>("ant", EntityType.Builder.of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264).withDefaultSounds().build();
 	public static final MobReg<Anubis> ANUBIS = new MobReg.Builder<>("anubis", EntityType.Builder.of(Anubis::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x353535, 0xb19534).withDefaultSounds().withGender().build();
 	public static final MobReg<Arachne> ARACHNE = new MobReg.Builder<>("arachne", EntityType.Builder.of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646).withDefaultSounds().build();
 	public static final MobReg<Banshee> BANSHEE = new MobReg.Builder<>("banshee", EntityType.Builder.of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed).withDefaultSounds().build();
@@ -125,8 +126,8 @@ public class GaiaRegistry {
 	public static final MobReg<Deathword> DEATHWORD = new MobReg.Builder<>("deathword", GaiaSoundType.AGGRESSIVE, EntityType.Builder.of(Deathword::new, MobCategory.MONSTER).sized(0.6F, 0.6F).clientTrackingRange(8), 0xb77a35, 0xffd800).build();
 	public static final MobReg<Dryad> DRYAD = new MobReg.Builder<>("dryad", GaiaSoundType.ASSIST, EntityType.Builder.of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460).withDefaultSounds().build();
 	public static final MobReg<Dullahan> DULLAHAN = new MobReg.Builder<>("dullahan", EntityType.Builder.of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d).withDefaultSounds().build();
-	public static final MobReg<EnderEye> ENDER_EYE = new MobReg.Builder<>("ender_eye", EntityType.Builder.of(EnderEye::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 2039583, 0x3158064).withDefaultSounds().build();
 	public static final MobReg<EnderDragonGirl> ENDER_DRAGON_GIRL = new MobReg.Builder<>("ender_dragon_girl", GaiaSoundType.PASSIVE, EntityType.Builder.of(EnderDragonGirl::new, MobCategory.MONSTER).sized(0.6F, 2.2F).clientTrackingRange(8), 3158064, 14711290).withDefaultSounds().build();
+	public static final MobReg<EnderEye> ENDER_EYE = new MobReg.Builder<>("ender_eye", EntityType.Builder.of(EnderEye::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 2039583, 0x3158064).withDefaultSounds().build();
 	public static final MobReg<FleshLich> FLESH_LICH = new MobReg.Builder<>("flesh_lich", EntityType.Builder.of(FleshLich::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x00cccc, 0x799c65).withDefaultSounds().withStep().build();
 	public static final MobReg<Goblin> GOBLIN = new MobReg.Builder<>("goblin", GaiaSoundType.ASSIST, EntityType.Builder.of(Goblin::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8d4f41).withDefaultSounds().build();
 	public static final MobReg<GoblinFeral> GOBLIN_FERAL = new MobReg.Builder<>("goblin_feral", EntityType.Builder.of(GoblinFeral::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8a1d3e).withDefaultSounds().build();
@@ -143,6 +144,7 @@ public class GaiaRegistry {
 	public static final MobReg<Shaman> SHAMAN = new MobReg.Builder<>("shaman", EntityType.Builder.of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134).withDefaultSounds().build();
 	public static final MobReg<Siren> SIREN = new MobReg.Builder<>("siren", EntityType.Builder.of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de).withDefaultSounds().build();
 	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg.Builder<>("sludge_girl", EntityType.Builder.of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172).withDefaultSounds().build();
+	public static final MobReg<Sphinx> SPHINX = new MobReg.Builder<>("sphinx", EntityType.Builder.of(Sphinx::new, MobCategory.MONSTER).sized(1.2F, 1.8F).clientTrackingRange(8), 0xf09942, 0x353535).withDefaultSounds().build();
 	public static final MobReg<Sporeling> SPORELING = new MobReg.Builder<>("sporeling", EntityType.Builder.of(Sporeling::new, MobCategory.MONSTER).sized(0.25F, 0.50F).clientTrackingRange(8), 0xc32826, 0x977251).withDefaultSounds().build();
 	public static final MobReg<Spriggan> SPRIGGAN = new MobReg.Builder<>("spriggan", EntityType.Builder.of(Spriggan::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x7c623e, 0xc2dda5).withDefaultSounds().build();
 	public static final MobReg<Succubus> SUCCUBUS = new MobReg.Builder<>("succubus", EntityType.Builder.of(Succubus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4079166, 13218145).withDefaultSounds().withGender().build();
@@ -241,6 +243,9 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> EXPERIENCE_GOLD = ITEMS.register("experience_gold", () -> new ExperienceItem(itemBuilder().rarity(Rarity.RARE), 2));
 	public static final RegistryObject<Item> EXPERIENCE_DIAMOND = ITEMS.register("experience_diamond", () -> new ExperienceItem(itemBuilder().rarity(Rarity.RARE), 4));
 	public static final RegistryObject<Item> ELYTRA_FRAGMENT = ITEMS.register("elytra_fragment", () -> new Item(itemBuilder()));
+	public static final RegistryObject<Item> TOTEM_FRAGMENT = ITEMS.register("totem_of_undying_fragment", () -> new Item(itemBuilder()));
+	public static final RegistryObject<Item> DIAMOND_SHARD = ITEMS.register("diamond_shard", () -> new Item(itemBuilder()));
+	public static final RegistryObject<Item> EMERALD_SHARD = ITEMS.register("emerald_shard", () -> new Item(itemBuilder()));
 	public static final RegistryObject<Item> FAN = ITEMS.register("fan", () -> new FanItem(itemBuilder()));
 	public static final RegistryObject<Item> FAN_FIRE = ITEMS.register("fan_fire", () -> new FireFanItem(itemBuilder()));
 	public static final RegistryObject<Item> FAN_ICE = ITEMS.register("fan_ice", () -> new IceFanItem(itemBuilder()));

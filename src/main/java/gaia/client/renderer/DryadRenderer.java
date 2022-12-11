@@ -5,6 +5,7 @@ import gaia.client.ClientHandler;
 import gaia.client.model.DryadModel;
 import gaia.entity.Dryad;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +16,7 @@ public class DryadRenderer extends GaiaBabyMobRenderer<Dryad, DryadModel> {
 
 	public DryadRenderer(Context context) {
 		super(context, new DryadModel(context.bakeLayer(ClientHandler.DRYAD)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

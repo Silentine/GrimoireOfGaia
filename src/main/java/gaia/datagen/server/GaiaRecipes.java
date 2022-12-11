@@ -35,6 +35,14 @@ public class GaiaRecipes extends RecipeProvider {
 				.pattern("CCC").pattern("CCC").pattern("CCC")
 				.define('C', GaiaRegistry.STONE_COAL.get())
 				.unlockedBy("has_stone_coal", has(GaiaRegistry.STONE_COAL.get())).save(consumer, "grimoireofgaia:stone_coal_to_coal_block");
+		ShapedRecipeBuilder.shaped(Items.DIAMOND)
+				.pattern("SSS").pattern("SSS").pattern("SSS")
+				.define('S', GaiaRegistry.DIAMOND_SHARD.get())
+				.unlockedBy("has_diamond_shard", has(GaiaRegistry.DIAMOND_SHARD.get())).save(consumer, "grimoireofgaia:diamond_shard_to_diamond");
+		ShapedRecipeBuilder.shaped(Items.EMERALD)
+				.pattern("SSS").pattern("SSS").pattern("SSS")
+				.define('S', GaiaRegistry.EMERALD_SHARD.get())
+				.unlockedBy("has_emerald_shard", has(GaiaRegistry.EMERALD_SHARD.get())).save(consumer, "grimoireofgaia:emerald_shard_to_emerald");
 
 		ShapelessRecipeBuilder.shapeless(GaiaRegistry.MONSTER_FEED.get())
 				.requires(Tags.Items.SEEDS_WHEAT).requires(Tags.Items.SEEDS_WHEAT).requires(GaiaRegistry.EXPERIENCE_IRON.get())

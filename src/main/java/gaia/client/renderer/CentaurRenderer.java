@@ -6,6 +6,7 @@ import gaia.client.model.CentaurModel;
 import gaia.entity.Centaur;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -21,6 +22,7 @@ public class CentaurRenderer extends MobRenderer<Centaur, CentaurModel> {
 
 	public CentaurRenderer(Context context) {
 		super(context, new CentaurModel(context.bakeLayer(ClientHandler.CENTAUR)), ClientHandler.medShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

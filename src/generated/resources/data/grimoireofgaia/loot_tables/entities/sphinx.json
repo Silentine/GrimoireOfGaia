@@ -13,7 +13,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0.0,
-                "max": 2.0
+                "max": 1.0
               },
               "add": false
             },
@@ -26,7 +26,7 @@
               }
             }
           ],
-          "name": "grimoireofgaia:nether_wart_jam"
+          "name": "grimoireofgaia:golden_apple_pie_slice"
         }
       ]
     },
@@ -47,7 +47,7 @@
               "add": false
             }
           ],
-          "name": "forge:nuggets/gold",
+          "name": "forge:nuggets/diamond",
           "expand": true
         }
       ]
@@ -57,19 +57,20 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:box_gold"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:bag_book"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
+          "type": "minecraft:tag",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "forge:nuggets/emerald",
+          "expand": true
         }
       ]
     },
@@ -86,7 +87,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:book_of_memory"
+          "name": "grimoireofgaia:box_diamond"
         }
       ]
     },
@@ -103,7 +104,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:deco_mandragora_pot"
+          "name": "grimoireofgaia:chest_desert"
         }
       ]
     }

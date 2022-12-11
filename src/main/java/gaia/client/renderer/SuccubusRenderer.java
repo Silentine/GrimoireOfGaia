@@ -6,6 +6,7 @@ import gaia.client.model.SuccubusModel;
 import gaia.entity.Succubus;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -17,6 +18,7 @@ public class SuccubusRenderer extends MobRenderer<Succubus, SuccubusModel> {
 
 	public SuccubusRenderer(Context context) {
 		super(context, new SuccubusModel(context.bakeLayer(ClientHandler.SUCCUBUS)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

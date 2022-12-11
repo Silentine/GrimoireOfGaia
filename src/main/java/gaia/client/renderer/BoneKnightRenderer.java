@@ -6,6 +6,7 @@ import gaia.client.model.BoneKnightModel;
 import gaia.entity.BoneKnight;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +16,7 @@ public class BoneKnightRenderer extends MobRenderer<BoneKnight, BoneKnightModel>
 
 	public BoneKnightRenderer(Context context) {
 		super(context, new BoneKnightModel(context.bakeLayer(ClientHandler.BONE_KNIGHT)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

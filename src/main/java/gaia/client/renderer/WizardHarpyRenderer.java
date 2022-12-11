@@ -7,6 +7,7 @@ import gaia.client.renderer.layer.WizardHarpyEyesLayer;
 import gaia.entity.WizardHarpy;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +17,7 @@ public class WizardHarpyRenderer extends MobRenderer<WizardHarpy, WizardHarpyMod
 
 	public WizardHarpyRenderer(Context context) {
 		super(context, new WizardHarpyModel(context.bakeLayer(ClientHandler.WIZARD_HARPY)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 		this.addLayer(new WizardHarpyEyesLayer(this));
 	}

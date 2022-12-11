@@ -7,6 +7,7 @@ import gaia.client.model.SporelingModel;
 import gaia.entity.Sporeling;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SporelingRenderer extends MobRenderer<Sporeling, SporelingModel> {
@@ -16,6 +17,7 @@ public class SporelingRenderer extends MobRenderer<Sporeling, SporelingModel> {
 
 	public SporelingRenderer(Context context) {
 		super(context, new SporelingModel(context.bakeLayer(ClientHandler.SPORELING)), ClientHandler.tinyShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 	}
 
 	@Override

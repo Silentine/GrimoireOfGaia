@@ -6,6 +6,7 @@ import gaia.client.model.NineTailsModel;
 import gaia.entity.NineTails;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +16,7 @@ public class NineTailsRenderer extends MobRenderer<NineTails, NineTailsModel> {
 
 	public NineTailsRenderer(Context context) {
 		super(context, new NineTailsModel(context.bakeLayer(ClientHandler.NINE_TAILS)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

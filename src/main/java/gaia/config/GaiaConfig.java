@@ -45,6 +45,7 @@ public class GaiaConfig {
 
 		public final BooleanValue spawnDaysPassed;
 		public final IntValue spawnDaysSet;
+		public final BooleanValue spawnLevel3Rain;
 		public final BooleanValue disableYRestriction;
 		public final BooleanValue spawnWeather;
 
@@ -132,6 +133,10 @@ public class GaiaConfig {
 			spawnDaysSet = builder
 					.comment("Amount of days required to have passed before they can start spawning [Default: 3]")
 					.defineInRange("spawnDaysSet", 3, 1, Integer.MAX_VALUE);
+
+			spawnLevel3Rain = builder
+					.comment("Level 3 mobs only spawn when it is raining/snowing [Default: false]")
+					.define("spawnLevel3Rain", false);
 
 			disableYRestriction = builder
 					.comment("Remove spawn conditions related to height (Y-axis) [Default: false]")

@@ -7,6 +7,7 @@ import gaia.client.renderer.layer.BansheeGlowLayer;
 import gaia.entity.Banshee;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BansheeRenderer extends MobRenderer<Banshee, BansheeModel> {
@@ -15,6 +16,7 @@ public class BansheeRenderer extends MobRenderer<Banshee, BansheeModel> {
 
 	public BansheeRenderer(Context context) {
 		super(context, new BansheeModel(context.bakeLayer(ClientHandler.BANSHEE)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new BansheeGlowLayer(this));
 	}
 

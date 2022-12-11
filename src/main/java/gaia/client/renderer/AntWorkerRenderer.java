@@ -5,6 +5,7 @@ import gaia.client.ClientHandler;
 import gaia.client.model.AntWorkerModel;
 import gaia.entity.AntWorker;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +17,7 @@ public class AntWorkerRenderer extends GaiaBabyMobRenderer<AntWorker, AntWorkerM
 
 	public AntWorkerRenderer(Context context) {
 		super(context, new AntWorkerModel(context.bakeLayer(ClientHandler.ANT_WORKER)), ClientHandler.medShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

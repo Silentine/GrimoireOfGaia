@@ -37,6 +37,7 @@ import gaia.entity.Satyress;
 import gaia.entity.Shaman;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
+import gaia.entity.Sphinx;
 import gaia.entity.Sporeling;
 import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
@@ -101,6 +102,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.SHAMAN.getEntityType(), GaiaSpawningConfig.COMMON.shamanSpawning, event);
 		addSpawn(GaiaRegistry.SIREN.getEntityType(), GaiaSpawningConfig.COMMON.sirenSpawning, event);
 		addSpawn(GaiaRegistry.SLUDGE_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.sludgeGirlSpawning, event);
+		addSpawn(GaiaRegistry.SPHINX.getEntityType(), GaiaSpawningConfig.COMMON.sphinxSpawning, event);
 		addSpawn(GaiaRegistry.SPRIGGAN.getEntityType(), GaiaSpawningConfig.COMMON.sprigganSpawning, event);
 		addSpawn(GaiaRegistry.SUCCUBUS.getEntityType(), GaiaSpawningConfig.COMMON.succubusSpawning, event);
 		addSpawn(GaiaRegistry.WERECAT.getEntityType(), GaiaSpawningConfig.COMMON.werecatSpawning, event);
@@ -187,6 +189,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.SHAMAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SIREN.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Siren::checkSirenSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SludgeGirl::checkSludgeGirlSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.SPHINX.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sphinx::checkSphinxSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SPORELING.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sporeling::checkSporelingSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SPRIGGAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Spriggan::checkSprigganSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SUCCUBUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Succubus::checkSuccubusSpawnRules);
@@ -235,6 +238,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.SHAMAN.getEntityType(), Shaman.createAttributes().build());
 		event.put(GaiaRegistry.SIREN.getEntityType(), Siren.createAttributes().build());
 		event.put(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SludgeGirl.createAttributes().build());
+		event.put(GaiaRegistry.SPHINX.getEntityType(), Sphinx.createAttributes().build());
 		event.put(GaiaRegistry.SPORELING.getEntityType(), Sporeling.createAttributes().build());
 		event.put(GaiaRegistry.SPRIGGAN.getEntityType(), Spriggan.createAttributes().build());
 		event.put(GaiaRegistry.SUCCUBUS.getEntityType(), Succubus.createAttributes().build());

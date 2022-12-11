@@ -6,6 +6,7 @@ import gaia.client.model.BeeModel;
 import gaia.entity.Bee;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +16,7 @@ public class BeeRenderer extends MobRenderer<Bee, BeeModel> {
 
 	public BeeRenderer(Context context) {
 		super(context, new BeeModel(context.bakeLayer(ClientHandler.BEE)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

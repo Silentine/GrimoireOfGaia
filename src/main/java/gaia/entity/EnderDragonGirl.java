@@ -103,6 +103,11 @@ public class EnderDragonGirl extends AbstractGaiaEntity implements IAssistMob {
 	}
 
 	@Override
+	public int getGaiaLevel() {
+		return 2;
+	}
+
+	@Override
 	public void setTarget(@Nullable LivingEntity livingEntity) {
 		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
 		if (livingEntity == null) {

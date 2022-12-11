@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "grimoireofgaia:emerald_shard"
+    }
+  },
+  "result": {
+    "item": "minecraft:emerald"
+  }
+}

@@ -1,16 +1,15 @@
-package gaia.client.model;// Made with Blockbench 4.5.2
+package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.entity.Deathword;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import gaia.entity.Deathword;
 import net.minecraft.util.Mth;
 
 public class DeathwordModel extends EntityModel<Deathword> {
@@ -41,21 +40,28 @@ public class DeathwordModel extends EntityModel<Deathword> {
 
 		PartDefinition deathword = partdefinition.addOrReplaceChild("deathword", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition binder = deathword.addOrReplaceChild("binder", CubeListBuilder.create().texOffs(34, 0).addBox(-1.0F, -5.0F, 0.0F, 2.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition binder = deathword.addOrReplaceChild("binder", CubeListBuilder.create()
+				.texOffs(34, 0).addBox(-1.0F, -5.0F, 0.0F, 2.0F, 10.0F, 0.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition rightcover = binder.addOrReplaceChild("rightcover", CubeListBuilder.create().texOffs(0, 10).addBox(-6.0F, -5.0F, 0.0F, 6.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
+		PartDefinition rightcover = binder.addOrReplaceChild("rightcover", CubeListBuilder.create()
+				.texOffs(0, 10).addBox(-6.0F, -5.0F, 0.0F, 6.0F, 10.0F, 0.0F), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
-		PartDefinition leftcover = binder.addOrReplaceChild("leftcover", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -5.0F, 0.0F, 6.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 0.0F, 0.0F, 0.0F, 0.7854F, 0.0F));
+		PartDefinition leftcover = binder.addOrReplaceChild("leftcover", CubeListBuilder.create()
+				.texOffs(0, 0).addBox(0.0F, -5.0F, 0.0F, 6.0F, 10.0F, 0.0F), PartPose.offsetAndRotation(1.0F, 0.0F, 0.0F, 0.0F, 0.7854F, 0.0F));
 
 		PartDefinition binderinside = binder.addOrReplaceChild("binderinside", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition rightpage = binderinside.addOrReplaceChild("rightpage", CubeListBuilder.create().texOffs(12, 9).addBox(-5.0F, -4.0F, 0.0F, 5.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, -1.0F, 0.0F, -0.7854F, 0.0F));
+		PartDefinition rightpage = binderinside.addOrReplaceChild("rightpage", CubeListBuilder.create()
+				.texOffs(12, 9).addBox(-5.0F, -4.0F, 0.0F, 5.0F, 8.0F, 1.0F), PartPose.offsetAndRotation(0.0F, 0.0F, -1.0F, 0.0F, -0.7854F, 0.0F));
 
-		PartDefinition rightpagemiddle = rightpage.addOrReplaceChild("rightpagemiddle", CubeListBuilder.create().texOffs(24, 8).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 1.7453F, 0.0F));
+		PartDefinition rightpagemiddle = rightpage.addOrReplaceChild("rightpagemiddle", CubeListBuilder.create()
+				.texOffs(24, 8).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 1.7453F, 0.0F));
 
-		PartDefinition leftpage = binderinside.addOrReplaceChild("leftpage", CubeListBuilder.create().texOffs(12, 0).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, -1.0F, 0.0F, 0.7854F, 0.0F));
+		PartDefinition leftpage = binderinside.addOrReplaceChild("leftpage", CubeListBuilder.create()
+				.texOffs(12, 0).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 1.0F), PartPose.offsetAndRotation(0.0F, 0.0F, -1.0F, 0.0F, 0.7854F, 0.0F));
 
-		PartDefinition leftpagemiddle = leftpage.addOrReplaceChild("leftpagemiddle", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 1.3963F, 0.0F));
+		PartDefinition leftpagemiddle = leftpage.addOrReplaceChild("leftpagemiddle", CubeListBuilder.create()
+				.texOffs(24, 0).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 1.3963F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}

@@ -16,7 +16,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-
 public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodytop;

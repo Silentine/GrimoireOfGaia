@@ -52,6 +52,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SATYRESS, "Satyress").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SHAMAN, "Shaman").withSay("chants").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SIREN, "Siren").withSay("sings").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SPHINX, "Sphinx").withSay("roars").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SLUDGE_GIRL, "Sludge Girl").withSay("bubbles").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SPORELING, "Sporeling").withSay("squeaks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SPRIGGAN, "Spriggan").withSay("crackles").build());
@@ -106,6 +107,9 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.EXPERIENCE_GOLD, "Crystallized Experience (Medium)");
 		addItem(GaiaRegistry.EXPERIENCE_DIAMOND, "Crystallized Experience (Large)");
 		addItem(GaiaRegistry.ELYTRA_FRAGMENT, "Elytra Fragment");
+		addItem(GaiaRegistry.TOTEM_FRAGMENT, "Totem of Undying Fragment");
+		addItem(GaiaRegistry.DIAMOND_SHARD, "Diamond Shard");
+		addItem(GaiaRegistry.EMERALD_SHARD, "Diamond Shard");
 		addItem(GaiaRegistry.FAN, "Hand Fan");
 		addItem(GaiaRegistry.FAN_FIRE, "Ornate Fire Fan");
 		addItem(GaiaRegistry.FAN_ICE, "Ornate Ice Fan");

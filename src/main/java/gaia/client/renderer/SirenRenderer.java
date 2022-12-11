@@ -6,6 +6,7 @@ import gaia.client.model.SirenModel;
 import gaia.entity.Siren;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +17,7 @@ public class SirenRenderer extends MobRenderer<Siren, SirenModel> {
 
 	public SirenRenderer(Context context) {
 		super(context, new SirenModel(context.bakeLayer(ClientHandler.SIREN)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
 	}
 

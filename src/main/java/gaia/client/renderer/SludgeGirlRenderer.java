@@ -7,6 +7,7 @@ import gaia.client.renderer.layer.SludgeHairLayer;
 import gaia.entity.SludgeGirl;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SludgeGirlRenderer extends MobRenderer<SludgeGirl, SludgeGirlModel> {
@@ -17,6 +18,7 @@ public class SludgeGirlRenderer extends MobRenderer<SludgeGirl, SludgeGirlModel>
 
 	public SludgeGirlRenderer(Context context) {
 		super(context, new SludgeGirlModel(context.bakeLayer(ClientHandler.SLUDGE_GIRL)), ClientHandler.smallShadow);
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new SludgeHairLayer(this, context.getModelSet()));
 	}
 
