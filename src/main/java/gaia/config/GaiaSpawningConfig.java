@@ -24,6 +24,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo cobblestoneGolemSpawning;
 		public final SpawningInfo creepSpawning;
 		public final SpawningInfo cyclopsSpawning;
+		public final SpawningInfo deathwordSpawning;
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
 		public final SpawningInfo enderEyeSpawning;
@@ -103,6 +104,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> cyclopsBiomes = generateList(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> cyclopsBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
 			cyclopsSpawning = new SpawningInfo(builder, "Cyclops", 40, 4, 6, cyclopsBiomes, cyclopsBiomeDictionary);
+
+			List<? extends String> deathwordBiomeDictionary = List.of("OVERWORLD");
+			deathwordSpawning = new SpawningInfo(builder, "Deathword", 40, 1, 2, List.of(), deathwordBiomeDictionary, true);
 
 			List<? extends String> dryadBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> dryadBiomeDictionary = List.of(

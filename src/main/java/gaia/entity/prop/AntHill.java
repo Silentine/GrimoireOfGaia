@@ -82,7 +82,7 @@ public class AntHill extends AbstractPropEntity {
 					++spawnTime;
 				} else {
 					if (!level.isClientSide) {
-						setSpawn((byte) 0);
+						setSpawn(0);
 					}
 
 					hurt(DamageSource.GENERIC, getMaxHealth() / getSpawnAmount());

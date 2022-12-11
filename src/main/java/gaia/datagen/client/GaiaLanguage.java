@@ -32,6 +32,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem").withDeath("crumbles").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CREEP, "Creep").withSay("hisses").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CYCLOPS, "Cyclops").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DEATHWORD, "Deathword").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DRYAD, "Dryad").withSay("murmurs").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.DULLAHAN, "Dullahan").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_EYE, "Ender Eye").withSay("vwoops").build());
