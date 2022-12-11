@@ -34,8 +34,6 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 	private final ModelPart skirt2;
 	private final ModelPart skirt3;
 	private final ModelPart skirt4;
-	private final ModelPart leftleg;
-	private final ModelPart rightleg;
 
 	public BansheeModel(ModelPart root) {
 		this.root = root.getChild("banshee");
@@ -57,8 +55,6 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 		this.skirt4 = this.skirt3.getChild("skirt4");
 		this.leftarmlower = this.leftarm.getChild("leftarmlower");
 		this.rightarmlower = this.rightarm.getChild("rightarmlower");
-		this.leftleg = this.root.getChild("leftleg");
-		this.rightleg = this.root.getChild("rightleg");
 	}
 
 	public static LayerDefinition createBodyLayer() {

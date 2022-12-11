@@ -22,7 +22,6 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 	private final ModelPart bodymiddle;
 	private final ModelPart bodytop;
 	private final ModelPart head;
-	private final ModelPart headeyes;
 	private final ModelPart chest;
 	private final ModelPart leftarm;
 	private final ModelPart rightarm;
@@ -43,7 +42,6 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		this.bodytop = this.bodymiddle.getChild("bodytop");
 		ModelPart neck = this.bodytop.getChild("neck");
 		this.head = neck.getChild("head");
-		this.headeyes = this.head.getChild("headeyes");
 		this.chest = this.bodytop.getChild("chest");
 		this.leftarm = this.bodytop.getChild("leftarm");
 		this.rightarm = this.bodytop.getChild("rightarm");

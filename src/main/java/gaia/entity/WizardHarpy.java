@@ -182,16 +182,14 @@ public class WizardHarpy extends AbstractGaiaEntity implements IAssistMob, Range
 		/* FLEE DATA */
 		if ((getHealth() < getMaxHealth() * 0.25F) && (switchHealth == 0)) {
 			switch (random.nextInt(2)) {
-				case 0:
+				case 0 -> {
 					setGoals(1);
 					setStoredStack(getOffhandItem());
 					setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 					setAnimationState(2);
 					switchHealth = 1;
-					break;
-				case 1:
-					switchHealth = 2;
-					break;
+				}
+				case 1 -> switchHealth = 2;
 			}
 		}
 
@@ -250,32 +248,15 @@ public class WizardHarpy extends AbstractGaiaEntity implements IAssistMob, Range
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
 		switch (random.nextInt(3)) {
-			case 0:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_FREEZING.get()));
-				break;
-			case 1:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_NIGHTMARE.get()));
-				break;
-			case 2:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_METAL.get()));
-				break;
-			case 3:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_ENDER.get()));
-				break;
-			case 4:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_HUNGER.get()));
-				break;
-			case 5:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_BATTLE.get()));
-				break;
-			case 6:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_NATURE.get()));
-				break;
-			case 7:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_WITHER.get()));
-				break;
-			default:
-				setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK.get()));
+			case 0 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_FREEZING.get()));
+			case 1 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_NIGHTMARE.get()));
+			case 2 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_METAL.get()));
+			case 3 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_ENDER.get()));
+			case 4 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_HUNGER.get()));
+			case 5 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_BATTLE.get()));
+			case 6 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_NATURE.get()));
+			case 7 -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK_WITHER.get()));
+			default -> setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.WEAPON_BOOK.get()));
 		}
 	}
 

@@ -14,7 +14,6 @@ import net.minecraft.util.Mth;
 
 public class DeathwordModel extends EntityModel<Deathword> {
 	private final ModelPart root;
-	private final ModelPart binder;
 	private final ModelPart rightcover;
 	private final ModelPart leftcover;
 	private final ModelPart rightpage;
@@ -24,10 +23,10 @@ public class DeathwordModel extends EntityModel<Deathword> {
 
 	public DeathwordModel(ModelPart root) {
 		this.root = root.getChild("deathword");
-		this.binder = this.root.getChild("binder");
-		this.rightcover = this.binder.getChild("rightcover");
-		this.leftcover = this.binder.getChild("leftcover");
-		ModelPart binderinside = this.binder.getChild("binderinside");
+		ModelPart binder = this.root.getChild("binder");
+		this.rightcover = binder.getChild("rightcover");
+		this.leftcover = binder.getChild("leftcover");
+		ModelPart binderinside = binder.getChild("binderinside");
 		this.rightpage = binderinside.getChild("rightpage");
 		this.rightpagemiddle = this.rightpage.getChild("rightpagemiddle");
 		this.leftpage = binderinside.getChild("leftpage");

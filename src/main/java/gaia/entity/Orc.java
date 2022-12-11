@@ -247,7 +247,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
 		switch (getVariant()) {
-			case 0:
+			case 0 -> {
 				switch (random.nextInt(2)) {
 					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
@@ -258,8 +258,8 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 						populateDefaultEquipmentEnchantments(instance);
 					}
 				}
-				break;
-			case 1:
+			}
+			case 1 -> {
 				switch (random.nextInt(2)) {
 					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
@@ -270,7 +270,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 						populateDefaultEquipmentEnchantments(instance);
 					}
 				}
-				break;
+			}
 		}
 
 		ItemStack itemstack = getMainHandItem();

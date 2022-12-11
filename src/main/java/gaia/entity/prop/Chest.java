@@ -113,18 +113,10 @@ public class Chest extends AbstractPropEntity {
 
 		Random random = levelAccessor.getRandom();
 		switch (random.nextInt(4)) {
-			case 0:
-				setRotation(0);
-				break;
-			case 1:
-				setRotation(1);
-				break;
-			case 2:
-				setRotation(2);
-				break;
-			case 3:
-				setRotation(3);
-				break;
+			case 0 -> setRotation(0);
+			case 1 -> setRotation(1);
+			case 2 -> setRotation(2);
+			case 3 -> setRotation(3);
 		}
 
 		if (random.nextInt(2) == 0) {

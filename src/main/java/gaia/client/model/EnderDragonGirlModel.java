@@ -76,6 +76,8 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 
 		head.addOrReplaceChild("lefthorn_r1", CubeListBuilder.create().texOffs(36, 14).addBox(-1.0F, -0.5F, 0.0F, 2.0F, 2.0F, 7.0F), PartPose.offsetAndRotation(3.0F, -6.0F, -2.5F, 0.3491F, 0.0F, 0.0F));
 
+		head.addOrReplaceChild("righthorn_r1", CubeListBuilder.create().texOffs(36, 14).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 7.0F), PartPose.offsetAndRotation(-3.0F, -5.5F, -2.5F, 0.3491F, 0.0F, 0.0F));
+
 		head.addOrReplaceChild("headeyes", CubeListBuilder.create().texOffs(24, 0).addBox(-3.0F, -6.0F, -3.1F, 6.0F, 6.0F, 0.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		head.addOrReplaceChild("rightear", CubeListBuilder.create().texOffs(36, 19).addBox(0.0F, -1.0F, 0.0F, 0.0F, 2.0F, 4.0F), PartPose.offsetAndRotation(-3.0F, -2.0F, -2.0F, 0.0F, -0.5236F, 0.0F));

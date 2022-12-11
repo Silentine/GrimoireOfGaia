@@ -49,7 +49,7 @@ public class Banshee extends AbstractGaiaEntity {
 
 	public Banshee(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
-		this.moveControl = new Banshee.BansheeMoveControl(this);
+		this.moveControl = new BansheeMoveControl(this);
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
 	}
 
@@ -62,8 +62,8 @@ public class Banshee extends AbstractGaiaEntity {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 
-		this.goalSelector.addGoal(4, new Banshee.BansheeChargeAttackGoal(this));
-		this.goalSelector.addGoal(8, new Banshee.BansheeRandomMoveGoal(this));
+		this.goalSelector.addGoal(4, new BansheeChargeAttackGoal(this));
+		this.goalSelector.addGoal(8, new BansheeRandomMoveGoal(this));
 		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
 		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, LivingEntity.class, 8.0F));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Banshee.class));
@@ -239,7 +239,7 @@ public class Banshee extends AbstractGaiaEntity {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
-	class BansheeMoveControl extends MoveControl {
+	static class BansheeMoveControl extends MoveControl {
 
 		public BansheeMoveControl(Banshee banshee) {
 			super(banshee);
@@ -270,7 +270,7 @@ public class Banshee extends AbstractGaiaEntity {
 	}
 
 
-	class BansheeChargeAttackGoal extends Goal {
+	static class BansheeChargeAttackGoal extends Goal {
 		protected final Banshee banshee;
 
 		public BansheeChargeAttackGoal(Banshee banshee) {
@@ -327,7 +327,7 @@ public class Banshee extends AbstractGaiaEntity {
 		}
 	}
 
-	class BansheeRandomMoveGoal extends Goal {
+	static class BansheeRandomMoveGoal extends Goal {
 		protected final Banshee banshee;
 
 		public BansheeRandomMoveGoal(Banshee banshee) {

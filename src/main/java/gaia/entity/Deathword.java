@@ -155,25 +155,19 @@ public class Deathword extends AbstractGaiaEntity {
 
 					if (!level.isClientSide) {
 						switch (random.nextInt(4)) {
-							case 0:
+							case 0 -> {
 								boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
 								if (!flag) {
 									setSpawn(0);
 								} else {
 									setSpawn(1);
 								}
-
-								break;
-							case 1:
-								setSpawn(1);
-								break;
-							case 2:
-								setSpawn(2);
-								break;
-							case 3:
-								setSpawn(3);
-								break;
-							default:
+							}
+							case 1 -> setSpawn(1);
+							case 2 -> setSpawn(2);
+							case 3 -> setSpawn(3);
+							default -> {
+							}
 						}
 					}
 

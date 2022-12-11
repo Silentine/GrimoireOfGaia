@@ -36,18 +36,10 @@ public class ChestModel extends EntityModel<Chest> {
 	@Override
 	public void setupAnim(Chest entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		switch (entity.getRotation()) {
-			case 0:
-				root.yRot = 0;
-				break;
-			case 1:
-				root.yRot = (90 * Mth.DEG_TO_RAD);
-				break;
-			case 2:
-				root.yRot = (180 * Mth.DEG_TO_RAD);
-				break;
-			case 3:
-				root.yRot = (270 * Mth.DEG_TO_RAD);
-				break;
+			case 0 -> root.yRot = 0;
+			case 1 -> root.yRot = (90 * Mth.DEG_TO_RAD);
+			case 2 -> root.yRot = (180 * Mth.DEG_TO_RAD);
+			case 3 -> root.yRot = (270 * Mth.DEG_TO_RAD);
 		}
 	}
 
