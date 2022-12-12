@@ -93,44 +93,44 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 				.texOffs(36, 0).addBox(-3.5F, -6.5F, -3.5F, 7.0F, 7.0F, 7.0F)
 				.texOffs(36, 37).addBox(-1.5F, -6.0F, 3.6F, 3.0F, 3.0F, 1.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition finright = head.addOrReplaceChild("finright", CubeListBuilder.create()
+		head.addOrReplaceChild("finright", CubeListBuilder.create()
 				.texOffs(36, 36).addBox(0.0F, -4.0F, 0.0F, 0.0F, 5.0F, 5.0F), PartPose.offsetAndRotation(-3.0F, -2.0F, -3.0F, 0.0F, -0.5236F, 0.0F));
 
-		PartDefinition finleft = head.addOrReplaceChild("finleft", CubeListBuilder.create()
+		head.addOrReplaceChild("finleft", CubeListBuilder.create()
 				.texOffs(36, 36).addBox(0.0F, -4.0F, 0.0F, 0.0F, 5.0F, 5.0F), PartPose.offsetAndRotation(3.0F, -2.0F, -3.0F, 0.0F, 0.5236F, 0.0F));
 
-		PartDefinition headeyes = head.addOrReplaceChild("headeyes", CubeListBuilder.create()
+		head.addOrReplaceChild("headeyes", CubeListBuilder.create()
 				.texOffs(24, 0).addBox(-3.0F, -6.0F, -3.1F, 6.0F, 6.0F, 0.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition headhelmet = head.addOrReplaceChild("headhelmet", CubeListBuilder.create()
+		head.addOrReplaceChild("headhelmet", CubeListBuilder.create()
 				.texOffs(36, 46).addBox(-4.0F, -6.0F, -3.0F, 8.0F, 8.0F, 8.0F), PartPose.offsetAndRotation(0.0F, -4.5F, -1.5F, -0.5236F, 0.0F, 0.0F));
 
 		PartDefinition hair1 = neck.addOrReplaceChild("hair1", CubeListBuilder.create()
 				.texOffs(36, 14).addBox(-4.0F, -6.0F, 1.0F, 8.0F, 8.0F, 3.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition hair2 = hair1.addOrReplaceChild("hair2", CubeListBuilder.create()
+		hair1.addOrReplaceChild("hair2", CubeListBuilder.create()
 				.texOffs(36, 25).addBox(-4.5F, -1.0F, 1.5F, 9.0F, 9.0F, 3.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition chest = bodytop.addOrReplaceChild("chest", CubeListBuilder.create()
+		bodytop.addOrReplaceChild("chest", CubeListBuilder.create()
 				.texOffs(0, 36).addBox(-2.6F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F)
 				.texOffs(0, 36).mirror().addBox(0.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F).mirror(false), PartPose.offsetAndRotation(0.3F, -5.5F, -2.5F, 0.7854F, 0.0F, 0.0F));
 
 		PartDefinition rightarm = bodytop.addOrReplaceChild("rightarm", CubeListBuilder.create()
 				.texOffs(16, 12).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 6.0F, 2.0F), PartPose.offset(-2.5F, -4.5F, -0.5F));
 
-		PartDefinition rightpauldron_r1 = rightarm.addOrReplaceChild("rightpauldron_r1", CubeListBuilder.create()
+		rightarm.addOrReplaceChild("rightpauldron_r1", CubeListBuilder.create()
 				.texOffs(68, 0).addBox(-3.0F, -1.5F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, -0.5F, 0.0F, 0.0F, 0.0F, -0.3491F));
 
-		PartDefinition rightarmlower = rightarm.addOrReplaceChild("rightarmlower", CubeListBuilder.create()
+		rightarm.addOrReplaceChild("rightarmlower", CubeListBuilder.create()
 				.texOffs(16, 20).addBox(-1.005F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F), PartPose.offset(-1.0F, 5.0F, 1.0F));
 
 		PartDefinition leftarm = bodytop.addOrReplaceChild("leftarm", CubeListBuilder.create()
 				.texOffs(16, 12).addBox(0.0F, -1.0F, -1.0F, 2.0F, 6.0F, 2.0F), PartPose.offset(2.5F, -4.5F, -0.5F));
 
-		PartDefinition leftpauldron_r1 = leftarm.addOrReplaceChild("leftpauldron_r1", CubeListBuilder.create()
+		leftarm.addOrReplaceChild("leftpauldron_r1", CubeListBuilder.create()
 				.texOffs(68, 0).mirror().addBox(-1.0F, -1.5F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.25F)).mirror(false), PartPose.offsetAndRotation(0.0F, -0.5F, 0.0F, 0.0F, 0.0F, 0.3491F));
 
-		PartDefinition leftarmlower = leftarm.addOrReplaceChild("leftarmlower", CubeListBuilder.create()
+		leftarm.addOrReplaceChild("leftarmlower", CubeListBuilder.create()
 				.texOffs(16, 20).addBox(-0.995F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F), PartPose.offset(1.0F, 5.0F, 1.0F));
 
 		PartDefinition fin1 = mermaid.addOrReplaceChild("fin1", CubeListBuilder.create()
@@ -151,13 +151,13 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 		PartDefinition fin6 = fin5.addOrReplaceChild("fin6", CubeListBuilder.create()
 				.texOffs(100, 37).addBox(-1.0F, 0.0F, 0.5F, 2.0F, 2.0F, 2.0F), PartPose.offset(0.0F, 3.0F, 0.0F));
 
-		PartDefinition fintail = fin6.addOrReplaceChild("fintail", CubeListBuilder.create()
+		fin6.addOrReplaceChild("fintail", CubeListBuilder.create()
 				.texOffs(100, 41).addBox(-3.5F, -1.0F, 0.0F, 7.0F, 7.0F, 0.0F), PartPose.offset(0.0F, 2.0F, 1.5F));
 
-		PartDefinition fin2right = fin2.addOrReplaceChild("fin2right", CubeListBuilder.create()
+		fin2.addOrReplaceChild("fin2right", CubeListBuilder.create()
 				.texOffs(120, 5).addBox(0.0F, 0.0F, -1.5F, 0.0F, 3.0F, 3.0F), PartPose.offsetAndRotation(3.0F, 2.0F, 2.0F, 0.0F, 0.0F, -0.5236F));
 
-		PartDefinition fin2left = fin2.addOrReplaceChild("fin2left", CubeListBuilder.create()
+		fin2.addOrReplaceChild("fin2left", CubeListBuilder.create()
 				.texOffs(120, 5).addBox(0.0F, 0.0F, -1.5F, 0.0F, 3.0F, 3.0F), PartPose.offsetAndRotation(-3.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.5236F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
