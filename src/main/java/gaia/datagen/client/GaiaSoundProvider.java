@@ -277,6 +277,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MATANGO).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MERMAID).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults()
 				.withSay(sound(modLoc("entity/minotaur/say1")),
 						sound(modLoc("entity/minotaur/say2")))
@@ -294,6 +295,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SHAMAN).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SIREN).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SLUDGE_GIRL).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPHINX).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPORELING).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPRIGGAN).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SUCCUBUS).withDefaults()

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "grimoireofgaia:pearl_block"
+    ]
+  },
+  "criteria": {
+    "has_shiny_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "grimoireofgaia:shiny_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "grimoireofgaia:pearl_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shiny_pearl",
+      "has_the_recipe"
+    ]
+  ]
+}

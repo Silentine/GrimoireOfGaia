@@ -129,8 +129,6 @@ public class Chest extends AbstractPropEntity {
 			setDrop(0);
 		}
 
-		System.out.println(position());
-
 		return data;
 	}
 

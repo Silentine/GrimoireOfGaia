@@ -44,6 +44,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HUNTER, "Hunter").withSay("whispers").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MATANGO, "Matango").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MERMAID, "Mermaid").withSay("sings").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAURUS, "Minotaurus").withSay("growls").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MIMIC, "Mimic").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NINE_TAILS, "Nine Tails").build());
@@ -89,6 +90,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addBlock(GaiaRegistry.DOLL_MERMAID, "Mermaid Doll");
 		addBlock(GaiaRegistry.DOLL_NINE_TAILS, "Nine Tails Doll");
 		addBlock(GaiaRegistry.DOLL_SLIME_GIRL, "Slime Girl Doll");
+		addBlock(GaiaRegistry.PEARL_BLOCK, "Pearl Block");
 
 		addItem(GaiaRegistry.BOOK_OF_MEMORY, "Book of Memory");
 		addItem(GaiaRegistry.WEAPON_BOOK, "Book");
@@ -109,7 +111,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.ELYTRA_FRAGMENT, "Elytra Fragment");
 		addItem(GaiaRegistry.TOTEM_FRAGMENT, "Totem of Undying Fragment");
 		addItem(GaiaRegistry.DIAMOND_SHARD, "Diamond Shard");
-		addItem(GaiaRegistry.EMERALD_SHARD, "Diamond Shard");
+		addItem(GaiaRegistry.EMERALD_SHARD, "Emerald Shard");
+		addItem(GaiaRegistry.SHINY_PEARL, "Shiny Pearl");
 		addItem(GaiaRegistry.FAN, "Hand Fan");
 		addItem(GaiaRegistry.FAN_FIRE, "Ornate Fire Fan");
 		addItem(GaiaRegistry.FAN_ICE, "Ornate Ice Fan");
@@ -128,6 +131,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.HEADGEAR_DOLL, "Drooping Maid");
 		addItem(GaiaRegistry.HEADGEAR_EARS_ELF, "Elven Ears");
 		addItem(GaiaRegistry.KNUCKLES, "Knuckles");
+		addItem(GaiaRegistry.SEASHELL_HAIRPIN, "Seashell Hairpin");
 		addItem(GaiaRegistry.MEAT, "Meat");
 		addItem(GaiaRegistry.MONSTER_FEED, "Monster Feed");
 		addItem(GaiaRegistry.PREMIUM_MONSTER_FEED, "Premium Monster Feed");
@@ -188,6 +192,7 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.gain_level", "Gain %d level");
 		add("text.grimoireofgaia.gain_levels", "Gain %d levels");
 
+
 		add("text.grimoireofgaia.giga_gear.desc", "All that remains of Giga Knight");
 		add("text.grimoireofgaia.fireshard.desc", "Right-click to spawn Lava");
 		add("text.grimoireofgaia.soulfire.desc", "Right-click to spawn Fire");
@@ -196,6 +201,7 @@ public class GaiaLanguage extends LanguageProvider {
 
 		add("text.grimoireofgaia.headgear.tag", "Headgear");
 		add("text.grimoireofgaia.charm.tag", "Charm");
+		add("text.grimoireofgaia.trinket.tag", "Trinket");
 		add("text.grimoireofgaia.charm.damage", "+%d Attack Damage");
 
 		add("text.grimoireofgaia.bless.main_hand", "When in main hand:");

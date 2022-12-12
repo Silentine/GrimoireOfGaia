@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "grimoireofgaia:block/pearl_block_side",
+    "bottom": "grimoireofgaia:block/pearl_block_bottom",
+    "top": "grimoireofgaia:block/pearl_block_top"
+  }
+}

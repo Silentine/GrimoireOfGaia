@@ -31,6 +31,11 @@ public class GaiaRecipes extends RecipeProvider {
 				.requires(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get()).requires(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get())
 				.unlockedBy("has_golden_apple_pie_slice", has(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get()))
 				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(GaiaRegistry.PEARL_BLOCK.get())
+				.requires(GaiaRegistry.SHINY_PEARL.get()).requires(GaiaRegistry.SHINY_PEARL.get())
+				.requires(GaiaRegistry.SHINY_PEARL.get()).requires(GaiaRegistry.SHINY_PEARL.get())
+				.unlockedBy("has_shiny_pearl", has(GaiaRegistry.SHINY_PEARL.get()))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(Items.COAL_BLOCK)
 				.pattern("CCC").pattern("CCC").pattern("CCC")
 				.define('C', GaiaRegistry.STONE_COAL.get())

@@ -35,6 +35,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo hunterSpawning;
 		public final SpawningInfo koboldSpawning;
 		public final SpawningInfo matangoSpawning;
+		public final SpawningInfo mermaidSpawning;
 		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo mimicSpawning;
 		public final SpawningInfo nineTailsSpawning;
@@ -151,6 +152,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> matangoBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> matangoBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			matangoSpawning = new SpawningInfo(builder, "Matango", 60, 2, 4, matangoBiomes, matangoBiomeDictionary);
+
+			List<? extends String> mermaidBiomes = generateList(Biomes.BEACH, Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.RIVER);
+			List<? extends String> mermaidBiomeDictionary = List.of("OVERWORLD,BEACH", "OVERWORLD,WATER");
+			mermaidSpawning = new SpawningInfo(builder, "Mermaid", 40, 2, 4, mermaidBiomes, mermaidBiomeDictionary);
 
 			List<? extends String> minotaurusBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
 			List<? extends String> minotaurusBiomeDictionary = List.of(

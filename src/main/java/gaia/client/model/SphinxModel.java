@@ -40,8 +40,8 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 		this.leftarm = body1.getChild("leftarm");
 		this.rightwing = body1.getChild("rightwing");
 		this.leftwing = body1.getChild("leftwing");
-		this.rightleg = body1.getChild("rightleg");
-		this.leftleg = body1.getChild("leftleg");
+		this.rightleg = body3.getChild("rightleg");
+		this.leftleg = body3.getChild("leftleg");
 	}
 
 	public static LayerDefinition createBodyLayer() {

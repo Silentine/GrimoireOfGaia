@@ -33,6 +33,8 @@ public class GaiaBlockstates extends BlockStateProvider {
 		this.generateHorizontal(GaiaRegistry.DOLL_MERMAID.get());
 		this.generateHorizontal(GaiaRegistry.DOLL_NINE_TAILS.get());
 		this.generateHorizontal(GaiaRegistry.DOLL_SLIME_GIRL.get());
+		this.simpleBlock(GaiaRegistry.PEARL_BLOCK.get(),
+				models().getExistingFile(modLoc("block/" + GaiaRegistry.PEARL_BLOCK.getId().getPath())));
 	}
 
 	protected void generateHorizontal(Block block) {

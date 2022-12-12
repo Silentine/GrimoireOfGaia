@@ -676,6 +676,28 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "mermaid_say": {
+    "subtitle": "grimoireofgaia.subtitle.mermaid_say",
+    "sounds": [
+      "grimoireofgaia:assist_say1",
+      "grimoireofgaia:assist_say2",
+      "grimoireofgaia:assist_say3"
+    ]
+  },
+  "mermaid_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.mermaid_hurt",
+    "sounds": [
+      "grimoireofgaia:assist_hurt1",
+      "grimoireofgaia:assist_hurt2",
+      "grimoireofgaia:assist_hurt3"
+    ]
+  },
+  "mermaid_death": {
+    "subtitle": "grimoireofgaia.subtitle.mermaid_death",
+    "sounds": [
+      "grimoireofgaia:assist_death"
+    ]
+  },
   "minotaurus_say": {
     "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
     "sounds": [
@@ -844,6 +866,28 @@
   },
   "sludge_girl_death": {
     "subtitle": "grimoireofgaia.subtitle.sludge_girl_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
+  "sphinx_say": {
+    "subtitle": "grimoireofgaia.subtitle.sphinx_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "sphinx_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.sphinx_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "sphinx_death": {
+    "subtitle": "grimoireofgaia.subtitle.sphinx_death",
     "sounds": [
       "grimoireofgaia:aggressive_death"
     ]

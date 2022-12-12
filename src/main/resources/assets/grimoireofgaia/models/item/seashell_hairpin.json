@@ -1,0 +1,10 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "grimoireofgaia:item/accessory/seashell_hairpin_available"
+    },
+    "overrides": [
+        { "predicate": { "active": 0.0 }, "model": "grimoireofgaia:item/seashell_hairpin_unavailable" },
+        { "predicate": { "active": 1.0 }, "model": "grimoireofgaia:item/seashell_hairpin_available" }
+    ]
+}

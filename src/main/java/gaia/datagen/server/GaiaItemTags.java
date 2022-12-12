@@ -16,6 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class GaiaItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> HEAD = ItemTags.create(new ResourceLocation("curios", "head"));
+	public static final TagKey<Item> BODY = ItemTags.create(new ResourceLocation("curios", "body"));
 	public static final TagKey<Item> CHARM = ItemTags.create(new ResourceLocation("curios", "charm"));
 
 	public GaiaItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
@@ -34,6 +35,7 @@ public class GaiaItemTags extends ItemTagsProvider {
 
 		this.tag(HEAD).add(GaiaRegistry.HEADGEAR_BOOK.get(), GaiaRegistry.HEADGEAR_MOB.get(), GaiaRegistry.HEADGEAR_BOLT.get(),
 				GaiaRegistry.HEADGEAR_ARROW.get(), GaiaRegistry.HEADGEAR_DOLL.get(), GaiaRegistry.HEADGEAR_EARS_ELF.get());
+		this.tag(BODY).add(GaiaRegistry.SEASHELL_HAIRPIN.get());
 		this.tag(CHARM).add(GaiaRegistry.KNUCKLES.get());
 
 		this.tag(GaiaTags.NUGGETS_DIAMOND).add(GaiaRegistry.DIAMOND_SHARD.get());

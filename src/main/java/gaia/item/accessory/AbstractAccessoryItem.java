@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class AbstractAccessoryItem extends Item {
 	public AbstractAccessoryItem(Properties properties) {
-		super(properties.stacksTo(1).rarity(Rarity.RARE));
+		super(properties.rarity(Rarity.RARE));
 	}
 
 	@Override
@@ -36,26 +36,26 @@ public abstract class AbstractAccessoryItem extends Item {
 		return false;
 	}
 
-	public abstract void doEffect(LivingEntity player);
+	public abstract void doEffect(LivingEntity player, ItemStack stack);
 
-	public abstract void applyModifier(LivingEntity player);
+	public abstract void applyModifier(LivingEntity player, ItemStack stack);
 
-	public abstract void removeModifier(LivingEntity player);
+	public abstract void removeModifier(LivingEntity player, ItemStack stack);
 
-	public void onEquip(LivingEntity livingEntity) {
+	public void onEquip(LivingEntity livingEntity, ItemStack stack) {
 		if (isModifier()) {
-			applyModifier(livingEntity);
+			applyModifier(livingEntity, stack);
 		}
 	}
 
-	public void onUnequip(LivingEntity livingEntity) {
+	public void onUnequip(LivingEntity livingEntity, ItemStack stack) {
 		if (isModifier()) {
-			removeModifier(livingEntity);
+			removeModifier(livingEntity, stack);
 		}
 	}
 
-	public void onTick(LivingEntity livingEntity) {
-		doEffect(livingEntity);
+	public void onTick(LivingEntity livingEntity, ItemStack stack) {
+		doEffect(livingEntity, stack);
 	}
 
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {

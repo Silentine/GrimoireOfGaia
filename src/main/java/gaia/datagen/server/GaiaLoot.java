@@ -79,6 +79,7 @@ public class GaiaLoot extends LootTableProvider {
 			this.dropSelf(GaiaRegistry.DECO_GARDEN_GNOME.get());
 			this.dropSelf(GaiaRegistry.DECO_MANDRAGORA_POT.get());
 			this.dropSelf(GaiaRegistry.DECO_NEST_HARPY.get());
+			this.dropSelf(GaiaRegistry.PEARL_BLOCK.get());
 		}
 
 		@Override
@@ -466,6 +467,32 @@ public class GaiaLoot extends LootTableProvider {
 									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_OVERWORLD.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_OLD.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.DOLL_MERMAID.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.SEASHELL_HAIRPIN.get())))
+			);
+			this.add(GaiaRegistry.MERMAID.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.SHINY_PEARL.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.PRISMARINE_SHARD)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get())

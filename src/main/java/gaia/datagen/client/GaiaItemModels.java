@@ -40,6 +40,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.withBlockParent(GaiaRegistry.DOLL_MERMAID.get());
 		this.withBlockParent(GaiaRegistry.DOLL_NINE_TAILS.get());
 		this.withBlockParent(GaiaRegistry.DOLL_SLIME_GIRL.get());
+		this.withBlockParent(GaiaRegistry.PEARL_BLOCK.get());
 
 		this.generatedItem(GaiaRegistry.BOOK_OF_MEMORY.get());
 		this.generatedBook(GaiaRegistry.WEAPON_BOOK_FREEZING.get());
@@ -60,6 +61,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.TOTEM_FRAGMENT.get());
 		this.generatedItem(GaiaRegistry.DIAMOND_SHARD.get());
 		this.generatedItem(GaiaRegistry.EMERALD_SHARD.get());
+		this.generatedItem(GaiaRegistry.SHINY_PEARL.get());
 		this.generatedItem(GaiaRegistry.FIRESHARD.get());
 		this.generatedItem(GaiaRegistry.FUR.get());
 		this.generatedItem(GaiaRegistry.GIGA_GEAR.get());

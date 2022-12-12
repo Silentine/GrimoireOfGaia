@@ -21,6 +21,8 @@ public class CuriosCompat {
 	public static void sendImc(InterModEnqueueEvent event) {
 		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
 				.size(1).build());
+		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("body")
+				.size(1).build());
 		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("head")
 				.size(1).build());
 	}
@@ -35,21 +37,21 @@ public class CuriosCompat {
 			@Override
 			public void onEquip(SlotContext slotContext, ItemStack prevStack) {
 				if (stack.getItem() instanceof AbstractAccessoryItem accessoryItem) {
-					accessoryItem.onEquip(slotContext.entity());
+					accessoryItem.onEquip(slotContext.entity(), stack);
 				}
 			}
 
 			@Override
 			public void onUnequip(SlotContext slotContext, ItemStack newStack) {
 				if (stack.getItem() instanceof AbstractAccessoryItem accessoryItem) {
-					accessoryItem.onUnequip(slotContext.entity());
+					accessoryItem.onUnequip(slotContext.entity(), stack);
 				}
 			}
 
 			@Override
 			public void curioTick(SlotContext slotContext) {
 				if (stack.getItem() instanceof AbstractAccessoryItem accessoryItem) {
-					accessoryItem.onTick(slotContext.entity());
+					accessoryItem.onTick(slotContext.entity(), stack);
 				}
 			}
 

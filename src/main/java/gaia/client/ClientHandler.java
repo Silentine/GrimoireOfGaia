@@ -24,6 +24,7 @@ import gaia.client.model.HarpyModel;
 import gaia.client.model.HunterModel;
 import gaia.client.model.KoboldModel;
 import gaia.client.model.MatangoModel;
+import gaia.client.model.MermaidModel;
 import gaia.client.model.MimicModel;
 import gaia.client.model.MinotaurusModel;
 import gaia.client.model.NineTailsModel;
@@ -69,6 +70,7 @@ import gaia.client.renderer.HarpyRenderer;
 import gaia.client.renderer.HunterRenderer;
 import gaia.client.renderer.KoboldRenderer;
 import gaia.client.renderer.MatangoRenderer;
+import gaia.client.renderer.MermaidRenderer;
 import gaia.client.renderer.MimicRenderer;
 import gaia.client.renderer.MinotaurusRenderer;
 import gaia.client.renderer.NineTailsRenderer;
@@ -147,6 +149,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation HUNTER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "hunter"), "main");
 	public static final ModelLayerLocation KOBOLD = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "kobold"), "main");
 	public static final ModelLayerLocation MATANGO = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "matango"), "main");
+	public static final ModelLayerLocation MERMAID = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "mermaid"), "main");
 	public static final ModelLayerLocation MINOTAURUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "minotaurus"), "main");
 	public static final ModelLayerLocation MIMIC = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "mimic"), "main");
 	public static final ModelLayerLocation NINE_TAILS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "nine_tails"), "main");
@@ -204,6 +207,8 @@ public class ClientHandler {
 					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
 			ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
 					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+			ItemProperties.register(GaiaRegistry.SEASHELL_HAIRPIN.get(), new ResourceLocation("available"), (stack, level, livingEntity, i) ->
+					stack.getDamageValue() == 0 ? 1.0F : 0.0F);
 		});
 	}
 
@@ -252,6 +257,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.HUNTER.getEntityType(), HunterRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.KOBOLD.getEntityType(), KoboldRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.MATANGO.getEntityType(), MatangoRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.MERMAID.getEntityType(), MermaidRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.MINOTAURUS.getEntityType(), MinotaurusRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.MIMIC.getEntityType(), MimicRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.NINE_TAILS.getEntityType(), NineTailsRenderer::new);
@@ -308,6 +314,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(HUNTER, HunterModel::createBodyLayer);
 		event.registerLayerDefinition(KOBOLD, KoboldModel::createBodyLayer);
 		event.registerLayerDefinition(MATANGO, MatangoModel::createBodyLayer);
+		event.registerLayerDefinition(MERMAID, MermaidModel::createBodyLayer);
 		event.registerLayerDefinition(MINOTAURUS, MinotaurusModel::createBodyLayer);
 		event.registerLayerDefinition(MIMIC, MimicModel::createBodyLayer);
 		event.registerLayerDefinition(NINE_TAILS, NineTailsModel::createBodyLayer);
