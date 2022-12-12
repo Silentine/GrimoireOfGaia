@@ -42,7 +42,7 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 	private final ModelPart hair2;
 
 	private final ModelPart[] fins = new ModelPart[6];
-	private ModelPart fintail;
+	private final ModelPart fintail;
 
 	public MermaidModel(ModelPart root) {
 		this.root = root.getChild("mermaid");
@@ -63,11 +63,9 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 				this.fins[i] = this.root.getChild("fin" + index);
 			} else {
 				this.fins[i] = this.fins[i - 1].getChild("fin" + index);
-				if (index == 6) {
-					this.fintail = this.fins[i].getChild("fintail");
-				}
 			}
 		}
+		this.fintail = this.fins[5].getChild("fintail");
 	}
 
 	public static LayerDefinition createBodyLayer() {
