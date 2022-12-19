@@ -117,7 +117,8 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 		float floatSpeed = 0.2F;
 		float floatRange = 0.2F;
 		// anchor
-		root.y = -2.0F + Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+		root.y = 24.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
@@ -163,6 +164,8 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		poseStack.translate(0, 1, 0);
+
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
