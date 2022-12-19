@@ -40,7 +40,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;

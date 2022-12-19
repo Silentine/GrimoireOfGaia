@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.monster.Slime;
 
 public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, GelatinousSlimeModel> {
 	public static final ResourceLocation[] GELATINOUS_SLIME_LOCATIONS = new ResourceLocation[]{
@@ -28,7 +27,7 @@ public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, Gelati
 	protected void scale(GelatinousSlime gelatinousSlime, PoseStack poseStack, float partialTicks) {
 		float f = 0.999F;
 		poseStack.scale(0.999F, 0.999F, 0.999F);
-		poseStack.translate(0.0D, (double)0.001F, 0.0D);
+		poseStack.translate(0.0D, (double) 0.001F, 0.0D);
 		float f1 = 1.0F;
 		float f2 = Mth.lerp(partialTicks, gelatinousSlime.oSquish, gelatinousSlime.squish) / (f1 * 0.5F + 1.0F);
 		float f3 = 1.0F / (f2 + 1.0F);
