@@ -251,6 +251,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/zombie/step4")),
 						sound(new ResourceLocation("mob/zombie/step5"))
 				).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GELATINOUS_SLIME).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN).withDefaults()
 				.withSay(sound(modLoc("entity/goblin/say1")),
 						sound(modLoc("entity/goblin/say2")))

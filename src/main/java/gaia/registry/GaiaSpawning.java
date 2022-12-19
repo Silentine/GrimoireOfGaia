@@ -22,6 +22,7 @@ import gaia.entity.EnderDragonGirl;
 import gaia.entity.EnderEye;
 import gaia.entity.FleshLich;
 import gaia.entity.GaiaHorse;
+import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
 import gaia.entity.Harpy;
@@ -91,6 +92,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.enderDragonGirlSpawning, event);
 		addSpawn(GaiaRegistry.ENDER_EYE.getEntityType(), GaiaSpawningConfig.COMMON.enderEyeSpawning, event);
 		addSpawn(GaiaRegistry.FLESH_LICH.getEntityType(), GaiaSpawningConfig.COMMON.fleshLichSpawning, event);
+		addSpawn(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GaiaSpawningConfig.COMMON.gelatinousSlimeSpawning, event);
 		addSpawn(GaiaRegistry.GOBLIN.getEntityType(), GaiaSpawningConfig.COMMON.goblinSpawning, event);
 		addSpawn(GaiaRegistry.HARPY.getEntityType(), GaiaSpawningConfig.COMMON.harpySpawning, event);
 		addSpawn(GaiaRegistry.HUNTER.getEntityType(), GaiaSpawningConfig.COMMON.hunterSpawning, event);
@@ -178,6 +180,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.ENDER_EYE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EnderEye::checkEnderEyeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EnderDragonGirl::checkEnderDragonGirlSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.FLESH_LICH.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FleshLich::checkFleshLichSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GelatinousSlime::checkGelatinousSlimeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN_FERAL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GoblinFeral::checkGoblinFeralSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Harpy::checkHarpySpawnRules);
@@ -229,6 +232,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.ENDER_EYE.getEntityType(), EnderEye.createAttributes().build());
 		event.put(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), EnderDragonGirl.createAttributes().build());
 		event.put(GaiaRegistry.FLESH_LICH.getEntityType(), FleshLich.createAttributes().build());
+		event.put(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GelatinousSlime.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN.getEntityType(), Goblin.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN_FERAL.getEntityType(), GoblinFeral.createAttributes().build());
 		event.put(GaiaRegistry.HARPY.getEntityType(), Harpy.createAttributes().build());

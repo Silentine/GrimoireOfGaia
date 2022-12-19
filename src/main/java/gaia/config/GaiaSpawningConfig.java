@@ -30,6 +30,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo enderEyeSpawning;
 		public final SpawningInfo enderDragonGirlSpawning;
 		public final SpawningInfo fleshLichSpawning;
+		public final SpawningInfo gelatinousSlimeSpawning;
 		public final SpawningInfo goblinSpawning;
 		public final SpawningInfo harpySpawning;
 		public final SpawningInfo hunterSpawning;
@@ -130,6 +131,10 @@ public class GaiaSpawningConfig {
 
 			List<? extends String> fleshLichBiomeDictionary = List.of("OVERWORLD");
 			fleshLichSpawning = new SpawningInfo(builder, "FleshLich", 100, 4, 6, List.of(), fleshLichBiomeDictionary);
+
+			List<? extends String> gelatinousSlimeBiomes = generateList(Biomes.SWAMP);
+			List<? extends String> gelatinousSlimeBiomeDictionary = List.of("OVERWORLD,SWAMP");
+			gelatinousSlimeSpawning = new SpawningInfo(builder, "GelatinousSlime", 80, 1, 2, gelatinousSlimeBiomes, gelatinousSlimeBiomeDictionary);
 
 			List<? extends String> goblinBiomes = generateList(Biomes.SAVANNA);
 			List<? extends String> goblinBiomeDictionary = List.of("OVERWORLD,SAVANNA");

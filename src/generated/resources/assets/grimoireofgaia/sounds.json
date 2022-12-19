@@ -523,6 +523,28 @@
       "mob/zombie/step5"
     ]
   },
+  "gelatinous_slime_say": {
+    "subtitle": "grimoireofgaia.subtitle.gelatinous_slime_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "gelatinous_slime_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.gelatinous_slime_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "gelatinous_slime_death": {
+    "subtitle": "grimoireofgaia.subtitle.gelatinous_slime_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "goblin_say": {
     "subtitle": "grimoireofgaia.subtitle.goblin_say",
     "sounds": [
