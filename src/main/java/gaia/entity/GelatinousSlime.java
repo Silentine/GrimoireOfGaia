@@ -175,8 +175,8 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 		});
 
 		if (getHealth() < getMaxHealth()) {
-			if (!getMainHandItem().isEmpty()) {
-				setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+			if (!getOffhandItem().isEmpty()) {
+				setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 
 				level.broadcastEntityEvent(this, (byte) 8);
 				heal(getMaxHealth() * 0.20F);
@@ -203,7 +203,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 			default -> ItemStack.EMPTY;
 		};
 
-		setItemSlot(EquipmentSlot.MAINHAND, spawnItem);
+		setItemSlot(EquipmentSlot.OFFHAND, spawnItem);
 	}
 
 	@Nullable
