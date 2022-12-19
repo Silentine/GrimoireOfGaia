@@ -12,8 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MermaidRenderer extends MobRenderer<Mermaid, MermaidModel> {
 	public static final ResourceLocation[] MERMAID_LOCATIONS = new ResourceLocation[]{
-			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/siren/mermaid01.png"),
-			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/siren/mermaid02.png")};
+			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid01.png"),
+			new ResourceLocation(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid02.png")};
 
 	public MermaidRenderer(Context context) {
 		super(context, new MermaidModel(context.bakeLayer(ClientHandler.MERMAID)), ClientHandler.smallShadow);

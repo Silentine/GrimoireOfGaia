@@ -15,22 +15,9 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, ArmedModel {
-	private static final double CYCLES_PER_BLOCK = 0.1D;
-	private float[][] undulationCycle = new float[][]
-			{
-					{-2.5F, -5F, -10F, -15F, -20F, -25F, -30F},
-					{-2.5F, -5F, -7F, -9F, -11F, -13F, -15F},
-					{0F, 0F, 0F, 0F, 0F, 0F, 0F},
-					{2.5F, 5F, 10F, 15F, 20F, 25F, 30F},
-					{2.5F, 5F, 7F, 9F, 11F, 13F, 15F},
-					{0F, 0F, 0F, 0F, 0F, 0F, 0F},
-			};
-	private double distanceMovedTotal = 0.0D;
-
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart head;
@@ -203,16 +190,23 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 		fins[3].xRot = +0.785398F;
 		fintail.xRot = +0.3926991F;
 
-		updateDistanceMovedTotal(mermaid);
-		int cycleIndex = (int) ((getDistanceMovedTotal() * CYCLES_PER_BLOCK) % undulationCycle.length);
-
-		fins[0].zRot = (undulationCycle[cycleIndex][0] * Mth.DEG_TO_RAD);
-		fins[1].zRot = (undulationCycle[cycleIndex][1] * Mth.DEG_TO_RAD);
-		fins[2].zRot = (undulationCycle[cycleIndex][2] * Mth.DEG_TO_RAD);
-		fins[3].zRot = (undulationCycle[cycleIndex][3] * Mth.DEG_TO_RAD);
-		fins[4].zRot = (undulationCycle[cycleIndex][4] * Mth.DEG_TO_RAD);
-		fins[5].zRot = (undulationCycle[cycleIndex][5] * Mth.DEG_TO_RAD);
-		fintail.zRot = (undulationCycle[cycleIndex][6] * Mth.DEG_TO_RAD);
+		if (mermaid.isInWater()) {
+			fins[0].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fins[1].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fins[2].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fins[3].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fins[4].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fins[5].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
+			fintail.zRot = -0.2F * Mth.cos(ageInTicks * 0.3F);
+		} else {
+			fins[0].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fins[1].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fins[2].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fins[3].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fins[4].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fins[5].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
+			fintail.zRot = -0.2F * Mth.cos(limbSwing * 0.3F);
+		}
 	}
 
 	public void holdingMelee() {
@@ -229,14 +223,6 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
 		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
-	}
-
-	private void updateDistanceMovedTotal(Entity parEntity) {
-		this.distanceMovedTotal += (double) Mth.sqrt((float) parEntity.distanceToSqr(parEntity.xOld, parEntity.yOld, parEntity.zOld));
-	}
-
-	private double getDistanceMovedTotal() {
-		return distanceMovedTotal;
 	}
 
 	@Override
