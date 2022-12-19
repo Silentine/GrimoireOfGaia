@@ -157,9 +157,6 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 		rightarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
 		leftarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
 
-		rightarm.xRot += 0.5235988F;
-		leftarm.xRot += 0.5235988F;
-
 		// body
 		rightwing.yRot = Mth.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
 		leftwing.yRot = Mth.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
@@ -171,8 +168,8 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
 		leftleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-		rightleg.xRot -= 0.296706F;
-		leftleg.xRot -= 0.296706F;
+		rightleg.xRot += -1.9;
+		leftleg.xRot += -1.9;
 	}
 
 	@Override
