@@ -4,10 +4,12 @@ import gaia.entity.goal.MobAttackGoal;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
-import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -26,17 +28,13 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -46,24 +44,25 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMob {
-	private final RangedBowAttackGoal<Siren> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
-	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
+public class Naga extends AbstractGaiaEntity implements IDayMob {
+	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Naga.class, EntityDataSerializers.INT);
+	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
 
-	private int timer;
-	private int switchDetect;
-	private int switchEquip;
+	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
 
 	private byte inWaterTimer;
 
-	public Siren(EntityType<? extends Monster> entityType, Level level) {
+	public Naga(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 
+		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
 		this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
 
-		timer = 0;
-		switchDetect = 0;
-		switchEquip = 0;
+		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 
 		inWaterTimer = 0;
 	}
@@ -75,39 +74,56 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Siren.class));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Naga.class));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_MIXED)
-				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
-				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
-				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
+				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
+				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
+				.add(Attributes.KNOCKBACK_RESISTANCE, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
+	}
+
+	@Override
+	public int getGaiaLevel() {
+		return 2;
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(ANIMATION_STATE, 0);
+	}
+
+	public int getAnimationState() {
+		return this.entityData.get(ANIMATION_STATE);
+	}
+
+	public void setAnimationState(int state) {
+		this.entityData.set(ANIMATION_STATE, state);
 	}
 
 	@Override
 	public int maxVariants() {
-		return 1;
+		return 0;
 	}
 
 	@Override
 	public float getBaseDefense() {
-		return SharedEntityData.getBaseDefense1();
+		return SharedEntityData.getBaseDefense2();
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
+		if (hasShield()) {
+			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurt(source, input);
+		}
 		return super.hurt(source, input);
 	}
 
@@ -118,13 +134,14 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 				int effectTime = 0;
 
 				if (level.getDifficulty() == Difficulty.NORMAL) {
-					effectTime = 5;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
+				} else if (level.getDifficulty() == Difficulty.HARD) {
+					effectTime = 20;
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 1));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 2));
 				}
 			}
 
@@ -149,98 +166,59 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 			}
 		}
 
-		if (playerDetection(3, TargetingConditions.forCombat())) {
-			if (switchDetect == 0) {
-				switchDetect = 1;
-			}
-		} else {
-			if (switchDetect == 1) {
-				switchDetect = 0;
-			}
+		/* BUFF */
+		if (getHealth() <= getMaxHealth() * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			setGoals(1);
+			setAnimationState(1);
+			buffEffect = 1;
+			animationPlay = true;
 		}
 
-		if (switchDetect == 1 && switchEquip == 0) {
-			if (timer <= 20) {
-				++timer;
-			} else {
-				if (!hasEffect(MobEffects.MOVEMENT_SPEED)) {
-					addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10 * 20, 0));
-				}
-				setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.METAL_DAGGER.get()));
-				setGoals(1);
-				timer = 0;
-				switchEquip = 1;
-			}
+		if (getHealth() > getMaxHealth() * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
 		}
 
-		if (switchDetect == 0 && switchEquip == 1) {
-			if (timer <= 20) {
-				++timer;
+		if (animationPlay) {
+			if (animationTimer != 15) {
+				animationTimer += 1;
 			} else {
-				if (hasEffect(MobEffects.MOVEMENT_SPEED)) {
-					removeEffect(MobEffects.MOVEMENT_SPEED);
-				}
-				setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+				setBuff();
 				setGoals(0);
-				timer = 0;
-				switchEquip = 0;
+				setAnimationState(0);
+				animationPlay = false;
 			}
 		}
+		/* BUFF */
 
 		super.aiStep();
 	}
 
+	private void setBuff() {
+		level.broadcastEntityEvent(this, (byte) 7);
+		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
+	}
 
 	private void setGoals(int id) {
 		if (id == 1) {
-			this.goalSelector.removeGoal(bowAttackGoal);
-			this.goalSelector.addGoal(1, mobAttackGoal);
-		} else {
 			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(1, bowAttackGoal);
-		}
-	}
-
-	private void setCombatTask(Difficulty difficulty) {
-		this.goalSelector.removeGoal(mobAttackGoal);
-		this.goalSelector.removeGoal(bowAttackGoal);
-
-		if (getMainHandItem().getItem() == Items.BOW) {
-			int i = difficulty != Difficulty.HARD ? 40 : 20;
-			bowAttackGoal.setMinAttackInterval(i);
-			setGoals(0);
 		} else {
-			setGoals(1);
-		}
-	}
-
-	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.SIREN.getEntityType();
-	}
-
-	@Override
-	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		if (target.isAlive()) {
-			RangedUtil.rangedAttack(target, this, distanceFactor);
+			this.goalSelector.addGoal(1, mobAttackGoal);
 		}
 	}
 
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
-		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+		populateDefaultEquipmentEnchantments(instance);
 
-		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
-		bootsSwimming.enchant(Enchantments.DEPTH_STRIDER, 2);
-		setItemSlot(EquipmentSlot.FEET, bootsSwimming);
+		ItemStack shield = new ItemStack(GaiaRegistry.GOLD_SHIELD.get());
+		setItemSlot(EquipmentSlot.OFFHAND, shield);
 
-		if (random.nextBoolean()) {
-			if (random.nextInt(2) == 0) {
-				setItemSlot(EquipmentSlot.OFFHAND, PotionUtils.setPotion(new ItemStack(Items.TIPPED_ARROW), Potions.SLOWNESS));
-			} else {
-				setItemSlot(EquipmentSlot.OFFHAND, PotionUtils.setPotion(new ItemStack(Items.TIPPED_ARROW), Potions.WEAKNESS));
-			}
-		}
+		ItemStack swimmingBoots = new ItemStack(Items.LEATHER_BOOTS);
+		setItemSlot(EquipmentSlot.FEET, swimmingBoots);
+		swimmingBoots.enchant(Enchantments.DEPTH_STRIDER, 3);
 	}
 
 	@Nullable
@@ -249,14 +227,7 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		if (isHalloween() && random.nextFloat() < 0.25F) {
-			setVariant(1);
-		}
-
 		this.populateDefaultEquipmentSlots(difficultyInstance);
-		this.populateDefaultEquipmentEnchantments(difficultyInstance);
-
-		setCombatTask(difficultyInstance.getDifficulty());
 
 		return data;
 	}
@@ -274,41 +245,44 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
+		tag.putInt("AnimationState", getAnimationState());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-
-		setCombatTask(level.getDifficulty());
+		if (tag.contains("AnimationState")) {
+			int state = tag.getInt("AnimationState");
+			setAnimationState(state);
+		}
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return GaiaRegistry.SIREN.getSay();
+		return GaiaRegistry.NAGA.getSay();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaRegistry.SIREN.getHurt();
+		return GaiaRegistry.NAGA.getHurt();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaRegistry.SIREN.getDeath();
+		return GaiaRegistry.NAGA.getDeath();
 	}
 
 	@Override
-	protected int getFireImmuneTicks() {
-		return 10;
+	public boolean fireImmune() {
+		return true;
 	}
 
 	@Override
 	public int getMaxSpawnClusterSize() {
-		return SharedEntityData.CHUNK_LIMIT_1;
+		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkSirenSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkNagaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

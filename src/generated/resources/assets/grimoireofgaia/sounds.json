@@ -718,6 +718,28 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "naga_say": {
+    "subtitle": "grimoireofgaia.subtitle.naga_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "naga_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.naga_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "naga_death": {
+    "subtitle": "grimoireofgaia.subtitle.naga_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "nine_tails_say": {
     "subtitle": "grimoireofgaia.subtitle.nine_tails_say",
     "sounds": [

@@ -30,6 +30,7 @@ import gaia.entity.Matango;
 import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
 import gaia.entity.Minotaurus;
+import gaia.entity.Naga;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
 import gaia.entity.Orc;
@@ -142,6 +143,7 @@ public class GaiaRegistry {
 	public static final MobReg<Mermaid> MERMAID = new MobReg.Builder<>("mermaid", GaiaSoundType.ASSIST, EntityType.Builder.of(Mermaid::new, MobCategory.MONSTER).clientTrackingRange(8), 0x5c70b1, 0xa4452d).withDefaultSounds().build();
 	public static final MobReg<Mimic> MIMIC = new MobReg.Builder<>("mimic", EntityType.Builder.of(Mimic::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 11237677, 4274991).build();
 	public static final MobReg<Minotaurus> MINOTAURUS = new MobReg.Builder<>("minotaurus", EntityType.Builder.of(Minotaurus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0xa9a9a9).withDefaultSounds().build();
+	public static final MobReg<Naga> NAGA = new MobReg.Builder<>("naga", EntityType.Builder.of(Naga::new, MobCategory.MONSTER).sized(1.0F, 2.2F).clientTrackingRange(8), 0x29bc55, 0xccb63f).withDefaultSounds().build();
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg.Builder<>("nine_tails", EntityType.Builder.of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145).withDefaultSounds().build();
 	public static final MobReg<Oni> ONI = new MobReg.Builder<>("oni", EntityType.Builder.of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161).withDefaultSounds().build();
 	public static final MobReg<Orc> ORC = new MobReg.Builder<>("orc", EntityType.Builder.of(Orc::new, MobCategory.MONSTER).sized(0.8F, 2.2F).clientTrackingRange(8), 0x718a60, 0xc0d696).withDefaultSounds().build();

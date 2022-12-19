@@ -283,6 +283,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/minotaur/say2")))
 				.withHurt(sound(modLoc("entity/minotaur/hurt1")),
 						sound(modLoc("entity/minotaur/hurt2"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.NAGA).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.NINE_TAILS).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ONI).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ORC).withDefaults()

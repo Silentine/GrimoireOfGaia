@@ -37,7 +37,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -125,10 +124,6 @@ public class BoneKnight extends AbstractGaiaEntity {
 		} else {
 			return false;
 		}
-	}
-
-	private boolean hasShield() {
-		return getMainHandItem().canPerformAction(ToolActions.SHIELD_BLOCK);
 	}
 
 	@Override

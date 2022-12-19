@@ -124,11 +124,6 @@ public class Mermaid extends AbstractGaiaEntity implements IAssistMob {
 		return super.hurt(source, input);
 	}
 
-	private boolean hasShield() {
-		ItemStack offStack = this.getItemBySlot(EquipmentSlot.OFFHAND);
-		return offStack.canPerformAction(ToolActions.SHIELD_BLOCK);
-	}
-
 	@Override
 	public boolean doHurtTarget(Entity entityIn) {
 		if (super.doHurtTarget(entityIn)) {

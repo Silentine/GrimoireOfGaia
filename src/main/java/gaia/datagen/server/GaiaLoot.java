@@ -552,6 +552,18 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_HUNGER.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
+			this.add(GaiaRegistry.NAGA.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_FISH)
+									.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+			);
 			this.add(GaiaRegistry.NINE_TAILS.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.SOULFIRE.get())
@@ -810,10 +822,11 @@ public class GaiaLoot extends LootTableProvider {
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
 		List<ResourceLocation> ignored = List.of(
+				GaiaRegistry.CHEST.getEntityType().getDefaultLootTable(),
 				GaiaRegistry.HORSE.getEntityType().getDefaultLootTable(),
-				GaiaRegistry.SIREN.getEntityType().getDefaultLootTable(),
 				GaiaRegistry.MIMIC.getEntityType().getDefaultLootTable(),
-				GaiaRegistry.CHEST.getEntityType().getDefaultLootTable()
+				GaiaRegistry.NAGA.getEntityType().getDefaultLootTable(),
+				GaiaRegistry.SIREN.getEntityType().getDefaultLootTable()
 		);
 		map.forEach((name, table) -> {
 			if (!ignored.contains(name)) {

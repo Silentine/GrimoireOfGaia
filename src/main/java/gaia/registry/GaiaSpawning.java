@@ -31,6 +31,7 @@ import gaia.entity.Matango;
 import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
 import gaia.entity.Minotaurus;
+import gaia.entity.Naga;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
 import gaia.entity.Orc;
@@ -97,6 +98,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.MATANGO.getEntityType(), GaiaSpawningConfig.COMMON.matangoSpawning, event);
 		addSpawn(GaiaRegistry.MERMAID.getEntityType(), GaiaSpawningConfig.COMMON.mermaidSpawning, event);
 		addSpawn(GaiaRegistry.MINOTAURUS.getEntityType(), GaiaSpawningConfig.COMMON.minotaurusSpawning, event);
+		addSpawn(GaiaRegistry.NAGA.getEntityType(), GaiaSpawningConfig.COMMON.nagaSpawning, event);
 		addSpawn(GaiaRegistry.NINE_TAILS.getEntityType(), GaiaSpawningConfig.COMMON.nineTailsSpawning, event);
 		addSpawn(GaiaRegistry.ONI.getEntityType(), GaiaSpawningConfig.COMMON.oniSpawning, event);
 		addSpawn(GaiaRegistry.ORC.getEntityType(), GaiaSpawningConfig.COMMON.orcSpawning, event);
@@ -185,6 +187,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.MERMAID.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mermaid::checkMermaidSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MINOTAURUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Minotaurus::checkMinotaurusSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MIMIC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mimic::checkMimicSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.NAGA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Naga::checkNagaSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.NINE_TAILS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NineTails::checkNineTailsSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ONI.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Oni::checkOniSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ORC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Orc::checkOrcSpawnRules);
@@ -235,6 +238,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.MERMAID.getEntityType(), Mermaid.createAttributes().build());
 		event.put(GaiaRegistry.MINOTAURUS.getEntityType(), Minotaurus.createAttributes().build());
 		event.put(GaiaRegistry.MIMIC.getEntityType(), Mimic.createAttributes().build());
+		event.put(GaiaRegistry.NAGA.getEntityType(), Naga.createAttributes().build());
 		event.put(GaiaRegistry.NINE_TAILS.getEntityType(), NineTails.createAttributes().build());
 		event.put(GaiaRegistry.ONI.getEntityType(), Oni.createAttributes().build());
 		event.put(GaiaRegistry.ORC.getEntityType(), Orc.createAttributes().build());

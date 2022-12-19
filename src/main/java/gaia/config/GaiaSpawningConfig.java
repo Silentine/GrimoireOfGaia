@@ -38,6 +38,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo mermaidSpawning;
 		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo mimicSpawning;
+		public final SpawningInfo nagaSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
 		public final SpawningInfo orcSpawning;
@@ -166,6 +167,10 @@ public class GaiaSpawningConfig {
 
 			List<? extends String> mimicBiomeDictionary = List.of("OVERWORLD");
 			mimicSpawning = new SpawningInfo(builder, "Mimic", 40, 1, 1, List.of(), mimicBiomeDictionary, true);
+
+			List<? extends String> nagaBiomes = generateList(Biomes.SWAMP);
+			List<? extends String> nagaBiomeDictionary = List.of("OVERWORLD,SWAMP");
+			nagaSpawning = new SpawningInfo(builder, "Naga", 60, 4, 6, nagaBiomes, nagaBiomeDictionary);
 
 			List<? extends String> nineTailsBiomes = generateList(Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 			List<? extends String> nineTailsBiomeDictionary = List.of("OVERWORLD,FOREST,CONIFEROUS,!SNOWY");
