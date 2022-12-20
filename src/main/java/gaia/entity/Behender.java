@@ -162,7 +162,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 			}
 		}
 
-		if (playerDetection(4, TargetingConditions.forNonCombat())) {
+		if (!level.isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
 			if (teleportTimer < 60) {
 				teleportTimer++;
 			} else {
