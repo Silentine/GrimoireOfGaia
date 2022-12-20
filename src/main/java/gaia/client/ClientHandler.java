@@ -7,6 +7,7 @@ import gaia.client.model.AnubisModel;
 import gaia.client.model.ArachneModel;
 import gaia.client.model.BansheeModel;
 import gaia.client.model.BeeModel;
+import gaia.client.model.BehenderModel;
 import gaia.client.model.BoneKnightModel;
 import gaia.client.model.CentaurModel;
 import gaia.client.model.CobbleGolemModel;
@@ -53,6 +54,7 @@ import gaia.client.renderer.AnubisRenderer;
 import gaia.client.renderer.ArachneRenderer;
 import gaia.client.renderer.BansheeRenderer;
 import gaia.client.renderer.BeeRenderer;
+import gaia.client.renderer.BehenderRenderer;
 import gaia.client.renderer.BoneKnightRenderer;
 import gaia.client.renderer.CentaurRenderer;
 import gaia.client.renderer.CobbleGolemRenderer;
@@ -133,6 +135,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "arachne"), "main");
 	public static final ModelLayerLocation BANSHEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "banshee"), "main");
 	public static final ModelLayerLocation BEE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bee"), "main");
+	public static final ModelLayerLocation BEHENDER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "behender"), "main");
 	public static final ModelLayerLocation BONE_KNIGHT = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bone_knight"), "main");
 	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "centaur"), "main");
 	public static final ModelLayerLocation CHEST = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "chest"), "main");
@@ -244,6 +247,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.ARACHNE.getEntityType(), ArachneRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BANSHEE.getEntityType(), BansheeRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BEE.getEntityType(), BeeRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.BEHENDER.getEntityType(), BehenderRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.BONE_KNIGHT.getEntityType(), BoneKnightRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CENTAUR.getEntityType(), CentaurRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.CHEST.getEntityType(), ChestRenderer::new);
@@ -289,6 +293,7 @@ public class ClientHandler {
 
 		event.registerEntityRenderer(GaiaRegistry.SMALL_FIREBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.MAGIC.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		event.registerEntityRenderer(GaiaRegistry.RANDOM_MAGIC.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.WEB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.BOMB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.POISON.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
@@ -302,6 +307,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(ARACHNE, ArachneModel::createBodyLayer);
 		event.registerLayerDefinition(BANSHEE, BansheeModel::createBodyLayer);
 		event.registerLayerDefinition(BEE, BeeModel::createBodyLayer);
+		event.registerLayerDefinition(BEHENDER, BehenderModel::createBodyLayer);
 		event.registerLayerDefinition(BONE_KNIGHT, BoneKnightModel::createBodyLayer);
 		event.registerLayerDefinition(CENTAUR, CentaurModel::createBodyLayer);
 		event.registerLayerDefinition(CHEST, ChestModel::createBodyLayer);

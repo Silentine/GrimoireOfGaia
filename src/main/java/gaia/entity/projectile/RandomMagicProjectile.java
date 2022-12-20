@@ -65,6 +65,7 @@ public class RandomMagicProjectile extends SmallFireball {
 
 	@Override
 	protected void defineSynchedData() {
+		super.defineSynchedData();
 		this.entityData.define(EFFECT_LOCATION, MobEffects.MOVEMENT_SLOWDOWN.getRegistryName());
 	}
 

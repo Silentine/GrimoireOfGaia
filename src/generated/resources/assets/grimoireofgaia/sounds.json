@@ -94,6 +94,22 @@
       "mob/endermen/portal2"
     ]
   },
+  "behender_scream": {
+    "subtitle": "grimoireofgaia.subtitle.behender_scream",
+    "sounds": [
+      "mob/endermen/scream1",
+      "mob/endermen/scream2",
+      "mob/endermen/scream3",
+      "mob/endermen/scream4"
+    ]
+  },
+  "behender_teleport": {
+    "subtitle": "grimoireofgaia.subtitle.behender_teleport",
+    "sounds": [
+      "mob/endermen/portal",
+      "mob/endermen/portal2"
+    ]
+  },
   "ant_say": {
     "subtitle": "grimoireofgaia.subtitle.ant_say",
     "sounds": [
@@ -247,6 +263,31 @@
     "sounds": [
       "grimoireofgaia:entity/bee/death1",
       "grimoireofgaia:entity/bee/death2"
+    ]
+  },
+  "behender_say": {
+    "subtitle": "grimoireofgaia.subtitle.behender_say",
+    "sounds": [
+      "mob/endermen/idle1",
+      "mob/endermen/idle2",
+      "mob/endermen/idle3",
+      "mob/endermen/idle4",
+      "mob/endermen/idle5"
+    ]
+  },
+  "behender_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.behender_hurt",
+    "sounds": [
+      "mob/endermen/hit1",
+      "mob/endermen/hit2",
+      "mob/endermen/hit3",
+      "mob/endermen/hit4"
+    ]
+  },
+  "behender_death": {
+    "subtitle": "grimoireofgaia.subtitle.behender_death",
+    "sounds": [
+      "mob/endermen/death"
     ]
   },
   "bone_knight_say": {

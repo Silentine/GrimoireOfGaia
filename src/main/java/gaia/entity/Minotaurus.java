@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -46,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob {
+public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, PowerableMob {
 
 	private final RangedBowAttackGoal rangedAttackGoal = new RangedBowAttackGoal<Minotaurus>(this, SharedEntityData.ATTACK_SPEED_2, 20, 15.0F);
 	private final MobAttackGoal collideAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
@@ -90,7 +92,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public int maxVariants() {
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -101,7 +103,15 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
+		if (isPowered()) {
+			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+		}
 		return super.hurt(source, input);
+	}
+
+	@Override
+	public boolean isPowered() {
+		return getHealth() < getMaxHealth() / 2.0F;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import gaia.entity.Anubis;
 import gaia.entity.Arachne;
 import gaia.entity.Banshee;
 import gaia.entity.Bee;
+import gaia.entity.Behender;
 import gaia.entity.BoneKnight;
 import gaia.entity.Centaur;
 import gaia.entity.CobbleGolem;
@@ -123,6 +124,7 @@ public class GaiaRegistry {
 	public static final MobReg<Arachne> ARACHNE = new MobReg.Builder<>("arachne", EntityType.Builder.of(Arachne::new, MobCategory.MONSTER).sized(1.4F, 1.6F).clientTrackingRange(8), 3815994, 11013646).withDefaultSounds().build();
 	public static final MobReg<Banshee> BANSHEE = new MobReg.Builder<>("banshee", EntityType.Builder.of(Banshee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xeed2e8, 0xc6b0ed).withDefaultSounds().build();
 	public static final MobReg<Bee> BEE = new MobReg.Builder<>("bee", GaiaSoundType.ASSIST, EntityType.Builder.of(Bee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0x353535).withDefaultSounds().build();
+	public static final MobReg<Behender> BEHENDER = new MobReg.Builder<>("behender", GaiaSoundType.ASSIST, EntityType.Builder.of(Behender::new, MobCategory.MONSTER).sized(1.5F, 1.6F).clientTrackingRange(8), 0x2f5754, 0x82ba74).withDefaultSounds().build();
 	public static final MobReg<BoneKnight> BONE_KNIGHT = new MobReg.Builder<>("bone_knight", EntityType.Builder.of(BoneKnight::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4602533, 13619151).withDefaultSounds().withStep().build();
 	public static final MobReg<Centaur> CENTAUR = new MobReg.Builder<>("centaur", GaiaSoundType.ASSIST, EntityType.Builder.of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535).withDefaultSounds().withGender().build();
 	public static final MobReg<CobbleGolem> COBBLE_GOLEM = new MobReg.Builder<>("cobble_golem", GaiaSoundType.ASSIST, EntityType.Builder.of(CobbleGolem::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11513775, 11513775).withAttack().withStep().withDeath().build();

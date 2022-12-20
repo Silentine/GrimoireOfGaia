@@ -93,6 +93,20 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/endermen/portal")),
 						sound(new ResourceLocation("mob/endermen/portal2"))
 				));
+		this.add(GaiaSounds.BEHENDER_SCREAM, definition()
+				.subtitle(modSubtitle(GaiaSounds.BEHENDER_SCREAM.getId()))
+				.with(
+						sound(new ResourceLocation("mob/endermen/scream1")),
+						sound(new ResourceLocation("mob/endermen/scream2")),
+						sound(new ResourceLocation("mob/endermen/scream3")),
+						sound(new ResourceLocation("mob/endermen/scream4"))
+				));
+		this.add(GaiaSounds.BEHENDER_TELEPORT, definition()
+				.subtitle(modSubtitle(GaiaSounds.BEHENDER_TELEPORT.getId()))
+				.with(
+						sound(new ResourceLocation("mob/endermen/portal")),
+						sound(new ResourceLocation("mob/endermen/portal2"))
+				));
 
 		this.generateMobSound();
 
@@ -137,6 +151,21 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/bee/hurt3")))
 				.withDeath(sound(modLoc("entity/bee/death1")),
 						sound(modLoc("entity/bee/death2"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BEHENDER).withDefaults()
+				.withSay(
+						sound(new ResourceLocation("mob/endermen/idle1")),
+						sound(new ResourceLocation("mob/endermen/idle2")),
+						sound(new ResourceLocation("mob/endermen/idle3")),
+						sound(new ResourceLocation("mob/endermen/idle4")),
+						sound(new ResourceLocation("mob/endermen/idle5"))
+				).withHurt(
+						sound(new ResourceLocation("mob/endermen/hit1")),
+						sound(new ResourceLocation("mob/endermen/hit2")),
+						sound(new ResourceLocation("mob/endermen/hit3")),
+						sound(new ResourceLocation("mob/endermen/hit4"))
+				).withDeath(
+						sound(new ResourceLocation("mob/endermen/death"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BONE_KNIGHT)
 				.withSay(
 						sound(new ResourceLocation("mob/skeleton/say1")),

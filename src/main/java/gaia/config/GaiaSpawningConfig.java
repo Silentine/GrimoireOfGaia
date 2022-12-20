@@ -18,6 +18,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo arachneSpawning;
 		public final SpawningInfo bansheeSpawning;
 		public final SpawningInfo beeSpawning;
+		public final SpawningInfo behenderSpawning;
 		public final SpawningInfo boneKnightSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo cobbleGolemSpawning;
@@ -85,6 +86,9 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
 			beeSpawning = new SpawningInfo(builder, "Bee", 80, 2, 4, beeBiomes, beeBiomeDictionary);
 
+			List<? extends String> behenderBiomeDictionary = List.of("END,COLD,DRY");
+			behenderSpawning = new SpawningInfo(builder, "Behender", 1, 1, 1, List.of(), behenderBiomeDictionary, true);
+
 			List<? extends String> boneKnightBiomeDictionary = List.of("OVERWORLD");
 			boneKnightSpawning = new SpawningInfo(builder, "BoneKnight", 80, 2, 4, List.of(), boneKnightBiomeDictionary, true);
 
@@ -126,7 +130,7 @@ public class GaiaSpawningConfig {
 			List<? extends String> enderEyeBiomeDictionary = List.of("OVERWORLD");
 			enderEyeSpawning = new SpawningInfo(builder, "EnderEye", 40, 2, 4, List.of(), enderEyeBiomeDictionary, true);
 
-			List<? extends String> enderDragonGirlBiomeDictionary = List.of("END");
+			List<? extends String> enderDragonGirlBiomeDictionary = List.of("END,COLD,DRY");
 			enderDragonGirlSpawning = new SpawningInfo(builder, "EnderDragonGirl", 1, 1, 1, List.of(), enderDragonGirlBiomeDictionary, true);
 
 			List<? extends String> fleshLichBiomeDictionary = List.of("OVERWORLD");

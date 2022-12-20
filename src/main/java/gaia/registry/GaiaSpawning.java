@@ -9,6 +9,7 @@ import gaia.entity.Anubis;
 import gaia.entity.Arachne;
 import gaia.entity.Banshee;
 import gaia.entity.Bee;
+import gaia.entity.Behender;
 import gaia.entity.BoneKnight;
 import gaia.entity.Centaur;
 import gaia.entity.CobbleGolem;
@@ -79,6 +80,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.ARACHNE.getEntityType(), GaiaSpawningConfig.COMMON.arachneSpawning, event);
 		addSpawn(GaiaRegistry.BANSHEE.getEntityType(), GaiaSpawningConfig.COMMON.bansheeSpawning, event);
 		addSpawn(GaiaRegistry.BEE.getEntityType(), GaiaSpawningConfig.COMMON.beeSpawning, event);
+		addSpawn(GaiaRegistry.BEHENDER.getEntityType(), GaiaSpawningConfig.COMMON.behenderSpawning, event);
 		addSpawn(GaiaRegistry.BONE_KNIGHT.getEntityType(), GaiaSpawningConfig.COMMON.boneKnightSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
 		addSpawn(GaiaRegistry.CHEST.getEntityType(), GaiaSpawningConfig.COMMON.mimicSpawning, event);
@@ -167,6 +169,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.ANUBIS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Anubis::checkAnubisSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BANSHEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Banshee::checkBansheeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Bee::checkBeeSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.BEHENDER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Behender::checkBehenderSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BONE_KNIGHT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BoneKnight::checkBoneKnightSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CHEST.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Chest::checkChestSpawnRules);
@@ -219,6 +222,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.ARACHNE.getEntityType(), Arachne.createAttributes().build());
 		event.put(GaiaRegistry.BANSHEE.getEntityType(), Banshee.createAttributes().build());
 		event.put(GaiaRegistry.BEE.getEntityType(), Bee.createAttributes().build());
+		event.put(GaiaRegistry.BEHENDER.getEntityType(), Behender.createAttributes().build());
 		event.put(GaiaRegistry.BONE_KNIGHT.getEntityType(), BoneKnight.createAttributes().build());
 		event.put(GaiaRegistry.CENTAUR.getEntityType(), Centaur.createAttributes().build());
 		event.put(GaiaRegistry.CHEST.getEntityType(), Chest.createAttributes().build());

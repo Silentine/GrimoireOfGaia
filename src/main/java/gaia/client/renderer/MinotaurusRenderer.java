@@ -3,6 +3,7 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.MinotaurusModel;
+import gaia.client.renderer.layer.AuraLayer;
 import gaia.entity.Minotaurus;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,6 +20,7 @@ public class MinotaurusRenderer extends MobRenderer<Minotaurus, MinotaurusModel>
 		super(context, new MinotaurusModel(context.bakeLayer(ClientHandler.MINOTAURUS)), ClientHandler.smallShadow);
 		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
 		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new AuraLayer<>(this, () -> new MinotaurusModel(context.bakeLayer(ClientHandler.MINOTAURUS))));
 	}
 
 	@Override

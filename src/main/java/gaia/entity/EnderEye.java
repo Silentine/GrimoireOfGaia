@@ -302,7 +302,7 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 		return this.teleport(d1, d2, d3);
 	}
 
-	public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
 		return false;
 	}
 
