@@ -5,11 +5,11 @@ import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.GelatinousSlimeModel;
 import gaia.client.renderer.layer.GelatinousSlimeLayer;
+import gaia.client.renderer.layer.SlimeItemLayer;
 import gaia.entity.GelatinousSlime;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -21,7 +21,7 @@ public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, Gelati
 		super(context, new GelatinousSlimeModel(context.bakeLayer(ClientHandler.GELATINOUS_SLIME)), ClientHandler.smallShadow);
 		this.addLayer(new GelatinousSlimeLayer(this, context.getModelSet()));
 		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new SlimeItemLayer(this));
 	}
 
 	protected void scale(GelatinousSlime gelatinousSlime, PoseStack poseStack, float partialTicks) {
