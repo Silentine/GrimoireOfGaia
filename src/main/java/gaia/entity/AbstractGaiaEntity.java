@@ -188,6 +188,10 @@ public abstract class AbstractGaiaEntity extends Monster {
 			}
 		}
 
+		if (GaiaConfig.COMMON.passiveHostileMobs.get()) {
+			this.goalSelector.removeGoal(targetPlayerGoal);
+		}
+
 		return data;
 	}
 
@@ -237,6 +241,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * @param friendly true if the entity is friendly, false if not
 	 */
 	private void setupFriendGoals(boolean friendly) {
+		if (this.targetPlayerGoal == null) {
+			this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
+		}
 		switch (getGaiaLevel()) {
 			case 1 -> {
 				//Iron Golem AI
@@ -247,10 +254,12 @@ public abstract class AbstractGaiaEntity extends Monster {
 					this.targetSelector.removeGoal(this.targetMobGoal);
 					if (this instanceof IAssistMob) {
 						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
-							this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+							this.targetSelector.addGoal(2, this.targetPlayerGoal);
 						}
 					} else {
-						this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+						if (!GaiaConfig.COMMON.passiveHostileMobs.get()) {
+							this.targetSelector.addGoal(2, this.targetPlayerGoal);
+						}
 					}
 				}
 			}
@@ -261,10 +270,12 @@ public abstract class AbstractGaiaEntity extends Monster {
 				} else {
 					if (this instanceof IAssistMob) {
 						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
-							this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+							this.targetSelector.addGoal(2, this.targetPlayerGoal);
 						}
 					} else {
-						this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
+						if (!GaiaConfig.COMMON.passiveHostileMobs.get()) {
+							this.targetSelector.addGoal(2, this.targetPlayerGoal);
+						}
 					}
 				}
 			}

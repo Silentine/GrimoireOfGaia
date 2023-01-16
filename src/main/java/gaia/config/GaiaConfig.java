@@ -24,6 +24,7 @@ public class GaiaConfig {
 	public static class Common {
 		public final BooleanValue disableInvisibility;
 		public final BooleanValue allPassiveMobsHostile;
+		public final BooleanValue passiveHostileMobs;
 
 		public final BooleanValue friendlyPersistence;
 
@@ -60,6 +61,10 @@ public class GaiaConfig {
 			allPassiveMobsHostile = builder
 					.comment("All mobs are now hostile [Default: false]")
 					.define("allPassiveMobsHostile", false);
+
+			passiveHostileMobs = builder
+					.comment("Hostile day mobs will no longer attack players on sight [default: false]")
+					.define("passiveHostileMobs", false);
 
 			friendlyPersistence = builder
 					.comment("Stop befriended mobs from despawning [Default: false]")
