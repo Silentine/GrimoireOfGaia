@@ -279,7 +279,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> KNUCKLES = ITEMS.register("knuckles", () -> new KnucklesItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> SEASHELL_HAIRPIN = ITEMS.register("seashell_hairpin", () -> new SeashellHairpinItem(itemBuilder().durability(1)));
 	public static final RegistryObject<Item> MEAT = ITEMS.register("meat", () -> new Item(itemBuilder().food(GaiaFoods.MEAT)));
-	public static final RegistryObject<Item> METAL_DAGGER = ITEMS.register("metal_dagger", () -> new SwordItem(Tiers.IRON, 0, -3.0F, itemBuilder()));
+	public static final RegistryObject<Item> METAL_DAGGER = ITEMS.register("metal_dagger", () -> new SwordItem(Tiers.IRON, 0, -2.0F, itemBuilder()));
 	public static final RegistryObject<Item> MONSTER_FEED = ITEMS.register("monster_feed", () -> new MonsterFeedItem(itemBuilder().stacksTo(1).food(GaiaFoods.MONSTER_FEED)));
 	public static final RegistryObject<Item> PREMIUM_MONSTER_FEED = ITEMS.register("premium_monster_feed", () -> new MonsterFeedItem(itemBuilder().stacksTo(1).food(GaiaFoods.PREMIUM_MONSTER_FEED)));
 	public static final RegistryObject<Item> QUILL = ITEMS.register("quill", () -> new Item(itemBuilder()));
