@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -79,10 +80,10 @@ public class SummonStaffItem extends Item {
 				tag.putBoolean(Reference.SUMMONED_TAG, true);
 				tag.putUUID(Reference.SUMMONER_TAG, livingEntity.getUUID());
 
-				summon.targetSelector.getAvailableGoals().removeIf(goal ->
-						goal.getGoal() instanceof NearestAttackableTargetGoal<?> attackableGoal && attackableGoal.targetType != Monster.class);
+				summon.targetSelector.getAvailableGoals().removeIf(goal -> goal.getGoal() instanceof NearestAttackableTargetGoal<?>);
 				summon.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(summon, Monster.class, true, living -> {
-					return !tag.contains(Reference.SUMMONED_TAG);
+					return !tag.contains(Reference.SUMMONED_TAG) && (living instanceof Monster && !(living instanceof NeutralMob) ||
+							(living instanceof NeutralMob neutralMob && neutralMob.getPersistentAngerTarget().equals(livingEntity.getUUID())));
 				}));
 				level.addFreshEntity(summon);
 			}
