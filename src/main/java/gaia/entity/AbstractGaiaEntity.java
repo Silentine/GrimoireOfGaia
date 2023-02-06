@@ -3,7 +3,6 @@ package gaia.entity;
 import gaia.capability.CapabilityHandler;
 import gaia.capability.friended.IFriended;
 import gaia.config.GaiaConfig;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
@@ -57,7 +56,8 @@ public abstract class AbstractGaiaEntity extends Monster {
 	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AbstractGaiaEntity.class, EntityDataSerializers.INT);
 	protected Goal targetPlayerGoal;
 	protected final Goal targetMobGoal = new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
-		return livingEntity instanceof Enemy && !(livingEntity instanceof Creeper);
+		return livingEntity instanceof Enemy && !(livingEntity instanceof Creeper) &&
+				(livingEntity instanceof AbstractAssistGaiaEntity assistMob && assistMob.isAngryAt(this));
 	});
 
 	public AbstractGaiaEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -252,7 +252,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 					this.targetSelector.addGoal(2, this.targetMobGoal);
 				} else {
 					this.targetSelector.removeGoal(this.targetMobGoal);
-					if (this instanceof IAssistMob) {
+					if (this instanceof AbstractAssistGaiaEntity) {
 						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 							this.targetSelector.addGoal(2, this.targetPlayerGoal);
 						}
@@ -268,7 +268,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 				if (friendly) {
 					this.targetSelector.removeGoal(this.targetPlayerGoal);
 				} else {
-					if (this instanceof IAssistMob) {
+					if (this instanceof AbstractAssistGaiaEntity) {
 						if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 							this.targetSelector.addGoal(2, this.targetPlayerGoal);
 						}
@@ -319,18 +319,10 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	@Override
 	public boolean canAttackType(EntityType<?> type) {
-		if (this instanceof IAssistMob) {
+		if (this instanceof AbstractAssistGaiaEntity) {
 			return type != getType() && (type != EntityType.CREEPER && super.canAttackType(type));
 		}
 		return super.canAttackType(type);
-	}
-
-	@Override
-	public boolean isPreventingPlayerRest(Player player) {
-		if (this instanceof IAssistMob) {
-			return this.getTarget() instanceof Player;
-		}
-		return super.isPreventingPlayerRest(player);
 	}
 
 	@Override

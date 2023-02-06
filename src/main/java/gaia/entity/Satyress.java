@@ -2,7 +2,6 @@ package gaia.entity;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -49,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Satyress extends AbstractGaiaEntity implements IAssistMob, IDayMob {
+public class Satyress extends AbstractAssistGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Satyress.class, EntityDataSerializers.BOOLEAN);
 
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);

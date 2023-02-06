@@ -2,7 +2,6 @@ package gaia.entity;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -41,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Dryad extends AbstractGaiaEntity implements IAssistMob, IDayMob {
+public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Dryad.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Dryad.class, EntityDataSerializers.BOOLEAN);
 

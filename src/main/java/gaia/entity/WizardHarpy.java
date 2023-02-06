@@ -1,7 +1,6 @@
 package gaia.entity;
 
 import gaia.config.GaiaConfig;
-import gaia.entity.type.IAssistMob;
 import gaia.item.weapon.book.WeaponBookItem;
 import gaia.registry.GaiaRegistry;
 import gaia.util.RangedUtil;
@@ -43,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class WizardHarpy extends AbstractGaiaEntity implements IAssistMob, RangedAttackMob {
+public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(WizardHarpy.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<ItemStack> STORED_STACK = SynchedEntityData.defineId(WizardHarpy.class, EntityDataSerializers.ITEM_STACK);
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);

@@ -4,7 +4,6 @@ import gaia.capability.CapabilityHandler;
 import gaia.capability.friended.IFriended;
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -54,7 +53,7 @@ import net.minecraftforge.common.ForgeMod;
 
 import java.util.Random;
 
-public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, FlyingAnimal, RangedAttackMob {
+public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnimal, RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> MOVING = SynchedEntityData.defineId(Bee.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Bee.class, EntityDataSerializers.INT);
 
@@ -287,12 +286,12 @@ public class Bee extends AbstractGaiaEntity implements IAssistMob, IDayMob, Flyi
 	private void setGoals(int id) {
 		if (id == 1) {
 			this.goalSelector.removeGoal(rangedAttackGoal);
-			this.goalSelector.addGoal(2, mobAttackGoal);
+			this.goalSelector.addGoal(0, mobAttackGoal);
 		} else {
 			getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
 				if (!cap.isFriendly()) {
 					this.goalSelector.removeGoal(mobAttackGoal);
-					this.goalSelector.addGoal(1, rangedAttackGoal);
+					this.goalSelector.addGoal(0, rangedAttackGoal);
 
 					setAnimationState(0);
 					animationPlay = false;

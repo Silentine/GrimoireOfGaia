@@ -1,7 +1,6 @@
 package gaia.entity;
 
 import gaia.config.GaiaConfig;
-import gaia.entity.type.IAssistMob;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
@@ -21,7 +20,6 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -44,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Mermaid extends AbstractGaiaEntity implements IAssistMob {
+public class Mermaid extends AbstractAssistGaiaEntity {
 	protected final WaterBoundPathNavigation waterNavigation;
 	protected final GroundPathNavigation groundNavigation;
 	private byte inWaterTimer;

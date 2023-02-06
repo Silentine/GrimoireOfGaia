@@ -2,7 +2,6 @@ package gaia.entity;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -39,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class CobbleGolem extends AbstractGaiaEntity implements IAssistMob, IDayMob {
+public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 
 	private int attackAnimationTick;
 

@@ -3,7 +3,6 @@ package gaia.entity;
 import gaia.capability.CapabilityHandler;
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -47,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Hunter extends AbstractGaiaEntity implements RangedAttackMob, IAssistMob, IDayMob {
+public class Hunter extends AbstractAssistGaiaEntity implements RangedAttackMob, IDayMob {
 	private final RangedBowAttackGoal<Hunter> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 

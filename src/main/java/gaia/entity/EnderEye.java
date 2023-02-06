@@ -1,7 +1,6 @@
 package gaia.entity;
 
 import gaia.config.GaiaConfig;
-import gaia.entity.type.IAssistMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.GaiaTags;
@@ -58,7 +57,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
+public class EnderEye extends AbstractAssistGaiaEntity {
 	private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("411AF4FD-812A-4D90-802A-6FD57A7777C2");
 	private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", SharedEntityData.ATTACK_SPEED_BOOST, AttributeModifier.Operation.ADDITION);
 	private static final EntityDataAccessor<Boolean> SCREAMING = SynchedEntityData.defineId(EnderEye.class, EntityDataSerializers.BOOLEAN);
@@ -74,11 +73,11 @@ public class EnderEye extends AbstractGaiaEntity implements IAssistMob {
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(9, new FloatGoal(this));
 		this.targetSelector.addGoal(1, new LookForPlayerGoal(this, this::isAngryAt));
 		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(EnderEye.class));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);

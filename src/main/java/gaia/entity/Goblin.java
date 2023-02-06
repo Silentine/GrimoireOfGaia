@@ -2,7 +2,6 @@ package gaia.entity;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -41,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Goblin extends AbstractGaiaEntity implements IAssistMob, IDayMob, RangedAttackMob {
+public class Goblin extends AbstractAssistGaiaEntity implements RangedAttackMob, IDayMob {
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, 20, 60, 15.0F);
 	private final MobAttackGoal collideAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true);
 

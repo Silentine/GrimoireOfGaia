@@ -3,7 +3,6 @@ package gaia.entity;
 import gaia.capability.CapabilityHandler;
 import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
-import gaia.entity.type.IAssistMob;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
@@ -52,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Centaur extends AbstractGaiaEntity implements RangedAttackMob, IAssistMob, IDayMob {
+public class Centaur extends AbstractAssistGaiaEntity implements RangedAttackMob, IDayMob {
 	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Centaur.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Centaur.class, EntityDataSerializers.BOOLEAN);
 
