@@ -326,6 +326,14 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	@Override
+	public boolean isPreventingPlayerRest(Player player) {
+		if (this instanceof IAssistMob) {
+			return this.getTarget() instanceof Player;
+		}
+		return super.isPreventingPlayerRest(player);
+	}
+
+	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader levelReader) {
 		return this instanceof IDayMob ? 0.0F : super.getWalkTargetValue(pos, levelReader);
 	}
