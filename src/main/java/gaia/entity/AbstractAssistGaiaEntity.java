@@ -24,6 +24,11 @@ public abstract class AbstractAssistGaiaEntity extends AbstractGaiaEntity implem
 	}
 
 	@Override
+	public boolean canBeLeashed(Player player) {
+		return !isAngryAt(player);
+	}
+
+	@Override
 	public boolean isPreventingPlayerRest(Player player) {
 		return this.isAngryAt(player);
 	}
