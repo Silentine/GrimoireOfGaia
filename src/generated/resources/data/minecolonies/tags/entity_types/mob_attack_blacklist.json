@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "grimoireofgaia:bee",
+    "grimoireofgaia:centaur",
+    "grimoireofgaia:cobble_golem",
+    "grimoireofgaia:cyclops",
+    "grimoireofgaia:dryad",
+    "grimoireofgaia:goblin",
+    "grimoireofgaia:hunter",
+    "grimoireofgaia:mermaid",
+    "grimoireofgaia:satyress",
+    "grimoireofgaia:wizard_harpy",
+    "grimoireofgaia:yuki_onna"
+  ]
+}
