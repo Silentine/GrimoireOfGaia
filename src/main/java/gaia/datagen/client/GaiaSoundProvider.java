@@ -337,6 +337,8 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/succubus_male/hurt2")),
 						sound(modLoc("entity/succubus_male/hurt3")))
 				.withDeathMale(sound(modLoc("entity/succubus_male/death"))).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.TOAD).withDefaults()
+				.withSay(sound(modLoc("entity/toad/say1"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WERECAT).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITCH).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITHER_COW)

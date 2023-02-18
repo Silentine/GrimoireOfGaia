@@ -1065,6 +1065,26 @@
       "grimoireofgaia:entity/succubus_male/death"
     ]
   },
+  "toad_say": {
+    "subtitle": "grimoireofgaia.subtitle.toad_say",
+    "sounds": [
+      "grimoireofgaia:entity/toad/say1"
+    ]
+  },
+  "toad_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.toad_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "toad_death": {
+    "subtitle": "grimoireofgaia.subtitle.toad_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "werecat_say": {
     "subtitle": "grimoireofgaia.subtitle.werecat_say",
     "sounds": [

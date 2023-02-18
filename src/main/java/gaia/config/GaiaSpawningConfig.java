@@ -28,8 +28,8 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo deathwordSpawning;
 		public final SpawningInfo dryadSpawning;
 		public final SpawningInfo dullahanSpawning;
-		public final SpawningInfo enderEyeSpawning;
 		public final SpawningInfo enderDragonGirlSpawning;
+		public final SpawningInfo enderEyeSpawning;
 		public final SpawningInfo fleshLichSpawning;
 		public final SpawningInfo gelatinousSlimeSpawning;
 		public final SpawningInfo goblinSpawning;
@@ -38,8 +38,8 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo koboldSpawning;
 		public final SpawningInfo matangoSpawning;
 		public final SpawningInfo mermaidSpawning;
-		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo mimicSpawning;
+		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo nagaSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
@@ -49,8 +49,9 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo sirenSpawning;
 		public final SpawningInfo sludgeGirlSpawning;
 		public final SpawningInfo sphinxSpawning;
-		public final SpawningInfo succubusSpawning;
 		public final SpawningInfo sprigganSpawning;
+		public final SpawningInfo succubusSpawning;
+		public final SpawningInfo toadSpawning;
 		public final SpawningInfo werecatSpawning;
 		public final SpawningInfo witchSpawning;
 		public final SpawningInfo witherCowSpawning;
@@ -215,15 +216,19 @@ public class GaiaSpawningConfig {
 			List<? extends String> sphinxBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
 			sphinxSpawning = new SpawningInfo(builder, "Sphinx", 10, 1, 1, sphinxBiomes, sphinxBiomeDictionary);
 
+			List<? extends String> sprigganBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
+			List<? extends String> sprigganBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
+					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
+			sprigganSpawning = new SpawningInfo(builder, "Spriggan", 40, 2, 4, sprigganBiomes, sprigganBiomeDictionary);
+
 			List<? extends String> succubusBiomes = generateList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY,
 					Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
 			List<? extends String> succubusBiomeDictionary = List.of("NETHER");
 			succubusSpawning = new SpawningInfo(builder, "Succubus", 16, 2, 4, succubusBiomes, succubusBiomeDictionary);
 
-			List<? extends String> sprigganBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
-			List<? extends String> sprigganBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
-					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY");
-			sprigganSpawning = new SpawningInfo(builder, "Spriggan", 40, 2, 4, sprigganBiomes, sprigganBiomeDictionary);
+			List<? extends String> toadBiomes = generateList(Biomes.DARK_FOREST);
+			List<? extends String> toadBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
+			toadSpawning = new SpawningInfo(builder, "Toad", 80, 2, 4, toadBiomes, toadBiomeDictionary);
 
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",
