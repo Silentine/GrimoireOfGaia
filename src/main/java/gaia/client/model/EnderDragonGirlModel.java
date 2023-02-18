@@ -156,7 +156,7 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 			leftarm.xRot -= 0.5F;
 			rightarm.zRot += 0.05F;
 			leftarm.zRot -= 0.05F;
-		} else if (attackTime > -9990.0F) {
+		} else if (attackTime > 0.0F) {
 			holdingMelee();
 		}
 

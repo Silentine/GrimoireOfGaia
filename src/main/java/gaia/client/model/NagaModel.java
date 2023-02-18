@@ -159,7 +159,7 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > -9990.0F) {
+			if  (attackTime > 0.0F) {
 				holdingMelee();
 			}
 
