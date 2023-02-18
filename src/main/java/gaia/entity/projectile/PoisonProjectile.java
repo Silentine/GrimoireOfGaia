@@ -82,20 +82,23 @@ public class PoisonProjectile extends SmallFireball {
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
 		if (!this.level.isClientSide) {
-			Entity entity = entityResult.getEntity();
-			entity.hurt(DamageSource.indirectMagic(this, entity), SharedEntityData.getAttackDamage2() / 2.0F);
+			Entity owner = this.getOwner();
+			if (owner instanceof LivingEntity ownerEntity) {
+				Entity entity = entityResult.getEntity();
+				entity.hurt(DamageSource.indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
 
-			if (entity instanceof LivingEntity livingEntity) {
-				int effectTime = 0;
+				if (entity instanceof LivingEntity livingEntity) {
+					int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
-					effectTime = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
-					effectTime = 20;
-				}
+					if (level.getDifficulty() == Difficulty.NORMAL) {
+						effectTime = 10;
+					} else if (level.getDifficulty() == Difficulty.HARD) {
+						effectTime = 20;
+					}
 
-				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, effectTime * 20, 1));
+					if (effectTime > 0) {
+						livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, effectTime * 20, 1));
+					}
 				}
 			}
 		}

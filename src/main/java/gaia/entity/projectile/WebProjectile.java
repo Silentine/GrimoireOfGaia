@@ -74,8 +74,10 @@ public class WebProjectile extends SmallFireball {
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
 		if (!this.level.isClientSide) {
-			Entity entity = entityResult.getEntity();
-			entity.hurt(DamageSource.indirectMagic(this, entity), SharedEntityData.getAttackDamage2() / 2.0F);
+			Entity owner = this.getOwner();
+			if (owner instanceof LivingEntity ownerEntity) {
+				entityResult.getEntity().hurt(DamageSource.indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
+			}
 		}
 	}
 
