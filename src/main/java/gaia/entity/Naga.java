@@ -226,6 +226,7 @@ public class Naga extends AbstractGaiaEntity implements IDayMob {
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
+		setGoals(0);
 
 		this.populateDefaultEquipmentSlots(difficultyInstance);
 
