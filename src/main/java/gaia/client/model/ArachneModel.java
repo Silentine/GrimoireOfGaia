@@ -209,7 +209,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		leftarm.xRot = -1.0472F;
 		rightarm.xRot = -1.0472F;
 		leftarm.zRot = -0.261799F;
-		rightarm.zRot = +0.261799F;
+		rightarm.zRot = 0.261799F;
 	}
 
 	public void moveLegs(float limbSwing, float limbSwingAmount) {
@@ -240,21 +240,21 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		float f9 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
 		float f10 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float) Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
 		this.rightHindLeg.yRot += f3;
-		this.leftHindLeg.yRot += -f3;
+		this.leftHindLeg.yRot -= f3;
 		this.rightMiddleHindLeg.yRot += f4;
-		this.leftMiddleHindLeg.yRot += -f4;
+		this.leftMiddleHindLeg.yRot -= f4;
 		this.rightMiddleFrontLeg.yRot += f5;
-		this.leftMiddleFrontLeg.yRot += -f5;
+		this.leftMiddleFrontLeg.yRot -= f5;
 		this.rightFrontLeg.yRot += f6;
-		this.leftFrontLeg.yRot += -f6;
+		this.leftFrontLeg.yRot -= f6;
 		this.rightHindLeg.zRot += f7;
-		this.leftHindLeg.zRot += -f7;
+		this.leftHindLeg.zRot -= f7;
 		this.rightMiddleHindLeg.zRot += f8;
-		this.leftMiddleHindLeg.zRot += -f8;
+		this.leftMiddleHindLeg.zRot -= f8;
 		this.rightMiddleFrontLeg.zRot += f9;
-		this.leftMiddleFrontLeg.zRot += -f9;
+		this.leftMiddleFrontLeg.zRot -= f9;
 		this.rightFrontLeg.zRot += f10;
-		this.leftFrontLeg.zRot += -f10;
+		this.leftFrontLeg.zRot -= f10;
 	}
 
 	@Override

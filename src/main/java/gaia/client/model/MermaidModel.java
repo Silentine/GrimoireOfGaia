@@ -185,28 +185,19 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 
 		// legs
 		fins[0].xRot = -0.1308997F;
-		fins[1].xRot = +0.3926991F;
-		fins[2].xRot = +0.3926991F;
-		fins[3].xRot = +0.785398F;
-		fintail.xRot = +0.3926991F;
+		fins[1].xRot = 0.3926991F;
+		fins[2].xRot = 0.3926991F;
+		fins[3].xRot = 0.785398F;
+		fintail.xRot = 0.3926991F;
 
-		if (mermaid.isInWater()) {
-			fins[0].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fins[1].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fins[2].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fins[3].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fins[4].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fins[5].zRot = -0.1F * Mth.cos(ageInTicks * 0.3F);
-			fintail.zRot = -0.2F * Mth.cos(ageInTicks * 0.3F);
-		} else {
-			fins[0].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fins[1].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fins[2].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fins[3].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fins[4].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fins[5].zRot = -0.1F * Mth.cos(limbSwing * 0.3F);
-			fintail.zRot = -0.2F * Mth.cos(limbSwing * 0.3F);
-		}
+		float usedValue = mermaid.isInWater() ? ageInTicks : limbSwing;
+		fins[0].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fins[1].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fins[2].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fins[3].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fins[4].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fins[5].zRot = -0.1F * Mth.cos(usedValue * 0.3F);
+		fintail.zRot = -0.2F * Mth.cos(usedValue * 0.3F);
 	}
 
 	public void holdingMelee() {

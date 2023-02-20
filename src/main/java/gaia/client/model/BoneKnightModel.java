@@ -122,8 +122,8 @@ public class BoneKnightModel extends EntityModel<BoneKnight> implements HeadedMo
 		leftleg.zRot = 0.0F;
 
 		if (riding) {
-			leftarm.xRot += -((float) Math.PI / 5F);
-			rightarm.xRot += -((float) Math.PI / 5F);
+			leftarm.xRot -= ((float) Math.PI / 5F);
+			rightarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
 			rightleg.yRot = ((float) Math.PI / 10F);
 			rightleg.zRot = 0.07853982F;

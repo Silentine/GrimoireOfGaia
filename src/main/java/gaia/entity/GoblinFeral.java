@@ -187,7 +187,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 		if (!this.level.isClientSide) {
 			Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
 			this.dead = true;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * 1.0F, explosion$blockinteraction);
+			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius, explosion$blockinteraction);
 			this.discard();
 		}
 	}

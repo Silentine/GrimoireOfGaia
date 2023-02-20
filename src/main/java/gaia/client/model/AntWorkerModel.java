@@ -174,8 +174,8 @@ public class AntWorkerModel extends EntityModel<AntWorker> implements HeadedMode
 		leftleg.zRot = 0.1745329F;
 
 		if (riding) {
-			rightarm.xRot += -((float) Math.PI / 5F);
-			leftarm.xRot += -((float) Math.PI / 5F);
+			rightarm.xRot -= ((float) Math.PI / 5F);
+			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
 			rightleg.yRot = ((float) Math.PI / 10F);
 			rightleg.zRot = 0.07853982F;

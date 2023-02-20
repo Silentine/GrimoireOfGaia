@@ -18,7 +18,7 @@ import net.minecraft.world.entity.HumanoidArm;
 
 public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedModel {
 	private static final double CYCLES_PER_BLOCK = 0.1D;
-	private float[][] undulationCycle = new float[][]
+	private final float[][] undulationCycle = new float[][]
 			{
 					{5F, 0F, -11.25F, -45F, -22.5F, 0F, 22.5F, 45F},
 					{10F, 10F, 0F, -22.5F, -45F, -22.5F, 0F, 22.5F},
@@ -168,8 +168,8 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 			leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
 			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
 
-			rightarm.xRot = +armDefaultAngleX;
-			leftarm.xRot = +armDefaultAngleX;
+			rightarm.xRot = armDefaultAngleX;
+			leftarm.xRot = armDefaultAngleX;
 
 			rightarmlower.xRot = -armDefaultAngleX;
 			leftarmlower.xRot = -armDefaultAngleX;
@@ -215,11 +215,11 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 
 		rightarm.xRot = 0.0F;
 		leftarm.xRot = 0.0F;
-		rightarm.zRot = +armDefaultAngleX;
+		rightarm.zRot = armDefaultAngleX;
 		leftarm.zRot = -armDefaultAngleX;
 
-		rightarm.xRot = +armDefaultAngleX;
-		leftarm.xRot = +armDefaultAngleX;
+		rightarm.xRot = armDefaultAngleX;
+		leftarm.xRot = armDefaultAngleX;
 		rightarmlower.xRot = -armDefaultAngleX;
 		leftarmlower.xRot = -armDefaultAngleX;
 	}

@@ -2,7 +2,6 @@ package gaia.client.renderer;
 
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
-import gaia.client.model.BehenderModel;
 import gaia.client.model.SphinxModel;
 import gaia.client.renderer.layer.AuraLayer;
 import gaia.entity.Sphinx;

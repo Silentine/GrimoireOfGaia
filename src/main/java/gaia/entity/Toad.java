@@ -196,7 +196,7 @@ public class Toad extends AbstractGaiaEntity implements IDayMob {
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
-	class LeapAttack extends MobAttackGoal {
+	static class LeapAttack extends MobAttackGoal {
 		public LeapAttack(Toad toad) {
 			super(toad, SharedEntityData.ATTACK_SPEED_1, true);
 		}

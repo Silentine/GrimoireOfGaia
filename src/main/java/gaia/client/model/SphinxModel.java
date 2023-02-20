@@ -168,8 +168,8 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
 		leftleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-		rightleg.xRot += -1.9;
-		leftleg.xRot += -1.9;
+		rightleg.xRot -= 1.9;
+		leftleg.xRot -= 1.9;
 	}
 
 	@Override

@@ -80,7 +80,7 @@ public class FleshLichModel extends EntityModel<FleshLich> implements HeadedMode
 		head.yRot = netHeadYaw / 57.295776F;
 		head.xRot = headPitch / 57.295776F;
 
-		headlower.xRot = +(5 * Mth.DEG_TO_RAD);
+		headlower.xRot = (5 * Mth.DEG_TO_RAD);
 
 		// arms
 		if (fleshLich.getAnimationState() == 0) {
@@ -115,8 +115,8 @@ public class FleshLichModel extends EntityModel<FleshLich> implements HeadedMode
 		waist1.xRot = (5 * Mth.DEG_TO_RAD);
 
 		if (riding) {
-			rightarm.xRot += -((float) Math.PI / 5F);
-			leftarm.xRot += -((float) Math.PI / 5F);
+			rightarm.xRot -= ((float) Math.PI / 5F);
+			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
 			rightleg.yRot = ((float) Math.PI / 10F);
 			rightleg.zRot = 0.07853982F;
