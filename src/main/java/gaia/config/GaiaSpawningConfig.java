@@ -20,6 +20,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo beeSpawning;
 		public final SpawningInfo behenderSpawning;
 		public final SpawningInfo boneKnightSpawning;
+		public final SpawningInfo cecaeliaSpawning;
 		public final SpawningInfo centaurSpawning;
 		public final SpawningInfo cobbleGolemSpawning;
 		public final SpawningInfo cobblestoneGolemSpawning;
@@ -92,6 +93,10 @@ public class GaiaSpawningConfig {
 
 			List<? extends String> boneKnightBiomeDictionary = List.of("OVERWORLD");
 			boneKnightSpawning = new SpawningInfo(builder, "BoneKnight", 80, 2, 4, List.of(), boneKnightBiomeDictionary, true);
+
+			List<? extends String> cecaeliaBiomes = generateList(Biomes.BEACH, Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.RIVER);
+			List<? extends String> cecaeliaBiomeDictionary = List.of("OVERWORLD,BEACH", "OVERWORLD,WATER");
+			cecaeliaSpawning = new SpawningInfo(builder, "Cecaelia", 80, 4, 6, cecaeliaBiomes, cecaeliaBiomeDictionary);
 
 			List<? extends String> centaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.BADLANDS, Biomes.ERODED_BADLANDS);
 			List<? extends String> centaurBiomeDictionary = List.of(

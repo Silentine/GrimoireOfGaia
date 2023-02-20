@@ -2,6 +2,7 @@ package gaia.datagen.client.helper;
 
 import gaia.registry.helper.MobReg;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class MobLangHelper {
 	private final MobReg<?> mobReg;
 	private final String name;

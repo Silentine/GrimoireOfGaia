@@ -2,6 +2,7 @@ package gaia.util;
 
 import gaia.config.GaiaConfig;
 import gaia.entity.projectile.BombProjectile;
+import gaia.entity.projectile.BubbleProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.PoisonProjectile;
@@ -186,6 +187,28 @@ public class RangedUtil {
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		web.setPos(web.getX(), shooter.getY(0.5D) + 0.5D, web.getZ());
 		shooter.level.addFreshEntity(web);
+	}
+
+	/**
+	 * Shortcut Method for entities using bubble attacks. Use this to replace entity RangedAttackMob#performRangedAttack.
+	 *
+	 * @param target         the entity to fire at
+	 * @param shooter        the entity that is shooting
+	 * @param distanceFactor bonus damage (Unused)
+	 * @see net.minecraft.world.entity.monster.Blaze
+	 */
+	public static void bubble(LivingEntity target, LivingEntity shooter, float distanceFactor) {
+		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
+
+		double d0 = target.getX() - shooter.getX();
+		double d1 = target.getY(0.5D) - shooter.getY(0.5D);
+		double d2 = target.getZ() - shooter.getZ();
+		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
+
+		BubbleProjectile bubble = new BubbleProjectile(shooter.level, shooter,
+				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
+		bubble.setPos(bubble.getX(), shooter.getY(0.5D) + 0.5D, bubble.getZ());
+		shooter.level.addFreshEntity(bubble);
 	}
 
 	/**

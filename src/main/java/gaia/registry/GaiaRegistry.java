@@ -10,6 +10,7 @@ import gaia.entity.Banshee;
 import gaia.entity.Bee;
 import gaia.entity.Behender;
 import gaia.entity.BoneKnight;
+import gaia.entity.Cecaelia;
 import gaia.entity.Centaur;
 import gaia.entity.CobbleGolem;
 import gaia.entity.CobblestoneGolem;
@@ -51,6 +52,7 @@ import gaia.entity.WitherCow;
 import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.projectile.BombProjectile;
+import gaia.entity.projectile.BubbleProjectile;
 import gaia.entity.projectile.GaiaSmallFireball;
 import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.PoisonProjectile;
@@ -127,6 +129,7 @@ public class GaiaRegistry {
 	public static final MobReg<Bee> BEE = new MobReg.Builder<>("bee", GaiaSoundType.ASSIST, EntityType.Builder.of(Bee::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0x353535).withDefaultSounds().build();
 	public static final MobReg<Behender> BEHENDER = new MobReg.Builder<>("behender", GaiaSoundType.ASSIST, EntityType.Builder.of(Behender::new, MobCategory.MONSTER).sized(1.5F, 1.6F).clientTrackingRange(8), 0x2f5754, 0x82ba74).withDefaultSounds().build();
 	public static final MobReg<BoneKnight> BONE_KNIGHT = new MobReg.Builder<>("bone_knight", EntityType.Builder.of(BoneKnight::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 4602533, 13619151).withDefaultSounds().withStep().build();
+	public static final MobReg<Cecaelia> CECAELIA = new MobReg.Builder<>("cecaelia", EntityType.Builder.of(Cecaelia::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xdb5760, 0xd893a9).withDefaultSounds().build();
 	public static final MobReg<Centaur> CENTAUR = new MobReg.Builder<>("centaur", GaiaSoundType.ASSIST, EntityType.Builder.of(Centaur::new, MobCategory.MONSTER).sized(1.3964844F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0x353535).withDefaultSounds().withGender().build();
 	public static final MobReg<CobbleGolem> COBBLE_GOLEM = new MobReg.Builder<>("cobble_golem", GaiaSoundType.ASSIST, EntityType.Builder.of(CobbleGolem::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11513775, 11513775).withAttack().withStep().withDeath().build();
 	public static final MobReg<CobblestoneGolem> COBBLESTONE_GOLEM = new MobReg.Builder<>("cobblestone_golem", EntityType.Builder.of(CobblestoneGolem::new, MobCategory.MONSTER).sized(1.4F, 2.2F).clientTrackingRange(8), 11513775, 11513775).withAttack().withStep().withDeath().build();
@@ -199,6 +202,10 @@ public class GaiaRegistry {
 			EntityType.Builder.<BombProjectile>of(BombProjectile::new, MobCategory.MISC)
 					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
 					.setCustomClientFactory(BombProjectile::new).build("bomb"));
+	public static final RegistryObject<EntityType<BubbleProjectile>> BUBBLE = ENTITIES.register("bubble", () ->
+			EntityType.Builder.<BubbleProjectile>of(BubbleProjectile::new, MobCategory.MISC)
+					.sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10)
+					.setCustomClientFactory(BubbleProjectile::new).build("bubble"));
 
 
 	//Blocks
@@ -298,6 +305,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> PROJECTILE_WEB = ITEMS.register("projectile_web", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_BOMB = ITEMS.register("projectile_bomb", () -> new BombItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> PROJECTILE_POISON = ITEMS.register("projectile_poison", () -> new Item(itemBuilder().stacksTo(1)));
+	public static final RegistryObject<Item> PROJECTILE_BUBBLE = ITEMS.register("projectile_bubble", () -> new Item(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> NETHER_WART_JAM = ITEMS.register("nether_wart_jam", () -> new WartJamItem(itemBuilder().food(GaiaFoods.NETHER_WART_JAM)));
 	public static final RegistryObject<Item> WITHERED_BRAIN = ITEMS.register("withered_brain", () -> new EdibleEffectItem(itemBuilder().stacksTo(1).food(GaiaFoods.WITHERED_BRAIN)));
 

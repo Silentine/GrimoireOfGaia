@@ -186,6 +186,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/skeleton/step3")),
 						sound(new ResourceLocation("mob/skeleton/step4"))
 				).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CECAELIA).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CENTAUR).withDefaults()
 				.withSayMale(sound(modLoc("entity/centaur_male/say1")),
 						sound(modLoc("entity/centaur_male/say2")),

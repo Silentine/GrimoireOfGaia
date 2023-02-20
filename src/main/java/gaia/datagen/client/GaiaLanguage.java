@@ -28,6 +28,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BEE, "Honey Bee").withSay("buzzes").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BEHENDER, "Behender").withSay("vwoops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.BONE_KNIGHT, "Bone Knight").withSay("rattles").withDeath("crumbles").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CECAELIA, "Cecaelia").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CENTAUR, "Centaur").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.COBBLE_GOLEM, "Cobble Golem").withDeath("crumbles").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem").withDeath("crumbles").build());
@@ -77,6 +78,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addEntityType(GaiaRegistry.RANDOM_MAGIC, "Random Magic Projectile");
 		addEntityType(GaiaRegistry.POISON, "Poison Projectile");
 		addEntityType(GaiaRegistry.BOMB, "Bomb Projectile");
+		addEntityType(GaiaRegistry.BUBBLE, "Bubble Projectile");
 
 		addBlock(GaiaRegistry.BUST_GORGON, "The Gorgon");
 		addBlock(GaiaRegistry.BUST_MINOTAUR, "Minotaur Bust");
@@ -159,6 +161,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.PROJECTILE_RANDOM_MAGIC, "Random Magic Projectile");
 		addItem(GaiaRegistry.PROJECTILE_WEB, "Web Projectile");
 		addItem(GaiaRegistry.PROJECTILE_POISON, "Poison Projectile");
+		addItem(GaiaRegistry.PROJECTILE_BUBBLE, "Bubble Projectile");
 
 		addItem(GaiaRegistry.BAG_ARROWS, "Sealed Quiver");
 		addItem(GaiaRegistry.BAG_BOOK, "Book Satchel");

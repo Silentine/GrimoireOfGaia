@@ -322,6 +322,28 @@
       "mob/skeleton/step4"
     ]
   },
+  "cecaelia_say": {
+    "subtitle": "grimoireofgaia.subtitle.cecaelia_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "cecaelia_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.cecaelia_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "cecaelia_death": {
+    "subtitle": "grimoireofgaia.subtitle.cecaelia_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "centaur_say": {
     "subtitle": "grimoireofgaia.subtitle.centaur_say",
     "sounds": [

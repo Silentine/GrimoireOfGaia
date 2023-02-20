@@ -11,6 +11,7 @@ import gaia.entity.Banshee;
 import gaia.entity.Bee;
 import gaia.entity.Behender;
 import gaia.entity.BoneKnight;
+import gaia.entity.Cecaelia;
 import gaia.entity.Centaur;
 import gaia.entity.CobbleGolem;
 import gaia.entity.CobblestoneGolem;
@@ -83,6 +84,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.BEE.getEntityType(), GaiaSpawningConfig.COMMON.beeSpawning, event);
 		addSpawn(GaiaRegistry.BEHENDER.getEntityType(), GaiaSpawningConfig.COMMON.behenderSpawning, event);
 		addSpawn(GaiaRegistry.BONE_KNIGHT.getEntityType(), GaiaSpawningConfig.COMMON.boneKnightSpawning, event);
+		addSpawn(GaiaRegistry.CECAELIA.getEntityType(), GaiaSpawningConfig.COMMON.cecaeliaSpawning, event);
 		addSpawn(GaiaRegistry.CENTAUR.getEntityType(), GaiaSpawningConfig.COMMON.centaurSpawning, event);
 		addSpawn(GaiaRegistry.CHEST.getEntityType(), GaiaSpawningConfig.COMMON.mimicSpawning, event);
 		addSpawn(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), GaiaSpawningConfig.COMMON.cobblestoneGolemSpawning, event);
@@ -173,6 +175,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.BEE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Bee::checkBeeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BEHENDER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Behender::checkBehenderSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.BONE_KNIGHT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BoneKnight::checkBoneKnightSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.CECAELIA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Cecaelia::checkCecaeliaSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CENTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Centaur::checkCentaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CHEST.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Chest::checkChestSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.COBBLE_GOLEM.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CobbleGolem::checkCobbleGolemSpawnRules);
@@ -233,6 +236,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), CobblestoneGolem.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());
 		event.put(GaiaRegistry.CYCLOPS.getEntityType(), Cyclops.createAttributes().build());
+		event.put(GaiaRegistry.CECAELIA.getEntityType(), Cecaelia.createAttributes().build());
 		event.put(GaiaRegistry.DEATHWORD.getEntityType(), Deathword.createAttributes().build());
 		event.put(GaiaRegistry.DRYAD.getEntityType(), Dryad.createAttributes().build());
 		event.put(GaiaRegistry.DULLAHAN.getEntityType(), Dullahan.createAttributes().build());
