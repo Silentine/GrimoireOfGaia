@@ -173,11 +173,6 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

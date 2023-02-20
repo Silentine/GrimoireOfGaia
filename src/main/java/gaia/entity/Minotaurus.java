@@ -91,11 +91,6 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

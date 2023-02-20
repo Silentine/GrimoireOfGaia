@@ -83,7 +83,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 		this.entityData.set(VARIANT, Mth.clamp(index, 0, maxVariants()));
 	}
 
-	public abstract int maxVariants();
+	public int maxVariants() {
+		return 0;
+	};
 
 	public abstract float getBaseDefense();
 

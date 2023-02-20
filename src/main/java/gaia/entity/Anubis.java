@@ -121,11 +121,6 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

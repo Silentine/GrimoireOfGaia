@@ -88,12 +88,6 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 		super.defineSynchedData();
 	}
 
-
-	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
 	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense1();

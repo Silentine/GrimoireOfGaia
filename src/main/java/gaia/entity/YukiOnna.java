@@ -111,11 +111,6 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

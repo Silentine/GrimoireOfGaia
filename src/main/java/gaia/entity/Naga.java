@@ -109,11 +109,6 @@ public class Naga extends AbstractGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

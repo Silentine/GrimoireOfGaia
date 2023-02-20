@@ -83,11 +83,6 @@ public class BoneKnight extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}

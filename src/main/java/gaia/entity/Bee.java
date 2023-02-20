@@ -160,11 +160,6 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 	}
 
 	@Override
-	public int maxVariants() {
-		return 0;
-	}
-
-	@Override
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense1();
 	}
