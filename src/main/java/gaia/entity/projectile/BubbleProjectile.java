@@ -115,4 +115,9 @@ public class BubbleProjectile extends SmallFireball {
 	public boolean hurt(DamageSource source, float amount) {
 		return false;
 	}
+
+	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
 }
