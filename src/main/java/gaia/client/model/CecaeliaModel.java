@@ -242,6 +242,28 @@ public class CecaeliaModel extends EntityModel<Cecaelia> implements HeadedModel,
 		tailsNE[1].zRot = radAngle;
 		tailsNE[2].zRot = radAngle;
 		tailsNE[3].zRot = radAngle;
+
+		if (cecaelia.isInWater()) {
+			tailsSW[0].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsSW[1].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsSW[2].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsSW[3].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+
+			tailsSE[0].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsSE[1].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsSE[2].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsSE[3].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+
+			tailsNW[0].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsNW[1].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsNW[2].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+			tailsNW[3].zRot = -(0.3F * Mth.cos(ageInTicks * 0.06F));
+
+			tailsNE[0].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsNE[1].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsNE[2].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+			tailsNE[3].zRot = 0.3F * Mth.cos(ageInTicks * 0.06F);
+		}
 	}
 
 	public void holdingMelee() {
