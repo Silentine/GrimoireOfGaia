@@ -194,7 +194,7 @@ public class CecaeliaModel extends EntityModel<Cecaelia> implements HeadedModel,
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > -9990.0F) {
+			if (attackTime > 0.0F) {
 				holdingMelee();
 			}
 
