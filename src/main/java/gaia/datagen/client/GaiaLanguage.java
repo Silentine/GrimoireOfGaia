@@ -40,7 +40,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_EYE, "Ender Eye").withSay("vwoops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_DRAGON_GIRL, "Ender Dragon Girl").withSay("vwoops").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.FLESH_LICH, "Flesh Lich").withSay("groans").build());
-		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GELATINOUS_SLIME, "Gelatinous Slime").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GELATINOUS_SLIME, "Gelatinous Slime").withSay("squishes").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN, "Goblin").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin").withSay("murmurs").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HARPY, "Harpy").withSay("shrieks").build());
@@ -50,7 +50,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MERMAID, "Mermaid").withSay("sings").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAURUS, "Minotaurus").withSay("growls").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MIMIC, "Mimic").build());
-		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NAGA, "Naga").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NAGA, "Naga").withSay("hisses").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NINE_TAILS, "Nine Tails").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ONI, "Oni").withSay("snorts").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ORC, "Orc").withSay("growls").build());
