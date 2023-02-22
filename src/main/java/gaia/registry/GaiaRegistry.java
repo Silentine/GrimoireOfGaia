@@ -39,6 +39,7 @@ import gaia.entity.Oni;
 import gaia.entity.Orc;
 import gaia.entity.Satyress;
 import gaia.entity.Shaman;
+import gaia.entity.Sharko;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
 import gaia.entity.Sphinx;
@@ -157,6 +158,7 @@ public class GaiaRegistry {
 	public static final MobReg<Orc> ORC = new MobReg.Builder<>("orc", EntityType.Builder.of(Orc::new, MobCategory.MONSTER).sized(0.8F, 2.2F).clientTrackingRange(8), 0x718a60, 0xc0d696).withDefaultSounds().build();
 	public static final MobReg<Satyress> SATYRESS = new MobReg.Builder<>("satyress", GaiaSoundType.ASSIST, EntityType.Builder.of(Satyress::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x707b4f, 0xa4452d).withDefaultSounds().build();
 	public static final MobReg<Shaman> SHAMAN = new MobReg.Builder<>("shaman", EntityType.Builder.of(Shaman::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x56b134).withDefaultSounds().build();
+	public static final MobReg<Sharko> SHARKO = new MobReg.Builder<>("sharko", EntityType.Builder.of(Sharko::new, MobCategory.MONSTER).sized(1.4F, 2.0F).clientTrackingRange(8), 0x84a498, 0x5c70b1).withDefaultSounds().build();
 	public static final MobReg<Siren> SIREN = new MobReg.Builder<>("siren", EntityType.Builder.of(Siren::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x29bc55, 0x48a0de).withDefaultSounds().build();
 	public static final MobReg<SludgeGirl> SLUDGE_GIRL = new MobReg.Builder<>("sludge_girl", EntityType.Builder.of(SludgeGirl::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6595667, 7715172).withDefaultSounds().build();
 	public static final MobReg<Sphinx> SPHINX = new MobReg.Builder<>("sphinx", EntityType.Builder.of(Sphinx::new, MobCategory.MONSTER).sized(1.2F, 1.8F).clientTrackingRange(8), 0xf09942, 0x353535).withDefaultSounds().build();

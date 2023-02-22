@@ -36,6 +36,8 @@ import gaia.client.model.OniModel;
 import gaia.client.model.OrcModel;
 import gaia.client.model.SatyressModel;
 import gaia.client.model.ShamanModel;
+import gaia.client.model.SharkoModel;
+import gaia.client.model.SharkoRenderer;
 import gaia.client.model.SirenModel;
 import gaia.client.model.SludgeGirlModel;
 import gaia.client.model.SphinxModel;
@@ -171,6 +173,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation ORC = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "orc"), "main");
 	public static final ModelLayerLocation SATYRESS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "satyress"), "main");
 	public static final ModelLayerLocation SHAMAN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "shaman"), "main");
+	public static final ModelLayerLocation SHARKO = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "sharko"), "main");
 	public static final ModelLayerLocation SIREN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "siren"), "main");
 	public static final ModelLayerLocation SLUDGE_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "sludge_girl"), "main");
 	public static final ModelLayerLocation SPHINX = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "sphinx"), "main");
@@ -284,6 +287,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.ORC.getEntityType(), OrcRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SATYRESS.getEntityType(), SatyressRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SHAMAN.getEntityType(), ShamanRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.SHARKO.getEntityType(), SharkoRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SIREN.getEntityType(), SirenRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SludgeGirlRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.SPHINX.getEntityType(), SphinxRenderer::new);
@@ -347,6 +351,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(ORC, OrcModel::createBodyLayer);
 		event.registerLayerDefinition(SATYRESS, SatyressModel::createBodyLayer);
 		event.registerLayerDefinition(SHAMAN, ShamanModel::createBodyLayer);
+		event.registerLayerDefinition(SHARKO, SharkoModel::createBodyLayer);
 		event.registerLayerDefinition(SIREN, SirenModel::createBodyLayer);
 		event.registerLayerDefinition(SLUDGE_GIRL, SludgeGirlModel::createBodyLayer);
 		event.registerLayerDefinition(SPHINX, SphinxModel::createBodyLayer);

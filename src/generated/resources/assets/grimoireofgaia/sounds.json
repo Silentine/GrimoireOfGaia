@@ -933,6 +933,26 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "sharko_say": {
+    "subtitle": "grimoireofgaia.subtitle.sharko_say",
+    "sounds": [
+      "grimoireofgaia:entity/sharko/say1",
+      "grimoireofgaia:entity/sharko/say2"
+    ]
+  },
+  "sharko_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.sharko_hurt",
+    "sounds": [
+      "grimoireofgaia:entity/sharko/hurt1",
+      "grimoireofgaia:entity/sharko/hurt2"
+    ]
+  },
+  "sharko_death": {
+    "subtitle": "grimoireofgaia.subtitle.sharko_death",
+    "sounds": [
+      "grimoireofgaia:entity/sharko/death"
+    ]
+  },
   "siren_say": {
     "subtitle": "grimoireofgaia.subtitle.siren_say",
     "sounds": [

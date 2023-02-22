@@ -47,6 +47,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo orcSpawning;
 		public final SpawningInfo satyressSpawning;
 		public final SpawningInfo shamanSpawning;
+		public final SpawningInfo sharkoSpawning;
 		public final SpawningInfo sirenSpawning;
 		public final SpawningInfo sludgeGirlSpawning;
 		public final SpawningInfo sphinxSpawning;
@@ -208,6 +209,10 @@ public class GaiaSpawningConfig {
 			List<? extends String> shamanBiomes = generateList(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
 			List<? extends String> shamanBiomeDictionary = List.of("OVERWORLD,JUNGLE");
 			shamanSpawning = new SpawningInfo(builder, "Shaman", 60, 2, 4, shamanBiomes, shamanBiomeDictionary);
+
+			List<? extends String> sharkoBiomes = generateList(Biomes.BEACH, Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.RIVER);
+			List<? extends String> sharkoBiomeDictionary = List.of("OVERWORLD,BEACH", "OVERWORLD,WATER");
+			sharkoSpawning = new SpawningInfo(builder, "Sharko", 40, 2, 4, sharkoBiomes, sharkoBiomeDictionary);
 
 			List<? extends String> sirenBiomes = generateList(Biomes.SWAMP);
 			List<? extends String> sirenBiomeDictionary = List.of("OVERWORLD,SWAMP");

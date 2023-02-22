@@ -26,7 +26,43 @@
               }
             }
           ],
-          "name": "grimoireofgaia:soulfire"
+          "name": "grimoireofgaia:shiny_pearl"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.25,
+              "looting_multiplier": 0.01
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0.0,
+                "max": 1.0
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:looting_enchant",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0.0,
+                "max": 1.0
+              }
+            }
+          ],
+          "name": "minecraft:prismarine_shard"
         }
       ]
     },
@@ -58,7 +94,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "grimoireofgaia:box_gold"
+          "name": "grimoireofgaia:box_overworld"
         },
         {
           "type": "minecraft:item",
@@ -86,34 +122,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "functions": [
-            {
-              "function": "minecraft:set_enchantments",
-              "enchantments": {
-                "minecraft:knockback": 1.0,
-                "minecraft:fire_aspect": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "grimoireofgaia:fan_fire"
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.01,
-              "looting_multiplier": 0.01
-            }
-          ],
-          "name": "grimoireofgaia:doll_nine_tails"
+          "name": "grimoireofgaia:weapon_book_buff"
         }
       ]
     }

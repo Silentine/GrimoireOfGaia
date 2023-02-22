@@ -325,6 +325,12 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.withDeath(sound(modLoc("entity/orc/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SATYRESS).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SHAMAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SHARKO).withDefaults()
+				.withSay(sound(modLoc("entity/sharko/say1")),
+						sound(modLoc("entity/sharko/say2")))
+				.withHurt(sound(modLoc("entity/sharko/hurt1")),
+						sound(modLoc("entity/sharko/hurt2")))
+				.withDeath(sound(modLoc("entity/sharko/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SIREN).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SLUDGE_GIRL).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SPHINX).withDefaults().build());

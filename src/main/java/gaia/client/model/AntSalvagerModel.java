@@ -100,7 +100,7 @@ public class AntSalvagerModel extends EntityModel<AntSalvager> {
 		leftarm.yRot += mandableDefaultAngleY;
 
 		// body
-		thorax1.xRot = Mth.cos((((float) antSalvager.tickCount * 7)) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		thorax1.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 	}
 
 	@Override

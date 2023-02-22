@@ -40,6 +40,7 @@ import gaia.entity.Oni;
 import gaia.entity.Orc;
 import gaia.entity.Satyress;
 import gaia.entity.Shaman;
+import gaia.entity.Sharko;
 import gaia.entity.Siren;
 import gaia.entity.SludgeGirl;
 import gaia.entity.Sphinx;
@@ -111,6 +112,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.ORC.getEntityType(), GaiaSpawningConfig.COMMON.orcSpawning, event);
 		addSpawn(GaiaRegistry.SATYRESS.getEntityType(), GaiaSpawningConfig.COMMON.satyressSpawning, event);
 		addSpawn(GaiaRegistry.SHAMAN.getEntityType(), GaiaSpawningConfig.COMMON.shamanSpawning, event);
+		addSpawn(GaiaRegistry.SHARKO.getEntityType(), GaiaSpawningConfig.COMMON.sharkoSpawning, event);
 		addSpawn(GaiaRegistry.SIREN.getEntityType(), GaiaSpawningConfig.COMMON.sirenSpawning, event);
 		addSpawn(GaiaRegistry.SLUDGE_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.sludgeGirlSpawning, event);
 		addSpawn(GaiaRegistry.SPHINX.getEntityType(), GaiaSpawningConfig.COMMON.sphinxSpawning, event);
@@ -204,6 +206,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.ORC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Orc::checkOrcSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SATYRESS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Satyress::checkSatyressSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SHAMAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.SHARKO.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SIREN.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Siren::checkSirenSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SludgeGirl::checkSludgeGirlSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SPHINX.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sphinx::checkSphinxSpawnRules);
@@ -259,6 +262,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.ORC.getEntityType(), Orc.createAttributes().build());
 		event.put(GaiaRegistry.SATYRESS.getEntityType(), Satyress.createAttributes().build());
 		event.put(GaiaRegistry.SHAMAN.getEntityType(), Shaman.createAttributes().build());
+		event.put(GaiaRegistry.SHARKO.getEntityType(), Sharko.createAttributes().build());
 		event.put(GaiaRegistry.SIREN.getEntityType(), Siren.createAttributes().build());
 		event.put(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SludgeGirl.createAttributes().build());
 		event.put(GaiaRegistry.SPHINX.getEntityType(), Sphinx.createAttributes().build());
