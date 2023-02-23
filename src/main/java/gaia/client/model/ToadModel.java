@@ -130,7 +130,7 @@ public class ToadModel extends EntityModel<Toad> implements HeadedModel, ArmedMo
 			necktie.zRot = Mth.cos(((float) k * 1.5F + ageInTicks) * 0.1F) / 16;
 		}
 
-//		// legs
+		// legs
 		rightleg.xRot = -2.7925F + Mth.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount;
 		leftleg.xRot = -2.7925F + Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.2F * limbSwingAmount;
 	}
