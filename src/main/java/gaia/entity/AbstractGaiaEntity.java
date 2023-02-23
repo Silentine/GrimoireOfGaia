@@ -85,7 +85,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	public int maxVariants() {
 		return 0;
-	};
+	}
 
 	public abstract float getBaseDefense();
 

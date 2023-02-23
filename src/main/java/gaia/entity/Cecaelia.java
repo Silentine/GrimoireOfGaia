@@ -305,6 +305,7 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 	public boolean isPushedByFluid() {
 		return false;
 	}
+
 	@Override
 	public boolean canAttackType(EntityType<?> type) {
 		return super.canAttackType(type) && type != GaiaRegistry.CECAELIA.getEntityType();
