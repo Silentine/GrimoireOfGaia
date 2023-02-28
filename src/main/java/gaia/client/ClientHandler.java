@@ -309,6 +309,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.WEB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.BOMB.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 		event.registerEntityRenderer(GaiaRegistry.POISON.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+		event.registerEntityRenderer(GaiaRegistry.BUBBLE.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
 	}
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
