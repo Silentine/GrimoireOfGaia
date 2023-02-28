@@ -1,5 +1,6 @@
 package gaia.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.entity.Sharko;
@@ -15,6 +16,11 @@ public class SharkoRenderer extends MobRenderer<Sharko, SharkoModel> {
 	public SharkoRenderer(Context context) {
 		super(context, new SharkoModel(context.bakeLayer(ClientHandler.SHARKO)), ClientHandler.medShadow);
 		this.addLayer(new ItemInHandLayer<>(this));
+	}
+
+	@Override
+	protected void scale(Sharko sharko, PoseStack poseStack, float partialTicks) {
+		poseStack.scale(1.25F, 1.25F, 1.25F);
 	}
 
 	@Override
