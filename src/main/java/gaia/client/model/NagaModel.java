@@ -29,7 +29,6 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 					{-5F, -20F, -11.25F, 0F, 22.5F, 45F, 22.5F, 0F},
 					{0F, -10F, -22.5F, -22.5F, 0F, 22.5F, 45F, 22.5F},
 			};
-	private double distanceMovedTotal = 0.0D;
 
 	private final ModelPart root;
 	private final ModelPart body;
@@ -185,13 +184,12 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 		tails[4].xRot = 0.1309F;
 		tails[7].xRot = 0.3926991F;
 
-		updateDistanceMovedTotal(naga);
-		int cycleIndex = (int) ((getDistanceMovedTotal() * CYCLES_PER_BLOCK) % undulationCycle.length);
+		int cycleIndex = (int) ((limbSwing * CYCLES_PER_BLOCK) % undulationCycle.length);
 
-		tails[4].zRot = (undulationCycle[cycleIndex][4] * Mth.DEG_TO_RAD);
-		tails[5].zRot = (undulationCycle[cycleIndex][5] * Mth.DEG_TO_RAD);
-		tails[6].zRot = (undulationCycle[cycleIndex][6] * Mth.DEG_TO_RAD);
-		tails[7].zRot = (undulationCycle[cycleIndex][7] * Mth.DEG_TO_RAD);
+		tails[4].zRot = 0.15F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][4]));
+		tails[5].zRot = 0.15F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][5]));
+		tails[6].zRot = 0.15F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][6]));
+		tails[7].zRot = 0.15F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][7]));
 	}
 
 	public void holdingMelee() {
@@ -222,14 +220,6 @@ public class NagaModel extends EntityModel<Naga> implements HeadedModel, ArmedMo
 		leftarm.xRot = armDefaultAngleX;
 		rightarmlower.xRot = -armDefaultAngleX;
 		leftarmlower.xRot = -armDefaultAngleX;
-	}
-
-	private void updateDistanceMovedTotal(Entity parEntity) {
-		this.distanceMovedTotal += (double) Mth.sqrt((float) parEntity.distanceToSqr(parEntity.xOld, parEntity.yOld, parEntity.zOld));
-	}
-
-	private double getDistanceMovedTotal() {
-		return distanceMovedTotal;
 	}
 
 	@Override

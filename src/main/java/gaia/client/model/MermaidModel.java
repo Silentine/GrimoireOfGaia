@@ -59,7 +59,7 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition mermaid = partdefinition.addOrReplaceChild("mermaid", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition mermaid = partdefinition.addOrReplaceChild("mermaid", CubeListBuilder.create(), PartPose.offset(0.0F, 27.0F, 0.0F));
 
 		PartDefinition bodybottom = mermaid.addOrReplaceChild("bodybottom", CubeListBuilder.create()
 				.texOffs(0, 30).addBox(-3.0F, -1.5F, -1.5F, 6.0F, 3.0F, 3.0F)

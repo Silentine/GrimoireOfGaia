@@ -15,7 +15,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.BowItem;
 
@@ -31,8 +30,6 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 			{-5F, -20F, -11.25F, 0F, 22.5F, 45F, 22.5F, 0F},
 			{0F, -10F, -22.5F, -22.5F, 0F, 22.5F, 45F, 22.5F},
 	};
-	private double distanceMovedTotal = 0.0D;
-
 
 	private final ModelPart root;
 	private final ModelPart bodytop;
@@ -80,7 +77,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition siren = partdefinition.addOrReplaceChild("siren", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition siren = partdefinition.addOrReplaceChild("siren", CubeListBuilder.create(), PartPose.offset(0.0F, 27.0F, 0.0F));
 
 		PartDefinition bodybottom = siren.addOrReplaceChild("bodybottom", CubeListBuilder.create().texOffs(0, 30).addBox(-3.0F, -1.5F, -1.5F, 6.0F, 3.0F, 3.0F), PartPose.offsetAndRotation(0.0F, -13.5F, 0.0F, 0.0873F, 0.0F, 0.0F));
 
@@ -196,13 +193,12 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		tails[3].xRot = 0.785398F;
 		tails[7].xRot = 0.3926991F;
 
-		updateDistanceMovedTotal(siren);
-		int cycleIndex = (int) ((getDistanceMovedTotal() * CYCLES_PER_BLOCK) % undulationCycle.length);
+		int cycleIndex = (int) ((limbSwing * CYCLES_PER_BLOCK) % undulationCycle.length);
 
-		tails[4].zRot = ((undulationCycle[cycleIndex][4] * Mth.DEG_TO_RAD) * Mth.cos(ageInTicks * 0.02F));
-		tails[5].zRot = ((undulationCycle[cycleIndex][5] * Mth.DEG_TO_RAD) * Mth.cos(ageInTicks * 0.02F));
-		tails[6].zRot = ((undulationCycle[cycleIndex][6] * Mth.DEG_TO_RAD) * Mth.cos(ageInTicks * 0.02F));
-		tails[7].zRot = ((undulationCycle[cycleIndex][7] * Mth.DEG_TO_RAD) * Mth.cos(ageInTicks * 0.02F));
+		tails[4].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][4]));
+		tails[5].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][5]));
+		tails[6].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][6]));
+		tails[7].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][7]));
 	}
 
 	private void holdingBow(float ageInTicks) {
@@ -237,14 +233,6 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
 		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
-	}
-
-	private void updateDistanceMovedTotal(Entity parEntity) {
-		this.distanceMovedTotal += (double) Mth.sqrt((float) parEntity.distanceToSqr(parEntity.xOld, parEntity.yOld, parEntity.zOld));
-	}
-
-	private double getDistanceMovedTotal() {
-		return distanceMovedTotal;
 	}
 
 	@Override
