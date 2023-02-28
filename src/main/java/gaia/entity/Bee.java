@@ -87,10 +87,10 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(ItemTags.FLOWERS), false));
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(ItemTags.FLOWERS), false));
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-		this.goalSelector.addGoal(9, new FloatGoal(this));
+		this.goalSelector.addGoal(6, new FloatGoal(this));
 
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);

@@ -74,7 +74,7 @@ public class Centaur extends AbstractAssistGaiaEntity implements RangedAttackMob
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
@@ -185,8 +185,8 @@ public class Centaur extends AbstractAssistGaiaEntity implements RangedAttackMob
 			case 1 -> {
 				this.goalSelector.removeGoal(bowAttackGoal);
 				this.goalSelector.removeGoal(mobAttackGoal);
-				this.goalSelector.addGoal(1, avoidPlayerGoal);
-				this.goalSelector.addGoal(1, avoidMobGoal);
+				this.goalSelector.addGoal(3, avoidPlayerGoal);
+				this.goalSelector.addGoal(3, avoidMobGoal);
 			}
 			case 2 -> {
 				this.goalSelector.removeGoal(avoidPlayerGoal);

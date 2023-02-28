@@ -67,8 +67,8 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 
 		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
@@ -212,10 +212,10 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 	private void setGoals(int id) {
 		if (id == 1) {
 			this.goalSelector.removeGoal(rangedAttackGoal);
-			this.goalSelector.addGoal(2, avoidPlayerGoal);
+			this.goalSelector.addGoal(3, avoidPlayerGoal);
 		} else {
 			this.goalSelector.removeGoal(avoidPlayerGoal);
-			this.goalSelector.addGoal(2, rangedAttackGoal);
+			this.goalSelector.addGoal(1, rangedAttackGoal);
 
 			setAnimationState(0);
 			animationPlay = false;

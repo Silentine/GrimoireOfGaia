@@ -74,10 +74,10 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
-		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-		this.goalSelector.addGoal(9, new FloatGoal(this));
+		this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0D, 0.0F));
+		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(3, new FloatGoal(this));
 		this.targetSelector.addGoal(1, new LookForPlayerGoal(this, this::isAngryAt));
 		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);

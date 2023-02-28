@@ -74,8 +74,8 @@ public class Harpy extends AbstractGaiaEntity {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
@@ -179,7 +179,7 @@ public class Harpy extends AbstractGaiaEntity {
 		if (id == 1) {
 			this.goalSelector.removeGoal(leapAtTargetGoal);
 			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(2, avoidPlayerGoal);
+			this.goalSelector.addGoal(4, avoidPlayerGoal);
 		} else {
 			this.goalSelector.addGoal(1, leapAtTargetGoal);
 			this.goalSelector.addGoal(2, mobAttackGoal);

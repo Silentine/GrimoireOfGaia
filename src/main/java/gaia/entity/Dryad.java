@@ -62,9 +62,9 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
@@ -168,8 +168,8 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	private void setGoals(int id) {
 		if (id == 1) {
 			this.goalSelector.removeGoal(mobAttackGoal);
-			this.goalSelector.addGoal(1, avoidPlayerGoal);
-			this.goalSelector.addGoal(1, avoidMobGoal);
+			this.goalSelector.addGoal(3, avoidPlayerGoal);
+			this.goalSelector.addGoal(4, avoidMobGoal);
 		} else {
 			this.goalSelector.removeGoal(avoidPlayerGoal);
 			this.goalSelector.removeGoal(avoidMobGoal);
