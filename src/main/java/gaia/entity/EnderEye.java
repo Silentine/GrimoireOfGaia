@@ -79,7 +79,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 		this.goalSelector.addGoal(9, new FloatGoal(this));
 		this.targetSelector.addGoal(1, new LookForPlayerGoal(this, this::isAngryAt));
-		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(EnderEye.class));
+		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);

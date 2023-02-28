@@ -45,7 +45,7 @@ public class Sporeling extends AbstractGaiaEntity {
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 3.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Sporeling.class, Sporeling.class));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 

@@ -66,7 +66,7 @@ public class Banshee extends AbstractGaiaEntity {
 		this.goalSelector.addGoal(8, new BansheeRandomMoveGoal(this));
 		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
 		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, LivingEntity.class, 8.0F));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Banshee.class));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 

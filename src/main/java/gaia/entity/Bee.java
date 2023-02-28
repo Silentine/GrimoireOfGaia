@@ -92,7 +92,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 		this.goalSelector.addGoal(9, new FloatGoal(this));
 
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Bee.class));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);

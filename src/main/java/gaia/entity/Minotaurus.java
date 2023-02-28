@@ -65,7 +65,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Minotaurus.class));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 

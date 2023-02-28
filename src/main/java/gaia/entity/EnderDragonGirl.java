@@ -73,7 +73,7 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new EnderDragonGirl.LookForPlayerGoal(this, this::isAngryAt));
-		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers(EnderDragonGirl.class));
+		this.targetSelector.addGoal(2, (new HurtByTargetGoal(this)));
 		this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);
