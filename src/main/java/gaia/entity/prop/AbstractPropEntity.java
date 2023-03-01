@@ -44,14 +44,14 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	 * Checks if the position is above sea level so the entity can spawn
 	 */
 	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel() - 16;
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel();
 	}
 
 	/**
 	 * Checks if the position is below sea level so the entity can spawn
 	 */
 	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel() - 16;
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel();
 	}
 
 	public static boolean checkGaiaSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {

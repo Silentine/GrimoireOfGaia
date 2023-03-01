@@ -347,14 +347,14 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * Checks if the position is above sea level so the entity can spawn
 	 */
 	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel() - 16;
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel();
 	}
 
 	/**
 	 * Checks if the position is below sea level so the entity can spawn
 	 */
 	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel() - 16;
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel();
 	}
 
 	/**
