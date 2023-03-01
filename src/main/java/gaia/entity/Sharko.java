@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -55,6 +57,8 @@ public class Sharko extends AbstractGaiaEntity {
 
 	public Sharko(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
+		this.moveControl = new SharkoMoveControl(this);
+
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
 		this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
 
@@ -194,10 +198,21 @@ public class Sharko extends AbstractGaiaEntity {
 		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
 	}
 
-	@Override
-	public void setSwimming(boolean swimming) {
-		this.navigation = swimming ? this.waterNavigation : this.groundNavigation;
-		super.setSwimming(swimming);
+	boolean wantsToSwim() {
+		LivingEntity livingentity = this.getTarget();
+		return livingentity != null && livingentity.isInWater();
+	}
+
+	public void updateSwimming() {
+		if (!this.level.isClientSide) {
+			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
+				this.navigation = this.waterNavigation;
+				this.setSwimming(true);
+			} else {
+				this.navigation = this.groundNavigation;
+				this.setSwimming(false);
+			}
+		}
 	}
 
 	@Override
@@ -277,5 +292,47 @@ public class Sharko extends AbstractGaiaEntity {
 
 	public static boolean checkSharkoSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	}
+
+	static class SharkoMoveControl extends MoveControl {
+		private final Sharko sharko;
+
+		public SharkoMoveControl(Sharko mermaid) {
+			super(mermaid);
+			this.sharko = mermaid;
+		}
+
+		public void tick() {
+			LivingEntity livingentity = this.sharko.getTarget();
+			if (this.sharko.wantsToSwim() && this.sharko.isInWater()) {
+				if (livingentity != null && livingentity.getY() > this.sharko.getY()) {
+					this.sharko.setDeltaMovement(this.sharko.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
+				}
+
+				if (this.operation != MoveControl.Operation.MOVE_TO || this.sharko.getNavigation().isDone()) {
+					this.sharko.setSpeed(0.0F);
+					return;
+				}
+
+				double d0 = this.wantedX - this.sharko.getX();
+				double d1 = this.wantedY - this.sharko.getY();
+				double d2 = this.wantedZ - this.sharko.getZ();
+				double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+				d1 /= d3;
+				float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+				this.sharko.setYRot(this.rotlerp(this.sharko.getYRot(), f, 90.0F));
+				this.sharko.yBodyRot = this.sharko.getYRot();
+				float f1 = (float) (this.speedModifier * this.sharko.getAttributeValue(Attributes.MOVEMENT_SPEED));
+				float f2 = Mth.lerp(0.125F, this.sharko.getSpeed(), f1);
+				this.sharko.setSpeed(f2);
+				this.sharko.setDeltaMovement(this.sharko.getDeltaMovement().add((double) f2 * d0 * 0.005D, (double) f2 * d1 * 0.1D, (double) f2 * d2 * 0.005D));
+			} else {
+				if (!this.sharko.onGround) {
+					this.sharko.setDeltaMovement(this.sharko.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
+				}
+
+				super.tick();
+			}
+		}
 	}
 }

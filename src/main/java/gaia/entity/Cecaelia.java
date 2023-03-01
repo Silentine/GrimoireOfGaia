@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -65,6 +67,7 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 
 	public Cecaelia(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
+		this.moveControl = new CecaeliaMermaidMoveControl(this);
 
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
 		this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
@@ -240,10 +243,21 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 	}
 
-	@Override
-	public void setSwimming(boolean swimming) {
-		this.navigation = swimming ? this.waterNavigation : this.groundNavigation;
-		super.setSwimming(swimming);
+	boolean wantsToSwim() {
+		LivingEntity livingentity = this.getTarget();
+		return livingentity != null && livingentity.isInWater();
+	}
+
+	public void updateSwimming() {
+		if (!this.level.isClientSide) {
+			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
+				this.navigation = this.waterNavigation;
+				this.setSwimming(true);
+			} else {
+				this.navigation = this.groundNavigation;
+				this.setSwimming(false);
+			}
+		}
 	}
 
 	@Nullable
@@ -313,5 +327,47 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 
 	public static boolean checkCecaeliaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	}
+
+	static class CecaeliaMermaidMoveControl extends MoveControl {
+		private final Cecaelia cecaelia;
+
+		public CecaeliaMermaidMoveControl(Cecaelia cecaelia) {
+			super(cecaelia);
+			this.cecaelia = cecaelia;
+		}
+
+		public void tick() {
+			LivingEntity livingentity = this.cecaelia.getTarget();
+			if (this.cecaelia.wantsToSwim() && this.cecaelia.isInWater()) {
+				if (livingentity != null && livingentity.getY() > this.cecaelia.getY()) {
+					this.cecaelia.setDeltaMovement(this.cecaelia.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
+				}
+
+				if (this.operation != MoveControl.Operation.MOVE_TO || this.cecaelia.getNavigation().isDone()) {
+					this.cecaelia.setSpeed(0.0F);
+					return;
+				}
+
+				double d0 = this.wantedX - this.cecaelia.getX();
+				double d1 = this.wantedY - this.cecaelia.getY();
+				double d2 = this.wantedZ - this.cecaelia.getZ();
+				double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+				d1 /= d3;
+				float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+				this.cecaelia.setYRot(this.rotlerp(this.cecaelia.getYRot(), f, 90.0F));
+				this.cecaelia.yBodyRot = this.cecaelia.getYRot();
+				float f1 = (float) (this.speedModifier * this.cecaelia.getAttributeValue(Attributes.MOVEMENT_SPEED));
+				float f2 = Mth.lerp(0.125F, this.cecaelia.getSpeed(), f1);
+				this.cecaelia.setSpeed(f2);
+				this.cecaelia.setDeltaMovement(this.cecaelia.getDeltaMovement().add((double) f2 * d0 * 0.005D, (double) f2 * d1 * 0.1D, (double) f2 * d2 * 0.005D));
+			} else {
+				if (!this.cecaelia.onGround) {
+					this.cecaelia.setDeltaMovement(this.cecaelia.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
+				}
+
+				super.tick();
+			}
+		}
 	}
 }
