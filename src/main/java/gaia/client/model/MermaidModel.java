@@ -232,10 +232,7 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-		poseStack.translate(-0.125D, 0.5D, 0);
-		if (arm == HumanoidArm.LEFT) {
-			poseStack.translate(0.125F, 0, 0.0625D);
-		}
+		poseStack.translate(0, 0.5D, 0.0625D);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
