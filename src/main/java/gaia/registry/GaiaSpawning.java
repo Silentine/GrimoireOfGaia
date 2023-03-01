@@ -206,7 +206,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.ORC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Orc::checkOrcSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SATYRESS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Satyress::checkSatyressSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SHAMAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
-		SpawnPlacements.register(GaiaRegistry.SHARKO.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shaman::checkShamanSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.SHARKO.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sharko::checkSharkoSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SIREN.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Siren::checkSirenSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SLUDGE_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SludgeGirl::checkSludgeGirlSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SPHINX.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sphinx::checkSphinxSpawnRules);
