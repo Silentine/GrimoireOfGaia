@@ -670,6 +670,26 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "gryphon_say": {
+    "subtitle": "grimoireofgaia.subtitle.gryphon_say",
+    "sounds": [
+      "grimoireofgaia:entity/gryphon/say1",
+      "grimoireofgaia:entity/gryphon/say2"
+    ]
+  },
+  "gryphon_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.gryphon_hurt",
+    "sounds": [
+      "grimoireofgaia:entity/gryphon/hurt1",
+      "grimoireofgaia:entity/gryphon/hurt2"
+    ]
+  },
+  "gryphon_death": {
+    "subtitle": "grimoireofgaia.subtitle.gryphon_death",
+    "sounds": [
+      "grimoireofgaia:entity/gryphon/death"
+    ]
+  },
   "harpy_say": {
     "subtitle": "grimoireofgaia.subtitle.harpy_say",
     "sounds": [

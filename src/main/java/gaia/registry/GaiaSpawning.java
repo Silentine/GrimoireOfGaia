@@ -28,6 +28,7 @@ import gaia.entity.GaiaHorse;
 import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
+import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
@@ -102,6 +103,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.FLESH_LICH.getEntityType(), GaiaSpawningConfig.COMMON.fleshLichSpawning, event);
 		addSpawn(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GaiaSpawningConfig.COMMON.gelatinousSlimeSpawning, event);
 		addSpawn(GaiaRegistry.GOBLIN.getEntityType(), GaiaSpawningConfig.COMMON.goblinSpawning, event);
+		addSpawn(GaiaRegistry.GRYPHON.getEntityType(), GaiaSpawningConfig.COMMON.gryphonSpawning, event);
 		addSpawn(GaiaRegistry.HARPY.getEntityType(), GaiaSpawningConfig.COMMON.harpySpawning, event);
 		addSpawn(GaiaRegistry.HUNTER.getEntityType(), GaiaSpawningConfig.COMMON.hunterSpawning, event);
 		addSpawn(GaiaRegistry.KOBOLD.getEntityType(), GaiaSpawningConfig.COMMON.koboldSpawning, event);
@@ -196,6 +198,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GelatinousSlime::checkGelatinousSlimeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN_FERAL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GoblinFeral::checkGoblinFeralSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.GRYPHON.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gryphon::checkGryphonSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Harpy::checkHarpySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HUNTER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hunter::checkHunterSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.KOBOLD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kobold::checkKoboldSpawnRules);
@@ -253,6 +256,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GelatinousSlime.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN.getEntityType(), Goblin.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN_FERAL.getEntityType(), GoblinFeral.createAttributes().build());
+		event.put(GaiaRegistry.GRYPHON.getEntityType(), Gryphon.createAttributes().build());
 		event.put(GaiaRegistry.HARPY.getEntityType(), Harpy.createAttributes().build());
 		event.put(GaiaRegistry.HUNTER.getEntityType(), Hunter.createAttributes().build());
 		event.put(GaiaRegistry.KOBOLD.getEntityType(), Kobold.createAttributes().build());

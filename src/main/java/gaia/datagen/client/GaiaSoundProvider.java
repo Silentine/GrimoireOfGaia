@@ -299,6 +299,12 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/goblin/hurt2")))
 				.withDeath(sound(modLoc("entity/goblin/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN_FERAL).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GRYPHON).withDefaults()
+				.withSay(sound(modLoc("entity/gryphon/say1")),
+						sound(modLoc("entity/gryphon/say2")))
+				.withHurt(sound(modLoc("entity/gryphon/hurt1")),
+						sound(modLoc("entity/gryphon/hurt2")))
+				.withDeath(sound(modLoc("entity/gryphon/death"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HARPY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HUNTER).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HORSE)

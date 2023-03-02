@@ -27,6 +27,7 @@ import gaia.entity.GaiaHorse;
 import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
+import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
@@ -147,6 +148,7 @@ public class GaiaRegistry {
 	public static final MobReg<GelatinousSlime> GELATINOUS_SLIME = new MobReg.Builder<>("gelatinous_slime", EntityType.Builder.of(GelatinousSlime::new, MobCategory.MONSTER).sized(1.75F, 1.75F).clientTrackingRange(8), 6595667, 13619151).withDefaultSounds().build();
 	public static final MobReg<Goblin> GOBLIN = new MobReg.Builder<>("goblin", GaiaSoundType.ASSIST, EntityType.Builder.of(Goblin::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8d4f41).withDefaultSounds().build();
 	public static final MobReg<GoblinFeral> GOBLIN_FERAL = new MobReg.Builder<>("goblin_feral", EntityType.Builder.of(GoblinFeral::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x718a60, 0x8a1d3e).withDefaultSounds().build();
+	public static final MobReg<Gryphon> GRYPHON = new MobReg.Builder<>("gryphon", GaiaSoundType.ASSIST, EntityType.Builder.of(Gryphon::new, MobCategory.MONSTER).sized(1.2F, 1.8F).clientTrackingRange(8), 0xf09942, 0xe2e2e2).withDefaultSounds().build();
 	public static final MobReg<Harpy> HARPY = new MobReg.Builder<>("harpy", EntityType.Builder.of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e).withDefaultSounds().build();
 	public static final MobReg<Hunter> HUNTER = new MobReg.Builder<>("hunter", GaiaSoundType.ASSIST, EntityType.Builder.of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535).withDefaultSounds().build();
 	public static final MobReg<Kobold> KOBOLD = new MobReg.Builder<>("kobold", EntityType.Builder.of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1).withDefaultSounds().build();

@@ -35,6 +35,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo fleshLichSpawning;
 		public final SpawningInfo gelatinousSlimeSpawning;
 		public final SpawningInfo goblinSpawning;
+		public final SpawningInfo gryphonSpawning;
 		public final SpawningInfo harpySpawning;
 		public final SpawningInfo hunterSpawning;
 		public final SpawningInfo koboldSpawning;
@@ -156,6 +157,11 @@ public class GaiaSpawningConfig {
 			List<? extends String> goblinBiomes = generateList(Biomes.SAVANNA);
 			List<? extends String> goblinBiomeDictionary = List.of("OVERWORLD,SAVANNA");
 			goblinSpawning = new SpawningInfo(builder, "Goblin", 30, 2, 6, goblinBiomes, goblinBiomeDictionary);
+
+			List<? extends String> gryphonBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> gryphonBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
+					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+			gryphonSpawning = new SpawningInfo(builder, "Gryphon", 100, 1, 2, gryphonBiomes, gryphonBiomeDictionary);
 
 			List<? extends String> harpyBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
 			List<? extends String> harpyBiomeDictionary = List.of(

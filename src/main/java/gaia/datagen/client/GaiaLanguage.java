@@ -44,6 +44,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GELATINOUS_SLIME, "Gelatinous Slime").withSay("squishes").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN, "Goblin").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GOBLIN_FERAL, "Feral Goblin").withSay("murmurs").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.GRYPHON, "Gryphon").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HARPY, "Harpy").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HUNTER, "Hunter").withSay("whispers").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());

@@ -515,6 +515,18 @@ public class GaiaLoot extends LootTableProvider {
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
 			);
+			this.add(GaiaRegistry.GRYPHON.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.FEATHER)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+			);
 			this.add(GaiaRegistry.HARPY.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.FEATHER)

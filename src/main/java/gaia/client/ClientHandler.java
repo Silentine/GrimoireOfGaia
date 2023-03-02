@@ -24,6 +24,8 @@ import gaia.client.model.EnderEyeModel;
 import gaia.client.model.FleshLichModel;
 import gaia.client.model.GelatinousSlimeModel;
 import gaia.client.model.GoblinModel;
+import gaia.client.model.GryphonModel;
+import gaia.client.model.GryphonRenderer;
 import gaia.client.model.HarpyModel;
 import gaia.client.model.HunterModel;
 import gaia.client.model.KoboldModel;
@@ -163,6 +165,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation GELATINOUS_SLIME = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "gelatinous_slime"), "main");
 	public static final ModelLayerLocation GOBLIN = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "goblin"), "main");
 	public static final ModelLayerLocation GOBLIN_FERAL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "goblin"), "feral");
+	public static final ModelLayerLocation GRYPHON = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "gryphon"), "main");
 	public static final ModelLayerLocation HARPY = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "harpy"), "main");
 	public static final ModelLayerLocation HUNTER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "hunter"), "main");
 	public static final ModelLayerLocation KOBOLD = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "kobold"), "main");
@@ -278,6 +281,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GelatinousSlimeRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.GOBLIN.getEntityType(), GoblinRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.GOBLIN_FERAL.getEntityType(), GoblinFeralRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.GRYPHON.getEntityType(), GryphonRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.HARPY.getEntityType(), HarpyRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.HUNTER.getEntityType(), HunterRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.KOBOLD.getEntityType(), KoboldRenderer::new);
@@ -344,6 +348,7 @@ public class ClientHandler {
 		event.registerLayerDefinition(GELATINOUS_SLIME, GelatinousSlimeModel::createBodyLayer);
 		event.registerLayerDefinition(GOBLIN, GoblinModel::createBodyLayer);
 		event.registerLayerDefinition(GOBLIN_FERAL, GoblinModel::createBodyLayer);
+		event.registerLayerDefinition(GRYPHON, GryphonModel::createBodyLayer);
 		event.registerLayerDefinition(HARPY, HarpyModel::createBodyLayer);
 		event.registerLayerDefinition(HUNTER, HunterModel::createBodyLayer);
 		event.registerLayerDefinition(KOBOLD, KoboldModel::createBodyLayer);
