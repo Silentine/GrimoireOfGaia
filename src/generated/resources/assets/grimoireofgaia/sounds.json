@@ -826,23 +826,21 @@
   "naga_say": {
     "subtitle": "grimoireofgaia.subtitle.naga_say",
     "sounds": [
-      "grimoireofgaia:aggressive_say1",
-      "grimoireofgaia:aggressive_say2",
-      "grimoireofgaia:aggressive_say3"
+      "grimoireofgaia:entity/naga/say1",
+      "grimoireofgaia:entity/naga/say2"
     ]
   },
   "naga_hurt": {
     "subtitle": "grimoireofgaia.subtitle.naga_hurt",
     "sounds": [
-      "grimoireofgaia:aggressive_hurt1",
-      "grimoireofgaia:aggressive_hurt2",
-      "grimoireofgaia:aggressive_hurt3"
+      "grimoireofgaia:entity/naga/hurt1",
+      "grimoireofgaia:entity/naga/hurt2"
     ]
   },
   "naga_death": {
     "subtitle": "grimoireofgaia.subtitle.naga_death",
     "sounds": [
-      "grimoireofgaia:aggressive_death"
+      "grimoireofgaia:entity/naga/death"
     ]
   },
   "nine_tails_say": {
