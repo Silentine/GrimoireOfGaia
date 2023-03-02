@@ -6,7 +6,7 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:tag",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -26,7 +26,8 @@
               }
             }
           ],
-          "name": "minecraft:iron_nugget"
+          "name": "forge:nuggets/iron",
+          "expand": true
         }
       ]
     },
