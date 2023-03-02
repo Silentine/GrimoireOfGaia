@@ -232,6 +232,16 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DRYAD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DULLAHAN).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DWARF).withDefaults()
+				.withSay(
+						sound(modLoc("entity/dwarf/say1")),
+						sound(modLoc("entity/dwarf/say2"))
+				).withHurt(
+						sound(modLoc("entity/dwarf/hurt1")),
+						sound(modLoc("entity/dwarf/hurt2"))
+				).withDeath(
+						sound(modLoc("entity/dwarf/death"))
+				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_EYE).withDefaults()
 				.withSay(
 						sound(new ResourceLocation("mob/endermen/idle1")),

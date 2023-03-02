@@ -19,6 +19,7 @@ import gaia.entity.Cyclops;
 import gaia.entity.Deathword;
 import gaia.entity.Dryad;
 import gaia.entity.Dullahan;
+import gaia.entity.Dwarf;
 import gaia.entity.EnderDragonGirl;
 import gaia.entity.EnderEye;
 import gaia.entity.FleshLich;
@@ -139,6 +140,7 @@ public class GaiaRegistry {
 	public static final MobReg<Deathword> DEATHWORD = new MobReg.Builder<>("deathword", GaiaSoundType.AGGRESSIVE, EntityType.Builder.of(Deathword::new, MobCategory.MONSTER).sized(0.6F, 0.6F).clientTrackingRange(8), 0xb77a35, 0xffd800).build();
 	public static final MobReg<Dryad> DRYAD = new MobReg.Builder<>("dryad", GaiaSoundType.ASSIST, EntityType.Builder.of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460).withDefaultSounds().build();
 	public static final MobReg<Dullahan> DULLAHAN = new MobReg.Builder<>("dullahan", EntityType.Builder.of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d).withDefaultSounds().build();
+	public static final MobReg<Dwarf> DWARF = new MobReg.Builder<>("dwarf", EntityType.Builder.of(Dwarf::new, MobCategory.MONSTER).sized(0.5F, 1.5F).clientTrackingRange(8), 0x969696, 0xf09942).withDefaultSounds().build();
 	public static final MobReg<EnderDragonGirl> ENDER_DRAGON_GIRL = new MobReg.Builder<>("ender_dragon_girl", GaiaSoundType.PASSIVE, EntityType.Builder.of(EnderDragonGirl::new, MobCategory.MONSTER).sized(0.6F, 2.2F).clientTrackingRange(8), 3158064, 14711290).withDefaultSounds().build();
 	public static final MobReg<EnderEye> ENDER_EYE = new MobReg.Builder<>("ender_eye", EntityType.Builder.of(EnderEye::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 2039583, 0x3158064).withDefaultSounds().build();
 	public static final MobReg<FleshLich> FLESH_LICH = new MobReg.Builder<>("flesh_lich", EntityType.Builder.of(FleshLich::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x00cccc, 0x799c65).withDefaultSounds().withStep().build();

@@ -505,6 +505,26 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "dwarf_say": {
+    "subtitle": "grimoireofgaia.subtitle.dwarf_say",
+    "sounds": [
+      "grimoireofgaia:entity/dwarf/say1",
+      "grimoireofgaia:entity/dwarf/say2"
+    ]
+  },
+  "dwarf_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.dwarf_hurt",
+    "sounds": [
+      "grimoireofgaia:entity/dwarf/hurt1",
+      "grimoireofgaia:entity/dwarf/hurt2"
+    ]
+  },
+  "dwarf_death": {
+    "subtitle": "grimoireofgaia.subtitle.dwarf_death",
+    "sounds": [
+      "grimoireofgaia:entity/dwarf/death"
+    ]
+  },
   "ender_eye_say": {
     "subtitle": "grimoireofgaia.subtitle.ender_eye_say",
     "sounds": [

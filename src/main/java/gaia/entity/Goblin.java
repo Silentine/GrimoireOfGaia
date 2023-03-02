@@ -136,10 +136,8 @@ public class Goblin extends AbstractAssistGaiaEntity implements RangedAttackMob,
 		} else {
 			if (random.nextInt(4) == 0) {
 				this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_SWORD));
-				this.populateDefaultEquipmentEnchantments(instance);
 			} else {
 				this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-				this.populateDefaultEquipmentEnchantments(instance);
 			}
 			this.setVariant(0);
 		}
@@ -152,6 +150,7 @@ public class Goblin extends AbstractAssistGaiaEntity implements RangedAttackMob,
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
 		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentEnchantments(difficultyInstance);
 
 		setCombatTask();
 

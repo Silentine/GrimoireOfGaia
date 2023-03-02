@@ -85,7 +85,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
-//		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Dwarf.class, true)); TODO: Target Dwarf
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Dwarf.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -251,11 +251,9 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 				switch (random.nextInt(2)) {
 					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-						populateDefaultEquipmentEnchantments(instance);
 					}
 					case 1 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
-						populateDefaultEquipmentEnchantments(instance);
 					}
 				}
 			}
@@ -263,11 +261,9 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 				switch (random.nextInt(2)) {
 					case 0 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-						populateDefaultEquipmentEnchantments(instance);
 					}
 					case 1 -> {
 						setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-						populateDefaultEquipmentEnchantments(instance);
 					}
 				}
 			}
@@ -328,6 +324,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 
 		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentEnchantments(difficultyInstance);
 
 		setCombatTask();
 

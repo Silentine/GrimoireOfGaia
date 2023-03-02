@@ -20,6 +20,7 @@ import gaia.entity.Cyclops;
 import gaia.entity.Deathword;
 import gaia.entity.Dryad;
 import gaia.entity.Dullahan;
+import gaia.entity.Dwarf;
 import gaia.entity.EnderDragonGirl;
 import gaia.entity.EnderEye;
 import gaia.entity.FleshLich;
@@ -95,6 +96,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.DEATHWORD.getEntityType(), GaiaSpawningConfig.COMMON.deathwordSpawning, event);
 		addSpawn(GaiaRegistry.DRYAD.getEntityType(), GaiaSpawningConfig.COMMON.dryadSpawning, event);
 		addSpawn(GaiaRegistry.DULLAHAN.getEntityType(), GaiaSpawningConfig.COMMON.dullahanSpawning, event);
+		addSpawn(GaiaRegistry.DWARF.getEntityType(), GaiaSpawningConfig.COMMON.dwarfSpawning, event);
 		addSpawn(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), GaiaSpawningConfig.COMMON.enderDragonGirlSpawning, event);
 		addSpawn(GaiaRegistry.ENDER_EYE.getEntityType(), GaiaSpawningConfig.COMMON.enderEyeSpawning, event);
 		addSpawn(GaiaRegistry.FLESH_LICH.getEntityType(), GaiaSpawningConfig.COMMON.fleshLichSpawning, event);
@@ -187,6 +189,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.DEATHWORD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Deathword::checkDeathwordSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.DRYAD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dryad::checkDryadSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.DULLAHAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dullahan::checkDullahanSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.DWARF.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dwarf::checkDwarfSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ENDER_EYE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EnderEye::checkEnderEyeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EnderDragonGirl::checkEnderDragonGirlSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.FLESH_LICH.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FleshLich::checkFleshLichSpawnRules);
@@ -243,6 +246,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.DEATHWORD.getEntityType(), Deathword.createAttributes().build());
 		event.put(GaiaRegistry.DRYAD.getEntityType(), Dryad.createAttributes().build());
 		event.put(GaiaRegistry.DULLAHAN.getEntityType(), Dullahan.createAttributes().build());
+		event.put(GaiaRegistry.DWARF.getEntityType(), Dwarf.createAttributes().build());
 		event.put(GaiaRegistry.ENDER_EYE.getEntityType(), EnderEye.createAttributes().build());
 		event.put(GaiaRegistry.ENDER_DRAGON_GIRL.getEntityType(), EnderDragonGirl.createAttributes().build());
 		event.put(GaiaRegistry.FLESH_LICH.getEntityType(), FleshLich.createAttributes().build());
