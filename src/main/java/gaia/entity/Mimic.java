@@ -40,7 +40,6 @@ public class Mimic extends AbstractGaiaEntity {
 
 	public Mimic(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
-		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
 
 		this.setCanPickUpLoot(true);
 	}

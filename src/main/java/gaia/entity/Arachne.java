@@ -70,7 +70,6 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 
 	public Arachne(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
-		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
 
 		switchHealth = 0;
 		spawn = 0;

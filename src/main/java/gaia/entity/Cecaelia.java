@@ -69,7 +69,6 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 		super(entityType, level);
 		this.moveControl = new CecaeliaMermaidMoveControl(this);
 
-		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
 		this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
 
 		timer = 0;
