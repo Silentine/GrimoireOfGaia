@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:elytra"
+      "grimoireofgaia:fragment_to_elytra"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:elytra"
+        "recipe": "grimoireofgaia:fragment_to_elytra"
       }
     }
   },

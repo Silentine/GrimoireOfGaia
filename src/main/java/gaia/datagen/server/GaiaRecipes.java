@@ -65,7 +65,7 @@ public class GaiaRecipes extends RecipeProvider {
 				.requires(GaiaRegistry.ELYTRA_FRAGMENT.get()).requires(GaiaRegistry.ELYTRA_FRAGMENT.get())
 				.requires(Items.POPPED_CHORUS_FRUIT)
 				.unlockedBy("has_elytra_fragment", has(GaiaRegistry.ELYTRA_FRAGMENT.get()))
-				.save(consumer);
+				.save(consumer, "grimoireofgaia:fragment_to_elytra");
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(GaiaRegistry.BOX_IRON.get()),
 						GaiaRegistry.EXPERIENCE_IRON.get(), 0.1F, 200).unlockedBy("has_iron_box", has(GaiaRegistry.BOX_IRON.get()))
