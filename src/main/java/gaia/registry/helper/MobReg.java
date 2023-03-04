@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public class MobReg<T extends Mob> {
 	protected final String name;
 	protected final RegistryObject<EntityType<? extends T>> entityType;
-	protected final GaiaSoundType gaiaSoundType;
+	protected final GaiaMobType gaiaMobType;
 	protected RegistryObject<Item> spawnEgg;
 
 	protected RegistryObject<SoundEvent> SAY;
@@ -54,8 +54,8 @@ public class MobReg<T extends Mob> {
 	/**
 	 * @return The gaia sound type of the mob used for the sound pack generation.
 	 */
-	public GaiaSoundType getGaiaSoundType() {
-		return gaiaSoundType;
+	public GaiaMobType getGaiaSoundType() {
+		return gaiaMobType;
 	}
 
 	/**
@@ -144,10 +144,10 @@ public class MobReg<T extends Mob> {
 		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, GaiaSoundType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg) {
+	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg) {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
-		this.gaiaSoundType = mobType;
+		this.gaiaMobType = mobType;
 		if (!noSpawnEgg) {
 			this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
 					new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
@@ -172,19 +172,19 @@ public class MobReg<T extends Mob> {
 	public static class Builder<T extends Mob> {
 		private final String name;
 		private final EntityType.Builder<T> builder;
-		private final GaiaSoundType gaiaMobType;
+		private final GaiaMobType gaiaMobType;
 		private final int backgroundColor, highlightColor;
 		private boolean say, hurt, death, step, attack, hasGenders, noSpawnEgg;
 
 		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
 			this.builder = builder;
-			this.gaiaMobType = GaiaSoundType.AGGRESSIVE;
+			this.gaiaMobType = GaiaMobType.AGGRESSIVE;
 			this.backgroundColor = backgroundColor;
 			this.highlightColor = highlightColor;
 		}
 
-		public Builder(String name, GaiaSoundType mobType, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
+		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
 			this.builder = builder;
 			this.gaiaMobType = mobType;

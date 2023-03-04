@@ -1,6 +1,6 @@
 package gaia.registry.helper;
 
-public enum GaiaSoundType {
+public enum GaiaMobType {
 	ASSIST,
 	PASSIVE,
 	AGGRESSIVE

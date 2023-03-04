@@ -1,7 +1,7 @@
 package gaia.datagen.client.helper;
 
 import gaia.GrimoireOfGaia;
-import gaia.registry.helper.GaiaSoundType;
+import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.SoundDefinition;
@@ -87,10 +87,10 @@ public class MobSoundHelper {
 
 		public Builder withDefaults() {
 			String base = "aggressive_";
-			GaiaSoundType mobType = mobReg.getGaiaSoundType();
-			if (mobType == GaiaSoundType.ASSIST) {
+			GaiaMobType mobType = mobReg.getGaiaSoundType();
+			if (mobType == GaiaMobType.ASSIST) {
 				base = "assist_";
-			} else if (mobType == GaiaSoundType.PASSIVE) {
+			} else if (mobType == GaiaMobType.PASSIVE) {
 				base = "passive_";
 			}
 
