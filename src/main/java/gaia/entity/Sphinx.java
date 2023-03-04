@@ -191,16 +191,6 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		return data;
 	}
 
-	@Override
-	public boolean canBreatheUnderwater() {
-		return true;
-	}
-
-	@Override
-	protected MovementEmission getMovementEmission() {
-		return MovementEmission.NONE;
-	}
-
 	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
 		return false;
 	}
