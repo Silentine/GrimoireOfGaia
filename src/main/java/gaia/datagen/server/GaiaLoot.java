@@ -818,6 +818,12 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_DIAMOND.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BUST_SPHINX.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+//					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)) TODO: Add Jump Ring
+//							.add(LootItem.lootTableItem(GaiaRegistry.BUST_SPHINX.get())
+//									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.CHEST_DESERT.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
@@ -872,6 +878,27 @@ public class GaiaLoot extends LootTableProvider {
 											.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 //					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)) //Poison Trinket Accessory
 //							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get())
+//									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+			);
+			this.add(GaiaRegistry.VALKYRIE.getEntityType(), LootTable.lootTable()
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(LootItem.lootTableItem(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get())
+											.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+											.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(TagEntry.expandTag(GaiaTags.NUGGETS_DIAMOND)
+											.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(TagEntry.expandTag(GaiaTags.NUGGETS_EMERALD)
+											.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(LootItem.lootTableItem(GaiaRegistry.BOX_DIAMOND.get())
+											.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(LootItem.lootTableItem(GaiaRegistry.BUST_VALKYRIE.get())
+											.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
+//					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)) TODO: Add Speed Ring
+//							.add(LootItem.lootTableItem(GaiaRegistry.BUST_SPHINX.get())
 //									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 			);
 			this.add(GaiaRegistry.WERECAT.getEntityType(), LootTable.lootTable()

@@ -56,6 +56,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo sprigganSpawning;
 		public final SpawningInfo succubusSpawning;
 		public final SpawningInfo toadSpawning;
+		public final SpawningInfo valkyrieSpawning;
 		public final SpawningInfo werecatSpawning;
 		public final SpawningInfo witchSpawning;
 		public final SpawningInfo witherCowSpawning;
@@ -251,6 +252,11 @@ public class GaiaSpawningConfig {
 			List<? extends String> toadBiomes = generateList(Biomes.DARK_FOREST);
 			List<? extends String> toadBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			toadSpawning = new SpawningInfo(builder, "Toad", 80, 2, 4, toadBiomes, toadBiomeDictionary);
+
+			List<? extends String> valkyrieBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> valkyrieBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
+					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+			valkyrieSpawning = new SpawningInfo(builder, "Valkyrie", 10, 1, 2, valkyrieBiomes, valkyrieBiomeDictionary);
 
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
 			List<? extends String> werecatBiomeDictionary = List.of("OVERWORLD,FOREST,!CONIFEROUS,!COLD,!HOT,!SPARSE,!SPOOKY,!DENSE",

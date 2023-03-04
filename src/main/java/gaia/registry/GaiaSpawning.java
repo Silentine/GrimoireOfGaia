@@ -50,6 +50,7 @@ import gaia.entity.Sporeling;
 import gaia.entity.Spriggan;
 import gaia.entity.Succubus;
 import gaia.entity.Toad;
+import gaia.entity.Valkyrie;
 import gaia.entity.Werecat;
 import gaia.entity.Witch;
 import gaia.entity.WitherCow;
@@ -123,6 +124,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.SPRIGGAN.getEntityType(), GaiaSpawningConfig.COMMON.sprigganSpawning, event);
 		addSpawn(GaiaRegistry.SUCCUBUS.getEntityType(), GaiaSpawningConfig.COMMON.succubusSpawning, event);
 		addSpawn(GaiaRegistry.TOAD.getEntityType(), GaiaSpawningConfig.COMMON.toadSpawning, event);
+		addSpawn(GaiaRegistry.VALKYRIE.getEntityType(), GaiaSpawningConfig.COMMON.valkyrieSpawning, event);
 		addSpawn(GaiaRegistry.WERECAT.getEntityType(), GaiaSpawningConfig.COMMON.werecatSpawning, event);
 		addSpawn(GaiaRegistry.WITCH.getEntityType(), GaiaSpawningConfig.COMMON.witchSpawning, event);
 		addSpawn(GaiaRegistry.WITHER_COW.getEntityType(), GaiaSpawningConfig.COMMON.witherCowSpawning, event);
@@ -220,6 +222,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.SPRIGGAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Spriggan::checkSprigganSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.SUCCUBUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Succubus::checkSuccubusSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.TOAD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Toad::checkToadSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.VALKYRIE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Valkyrie::checkValkyrieSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WERECAT.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Werecat::checkWerecatSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WITCH.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Witch::checkWitchSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.WITHER_COW.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WitherCow::checkWitherCowSpawnRules);
@@ -278,6 +281,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.SPRIGGAN.getEntityType(), Spriggan.createAttributes().build());
 		event.put(GaiaRegistry.SUCCUBUS.getEntityType(), Succubus.createAttributes().build());
 		event.put(GaiaRegistry.TOAD.getEntityType(), Toad.createAttributes().build());
+		event.put(GaiaRegistry.VALKYRIE.getEntityType(), Valkyrie.createAttributes().build());
 		event.put(GaiaRegistry.WERECAT.getEntityType(), Werecat.createAttributes().build());
 		event.put(GaiaRegistry.WITCH.getEntityType(), Witch.createAttributes().build());
 		event.put(GaiaRegistry.WITHER_COW.getEntityType(), WitherCow.createAttributes().build());

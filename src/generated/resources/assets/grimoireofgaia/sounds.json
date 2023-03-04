@@ -1165,6 +1165,28 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "valkyrie_say": {
+    "subtitle": "grimoireofgaia.subtitle.valkyrie_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "valkyrie_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.valkyrie_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "valkyrie_death": {
+    "subtitle": "grimoireofgaia.subtitle.valkyrie_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "werecat_say": {
     "subtitle": "grimoireofgaia.subtitle.werecat_say",
     "sounds": [
