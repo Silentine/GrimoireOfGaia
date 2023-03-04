@@ -100,6 +100,11 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 	}
 
 	@Override
+	public int getGaiaLevel() {
+		return 2;
+	}
+
+	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(RANDOM_CLASS, true);
