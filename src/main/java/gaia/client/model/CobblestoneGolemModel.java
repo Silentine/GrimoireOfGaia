@@ -97,7 +97,7 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 	public void setupAnim(CobblestoneGolem cobbleGolem, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = (headPitch / 57.295776F) + 0.2617994F;
+		head.xRot = (headPitch / 57.295776F) - 0.2617994F;
 
 		// arms
 
