@@ -1,5 +1,7 @@
 package gaia.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.CobbleGolemModel;
@@ -14,6 +16,17 @@ public class CobbleGolemRenderer extends MobRenderer<CobbleGolem, CobbleGolemMod
 
 	public CobbleGolemRenderer(Context context) {
 		super(context, new CobbleGolemModel(context.bakeLayer(ClientHandler.COBBLE_GOLEM)), ClientHandler.smallShadow);
+	}
+
+	@Override
+	protected void setupRotations(CobbleGolem cobbleGolem, PoseStack poseStack, float p_115016_, float p_115017_, float p_115018_) {
+		super.setupRotations(cobbleGolem, poseStack, p_115016_, p_115017_, p_115018_);
+		if (!((double)cobbleGolem.animationSpeed < 0.01D)) {
+			float f = 13.0F;
+			float f1 = cobbleGolem.animationPosition - cobbleGolem.animationSpeed * (1.0F - p_115018_) + 6.0F;
+			float f2 = (Math.abs(f1 % 13.0F - 6.5F) - 3.25F) / 3.25F;
+			poseStack.mulPose(Vector3f.ZP.rotationDegrees(6.5F * f2));
+		}
 	}
 
 	@Override
