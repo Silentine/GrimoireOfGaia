@@ -83,12 +83,13 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 		super.prepareMobModel(cobbleGolem, limbSwing, limbSwingAmount, partialTick);
 		int i = cobbleGolem.getAttackAnimationTick();
 
+		float rotation = 0;
 		if (i > 0) {
-			rightarm.xRot = -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
-			leftarm.xRot = -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			leftarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			rightarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
 		} else {
-			rightarm.xRot = 0F;
-			leftarm.xRot = 0F;
+			leftarm.xRot = rotation + (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
+			rightarm.xRot = rotation + (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
 		}
 	}
 
@@ -99,16 +100,14 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 		head.xRot = (headPitch / 57.295776F) + 0.2617994F;
 
 		// arms
-		rightshoulder.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftshoulder.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
-		rightshoulder.xRot = 0.0F;
-		leftshoulder.xRot = 0.0F;
+		leftarm.zRot = 0.0F;
+		rightarm.zRot = 0.0F;
 
-		rightshoulder.xRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-		rightshoulder.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-		leftshoulder.xRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-		leftshoulder.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		leftarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+		leftarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		rightarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+		rightarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
 
 		// legs
 		rightleg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingAmount;

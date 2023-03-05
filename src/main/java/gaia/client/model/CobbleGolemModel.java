@@ -62,14 +62,15 @@ public class CobbleGolemModel extends EntityModel<CobbleGolem> {
 	@Override
 	public void prepareMobModel(CobbleGolem cobbleGolem, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(cobbleGolem, limbSwing, limbSwingAmount, partialTick);
-		int i = cobbleGolem.getAttackAnimationTick();
 
+		int i = cobbleGolem.getAttackAnimationTick();
+		float rotation = -(Mth.DEG_TO_RAD * 15);
 		if (i > 0) {
-			rightarm.xRot = -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
-			leftarm.xRot = -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			rightarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			leftarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
 		} else {
-			rightarm.xRot = 0F;
-			leftarm.xRot = 0F;
+			rightarm.xRot = rotation + (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
+			leftarm.xRot = rotation + (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
 		}
 	}
 
