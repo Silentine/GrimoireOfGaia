@@ -85,7 +85,7 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 		if (GaiaConfig.COMMON.allPassiveMobsHostile.get()) {
 			this.targetSelector.addGoal(2, this.targetPlayerGoal);
 		}
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Dwarf.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Orc.class, true));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
