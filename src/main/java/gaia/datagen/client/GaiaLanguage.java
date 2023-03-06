@@ -222,6 +222,38 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.food_monster_feed.desc", "Adds friendliness to Level 1 Assist mobs");
 		add("text.grimoireofgaia.premium_food_monster_feed.desc", "Removes initial hostility");
 		add("item.grimoireofgaia.food_monster_feed2.desc", "Does not affect damaged mobs");
+
+		//Patchouli
+		addPatchouliEntry("name", "Grimoire of Gaia");
+		addPatchouliEntry("subtitle", "Gaiapedia");
+		addPatchouliEntry("landing", "This book will teach you all about the mobs added by the $(thing)Grimoire of Gaia$() mod, and is packed with information on each creature's abilities, behaviors.");
+
+		addPatchouliEntry("category.assist.name", "Assist");
+		addPatchouliEntry("category.assist.desc", "Assist mobs are usually passive unless provoked. So as long as you don't attack them they shouldn't attack you.");
+		//$(b)Note: $()Health, armor and damage can differ depending on what's been configured.
+
+		addPatchouliEntry("entry.centaur.name", "Centaur");
+		addPatchouliEntry("entry.centaur.info", "The $(mob)Centaur$() is a neutral monster that spawns in the $(thing)Overworld$(). It is passive, and will not attack players unless attacked first, after which it will retaliate with ranged $(thing)Poison$() and $(thing)Weakness$() arrow attacks. Attacking a $(mob)Centaur$() angers all others in the area, similar to the $(mob)Zombie Pigman$(). When the $(mob)Centaur$() reaches 25%%, they will run away and recover health, then resume attacking.");
+		addPatchouliEntry("entry.centaur.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
+		addPatchouliEntry("entry.centaur.drop.box_iron.info", "$(mob)Centaur$() drop $(item)Iron Box$() on death, which can be right-clicked while in hand to open and receive a random tool, weapon, or armor piece made of iron. Alternatively, it can be smelted in a furnace to create $(item)Crystallized Experience (Small)$().");
+		addPatchouliEntry("entry.centaur.drop.bag_arrows.info", "$(mob)Centaurs$() drop $(item)Sealed Quiver$() on death, which can be right-clicked while held to open and receive a small stack of potion arrows randomly chosen from among $(thing)Slowness$(), $(thing)Harming$(), $(thing)Poison$(), or $(thing)Weakness$() effects.");
+
+		addPatchouliEntry("entry.cobble_golem.name", "Cobble Golem");
+		addPatchouliEntry("entry.cobble_golem.info", "The $(mob)Cobble Golem$() is a helper that spawns in the Jungle in the $(thing)Overworld$(). It has immunity to $(thing)Poison$(), Fire, and knockback but it is vulnerable to pickaxe attacks and drowning. $(mob)Cobble Golems$() will attack hostile mobs with melee atacks and occasionally throw its targets away from it. It will not attack players unless provoked.");
+		addPatchouliEntry("entry.cobble_golem.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)7-21 Damage$()");
+		addPatchouliEntry("entry.cobble_golem.drop.box_iron.info", "$(mob)Cobble Golems$() drop $(item)Iron Box$() on death, which can be right-clicked while in hand to open and receive a random tool, weapon, or armor piece made of iron. Alternatively, it can be smelted in a furnace to create $(item)Crystalized Experience (Small)$().");
+
+		addPatchouliEntry("entry.cobblestone_golem.name", "Cobblestone Golem");
+		addPatchouliEntry("entry.cobblestone_golem.info", "The $(mob)Cobblestone Golem$() is a helper that spawns in the Jungle in the $(thing)Overworld$(). Similar to and slightly stronger than the $(mob)Cobble Golem$(), it has immunity to $(thing)Poison$(), Fire, and knockback but is vulnerable to pickaxe attacks and drowning. $(mob)Cobblestoe Golems$() will attack hostile mobs with melee atacks and occasionally throw targets away from itself. It will not attack unless provoked.");
+		addPatchouliEntry("entry.cobblestone_golem.info2", "$(li)80 Health$()$(li)8 Armor$()$(li)7-21 Damage$()");
+		addPatchouliEntry("entry.cobblestone_golem.drop.box_gold.info", "$(mob)Cobblestone Golems$() drop $(item)Gold Box$() on death, which can be right-clicked while held to open and receive a random tool, weapon, or armor piece made of gold. Alternatively, it can be smelted in a furnace to create $(item)Crystalized Experience (Medium)$().");
+		addPatchouliEntry("entry.cobblestone_golem.drop.bag_book.info", "$(mob)Cobblestone Golems$() drop $(item)Book Bag$() on death. Right-click to open the bag and receive a random enchantment book.");
+
+		addPatchouliEntry("entry.cyclops.name", "Cyclops");
+		addPatchouliEntry("entry.cyclops.info", "The $(mob)Cyclops$() is a monster that spawns on the surface of Taiga biomes in the $(thing)Overworld$(). She attacks the player on sight with melee attacks which apply a $(thing)Slowness$() effect. While below 25% health in combat, she receives a $(thing)Speed$() effect.");
+		addPatchouliEntry("entry.cyclops.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
+		addPatchouliEntry("entry.cyclops.drop.fur.info", "$(mob)Cyclops$() drop $(item)Fur$() on death, which can be smelted in a furnace to create $(item)Leather$()");
+		addPatchouliEntry("entry.cyclops.drop.box_iron.info", "$(mob)Cyclops$() drop $(item)Iron Box$() on death, which can be right-clicked while in hand to open and receive a random tool, weapon, or armor piece made of iron. Alternatively, it can be smelted in a furnace to create $(item)Crystalized Experience (Small)$().");
 	}
 
 	public void addSubtitle(RegistryObject<SoundEvent> sound, String name) {
@@ -268,5 +300,9 @@ public class GaiaLanguage extends LanguageProvider {
 	private void addPropReg(PropReg<?> reg, String name) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
+	}
+
+	private void addPatchouliEntry(String entry, String translation) {
+		add("info.grimoireofgaia.book." + entry, translation);
 	}
 }

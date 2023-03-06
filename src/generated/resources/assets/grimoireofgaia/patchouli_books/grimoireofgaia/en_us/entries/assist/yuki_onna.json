@@ -1,0 +1,41 @@
+{
+  "name": "info.grimoireofgaia.book.entry.yuki_onna.name",
+  "category": "grimoireofgaia:assist",
+  "icon": "grimoireofgaia:yuki_onna_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:yuki_onna",
+      "scale": 0.75,
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:fur",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.drop.fur.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_gold",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.drop.box_gold.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:fan_ice{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.entry.yuki_onna.drop.fan_ice.info"
+    }
+  ]
+}

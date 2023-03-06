@@ -5,6 +5,8 @@ import gaia.datagen.client.GaiaBlockstates;
 import gaia.datagen.client.GaiaItemModels;
 import gaia.datagen.client.GaiaLanguage;
 import gaia.datagen.client.GaiaSoundProvider;
+import gaia.datagen.client.compat.GaiaPatchouliProvider;
+import gaia.datagen.server.GaiaAdvancementProvider;
 import gaia.datagen.server.GaiaBlockTags;
 import gaia.datagen.server.GaiaEntityTags;
 import gaia.datagen.server.GaiaItemTags;
@@ -26,6 +28,7 @@ public class GaiaDatagen {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
+			generator.addProvider(new GaiaAdvancementProvider(generator, helper));
 			generator.addProvider(new GaiaRecipes(generator));
 			generator.addProvider(new GaiaLoot(generator));
 			generator.addProvider(new GaiaUncheckedLoot(generator));
@@ -40,6 +43,7 @@ public class GaiaDatagen {
 			generator.addProvider(new GaiaBlockModels(generator, helper));
 			generator.addProvider(new GaiaItemModels(generator, helper));
 			generator.addProvider(new GaiaBlockstates(generator, helper));
+			generator.addProvider(new GaiaPatchouliProvider(generator));
 		}
 	}
 }

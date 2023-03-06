@@ -103,6 +103,9 @@ repositories {
         url = "https://dvs1.progwml6.com/files/maven"
     }
     maven {
+        url = "https://maven.blamejared.com"
+    }
+    maven {
         url = "https://maven.theillusivec4.top/"
     }
 }
@@ -112,6 +115,9 @@ dependencies {
 
     implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curios_version}")
+
+    implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    implementation fg.deobf("xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
