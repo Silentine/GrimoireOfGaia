@@ -82,9 +82,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> arachneBiomeDictionary = List.of("OVERWORLD");
 			arachneSpawning = new SpawningInfo(builder, "Arachne", 80, 1, 2, List.of(), arachneBiomeDictionary);
 
-			List<? extends String> bansheeBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> bansheeBiomes = generateList(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 			List<? extends String> bansheeBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
-					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+					"OVERWORLD,MOUNTAIN,!HOT,!DENSE");
 			bansheeSpawning = new SpawningInfo(builder, "Banshee", 40, 2, 4, bansheeBiomes, bansheeBiomeDictionary);
 
 			List<? extends String> beeBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
@@ -132,14 +132,14 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,FOREST,DENSE,RARE,!CONIFEROUS,!COLD,!HOT,!SPARSE,SPOOKY");
 			dryadSpawning = new SpawningInfo(builder, "Dryad", 60, 4, 6, dryadBiomes, dryadBiomeDictionary);
 
-			List<? extends String> dullahanBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> dullahanBiomes = generateList(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 			List<? extends String> dullahanBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
-					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+					"OVERWORLD,MOUNTAIN,!HOT,!DENSE");
 			dullahanSpawning = new SpawningInfo(builder, "Dullahan", 100, 4, 6, dullahanBiomes, dullahanBiomeDictionary);
 
-			List<? extends String> dwarfBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> dwarfBiomes = generateList(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 			List<? extends String> dwarfBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
-					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+					"OVERWORLD,MOUNTAIN,!HOT,!DENSE");
 			dwarfSpawning = new SpawningInfo(builder, "Dwarf", 30, 4, 6, dwarfBiomes, dwarfBiomeDictionary);
 
 			List<? extends String> enderEyeBiomeDictionary = List.of("OVERWORLD");
@@ -159,9 +159,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> goblinBiomeDictionary = List.of("OVERWORLD,SAVANNA");
 			goblinSpawning = new SpawningInfo(builder, "Goblin", 30, 2, 6, goblinBiomes, goblinBiomeDictionary);
 
-			List<? extends String> gryphonBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> gryphonBiomes = generateList(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 			List<? extends String> gryphonBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
-					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+					"OVERWORLD,MOUNTAIN,!HOT,!DENSE");
 			gryphonSpawning = new SpawningInfo(builder, "Gryphon", 100, 1, 2, gryphonBiomes, gryphonBiomeDictionary);
 
 			List<? extends String> harpyBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
@@ -253,9 +253,9 @@ public class GaiaSpawningConfig {
 			List<? extends String> toadBiomeDictionary = List.of("OVERWORLD,FOREST,SPOOKY");
 			toadSpawning = new SpawningInfo(builder, "Toad", 80, 2, 4, toadBiomes, toadBiomeDictionary);
 
-			List<? extends String> valkyrieBiomes = generateList(Biomes.MEADOW);
+			List<? extends String> valkyrieBiomes = generateList(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 			List<? extends String> valkyrieBiomeDictionary = List.of("OVERWORLD,PLATEAU,!COLD,!HOT,!DENSE",
-					"OVERWORLD,MOUNTAIN,!COLD,!HOT,!DENSE");
+					"OVERWORLD,MOUNTAIN,!HOT,!DENSE");
 			valkyrieSpawning = new SpawningInfo(builder, "Valkyrie", 10, 1, 2, valkyrieBiomes, valkyrieBiomeDictionary);
 
 			List<? extends String> werecatBiomes = generateList(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
