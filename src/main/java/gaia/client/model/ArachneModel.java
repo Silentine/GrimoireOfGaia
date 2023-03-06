@@ -132,7 +132,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Arachne arachne, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = arachne.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw * ((float) Math.PI / 180F);

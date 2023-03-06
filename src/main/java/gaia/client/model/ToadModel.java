@@ -111,7 +111,7 @@ public class ToadModel extends EntityModel<Toad> implements HeadedModel, ArmedMo
 
 	@Override
 	public void setupAnim(Toad toad, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = toad.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		if (attackTime > 0.0F) {
 			holdingMelee();

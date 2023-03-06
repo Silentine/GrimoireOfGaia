@@ -131,8 +131,8 @@ public class ValkyrieModel extends EntityModel<Valkyrie> implements HeadedModel,
 	}
 
 	@Override
-	public void setupAnim(Valkyrie entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = entityIn.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+	public void setupAnim(Valkyrie valkyrie, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
@@ -142,7 +142,7 @@ public class ValkyrieModel extends EntityModel<Valkyrie> implements HeadedModel,
 		hair2.xRot = (head.xRot) * 0.75F;
 
 		// arms
-		if (entityIn.getAnimationState() == 0) {
+		if (valkyrie.getAnimationState() == 0) {
 			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
 			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
@@ -159,7 +159,7 @@ public class ValkyrieModel extends EntityModel<Valkyrie> implements HeadedModel,
 			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
 			leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
 			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
-		} else if (entityIn.getAnimationState() == 1) {
+		} else if (valkyrie.getAnimationState() == 1) {
 			animationBuff();
 		}
 

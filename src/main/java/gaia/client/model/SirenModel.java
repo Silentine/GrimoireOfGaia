@@ -148,7 +148,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 
 	@Override
 	public void setupAnim(Siren siren, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = siren.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

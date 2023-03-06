@@ -104,7 +104,7 @@ public class DullahanModel extends EntityModel<Dullahan> implements HeadedModel,
 
 	@Override
 	public void setupAnim(Dullahan dullahan, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = dullahan.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.xRot = headPitch * ((float) Math.PI / 180F) + 90F;

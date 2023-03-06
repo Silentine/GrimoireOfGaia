@@ -158,7 +158,7 @@ public class MermaidModel extends EntityModel<Mermaid> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Mermaid mermaid, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = mermaid.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

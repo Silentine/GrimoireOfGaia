@@ -184,7 +184,7 @@ public class NineTailsModel extends EntityModel<NineTails> implements HeadedMode
 
 	@Override
 	public void setupAnim(NineTails nineTails, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = nineTails.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;

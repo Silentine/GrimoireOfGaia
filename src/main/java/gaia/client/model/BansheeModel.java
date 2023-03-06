@@ -123,7 +123,7 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Banshee banshee, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = banshee.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// anchor
 		root.y = 24.0F - Mth.cos(ageInTicks * 0.18F) * 0.9F;

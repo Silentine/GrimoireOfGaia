@@ -113,7 +113,7 @@ public class MatangoModel extends EntityModel<Matango> implements HeadedModel, A
 
 	@Override
 	public void setupAnim(Matango matango, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = matango.tickCount % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
 
 		// head
 		head.yRot = netHeadYaw / 57.295776F;
