@@ -142,8 +142,8 @@ public class GaiaRegistry {
 	public static final MobReg<Deathword> DEATHWORD = new MobReg.Builder<>("deathword", GaiaMobType.AGGRESSIVE, EntityType.Builder.of(Deathword::new, MobCategory.MONSTER).sized(0.6F, 0.6F).clientTrackingRange(8), 0xb77a35, 0xffd800).build();
 	public static final MobReg<Dryad> DRYAD = new MobReg.Builder<>("dryad", GaiaMobType.ASSIST, EntityType.Builder.of(Dryad::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 10255437, 5681460).withDefaultSounds().build();
 	public static final MobReg<Dullahan> DULLAHAN = new MobReg.Builder<>("dullahan", EntityType.Builder.of(Dullahan::new, MobCategory.MONSTER).sized(0.6F, 1.6F).clientTrackingRange(8), 0x824fab, 0xa4452d).withDefaultSounds().build();
-	public static final MobReg<Dwarf> DWARF = new MobReg.Builder<>("dwarf", GaiaMobType.PASSIVE, EntityType.Builder.of(Dwarf::new, MobCategory.MONSTER).sized(0.5F, 1.5F).clientTrackingRange(8), 0x969696, 0xf09942).withDefaultSounds().build();
-	public static final MobReg<EnderDragonGirl> ENDER_DRAGON_GIRL = new MobReg.Builder<>("ender_dragon_girl", GaiaMobType.PASSIVE, EntityType.Builder.of(EnderDragonGirl::new, MobCategory.MONSTER).sized(0.6F, 2.2F).clientTrackingRange(8), 3158064, 14711290).withDefaultSounds().build();
+	public static final MobReg<Dwarf> DWARF = new MobReg.Builder<>("dwarf", GaiaMobType.ASSIST, EntityType.Builder.of(Dwarf::new, MobCategory.MONSTER).sized(0.5F, 1.5F).clientTrackingRange(8), 0x969696, 0xf09942).withDefaultSounds().build();
+	public static final MobReg<EnderDragonGirl> ENDER_DRAGON_GIRL = new MobReg.Builder<>("ender_dragon_girl", GaiaMobType.ASSIST, EntityType.Builder.of(EnderDragonGirl::new, MobCategory.MONSTER).sized(0.6F, 2.2F).clientTrackingRange(8), 3158064, 14711290).withDefaultSounds().build();
 	public static final MobReg<EnderEye> ENDER_EYE = new MobReg.Builder<>("ender_eye", EntityType.Builder.of(EnderEye::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 2039583, 0x3158064).withDefaultSounds().build();
 	public static final MobReg<FleshLich> FLESH_LICH = new MobReg.Builder<>("flesh_lich", EntityType.Builder.of(FleshLich::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x00cccc, 0x799c65).withDefaultSounds().withStep().build();
 	public static final MobReg<GelatinousSlime> GELATINOUS_SLIME = new MobReg.Builder<>("gelatinous_slime", EntityType.Builder.of(GelatinousSlime::new, MobCategory.MONSTER).sized(1.75F, 1.75F).clientTrackingRange(8), 6595667, 13619151).withDefaultSounds().build();
@@ -178,7 +178,7 @@ public class GaiaRegistry {
 	public static final MobReg<WizardHarpy> WIZARD_HARPY = new MobReg.Builder<>("wizard_harpy", GaiaMobType.ASSIST, EntityType.Builder.of(WizardHarpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xdddadb, 0xba9b53).withDefaultSounds().build();
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg.Builder<>("yuki_onna", GaiaMobType.ASSIST, EntityType.Builder.of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330).withDefaultSounds().build();
 
-	public static final MobReg<GaiaHorse> HORSE = new MobReg.Builder<>("horse", EntityType.Builder.of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().build();
+	public static final MobReg<GaiaHorse> HORSE = new MobReg.Builder<>("horse", GaiaMobType.PASSIVE, EntityType.Builder.of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().build();
 
 	//Props
 	public static final PropReg<AntHill> ANT_HILL = new PropReg<>("ant_hill", EntityType.Builder.of(AntHill::new, MobCategory.CREATURE).sized(1.0F, 0.5F).clientTrackingRange(10), 0xe4dea7, 0x545454);
