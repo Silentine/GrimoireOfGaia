@@ -59,69 +59,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "grimoireofgaia:box_overworld"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:bag_book"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:box_old"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.01,
-          "looting_multiplier": 0.01
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:doll_mermaid"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.01,
-          "looting_multiplier": 0.01
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "grimoireofgaia:seashell_hairpin"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.01,
-          "looting_multiplier": 0.01
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.025,
+              "looting_multiplier": 0.01
+            }
+          ],
+          "name": "grimoireofgaia:box_iron"
         }
       ]
     }
