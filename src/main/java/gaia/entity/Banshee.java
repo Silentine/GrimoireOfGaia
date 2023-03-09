@@ -41,8 +41,6 @@ import java.util.Random;
 
 public class Banshee extends AbstractGaiaEntity {
 	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Banshee.class, EntityDataSerializers.BYTE);
-	private static final int FLAG_IS_CHARGING = 1;
-	private int axeAttack;
 
 	@Nullable
 	private BlockPos boundOrigin;
