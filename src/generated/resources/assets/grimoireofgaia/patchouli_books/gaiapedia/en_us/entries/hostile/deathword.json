@@ -1,0 +1,53 @@
+{
+  "name": "info.grimoireofgaia.book.entry.deathword.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:deathword_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.deathword.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:deathword",
+      "text": "info.grimoireofgaia.book.entry.deathword.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:paper",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.paper.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_overworld",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_overworld.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/deathword"
+}

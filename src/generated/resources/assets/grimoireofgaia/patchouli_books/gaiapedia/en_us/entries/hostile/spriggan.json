@@ -1,0 +1,53 @@
+{
+  "name": "info.grimoireofgaia.book.entry.spriggan.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:spriggan_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.spriggan.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:spriggan",
+      "text": "info.grimoireofgaia.book.entry.spriggan.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:taproot",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.taproot.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:oak_log",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.oak_log.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_gold",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_gold.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_nature{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_nature.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/spriggan"
+}

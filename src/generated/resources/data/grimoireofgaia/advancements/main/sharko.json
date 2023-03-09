@@ -1,0 +1,39 @@
+{
+  "parent": "grimoireofgaia:main/root",
+  "display": {
+    "icon": {
+      "item": "grimoireofgaia:shiny_pearl"
+    },
+    "title": {
+      "translate": "advancement.grimoireofgaia.sharko.title"
+    },
+    "description": {
+      "translate": "advancement.grimoireofgaia.sharko.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "catType": "grimoireofgaia:sharko"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ]
+}

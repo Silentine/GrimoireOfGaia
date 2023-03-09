@@ -1,0 +1,41 @@
+{
+  "name": "info.grimoireofgaia.book.entry.cecaelia.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:cecaelia_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.cecaelia.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:cecaelia",
+      "text": "info.grimoireofgaia.book.entry.cecaelia.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:shiny_pearl",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.shiny_pearl.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:clay",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.clay.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book{\"StoredEnchantments\":[{\"lvl\":1,\"id\":\"minecraft:luck_of_the_sea\"}]}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/cecaelia"
+}

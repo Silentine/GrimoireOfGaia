@@ -1,0 +1,46 @@
+{
+  "name": "info.grimoireofgaia.book.entry.cyclops.name",
+  "category": "grimoireofgaia:assist",
+  "icon": "grimoireofgaia:cyclops_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.cyclops.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:cyclops",
+      "text": "info.grimoireofgaia.book.entry.cyclops.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:fur",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.fur.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_iron",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_iron.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book{\"StoredEnchantments\":[{\"lvl\":1,\"id\":\"minecraft:sharpness\"}]}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:knuckles",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.knuckles.info"
+    }
+  ]
+}

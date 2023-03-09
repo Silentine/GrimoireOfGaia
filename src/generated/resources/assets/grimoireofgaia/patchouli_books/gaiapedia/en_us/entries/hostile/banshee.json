@@ -1,0 +1,48 @@
+{
+  "name": "info.grimoireofgaia.book.entry.banshee.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:banshee_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.banshee.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:banshee",
+      "scale": 0.8,
+      "text": "info.grimoireofgaia.book.entry.banshee.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:soulfire",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.soulfire.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_gold",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_gold.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_nightmare{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_nightmare.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/banshee"
+}

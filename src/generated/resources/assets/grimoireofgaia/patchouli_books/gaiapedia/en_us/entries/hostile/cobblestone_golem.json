@@ -1,0 +1,59 @@
+{
+  "name": "info.grimoireofgaia.book.entry.cobblestone_golem.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:cobblestone_golem_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.cobblestone_golem.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:cobblestone_golem",
+      "text": "info.grimoireofgaia.book.entry.cobblestone_golem.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_gold",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_gold.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:chest_jungle",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.chest_jungle.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:totem_of_undying_fragment",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.totem_of_undying_fragment.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_metal{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_metal.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/cobblestone_golem"
+}

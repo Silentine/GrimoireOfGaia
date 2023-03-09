@@ -1,0 +1,53 @@
+{
+  "name": "info.grimoireofgaia.book.entry.nine_tails.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:nine_tails_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.nine_tails.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:nine_tails",
+      "text": "info.grimoireofgaia.book.entry.nine_tails.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:soulfire",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.soulfire.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_gold",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_gold.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:fan_fire{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.fan_fire.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:doll_nine_tails",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.doll_nine_tails.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/nine_tails"
+}

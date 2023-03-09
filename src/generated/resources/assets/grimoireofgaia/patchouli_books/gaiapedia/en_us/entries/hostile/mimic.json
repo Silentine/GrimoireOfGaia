@@ -1,0 +1,51 @@
+{
+  "name": "info.grimoireofgaia.book.entry.mimic.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:mimic_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.mimic.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:mimic",
+      "text": "info.grimoireofgaia.book.entry.mimic.info2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.mimic.info3"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_overworld",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_overworld.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:premium_monster_feed",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.premium_monster_feed.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_record",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_record.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_hunger{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_hunger.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/mimic"
+}

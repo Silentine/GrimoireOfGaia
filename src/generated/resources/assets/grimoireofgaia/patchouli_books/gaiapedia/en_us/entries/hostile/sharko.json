@@ -1,0 +1,53 @@
+{
+  "name": "info.grimoireofgaia.book.entry.sharko.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:sharko_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.sharko.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:sharko",
+      "text": "info.grimoireofgaia.book.entry.sharko.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:shiny_pearl",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.shiny_pearl.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:prismarine_shard",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.prismarine_shard.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_overworld",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_overworld.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_buff{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_buff.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/sharko"
+}

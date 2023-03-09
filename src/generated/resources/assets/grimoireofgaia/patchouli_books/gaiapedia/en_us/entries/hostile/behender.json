@@ -1,0 +1,48 @@
+{
+  "name": "info.grimoireofgaia.book.entry.behender.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:behender_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.behender.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:behender",
+      "offset": -0.5,
+      "text": "info.grimoireofgaia.book.entry.behender.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:ender_pearl",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.ender_pearl.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:gold_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.gold_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_end",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_end.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:weapon_book_ender{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.weapon_book_ender.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/behender"
+}

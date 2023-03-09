@@ -1,0 +1,41 @@
+{
+  "name": "info.grimoireofgaia.book.entry.oni.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:oni_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.oni.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:oni",
+      "text": "info.grimoireofgaia.book.entry.oni.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:soulfire",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.soulfire.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_iron",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_iron.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book{\"StoredEnchantments\":[{\"lvl\":1,\"id\":\"minecraft:sharpness\"}]}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/oni"
+}

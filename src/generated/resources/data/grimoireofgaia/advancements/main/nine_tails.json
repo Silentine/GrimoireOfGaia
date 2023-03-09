@@ -1,0 +1,39 @@
+{
+  "parent": "grimoireofgaia:main/root",
+  "display": {
+    "icon": {
+      "item": "grimoireofgaia:doll_nine_tails"
+    },
+    "title": {
+      "translate": "advancement.grimoireofgaia.nine_tails.title"
+    },
+    "description": {
+      "translate": "advancement.grimoireofgaia.nine_tails.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "catType": "grimoireofgaia:nine_tails"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ]
+}

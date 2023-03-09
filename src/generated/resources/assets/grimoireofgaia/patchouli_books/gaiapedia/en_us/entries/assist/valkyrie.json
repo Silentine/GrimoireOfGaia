@@ -1,0 +1,46 @@
+{
+  "name": "info.grimoireofgaia.book.entry.valkyrie.name",
+  "category": "grimoireofgaia:assist",
+  "icon": "grimoireofgaia:valkyrie_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.valkyrie.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:valkyrie",
+      "text": "info.grimoireofgaia.book.entry.valkyrie.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:golden_apple_pie_slice",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.golden_apple_pie_slice.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:diamond_shard",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.diamond_shard.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:emerald_shard",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.emerald_shard.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:box_diamond",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.box_diamond.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bust_valkyrie",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bust_valkyrie.info"
+    }
+  ]
+}

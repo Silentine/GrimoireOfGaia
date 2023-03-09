@@ -1,0 +1,43 @@
+{
+  "name": "info.grimoireofgaia.book.entry.ant_salvager.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:ant_salvager_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.ant_salvager.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:ant_salvager",
+      "scale": 0.5,
+      "offset": -0.5,
+      "text": "info.grimoireofgaia.book.entry.ant_salvager.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:meat",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.meat.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_nugget",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:bag_book",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.bag_book.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book{\"StoredEnchantments\":[{\"lvl\":1,\"id\":\"minecraft:looting\"}]}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/ant_salvager"
+}
