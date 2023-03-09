@@ -76,7 +76,7 @@ public class WitherCowModel extends EntityModel<WitherCow> implements HeadedMode
 		}
 
 		// body
-		ribs.zRot = Mth.cos(((float) witherCow.tickCount * 24) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		ribs.zRot = Mth.cos((ageInTicks * 24) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		ribs.zRot -= 0.1745329F;
 
 		// legs

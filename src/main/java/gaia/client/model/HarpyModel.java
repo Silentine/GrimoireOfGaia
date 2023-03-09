@@ -162,7 +162,7 @@ public class HarpyModel extends EntityModel<Harpy> implements HeadedModel, Armed
 		}
 
 		// body
-		tail.yRot = Mth.cos(((float) harpy.tickCount * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((float) ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;

@@ -168,7 +168,7 @@ public class AnubisModel extends EntityModel<Anubis> implements HeadedModel, Arm
 		}
 
 		// body
-		tail.yRot = Mth.cos((((float) entityIn.tickCount * 7) * Mth.DEG_TO_RAD)) * (5 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (5 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;

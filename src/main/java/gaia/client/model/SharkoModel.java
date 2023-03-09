@@ -166,7 +166,7 @@ public class SharkoModel extends EntityModel<Sharko> implements HeadedModel, Arm
 	private void animationBuff() {
 		rightarm.xRot = 0.0F;
 		leftarm.xRot = 0.0F;
-		rightarm.zRot = +0.785398F;
+		rightarm.zRot = 0.785398F;
 		leftarm.zRot = -0.785398F;
 	}
 

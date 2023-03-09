@@ -18,38 +18,32 @@ import net.minecraft.world.entity.HumanoidArm;
 
 public class ToadModel extends EntityModel<Toad> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
-	private final ModelPart bodybottom;
-	private final ModelPart bodytop;
 	private final ModelPart head;
 	private final ModelPart headeyes;
 	private final ModelPart necktie;
 	private final ModelPart chest;
 	private final ModelPart leftarm;
-	private final ModelPart leftarmlower;
 	private final ModelPart rightarm;
-	private final ModelPart rightarmlower;
 	private final ModelPart leftleg;
-	private final ModelPart leftleglower;
 	private final ModelPart rightleg;
-	private final ModelPart rightleglower;
 
 	public ToadModel(ModelPart root) {
 		this.root = root.getChild("toad");
-		this.bodybottom = this.root.getChild("bodybottom");
-		this.bodytop = this.bodybottom.getChild("bodymiddle").getChild("bodytop");
-		ModelPart neck = this.bodytop.getChild("neck");
+		ModelPart bodybottom = this.root.getChild("bodybottom");
+		ModelPart bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
+		ModelPart neck = bodytop.getChild("neck");
 		this.head = neck.getChild("head");
 		this.headeyes = this.head.getChild("headeyes");
-		this.necktie = this.bodytop.getChild("necktie");
-		this.chest = this.bodytop.getChild("chest");
-		this.leftarm = this.bodytop.getChild("leftarm");
-		this.leftarmlower = this.leftarm.getChild("leftarmlower");
-		this.rightarm = this.bodytop.getChild("rightarm");
-		this.rightarmlower = this.rightarm.getChild("rightarmlower");
-		this.leftleg = this.bodybottom.getChild("leftleg");
-		this.leftleglower = this.leftleg.getChild("leftleglower");
-		this.rightleg = this.bodybottom.getChild("rightleg");
-		this.rightleglower = this.rightleg.getChild("rightleglower");
+		this.necktie = bodytop.getChild("necktie");
+		this.chest = bodytop.getChild("chest");
+		this.leftarm = bodytop.getChild("leftarm");
+		ModelPart leftarmlower = this.leftarm.getChild("leftarmlower");
+		this.rightarm = bodytop.getChild("rightarm");
+		ModelPart rightarmlower = this.rightarm.getChild("rightarmlower");
+		this.leftleg = bodybottom.getChild("leftleg");
+		ModelPart leftleglower = this.leftleg.getChild("leftleglower");
+		this.rightleg = bodybottom.getChild("rightleg");
+		ModelPart rightleglower = this.rightleg.getChild("rightleglower");
 	}
 
 	public static LayerDefinition createBodyLayer() {

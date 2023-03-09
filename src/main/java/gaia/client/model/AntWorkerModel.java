@@ -160,7 +160,7 @@ public class AntWorkerModel extends EntityModel<AntWorker> implements HeadedMode
 
 		// body
 		float thoraxDefaultAngleX = 1.047198F;
-		thorax1.yRot = Mth.cos((((float) ant.tickCount * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
+		thorax1.yRot = Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
 		thorax1.xRot = thoraxDefaultAngleX;
 
 		// legs (walk_normal)

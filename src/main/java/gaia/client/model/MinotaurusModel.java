@@ -145,7 +145,7 @@ public class MinotaurusModel extends EntityModel<Minotaurus> implements HeadedMo
 		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
-		tail.yRot = Mth.cos((((float) minotaurus.tickCount * 7)) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;

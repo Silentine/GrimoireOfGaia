@@ -218,8 +218,8 @@ public class NineTailsModel extends EntityModel<NineTails> implements HeadedMode
 		float topAngleY = 20;
 		toprighttail1.xRot = (topAngleX * Mth.DEG_TO_RAD);
 		toprighttail2.xRot = (topAngleX * Mth.DEG_TO_RAD);
-		toprighttail1.yRot = Mth.cos(((float) nineTails.tickCount * 7) * Mth.DEG_TO_RAD) * (1 * Mth.DEG_TO_RAD);
-		toprighttail2.yRot = Mth.cos(((float) nineTails.tickCount * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		toprighttail1.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (1 * Mth.DEG_TO_RAD);
+		toprighttail2.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		toptail1.xRot = (topAngleX + 15 * Mth.DEG_TO_RAD);
 		toptail2.xRot = (topAngleX * Mth.DEG_TO_RAD);
 		toptail1.yRot = toprighttail1.yRot;

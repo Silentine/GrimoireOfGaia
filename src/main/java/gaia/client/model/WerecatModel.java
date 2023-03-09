@@ -130,9 +130,9 @@ public class WerecatModel extends EntityModel<Werecat> implements HeadedModel, A
 
 		float earDefaultAngleX = -0.7853982F;
 
-		rightear.xRot = Mth.cos(((float) werecat.tickCount * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		rightear.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 		rightear.xRot += earDefaultAngleX;
-		leftear.xRot = Mth.cos(((float) werecat.tickCount * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		leftear.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 		leftear.xRot += earDefaultAngleX;
 
 		// arms
@@ -159,8 +159,8 @@ public class WerecatModel extends EntityModel<Werecat> implements HeadedModel, A
 		}
 
 		// body
-		tail1.yRot = Mth.cos(((float) werecat.tickCount * 7) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
-		tail2.yRot = Mth.cos(((float) werecat.tickCount * 7) * Mth.DEG_TO_RAD) * (20 * Mth.DEG_TO_RAD);
+		tail1.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
+		tail2.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (20 * Mth.DEG_TO_RAD);
 
 		// legs (walk_normal)
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;

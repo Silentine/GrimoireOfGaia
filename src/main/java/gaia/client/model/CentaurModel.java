@@ -197,7 +197,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 		// body
 		body1.xRot = -(5 * Mth.DEG_TO_RAD);
 		body2.xRot = (10 * Mth.DEG_TO_RAD);
-		tail.yRot = Mth.cos((((float) centaur.tickCount * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
 		tail.xRot = -(45 * Mth.DEG_TO_RAD);
 
 		// legs

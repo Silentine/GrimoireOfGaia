@@ -16,9 +16,7 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart rightarm;
-	private final ModelPart rightshoulder;
 	private final ModelPart leftarm;
-	private final ModelPart leftshoulder;
 	private final ModelPart rightleg;
 	private final ModelPart leftleg;
 
@@ -27,9 +25,7 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 		ModelPart body = this.root.getChild("bodymid").getChild("bodylower").getChild("body");
 		this.head = body.getChild("head");
 		this.rightarm = body.getChild("rightarm");
-		this.rightshoulder = this.rightarm.getChild("rightshoulder");
 		this.leftarm = body.getChild("leftarm");
-		this.leftshoulder = this.leftarm.getChild("leftshoulder");
 		this.rightleg = this.root.getChild("rightleg");
 		this.leftleg = this.root.getChild("leftleg");
 	}
@@ -85,8 +81,8 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 
 		float rotation = 0;
 		if (i > 0) {
-			leftarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
-			rightarm.xRot = rotation + -2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			leftarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			rightarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
 		} else {
 			leftarm.xRot = rotation + (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
 			rightarm.xRot = rotation + (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;

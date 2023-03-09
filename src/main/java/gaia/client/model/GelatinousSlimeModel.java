@@ -127,24 +127,24 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 		// arms
 		float rightarmDefaultAngleZ = 1.047198F;
 
-		rightarm.zRot = Mth.cos(((float) entityIn.tickCount * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		rightarm.zRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		rightarm.zRot += rightarmDefaultAngleZ;
 
 		// body
 		float bodyupperDefaultAngleX = 0.6108652F;
 
-		bodyupper.xRot = Mth.cos(((float) entityIn.tickCount * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		bodyupper.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		bodyupper.xRot += bodyupperDefaultAngleX;
 
 		float bodylowerDefaultAngleX = 1.047198F;
 
-		bodylower.xRot = Mth.cos(((float) entityIn.tickCount * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		bodylower.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		bodylower.xRot += bodylowerDefaultAngleX;
 
 		// legs
 		float leftlegDefaultAngleX = 0.7853982F;
 
-		leftleg.xRot = Mth.cos(((float) entityIn.tickCount * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		leftleg.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		leftleg.xRot -= leftlegDefaultAngleX;
 	}
 

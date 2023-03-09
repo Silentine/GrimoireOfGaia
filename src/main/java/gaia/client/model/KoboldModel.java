@@ -151,16 +151,16 @@ public class KoboldModel extends EntityModel<Kobold> implements HeadedModel, Arm
 
 		float earDefaultAngleX = -0.7853982F;
 
-		rightear01.xRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		rightear01.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 		rightear01.xRot += earDefaultAngleX;
-		leftear01.xRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		leftear01.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 		leftear01.xRot += earDefaultAngleX;
 
 		float earDefaultAngleZ = 0.7853982F;
 
-		rightear02.yRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		rightear02.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 		rightear02.yRot += earDefaultAngleZ;
-		leftear02.yRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * -(4 * Mth.DEG_TO_RAD);
+		leftear02.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * -(4 * Mth.DEG_TO_RAD);
 		leftear02.yRot -= earDefaultAngleZ;
 
 		// arms
@@ -182,8 +182,8 @@ public class KoboldModel extends EntityModel<Kobold> implements HeadedModel, Arm
 		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
 
 		// body
-		tail1.yRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
-		tail2.yRot = Mth.cos(((float) kobold.tickCount * 7) * Mth.DEG_TO_RAD) * (20 * Mth.DEG_TO_RAD);
+		tail1.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (15 * Mth.DEG_TO_RAD);
+		tail2.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (20 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;

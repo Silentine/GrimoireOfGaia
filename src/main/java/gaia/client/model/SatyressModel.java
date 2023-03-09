@@ -150,7 +150,7 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 			}
 		}
 		// body
-		tail.yRot = Mth.cos((((float) satyress.tickCount * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;

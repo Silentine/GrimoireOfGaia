@@ -171,9 +171,9 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 		rightwing.yRot -= 0.5235988F;
 		leftwing.yRot += 0.5235988F;
 
-		tail1.yRot = Mth.cos(((float) enderDragonGirl.tickCount * 7) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
-		tail2.yRot = Mth.cos(((float) enderDragonGirl.tickCount * 7) * Mth.DEG_TO_RAD) * (6 * Mth.DEG_TO_RAD);
-		tail3.yRot = Mth.cos(((float) enderDragonGirl.tickCount * 7) * Mth.DEG_TO_RAD) * (9 * Mth.DEG_TO_RAD);
+		tail1.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
+		tail2.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (6 * Mth.DEG_TO_RAD);
+		tail3.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (9 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightleg.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 1.5F;

@@ -213,7 +213,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		rightwing.yRot = Mth.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
 		rightwing.yRot += wingDefaultAngleY;
 
-		thorax1.xRot += Mth.cos((((float) bee.tickCount * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
+		thorax1.xRot += Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
 
 		// legs
 		if (animationState == 0) {

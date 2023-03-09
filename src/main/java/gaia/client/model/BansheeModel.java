@@ -147,8 +147,8 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 			holdingMelee();
 		}
 
-		rightarm.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (10 * Mth.DEG_TO_RAD);
-		leftarm.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (-10 * Mth.DEG_TO_RAD);
+		rightarm.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (10 * Mth.DEG_TO_RAD);
+		leftarm.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (-10 * Mth.DEG_TO_RAD);
 		rightarm.zRot += 0.2617994F;
 		leftarm.zRot -= 0.2617994F;
 		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
@@ -163,10 +163,10 @@ public class BansheeModel extends EntityModel<Banshee> implements HeadedModel, A
 		skirt3.xRot = (15 * Mth.DEG_TO_RAD);
 		skirt4.xRot = (20 * Mth.DEG_TO_RAD);
 
-		skirt1.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (1 * Mth.DEG_TO_RAD);
-		skirt2.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
-		skirt3.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
-		skirt4.zRot = Mth.cos((((float) banshee.tickCount * 7)) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
+		skirt1.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (1 * Mth.DEG_TO_RAD);
+		skirt2.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		skirt3.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
+		skirt4.zRot = Mth.cos(((ageInTicks * 7)) * Mth.DEG_TO_RAD) * (4 * Mth.DEG_TO_RAD);
 	}
 
 	public void holdingMelee() {

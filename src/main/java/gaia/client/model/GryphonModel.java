@@ -15,7 +15,6 @@ import net.minecraft.util.Mth;
 
 public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
 	private final ModelPart root;
-	private final ModelPart neck2, neck1;
 	private final ModelPart head;
 	private final ModelPart backleftleg1;
 	private final ModelPart backrightleg1;
@@ -30,9 +29,8 @@ public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
 		ModelPart body2 = this.root.getChild("body2");
 		ModelPart body1 = body2.getChild("body1");
 
-		this.neck2 = body1.getChild("neck2");
-		this.neck1 = this.neck2.getChild("neck1");
-		this.head = this.neck1.getChild("head");
+		ModelPart neck1 = body1.getChild("neck2").getChild("neck1");
+		this.head = neck1.getChild("head");
 		this.leftwing = body1.getChild("leftwing");
 		this.rightwing = body1.getChild("rightwing");
 		this.frontleftleg1 = body1.getChild("frontleftleg1");

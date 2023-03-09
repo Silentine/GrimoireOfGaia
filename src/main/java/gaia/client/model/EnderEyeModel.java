@@ -85,7 +85,7 @@ public class EnderEyeModel extends EntityModel<EnderEye> {
 
 		float tailDefaultAngleX = 0.7853982F;
 
-		tail1.xRot = Mth.cos(((float) enderEye.tickCount * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
+		tail1.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
 		tail1.xRot += tailDefaultAngleX;
 	}
 
