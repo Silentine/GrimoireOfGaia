@@ -137,7 +137,7 @@ public class GaiaSpawning {
 			ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
 			if (!info.spawnBiomes.get().isEmpty()) {
 				String biomeName = event.getName().toString();
-				if (info.invertList.get() ? !info.spawnBiomes.get().contains(biomeName) : info.spawnBiomes.get().contains(biomeName)) {
+				if (info.invertList.get() != info.spawnBiomes.get().contains(biomeName)) {
 					event.getSpawns().addSpawn(MobCategory.MONSTER, new SpawnerData(entityType, info.weight.get(), info.minGroup.get(), info.maxGroup.get()));
 					if (info.logAdditions.get()) {
 						GrimoireOfGaia.LOGGER.info("Added " + entityType.getRegistryName() + " to " + biomeKey.location());

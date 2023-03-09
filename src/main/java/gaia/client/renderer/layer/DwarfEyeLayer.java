@@ -2,11 +2,8 @@ package gaia.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.GrimoireOfGaia;
-import gaia.client.model.BehenderModel;
 import gaia.client.model.DwarfModel;
-import gaia.entity.Behender;
 import gaia.entity.Dwarf;
-import gaia.entity.GelatinousSlime;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;

@@ -37,7 +37,7 @@ public class BiomeHelper {
 				break;
 			}
 		}
-		boolean result = inverted ? !matches : matches;
+		boolean result = inverted != matches;
 		return result;
 	}
 }
