@@ -3,7 +3,6 @@ package gaia.entity;
 import gaia.config.GaiaConfig;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
-import gaia.registry.GaiaTags;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -192,7 +191,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		Potion potion = PotionUtils.getPotion(itemstack);
 		List<MobEffectInstance> list = PotionUtils.getMobEffects(itemstack);
 		boolean flag = potion == Potions.WATER && list.isEmpty();
-		return flag ? super.hurt(damageSource, damage) : false;
+		return flag && super.hurt(damageSource, damage);
 	}
 
 	@Override
@@ -246,7 +245,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 			double d0 = vec31.length();
 			vec31 = vec31.normalize();
 			double d1 = vec3.dot(vec31);
-			return d1 > 1.0D - 0.025D / d0 ? player.hasLineOfSight(this) : false;
+			return d1 > 1.0D - 0.025D / d0 && player.hasLineOfSight(this);
 		}
 	}
 
@@ -382,7 +381,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 					return true;
 				}
 			} else {
-				return this.target != null && this.continueAggroTargetConditions.test(this.enderEye, this.target) ? true : super.canContinueToUse();
+				return this.target != null && this.continueAggroTargetConditions.test(this.enderEye, this.target) || super.canContinueToUse();
 			}
 		}
 

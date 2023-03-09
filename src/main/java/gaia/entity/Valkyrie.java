@@ -205,7 +205,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 			}
 		}
 
-		if (getHealth() < getMaxHealth() * 1.00F && !isAnnoyed()) {
+		if (getHealth() < getMaxHealth() && !isAnnoyed()) {
 			setAnnoyed(true);
 
 			setGoals(0);

@@ -254,7 +254,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effectInstance) {
-		return effectInstance.getEffect() == MobEffects.POISON ? false : super.canBeAffected(effectInstance);
+		return effectInstance.getEffect() != MobEffects.POISON && super.canBeAffected(effectInstance);
 	}
 
 	@Override
