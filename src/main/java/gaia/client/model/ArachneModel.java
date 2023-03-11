@@ -2,7 +2,6 @@ package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.GrimoireOfGaia;
 import gaia.config.GaiaConfig;
 import gaia.entity.Arachne;
 import net.minecraft.client.model.ArmedModel;
