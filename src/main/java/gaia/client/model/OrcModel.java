@@ -90,25 +90,26 @@ public class OrcModel extends EntityModel<Orc> implements HeadedModel, ArmedMode
 		head.xRot = headPitch / 57.295776F;
 
 		// arms
-		switch (orc.getAnimationState()) {
-			default -> {
-				rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-				leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		int animationState = orc.getAnimationState();
+		if (animationState == 0) {
+			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
-				rightarm.zRot = 0.0F;
-				leftarm.zRot = 0.0F;
+			rightarm.zRot = 0.0F;
+			leftarm.zRot = 0.0F;
 
-				if (attackTime > 0.0F) {
-					holdingMelee();
-				}
-
-				rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
-				rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-				leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
-				leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+			if (attackTime > 0.0F) {
+				holdingMelee();
 			}
-			case 1 -> animationThrow();
-			case 2 -> animationBuff();
+
+			rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
+			leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.0872665F;
+			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		} else if (animationState == 1) {
+			animationThrow();
+		} else if (animationState == 2) {
+			animationBuff();
 		}
 
 		// legs (walk_normal)

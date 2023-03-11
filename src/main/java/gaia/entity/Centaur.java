@@ -209,9 +209,9 @@ public class Centaur extends AbstractAssistGaiaEntity implements RangedAttackMob
 			}
 
 			bowAttackGoal.setMinAttackInterval(i);
-			setGoals((byte) 0);
+			setGoals(0);
 		} else {
-			setGoals((byte) 2);
+			setGoals(2);
 		}
 	}
 

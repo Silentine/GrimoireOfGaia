@@ -277,7 +277,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			this.goalSelector.removeGoal(collideAttackGoal);
 			this.goalSelector.addGoal(1, rangedAttackGoal);
 
-			setAttackType((byte) 0);
+			setAttackType(0);
 			animationPlay = false;
 			animationTimer = 0;
 		}
@@ -333,8 +333,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		if (tag.contains("WeaponType")) {
-			int weaponType = tag.getInt("WeaponType");
-			setAttackType(weaponType);
+			setAttackType(tag.getInt("WeaponType"));
 		}
 		setCombatTask();
 	}

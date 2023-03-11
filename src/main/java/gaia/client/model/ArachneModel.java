@@ -2,6 +2,7 @@ package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.GrimoireOfGaia;
 import gaia.config.GaiaConfig;
 import gaia.entity.Arachne;
 import net.minecraft.client.model.ArmedModel;
@@ -139,32 +140,29 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		head.xRot = headPitch * ((float) Math.PI / 180F);
 
 		// arms
-		switch (arachne.getAttackType()) {
-			default: {
-				leftarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-				rightarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		int attackType = arachne.getAttackType();
+		if (attackType == 0) {
+			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
+			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
 
-				leftarm.zRot = 0.0F;
-				rightarm.zRot = 0.0F;
+			rightarm.zRot = 0.0F;
+			leftarm.zRot = 0.0F;
 
-				if (attackTime > 0.0F) {
-					holdingMelee();
-				}
-
-				leftarm.zRot += Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-				leftarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-				rightarm.zRot -= Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-				rightarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
-
-				leftarm.zRot += 0.3490659F;
-				rightarm.zRot -= 0.3490659F;
+			if (attackTime > 0.0F) {
+				holdingMelee();
 			}
-			case 1: {
-				animationThrow();
-			}
-			case 2: {
-				animationCast();
-			}
+
+			rightarm.zRot += Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
+			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
+			leftarm.zRot -= Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
+			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+
+			rightarm.zRot += 0.3490659F;
+			leftarm.zRot -= 0.3490659F;
+		} else if (attackType == 1) {
+			animationThrow();
+		} else if (attackType == 2) {
+			animationCast();
 		}
 
 		// body
@@ -202,14 +200,14 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 	}
 
 	private void animationThrow() {
-		leftarm.xRot = -1.0472F;
+		rightarm.xRot = -1.0472F;
 	}
 
 	private void animationCast() {
-		leftarm.xRot = -1.0472F;
 		rightarm.xRot = -1.0472F;
-		leftarm.zRot = -0.261799F;
-		rightarm.zRot = 0.261799F;
+		leftarm.xRot = -1.0472F;
+		rightarm.zRot = -0.261799F;
+		leftarm.zRot = 0.261799F;
 	}
 
 	public void moveLegs(float limbSwing, float limbSwingAmount) {
