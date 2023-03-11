@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
@@ -252,11 +253,16 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 
 	@Override
 	public int getMaxSpawnClusterSize() {
-		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
+		return SharedEntityData.CHUNK_LIMIT_1;
+	}
+
+	@Override
+	public boolean checkSpawnObstruction(LevelReader reader) {
+		return reader.isUnobstructed(this);
 	}
 
 	public static boolean checkMermaidSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		return checkDaysPassed(levelAccessor) && !checkDaytime(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
 	static class MermaidMoveControl extends MoveControl {

@@ -41,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
@@ -324,8 +325,13 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 		return super.canAttackType(type) && type != GaiaRegistry.CECAELIA.getEntityType();
 	}
 
+	@Override
+	public boolean checkSpawnObstruction(LevelReader reader) {
+		return reader.isUnobstructed(this);
+	}
+
 	public static boolean checkCecaeliaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		return checkDaysPassed(levelAccessor) && !checkDaytime(levelAccessor) && checkAboveY(pos, (levelAccessor.getSeaLevel() - 16)) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
 	static class CecaeliaMermaidMoveControl extends MoveControl {

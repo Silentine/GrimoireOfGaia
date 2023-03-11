@@ -309,7 +309,9 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 	}
 
 	public static boolean checkSirenSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
-				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) &&
+				checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
+				checkAboveY(pos, (levelAccessor.getSeaLevel() - 8)) &&
+				checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

@@ -344,17 +344,38 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	/**
+	 * Check if the lighting is good for spawning underwater
+	 */
+	protected static boolean checkUnderwaterDaylight(ServerLevelAccessor levelAccessor, BlockPos pos) {
+		return levelAccessor.canSeeSkyFromBelowWater(pos) && levelAccessor.getBrightness(LightLayer.BLOCK, pos) == 0;
+	}
+
+	/**
 	 * Checks if the position is above sea level so the entity can spawn
 	 */
 	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel();
+		return checkAboveY(pos, levelAccessor.getSeaLevel());
+	}
+
+	/**
+	 * Checks if the position is above a given Y level so the entity can spawn
+	 */
+	protected static boolean checkAboveY(BlockPos pos, int yLevel) {
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > yLevel;
 	}
 
 	/**
 	 * Checks if the position is below sea level so the entity can spawn
 	 */
 	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel();
+		return checkBelowY(pos, levelAccessor.getSeaLevel());
+	}
+
+	/**
+	 * Checks if the position is above a given Y level so the entity can spawn
+	 */
+	protected static boolean checkBelowY(BlockPos pos, int yLevel) {
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < yLevel;
 	}
 
 	/**
