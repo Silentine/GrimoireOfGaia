@@ -12,7 +12,7 @@ authors="Silentine, Mrbysco"
 description='''
 Adds mobs, monsters and monster girls.
 '''
-credits="Made possible by the combined effort of [bloodmc], [DoctorWiggles], [P3pp3rF1y] and [mrbysco] porting this mod to 1.12.2."
+credits="Made possible by the combined effort of [bloodmc], [DoctorWiggles], [P3pp3rF1y] and [mrbysco] porting this mod to 1.12.2. Also thanks to Tyon2006 to allow using data from Universal Bestiary for the Patchouli book."
 logoFile="logo.png"
 
 [[dependencies.grimoireofgaia]]
