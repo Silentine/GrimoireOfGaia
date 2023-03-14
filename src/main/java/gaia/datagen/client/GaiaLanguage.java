@@ -516,9 +516,9 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.elytra_fragment.info", "They can drop a $(item)Elytra Fragment$() on death, which can be combined to make an $(item)Elytra$().");
 		addPatchouliEntry("drop.emerald_shard.info", "They can drop $(item)Emerald Shards$() on death, which can be combined to make $(item)Emeralds$().");
 		addPatchouliEntry("drop.enchanted_book.info", "They can drop an $(item)Enchanted Book() on death.");
-		addPatchouliEntry("drop.ender_pearl.info", "They can drop $(item)Ender Pearls() on death.");
-		addPatchouliEntry("drop.fan_fire.info", "They can rarely drop an $(item)Ornate Fire FanS() on death, which is a magical melee weapon bearing the$(thing)Fire Aspect II$() enchantment and can inflict $(thing)Knockback I$() on hit.");
-		addPatchouliEntry("drop.fan_ice.info", "They can rarely drop an $(item)Ornate Ice FanS() on death, which is a magical melee weapon bearing the$(thing)Knockback II$() enchantment and can inflict $(thing)Slowness IV$() on hit.");
+		addPatchouliEntry("drop.ender_pearl.info", "They can drop $(item)Ender Pearls$() on death.");
+		addPatchouliEntry("drop.fan_fire.info", "They can rarely drop an $(item)Ornate Fire Fan$() on death, which is a magical melee weapon bearing the$(thing)Fire Aspect II$() enchantment and can inflict $(thing)Knockback I$() on hit.");
+		addPatchouliEntry("drop.fan_ice.info", "They can rarely drop an $(item)Ornate Ice Fan$() on death, which is a magical melee weapon bearing the$(thing)Knockback II$() enchantment and can inflict $(thing)Slowness IV$() on hit.");
 		addPatchouliEntry("drop.fireshard.info", "They can drop $(item)Fireshards$() on death, which can be right-clicked to place lava");
 		addPatchouliEntry("drop.food_rotten_heart.info", "They can drop $(item)Rotten Hearts$() on death, which can be eaten as a decent food source and also to gain a $(thing)Regeneration$() potion effect. However, when consumed, it may afflict players with $(thing)Hunger$().");
 		addPatchouliEntry("drop.fur.info", "They can drop $(item)Fur$() on death, which can be smelted in a furnace to create $(item)Leather$().");
@@ -528,7 +528,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.green_dye.info", "They can drop $(item)Green Dye$() on death.");
 		addPatchouliEntry("drop.honeydew.info", "They can drop $(item)Honeydew$() on death. These are a decent source of food and provide a 20%% speed and haste buff for 10 seconds.");
 		addPatchouliEntry("drop.iron_nugget.info", "They can drop $(item)Iron Nuggets$() on death, which can be combined to make $(item)Iron Ingots$().");
-		addPatchouliEntry("drop.knuckles.info", "They can drop $(item)Knuckles() on death, which is an accessory that boosts your damage.");
+		addPatchouliEntry("drop.knuckles.info", "They can drop $(item)Knuckles$() on death, which is an accessory that boosts your damage.");
 		addPatchouliEntry("drop.lapis_block.info", "They can drop a $(item)Block of Lapis Lazuli$() on death.");
 		addPatchouliEntry("drop.lapis_lazuli.info", "They can drop $(item)Lapis Lazuli$() on death.");
 		addPatchouliEntry("drop.leather.info", "They can drop $(item)Leather$() on death.");
@@ -543,7 +543,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.redstone_block.info", "They can drop a $(item)Redstone Block$() on death.");
 		addPatchouliEntry("drop.shiny_pearl.info", "They can drop $(item)Shiny pearls$() on death, which can be combined to make a $(item)Pearl Block$().");
 		addPatchouliEntry("drop.skeleton_skull.info", "They can drop a $(item)Skeleton Skull$() on death.");
-		addPatchouliEntry("drop.slime_ball.info", "They can drop a $(item)Slime balls$() on death, which are used for crafting a variety of items such as $(item)Sticky Pistons$(), $(item)Leads$(), and many others.");
+		addPatchouliEntry("drop.slime_ball.info", "They can drop $(item)Slime balls$() on death, which are used for crafting a variety of items such as $(item)Sticky Pistons$(), $(item)Leads$(), and many others.");
 		addPatchouliEntry("drop.soulfire.info", "They can drop $(item)Soul Fire$() on death. These are an excellent source of fuel and burn for 580 seconds. Can also be used like $(item)Flint and Steel$() to start fires.");
 		addPatchouliEntry("drop.stone_coal.info", "They can drop $(item)Stone Coal$() on death. This can be used in a furnace as a moderate source of fuel.");
 		addPatchouliEntry("drop.taproot.info", "They can drop $(item)Tap Root$() on death. These are an insignificant source of food, but remove negative status effects when consumed.");
