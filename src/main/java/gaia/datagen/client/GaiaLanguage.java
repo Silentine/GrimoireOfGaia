@@ -452,6 +452,10 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.siren.info", "The $(mob)Siren$() is a monster that spawns in Swamps in the $(thing)Overworld$(). It attacks players at ranged and which may inflict $(thing)Slowness$() and $(thing)Weakness$() effects. The $(mob)Siren$() switches to melee and gains a $(thing)Speed$() effect, inflicting $(thing)Mining Fatigue II$() on hit. $(mob)Sirens$() are immune to $(thing)Poison$() and can move through water unimpeded. While in water, $(mob)Sirens$() heal for 10%% of their health every 5 seconds and gain $(thing)Resistance$().");
 		addPatchouliEntry("entry.siren.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
 
+		addPatchouliEntry("entry.sludge_girl.name", "Sludge Girl");
+		addPatchouliEntry("entry.sludge_girl.info", "The $(mob)Sludge Girl$() is a monster that spawns in Swamps in the $(thing)Overworld$() at night. It attacks players on sight by closing the distance with a leaping attack with strong knockback followed by melee attacks which inflict $(thing)Poison$(). It is resistant to Fire and immune to $(thing)Poison$(). When a $(mob)Sludge Girl$() dies, it leaves behind a lingering $(thing)Poison$() potion effect.");
+		addPatchouliEntry("entry.sludge_girl.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
+
 		addPatchouliEntry("entry.sphinx.name", "Sphinx");
 		addPatchouliEntry("entry.sphinx.info", "The $(mob)Sphinx$() is a monster that spawns in the Deserts of the $(thing)Overworld$() at night. It attacks players on sight, inflicting $(thing)Slowness$() and $(thing)Mining Fatigue$() with its melee strikes. It is immune to falling damage, Fire, drowning, and ranged attacks. It can move through cobwebs and water unimpeded. When a $(mob)Sphinx's$() health drops below 75%% it will regenerate 10%% of its total health.");
 		addPatchouliEntry("entry.sphinx.info2", "$(li)160 Health$()$(li)16 Armor$()$(li)18 Damage$()");
@@ -539,6 +543,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.redstone_block.info", "They can drop a $(item)Redstone Block$() on death.");
 		addPatchouliEntry("drop.shiny_pearl.info", "They can drop $(item)Shiny pearls$() on death, which can be combined to make a $(item)Pearl Block$().");
 		addPatchouliEntry("drop.skeleton_skull.info", "They can drop a $(item)Skeleton Skull$() on death.");
+		addPatchouliEntry("drop.slime_ball.info", "They can drop a $(item)Slime balls$() on death, which are used for crafting a variety of items such as $(item)Sticky Pistons$(), $(item)Leads$(), and many others.");
 		addPatchouliEntry("drop.soulfire.info", "They can drop $(item)Soul Fire$() on death. These are an excellent source of fuel and burn for 580 seconds. Can also be used like $(item)Flint and Steel$() to start fires.");
 		addPatchouliEntry("drop.stone_coal.info", "They can drop $(item)Stone Coal$() on death. This can be used in a furnace as a moderate source of fuel.");
 		addPatchouliEntry("drop.taproot.info", "They can drop $(item)Tap Root$() on death. These are an insignificant source of food, but remove negative status effects when consumed.");
