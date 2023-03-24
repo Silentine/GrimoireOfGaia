@@ -106,6 +106,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(IS_BUFFED, false);
 		this.entityData.define(ANNOYED, false);
 		this.entityData.define(ANIMATION_STATE, 0);
 	}
