@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:flesh_lich"
+              "type": "grimoireofgaia:flesh_lich"
             },
             "entity": "this"
           }

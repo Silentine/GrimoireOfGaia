@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:anubis"
+              "type": "grimoireofgaia:anubis"
             },
             "entity": "this"
           }

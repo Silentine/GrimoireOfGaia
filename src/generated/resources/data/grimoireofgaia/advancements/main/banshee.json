@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:banshee"
+              "type": "grimoireofgaia:banshee"
             },
             "entity": "this"
           }

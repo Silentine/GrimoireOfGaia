@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:shaman"
+              "type": "grimoireofgaia:shaman"
             },
             "entity": "this"
           }

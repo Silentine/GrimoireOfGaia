@@ -90,7 +90,7 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 		Advancement advancement = Advancement.Builder.advancement()
 				.display(simpleDisplay(icon, registryLocation.getPath()))
 				.parent(root)
-				.addCriterion("kill", onKill(registryLocation))
+				.addCriterion("kill", onKill(mobReg.getEntityType()))
 				.save(consumer, rootID(registryLocation.getPath()));
 		entityTypeAdvancementMap.put(mobReg.getEntityType(), advancement);
 	}
@@ -109,8 +109,8 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 				null, FrameType.TASK, true, false, false);
 	}
 
-	protected static KilledTrigger.TriggerInstance onKill(ResourceLocation location) {
-		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(location));
+	protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
+		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
 	}
 
 	private static ResourceLocation modLoc(String path) {

@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:kobold"
+              "type": "grimoireofgaia:kobold"
             },
             "entity": "this"
           }

@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:dullahan"
+              "type": "grimoireofgaia:dullahan"
             },
             "entity": "this"
           }

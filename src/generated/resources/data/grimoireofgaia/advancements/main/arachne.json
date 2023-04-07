@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:arachne"
+              "type": "grimoireofgaia:arachne"
             },
             "entity": "this"
           }

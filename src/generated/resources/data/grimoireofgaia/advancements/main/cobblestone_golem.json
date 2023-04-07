@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:cobblestone_golem"
+              "type": "grimoireofgaia:cobblestone_golem"
             },
             "entity": "this"
           }

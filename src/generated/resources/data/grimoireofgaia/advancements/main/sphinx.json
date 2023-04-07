@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:sphinx"
+              "type": "grimoireofgaia:sphinx"
             },
             "entity": "this"
           }

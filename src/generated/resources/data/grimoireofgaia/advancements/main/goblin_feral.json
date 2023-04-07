@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:goblin_feral"
+              "type": "grimoireofgaia:goblin_feral"
             },
             "entity": "this"
           }

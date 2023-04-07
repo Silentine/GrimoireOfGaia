@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:bone_knight"
+              "type": "grimoireofgaia:bone_knight"
             },
             "entity": "this"
           }

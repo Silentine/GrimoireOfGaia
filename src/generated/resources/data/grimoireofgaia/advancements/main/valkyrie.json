@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:valkyrie"
+              "type": "grimoireofgaia:valkyrie"
             },
             "entity": "this"
           }

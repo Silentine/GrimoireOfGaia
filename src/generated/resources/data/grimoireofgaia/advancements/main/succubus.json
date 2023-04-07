@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:succubus"
+              "type": "grimoireofgaia:succubus"
             },
             "entity": "this"
           }

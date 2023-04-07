@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:behender"
+              "type": "grimoireofgaia:behender"
             },
             "entity": "this"
           }

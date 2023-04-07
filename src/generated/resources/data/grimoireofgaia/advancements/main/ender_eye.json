@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:ender_eye"
+              "type": "grimoireofgaia:ender_eye"
             },
             "entity": "this"
           }

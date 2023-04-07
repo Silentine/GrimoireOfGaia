@@ -24,7 +24,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:minotaurus"
+              "type": "grimoireofgaia:minotaurus"
             },
             "entity": "this"
           }

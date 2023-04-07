@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:nine_tails"
+              "type": "grimoireofgaia:nine_tails"
             },
             "entity": "this"
           }

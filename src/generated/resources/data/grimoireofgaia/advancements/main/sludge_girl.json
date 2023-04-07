@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:sludge_girl"
+              "type": "grimoireofgaia:sludge_girl"
             },
             "entity": "this"
           }

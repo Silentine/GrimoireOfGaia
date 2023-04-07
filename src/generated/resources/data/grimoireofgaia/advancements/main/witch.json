@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:witch"
+              "type": "grimoireofgaia:witch"
             },
             "entity": "this"
           }

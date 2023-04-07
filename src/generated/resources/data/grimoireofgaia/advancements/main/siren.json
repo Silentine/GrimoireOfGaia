@@ -23,7 +23,7 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "catType": "grimoireofgaia:siren"
+              "type": "grimoireofgaia:siren"
             },
             "entity": "this"
           }
