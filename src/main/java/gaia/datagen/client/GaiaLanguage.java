@@ -103,6 +103,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addBlock(GaiaRegistry.PEARL_BLOCK, "Pearl Block");
 
 		addItem(GaiaRegistry.BOOK_OF_MEMORY, "Book of Memory");
+		addItem(GaiaRegistry.BROOM, "Broom");
 		addItem(GaiaRegistry.WEAPON_BOOK, "Book");
 		addItem(GaiaRegistry.WEAPON_BOOK_FREEZING, "Freezing Book");
 		addItem(GaiaRegistry.WEAPON_BOOK_NIGHTMARE, "Nightmare Book");
@@ -505,7 +506,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.chest_jungle.info", "They can drop a $(item)Jungle Chest$() on death, which can be right-clicked while held to open and receive random loot that are normally found in $(thing)Jungle Temple$() chests.");
 		addPatchouliEntry("drop.cod.info", "They can drop $(item)Fish$() on death, which are a good source of food when cooked, and can be used to tame $(mob)Ocelots$()");
 		addPatchouliEntry("drop.dark_oak_log.info", "They can drop a random burnable log on death.");
-		addPatchouliEntry("drop.deco_mandragora_pot_item.info", "They can drop a$(item)Mandragora Pot$() on death, which can be placed as a decoration block.");
+		addPatchouliEntry("drop.deco_mandragora_pot.info", "They can drop a$(item)Mandragora Pot$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.deco_nest_harpy.info", "They can drop a$(item)Harpy Nest$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.diamond_shard.info", "They can drop $(item)Diamond Shards$() on death, which can be combined to make $(item)Diamonds$().");
 		addPatchouliEntry("drop.doll_creeper_girl.info", "They can drop a$(item)Creeper Girl Doll$() on death, which can be placed as a decoration block.");
