@@ -511,6 +511,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.diamond_shard.info", "They can drop $(item)Diamond Shards$() on death, which can be combined to make $(item)Diamonds$().");
 		addPatchouliEntry("drop.doll_creeper_girl.info", "They can drop a$(item)Creeper Girl Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_dullahan.info", "They can drop a$(item)Dullahan Doll$() on death, which can be placed as a decoration block.");
+		addPatchouliEntry("drop.doll_dryad.info", "They can drop a$(item)Dryad Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_ender_girl.info", "They can drop an $(item)Ender Girl Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_nine_tails.info", "They can drop a $(item)Nine Tails Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_slime_girl.info", "They can drop a $(item)Slime Girl Doll$() on death, which can be placed as a decoration block.");

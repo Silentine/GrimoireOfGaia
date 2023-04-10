@@ -356,6 +356,7 @@
   "info.grimoireofgaia.book.drop.deco_nest_harpy.info": "They can drop a$(item)Harpy Nest$() on death, which can be placed as a decoration block.",
   "info.grimoireofgaia.book.drop.diamond_shard.info": "They can drop $(item)Diamond Shards$() on death, which can be combined to make $(item)Diamonds$().",
   "info.grimoireofgaia.book.drop.doll_creeper_girl.info": "They can drop a$(item)Creeper Girl Doll$() on death, which can be placed as a decoration block.",
+  "info.grimoireofgaia.book.drop.doll_dryad.info": "They can drop a$(item)Dryad Doll$() on death, which can be placed as a decoration block.",
   "info.grimoireofgaia.book.drop.doll_dullahan.info": "They can drop a$(item)Dullahan Doll$() on death, which can be placed as a decoration block.",
   "info.grimoireofgaia.book.drop.doll_ender_girl.info": "They can drop an $(item)Ender Girl Doll$() on death, which can be placed as a decoration block.",
   "info.grimoireofgaia.book.drop.doll_nine_tails.info": "They can drop a $(item)Nine Tails Doll$() on death, which can be placed as a decoration block.",
