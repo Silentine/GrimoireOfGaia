@@ -28,21 +28,21 @@ public class SludgeHairLayer extends RenderLayer<SludgeGirl, SludgeGirlModel> {
 		this.model = new SludgeGirlModel(modelSet.bakeLayer(ClientHandler.SLUDGE_GIRL));
 	}
 
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, SludgeGirl sludeGirl, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, SludgeGirl sludgeGirl, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Minecraft minecraft = Minecraft.getInstance();
-		boolean flag = minecraft.shouldEntityAppearGlowing(sludeGirl) && sludeGirl.isInvisible();
-		if (!sludeGirl.isInvisible() || flag) {
+		boolean flag = minecraft.shouldEntityAppearGlowing(sludgeGirl) && sludgeGirl.isInvisible();
+		if (!sludgeGirl.isInvisible() || flag) {
 			VertexConsumer vertexconsumer;
 			if (flag) {
-				vertexconsumer = bufferSource.getBuffer(RenderType.outline(this.getTextureLocation(sludeGirl)));
+				vertexconsumer = bufferSource.getBuffer(RenderType.outline(this.getTextureLocation(sludgeGirl)));
 			} else {
-				vertexconsumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(sludeGirl)));
+				vertexconsumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(sludgeGirl)));
 			}
 
 			this.getParentModel().copyPropertiesTo(this.model);
-			this.model.prepareMobModel(sludeGirl, limbSwing, limbSwingAmount, partialTicks);
-			this.model.setupAnim(sludeGirl, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(sludeGirl, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+			this.model.prepareMobModel(sludgeGirl, limbSwing, limbSwingAmount, partialTicks);
+			this.model.setupAnim(sludgeGirl, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(sludgeGirl, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
 		}
 	}
 
