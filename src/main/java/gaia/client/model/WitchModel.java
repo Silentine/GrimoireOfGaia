@@ -2,6 +2,7 @@ package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import gaia.config.GaiaConfig;
 import gaia.entity.Witch;
 import net.minecraft.client.model.ArmedModel;
@@ -37,6 +38,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 	private final ModelPart rightleg;
 	private final ModelPart leftleglower;
 	private final ModelPart rightleglower;
+	private float xRot = 0.0F;
 	private float offset = 0.0F;
 
 	public WitchModel(ModelPart root) {
@@ -190,7 +192,8 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 			// broom
 			broom.visible = true;
 
-			root.xRot = (Mth.cos((6.0F * Mth.DEG_TO_RAD * ageInTicks)) * 0.1F) - 0.3F;
+			this.xRot = (Mth.cos((6.0F * Mth.DEG_TO_RAD * ageInTicks)) * 0.1F);
+			root.xRot = this.xRot - 0.3F;
 			this.offset = Mth.cos(ageInTicks * 0.18F) * 0.9F;
 			root.y = 24.0F - offset;
 		} else {
@@ -219,6 +222,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 			// broom
 			broom.visible = false;
 
+			this.xRot = 0;
 			root.xRot = 0;
 		}
 
@@ -296,8 +300,9 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-		poseStack.translate(0, 0.5, 0);
+		poseStack.translate(0, 0.5, 0.25);
+		poseStack.mulPose(Vector3f.XP.rotation(this.xRot));
+		poseStack.translate(0, -this.offset * 0.0725F, 0);
 		getArm(arm).translateAndRotate(poseStack);
-		poseStack.translate(0, -(offset * 0.05F), 0);
 	}
 }
