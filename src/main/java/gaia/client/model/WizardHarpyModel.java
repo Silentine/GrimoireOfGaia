@@ -175,7 +175,7 @@ public class WizardHarpyModel extends EntityModel<WizardHarpy> implements Headed
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
-		poseStack.translate(-0.0625D, 1D, -0.125D);
+		poseStack.translate(-0.25D, 0.9375D, -0.125D);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
