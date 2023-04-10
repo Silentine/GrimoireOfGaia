@@ -67,11 +67,11 @@ public class DeathwordModel extends EntityModel<Deathword> {
 
 	@Override
 	public void setupAnim(Deathword entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float floatSpeed = 0.4F;
+		float floatSpeed = 0.2F;
 		float floatRange = 3.0F;
 
 		// anchor
-		root.y = 18.0F - Mth.cos(ageInTicks * 0.18F) * 0.9F;
+		root.y = 18.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
 		root.x = ((4 * Mth.DEG_TO_RAD));
 
 		float swingSpeed = 0.4F;

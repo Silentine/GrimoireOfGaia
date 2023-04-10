@@ -23,12 +23,15 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
@@ -38,6 +41,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -64,6 +68,7 @@ public class Deathword extends AbstractGaiaEntity {
 		canSpawn = true;
 		spawnTimer = 0;
 		spawnLimit = 0;
+		this.moveControl = new FlyingMoveControl(this, 20, true);
 	}
 
 	@Override
@@ -77,11 +82,33 @@ public class Deathword extends AbstractGaiaEntity {
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
+	public float getWalkTargetValue(BlockPos pos, LevelReader reader) {
+		return reader.getBlockState(pos).isAir() ? 10.0F : 0.0F;
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
+			public boolean isStableDestination(BlockPos pos) {
+				return !this.level.getBlockState(pos.below()).isAir();
+			}
+
+			public void tick() {
+				super.tick();
+			}
+		};
+		flyingpathnavigation.setCanOpenDoors(false);
+		flyingpathnavigation.setCanFloat(false);
+		flyingpathnavigation.setCanPassDoors(true);
+		return flyingpathnavigation;
+	}
+
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_RANGED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
+				.add(Attributes.FLYING_SPEED, 0.25D)
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
