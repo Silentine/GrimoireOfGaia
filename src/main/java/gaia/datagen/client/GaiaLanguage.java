@@ -493,12 +493,15 @@ public class GaiaLanguage extends LanguageProvider {
 		//Drops
 		addPatchouliEntry("drop.bag_arrows.info", "They can drop a $(item)Sealed Quiver$() on death, which can be right-clicked while held to open and receive a small stack of potion arrows randomly chosen from among $(thing)Slowness$(), $(thing)Harming$(), $(thing)Poison$(), or $(thing)Weakness$() effects.");
 		addPatchouliEntry("drop.bag_book.info", "They can drop a $(item)Book Bag$() on death. Right-click to open the bag and receive a random enchantment book.");
+		addPatchouliEntry("drop.bag_record.info", "They can drop a $(item)Record Box$() on death. Right-click to open the bag and receive a random record.");
+		addPatchouliEntry("drop.book.info", "They can drop a $(item)Book$() on death.");
 		addPatchouliEntry("drop.book_of_memory.info", "They can rarely drop $(item)Book of Memory$() which can be used to gain 10 experience levels.");
 		addPatchouliEntry("drop.box_diamond.info", "They can drop a $(item)Diamond Box$() on death, which can be right-clicked while held to open and receive a random tool, weapon, or armor piece made of diamond. Alternatively, it can be smelted in a furnace to create $(item)Crystallized Experience (Large)$().");
 		addPatchouliEntry("drop.box_end.info", "They can drop a $(item)Ender Box$() on death, which can be right-clicked while held to open and receive random blocks from $(item)The End$().");
 		addPatchouliEntry("drop.box_gold.info", "They can drop a $(item)Gold Box$() on death, which can be right-clicked while held to open and receive a random tool, weapon, or armor piece made of gold. Alternatively, it can be smelted in a furnace to create $(item)Crystallized Experience (Medium)$().");
 		addPatchouliEntry("drop.box_iron.info", "They can drop a $(item)Iron Box$() on death, which can be right-clicked while in hand to open and receive a random tool, weapon, or armor piece made of iron. Alternatively, it can be smelted in a furnace to create $(item)Crystallized Experience (Small)$().");
 		addPatchouliEntry("drop.box_overworld.info", "They can drop an $(item)Overworld Box$() on death, which can be right-clicked while held to open and receive a random ore found in the $(thing)Overworld$().");
+		addPatchouliEntry("drop.box_nether.info", "They can drop an $(item)Nether Box$() on death, which can be right-clicked while held to open and receive loot usually found in the $(thing)Nether$().");
 		addPatchouliEntry("drop.brown_mushroom.info", "They can drop $(item)Brown Mushroom$() on death.");
 		addPatchouliEntry("drop.bust_sphinx.info", "They can drop $(item)The Sphinx$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.bust_valkyrie.info", "They can drop $(item)The Valkyrie$() on death, which can be placed as a decoration block.");
@@ -510,21 +513,22 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.deco_nest_harpy.info", "They can drop a$(item)Harpy Nest$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.diamond_shard.info", "They can drop $(item)Diamond Shards$() on death, which can be combined to make $(item)Diamonds$().");
 		addPatchouliEntry("drop.doll_creeper_girl.info", "They can drop a$(item)Creeper Girl Doll$() on death, which can be placed as a decoration block.");
-		addPatchouliEntry("drop.doll_dullahan.info", "They can drop a$(item)Dullahan Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_dryad.info", "They can drop a$(item)Dryad Doll$() on death, which can be placed as a decoration block.");
+		addPatchouliEntry("drop.doll_dullahan.info", "They can drop a$(item)Dullahan Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_ender_girl.info", "They can drop an $(item)Ender Girl Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_nine_tails.info", "They can drop a $(item)Nine Tails Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_slime_girl.info", "They can drop a $(item)Slime Girl Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.elytra_fragment.info", "They can drop a $(item)Elytra Fragment$() on death, which can be combined to make an $(item)Elytra$().");
 		addPatchouliEntry("drop.emerald_shard.info", "They can drop $(item)Emerald Shards$() on death, which can be combined to make $(item)Emeralds$().");
-		addPatchouliEntry("drop.enchanted_book.info", "They can drop an $(item)Enchanted Book() on death.");
+		addPatchouliEntry("drop.enchanted_book.info", "They can drop an $(item)Enchanted Book$() on death.");
 		addPatchouliEntry("drop.ender_pearl.info", "They can drop $(item)Ender Pearls$() on death.");
-		addPatchouliEntry("drop.fan_fire.info", "They can rarely drop an $(item)Ornate Fire Fan$() on death, which is a magical melee weapon bearing the$(thing)Fire Aspect II$() enchantment and can inflict $(thing)Knockback I$() on hit.");
-		addPatchouliEntry("drop.fan_ice.info", "They can rarely drop an $(item)Ornate Ice Fan$() on death, which is a magical melee weapon bearing the$(thing)Knockback II$() enchantment and can inflict $(thing)Slowness IV$() on hit.");
+		addPatchouliEntry("drop.fan_fire.info", "They can rarely drop an $(item)Ornate Fire Fan$() on death, which is a magical melee weapon bearing the $(thing)Fire Aspect II$() enchantment and can inflict $(thing)Knockback I$() on hit.");
+		addPatchouliEntry("drop.fan_ice.info", "They can rarely drop an $(item)Ornate Ice Fan$() on death, which is a magical melee weapon bearing the $(thing)Knockback II$() enchantment and can inflict $(thing)Slowness IV$() on hit.");
+		addPatchouliEntry("drop.feather.info", "They can drop $(item)feathers() on death.");
 		addPatchouliEntry("drop.fireshard.info", "They can drop $(item)Fireshards$() on death, which can be right-clicked to place lava");
-		addPatchouliEntry("drop.food_rotten_heart.info", "They can drop $(item)Rotten Hearts$() on death, which can be eaten as a decent food source and also to gain a $(thing)Regeneration$() potion effect. However, when consumed, it may afflict players with $(thing)Hunger$().");
+		addPatchouliEntry("drop.rotten_heart.info", "They can drop $(item)Rotten Hearts$() on death, which can be eaten as a decent food source and also to gain a $(thing)Regeneration$() potion effect. However, when consumed, it may afflict players with $(thing)Hunger$().");
 		addPatchouliEntry("drop.fur.info", "They can drop $(item)Fur$() on death, which can be smelted in a furnace to create $(item)Leather$().");
-		addPatchouliEntry("drop.glowstone_dust.info", "They can drop $(item)Glowstone Dust$() on death, which can be combined to make a $(item)Glostone$().");
+		addPatchouliEntry("drop.glowstone_dust.info", "They can drop $(item)Glowstone Dust$() on death, which can be combined to make a $(item)Glowstone$().");
 		addPatchouliEntry("drop.gold_nugget.info", "They can drop $(item)Gold Nuggets$() on death, which can be combined to make $(item)Gold Ingots$().");
 		addPatchouliEntry("drop.golden_apple_pie_slice.info", "They can drop $(item)Golden Apple Pie Slices$() on death, which can be eaten to grant players the same benefits as gained from eating a $(item)Golden Apple$().");
 		addPatchouliEntry("drop.green_dye.info", "They can drop $(item)Green Dye$() on death.");
@@ -537,6 +541,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.meat.info", "They can drop $(item)Meat$() on death, which serves as a decent source of food.");
 		addPatchouliEntry("drop.nether_wart_jam.info", "They can drop a $(item)Nether Wart Jam$() on death. These are a moderate source of food and provide a 40%% $(thing)Speed$() and $(thing)Haste$() effect for 30 seconds.");
 		addPatchouliEntry("drop.oak_log.info", "They can drop an $(item)Oak Log$() on death.");
+		addPatchouliEntry("drop.paper.info", "They can drop $(item)Paper$() on death.");
 		addPatchouliEntry("drop.premium_monster_feed.info", "They can drop $(item)Premium Monster Feed$() on death. This item can be used to tame any helper mobs from $(thing)Grimoire of Gaia$(). When tamed, they will behave like a vanilla $(mob)Golem$().");
 		addPatchouliEntry("drop.prismarine_shard.info", "They can drop $(item)Prismarine Shards$() on death, which are primarily used for making $(item)Prismarine Blocks$().");
 		addPatchouliEntry("drop.quartz.info", "They can drop $(item)Quartz$() on death, which can be combined to make a $(item)Block of Quartz$().");
@@ -549,7 +554,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.soulfire.info", "They can drop $(item)Soul Fire$() on death. These are an excellent source of fuel and burn for 580 seconds. Can also be used like $(item)Flint and Steel$() to start fires.");
 		addPatchouliEntry("drop.stone_coal.info", "They can drop $(item)Stone Coal$() on death. This can be used in a furnace as a moderate source of fuel.");
 		addPatchouliEntry("drop.taproot.info", "They can drop $(item)Tap Root$() on death. These are an insignificant source of food, but remove negative status effects when consumed.");
-		addPatchouliEntry("drop.totem_fragment.info", "They can drop $(item)Totem Fragments$() on death, which can be combined to make $(item)Totem of Undying$().");
+		addPatchouliEntry("drop.totem_of_undying_fragment.info", "They can drop $(item)Totem Fragments$() on death, which can be combined to make $(item)Totem of Undying$().");
 		addPatchouliEntry("drop.weapon_book.info", "They can rarely drop a $(item)Book$() which is a weaponized book.");
 		addPatchouliEntry("drop.weapon_book_battle.info", "They can rarely drop a $(item)Book Of Combat$() which inflicts $(thing)Weakness$() on foes upon a melee strike.");
 		addPatchouliEntry("drop.weapon_book_buff.info", "They can rarely drop a $(item)Combat Manual$() which is a magical item that can be used to grant a player $(thing)Strength$() and $(thing)Resistance$() potion effects for one minute and a short-duration $(thing)Regeneration$() effect.");
@@ -559,6 +564,8 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.weapon_book_nature.info", "They can rarely drop a $(item)Book of Nature$() which is a magical ranged weapon that fires projectiles which inflict $(thing)Poison$() on hit.");
 		addPatchouliEntry("drop.weapon_book_nightmare.info", "They can rarely drop a $(item)Nightmare Book$() which inflicts $(thing)Mining Fatigue$() on foes upon a melee strike.");
 		addPatchouliEntry("drop.zombie_head.info", "They can drop a $(item)Zombie Skull$() on death.");
+		addPatchouliEntry("drop.withered_brain.info", "They can drop $(item)Withered Brain$() on death, which can be eaten as a decent food source. However, when consumed, it afflicts players with $(thing)Wither$().");
+
 	}
 
 	public void addSubtitle(RegistryObject<SoundEvent> sound, String name) {
