@@ -251,6 +251,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 			int weaponType = tag.getInt("WeaponType");
 			setWeaponType(weaponType);
 		}
+		setCombatTask();
 	}
 
 	@Override
