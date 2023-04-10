@@ -256,6 +256,8 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	private void setGoals(int id) {
+		if (level.isClientSide) return;
+
 		if (id == 2) {
 			this.goalSelector.removeGoal(meleeAttackGoal);
 		} else if (id == 1) {
