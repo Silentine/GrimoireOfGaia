@@ -31,7 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -40,7 +40,7 @@ public class SummonStaffItem extends Item {
 	private final Supplier<EntityType<? extends Mob>> typeSupplier;
 	private final Supplier<Ingredient> repairIngredient;
 
-	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier, @Nonnull Supplier<Ingredient> repairIngredient) {
+	public SummonStaffItem(Properties properties, Supplier<EntityType<? extends Mob>> typeSupplier, @NotNull Supplier<Ingredient> repairIngredient) {
 		super(properties);
 		this.typeSupplier = typeSupplier;
 		this.repairIngredient = repairIngredient;

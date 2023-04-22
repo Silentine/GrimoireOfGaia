@@ -42,6 +42,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo matangoSpawning;
 		public final SpawningInfo mermaidSpawning;
 		public final SpawningInfo mimicSpawning;
+		public final SpawningInfo minotaurSpawning;
 		public final SpawningInfo minotaurusSpawning;
 		public final SpawningInfo nagaSpawning;
 		public final SpawningInfo nineTailsSpawning;
@@ -186,6 +187,13 @@ public class GaiaSpawningConfig {
 			List<? extends String> mermaidBiomes = generateList(Biomes.BEACH, Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.RIVER);
 			List<? extends String> mermaidBiomeDictionary = List.of("OVERWORLD,BEACH", "OVERWORLD,WATER");
 			mermaidSpawning = new SpawningInfo(builder, "Mermaid", 40, 2, 4, mermaidBiomes, mermaidBiomeDictionary);
+
+			List<? extends String> minotaurBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
+			List<? extends String> minotaurBiomeDictionary = List.of(
+					"OVERWORLD,PLAINS,!SAVANNA",
+					"OVERWORLD,MESA",
+					"OVERWORLD,FOREST,SPOOKY");
+			minotaurSpawning = new SpawningInfo(builder, "Minotaur", 10, 1, 1, minotaurBiomes, minotaurBiomeDictionary);
 
 			List<? extends String> minotaurusBiomes = generateList(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS);
 			List<? extends String> minotaurusBiomeDictionary = List.of(

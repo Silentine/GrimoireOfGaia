@@ -1,9 +1,7 @@
 package gaia.item.accessory;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +22,6 @@ public abstract class AbstractAccessoryItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
 	}
 
 	@Override

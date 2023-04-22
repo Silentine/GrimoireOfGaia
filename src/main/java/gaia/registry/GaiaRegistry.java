@@ -34,6 +34,7 @@ import gaia.entity.Kobold;
 import gaia.entity.Matango;
 import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
+import gaia.entity.Minotaur;
 import gaia.entity.Minotaurus;
 import gaia.entity.Naga;
 import gaia.entity.NineTails;
@@ -67,7 +68,9 @@ import gaia.entity.prop.Chest;
 import gaia.item.ExperienceItem;
 import gaia.item.LootableItem;
 import gaia.item.MemoryBookItem;
+import gaia.item.accessory.HeavyBarbellItem;
 import gaia.item.accessory.KnucklesItem;
+import gaia.item.accessory.RingItem;
 import gaia.item.accessory.SeashellHairpinItem;
 import gaia.item.armor.HeadgearItem;
 import gaia.item.edible.EdibleEffectItem;
@@ -100,6 +103,8 @@ import gaia.item.weapon.book.WitherBookItem;
 import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import gaia.registry.helper.PropReg;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
@@ -119,6 +124,8 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class GaiaRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, GrimoireOfGaia.MOD_ID);
@@ -156,6 +163,7 @@ public class GaiaRegistry {
 	public static final MobReg<Matango> MATANGO = new MobReg.Builder<>("matango", EntityType.Builder.of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8).withDefaultSounds().build();
 	public static final MobReg<Mermaid> MERMAID = new MobReg.Builder<>("mermaid", GaiaMobType.ASSIST, EntityType.Builder.of(Mermaid::new, MobCategory.MONSTER).clientTrackingRange(8), 0x5c70b1, 0xa4452d).withDefaultSounds().build();
 	public static final MobReg<Mimic> MIMIC = new MobReg.Builder<>("mimic", EntityType.Builder.of(Mimic::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 11237677, 4274991).build();
+	public static final MobReg<Minotaur> MINOTAUR = new MobReg.Builder<>("minotaur", EntityType.Builder.of(Minotaur::new, MobCategory.MONSTER).sized(1.4F, 3.0F).clientTrackingRange(8), 0x8d4f41, 0xd54242).withDefaultSounds().withStep().build();
 	public static final MobReg<Minotaurus> MINOTAURUS = new MobReg.Builder<>("minotaurus", EntityType.Builder.of(Minotaurus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0xa9a9a9).withDefaultSounds().build();
 	public static final MobReg<Naga> NAGA = new MobReg.Builder<>("naga", EntityType.Builder.of(Naga::new, MobCategory.MONSTER).sized(1.0F, 2.2F).clientTrackingRange(8), 0x29bc55, 0xccb63f).withDefaultSounds().build();
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg.Builder<>("nine_tails", EntityType.Builder.of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145).withDefaultSounds().build();
@@ -286,6 +294,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> GIGA_GEAR = ITEMS.register("giga_gear", () -> new GigaGearItem(itemBuilder().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_APPLE_PIE = ITEMS.register("golden_apple_pie", () -> new XPEdibleItem(itemBuilder().stacksTo(1).food(GaiaFoods.GOLDEN_APPLY_PIE).rarity(Rarity.RARE), (rand) -> rand.nextInt(32) + 16));
 	public static final RegistryObject<Item> GOLDEN_APPLE_PIE_SLICE = ITEMS.register("golden_apple_pie_slice", () -> new EdibleEffectItem(itemBuilder().stacksTo(64).food(GaiaFoods.GOLDEN_APPLY_PIE_SLICE).rarity(Rarity.UNCOMMON)));
+	public static final RegistryObject<Item> MINOTAUR_HAMMER = ITEMS.register("minotaur_hammer", () -> new SwordItem(Tiers.IRON, 8, -2.8F, itemBuilder()));
 	public static final RegistryObject<Item> HONEYDEW = ITEMS.register("honeydew", () -> new HoneydewItem(itemBuilder().stacksTo(64).food(GaiaFoods.HONEYDEW).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> HEADGEAR_BOOK = ITEMS.register("headgear_book", () -> new HeadgearItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> HEADGEAR_MOB = ITEMS.register("headgear_mob", () -> new HeadgearItem(itemBuilder().stacksTo(1)));
@@ -295,6 +304,15 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> HEADGEAR_EARS_ELF = ITEMS.register("headgear_ears_elf", () -> new HeadgearItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> KNUCKLES = ITEMS.register("knuckles", () -> new KnucklesItem(itemBuilder().stacksTo(1)));
 	public static final RegistryObject<Item> SEASHELL_HAIRPIN = ITEMS.register("seashell_hairpin", () -> new SeashellHairpinItem(itemBuilder().durability(1)));
+	public static final RegistryObject<Item> RING_OF_SPEED = ITEMS.register("ring_of_speed", () -> new RingItem(itemBuilder(),
+			List.of(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * 20, 1, true, false))));
+	public static final RegistryObject<Item> RING_OF_HASTE = ITEMS.register("ring_of_haste", () -> new RingItem(itemBuilder(),
+			List.of(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 5 * 20, 1, true, false))));
+	public static final RegistryObject<Item> RING_OF_JUMP = ITEMS.register("ring_of_jump", () -> new RingItem(itemBuilder(),
+			List.of(() -> new MobEffectInstance(MobEffects.JUMP, 5 * 20, 1, true, false))));
+	public static final RegistryObject<Item> RING_OF_NIGHT = ITEMS.register("ring_of_night", () -> new RingItem(itemBuilder(),
+			List.of(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 20, 1, true, false))));
+	public static final RegistryObject<Item> HEAVY_BARBELL = ITEMS.register("heavy_barbell", () -> new HeavyBarbellItem(itemBuilder()));
 	public static final RegistryObject<Item> MEAT = ITEMS.register("meat", () -> new Item(itemBuilder().food(GaiaFoods.MEAT)));
 	public static final RegistryObject<Item> METAL_DAGGER = ITEMS.register("metal_dagger", () -> new SwordItem(Tiers.IRON, 0, -2.0F, itemBuilder()));
 	public static final RegistryObject<Item> MONSTER_FEED = ITEMS.register("monster_feed", () -> new MonsterFeedItem(itemBuilder().stacksTo(1).food(GaiaFoods.MONSTER_FEED)));

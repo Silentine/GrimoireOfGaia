@@ -50,6 +50,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MATANGO, "Matango").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MERMAID, "Mermaid").withSay("sings").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAUR, "Minotaur").withSay("growls").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAURUS, "Minotaurus").withSay("growls").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MIMIC, "Mimic").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.NAGA, "Naga").withSay("hisses").build());
@@ -134,6 +135,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.GIGA_GEAR, "Heart of Giga Knight");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE, "Golden Apple Pie");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE, "Golden Apple Pie Slice");
+		addItem(GaiaRegistry.MINOTAUR_HAMMER, "Minotaur Hammer");
 		addItem(GaiaRegistry.HONEYDEW, "Honeydew");
 		addItem(GaiaRegistry.HEADGEAR_BOOK, "Book on Face");
 		addItem(GaiaRegistry.HEADGEAR_MOB, "Cage");
@@ -142,6 +144,11 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.HEADGEAR_DOLL, "Drooping Maid");
 		addItem(GaiaRegistry.HEADGEAR_EARS_ELF, "Elven Ears");
 		addItem(GaiaRegistry.KNUCKLES, "Knuckles");
+		addItem(GaiaRegistry.RING_OF_SPEED, "Ring of Speed");
+		addItem(GaiaRegistry.RING_OF_HASTE, "Ring of Haste");
+		addItem(GaiaRegistry.RING_OF_JUMP, "Ring of Jump");
+		addItem(GaiaRegistry.RING_OF_NIGHT, "Ring of Night Vision");
+		addItem(GaiaRegistry.HEAVY_BARBELL, "Heavy Barbell");
 		addItem(GaiaRegistry.SEASHELL_HAIRPIN, "Seashell Hairpin");
 		addItem(GaiaRegistry.MEAT, "Meat");
 		addItem(GaiaRegistry.MONSTER_FEED, "Monster Feed");
@@ -214,6 +221,7 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.headgear.tag", "Headgear");
 		add("text.grimoireofgaia.charm.tag", "Charm");
 		add("text.grimoireofgaia.trinket.tag", "Trinket");
+		add("text.grimoireofgaia.ring.tag", "Ring");
 		add("text.grimoireofgaia.charm.damage", "+%d Attack Damage");
 
 		add("text.grimoireofgaia.bless.main_hand", "When in main hand:");
@@ -246,6 +254,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addKillAdvancement(GaiaRegistry.KOBOLD, "Kobold", "Kill a Kobold");
 		addKillAdvancement(GaiaRegistry.MATANGO, "Matango", "Kill a Matango");
 		addKillAdvancement(GaiaRegistry.MIMIC, "Mimic", "Kill a Mimic");
+		addKillAdvancement(GaiaRegistry.MINOTAUR, "Minotaur", "Kill a Minotaur");
 		addKillAdvancement(GaiaRegistry.MINOTAURUS, "Minotaurus", "Kill a Minotaurus");
 		addKillAdvancement(GaiaRegistry.NAGA, "Naga", "Kill a Naga");
 		addKillAdvancement(GaiaRegistry.NINE_TAILS, "Nine Tails", "Kill a Nine Tails");
@@ -421,6 +430,10 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.mimic.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
 		addPatchouliEntry("entry.mimic.info3", "The $(mob)Mimics$() may drop any item which a basic $(thing)Minecraft$() creature could drop on death.");
 
+		addPatchouliEntry("entry.minotaur.name", "Minotaur");
+		addPatchouliEntry("entry.minotaur.info", "The $(mob)Minotaur$() is a monster that spawns in Plains and Mesa biomes in the $(thing)Overworld$(). It attacks players on sight with melee strikes which apply $(thing)Mining Fatigue$() and $(thing)Slowness$() effects. It is immune to falling damage, Fire, and ranged attacks. It is also unimpeded by cobwebs or water. When a $(mob)Minotaur's$() health drops below 25%, it gains a $(thing)Strength$() and $(thing)Resistance$() effect.");
+		addPatchouliEntry("entry.minotaur.info2", "$(li)160 Health$()$(li)16 Armor$()$(li)16 Damage$()");
+
 		addPatchouliEntry("entry.minotaurus.name", "Minotaurus");
 		addPatchouliEntry("entry.minotaurus.info", "The $(mob)Minotaurus$() is a monster that spawns in Plains and Mesa biomes in the $(thing)Overworld$(). It attacks players on sight, either by charging their target and striking them in melee, inflicting $(thing)Slowness$() and $(thing)Mining Fatigue$(), or by keeping distance and attacking with a bow, if it spawned with one. $(mob)Minotaurus$() with bows may also use $(thing)Slowness$() or $(thing)Weakness$() potion arrows.");
 		addPatchouliEntry("entry.minotaurus.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
@@ -505,6 +518,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.brown_mushroom.info", "They can drop $(item)Brown Mushroom$() on death.");
 		addPatchouliEntry("drop.bust_sphinx.info", "They can drop $(item)The Sphinx$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.bust_valkyrie.info", "They can drop $(item)The Valkyrie$() on death, which can be placed as a decoration block.");
+		addPatchouliEntry("drop.bust_minotaur.info", "They can drop $(item)Minotaur Bust$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.chest_desert.info", "They can drop a $(item)Desert Chest$() on death, which can be right-clicked while held to open and receive random loot that are normally found in $(thing)Desert Pyramid$() chests.");
 		addPatchouliEntry("drop.chest_jungle.info", "They can drop a $(item)Jungle Chest$() on death, which can be right-clicked while held to open and receive random loot that are normally found in $(thing)Jungle Temple$() chests.");
 		addPatchouliEntry("drop.cod.info", "They can drop $(item)Fish$() on death, which are a good source of food when cooked, and can be used to tame $(mob)Ocelots$()");
@@ -535,6 +549,12 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.honeydew.info", "They can drop $(item)Honeydew$() on death. These are a decent source of food and provide a 20%% speed and haste buff for 10 seconds.");
 		addPatchouliEntry("drop.iron_nugget.info", "They can drop $(item)Iron Nuggets$() on death, which can be combined to make $(item)Iron Ingots$().");
 		addPatchouliEntry("drop.knuckles.info", "They can drop $(item)Knuckles$() on death, which is an accessory that boosts your damage.");
+		addPatchouliEntry("drop.ring_of_speed.info", "They can drop a $(item)Ring of Speed$() on death, which is an accessory that applies Speed when worn.");
+		addPatchouliEntry("drop.ring_of_haste.info", "They can drop a $(item)Ring of Haste$() on death, which is an accessory that applies Haste when worn.");
+		addPatchouliEntry("drop.ring_of_jump.info", "They can drop a $(item)Ring of Jump$() on death, which is an accessory that applies Jump Boost when worn.");
+		addPatchouliEntry("drop.ring_of_night.info", "They can drop a $(item)Ring of Night Vision$() on death, which is an accessory that applies Night Vision when worn.");
+		addPatchouliEntry("drop.heavy_barbell.info", "They can drop a $(item)Heavy Barbell$() on death, which is an accessory that makes you slow when worn.");
+		addPatchouliEntry("drop.minotaur_hammer.info", "They can drop a $(item)Minotaur Hammer$() on death, which is a weapon similar to an axe but slower as it's heavier.");
 		addPatchouliEntry("drop.lapis_block.info", "They can drop a $(item)Block of Lapis Lazuli$() on death.");
 		addPatchouliEntry("drop.lapis_lazuli.info", "They can drop $(item)Lapis Lazuli$() on death.");
 		addPatchouliEntry("drop.leather.info", "They can drop $(item)Leather$() on death.");

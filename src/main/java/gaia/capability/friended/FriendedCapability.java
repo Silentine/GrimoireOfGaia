@@ -8,8 +8,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class FriendedCapability implements IFriended, ICapabilitySerializable<CompoundTag>, ICapabilityProvider {
@@ -64,9 +64,9 @@ public class FriendedCapability implements IFriended, ICapabilitySerializable<Co
 			this.setFriendedBy(tag.getUUID("friendedBy"));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
 		return CapabilityHandler.CAPABILITY_FRIENDED.orEmpty(cap, LazyOptional.of(() -> this));
 	}
 

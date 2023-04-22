@@ -64,6 +64,7 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 		addKillAdvancement(consumer, GaiaRegistry.KOBOLD, Items.BOW, root);
 		addKillAdvancement(consumer, GaiaRegistry.MATANGO, Items.RED_MUSHROOM, root);
 		addKillAdvancement(consumer, GaiaRegistry.MIMIC, Items.CHEST, root);
+		addKillAdvancement(consumer, GaiaRegistry.MINOTAUR, GaiaRegistry.MINOTAUR_HAMMER.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.MINOTAURUS, GaiaRegistry.WEAPON_BOOK_BATTLE.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.NAGA, GaiaRegistry.GOLD_SHIELD.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.NINE_TAILS, GaiaRegistry.DOLL_NINE_TAILS_ITEM.get(), root);

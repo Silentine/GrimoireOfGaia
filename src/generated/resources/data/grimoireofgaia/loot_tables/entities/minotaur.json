@@ -104,7 +104,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:bust_sphinx"
+          "name": "grimoireofgaia:bust_minotaur"
         }
       ]
     },
@@ -121,7 +121,7 @@
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:ring_of_jump"
+          "name": "grimoireofgaia:heavy_barbell"
         }
       ]
     },
@@ -134,11 +134,11 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.01,
+              "chance": 0.025,
               "looting_multiplier": 0.01
             }
           ],
-          "name": "grimoireofgaia:chest_desert"
+          "name": "grimoireofgaia:ring_of_haste"
         }
       ]
     }

@@ -823,18 +823,49 @@
       "grimoireofgaia:assist_death"
     ]
   },
-  "minotaurus_say": {
-    "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
+  "minotaur_say": {
+    "subtitle": "grimoireofgaia.subtitle.minotaur_say",
     "sounds": [
       "grimoireofgaia:entity/minotaur/say1",
       "grimoireofgaia:entity/minotaur/say2"
     ]
   },
-  "minotaurus_hurt": {
-    "subtitle": "grimoireofgaia.subtitle.minotaurus_hurt",
+  "minotaur_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.minotaur_hurt",
     "sounds": [
       "grimoireofgaia:entity/minotaur/hurt1",
       "grimoireofgaia:entity/minotaur/hurt2"
+    ]
+  },
+  "minotaur_death": {
+    "subtitle": "grimoireofgaia.subtitle.minotaur_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
+  "minotaur_step": {
+    "subtitle": "grimoireofgaia.subtitle.minotaur_step",
+    "sounds": [
+      "mob/irongolem/walk1",
+      "mob/irongolem/walk2",
+      "mob/irongolem/walk3",
+      "mob/irongolem/walk4"
+    ]
+  },
+  "minotaurus_say": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "minotaurus_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.minotaurus_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
     ]
   },
   "minotaurus_death": {

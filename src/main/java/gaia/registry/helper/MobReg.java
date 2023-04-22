@@ -12,8 +12,8 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Helper class for registering mob's with spawn eggs.
@@ -39,7 +39,7 @@ public class MobReg<T extends Mob> {
 	/**
 	 * @return The registry name of the mob
 	 */
-	@Nonnull
+	@NotNull
 	public String getName() {
 		return name;
 	}

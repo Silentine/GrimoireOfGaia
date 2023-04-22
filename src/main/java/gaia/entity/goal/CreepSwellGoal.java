@@ -3,8 +3,8 @@ package gaia.entity.goal;
 import gaia.entity.Creep;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class CreepSwellGoal extends Goal {

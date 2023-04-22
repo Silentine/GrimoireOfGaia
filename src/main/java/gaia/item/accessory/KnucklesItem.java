@@ -28,6 +28,7 @@ public class KnucklesItem extends AbstractAccessoryItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
+		list.add(new TranslatableComponent("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
 
 		if (Screen.hasShiftDown()) {
 			list.add(new TranslatableComponent("text.grimoireofgaia.charm.damage", damage));

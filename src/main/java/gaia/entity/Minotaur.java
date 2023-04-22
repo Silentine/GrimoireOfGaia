@@ -1,15 +1,20 @@
 package gaia.entity;
 
-import gaia.config.GaiaConfig;
 import gaia.entity.goal.MobAttackGoal;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,7 +24,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -44,30 +48,33 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
-	private int spawnTime;
+public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
+	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Sharko.class, EntityDataSerializers.INT);
+	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_3, true);
 
-	public Sphinx(EntityType<? extends Monster> entityType, Level level) {
+	private int buffEffect;
+	private boolean animationPlay;
+	private int animationTimer;
+
+	public Minotaur(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
-		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_3;
 
-		this.spawnTime = 0;
+		xpReward = SharedEntityData.EXPERIENCE_VALUE_3;
+
+		buffEffect = 0;
+		animationPlay = false;
+		animationTimer = 0;
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_1, true));
-		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 3.0F));
-		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(0, new FloatGoal(this));
+
+		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 		this.targetSelector.addGoal(2, this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true));
-	}
-
-	@Override
-	public float getEyeHeight(Pose pose) {
-		return 0.45F;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -78,7 +85,8 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage3())
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_3)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_3)
-				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 6.0F);
+
+				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 5.0F);
 	}
 
 	@Override
@@ -89,11 +97,20 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(ANIMATION_STATE, 0);
 	}
 
-	@Override
-	public int maxVariants() {
-		return 1;
+	public int getAnimationState() {
+		return this.entityData.get(ANIMATION_STATE);
+	}
+
+	public void setAnimationState(int state) {
+		this.entityData.set(ANIMATION_STATE, state);
+		if (state == 0) {
+			setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(GaiaRegistry.MINOTAUR_HAMMER.get()));
+		} else {
+			setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+		}
 	}
 
 	@Override
@@ -150,16 +167,42 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 			stopRiding();
 		}
 
-		if (getHealth() < getMaxHealth() * 0.75F && getHealth() > getMaxHealth() * 0.25F) {
-			if ((spawnTime > 0) && (spawnTime <= 200)) {
-				++spawnTime;
-			} else {
-				level.broadcastEntityEvent(this, (byte) 9);
-
-				heal(getMaxHealth() * 0.10F);
-				spawnTime = 1;
+		if (this.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F && this.random.nextInt(5) == 0) {
+			int i = Mth.floor(this.getX());
+			int j = Mth.floor(this.getY() - (double) 0.2F);
+			int k = Mth.floor(this.getZ());
+			BlockPos pos = new BlockPos(i, j, k);
+			BlockState blockstate = this.level.getBlockState(pos);
+			if (!blockstate.isAir()) {
+				this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
+
+		/* BUFF */
+		if (getHealth() <= getMaxHealth() * 0.25F && getHealth() > 0.0F && buffEffect == 0) {
+			setGoals(1);
+			setAnimationState(1);
+			buffEffect = 1;
+			animationPlay = true;
+		}
+
+		if (getHealth() > getMaxHealth() * 0.25F && buffEffect == 1) {
+			buffEffect = 0;
+			animationPlay = false;
+			animationTimer = 0;
+		}
+
+		if (animationPlay) {
+			if (animationTimer != 15) {
+				animationTimer += 1;
+			} else {
+				setBuff();
+				setGoals(0);
+				setAnimationState(0);
+				animationPlay = false;
+			}
+		}
+		/* BUFF */
 
 		if (isDeadOrDying()) {
 			for (int i = 0; i < 2; ++i) {
@@ -173,11 +216,32 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		}
 	}
 
+	private void setGoals(int id) {
+		if (id == 1) {
+			this.goalSelector.removeGoal(mobAttackGoal);
+		} else {
+			this.goalSelector.addGoal(1, mobAttackGoal);
+		}
+	}
+
+	private void setCombatTask() {
+		this.goalSelector.removeGoal(mobAttackGoal);
+		setGoals(0);
+	}
+
+	private void setBuff() {
+		level.broadcastEntityEvent(this, (byte) 7);
+		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
+		addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 60, 0));
+	}
+
 	@Override
 	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.MINOTAUR_HAMMER.get()));
+
 		ItemStack swimmingBoots = new ItemStack(Items.LEATHER_BOOTS);
-		swimmingBoots.enchant(Enchantments.DEPTH_STRIDER, 2);
 		setItemSlot(EquipmentSlot.FEET, swimmingBoots);
+		swimmingBoots.enchant(Enchantments.DEPTH_STRIDER, 2);
 	}
 
 	@Nullable
@@ -186,16 +250,31 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		populateDefaultEquipmentSlots(difficultyInstance);
+		populateDefaultEquipmentEnchantments(difficultyInstance);
+
+		setCombatTask();
 
 		return data;
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean canBreatheUnderwater() {
+		return true;
+	}
+
+	@Override
+	public boolean isPushedByFluid() {
 		return false;
 	}
 
-	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
+	public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+		return false;
+	}
+
+	@Override
+	public boolean fireImmune() {
+		return true;
 	}
 
 	@Override
@@ -206,21 +285,28 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
+
+		setCombatTask();
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return GaiaRegistry.SPHINX.getSay();
+		return GaiaRegistry.MINOTAUR.getSay();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return GaiaRegistry.SPHINX.getHurt();
+		return GaiaRegistry.MINOTAUR.getHurt();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return GaiaRegistry.SPHINX.getDeath();
+		return GaiaRegistry.MINOTAUR.getDeath();
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(GaiaRegistry.MINOTAUR.getStep(), 0.15F, 1.0F);
 	}
 
 	@Override
@@ -228,12 +314,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		return SharedEntityData.CHUNK_LIMIT_3;
 	}
 
-	public static boolean checkSphinxSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		boolean flag = checkAboveSeaLevel(levelAccessor, pos) && checkDaysPassed(levelAccessor);
-		if (GaiaConfig.COMMON.spawnLevel3Rain.get()) {
-			return flag && checkRaining(levelAccessor) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
-		} else {
-			return flag && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
-		}
+	public static boolean checkMinotaurSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

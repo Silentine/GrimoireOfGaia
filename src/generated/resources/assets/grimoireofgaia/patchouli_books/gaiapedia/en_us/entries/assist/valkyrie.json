@@ -41,6 +41,12 @@
       "item": "grimoireofgaia:bust_valkyrie",
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.bust_valkyrie.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:ring_of_speed{\"Damage\":0}",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.ring_of_speed.info"
     }
   ]
 }

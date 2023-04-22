@@ -107,6 +107,23 @@
           "name": "grimoireofgaia:bust_valkyrie"
         }
       ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.025,
+              "looting_multiplier": 0.01
+            }
+          ],
+          "name": "grimoireofgaia:ring_of_speed"
+        }
+      ]
     }
   ]
 }

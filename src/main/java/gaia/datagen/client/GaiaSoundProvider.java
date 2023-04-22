@@ -325,11 +325,18 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MATANGO).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MERMAID).withDefaults().build());
-		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults()
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAUR).withDefaults()
 				.withSay(sound(modLoc("entity/minotaur/say1")),
 						sound(modLoc("entity/minotaur/say2")))
 				.withHurt(sound(modLoc("entity/minotaur/hurt1")),
-						sound(modLoc("entity/minotaur/hurt2"))).build());
+						sound(modLoc("entity/minotaur/hurt2")))
+				.withStep(
+						sound(new ResourceLocation("mob/irongolem/walk1")),
+						sound(new ResourceLocation("mob/irongolem/walk2")),
+						sound(new ResourceLocation("mob/irongolem/walk3")),
+						sound(new ResourceLocation("mob/irongolem/walk4"))
+				).build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.NAGA).withDefaults()
 				.withSay(sound(modLoc("entity/naga/say1")),
 						sound(modLoc("entity/naga/say2")))

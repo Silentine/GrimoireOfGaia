@@ -243,7 +243,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		}
 		/* BUFF */
 
-		if (getHealth() <= 0.0F) {
+		if (isDeadOrDying()) {
 			for (int i = 0; i < 2; ++i) {
 				level.addParticle(ParticleTypes.EXPLOSION,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),

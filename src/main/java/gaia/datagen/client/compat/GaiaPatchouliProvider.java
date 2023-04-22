@@ -80,7 +80,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				GaiaRegistry.MEAT.get(), GaiaRegistry.BOX_IRON.get());
 		assistCategory = addMobEntry(assistCategory, "assist", GaiaRegistry.VALKYRIE, 1.0F, 0.0F,
 				GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get(), GaiaRegistry.DIAMOND_SHARD.get(), GaiaRegistry.EMERALD_SHARD.get(),
-				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_VALKYRIE_ITEM.get());
+				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_VALKYRIE_ITEM.get(), GaiaRegistry.RING_OF_SPEED.get());
 		assistCategory = addMobEntry(assistCategory, "assist", GaiaRegistry.WIZARD_HARPY, 1.0F, 0.0F,
 				GaiaRegistry.SOULFIRE.get(), GaiaRegistry.BOOK_OF_MEMORY.get());
 		assistCategory = addExtendedMobEntry(assistCategory, "assist", GaiaRegistry.YUKI_ONNA, 1.0F, 0.0F,
@@ -142,6 +142,9 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		hostileCategory = addExtendedLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.MIMIC, 1.0F, 0.0F,
 				Items.IRON_NUGGET, GaiaRegistry.BOX_OVERWORLD.get(), GaiaRegistry.PREMIUM_MONSTER_FEED.get(),
 				GaiaRegistry.BAG_RECORD.get(), GaiaRegistry.WEAPON_BOOK_HUNGER.get());
+		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.MINOTAUR, 1.0F, 0.0F,
+				GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get(), GaiaRegistry.DIAMOND_SHARD.get(), GaiaRegistry.EMERALD_SHARD.get(),
+				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_MINOTAUR_ITEM.get(), GaiaRegistry.HEAVY_BARBELL.get(), GaiaRegistry.RING_OF_HASTE.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.MINOTAURUS, 1.0F, 0.0F,
 				Items.LEATHER, Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(), GaiaRegistry.WEAPON_BOOK_BATTLE.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.NAGA, 1.0F, 0.0F,
@@ -165,7 +168,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				Items.SLIME_BALL, Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.SPHINX, 1.0F, 0.0F,
 				GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get(), GaiaRegistry.DIAMOND_SHARD.get(), GaiaRegistry.EMERALD_SHARD.get(),
-				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_SPHINX_ITEM.get(), GaiaRegistry.CHEST_DESERT.get());
+				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_SPHINX_ITEM.get(), GaiaRegistry.RING_OF_JUMP.get(), GaiaRegistry.CHEST_DESERT.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.SPORELING, 1.0F, 0.0F,
 				Items.AIR);
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", GaiaRegistry.SPRIGGAN, 1.0F, 0.0F,

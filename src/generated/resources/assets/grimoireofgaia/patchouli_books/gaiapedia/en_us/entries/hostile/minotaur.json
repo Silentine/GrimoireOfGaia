@@ -1,16 +1,16 @@
 {
-  "name": "info.grimoireofgaia.book.entry.sphinx.name",
+  "name": "info.grimoireofgaia.book.entry.minotaur.name",
   "category": "grimoireofgaia:hostile",
-  "icon": "grimoireofgaia:sphinx_spawn_egg",
+  "icon": "grimoireofgaia:minotaur_spawn_egg",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "info.grimoireofgaia.book.entry.sphinx.info"
+      "text": "info.grimoireofgaia.book.entry.minotaur.info"
     },
     {
       "type": "patchouli:entity",
-      "entity": "grimoireofgaia:sphinx",
-      "text": "info.grimoireofgaia.book.entry.sphinx.info2"
+      "entity": "grimoireofgaia:minotaur",
+      "text": "info.grimoireofgaia.book.entry.minotaur.info2"
     },
     {
       "type": "patchouli:spotlight",
@@ -38,22 +38,22 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "grimoireofgaia:bust_sphinx",
+      "item": "grimoireofgaia:bust_minotaur",
       "link_recipe": true,
-      "text": "info.grimoireofgaia.book.drop.bust_sphinx.info"
+      "text": "info.grimoireofgaia.book.drop.bust_minotaur.info"
     },
     {
       "type": "patchouli:spotlight",
-      "item": "grimoireofgaia:ring_of_jump{\"Damage\":0}",
+      "item": "grimoireofgaia:heavy_barbell{\"Damage\":0}",
       "link_recipe": true,
-      "text": "info.grimoireofgaia.book.drop.ring_of_jump.info"
+      "text": "info.grimoireofgaia.book.drop.heavy_barbell.info"
     },
     {
       "type": "patchouli:spotlight",
-      "item": "grimoireofgaia:chest_desert",
+      "item": "grimoireofgaia:ring_of_haste{\"Damage\":0}",
       "link_recipe": true,
-      "text": "info.grimoireofgaia.book.drop.chest_desert.info"
+      "text": "info.grimoireofgaia.book.drop.ring_of_haste.info"
     }
   ],
-  "advancement": "grimoireofgaia:main/sphinx"
+  "advancement": "grimoireofgaia:main/minotaur"
 }
