@@ -137,7 +137,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		float legsAngleMoving;
 		float defaultAngle = 0;
 
-		boolean moving = bee.isMoving();
+		boolean moving = limbSwingAmount > 0.1F;
 		if (moving) {
 			moveExtremities = false;
 			armsAngleMoving = -(90 * Mth.DEG_TO_RAD);
