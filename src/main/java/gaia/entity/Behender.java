@@ -130,9 +130,9 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			List<MobEffect> effects = List.of(MobEffects.MOVEMENT_SPEED, MobEffects.MOVEMENT_SLOWDOWN,
-					MobEffects.DIG_SPEED, MobEffects.DIG_SLOWDOWN, MobEffects.DAMAGE_BOOST, MobEffects.HEAL,
-					MobEffects.HARM, MobEffects.JUMP, MobEffects.CONFUSION);
+			List<MobEffect> effects = List.of(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SPEED, MobEffects.CONFUSION,
+					MobEffects.BLINDNESS, MobEffects.HUNGER, MobEffects.WEAKNESS, MobEffects.POISON, MobEffects.WITHER,
+					MobEffects.LEVITATION);
 			RangedUtil.magicRandom(target, this, distanceFactor, 0.5D, effects.get(random.nextInt(effects.size())));
 		}
 	}
