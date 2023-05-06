@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -258,9 +260,11 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
-			this.add(GaiaRegistry.CHEST.getEntityType(), LootTable.lootTable()
+			this.add(GaiaRegistry.CHEST.getEntityType(), LootTable.lootTable());
+			this.add(GaiaLootTables.CHEST_TABLES, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootTableReference.lootTableReference(BuiltInLootTables.SIMPLE_DUNGEON)))
+							.add(LootTableReference.lootTableReference(BuiltInLootTables.SIMPLE_DUNGEON))
+					)
 			);
 			this.add(GaiaRegistry.COBBLE_GOLEM.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -1022,6 +1026,7 @@ public class GaiaLoot extends LootTableProvider {
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
 		List<ResourceLocation> ignored = List.of(
+				GaiaLootTables.CHEST_TABLES,
 				GaiaRegistry.CHEST.getEntityType().getDefaultLootTable(),
 				GaiaRegistry.HORSE.getEntityType().getDefaultLootTable(),
 				GaiaRegistry.MIMIC.getEntityType().getDefaultLootTable(),

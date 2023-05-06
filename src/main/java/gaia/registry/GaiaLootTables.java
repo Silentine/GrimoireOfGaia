@@ -19,4 +19,5 @@ public class GaiaLootTables {
 	public static final ResourceLocation MINOTAURUS_RANGED = new ResourceLocation(GrimoireOfGaia.MOD_ID, "entities/minotaurus_ranged");
 	public static final ResourceLocation DWARF_RANGED = new ResourceLocation(GrimoireOfGaia.MOD_ID, "entities/dwarf_ranged");
 	public static final ResourceLocation DWARF_MINER = new ResourceLocation(GrimoireOfGaia.MOD_ID, "entities/dwarf_miner");
+	public static final ResourceLocation CHEST_TABLES = new ResourceLocation(GrimoireOfGaia.MOD_ID, "entities/chest_tables");
 }

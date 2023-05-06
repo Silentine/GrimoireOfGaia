@@ -1,7 +1,9 @@
 package gaia.entity.prop;
 
 import gaia.entity.Mimic;
+import gaia.registry.GaiaLootTables;
 import gaia.registry.GaiaRegistry;
+import gaia.util.LootHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -28,8 +31,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
@@ -220,6 +225,16 @@ public class Chest extends AbstractPropEntity {
 		} else {
 			return super.getDefaultLootTable();
 		}
+	}
+
+	@Override
+	protected void dropCustomDeathLoot(DamageSource damageSource, int looting, boolean killedByPlayer) {
+		if (!this.level.isClientSide) {
+			List<ItemStack> stacks = LootHelper.getStacksFromTable((ServerLevel) this.level,
+					createLootContext(killedByPlayer, damageSource), LootContextParamSets.ENTITY, GaiaLootTables.CHEST_TABLES, 2 + Mth.clamp(looting, 0, 2));
+			stacks.forEach(this::spawnAtLocation);
+		}
+		super.dropCustomDeathLoot(damageSource, looting, killedByPlayer);
 	}
 
 	//Immune to potion effects
