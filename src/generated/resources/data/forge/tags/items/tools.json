@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:tools/axes"
+    "#forge:tools/axes",
+    "#forge:tools/shovels"
   ]
 }

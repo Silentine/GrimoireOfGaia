@@ -31,6 +31,7 @@ import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
+import gaia.entity.Mandragora;
 import gaia.entity.Matango;
 import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
@@ -65,6 +66,7 @@ import gaia.entity.projectile.RandomMagicProjectile;
 import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
 import gaia.entity.prop.Chest;
+import gaia.entity.prop.CyanFlower;
 import gaia.item.ExperienceItem;
 import gaia.item.LootableItem;
 import gaia.item.MemoryBookItem;
@@ -75,6 +77,7 @@ import gaia.item.accessory.SeashellHairpinItem;
 import gaia.item.armor.HeadgearItem;
 import gaia.item.edible.EdibleEffectItem;
 import gaia.item.edible.HoneydewItem;
+import gaia.item.edible.MandrakeItem;
 import gaia.item.edible.MonsterFeedItem;
 import gaia.item.edible.TaprootItem;
 import gaia.item.edible.WartJamItem;
@@ -160,6 +163,7 @@ public class GaiaRegistry {
 	public static final MobReg<Harpy> HARPY = new MobReg.Builder<>("harpy", EntityType.Builder.of(Harpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xc9b161, 0xa5884e).withDefaultSounds().build();
 	public static final MobReg<Hunter> HUNTER = new MobReg.Builder<>("hunter", GaiaMobType.ASSIST, EntityType.Builder.of(Hunter::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xae6b3c, 0x353535).withDefaultSounds().build();
 	public static final MobReg<Kobold> KOBOLD = new MobReg.Builder<>("kobold", EntityType.Builder.of(Kobold::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x938dab, 0xafa7c1).withDefaultSounds().build();
+	public static final MobReg<Mandragora> MANDRAGORA = new MobReg.Builder<>("mandragora", EntityType.Builder.of(Mandragora::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8).withDefaultSounds().build();
 	public static final MobReg<Matango> MATANGO = new MobReg.Builder<>("matango", EntityType.Builder.of(Matango::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xab1311, 0xd8d8d8).withDefaultSounds().build();
 	public static final MobReg<Mermaid> MERMAID = new MobReg.Builder<>("mermaid", GaiaMobType.ASSIST, EntityType.Builder.of(Mermaid::new, MobCategory.MONSTER).clientTrackingRange(8), 0x5c70b1, 0xa4452d).withDefaultSounds().build();
 	public static final MobReg<Mimic> MIMIC = new MobReg.Builder<>("mimic", EntityType.Builder.of(Mimic::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 11237677, 4274991).build();
@@ -191,6 +195,7 @@ public class GaiaRegistry {
 	//Props
 	public static final PropReg<AntHill> ANT_HILL = new PropReg<>("ant_hill", EntityType.Builder.of(AntHill::new, MobCategory.CREATURE).sized(1.0F, 0.5F).clientTrackingRange(10), 0xe4dea7, 0x545454);
 	public static final PropReg<Chest> CHEST = new PropReg<>("chest", EntityType.Builder.of(Chest::new, MobCategory.CREATURE).sized(0.8F, 0.8F).clientTrackingRange(10), 11237677, 4274991);
+	public static final PropReg<CyanFlower> CYAN_FLOWER = new PropReg<>("cyan_flower", EntityType.Builder.of(CyanFlower::new, MobCategory.CREATURE).sized(0.8F, 0.8F).clientTrackingRange(10), 11237677, 4274991);
 
 	//Projectiles
 	public static final RegistryObject<EntityType<GaiaSmallFireball>> SMALL_FIREBALL = ENTITIES.register("small_fireball", () ->
@@ -294,6 +299,7 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> GIGA_GEAR = ITEMS.register("giga_gear", () -> new GigaGearItem(itemBuilder().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_APPLE_PIE = ITEMS.register("golden_apple_pie", () -> new XPEdibleItem(itemBuilder().stacksTo(1).food(GaiaFoods.GOLDEN_APPLY_PIE).rarity(Rarity.RARE), (rand) -> rand.nextInt(32) + 16));
 	public static final RegistryObject<Item> GOLDEN_APPLE_PIE_SLICE = ITEMS.register("golden_apple_pie_slice", () -> new EdibleEffectItem(itemBuilder().stacksTo(64).food(GaiaFoods.GOLDEN_APPLY_PIE_SLICE).rarity(Rarity.UNCOMMON)));
+	public static final RegistryObject<Item> MANDRAKE = ITEMS.register("mandrake", () -> new MandrakeItem(itemBuilder().stacksTo(16).food(GaiaFoods.MANDRAKE).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> MINOTAUR_HAMMER = ITEMS.register("minotaur_hammer", () -> new SwordItem(Tiers.IRON, 8, -2.8F, itemBuilder()));
 	public static final RegistryObject<Item> HONEYDEW = ITEMS.register("honeydew", () -> new HoneydewItem(itemBuilder().stacksTo(64).food(GaiaFoods.HONEYDEW).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> HEADGEAR_BOOK = ITEMS.register("headgear_book", () -> new HeadgearItem(itemBuilder().stacksTo(1)));

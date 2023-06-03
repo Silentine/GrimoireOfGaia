@@ -62,6 +62,9 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaSounds.BOMB_THROW, definition()
 				.subtitle(modSubtitle(GaiaSounds.BOMB_THROW.getId()))
 				.with(sound(new ResourceLocation("mob/ghast/fireball4"))));
+		this.add(GaiaSounds.MANDRAGORA_SCREAM, definition()
+				.subtitle(modSubtitle(GaiaSounds.MANDRAGORA_SCREAM.getId()))
+				.with(sound(modLoc("entity/mandragora/scream"))));
 		this.add(GaiaSounds.ANT_HILL_DEATH, definition()
 				.subtitle(modSubtitle(GaiaSounds.ANT_HILL_DEATH.getId()))
 				.with(sound(modLoc("none"))));
@@ -323,6 +326,7 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/horse/zombie/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MANDRAGORA).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MATANGO).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MERMAID).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAUR).withDefaults()

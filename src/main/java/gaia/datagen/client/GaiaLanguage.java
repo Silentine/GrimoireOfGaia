@@ -48,6 +48,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HARPY, "Harpy").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HUNTER, "Hunter").withSay("whispers").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.KOBOLD, "Kobold").withSay("barks").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MANDRAGORA, "Mandragora").withSay("screams").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MATANGO, "Matango").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MERMAID, "Mermaid").withSay("sings").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.MINOTAUR, "Minotaur").withSay("growls").build());
@@ -76,6 +77,7 @@ public class GaiaLanguage extends LanguageProvider {
 
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
 		addPropReg(GaiaRegistry.CHEST, "Chest");
+		addPropReg(GaiaRegistry.CYAN_FLOWER, "Cyan Flower");
 
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HORSE, "Wild Horse").withSay("neighs").build());
 		addEntityType(GaiaRegistry.SMALL_FIREBALL, "Small Fire");
@@ -135,6 +137,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.GIGA_GEAR, "Heart of Giga Knight");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE, "Golden Apple Pie");
 		addItem(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE, "Golden Apple Pie Slice");
+		addItem(GaiaRegistry.MANDRAKE, "Mandrake");
 		addItem(GaiaRegistry.MINOTAUR_HAMMER, "Minotaur Hammer");
 		addItem(GaiaRegistry.HONEYDEW, "Honeydew");
 		addItem(GaiaRegistry.HEADGEAR_BOOK, "Book on Face");
@@ -210,6 +213,8 @@ public class GaiaLanguage extends LanguageProvider {
 		add("text.grimoireofgaia.gain_experience", "Gain experience");
 		add("text.grimoireofgaia.gain_level", "Gain %d level");
 		add("text.grimoireofgaia.gain_levels", "Gain %d levels");
+		add("text.grimoireofgaia.gain_hearts", "Recover %d hearts");
+		add("text.grimoireofgaia.lose_hunger", "Lose %d hunger");
 
 
 		add("text.grimoireofgaia.giga_gear.desc", "All that remains of Giga Knight");
@@ -244,6 +249,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addKillAdvancement(GaiaRegistry.CECAELIA, "Cecaelia", "Kill a Cecaelia");
 		addKillAdvancement(GaiaRegistry.COBBLESTONE_GOLEM, "Cobblestone Golem", "Kill a Cobblestone Golem");
 		addKillAdvancement(GaiaRegistry.CREEP, "Creep", "Kill a Creep");
+		addKillAdvancement(GaiaRegistry.CYAN_FLOWER, "Cyan Flower", "Kill a Cyan Flower");
 		addKillAdvancement(GaiaRegistry.DEATHWORD, "Deathword", "Kill a Deathword");
 		addKillAdvancement(GaiaRegistry.DULLAHAN, "Dullahan", "Kill a Dullahan");
 		addKillAdvancement(GaiaRegistry.ENDER_EYE, "Ender Eye", "Kill anEnder Eye");
@@ -252,6 +258,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addKillAdvancement(GaiaRegistry.GOBLIN_FERAL, "Goblin Feral", "Kill a Goblin Feral");
 		addKillAdvancement(GaiaRegistry.HARPY, "Harpy", "Kill a Harpy");
 		addKillAdvancement(GaiaRegistry.KOBOLD, "Kobold", "Kill a Kobold");
+		addKillAdvancement(GaiaRegistry.MANDRAGORA, "Mandragora", "Kill a Mandragora");
 		addKillAdvancement(GaiaRegistry.MATANGO, "Matango", "Kill a Matango");
 		addKillAdvancement(GaiaRegistry.MIMIC, "Mimic", "Kill a Mimic");
 		addKillAdvancement(GaiaRegistry.MINOTAUR, "Minotaur", "Kill a Minotaur");
@@ -300,7 +307,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.dryad.info2", "$(li)80 Health$()$(li)6 Armor$()$(li)12 Damage$()");
 
 		addPatchouliEntry("entry.dwarf.name", "Dwarf");
-		addPatchouliEntry("entry.dwarf.info", "The $(mob)Dwarf$() spawns at high elevations in mountainous biomes in the $(thing)Overworld$(). $(mob)Dwarves$() attack $(l:orc)$(mob)Orcs$() on sight, either in melee, applying $(thing)Slowness$() and $(thing)Mining Fatigue$() on hit, or at ranged with a bow which may apply $(thing)Slowness$() or $(thing)Weakness$() potion arrows.");
+		addPatchouliEntry("entry.dwarf.info", "The $(mob)Dwarf$() spawns at high elevations in mountainous biomes in the $(thing)Overworld$(). $(mob)Dwarves$() attack $(l:hostile/orc)$(mob)Orcs$() on sight, either in melee, applying $(thing)Slowness$() and $(thing)Mining Fatigue$() on hit, or at ranged with a bow which may apply $(thing)Slowness$() or $(thing)Weakness$() potion arrows.");
 		addPatchouliEntry("entry.dwarf.info2", "$(li)80 Health$()$(li)8 Armor$()$(li)12 Damage$()");
 
 		addPatchouliEntry("entry.ender_dragon_girl.name", "Ender Dragon Girl");
@@ -347,6 +354,12 @@ public class GaiaLanguage extends LanguageProvider {
 		//hostile patchouli entries
 		addPatchouliEntry("category.hostile.name", "Hostile");
 		addPatchouliEntry("category.hostile.desc", "Hostile mobs are usually aggressive and will attack you on sight. They are dangerous but usually drop useful components if killed.");
+
+		//Prop mobs
+		addPatchouliEntry("entry.cyan_flower.name", "Cyan Flower");
+		addPatchouliEntry("entry.cyan_flower.info", "The $(mob)Cyan Flower$() is a passive creature that spawns in grassy biomes in the $(thing)Overworld$(). When approached by a player or attacked it may drop flowers or turn into a $(l:hostile/mandragora)$(mob)Mandragora$().");
+		addPatchouliEntry("entry.cyan_flower.info2", "$(li)1 Health$()");
+		addPatchouliEntry("entry.cyan_flower.info3", "If it does not turn into a $(l:hostile/mandragora)$(mob)Mandragora$() when provoked, the $(mob)Cyan Flower$() can drop $(item)Flowers$() on death.");
 
 		//Hostile Gaia Mobs
 		addPatchouliEntry("entry.ant_salvager.name", "Ant Salvager");
@@ -421,6 +434,10 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.kobold.info", "The $(mob)Kobold$() is a monster that spawns in the Ice Plains of the $(thing)Overworld$(). It attacks players on sight with ranged $(thing)Slowness$() or $(thing)Weakness$() arrows. A $(mob)Kobold$() will switch to melee attacks when in close proximity to its target and will gain a $(thing)Speed$() effect.");
 		addPatchouliEntry("entry.kobold.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
 
+		addPatchouliEntry("entry.mandragora.name", "Mandragora");
+		addPatchouliEntry("entry.mandragora.info", "The $(mob)Mandragora$() is monster that spawns when a player attacks a $(l:hostile/cyan_flower)$(mob)Cyan Flower$(). It is immune to $(thing)Poison$() and knockback, but is vulnerable to Fire and shovels. It is passive unless a player attacks the $(mob)Mandragora$() or the $(mob)Cyan Flower$() that spawned it, in which case it retaliates with melee attacks, while applying multiple potion effects in an aura including $(thing)Slowness$(), $t(thing)Night Vision$(), and $(thing)Nausea$().");
+		addPatchouliEntry("entry.mandragora.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
+
 		addPatchouliEntry("entry.matango.name", "Matango");
 		addPatchouliEntry("entry.matango.info", "The $(mob)Matango$() is a humanoid monster that spawns in roofed forests on the surface in the $(thing)Overworld$(). It is immune to poison and knockback and has a weakness to fire and axes. The $(mob)Matango$() will attack players on sight with a mix of melee and ranged attacks, and can apply a $(thing)Nausea$() effect to its target. In combat, it can spawn up to 5 $(mob)Sporelings$().");
 		addPatchouliEntry("entry.matango.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
@@ -451,7 +468,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.oni.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
 
 		addPatchouliEntry("entry.orc.name", "Orc");
-		addPatchouliEntry("entry.orc.info", "The $(mob)Orc$() is a monster that spawns in Savanna biomes of the $(thing)Overworld$(). $(mob)Orcs$() may spawn as a Melee or Ranged variant and attack players and $(l:dwarf)$(mob)Dwarves$(). The melee variant can break doors, and may spawn with a shield, providing protection from ranged attacks. The ranged variant grant nearby $(mob)Orcs$() a $(thing)Haste II$() effect. When an $(mob)Orc$() is reduced to 25%% health, it gains a $(thing)Strength$() potion effect.");
+		addPatchouliEntry("entry.orc.info", "The $(mob)Orc$() is a monster that spawns in Savanna biomes of the $(thing)Overworld$(). $(mob)Orcs$() may spawn as a Melee or Ranged variant and attack players and $(l:assist/dwarf)$(mob)Dwarves$(). The melee variant can break doors, and may spawn with a shield, providing protection from ranged attacks. The ranged variant grant nearby $(mob)Orcs$() a $(thing)Haste II$() effect. When an $(mob)Orc$() is reduced to 25%% health, it gains a $(thing)Strength$() potion effect.");
 		addPatchouliEntry("entry.orc.info2", "$(li)40 Health$()$(li)4 Armor$()$(li)8 Damage$()");
 
 		addPatchouliEntry("entry.shaman.name", "Shaman");
@@ -475,7 +492,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.sphinx.info2", "$(li)160 Health$()$(li)16 Armor$()$(li)18 Damage$()");
 
 		addPatchouliEntry("entry.sporeling.name", "Sporeling");
-		addPatchouliEntry("entry.sporeling.info", "The $(mob)Sporeling$() is a monster that is summoned by $(l:matango)$(mob)Matango$() in combat. it attacks players on sight by attacking in melee and inflicting them with a $(thing)Harming$() potion effect on hit, allowing their attacks to bypass armor.");
+		addPatchouliEntry("entry.sporeling.info", "The $(mob)Sporeling$() is a monster that is summoned by $(l:hostile/matango)$(mob)Matango$() in combat. it attacks players on sight by attacking in melee and inflicting them with a $(thing)Harming$() potion effect on hit, allowing their attacks to bypass armor.");
 		addPatchouliEntry("entry.sporeling.info2", "$(li)20 Health$()$(li)4 Armor$()$(li)4 Damage$()");
 
 		addPatchouliEntry("entry.spriggan.name", "Spriggan");
@@ -525,6 +542,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.dark_oak_log.info", "They can drop a random burnable log on death.");
 		addPatchouliEntry("drop.deco_mandragora_pot.info", "They can drop a$(item)Mandragora Pot$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.deco_nest_harpy.info", "They can drop a$(item)Harpy Nest$() on death, which can be placed as a decoration block.");
+		addPatchouliEntry("drop.deco_garden_gnome.info", "They can drop a$(item)Garden Gnome$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.diamond_shard.info", "They can drop $(item)Diamond Shards$() on death, which can be combined to make $(item)Diamonds$().");
 		addPatchouliEntry("drop.doll_creeper_girl.info", "They can drop a$(item)Creeper Girl Doll$() on death, which can be placed as a decoration block.");
 		addPatchouliEntry("drop.doll_dryad.info", "They can drop a$(item)Dryad Doll$() on death, which can be placed as a decoration block.");
@@ -585,18 +603,38 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.weapon_book_nightmare.info", "They can rarely drop a $(item)Nightmare Book$() which inflicts $(thing)Mining Fatigue$() on foes upon a melee strike.");
 		addPatchouliEntry("drop.zombie_head.info", "They can drop a $(item)Zombie Skull$() on death.");
 		addPatchouliEntry("drop.withered_brain.info", "They can drop $(item)Withered Brain$() on death, which can be eaten as a decent food source. However, when consumed, it afflicts players with $(thing)Wither$().");
+		addPatchouliEntry("drop.dandelion.info", "They can drop a $(item)Dandelion$() on death.");
+		addPatchouliEntry("drop.poppy.info", "They can drop a $(item)Poppy$() on death.");
+		addPatchouliEntry("drop.mandrake.info", "They can drop a $(item)Mandrake$() on death.");
 
 	}
 
-	public void addSubtitle(RegistryObject<SoundEvent> sound, String name) {
-		this.addSubtitle(sound.get(), name);
+	/**
+	 * Add a subtitle to a sound event
+	 *
+	 * @param sound The sound event registry object
+	 * @param text  The subtitle text
+	 */
+	public void addSubtitle(RegistryObject<SoundEvent> sound, String text) {
+		this.addSubtitle(sound.get(), text);
 	}
 
-	public void addSubtitle(SoundEvent sound, String name) {
+	/**
+	 * Add a subtitle to a sound event
+	 *
+	 * @param sound The sound event
+	 * @param text  The subtitle text
+	 */
+	public void addSubtitle(SoundEvent sound, String text) {
 		String path = GrimoireOfGaia.MOD_ID + ".subtitle." + sound.getLocation().getPath();
-		this.add(path, name);
+		this.add(path, text);
 	}
 
+	/**
+	 * Add a subtitle to a mob with the help of a MobLangHelper object
+	 *
+	 * @param mobHelper The MobLangHelper object
+	 */
 	private void addMobTranslation(MobLangHelper mobHelper) {
 		MobReg<?> reg = mobHelper.getMobReg();
 		String name = mobHelper.getName();
@@ -629,22 +667,60 @@ public class GaiaLanguage extends LanguageProvider {
 		}
 	}
 
+	/**
+	 * Add the translation of a kill advancement for a mob
+	 *
+	 * @param reg         The mob registry object
+	 * @param name        The name of the advancement
+	 * @param description The description of the advancement
+	 */
 	private void addKillAdvancement(MobReg<?> reg, String name, String description) {
 		String mobName = reg.getName();
 		addAdvancement(mobName, name, description);
 	}
 
+	/**
+	 * Add the translation of a kill advancement for a prop mob
+	 *
+	 * @param reg         The prop registry object
+	 * @param name        The name of the advancement
+	 * @param description The description of the advancement
+	 */
+	private void addKillAdvancement(PropReg<?> reg, String name, String description) {
+		String mobName = reg.getName();
+		addAdvancement(mobName, name, description);
+	}
+
+	/**
+	 * Add the translation of an advancement
+	 *
+	 * @param id          The advancement id
+	 * @param name        The name of the advancement
+	 * @param description The description of the advancement
+	 */
 	private void addAdvancement(String id, String name, String description) {
 		String prefix = "advancement.grimoireofgaia.";
 		add(prefix + id + ".title", name);
 		add(prefix + id + ".desc", description);
 	}
 
+	/**
+	 * Add the translation of a prop mob
+	 *
+	 * @param reg  The prop registry object
+	 * @param name The name of the prop mob
+	 */
 	private void addPropReg(PropReg<?> reg, String name) {
 		add(reg.getEntityType(), name);
 		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
 	}
 
+	/**
+	 * Add the translation for a Patchouli entry
+	 *
+	 * @param entry       The entry name
+	 * @param translation The translation
+	 */
 	private void addPatchouliEntry(String entry, String translation) {
 		add("info.grimoireofgaia.book." + entry, translation);
 	}

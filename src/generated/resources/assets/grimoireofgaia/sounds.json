@@ -56,6 +56,12 @@
       "mob/ghast/fireball4"
     ]
   },
+  "mandragora_scream": {
+    "subtitle": "grimoireofgaia.subtitle.mandragora_scream",
+    "sounds": [
+      "grimoireofgaia:entity/mandragora/scream"
+    ]
+  },
   "ant_hill_death": {
     "subtitle": "grimoireofgaia.subtitle.ant_hill_death",
     "sounds": [
@@ -775,6 +781,28 @@
   },
   "kobold_death": {
     "subtitle": "grimoireofgaia.subtitle.kobold_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
+  "mandragora_say": {
+    "subtitle": "grimoireofgaia.subtitle.mandragora_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "mandragora_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.mandragora_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "mandragora_death": {
+    "subtitle": "grimoireofgaia.subtitle.mandragora_death",
     "sounds": [
       "grimoireofgaia:aggressive_death"
     ]

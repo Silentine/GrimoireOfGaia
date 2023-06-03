@@ -264,6 +264,6 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	public static boolean checkAntHillSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && checkGaiaSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		return checkDaysPassed(levelAccessor) && checkPropSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

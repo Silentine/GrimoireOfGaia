@@ -67,6 +67,7 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.GIGA_GEAR.get());
 		this.generatedItem(GaiaRegistry.GOLDEN_APPLE_PIE.get());
 		this.generatedItem(GaiaRegistry.GOLDEN_APPLE_PIE_SLICE.get());
+		this.generatedItem(GaiaRegistry.MANDRAKE.get());
 		this.generatedItem(GaiaRegistry.HONEYDEW.get());
 		this.generatedItem(GaiaRegistry.KNUCKLES.get(), "accessory");
 		this.generatedItem(GaiaRegistry.RING_OF_SPEED.get(), "accessory");

@@ -20,6 +20,7 @@ public class GaiaBlockTags extends BlockTagsProvider {
 		this.tag(GaiaTags.REQUIRES_BOOK_TAG);
 		this.tag(GaiaTags.REQUIRES_CURSED_METAL_TAG);
 		this.tag(GaiaTags.GAIA_SPAWABLE_ON).addTags(BlockTags.DIRT, BlockTags.SAND, Tags.Blocks.SANDSTONE, Tags.Blocks.GRAVEL).add(Blocks.SNOW_BLOCK);
+		this.tag(GaiaTags.FLOWER_SPAWNABLE_ON).addTags(BlockTags.DIRT);
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GaiaRegistry.PEARL_BLOCK.get());
 	}
 }

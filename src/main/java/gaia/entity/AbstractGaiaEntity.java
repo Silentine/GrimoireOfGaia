@@ -400,7 +400,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	/**
-	 * Checks if the configured amount of days have passed so the entity can spawn
+	 * Checks if the configured amount of days has passed so the entity can spawn
 	 */
 	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {

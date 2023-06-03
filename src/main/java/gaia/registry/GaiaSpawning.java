@@ -32,6 +32,7 @@ import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
 import gaia.entity.Kobold;
+import gaia.entity.Mandragora;
 import gaia.entity.Matango;
 import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
@@ -59,6 +60,7 @@ import gaia.entity.WizardHarpy;
 import gaia.entity.YukiOnna;
 import gaia.entity.prop.AntHill;
 import gaia.entity.prop.Chest;
+import gaia.entity.prop.CyanFlower;
 import gaia.util.BiomeHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -96,6 +98,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.COBBLE_GOLEM.getEntityType(), GaiaSpawningConfig.COMMON.cobbleGolemSpawning, event);
 		addSpawn(GaiaRegistry.CREEP.getEntityType(), GaiaSpawningConfig.COMMON.creepSpawning, event);
 		addSpawn(GaiaRegistry.CYCLOPS.getEntityType(), GaiaSpawningConfig.COMMON.cyclopsSpawning, event);
+		addSpawn(GaiaRegistry.CYAN_FLOWER.getEntityType(), GaiaSpawningConfig.COMMON.mandragoraSpawning, event);
 		addSpawn(GaiaRegistry.DEATHWORD.getEntityType(), GaiaSpawningConfig.COMMON.deathwordSpawning, event);
 		addSpawn(GaiaRegistry.DRYAD.getEntityType(), GaiaSpawningConfig.COMMON.dryadSpawning, event);
 		addSpawn(GaiaRegistry.DULLAHAN.getEntityType(), GaiaSpawningConfig.COMMON.dullahanSpawning, event);
@@ -192,6 +195,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CobblestoneGolem::checkCobblestoneGolemSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CREEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Creep::checkCreepSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.CYCLOPS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Cyclops::checkCyclopsSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.CYAN_FLOWER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CyanFlower::checkCyanFlowerSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.DEATHWORD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Deathword::checkDeathwordSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.DRYAD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dryad::checkDryadSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.DULLAHAN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dullahan::checkDullahanSpawnRules);
@@ -206,6 +210,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Harpy::checkHarpySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HUNTER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hunter::checkHunterSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.KOBOLD.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kobold::checkKoboldSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.MANDRAGORA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mandragora::checkMandragoraSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MATANGO.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Matango::checkMatangoSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MERMAID.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mermaid::checkMermaidSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MINOTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Minotaur::checkMinotaurSpawnRules);
@@ -251,6 +256,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.COBBLESTONE_GOLEM.getEntityType(), CobblestoneGolem.createAttributes().build());
 		event.put(GaiaRegistry.CREEP.getEntityType(), Creep.createAttributes().build());
 		event.put(GaiaRegistry.CYCLOPS.getEntityType(), Cyclops.createAttributes().build());
+		event.put(GaiaRegistry.CYAN_FLOWER.getEntityType(), CyanFlower.createAttributes().build());
 		event.put(GaiaRegistry.CECAELIA.getEntityType(), Cecaelia.createAttributes().build());
 		event.put(GaiaRegistry.DEATHWORD.getEntityType(), Deathword.createAttributes().build());
 		event.put(GaiaRegistry.DRYAD.getEntityType(), Dryad.createAttributes().build());
@@ -266,6 +272,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.HARPY.getEntityType(), Harpy.createAttributes().build());
 		event.put(GaiaRegistry.HUNTER.getEntityType(), Hunter.createAttributes().build());
 		event.put(GaiaRegistry.KOBOLD.getEntityType(), Kobold.createAttributes().build());
+		event.put(GaiaRegistry.MANDRAGORA.getEntityType(), Mandragora.createAttributes().build());
 		event.put(GaiaRegistry.MATANGO.getEntityType(), Matango.createAttributes().build());
 		event.put(GaiaRegistry.MERMAID.getEntityType(), Mermaid.createAttributes().build());
 		event.put(GaiaRegistry.MINOTAURUS.getEntityType(), Minotaurus.createAttributes().build());

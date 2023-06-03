@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -140,8 +141,18 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		return SharedEntityData.getBaseDefense3();
 	}
 
-	public boolean isArmored() {
-		return getHealth() <= this.getMaxHealth() / 2.0F;
+	@Override
+	public boolean hurt(DamageSource source, float damage) {
+		float input = getBaseDamage(source, damage);
+		if (isPowered()) {
+			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+		}
+		return super.hurt(source, input);
+	}
+
+	@Override
+	public boolean isPowered() {
+		return getHealth() < getMaxHealth() / 2.0F;
 	}
 
 	@Override
@@ -378,10 +389,5 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	public static boolean checkValkyrieSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
-	}
-
-	@Override
-	public boolean isPowered() {
-		return getHealth() < getMaxHealth() / 2.0F;
 	}
 }

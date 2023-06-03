@@ -3,6 +3,7 @@ package gaia.datagen.server;
 import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.helper.MobReg;
+import gaia.registry.helper.PropReg;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
@@ -54,6 +55,8 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 		addKillAdvancement(consumer, GaiaRegistry.CECAELIA, GaiaRegistry.SHINY_PEARL.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.COBBLESTONE_GOLEM, GaiaRegistry.WEAPON_BOOK_METAL.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.CREEP, GaiaRegistry.DOLL_CREEPER_GIRL_ITEM.get(), root);
+		addKillAdvancement(consumer, GaiaRegistry.CYAN_FLOWER, GaiaRegistry.MANDRAKE.get(), root);
+		addKillAdvancement(consumer, GaiaRegistry.MANDRAGORA, GaiaRegistry.DECO_GARDEN_GNOME_ITEM.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.DEATHWORD, Items.PAPER, root);
 		addKillAdvancement(consumer, GaiaRegistry.DULLAHAN, GaiaRegistry.DOLL_DULLAHAN_ITEM.get(), root);
 		addKillAdvancement(consumer, GaiaRegistry.ENDER_EYE, Items.ENDER_PEARL, root);
@@ -85,6 +88,14 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 		addKillAdvancement(consumer, GaiaRegistry.WITHER_COW, GaiaRegistry.WITHERED_BRAIN.get(), root);
 	}
 
+	/**
+	 * Adds an advancement for killing a mob.
+	 *
+	 * @param consumer The consumer to add to.
+	 * @param mobReg   The mob registry object.
+	 * @param item     The item to display in the advancement.
+	 * @param root     The root advancement.
+	 */
 	protected static void addKillAdvancement(Consumer<Advancement> consumer, MobReg<? extends LivingEntity> mobReg, @Nullable Item item, Advancement root) {
 		ResourceLocation registryLocation = modLoc(mobReg.getName());
 		Item icon = item != null ? item : mobReg.getSpawnEgg().orElse(Items.EGG);
@@ -96,6 +107,34 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 		entityTypeAdvancementMap.put(mobReg.getEntityType(), advancement);
 	}
 
+	/**
+	 * Adds an advancement for killing a prop mob.
+	 *
+	 * @param consumer The consumer to add to.
+	 * @param propReg  The prop mob registry object.
+	 * @param item     The item to display in the advancement.
+	 * @param root     The root advancement.
+	 */
+	protected static void addKillAdvancement(Consumer<Advancement> consumer, PropReg<? extends LivingEntity> propReg, @Nullable Item item, Advancement root) {
+		ResourceLocation registryLocation = modLoc(propReg.getName());
+		Item icon = item != null ? item : propReg.getSpawnEgg().orElse(Items.EGG);
+		Advancement advancement = Advancement.Builder.advancement()
+				.display(simpleDisplay(icon, registryLocation.getPath()))
+				.parent(root)
+				.addCriterion("kill", onKill(propReg.getEntityType()))
+				.save(consumer, rootID(registryLocation.getPath()));
+		entityTypeAdvancementMap.put(propReg.getEntityType(), advancement);
+	}
+
+	/**
+	 * Generate a root DisplayInfo object.
+	 *
+	 * @param icon       The icon to use.
+	 * @param titleKey   The title key.
+	 * @param descKey    The description key.
+	 * @param background The background texture.
+	 * @return The DisplayInfo object.
+	 */
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				new TranslatableComponent(titleKey),
@@ -103,6 +142,13 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 				background, FrameType.TASK, false, false, false);
 	}
 
+	/**
+	 * Generate a simple DisplayInfo object.
+	 *
+	 * @param icon The icon to use.
+	 * @param name The name of the advancement.
+	 * @return The DisplayInfo object.
+	 */
 	protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				new TranslatableComponent(advancementPrefix(name + ".title")),
@@ -110,18 +156,42 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 				null, FrameType.TASK, true, false, false);
 	}
 
+	/**
+	 * Get a trigger instance for killing an entity.
+	 *
+	 * @param entityType The entity type.
+	 * @return The trigger instance.
+	 */
 	protected static KilledTrigger.TriggerInstance onKill(EntityType<?> entityType) {
 		return KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
 	}
 
+	/**
+	 * Generate a ResourceLocation that has the mod ID as the namespace.
+	 *
+	 * @param path The path.
+	 * @return The ResourceLocation.
+	 */
 	private static ResourceLocation modLoc(String path) {
 		return new ResourceLocation(GrimoireOfGaia.MOD_ID, path);
 	}
 
+	/**
+	 * Generate an advancement prefix.
+	 *
+	 * @param name The name of the advancement.
+	 * @return The prefix.
+	 */
 	private static String advancementPrefix(String name) {
 		return "advancement." + GrimoireOfGaia.MOD_ID + "." + name;
 	}
 
+	/**
+	 * Generate a root advancement ID.
+	 *
+	 * @param name The name of the advancement.
+	 * @return The advancement ID.
+	 */
 	private static String rootID(String name) {
 		return modLoc("main/" + name).toString();
 	}

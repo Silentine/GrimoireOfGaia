@@ -35,4 +35,6 @@ public class GaiaFoods {
 			.effect(() -> new MobEffectInstance(MobEffects.WITHER, 10 * 20, 0), 0.6F).build();
 	public static final FoodProperties MONSTER_FEED = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.2F).meat().build();
 	public static final FoodProperties PREMIUM_MONSTER_FEED = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.6F).meat().build();
+	public static final FoodProperties MANDRAKE = (new FoodProperties.Builder()).nutrition(0).saturationMod(0.0F).alwaysEat()
+			.effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 20 * 20, 0), 0.8F).build();
 }

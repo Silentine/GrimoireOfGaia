@@ -19,7 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
-import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -310,6 +308,22 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.DOLL_CREEPER_GIRL.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
+			this.add(GaiaRegistry.CYAN_FLOWER.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.DANDELION)
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.1F, 0.01F)))
+							.add(LootItem.lootTableItem(Items.POPPY)))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.MANDRAKE.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.0625F, 0.01F))
+									.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER,
+											EntityPredicate.Builder.entity()
+													.equipment(EntityEquipmentPredicate.Builder.equipment()
+															.mainhand(ItemPredicate.Builder.item().of(GaiaTags.TOOLS_SHOVELS).build()).build()))
+									)
+							)
+					)
+			);
 			this.add(GaiaRegistry.CYCLOPS.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.FUR.get())
@@ -360,7 +374,8 @@ public class GaiaLoot extends LootTableProvider {
 							.add(TagEntry.expandTag(ItemTags.LOGS_THAT_BURN)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER,
-									EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(GaiaTags.TOOLS_AXES).build()).build()))))
+									EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
+											.mainhand(ItemPredicate.Builder.item().of(GaiaTags.TOOLS_AXES).build()).build()))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
@@ -573,6 +588,28 @@ public class GaiaLoot extends LootTableProvider {
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+			);
+			this.add(GaiaRegistry.MANDRAGORA.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.TAPROOT.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.MANDRAKE.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER,
+									EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
+											.mainhand(ItemPredicate.Builder.item().of(GaiaTags.TOOLS_SHOVELS).build()).build()))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_IRON.get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F)))
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.DECO_GARDEN_GNOME.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
 			this.add(GaiaRegistry.MATANGO.getEntityType(), LootTable.lootTable()
@@ -1025,6 +1062,7 @@ public class GaiaLoot extends LootTableProvider {
 
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
+		//A list of loot tables that don't get validated because they most likely reference other loot tables which would cause it to fail
 		List<ResourceLocation> ignored = List.of(
 				GaiaLootTables.CHEST_TABLES,
 				GaiaRegistry.CHEST.getEntityType().getDefaultLootTable(),

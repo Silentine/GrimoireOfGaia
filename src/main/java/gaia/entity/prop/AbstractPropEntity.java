@@ -32,37 +32,24 @@ public abstract class AbstractPropEntity extends AgeableMob {
 		}
 	}
 
-	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
-		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return GaiaConfig.COMMON.spawnDaysSet.get() <= levelAccessor.dayTime() % 24000;
-		} else {
-			return true;
-		}
-	}
-
 	/**
-	 * Checks if the position is above sea level so the entity can spawn
+	 * A copy of Monster#checkAnyLightMonsterSpawnRules adjusted to take in an EntityType of AgeableMob
 	 */
-	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel();
-	}
-
-	/**
-	 * Checks if the position is below sea level so the entity can spawn
-	 */
-	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
-		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < levelAccessor.getSeaLevel();
-	}
-
-	public static boolean checkGaiaSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDarkEnough(levelAccessor, pos, random) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
-	}
-
 	public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends AgeableMob> entityType, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
 		return levelAccessor.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
-	protected static boolean checkDarkEnough(ServerLevelAccessor levelAccessor, BlockPos pos, Random random) {
+	/**
+	 * An adjusted version of Monster#checkMonsterSpawnRules adjusted for Prop mobs
+	 */
+	public static boolean checkPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return isDarkEnoughToSpawn(levelAccessor, pos, random) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	}
+
+	/**
+	 * A copy of Monster#isDarkEnoughToSpawn
+	 */
+	public static boolean isDarkEnoughToSpawn(ServerLevelAccessor levelAccessor, BlockPos pos, Random random) {
 		if (levelAccessor.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) {
 			return false;
 		} else if (levelAccessor.getBrightness(LightLayer.BLOCK, pos) > 0) {
@@ -73,8 +60,64 @@ public abstract class AbstractPropEntity extends AgeableMob {
 		}
 	}
 
+	/**
+	 * An adjusted version of Monster#checkMonsterSpawnRules adjusted for day time Prop mobs
+	 */
+	public static boolean checkDayPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+	}
+
+	/**
+	 * Check if the lighting is good for spawning
+	 */
+	protected static boolean checkDaylight(ServerLevelAccessor levelAccessor, BlockPos pos) {
+		return levelAccessor.canSeeSky(pos) && levelAccessor.getBrightness(LightLayer.BLOCK, pos) == 0;
+	}
+
+	/**
+	 * Checks if the position is above sea level so the entity can spawn
+	 */
+	protected static boolean checkAboveSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
+		return checkAboveY(pos, levelAccessor.getSeaLevel());
+	}
+
+	/**
+	 * Checks if the position is above a given Y level so the entity can spawn
+	 */
+	protected static boolean checkAboveY(BlockPos pos, int yLevel) {
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > yLevel;
+	}
+
+	/**
+	 * Checks if the position is below sea level so the entity can spawn
+	 */
+	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
+		return checkBelowY(pos, levelAccessor.getSeaLevel());
+	}
+
+	/**
+	 * Checks if the position is above a given Y level so the entity can spawn
+	 */
+	protected static boolean checkBelowY(BlockPos pos, int yLevel) {
+		return GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() < yLevel;
+	}
+
+	/**
+	 * Checks if the block under the spawn location is in the given tag so the entity can spawn
+	 */
 	protected static boolean checkTagBlocks(ServerLevelAccessor levelAccessor, BlockPos pos, TagKey<Block> blockTag) {
 		return levelAccessor.getBlockState(pos.below()).is(blockTag);
+	}
+
+	/**
+	 * Checks if the configured amount of days has passed so the entity can spawn
+	 */
+	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
+		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
+			return (int) (levelAccessor.dayTime() / 24000L) >= GaiaConfig.COMMON.spawnDaysSet.get();
+		} else {
+			return true;
+		}
 	}
 
 	@Nullable

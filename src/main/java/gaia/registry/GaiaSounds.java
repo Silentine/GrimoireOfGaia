@@ -25,5 +25,6 @@ public class GaiaSounds {
 	public static final RegistryObject<SoundEvent> BEHENDER_TELEPORT = SOUND_EVENTS.register("behender_teleport", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "behender_teleport")));
 	public static final RegistryObject<SoundEvent> BEHENDER_SCREAM = SOUND_EVENTS.register("behender_scream", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "behender_scream")));
 	public static final RegistryObject<SoundEvent> BOMB_THROW = SOUND_EVENTS.register("bomb_throw", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "bomb_throw")));
+	public static final RegistryObject<SoundEvent> MANDRAGORA_SCREAM = SOUND_EVENTS.register("mandragora_scream", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, "mandragora_scream")));
 
 }

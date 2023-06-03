@@ -11,12 +11,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Helper class for registering mob's with spawn eggs.
+ * with options for registering sound events.
  */
 public class MobReg<T extends Mob> {
 	protected final String name;

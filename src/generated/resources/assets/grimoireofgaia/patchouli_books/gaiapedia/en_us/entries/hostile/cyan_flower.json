@@ -1,0 +1,39 @@
+{
+  "name": "info.grimoireofgaia.book.entry.cyan_flower.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:cyan_flower_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.cyan_flower.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:cyan_flower",
+      "text": "info.grimoireofgaia.book.entry.cyan_flower.info2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.cyan_flower.info3"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:poppy",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.poppy.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:dandelion",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.dandelion.info"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:mandrake",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.mandrake.info"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/cyan_flower"
+}

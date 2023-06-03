@@ -7,7 +7,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
-
 import org.jetbrains.annotations.NotNull;
 
 /**
