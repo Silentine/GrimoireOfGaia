@@ -341,6 +341,29 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(new ResourceLocation("mob/irongolem/walk4"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GRAVEMITE).withDefaults()
+				.withSay(
+						sound(new ResourceLocation("mob/silverfish/say1")),
+						sound(new ResourceLocation("mob/silverfish/say2")),
+						sound(new ResourceLocation("mob/silverfish/say3")),
+						sound(new ResourceLocation("mob/silverfish/say4"))
+				)
+				.withHurt(
+						sound(new ResourceLocation("mob/silverfish/hit1")),
+						sound(new ResourceLocation("mob/silverfish/hit2")),
+						sound(new ResourceLocation("mob/silverfish/hit3"))
+				)
+				.withDeath(
+						sound(new ResourceLocation("mob/silverfish/kill"))
+				)
+				.withStep(
+						sound(new ResourceLocation("mob/silverfish/step1")),
+						sound(new ResourceLocation("mob/silverfish/step2")),
+						sound(new ResourceLocation("mob/silverfish/step3")),
+						sound(new ResourceLocation("mob/silverfish/step4"))
+				)
+				.build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MUMMY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.NAGA).withDefaults()
 				.withSay(sound(modLoc("entity/naga/say1")),
 						sound(modLoc("entity/naga/say2")))

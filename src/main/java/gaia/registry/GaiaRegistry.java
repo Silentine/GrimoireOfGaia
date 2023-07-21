@@ -24,6 +24,7 @@ import gaia.entity.EnderDragonGirl;
 import gaia.entity.EnderEye;
 import gaia.entity.FleshLich;
 import gaia.entity.GaiaHorse;
+import gaia.entity.GraveMite;
 import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
@@ -37,6 +38,7 @@ import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
 import gaia.entity.Minotaur;
 import gaia.entity.Minotaurus;
+import gaia.entity.Mummy;
 import gaia.entity.Naga;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
@@ -169,6 +171,7 @@ public class GaiaRegistry {
 	public static final MobReg<Mimic> MIMIC = new MobReg.Builder<>("mimic", EntityType.Builder.of(Mimic::new, MobCategory.MONSTER).sized(1.0F, 1.0F).clientTrackingRange(8), 11237677, 4274991).build();
 	public static final MobReg<Minotaur> MINOTAUR = new MobReg.Builder<>("minotaur", EntityType.Builder.of(Minotaur::new, MobCategory.MONSTER).sized(1.4F, 3.0F).clientTrackingRange(8), 0x8d4f41, 0xd54242).withDefaultSounds().withStep().build();
 	public static final MobReg<Minotaurus> MINOTAURUS = new MobReg.Builder<>("minotaurus", EntityType.Builder.of(Minotaurus::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8d4f41, 0xa9a9a9).withDefaultSounds().build();
+	public static final MobReg<Mummy> MUMMY = new MobReg.Builder<>("mummy", EntityType.Builder.of(Mummy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 3815994, 11013646).withDefaultSounds().build();
 	public static final MobReg<Naga> NAGA = new MobReg.Builder<>("naga", EntityType.Builder.of(Naga::new, MobCategory.MONSTER).sized(1.0F, 2.2F).clientTrackingRange(8), 0x29bc55, 0xccb63f).withDefaultSounds().build();
 	public static final MobReg<NineTails> NINE_TAILS = new MobReg.Builder<>("nine_tails", EntityType.Builder.of(NineTails::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 11809844, 13218145).withDefaultSounds().build();
 	public static final MobReg<Oni> ONI = new MobReg.Builder<>("oni", EntityType.Builder.of(Oni::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x8b302d, 0xc9b161).withDefaultSounds().build();
@@ -191,6 +194,7 @@ public class GaiaRegistry {
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg.Builder<>("yuki_onna", GaiaMobType.ASSIST, EntityType.Builder.of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330).withDefaultSounds().build();
 
 	public static final MobReg<GaiaHorse> HORSE = new MobReg.Builder<>("horse", GaiaMobType.PASSIVE, EntityType.Builder.of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().build();
+	public static final MobReg<GraveMite> GRAVEMITE = new MobReg.Builder<>("gravemite", GaiaMobType.AGGRESSIVE, EntityType.Builder.of(GraveMite::new, MobCategory.CREATURE).sized(0.4F, 0.3F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().withStep().build();
 
 	//Props
 	public static final PropReg<AntHill> ANT_HILL = new PropReg<>("ant_hill", EntityType.Builder.of(AntHill::new, MobCategory.CREATURE).sized(1.0F, 0.5F).clientTrackingRange(10), 0xe4dea7, 0x545454);

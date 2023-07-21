@@ -1,0 +1,17 @@
+{
+  "name": "info.grimoireofgaia.book.entry.gravemite.name",
+  "category": "grimoireofgaia:hostile",
+  "icon": "grimoireofgaia:gravemite_spawn_egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.gravemite.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:gravemite",
+      "text": "info.grimoireofgaia.book.entry.gravemite.info2"
+    }
+  ],
+  "advancement": "grimoireofgaia:main/gravemite"
+}

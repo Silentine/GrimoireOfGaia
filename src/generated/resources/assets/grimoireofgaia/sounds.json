@@ -902,6 +902,60 @@
       "grimoireofgaia:aggressive_death"
     ]
   },
+  "gravemite_say": {
+    "subtitle": "grimoireofgaia.subtitle.gravemite_say",
+    "sounds": [
+      "mob/silverfish/say1",
+      "mob/silverfish/say2",
+      "mob/silverfish/say3",
+      "mob/silverfish/say4"
+    ]
+  },
+  "gravemite_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.gravemite_hurt",
+    "sounds": [
+      "mob/silverfish/hit1",
+      "mob/silverfish/hit2",
+      "mob/silverfish/hit3"
+    ]
+  },
+  "gravemite_death": {
+    "subtitle": "grimoireofgaia.subtitle.gravemite_death",
+    "sounds": [
+      "mob/silverfish/kill"
+    ]
+  },
+  "gravemite_step": {
+    "subtitle": "grimoireofgaia.subtitle.gravemite_step",
+    "sounds": [
+      "mob/silverfish/step1",
+      "mob/silverfish/step2",
+      "mob/silverfish/step3",
+      "mob/silverfish/step4"
+    ]
+  },
+  "mummy_say": {
+    "subtitle": "grimoireofgaia.subtitle.mummy_say",
+    "sounds": [
+      "grimoireofgaia:aggressive_say1",
+      "grimoireofgaia:aggressive_say2",
+      "grimoireofgaia:aggressive_say3"
+    ]
+  },
+  "mummy_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.mummy_hurt",
+    "sounds": [
+      "grimoireofgaia:aggressive_hurt1",
+      "grimoireofgaia:aggressive_hurt2",
+      "grimoireofgaia:aggressive_hurt3"
+    ]
+  },
+  "mummy_death": {
+    "subtitle": "grimoireofgaia.subtitle.mummy_death",
+    "sounds": [
+      "grimoireofgaia:aggressive_death"
+    ]
+  },
   "naga_say": {
     "subtitle": "grimoireofgaia.subtitle.naga_say",
     "sounds": [

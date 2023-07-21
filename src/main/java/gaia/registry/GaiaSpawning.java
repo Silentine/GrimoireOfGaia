@@ -28,6 +28,7 @@ import gaia.entity.GaiaHorse;
 import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
+import gaia.entity.GraveMite;
 import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
@@ -38,6 +39,7 @@ import gaia.entity.Mermaid;
 import gaia.entity.Mimic;
 import gaia.entity.Minotaur;
 import gaia.entity.Minotaurus;
+import gaia.entity.Mummy;
 import gaia.entity.Naga;
 import gaia.entity.NineTails;
 import gaia.entity.Oni;
@@ -116,6 +118,7 @@ public class GaiaSpawning {
 		addSpawn(GaiaRegistry.MERMAID.getEntityType(), GaiaSpawningConfig.COMMON.mermaidSpawning, event);
 		addSpawn(GaiaRegistry.MINOTAUR.getEntityType(), GaiaSpawningConfig.COMMON.minotaurSpawning, event);
 		addSpawn(GaiaRegistry.MINOTAURUS.getEntityType(), GaiaSpawningConfig.COMMON.minotaurusSpawning, event);
+		addSpawn(GaiaRegistry.MUMMY.getEntityType(), GaiaSpawningConfig.COMMON.mummySpawning, event);
 		addSpawn(GaiaRegistry.NAGA.getEntityType(), GaiaSpawningConfig.COMMON.nagaSpawning, event);
 		addSpawn(GaiaRegistry.NINE_TAILS.getEntityType(), GaiaSpawningConfig.COMMON.nineTailsSpawning, event);
 		addSpawn(GaiaRegistry.ONI.getEntityType(), GaiaSpawningConfig.COMMON.oniSpawning, event);
@@ -206,6 +209,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GelatinousSlime::checkGelatinousSlimeSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GOBLIN_FERAL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GoblinFeral::checkGoblinFeralSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.GRAVEMITE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GraveMite::checkMiteSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.GRYPHON.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gryphon::checkGryphonSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Harpy::checkHarpySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.HUNTER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hunter::checkHunterSpawnRules);
@@ -215,6 +219,7 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.MERMAID.getEntityType(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mermaid::checkMermaidSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MINOTAUR.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Minotaur::checkMinotaurSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MINOTAURUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Minotaurus::checkMinotaurusSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.MUMMY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mummy::checkMummySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.MIMIC.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mimic::checkMimicSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.NAGA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Naga::checkNagaSpawnRules);
 		SpawnPlacements.register(GaiaRegistry.NINE_TAILS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NineTails::checkNineTailsSpawnRules);
@@ -268,6 +273,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.GELATINOUS_SLIME.getEntityType(), GelatinousSlime.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN.getEntityType(), Goblin.createAttributes().build());
 		event.put(GaiaRegistry.GOBLIN_FERAL.getEntityType(), GoblinFeral.createAttributes().build());
+		event.put(GaiaRegistry.GRAVEMITE.getEntityType(), GraveMite.createAttributes().build());
 		event.put(GaiaRegistry.GRYPHON.getEntityType(), Gryphon.createAttributes().build());
 		event.put(GaiaRegistry.HARPY.getEntityType(), Harpy.createAttributes().build());
 		event.put(GaiaRegistry.HUNTER.getEntityType(), Hunter.createAttributes().build());
@@ -276,6 +282,7 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.MATANGO.getEntityType(), Matango.createAttributes().build());
 		event.put(GaiaRegistry.MERMAID.getEntityType(), Mermaid.createAttributes().build());
 		event.put(GaiaRegistry.MINOTAURUS.getEntityType(), Minotaurus.createAttributes().build());
+		event.put(GaiaRegistry.MUMMY.getEntityType(), Mummy.createAttributes().build());
 		event.put(GaiaRegistry.MINOTAUR.getEntityType(), Minotaur.createAttributes().build());
 		event.put(GaiaRegistry.MIMIC.getEntityType(), Mimic.createAttributes().build());
 		event.put(GaiaRegistry.NAGA.getEntityType(), Naga.createAttributes().build());

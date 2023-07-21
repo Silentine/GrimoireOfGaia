@@ -45,6 +45,7 @@ public class GaiaSpawningConfig {
 		public final SpawningInfo mimicSpawning;
 		public final SpawningInfo minotaurSpawning;
 		public final SpawningInfo minotaurusSpawning;
+		public final SpawningInfo mummySpawning;
 		public final SpawningInfo nagaSpawning;
 		public final SpawningInfo nineTailsSpawning;
 		public final SpawningInfo oniSpawning;
@@ -209,6 +210,11 @@ public class GaiaSpawningConfig {
 					"OVERWORLD,MESA",
 					"OVERWORLD,FOREST,SPOOKY");
 			minotaurusSpawning = new SpawningInfo(builder, "Minotaurus", 80, 2, 4, minotaurusBiomes, minotaurusBiomeDictionary);
+
+
+			List<? extends String> mummyBiomes = generateList(Biomes.DESERT);
+			List<? extends String> mummyBiomeDictionary = List.of("OVERWORLD,SANDY,!MESA");
+			mummySpawning = new SpawningInfo(builder, "Mummy", 100, 2, 4, mummyBiomes, mummyBiomeDictionary);
 
 			List<? extends String> mimicBiomeDictionary = List.of("OVERWORLD");
 			mimicSpawning = new SpawningInfo(builder, "Mimic", 40, 1, 1, List.of(), mimicBiomeDictionary, true);

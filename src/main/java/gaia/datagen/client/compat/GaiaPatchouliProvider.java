@@ -139,6 +139,8 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				Items.SLIME_BALL, Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(), GaiaRegistry.DOLL_SLIME_GIRL_ITEM.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.GOBLIN_FERAL), 1.0F, 0.0F,
 				Items.IRON_NUGGET);
+		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.GRAVEMITE), 1.0F, 0.0F,
+				Items.AIR);
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.HARPY), 1.0F, 0.0F,
 				Items.FEATHER, Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get(), GaiaRegistry.DECO_NEST_HARPY_ITEM.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.KOBOLD), 1.0F, 0.0F,
@@ -155,6 +157,8 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				GaiaRegistry.BOX_DIAMOND.get(), GaiaRegistry.BUST_MINOTAUR_ITEM.get(), GaiaRegistry.HEAVY_BARBELL.get(), GaiaRegistry.RING_OF_HASTE.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.MINOTAURUS), 1.0F, 0.0F,
 				Items.LEATHER, Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(), GaiaRegistry.WEAPON_BOOK_BATTLE.get());
+		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.MUMMY), 1.0F, 0.0F,
+				Items.ROTTEN_FLESH, Items.BONE, Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.NAGA), 1.0F, 0.0F,
 				Items.COD, Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.NINE_TAILS), 1.0F, 0.0F,
