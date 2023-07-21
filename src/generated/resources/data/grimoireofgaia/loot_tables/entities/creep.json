@@ -82,6 +82,23 @@
               "looting_multiplier": 0.01
             }
           ],
+          "name": "grimoireofgaia:spawn_creeper_girl"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.01,
+              "looting_multiplier": 0.01
+            }
+          ],
           "name": "grimoireofgaia:doll_creeper_girl"
         }
       ]

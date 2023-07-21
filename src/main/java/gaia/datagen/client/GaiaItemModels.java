@@ -1,6 +1,7 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +20,9 @@ public class GaiaItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		for (RegistryObject<Item> item : GaiaRegistry.ITEMS.getEntries()) {
-			if (item.get() instanceof ForgeSpawnEggItem) {
+			if (item.get() instanceof MerchantSpawnItem) {
+				this.spawnItem(item.get());
+			} else if (item.get() instanceof ForgeSpawnEggItem) {
 				this.withExistingParent(item.get().getRegistryName().getPath(), new ResourceLocation("item/template_spawn_egg"));
 			}
 		}
@@ -107,6 +110,11 @@ public class GaiaItemModels extends ItemModelProvider {
 		this.generatedItem(GaiaRegistry.BAG_RECORD.get(), "bag");
 		this.generatedItem(GaiaRegistry.BOX_HAT.get(), "box");
 		this.generatedItem(GaiaRegistry.BOX_OLD.get(), "box");
+		this.generatedItem(GaiaRegistry.BOX_EGG.get(), "spawn");
+
+		this.generatedItem(GaiaRegistry.TRADER_TOKEN.get());
+		this.generatedItem(GaiaRegistry.HOLSTAURUS_TOKEN.get());
+		this.generatedItem(GaiaRegistry.WERESHEEP_TOKEN.get());
 	}
 
 	private void withBlockParent(Block block) {
@@ -118,6 +126,12 @@ public class GaiaItemModels extends ItemModelProvider {
 		ResourceLocation location = item.getRegistryName();
 		singleTexture(location.getPath(), new ResourceLocation("item/generated"),
 				"layer0", new ResourceLocation(GrimoireOfGaia.MOD_ID, "item/" + location.getPath()));
+	}
+
+	private void spawnItem(Item item) {
+		ResourceLocation location = item.getRegistryName();
+		singleTexture(location.getPath(), new ResourceLocation("item/generated"),
+				"layer0", new ResourceLocation(GrimoireOfGaia.MOD_ID, "item/spawn/" + location.getPath()));
 	}
 
 	private void handheldItem(Item item, String subFolder) {

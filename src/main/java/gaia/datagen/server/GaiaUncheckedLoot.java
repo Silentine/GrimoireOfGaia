@@ -84,13 +84,13 @@ public class GaiaUncheckedLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_EARS_ELF.get()))
 					)
 			);
-			//TODO: Spawn item
 			consumer.accept(GaiaLootTables.BOXES_OLD, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.name("main")
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get()))
 							.add(LootItem.lootTableItem(GaiaRegistry.GIGA_GEAR.get()))
 							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_WITHER.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_EGG.get()))
 					)
 			);
 			consumer.accept(GaiaLootTables.BOXES_IRON, LootTable.lootTable()
@@ -212,6 +212,17 @@ public class GaiaUncheckedLoot extends LootTableProvider {
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))).setWeight(15))
 							.add(LootItem.lootTableItem(Items.NETHER_GOLD_ORE)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))).setWeight(15))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_EGG, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(GaiaRegistry.CREEPER_GIRL.getSpawnEgg().get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.ENDER_GIRL.getSpawnEgg().get()))
+//							.add(LootItem.lootTableItem(GaiaRegistry.HOLSTAURUS.getSpawnEgg().get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.SLIME_GIRL.getSpawnEgg().get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.TRADER.getSpawnEgg().get()))
+//							.add(LootItem.lootTableItem(GaiaRegistry.WERESHEEP.getSpawnEgg().get()))
 					)
 			);
 		}

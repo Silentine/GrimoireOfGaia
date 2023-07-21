@@ -37,13 +37,9 @@ public class ToadModel extends EntityModel<Toad> implements HeadedModel, ArmedMo
 		this.necktie = bodytop.getChild("necktie");
 		this.chest = bodytop.getChild("chest");
 		this.leftarm = bodytop.getChild("leftarm");
-		ModelPart leftarmlower = this.leftarm.getChild("leftarmlower");
 		this.rightarm = bodytop.getChild("rightarm");
-		ModelPart rightarmlower = this.rightarm.getChild("rightarmlower");
 		this.leftleg = bodybottom.getChild("leftleg");
-		ModelPart leftleglower = this.leftleg.getChild("leftleglower");
 		this.rightleg = bodybottom.getChild("rightleg");
-		ModelPart rightleglower = this.rightleg.getChild("rightleglower");
 	}
 
 	public static LayerDefinition createBodyLayer() {

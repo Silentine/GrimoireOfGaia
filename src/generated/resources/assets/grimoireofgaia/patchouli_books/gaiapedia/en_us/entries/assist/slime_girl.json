@@ -1,0 +1,22 @@
+{
+  "name": "info.grimoireofgaia.book.entry.slime_girl.name",
+  "category": "grimoireofgaia:assist",
+  "icon": "grimoireofgaia:spawn_slime_girl",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "info.grimoireofgaia.book.entry.slime_girl.info"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "grimoireofgaia:slime_girl",
+      "text": "info.grimoireofgaia.book.entry.slime_girl.info2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "grimoireofgaia:spawn_slime_girl",
+      "link_recipe": true,
+      "text": "info.grimoireofgaia.book.drop.spawn_slime_girl.info"
+    }
+  ]
+}

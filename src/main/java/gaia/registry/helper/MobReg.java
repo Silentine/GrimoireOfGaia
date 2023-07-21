@@ -1,6 +1,7 @@
 package gaia.registry.helper;
 
 import gaia.GrimoireOfGaia;
+import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.GaiaTabs;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.trading.Merchant;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
@@ -144,13 +146,17 @@ public class MobReg<T extends Mob> {
 		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg) {
+	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg, boolean traderEgg) {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
 		this.gaiaMobType = mobType;
 		if (!noSpawnEgg) {
-			this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
-					new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+			if (traderEgg) {
+				this.spawnEgg = GaiaRegistry.ITEMS.register("spawn_" + name, () -> new MerchantSpawnItem(this.entityType, new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+			} else {
+				this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
+						new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+			}
 		}
 
 		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> new SoundEvent(new ResourceLocation(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
@@ -174,7 +180,7 @@ public class MobReg<T extends Mob> {
 		private final EntityType.Builder<T> builder;
 		private final GaiaMobType gaiaMobType;
 		private final int backgroundColor, highlightColor;
-		private boolean say, hurt, death, step, attack, hasGenders, noSpawnEgg;
+		private boolean say, hurt, death, step, attack, hasGenders, noSpawnEgg, traderEgg;
 
 		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
@@ -184,12 +190,28 @@ public class MobReg<T extends Mob> {
 			this.highlightColor = highlightColor;
 		}
 
+		public Builder(String name, EntityType.Builder<T> builder) {
+			this.name = name;
+			this.builder = builder;
+			this.gaiaMobType = GaiaMobType.AGGRESSIVE;
+			this.backgroundColor = 0;
+			this.highlightColor = 0;
+		}
+
 		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
 			this.name = name;
 			this.builder = builder;
 			this.gaiaMobType = mobType;
 			this.backgroundColor = backgroundColor;
 			this.highlightColor = highlightColor;
+		}
+
+		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder) {
+			this.name = name;
+			this.builder = builder;
+			this.gaiaMobType = mobType;
+			this.backgroundColor = 0;
+			this.highlightColor = 0;
 		}
 
 		public Builder<T> withDefaultSounds() {
@@ -201,6 +223,11 @@ public class MobReg<T extends Mob> {
 
 		public Builder<T> noSpawnEgg() {
 			this.noSpawnEgg = true;
+			return this;
+		}
+
+		public Builder<T> traderEgg() {
+			this.traderEgg = true;
 			return this;
 		}
 
@@ -235,7 +262,7 @@ public class MobReg<T extends Mob> {
 		}
 
 		public MobReg<T> build() {
-			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders, noSpawnEgg);
+			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders, noSpawnEgg, traderEgg);
 		}
 	}
 }

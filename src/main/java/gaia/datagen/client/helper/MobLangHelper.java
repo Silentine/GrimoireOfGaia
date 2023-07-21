@@ -59,7 +59,7 @@ public class MobLangHelper {
 	public static class Builder {
 		private final MobReg<?> mobReg;
 		private final String name;
-		private String spawnEgg = " Spawn Egg";
+		private String spawnEgg = "";
 		private String say = " speaks";
 		private String hurt = " hurts";
 		private String death = " dies";

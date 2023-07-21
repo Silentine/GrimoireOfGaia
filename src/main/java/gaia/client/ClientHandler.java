@@ -14,6 +14,7 @@ import gaia.client.model.CentaurModel;
 import gaia.client.model.CobbleGolemModel;
 import gaia.client.model.CobblestoneGolemModel;
 import gaia.client.model.CreepModel;
+import gaia.client.model.CreeperGirlModel;
 import gaia.client.model.CyclopsModel;
 import gaia.client.model.DeathwordModel;
 import gaia.client.model.DryadModel;
@@ -21,6 +22,7 @@ import gaia.client.model.DullahanModel;
 import gaia.client.model.DwarfModel;
 import gaia.client.model.EnderDragonGirlModel;
 import gaia.client.model.EnderEyeModel;
+import gaia.client.model.EnderGirlModel;
 import gaia.client.model.FleshLichModel;
 import gaia.client.model.GelatinousSlimeModel;
 import gaia.client.model.GoblinModel;
@@ -46,12 +48,14 @@ import gaia.client.model.ShamanModel;
 import gaia.client.model.SharkoModel;
 import gaia.client.model.SharkoRenderer;
 import gaia.client.model.SirenModel;
+import gaia.client.model.SlimeGirlModel;
 import gaia.client.model.SludgeGirlModel;
 import gaia.client.model.SphinxModel;
 import gaia.client.model.SporelingModel;
 import gaia.client.model.SprigganModel;
 import gaia.client.model.SuccubusModel;
 import gaia.client.model.ToadModel;
+import gaia.client.model.TraderModel;
 import gaia.client.model.ValkyrieModel;
 import gaia.client.model.WerecatModel;
 import gaia.client.model.WitchModel;
@@ -74,6 +78,7 @@ import gaia.client.renderer.CentaurRenderer;
 import gaia.client.renderer.CobbleGolemRenderer;
 import gaia.client.renderer.CobblestoneGolemRenderer;
 import gaia.client.renderer.CreepRenderer;
+import gaia.client.renderer.CreeperGirlRenderer;
 import gaia.client.renderer.CyclopsRenderer;
 import gaia.client.renderer.DeathwordRenderer;
 import gaia.client.renderer.DryadRenderer;
@@ -81,6 +86,7 @@ import gaia.client.renderer.DullahanRenderer;
 import gaia.client.renderer.DwarfRenderer;
 import gaia.client.renderer.EnderDragonGirlRenderer;
 import gaia.client.renderer.EnderEyeRenderer;
+import gaia.client.renderer.EnderGirlRenderer;
 import gaia.client.renderer.FleshLichRenderer;
 import gaia.client.renderer.GaiaHorseRenderer;
 import gaia.client.renderer.GelatinousSlimeRenderer;
@@ -104,12 +110,14 @@ import gaia.client.renderer.OrcRenderer;
 import gaia.client.renderer.SatyressRenderer;
 import gaia.client.renderer.ShamanRenderer;
 import gaia.client.renderer.SirenRenderer;
+import gaia.client.renderer.SlimeGirlRenderer;
 import gaia.client.renderer.SludgeGirlRenderer;
 import gaia.client.renderer.SphinxRenderer;
 import gaia.client.renderer.SporelingRenderer;
 import gaia.client.renderer.SprigganRenderer;
 import gaia.client.renderer.SuccubusRenderer;
 import gaia.client.renderer.ToadRenderer;
+import gaia.client.renderer.TraderRenderer;
 import gaia.client.renderer.ValkyrieRenderer;
 import gaia.client.renderer.WerecatRenderer;
 import gaia.client.renderer.WitchRenderer;
@@ -212,6 +220,12 @@ public class ClientHandler {
 	public static final ModelLayerLocation YUKI_ONNA = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "yuki_onna"), "main");
 
 	public static final ModelLayerLocation HORSE = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "horse"), "main");
+	public static final ModelLayerLocation TRADER = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "trader"), "main");
+	public static final ModelLayerLocation CREEPER_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "creeper_girl"), "main");
+	public static final ModelLayerLocation ENDER_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "ender_girl"), "main");
+	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
+	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
+	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
 
 
 	public static void onClientSetup(final FMLClientSetupEvent event) {
@@ -333,6 +347,13 @@ public class ClientHandler {
 		event.registerEntityRenderer(GaiaRegistry.WIZARD_HARPY.getEntityType(), WizardHarpyRenderer::new);
 		event.registerEntityRenderer(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnnaRenderer::new);
 
+		event.registerEntityRenderer(GaiaRegistry.TRADER.getEntityType(), TraderRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.CREEPER_GIRL.getEntityType(), CreeperGirlRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.ENDER_GIRL.getEntityType(), EnderGirlRenderer::new);
+//		event.registerEntityRenderer(GaiaRegistry.HOLSTAURUS.getEntityType(), HolstaurusRenderer::new);
+		event.registerEntityRenderer(GaiaRegistry.SLIME_GIRL.getEntityType(), SlimeGirlRenderer::new);
+//		event.registerEntityRenderer(GaiaRegistry.WERESHEEP.getEntityType(), WeresheepRenderer::new);
+
 		event.registerEntityRenderer(GaiaRegistry.HORSE.getEntityType(), GaiaHorseRenderer::new);
 
 		event.registerEntityRenderer(GaiaRegistry.SMALL_FIREBALL.get(), (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
@@ -405,6 +426,13 @@ public class ClientHandler {
 		event.registerLayerDefinition(WITHER_COW, WitherCowModel::createBodyLayer);
 		event.registerLayerDefinition(WIZARD_HARPY, WizardHarpyModel::createBodyLayer);
 		event.registerLayerDefinition(YUKI_ONNA, YukiOnnaModel::createBodyLayer);
+
+		event.registerLayerDefinition(TRADER, TraderModel::createBodyLayer);
+		event.registerLayerDefinition(CREEPER_GIRL, CreeperGirlModel::createBodyLayer);
+		event.registerLayerDefinition(ENDER_GIRL, EnderGirlModel::createBodyLayer);
+//		event.registerLayerDefinition(HOLSTAURUS, HolstaurusModel::createBodyLayer);
+		event.registerLayerDefinition(SLIME_GIRL, SlimeGirlModel::createBodyLayer);
+//		event.registerLayerDefinition(WERESHEEP, WeresheepModel::createBodyLayer);
 
 		event.registerLayerDefinition(HORSE, () -> LayerDefinition.create(HorseModel.createBodyMesh(CubeDeformation.NONE), 64, 64));
 	}

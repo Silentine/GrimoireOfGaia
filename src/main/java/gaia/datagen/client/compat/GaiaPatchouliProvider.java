@@ -89,6 +89,15 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		assistCategory = addExtendedMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.YUKI_ONNA), 1.0F, 0.0F,
 				GaiaRegistry.FUR.get(), GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(), GaiaRegistry.FAN_ICE.get());
 
+		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.TRADER), 1.0F, 0.0F,
+				GaiaRegistry.TRADER.getSpawnEgg().get());
+		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.ENDER_GIRL), 1.0F, 0.0F,
+				GaiaRegistry.ENDER_GIRL.getSpawnEgg().get());
+		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.SLIME_GIRL), 1.0F, 0.0F,
+				GaiaRegistry.SLIME_GIRL.getSpawnEgg().get());
+		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.ENDER_GIRL), 1.0F, 0.0F,
+				GaiaRegistry.ENDER_GIRL.getSpawnEgg().get());
+
 		bookBuilder = assistCategory.build();
 
 		//Hostile category

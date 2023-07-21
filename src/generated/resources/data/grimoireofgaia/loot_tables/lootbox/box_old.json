@@ -17,6 +17,10 @@
         {
           "type": "minecraft:item",
           "name": "grimoireofgaia:weapon_book_wither"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:box_egg"
         }
       ]
     }

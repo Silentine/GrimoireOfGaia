@@ -63,6 +63,10 @@ import gaia.entity.YukiOnna;
 import gaia.entity.prop.AntHill;
 import gaia.entity.prop.Chest;
 import gaia.entity.prop.CyanFlower;
+import gaia.entity.trader.CreeperGirl;
+import gaia.entity.trader.EnderGirl;
+import gaia.entity.trader.SlimeGirl;
+import gaia.entity.trader.Trader;
 import gaia.util.BiomeHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -242,6 +246,13 @@ public class GaiaSpawning {
 		SpawnPlacements.register(GaiaRegistry.WIZARD_HARPY.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WizardHarpy::checkWizardHarpySpawnRules);
 		SpawnPlacements.register(GaiaRegistry.YUKI_ONNA.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, YukiOnna::checkYukiOnnaSpawnRules);
 
+		SpawnPlacements.register(GaiaRegistry.TRADER.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Trader::checkMobSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.CREEPER_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CreeperGirl::checkMobSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.ENDER_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EnderGirl::checkMobSpawnRules);
+//		SpawnPlacements.register(GaiaRegistry.HOLSTAURUS.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Holstaurus::checkMobSpawnRules);
+		SpawnPlacements.register(GaiaRegistry.SLIME_GIRL.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SlimeGirl::checkMobSpawnRules);
+//		SpawnPlacements.register(GaiaRegistry.WERESHEEP.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Weresheep::checkMobSpawnRules);
+
 		SpawnPlacements.register(GaiaRegistry.HORSE.getEntityType(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 	}
 
@@ -307,5 +318,12 @@ public class GaiaSpawning {
 		event.put(GaiaRegistry.YUKI_ONNA.getEntityType(), YukiOnna.createAttributes().build());
 
 		event.put(GaiaRegistry.HORSE.getEntityType(), GaiaHorse.createBaseHorseAttributes().build());
+
+		event.put(GaiaRegistry.TRADER.getEntityType(), Trader.createAttributes().build());
+		event.put(GaiaRegistry.CREEPER_GIRL.getEntityType(), CreeperGirl.createAttributes().build());
+		event.put(GaiaRegistry.ENDER_GIRL.getEntityType(), EnderGirl.createAttributes().build());
+//		event.put(GaiaRegistry.HOLSTAURUS.getEntityType(), Holstaurus.createAttributes().build());
+		event.put(GaiaRegistry.SLIME_GIRL.getEntityType(), SlimeGirl.createAttributes().build());
+//		event.put(GaiaRegistry.WERESHEEP.getEntityType(), Weresheep.createAttributes().build());
 	}
 }

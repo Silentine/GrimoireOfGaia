@@ -1419,6 +1419,94 @@
       "grimoireofgaia:assist_death"
     ]
   },
+  "trader_say": {
+    "subtitle": "grimoireofgaia.subtitle.trader_say",
+    "sounds": [
+      "grimoireofgaia:passive_say1",
+      "grimoireofgaia:passive_say2",
+      "grimoireofgaia:passive_say3"
+    ]
+  },
+  "trader_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.trader_hurt",
+    "sounds": [
+      "grimoireofgaia:passive_hurt1",
+      "grimoireofgaia:passive_hurt2",
+      "grimoireofgaia:passive_hurt3"
+    ]
+  },
+  "trader_death": {
+    "subtitle": "grimoireofgaia.subtitle.trader_death",
+    "sounds": [
+      "grimoireofgaia:passive_death"
+    ]
+  },
+  "creeper_girl_say": {
+    "subtitle": "grimoireofgaia.subtitle.creeper_girl_say",
+    "sounds": [
+      "grimoireofgaia:passive_say1",
+      "grimoireofgaia:passive_say2",
+      "grimoireofgaia:passive_say3"
+    ]
+  },
+  "creeper_girl_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.creeper_girl_hurt",
+    "sounds": [
+      "grimoireofgaia:passive_hurt1",
+      "grimoireofgaia:passive_hurt2",
+      "grimoireofgaia:passive_hurt3"
+    ]
+  },
+  "creeper_girl_death": {
+    "subtitle": "grimoireofgaia.subtitle.creeper_girl_death",
+    "sounds": [
+      "grimoireofgaia:passive_death"
+    ]
+  },
+  "ender_girl_say": {
+    "subtitle": "grimoireofgaia.subtitle.ender_girl_say",
+    "sounds": [
+      "grimoireofgaia:passive_say1",
+      "grimoireofgaia:passive_say2",
+      "grimoireofgaia:passive_say3"
+    ]
+  },
+  "ender_girl_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.ender_girl_hurt",
+    "sounds": [
+      "grimoireofgaia:passive_hurt1",
+      "grimoireofgaia:passive_hurt2",
+      "grimoireofgaia:passive_hurt3"
+    ]
+  },
+  "ender_girl_death": {
+    "subtitle": "grimoireofgaia.subtitle.ender_girl_death",
+    "sounds": [
+      "grimoireofgaia:passive_death"
+    ]
+  },
+  "slime_girl_say": {
+    "subtitle": "grimoireofgaia.subtitle.slime_girl_say",
+    "sounds": [
+      "grimoireofgaia:passive_say1",
+      "grimoireofgaia:passive_say2",
+      "grimoireofgaia:passive_say3"
+    ]
+  },
+  "slime_girl_hurt": {
+    "subtitle": "grimoireofgaia.subtitle.slime_girl_hurt",
+    "sounds": [
+      "grimoireofgaia:passive_hurt1",
+      "grimoireofgaia:passive_hurt2",
+      "grimoireofgaia:passive_hurt3"
+    ]
+  },
+  "slime_girl_death": {
+    "subtitle": "grimoireofgaia.subtitle.slime_girl_death",
+    "sounds": [
+      "grimoireofgaia:passive_death"
+    ]
+  },
   "cobble_golem_attack": {
     "subtitle": "grimoireofgaia.subtitle.cobble_golem_attack",
     "sounds": [

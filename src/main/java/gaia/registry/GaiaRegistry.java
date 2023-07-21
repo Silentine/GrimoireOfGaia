@@ -24,10 +24,10 @@ import gaia.entity.EnderDragonGirl;
 import gaia.entity.EnderEye;
 import gaia.entity.FleshLich;
 import gaia.entity.GaiaHorse;
-import gaia.entity.GraveMite;
 import gaia.entity.GelatinousSlime;
 import gaia.entity.Goblin;
 import gaia.entity.GoblinFeral;
+import gaia.entity.GraveMite;
 import gaia.entity.Gryphon;
 import gaia.entity.Harpy;
 import gaia.entity.Hunter;
@@ -69,6 +69,10 @@ import gaia.entity.projectile.WebProjectile;
 import gaia.entity.prop.AntHill;
 import gaia.entity.prop.Chest;
 import gaia.entity.prop.CyanFlower;
+import gaia.entity.trader.CreeperGirl;
+import gaia.entity.trader.EnderGirl;
+import gaia.entity.trader.SlimeGirl;
+import gaia.entity.trader.Trader;
 import gaia.item.ExperienceItem;
 import gaia.item.LootableItem;
 import gaia.item.MemoryBookItem;
@@ -192,6 +196,13 @@ public class GaiaRegistry {
 	public static final MobReg<WitherCow> WITHER_COW = new MobReg.Builder<>("wither_cow", EntityType.Builder.of(WitherCow::new, MobCategory.MONSTER).sized(0.9F, 1.4F).clientTrackingRange(8), 5791069, 16777215).withDefaultSounds().withStep().build();
 	public static final MobReg<WizardHarpy> WIZARD_HARPY = new MobReg.Builder<>("wizard_harpy", GaiaMobType.ASSIST, EntityType.Builder.of(WizardHarpy::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0xdddadb, 0xba9b53).withDefaultSounds().build();
 	public static final MobReg<YukiOnna> YUKI_ONNA = new MobReg.Builder<>("yuki_onna", GaiaMobType.ASSIST, EntityType.Builder.of(YukiOnna::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 6781114, 13817330).withDefaultSounds().build();
+
+	public static final MobReg<Trader> TRADER = new MobReg.Builder<>("trader", GaiaMobType.PASSIVE, EntityType.Builder.of(Trader::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
+	public static final MobReg<CreeperGirl> CREEPER_GIRL = new MobReg.Builder<>("creeper_girl", GaiaMobType.PASSIVE, EntityType.Builder.of(CreeperGirl::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
+	public static final MobReg<EnderGirl> ENDER_GIRL = new MobReg.Builder<>("ender_girl", GaiaMobType.PASSIVE, EntityType.Builder.of(EnderGirl::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
+//	public static final MobReg<Holstaurus> HOLSTAURUS = new MobReg.Builder<>("holstaurus", GaiaMobType.PASSIVE, EntityType.Builder.of(Holstaurus::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
+	public static final MobReg<SlimeGirl> SLIME_GIRL = new MobReg.Builder<>("slime_girl", GaiaMobType.PASSIVE, EntityType.Builder.of(SlimeGirl::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
+//	public static final MobReg<Weresheep> WERESHEEP = new MobReg.Builder<>("weresheep", GaiaMobType.PASSIVE, EntityType.Builder.of(Weresheep::new, MobCategory.CREATURE).sized(0.6F, 1.99F).clientTrackingRange(8)).traderEgg().withDefaultSounds().build();
 
 	public static final MobReg<GaiaHorse> HORSE = new MobReg.Builder<>("horse", GaiaMobType.PASSIVE, EntityType.Builder.of(GaiaHorse::new, MobCategory.CREATURE).sized(1.3964844F, 1.6F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().build();
 	public static final MobReg<GraveMite> GRAVEMITE = new MobReg.Builder<>("gravemite", GaiaMobType.AGGRESSIVE, EntityType.Builder.of(GraveMite::new, MobCategory.CREATURE).sized(0.4F, 0.3F).clientTrackingRange(10), 0x252525, 0x3a3a3a).withDefaultSounds().withStep().build();
@@ -362,9 +373,15 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> BOX_NETHER = ITEMS.register("box_nether", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_NETHER, GaiaSounds.BOX_OPEN));
 	public static final RegistryObject<Item> BOX_OLD = ITEMS.register("box_old", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), GaiaLootTables.BOXES_OLD, GaiaSounds.BOX_OPEN));
 	public static final RegistryObject<Item> BOX_OVERWORLD = ITEMS.register("box_overworld", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE).rarity(Rarity.RARE), GaiaLootTables.BOXES_OVERWORLD, GaiaSounds.BOX_OPEN));
+	public static final RegistryObject<Item> BOX_EGG = ITEMS.register("box_egg", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE).rarity(Rarity.RARE), GaiaLootTables.BOXES_EGG, GaiaSounds.BOX_OPEN));
 	public static final RegistryObject<Item> CHEST_DESERT = ITEMS.register("chest_desert", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.DESERT_PYRAMID, GaiaSounds.BOX_OPEN));
 	public static final RegistryObject<Item> CHEST_DUNGEON = ITEMS.register("chest_dungeon", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.SIMPLE_DUNGEON, GaiaSounds.BOX_OPEN));
 	public static final RegistryObject<Item> CHEST_JUNGLE = ITEMS.register("chest_jungle", () -> new LootableItem(itemBuilder().rarity(Rarity.RARE), BuiltInLootTables.JUNGLE_TEMPLE, GaiaSounds.BOX_OPEN));
+
+	//Merchant Item
+	public static final RegistryObject<Item> TRADER_TOKEN = ITEMS.register("trader_token", () -> new Item(itemBuilder()));
+	public static final RegistryObject<Item> HOLSTAURUS_TOKEN = ITEMS.register("holstaurus_token", () -> new Item(itemBuilder()));
+	public static final RegistryObject<Item> WERESHEEP_TOKEN = ITEMS.register("weresheep_token", () -> new Item(itemBuilder()));
 
 	private static Item.Properties itemBuilder() {
 		return new Item.Properties().tab(GaiaTabs.GAIA_TAB);

@@ -423,6 +423,14 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WIZARD_HARPY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.YUKI_ONNA).withDefaults().build());
+
+		//Merchant
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.TRADER).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CREEPER_GIRL).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_GIRL).withDefaults().build());
+//		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HOLSTAURUS).withDefaults().build());
+		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.SLIME_GIRL).withDefaults().build());
+//		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WERESHEEP).withDefaults().build());
 	}
 
 	public void setupMobSounds(MobSoundHelper helper) {

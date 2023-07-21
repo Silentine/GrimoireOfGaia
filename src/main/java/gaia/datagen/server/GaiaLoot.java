@@ -305,6 +305,9 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_OVERWORLD.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.CREEPER_GIRL.getSpawnEgg().get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.DOLL_CREEPER_GIRL.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
@@ -478,6 +481,9 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.DOLL_ENDER_GIRL.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.ENDER_GIRL.getSpawnEgg().get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.ELYTRA_FRAGMENT.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
@@ -510,6 +516,9 @@ public class GaiaLoot extends LootTableProvider {
 							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.SLIME_GIRL.getSpawnEgg().get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.DOLL_SLIME_GIRL.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
@@ -687,6 +696,9 @@ public class GaiaLoot extends LootTableProvider {
 							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+//					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+//							.add(LootItem.lootTableItem(GaiaRegistry.HOLSTAURUS.getSpawnEgg().get())
+//									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
 							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_BATTLE.get())))
 			);
@@ -723,6 +735,9 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.PREMIUM_MONSTER_FEED.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.TRADER.getSpawnEgg().get())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_RECORD.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -730,7 +745,7 @@ public class GaiaLoot extends LootTableProvider {
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
 			this.add(GaiaRegistry.GRAVEMITE.getEntityType(), LootTable.lootTable());
-			this.add(GaiaRegistry.MUMMY.getEntityType(), LootTable.lootTable() //TODO: Mummy drops (Bones / Rotten Flesh (50/50))
+			this.add(GaiaRegistry.MUMMY.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.BONE))
 							.add(LootItem.lootTableItem(Items.ROTTEN_FLESH))
@@ -1064,6 +1079,38 @@ public class GaiaLoot extends LootTableProvider {
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootTableReference.lootTableReference(EntityType.ZOMBIE_HORSE.getDefaultLootTable())))
 			);
+
+			//Merchant
+			this.add(GaiaRegistry.TRADER.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.TRADER.getSpawnEgg().get()))
+					)
+			);
+			this.add(GaiaRegistry.CREEPER_GIRL.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.CREEPER_GIRL.getSpawnEgg().get()))
+					)
+			);
+			this.add(GaiaRegistry.ENDER_GIRL.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.ENDER_GIRL.getSpawnEgg().get()))
+					)
+			);
+//			this.add(GaiaRegistry.HOLSTAURUS.getEntityType(), LootTable.lootTable()
+//					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+//							.add(LootItem.lootTableItem(GaiaRegistry.HOLSTAURUS.getSpawnEgg().get()))
+//					)
+//			);
+			this.add(GaiaRegistry.SLIME_GIRL.getEntityType(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(GaiaRegistry.SLIME_GIRL.getSpawnEgg().get()))
+					)
+			);
+//			this.add(GaiaRegistry.WERESHEEP.getEntityType(), LootTable.lootTable()
+//					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+//							.add(LootItem.lootTableItem(GaiaRegistry.WERESHEEP.getSpawnEgg().get()))
+//					)
+//			);
 		}
 
 		@Override

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:spawn_creeper_girl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:spawn_ender_girl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:spawn_slime_girl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "grimoireofgaia:spawn_trader"
+        }
+      ]
+    }
+  ]
+}

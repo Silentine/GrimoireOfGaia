@@ -77,6 +77,14 @@ public class GaiaLanguage extends LanguageProvider {
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WIZARD_HARPY, "Wizard Harpy").withSay("shrieks").build());
 		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.YUKI_ONNA, "Yuki-Onna").build());
 
+		//Merchant
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.TRADER, "Trader").withSpawnEgg(" Egg").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.CREEPER_GIRL, "Creeper Girl").withSpawnEgg(" Egg").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.ENDER_GIRL, "Ender Girl").withSpawnEgg(" Egg").build());
+//		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.HOLSTAURUS, "Holstaurus").withSpawnEgg(" Egg").build());
+		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.SLIME_GIRL, "Slime Girl").withSpawnEgg(" Egg").build());
+//		addMobTranslation(new MobLangHelper.Builder(GaiaRegistry.WERESHEEP, "Weresheep").withSpawnEgg(" Egg").build());
+
 		addPropReg(GaiaRegistry.ANT_HILL, "Ant Hill");
 		addPropReg(GaiaRegistry.CHEST, "Chest");
 		addPropReg(GaiaRegistry.CYAN_FLOWER, "Cyan Flower");
@@ -190,10 +198,15 @@ public class GaiaLanguage extends LanguageProvider {
 		addItem(GaiaRegistry.BOX_IRON, "Iron Box");
 		addItem(GaiaRegistry.BOX_NETHER, "Nether Box");
 		addItem(GaiaRegistry.BOX_OLD, "Old Luggage");
+		addItem(GaiaRegistry.BOX_EGG, "Egg Box");
 		addItem(GaiaRegistry.BOX_OVERWORLD, "Overworld Box");
 		addItem(GaiaRegistry.CHEST_DESERT, "Pyramid Chest");
 		addItem(GaiaRegistry.CHEST_DUNGEON, "Dungeon Chest");
 		addItem(GaiaRegistry.CHEST_JUNGLE, "Jungle Chest");
+
+		addItem(GaiaRegistry.TRADER_TOKEN, "Trader Token");
+		addItem(GaiaRegistry.HOLSTAURUS_TOKEN, "Holstaurus Token");
+		addItem(GaiaRegistry.WERESHEEP_TOKEN, "Weresheep Token");
 
 		addSubtitle(GaiaSounds.BAG_OPEN, "Bag Opened");
 		addSubtitle(GaiaSounds.BOOK_HIT, "Book Slapped");
@@ -354,6 +367,23 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("entry.yuki_onna.info", "The $(mob)Yuki-Onna$() spawns in Taigas of the $(thing)Overworld$() during rainy or snowy weather. It provoked it attacks in melee, inflicting $(thing)Slowness IV$() on hit. $(mob)Yuki-Onna's$() can spawn equipped with a $(item)Hand Fan$() which increases the knockback of their attacks. $(mob)Yuki-Onna's$() are immune to Fire and falling damage, and can move through cobwebs unimpeded. When reduced to 50%% health or lower, a $(mob)Yuki-Onna$() may flee combat entirely.");
 		addPatchouliEntry("entry.yuki_onna.info2", "$(li)20 Health$()$(li)4 Armor$()$(li)4 Damage$()");
 		addPatchouliEntry("entry.yuki_onna.info3", "$(mob)Yuki-Onna's$() are vulnerable to warm climates and are inflicted with $(thing)Slowness$() and $(thing)Weakness$() if they enter warm or hot biomes.");
+
+		//Traders
+		addPatchouliEntry("entry.trader.name", "Trader");
+		addPatchouliEntry("entry.trader.info", "The $(mob)Trader$() is a helper that can be spawned from the $(thing)Trader Egg$(). It flees when attacked, but can trade various items in exchange for $(item)Trader Tokens$(), similar to a $(mob)Villager$(). Similar to $(mob)Villagers$(), $(mob)Traders$() killed by $(mob)Zombies$() may turn into $(mob)Zombie Villagers$().");
+		addPatchouliEntry("entry.trader.info2", "$(li)40 Health$()");
+
+		addPatchouliEntry("entry.creeper_girl.name", "Creeper Girl");
+		addPatchouliEntry("entry.creeper_girl.info", "The $(mob)Creeper Girl$() is a creature that can be spawned from the $(thing)Creeper Girl Egg$(). It flees when attacked, but can trade various items in exchange for $(item)Gunpowder$(), similar to a $(mob)Villager$().");
+		addPatchouliEntry("entry.creeper_girl.info2", "$(li)40 Health$()");
+
+		addPatchouliEntry("entry.ender_girl.name", "Ender Girl");
+		addPatchouliEntry("entry.ender_girl.info", "The $(mob)Ender Girl$() is a helper that can be spawned from the $(thing)Ender Girl Egg$(). It flees when attacked, but can trade various items in exchange for $(item)Ender Pearls$(), similar to a $(mob)Villager$().");
+		addPatchouliEntry("entry.ender_girl.info2", "$(li)40 Health$()");
+
+		addPatchouliEntry("entry.slime_girl.name", "Slime Girl");
+		addPatchouliEntry("entry.slime_girl.info", "The $(mob)Slime Girl$() is a helper that can be spawned from the $(thing)Slime Girl Egg$(). It flees when attacked, but can trade various items in exchange for $(item)Slimeballs$(), similar to a $(mob)Villager$().");
+		addPatchouliEntry("entry.slime_girl.info2", "$(li)40 Health$()");
 
 		//hostile patchouli entries
 		addPatchouliEntry("category.hostile.name", "Hostile");
@@ -620,6 +650,11 @@ public class GaiaLanguage extends LanguageProvider {
 		addPatchouliEntry("drop.weapon_book_nightmare.info", "They can rarely drop a $(item)Nightmare Book$() which inflicts $(thing)Mining Fatigue$() on foes upon a melee strike.");
 		addPatchouliEntry("drop.withered_brain.info", "They can drop $(item)Withered Brain$() on death, which can be eaten as a decent food source. However, when consumed, it afflicts players with $(thing)Wither$().");
 		addPatchouliEntry("drop.zombie_head.info", "They can drop a $(item)Zombie Skull$() on death.");
+		//Merchant drops/items
+		addPatchouliEntry("drop.spawn_trader.info", "They can drop a $(item)Trader Egg$() on death. This item can be used to spawn a passive $(mob)Trader$() helper for the player.");
+		addPatchouliEntry("drop.spawn_creeper_girl.info", "They can drop a $(item)Creeper Girl Egg$() on death. This item can be used to spawn a passive $(mob)Trader$() helper for the player.");
+		addPatchouliEntry("drop.spawn_ender_girl.info", "They can drop a $(item)Ender Girl Egg$() on death. This item can be used to spawn a passive $(mob)Trader$() helper for the player.");
+		addPatchouliEntry("drop.spawn_slime_girl.info", "They can drop a $(item)Slime Egg$() on death. This item can be used to spawn a passive $(mob)Trader$() helper for the player.");
 
 	}
 
@@ -654,7 +689,9 @@ public class GaiaLanguage extends LanguageProvider {
 		String name = mobHelper.getName();
 
 		add(reg.getEntityType(), name);
-		addItem(reg.getSpawnEgg(), name + " Spawn Egg");
+		if (reg.getSpawnEgg() != null) {
+			addItem(reg.getSpawnEgg(), mobHelper.getSpawnEgg().isEmpty() ? (name + " Spawn Egg") : (name + mobHelper.getSpawnEgg()));
+		}
 
 		if (reg.getSay() != null)
 			addSubtitle(reg.getSay(), name + mobHelper.getSay());
