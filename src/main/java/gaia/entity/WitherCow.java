@@ -89,9 +89,9 @@ public class WitherCow extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -122,7 +122,7 @@ public class WitherCow extends AbstractGaiaEntity {
 
 	@Override
 	protected void tickDeath() {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			spawnLingeringCloud(List.of(new MobEffectInstance(MobEffects.WITHER, 200, 0)));
 		}
 		super.tickDeath();

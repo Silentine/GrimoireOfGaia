@@ -108,7 +108,7 @@ public class Spriggan extends AbstractGaiaEntity {
 			}
 		}
 
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			if (isInWaterOrRain()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;

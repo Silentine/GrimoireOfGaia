@@ -187,9 +187,9 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -206,7 +206,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && (getHealth() >= getMaxHealth())) {
+		if (!this.level.isClientSide && (getHealth() >= getMaxHealth())) {
 			if (detectMovement() && !isMoving()) {
 				setMoving(true);
 			}

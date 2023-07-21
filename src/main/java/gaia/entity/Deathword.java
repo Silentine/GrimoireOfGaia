@@ -137,9 +137,9 @@ public class Deathword extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -156,7 +156,7 @@ public class Deathword extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -175,7 +175,7 @@ public class Deathword extends AbstractGaiaEntity {
 				if (spawnTimer == 60) {
 					level.broadcastEntityEvent(this, (byte) 9);
 
-					if (!level.isClientSide) {
+					if (!this.level.isClientSide) {
 						switch (random.nextInt(4)) {
 							case 0 -> {
 								boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
@@ -229,23 +229,23 @@ public class Deathword extends AbstractGaiaEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Creeper summon = EntityType.CREEPER.create(level);
+				Creeper summon = EntityType.CREEPER.create(this.level);
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(summon);
 				}
 			}
 
 			if (id == 1) {
-				Skeleton summon = EntityType.SKELETON.create(level);
+				Skeleton summon = EntityType.SKELETON.create(this.level);
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -258,19 +258,19 @@ public class Deathword extends AbstractGaiaEntity {
 			}
 
 			if (id == 2) {
-				Spider summon = EntityType.SPIDER.create(level);
+				Spider summon = EntityType.SPIDER.create(this.level);
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(summon);
 				}
 			}
 
 			if (id == 3) {
-				Zombie summon = EntityType.ZOMBIE.create(level);
+				Zombie summon = EntityType.ZOMBIE.create(this.level);
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);

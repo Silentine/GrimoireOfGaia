@@ -107,9 +107,9 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -242,7 +242,7 @@ public class Kobold extends AbstractGaiaEntity implements RangedAttackMob {
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 
-		setCombatTask(level.getDifficulty());
+		setCombatTask(this.level.getDifficulty());
 	}
 
 	@Override

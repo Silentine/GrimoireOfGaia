@@ -138,9 +138,9 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 				}
 
@@ -163,7 +163,7 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 

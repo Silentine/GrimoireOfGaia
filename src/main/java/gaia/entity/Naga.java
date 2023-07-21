@@ -128,9 +128,9 @@ public class Naga extends AbstractGaiaEntity implements IDayMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -148,7 +148,7 @@ public class Naga extends AbstractGaiaEntity implements IDayMob {
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;

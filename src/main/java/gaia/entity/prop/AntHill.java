@@ -81,7 +81,7 @@ public class AntHill extends AbstractPropEntity {
 				if ((spawnTime >= 0) && (spawnTime <= 60)) {
 					++spawnTime;
 				} else {
-					if (!level.isClientSide) {
+					if (!this.level.isClientSide) {
 						setSpawn(0);
 					}
 
@@ -96,7 +96,7 @@ public class AntHill extends AbstractPropEntity {
 			}
 		}
 
-		if (level.getDifficulty() == Difficulty.PEACEFUL) {
+		if (this.level.getDifficulty() == Difficulty.PEACEFUL) {
 			kill();
 		}
 
@@ -104,12 +104,12 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
 			if (id == 0) {
-				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(level);
+				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(this.level);
 				if (antWorker != null) {
 					antWorker.moveTo(blockPosition(), 0.0F, 0.0F);
-					antWorker.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					antWorker.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(antWorker);
 				}
 			}

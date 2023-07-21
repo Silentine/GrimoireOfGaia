@@ -165,7 +165,7 @@ public class Banshee extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			if (isPassenger()) {
 				stopRiding();
 			}

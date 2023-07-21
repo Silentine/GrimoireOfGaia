@@ -124,10 +124,10 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 				int effectTime = 0;
 				int effectTime2 = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
 					effectTime2 = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 					effectTime2 = 20;
 				}
@@ -155,7 +155,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 			});
 		}
 
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;

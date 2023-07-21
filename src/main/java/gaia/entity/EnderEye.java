@@ -201,7 +201,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 

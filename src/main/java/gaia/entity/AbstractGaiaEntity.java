@@ -111,9 +111,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	protected GaiaHorse createHorse(DifficultyInstance difficulty) {
-		Entity entity = GaiaRegistry.HORSE.getEntityType().create(level);
+		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level);
 		if (entity instanceof GaiaHorse horse) {
-			horse.finalizeSpawn((ServerLevel) level, difficulty, null, (SpawnGroupData) null, (CompoundTag) null);
+			horse.finalizeSpawn((ServerLevel) this.level, difficulty, null, (SpawnGroupData) null, (CompoundTag) null);
 			horse.setPos(this.getX(), this.getY(), this.getZ());
 			horse.setTamed(true);
 			horse.setAge(0);
@@ -147,7 +147,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * @param action The action to apply to the entities
 	 */
 	protected void beaconMonster(int range, Consumer<LivingEntity> action) {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(range);
 			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, aabb);
 			for (LivingEntity livingEntity : entities) {

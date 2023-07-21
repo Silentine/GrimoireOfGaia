@@ -204,7 +204,7 @@ public class Centaur extends AbstractAssistGaiaEntity implements RangedAttackMob
 		if (itemstack.getItem() instanceof BowItem) {
 			int i = 20;
 
-			if (level.getDifficulty() != Difficulty.HARD) {
+			if (this.level.getDifficulty() != Difficulty.HARD) {
 				i = 40;
 			}
 

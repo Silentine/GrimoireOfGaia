@@ -124,7 +124,7 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;

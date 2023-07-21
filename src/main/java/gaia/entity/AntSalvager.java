@@ -113,9 +113,9 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -133,7 +133,7 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 

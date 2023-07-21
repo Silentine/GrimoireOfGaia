@@ -195,7 +195,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 		});
 
-		if (!level.isClientSide && isPassenger() && isRidingBroom()) {
+		if (!this.level.isClientSide && isPassenger() && isRidingBroom()) {
 			stopRiding();
 		}
 
@@ -213,7 +213,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getHealth() < getMaxHealth() * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			level.broadcastEntityEvent(this, (byte) 9);
 
-			if (!level.isClientSide) {
+			if (!this.level.isClientSide) {
 				setSpawn(0);
 			}
 			spawn = 1;
@@ -222,7 +222,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getHealth() < getMaxHealth() * 0.25F && getHealth() > 0.0F && spawn == 1) {
 			level.broadcastEntityEvent(this, (byte) 9);
 
-			if (!level.isClientSide) {
+			if (!this.level.isClientSide) {
 				setSpawn(1);
 			}
 			spawn = 2;
@@ -290,13 +290,13 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			BlockPos blockpos = (blockPosition()).offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
-			Monster monster = id == 0 ? EntityType.ZOMBIE.create(level) : EntityType.SKELETON.create(level);
+			Monster monster = id == 0 ? EntityType.ZOMBIE.create(this.level) : EntityType.SKELETON.create(this.level);
 			if (monster != null) {
 				monster.moveTo(blockpos, 0.0F, 0.0F);
-				monster.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+				monster.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 				monster.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 				monster.setDropChance(EquipmentSlot.MAINHAND, 0);
 				monster.setDropChance(EquipmentSlot.OFFHAND, 0);

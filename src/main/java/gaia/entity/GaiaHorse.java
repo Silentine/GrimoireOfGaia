@@ -46,7 +46,7 @@ public class GaiaHorse extends AbstractHorse {
 	@Override
 	public void aiStep() {
 		if (!isVehicle()) {
-			if (!level.isClientSide) {
+			if (!this.level.isClientSide) {
 				if (!isPersistenceRequired()) {
 					++lifetime;
 				}

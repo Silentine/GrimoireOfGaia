@@ -144,7 +144,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 
 	@Override
 	public void aiStep() {
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -157,7 +157,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 			}
 		}
 
-		if (!level.isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
+		if (!this.level.isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
 			if (teleportTimer < 60) {
 				teleportTimer++;
 			} else {

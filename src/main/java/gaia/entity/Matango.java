@@ -154,14 +154,14 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!level.isClientSide) {
+		if (!this.level.isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Entity entity = GaiaRegistry.SPORELING.getEntityType().create(level);
+				Entity entity = GaiaRegistry.SPORELING.getEntityType().create(this.level);
 				if (entity instanceof Sporeling summon) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(summon);
 				}
 			}

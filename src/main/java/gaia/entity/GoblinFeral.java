@@ -206,7 +206,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getMainHandItem().getItem() instanceof ProjectileWeaponItem) {
 			int i = 20;
 
-			if (level.getDifficulty() != Difficulty.HARD) {
+			if (this.level.getDifficulty() != Difficulty.HARD) {
 				i = 40;
 			}
 			rangedAttackGoal.setMinAttackInterval(i);

@@ -86,11 +86,11 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	private void spawnMandragora() {
-		if (level.getDifficulty() != Difficulty.PEACEFUL) {
-			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(level);
+		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(this.level);
 			if (mandragora != null) {
 				mandragora.moveTo(blockPosition(), 0.0F, 0.0F);
-				mandragora.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				mandragora.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
 				level.addFreshEntity(mandragora);
 			}
 		}
@@ -171,7 +171,7 @@ public class CyanFlower extends AbstractPropEntity {
 	protected void dropCustomDeathLoot(DamageSource damageSource, int looting, boolean killedByPlayer) {
 		if (killedByPlayer) {
 			if (random.nextInt(4) == 0) {
-				if (!level.isClientSide) {
+				if (!this.level.isClientSide) {
 					spawnMandragora();
 					playSound(GaiaSounds.MANDRAGORA_SCREAM.get(), 2.0F, 2.0F);
 				}

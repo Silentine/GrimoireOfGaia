@@ -162,10 +162,10 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 				int effectTime = 0;
 				int effectTime2 = 0;
 
-				if (level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
 					effectTime2 = 10;
-				} else if (level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 					effectTime2 = 20;
 				}
@@ -189,7 +189,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 

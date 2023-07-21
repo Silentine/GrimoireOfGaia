@@ -65,7 +65,7 @@ public class Chest extends AbstractPropEntity {
 	@Override
 	public void aiStep() {
 		if (playerDetection() && getDrop() == 2) {
-			if (!level.isClientSide) {
+			if (!this.level.isClientSide) {
 				spawnMimic();
 			}
 			discard();
@@ -75,11 +75,11 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	private void spawnMimic() {
-		if (level.getDifficulty() != Difficulty.PEACEFUL) {
-			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(level);
+		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(this.level);
 			if (mimic != null) {
 				mimic.moveTo(blockPosition(), 0.0F, 0.0F);
-				mimic.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				mimic.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
 				level.addFreshEntity(mimic);
 			}
 		}

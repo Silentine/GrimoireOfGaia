@@ -128,7 +128,7 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	public void aiStep() {
 		super.aiStep();
 
-		if (!level.isClientSide && isPassenger()) {
+		if (!this.level.isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
