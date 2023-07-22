@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,7 +46,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
@@ -82,10 +82,10 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, 80.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ATTACK_DAMAGE, 8.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -185,7 +185,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		if (!isBaby()) {
 			if (random.nextInt(4) == 0) {
 				//Remove it if it's there
@@ -217,7 +217,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		setGoals(0);
 
@@ -271,7 +271,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkYukiOnnaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkYukiOnnaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

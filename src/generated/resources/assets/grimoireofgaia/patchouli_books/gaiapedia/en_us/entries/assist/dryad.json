@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.dryad.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:dryad_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.dryad.name",
   "pages": [
     {
       "type": "patchouli:text",

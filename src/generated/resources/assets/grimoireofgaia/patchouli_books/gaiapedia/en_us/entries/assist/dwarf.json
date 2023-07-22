@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.dwarf.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:dwarf_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.dwarf.name",
   "pages": [
     {
       "type": "patchouli:text",

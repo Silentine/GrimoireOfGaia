@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.orc.name",
+  "advancement": "grimoireofgaia:main/orc",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:orc_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.orc.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.bag_book.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/orc"
+  ]
 }

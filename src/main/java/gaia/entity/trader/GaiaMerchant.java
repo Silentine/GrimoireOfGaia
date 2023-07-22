@@ -69,7 +69,7 @@ public abstract class GaiaMerchant extends AbstractVillager {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, 40.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1);
 	}

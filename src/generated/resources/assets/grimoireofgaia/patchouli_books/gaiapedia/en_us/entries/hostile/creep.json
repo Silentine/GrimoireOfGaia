@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.creep.name",
+  "advancement": "grimoireofgaia:main/creep",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:creep_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.creep.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -37,6 +38,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.doll_creeper_girl.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/creep"
+  ]
 }

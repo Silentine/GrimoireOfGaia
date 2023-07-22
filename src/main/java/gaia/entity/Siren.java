@@ -9,6 +9,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,8 +44,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMob {
 	private final RangedBowAttackGoal<Siren> bowAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_1, 20, 15.0F);
@@ -81,10 +80,10 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, 40.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_MIXED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
+				.add(Attributes.ATTACK_DAMAGE, 4.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -227,7 +226,7 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 
 		ItemStack bootsSwimming = new ItemStack(Items.LEATHER_BOOTS);
@@ -253,8 +252,8 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 			setVariant(1);
 		}
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
-		this.populateDefaultEquipmentEnchantments(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		setCombatTask(difficultyInstance.getDifficulty());
 
@@ -308,7 +307,7 @@ public class Siren extends AbstractGaiaEntity implements RangedAttackMob, IDayMo
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkSirenSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkSirenSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) &&
 				checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveY(pos, (levelAccessor.getSeaLevel() - 8)) &&

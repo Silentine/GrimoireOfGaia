@@ -12,7 +12,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -139,8 +139,8 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 	 */
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
-				new TranslatableComponent(titleKey),
-				new TranslatableComponent(descKey),
+				Component.translatable(titleKey),
+				Component.translatable(descKey),
 				background, FrameType.TASK, false, false, false);
 	}
 
@@ -153,8 +153,8 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 	 */
 	protected static DisplayInfo simpleDisplay(ItemLike icon, String name) {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
-				new TranslatableComponent(advancementPrefix(name + ".title")),
-				new TranslatableComponent(advancementPrefix(name + ".desc")),
+				Component.translatable(advancementPrefix(name + ".title")),
+				Component.translatable(advancementPrefix(name + ".desc")),
 				null, FrameType.TASK, true, false, false);
 	}
 

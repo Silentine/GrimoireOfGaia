@@ -1,0 +1,13 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:succubus",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 16
+  },
+  "whitelist": [
+    "#minecraft:is_nether"
+  ]
+}

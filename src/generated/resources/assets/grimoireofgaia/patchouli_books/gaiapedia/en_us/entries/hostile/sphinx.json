@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.sphinx.name",
+  "advancement": "grimoireofgaia:main/sphinx",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:sphinx_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.sphinx.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -54,6 +55,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.chest_desert.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/sphinx"
+  ]
 }

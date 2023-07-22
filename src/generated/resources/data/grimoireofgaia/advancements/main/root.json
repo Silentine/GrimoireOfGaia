@@ -1,26 +1,26 @@
 {
+  "criteria": {
+    "join": {
+      "conditions": {
+        "block": "minecraft:air"
+      },
+      "trigger": "minecraft:enter_block"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "grimoireofgaia:doll_dryad"
-    },
-    "title": {
-      "translate": "advancement.grimoireofgaia.root.title"
-    },
+    "announce_to_chat": false,
+    "background": "grimoireofgaia:textures/block/pearl_block_bottom.png",
     "description": {
       "translate": "advancement.grimoireofgaia.root.desc"
     },
     "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": false,
     "hidden": false,
-    "background": "grimoireofgaia:textures/block/pearl_block_bottom.png"
-  },
-  "criteria": {
-    "join": {
-      "trigger": "minecraft:enter_block",
-      "conditions": {
-        "block": "minecraft:air"
-      }
+    "icon": {
+      "item": "grimoireofgaia:doll_dryad"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.grimoireofgaia.root.title"
     }
   },
   "requirements": [

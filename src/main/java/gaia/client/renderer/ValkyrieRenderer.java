@@ -18,8 +18,8 @@ public class ValkyrieRenderer extends MobRenderer<Valkyrie, ValkyrieModel> {
 
 	public ValkyrieRenderer(Context context) {
 		super(context, new ValkyrieModel(context.bakeLayer(ClientHandler.VALKYRIE)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new AuraLayer<>(this, () -> new ValkyrieModel(context.bakeLayer(ClientHandler.VALKYRIE))));
 	}
 

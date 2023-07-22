@@ -3,7 +3,6 @@ package gaia.item.accessory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -28,12 +27,12 @@ public class KnucklesItem extends AbstractAccessoryItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
+		list.add(Component.translatable("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
 
 		if (Screen.hasShiftDown()) {
-			list.add(new TranslatableComponent("text.grimoireofgaia.charm.damage", damage));
+			list.add(Component.translatable("text.grimoireofgaia.charm.damage", damage));
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

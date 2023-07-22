@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.ant.name",
+  "advancement": "grimoireofgaia:main/ant",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:ant_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.ant.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_iron.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/ant"
+  ]
 }

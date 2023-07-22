@@ -22,8 +22,8 @@ public class CentaurRenderer extends MobRenderer<Centaur, CentaurModel> {
 
 	public CentaurRenderer(Context context) {
 		super(context, new CentaurModel(context.bakeLayer(ClientHandler.CENTAUR)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

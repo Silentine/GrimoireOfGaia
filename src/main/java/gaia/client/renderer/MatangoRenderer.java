@@ -16,8 +16,8 @@ public class MatangoRenderer extends MobRenderer<Matango, MatangoModel> {
 
 	public MatangoRenderer(Context context) {
 		super(context, new MatangoModel(context.bakeLayer(ClientHandler.MATANGO)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

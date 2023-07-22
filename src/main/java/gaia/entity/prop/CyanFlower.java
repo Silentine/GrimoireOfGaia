@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,8 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class CyanFlower extends AbstractPropEntity {
 
@@ -219,7 +218,7 @@ public class CyanFlower extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkCyanFlowerSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkCyanFlowerSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) &&
 				checkTagBlocks(levelAccessor, pos, GaiaTags.FLOWER_SPAWNABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) &&

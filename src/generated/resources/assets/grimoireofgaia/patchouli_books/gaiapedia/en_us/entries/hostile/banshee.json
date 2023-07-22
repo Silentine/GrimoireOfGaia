@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.banshee.name",
+  "advancement": "grimoireofgaia:main/banshee",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:banshee_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.banshee.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -43,6 +44,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_nightmare.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/banshee"
+  ]
 }

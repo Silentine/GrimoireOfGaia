@@ -16,8 +16,8 @@ public class BeeRenderer extends MobRenderer<Bee, BeeModel> {
 
 	public BeeRenderer(Context context) {
 		super(context, new BeeModel(context.bakeLayer(ClientHandler.BEE)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.naga.name",
+  "advancement": "grimoireofgaia:main/naga",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:naga_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.naga.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.bag_book.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/naga"
+  ]
 }

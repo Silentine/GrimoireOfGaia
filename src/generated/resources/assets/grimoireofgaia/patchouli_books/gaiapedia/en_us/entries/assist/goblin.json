@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.goblin.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:goblin_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.goblin.name",
   "pages": [
     {
       "type": "patchouli:text",

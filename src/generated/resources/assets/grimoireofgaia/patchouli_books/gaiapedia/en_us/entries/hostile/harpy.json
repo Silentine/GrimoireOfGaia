@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.harpy.name",
+  "advancement": "grimoireofgaia:main/harpy",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:harpy_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.harpy.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.deco_nest_harpy.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/harpy"
+  ]
 }

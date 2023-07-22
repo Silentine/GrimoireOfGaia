@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.siren.name",
+  "advancement": "grimoireofgaia:main/siren",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:siren_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.siren.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.bag_arrows.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/siren"
+  ]
 }

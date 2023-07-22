@@ -1,0 +1,14 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:sharko",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 40
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#forge:is_water"
+  ]
+}

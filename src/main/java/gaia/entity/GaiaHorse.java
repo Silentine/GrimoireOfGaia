@@ -2,6 +2,7 @@ package gaia.entity;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,10 +18,10 @@ public class GaiaHorse extends AbstractHorse {
 		super(entityType, level);
 	}
 
-	protected void randomizeAttributes() {
+	protected void randomizeAttributes(RandomSource randomSource) {
 		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
 		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.30D);
-		this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateRandomJumpStrength());
+		this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateRandomJumpStrength(randomSource));
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
@@ -43,7 +44,6 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 public class Behender extends AbstractGaiaEntity implements RangedAttackMob, PowerableMob {
 	private int teleportTimer;
@@ -70,11 +70,11 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, 80.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_RANGED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
 				.add(Attributes.FLYING_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ATTACK_DAMAGE, 8.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
 
@@ -255,7 +255,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkBehenderSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkBehenderSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

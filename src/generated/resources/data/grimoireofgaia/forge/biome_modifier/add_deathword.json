@@ -1,0 +1,16 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#minecraft:has_structure/ancient_city",
+    "#forge:is_mushroom"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:deathword",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 40
+  },
+  "whitelist": [
+    "#minecraft:is_overworld"
+  ]
+}

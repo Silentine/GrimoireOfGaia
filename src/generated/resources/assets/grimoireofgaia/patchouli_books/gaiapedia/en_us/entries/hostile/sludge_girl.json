@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.sludge_girl.name",
+  "advancement": "grimoireofgaia:main/sludge_girl",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:sludge_girl_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.sludge_girl.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -31,6 +32,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_iron.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/sludge_girl"
+  ]
 }

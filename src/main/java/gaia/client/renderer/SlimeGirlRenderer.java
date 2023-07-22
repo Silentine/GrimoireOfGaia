@@ -17,8 +17,8 @@ public class SlimeGirlRenderer extends MobRenderer<SlimeGirl, SlimeGirlModel> {
 	public SlimeGirlRenderer(Context context) {
 		super(context, new SlimeGirlModel(context.bakeLayer(ClientHandler.SLIME_GIRL)), ClientHandler.medShadow);
 		this.addLayer(new SlimeGirlHairLayer(this, context.getModelSet()));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

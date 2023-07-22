@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.mummy.name",
+  "advancement": "grimoireofgaia:main/mummy",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:mummy_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.mummy.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_iron.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/mummy"
+  ]
 }

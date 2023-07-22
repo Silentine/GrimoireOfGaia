@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.slime_girl.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:spawn_slime_girl",
+  "name": "info.grimoireofgaia.book.entry.slime_girl.name",
   "pages": [
     {
       "type": "patchouli:text",

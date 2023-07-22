@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -37,7 +38,6 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class Banshee extends AbstractGaiaEntity {
 	protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Banshee.class, EntityDataSerializers.BYTE);
@@ -70,10 +70,10 @@ public class Banshee extends AbstractGaiaEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, 80.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ATTACK_DAMAGE, 8.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -228,7 +228,7 @@ public class Banshee extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkBansheeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkBansheeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 

@@ -2,8 +2,6 @@
   "type": "minecraft:gift",
   "pools": [
     {
-      "name": "main",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -30,7 +28,9 @@
           "type": "minecraft:item",
           "name": "grimoireofgaia:headgear_ears_elf"
         }
-      ]
+      ],
+      "name": "main",
+      "rolls": 1.0
     }
   ]
 }

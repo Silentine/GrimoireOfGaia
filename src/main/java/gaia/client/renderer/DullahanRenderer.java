@@ -16,8 +16,8 @@ public class DullahanRenderer extends MobRenderer<Dullahan, DullahanModel> {
 
 	public DullahanRenderer(Context context) {
 		super(context, new DullahanModel(context.bakeLayer(ClientHandler.DULLAHAN)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -17,8 +17,8 @@ public class ArachneRenderer extends MobRenderer<Arachne, ArachneModel> {
 
 	public ArachneRenderer(Context context) {
 		super(context, new ArachneModel(context.bakeLayer(ClientHandler.ARACHNE)), ClientHandler.largeShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new ArachneEyesLayer(this));
 	}
 

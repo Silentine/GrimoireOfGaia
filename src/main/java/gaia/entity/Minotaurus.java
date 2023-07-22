@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,8 +47,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
 public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, PowerableMob {
 
 	private final RangedBowAttackGoal rangedAttackGoal = new RangedBowAttackGoal<Minotaurus>(this, SharedEntityData.ATTACK_SPEED_2, 20, 15.0F);
@@ -71,10 +70,10 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, 80.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_MIXED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ATTACK_DAMAGE, 8.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -179,7 +178,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		if (random.nextInt(4) == 0) {
 			setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
 		} else {
@@ -190,12 +189,12 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	private void mobClass(DifficultyInstance difficultyInstance, int id) {
 		switch (id) {
 			default -> {
-				this.populateDefaultEquipmentSlots(difficultyInstance);
-				this.populateDefaultEquipmentEnchantments(difficultyInstance);
+				this.populateDefaultEquipmentSlots(random, difficultyInstance);
+				this.populateDefaultEquipmentSlots(random, difficultyInstance);
 			}
 			case 1 -> {
 				setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-				this.populateDefaultEquipmentEnchantments(difficultyInstance);
+				this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 				if (random.nextBoolean()) {
 					if (random.nextInt(2) == 0) {
@@ -262,7 +261,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkMinotaurusSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkMinotaurusSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

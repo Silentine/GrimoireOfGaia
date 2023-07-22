@@ -1,7 +1,6 @@
 package gaia.item;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -62,6 +61,6 @@ public class LootableItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.right_click_use"));
+		list.add(Component.translatable("text.grimoireofgaia.right_click_use"));
 	}
 }

@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.sharko.name",
+  "advancement": "grimoireofgaia:main/sharko",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:sharko_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.sharko.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -48,6 +49,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_buff.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/sharko"
+  ]
 }

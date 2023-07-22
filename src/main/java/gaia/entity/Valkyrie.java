@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,8 +47,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, PowerableMob {
 	private static final EntityDataAccessor<Boolean> IS_BUFFED = SynchedEntityData.defineId(Valkyrie.class, EntityDataSerializers.BOOLEAN);
@@ -90,10 +89,10 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth3())
+				.add(Attributes.MAX_HEALTH, 160.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_3)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage3())
+				.add(Attributes.ATTACK_DAMAGE, 12.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_3)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_3)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -299,9 +298,9 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-		populateDefaultEquipmentEnchantments(instance);
+		populateDefaultEquipmentEnchantments(random, instance);
 
 		ItemStack swimmingBoots = new ItemStack(Items.LEATHER_BOOTS);
 		setItemSlot(EquipmentSlot.FEET, swimmingBoots);
@@ -322,7 +321,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		if (random.nextInt(10) == 0) {
 			setBaby(true);
 		}
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		setCombatTask();
 
@@ -386,7 +385,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		return true;
 	}
 
-	public static boolean checkValkyrieSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkValkyrieSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

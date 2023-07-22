@@ -17,8 +17,8 @@ public class EnderGirlRenderer extends MobRenderer<EnderGirl, EnderGirlModel> {
 	public EnderGirlRenderer(Context context) {
 		super(context, new EnderGirlModel(context.bakeLayer(ClientHandler.ENDER_GIRL)), ClientHandler.medShadow);
 		this.addLayer(new EnderGirlEyeLayer(this));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

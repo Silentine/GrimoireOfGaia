@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,7 +49,6 @@ import org.jetbrains.annotations.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -63,6 +63,23 @@ public abstract class AbstractGaiaEntity extends Monster {
 	public AbstractGaiaEntity(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_1;
+	}
+
+	public void finalizeAttributes() {
+		switch (getGaiaLevel()) {
+			default -> {
+				getAttribute(Attributes.MAX_HEALTH).setBaseValue(SharedEntityData.getMaxHealth1());
+				getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(SharedEntityData.getAttackDamage1());
+			}
+			case 2 -> {
+				getAttribute(Attributes.MAX_HEALTH).setBaseValue(SharedEntityData.getMaxHealth2());
+				getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(SharedEntityData.getAttackDamage2());
+			}
+			case 3 -> {
+				getAttribute(Attributes.MAX_HEALTH).setBaseValue(SharedEntityData.getMaxHealth3());
+				getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(SharedEntityData.getAttackDamage3());
+			}
+		}
 	}
 
 	@Override
@@ -161,6 +178,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
+		this.finalizeAttributes();
 
 		//Setup health changes
 		switch (getGaiaLevel()) {
@@ -332,7 +350,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 		return this instanceof IDayMob ? 0.0F : super.getWalkTargetValue(pos, levelReader);
 	}
 
-	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 

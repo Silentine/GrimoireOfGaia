@@ -22,8 +22,8 @@ public class EnderDragonGirlRenderer extends MobRenderer<EnderDragonGirl, EnderD
 
 	public EnderDragonGirlRenderer(Context context) {
 		super(context, new EnderDragonGirlModel(context.bakeLayer(ClientHandler.ENDER_DRAGON_GIRL)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new EnderDragonGirlEyesLayer(this));
 	}
 

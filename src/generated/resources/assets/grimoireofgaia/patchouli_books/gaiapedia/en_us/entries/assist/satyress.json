@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.satyress.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:satyress_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.satyress.name",
   "pages": [
     {
       "type": "patchouli:text",

@@ -1,0 +1,15 @@
+// 1.19.2	2023-07-22T01:14:34.8380958	Tags for minecraft:item
+5991696f1996600a1dea1afb9feeaacebd304b13 data/curios/tags/items/body.json
+a636f60d8af31ad1435573797b047d222010e8dd data/curios/tags/items/charm.json
+8d89fe470a31f85f30f5b4762c84b3caed9d9778 data/curios/tags/items/head.json
+1b0f47469e1e1803e463215af4a779423e31edb4 data/curios/tags/items/necklace.json
+aeffd60889b81257f03d300e1adcfda27396cf42 data/curios/tags/items/ring.json
+6683095c1bf7aaaebfa4ebde58689633752bfe57 data/forge/tags/items/nuggets.json
+2840d89ab4931ddc5368b42af5e42dba0ea500ba data/forge/tags/items/nuggets/diamond.json
+ca1c040448916edc4aa816de9041a574bece54fe data/forge/tags/items/nuggets/emerald.json
+2ab4c9222d485f87ec74272e4ee14313fe077364 data/forge/tags/items/records.json
+6c4def0526333c1f063c27cca00cf2eec6f8e613 data/forge/tags/items/tools.json
+e1c76ab477e3648da3b2e0b66a72e1c4f99df770 data/forge/tags/items/tools/axes.json
+ecf525b6525fda87455e7bd92fe724d4975d18b0 data/forge/tags/items/tools/shovels.json
+2427cd0f424eff561f7b613f203c6b758942802f data/grimoireofgaia/tags/items/dimensional_boxes.json
+c44a5a3999b92845919737c79f942d93d860e93a data/grimoireofgaia/tags/items/golden_tools.json

@@ -2,7 +2,6 @@ package gaia.item.fuel;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -23,7 +22,7 @@ public class FuelItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.fuel_for_seconds", (getBurnTime(stack, null) / 2)).withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("text.grimoireofgaia.fuel_for_seconds", (getBurnTime(stack, null) / 2)).withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

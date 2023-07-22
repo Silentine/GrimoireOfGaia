@@ -3,8 +3,6 @@ package gaia.item.edible;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +30,7 @@ public class EdibleEffectItem extends Item {
 				int totalSeconds = effect.getDuration() / 20;
 				int minutes = (totalSeconds % 3600) / 60;
 				int seconds = totalSeconds % 60;
-				list.add(new TranslatableComponent(effect.getDescriptionId()).append(new TextComponent(" (" + minutes + ":" + seconds + ")")).withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable(effect.getDescriptionId()).append(Component.literal(" (" + minutes + ":" + seconds + ")")).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}

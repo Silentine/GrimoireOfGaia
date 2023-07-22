@@ -17,7 +17,7 @@ public class SporelingRenderer extends MobRenderer<Sporeling, SporelingModel> {
 
 	public SporelingRenderer(Context context) {
 		super(context, new SporelingModel(context.bakeLayer(ClientHandler.SPORELING)), ClientHandler.tinyShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 	}
 
 	@Override

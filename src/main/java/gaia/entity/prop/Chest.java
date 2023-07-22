@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +40,6 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 public class Chest extends AbstractPropEntity {
 	private static final EntityDataAccessor<Integer> ROTATION = SynchedEntityData.defineId(Chest.class, EntityDataSerializers.INT);
@@ -116,7 +116,7 @@ public class Chest extends AbstractPropEntity {
 		yHeadRot = 180.0F;
 		yHeadRotO = 180.0F;
 
-		Random random = levelAccessor.getRandom();
+		RandomSource random = levelAccessor.getRandom();
 		switch (random.nextInt(4)) {
 			case 0 -> setRotation(0);
 			case 1 -> setRotation(1);
@@ -272,7 +272,7 @@ public class Chest extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkChestSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkChestSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkPropSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

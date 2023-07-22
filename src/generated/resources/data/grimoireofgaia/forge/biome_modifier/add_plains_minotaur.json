@@ -1,0 +1,16 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#minecraft:is_savanna"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:minotaur",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 10
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#forge:is_plains"
+  ]
+}

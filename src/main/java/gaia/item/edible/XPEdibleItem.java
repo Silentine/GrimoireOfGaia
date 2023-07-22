@@ -1,7 +1,7 @@
 package gaia.item.edible;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -10,13 +10,12 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 import java.util.function.Function;
 
 public class XPEdibleItem extends EdibleEffectItem {
-	private final Function<Random, Integer> experienceFunction;
+	private final Function<RandomSource, Integer> experienceFunction;
 
-	public XPEdibleItem(Properties properties, Function<Random, Integer> experienceFunction) {
+	public XPEdibleItem(Properties properties, Function<RandomSource, Integer> experienceFunction) {
 		super(properties);
 		this.experienceFunction = experienceFunction;
 	}
@@ -24,7 +23,7 @@ public class XPEdibleItem extends EdibleEffectItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.gain_experience"));
+		list.add(Component.translatable("text.grimoireofgaia.gain_experience"));
 	}
 
 	@Override

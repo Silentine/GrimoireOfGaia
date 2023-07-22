@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -42,8 +43,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
 public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	private int spawnTime;
 
@@ -72,10 +71,10 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth3())
+				.add(Attributes.MAX_HEALTH, 160.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_3)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage3())
+				.add(Attributes.ATTACK_DAMAGE, 12.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_3)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_3)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 6.0F);
@@ -174,7 +173,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		ItemStack swimmingBoots = new ItemStack(Items.LEATHER_BOOTS);
 		swimmingBoots.enchant(Enchantments.DEPTH_STRIDER, 2);
 		setItemSlot(EquipmentSlot.FEET, swimmingBoots);
@@ -186,7 +185,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		return data;
 	}
@@ -228,7 +227,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		return SharedEntityData.CHUNK_LIMIT_3;
 	}
 
-	public static boolean checkSphinxSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkSphinxSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		boolean flag = checkAboveSeaLevel(levelAccessor, pos) && checkDaysPassed(levelAccessor);
 		if (GaiaConfig.COMMON.spawnLevel3Rain.get()) {
 			return flag && checkRaining(levelAccessor) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);

@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.cobblestone_golem.name",
+  "advancement": "grimoireofgaia:main/cobblestone_golem",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:cobblestone_golem_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.cobblestone_golem.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -54,6 +55,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_metal.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/cobblestone_golem"
+  ]
 }

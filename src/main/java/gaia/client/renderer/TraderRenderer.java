@@ -15,8 +15,8 @@ public class TraderRenderer extends MobRenderer<Trader, TraderModel> {
 
 	public TraderRenderer(Context context) {
 		super(context, new TraderModel(context.bakeLayer(ClientHandler.TRADER)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

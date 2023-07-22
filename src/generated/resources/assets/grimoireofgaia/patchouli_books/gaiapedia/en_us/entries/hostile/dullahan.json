@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.dullahan.name",
+  "advancement": "grimoireofgaia:main/dullahan",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:dullahan_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.dullahan.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.doll_dullahan.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/dullahan"
+  ]
 }

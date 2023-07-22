@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "grimoireofgaia:block/doll_slime_girl",
+      "y": 270
+    },
     "facing=north": {
       "model": "grimoireofgaia:block/doll_slime_girl",
       "y": 180
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "grimoireofgaia:block/doll_slime_girl",
       "y": 90
-    },
-    "facing=east": {
-      "model": "grimoireofgaia:block/doll_slime_girl",
-      "y": 270
     }
   }
 }

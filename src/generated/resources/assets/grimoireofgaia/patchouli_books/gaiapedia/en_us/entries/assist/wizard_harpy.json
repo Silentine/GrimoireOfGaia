@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.wizard_harpy.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:wizard_harpy_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.wizard_harpy.name",
   "pages": [
     {
       "type": "patchouli:text",

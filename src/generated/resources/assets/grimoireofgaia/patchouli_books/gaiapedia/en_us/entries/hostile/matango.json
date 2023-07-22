@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.matango.name",
+  "advancement": "grimoireofgaia:main/matango",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:matango_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.matango.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_iron.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/matango"
+  ]
 }

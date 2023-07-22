@@ -3,7 +3,6 @@ package gaia.item.accessory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -25,14 +24,14 @@ public class RingItem extends AbstractAccessoryItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.ring.tag").withStyle(ChatFormatting.YELLOW));
+		list.add(Component.translatable("text.grimoireofgaia.ring.tag").withStyle(ChatFormatting.YELLOW));
 
 		if (Screen.hasShiftDown()) {
 			for (Supplier<MobEffectInstance> effect : mobEffects) {
-				list.add(new TranslatableComponent(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
 			}
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

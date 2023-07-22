@@ -6,6 +6,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,8 +40,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
 public class BoneKnight extends AbstractGaiaEntity {
 
 	public BoneKnight(EntityType<? extends Monster> entityType, Level level) {
@@ -63,10 +62,10 @@ public class BoneKnight extends AbstractGaiaEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth2())
+				.add(Attributes.MAX_HEALTH, 80.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_2)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage2())
+				.add(Attributes.ATTACK_DAMAGE, 8.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_2)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_2)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -154,7 +153,7 @@ public class BoneKnight extends AbstractGaiaEntity {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficultyInstance) {
 		setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.STONE_SWORD));
 		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(GaiaRegistry.BONE_SHIELD.get()));
 	}
@@ -165,8 +164,8 @@ public class BoneKnight extends AbstractGaiaEntity {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		populateDefaultEquipmentSlots(difficultyInstance);
-		populateDefaultEquipmentEnchantments(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
+		this.populateDefaultEquipmentEnchantments(random, difficultyInstance);
 
 		return data;
 	}
@@ -211,7 +210,7 @@ public class BoneKnight extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkBoneKnightSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkBoneKnightSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

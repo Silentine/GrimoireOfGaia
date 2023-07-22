@@ -3,7 +3,6 @@ package gaia.item.edible;
 import gaia.entity.AbstractGaiaEntity;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,13 +23,13 @@ public class MonsterFeedItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.monster_feed.desc"));
+		list.add(Component.translatable("text.grimoireofgaia.monster_feed.desc"));
 		if (stack.is(GaiaRegistry.MONSTER_FEED.get())) {
-			list.add(new TranslatableComponent("text.grimoireofgaia.food_monster_feed.desc"));
+			list.add(Component.translatable("text.grimoireofgaia.food_monster_feed.desc"));
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.premium_food_monster_feed.desc"));
+			list.add(Component.translatable("text.grimoireofgaia.premium_food_monster_feed.desc"));
 		}
-		list.add(new TranslatableComponent("item.grimoireofgaia.food_monster_feed2.desc"));
+		list.add(Component.translatable("item.grimoireofgaia.food_monster_feed2.desc"));
 	}
 
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {

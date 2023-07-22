@@ -7,6 +7,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,8 +36,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
 public class Dullahan extends AbstractGaiaEntity {
 
 	public Dullahan(EntityType<? extends Monster> entityType, Level level) {
@@ -56,10 +55,10 @@ public class Dullahan extends AbstractGaiaEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, 40.0D)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1())
+				.add(Attributes.ATTACK_DAMAGE, 4.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
@@ -114,7 +113,7 @@ public class Dullahan extends AbstractGaiaEntity {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(GaiaRegistry.CURSED_METAL_SWORD.get()));
 	}
 
@@ -124,8 +123,8 @@ public class Dullahan extends AbstractGaiaEntity {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
-		this.populateDefaultEquipmentEnchantments(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		if (random.nextInt(8) == 0 && level.getDifficulty() != Difficulty.PEACEFUL) {
 			GaiaHorse gaiaHorse = createHorse(difficultyInstance);
@@ -167,7 +166,7 @@ public class Dullahan extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkDullahanSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkDullahanSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

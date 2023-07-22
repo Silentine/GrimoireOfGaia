@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.cyclops.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:cyclops_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.cyclops.name",
   "pages": [
     {
       "type": "patchouli:text",

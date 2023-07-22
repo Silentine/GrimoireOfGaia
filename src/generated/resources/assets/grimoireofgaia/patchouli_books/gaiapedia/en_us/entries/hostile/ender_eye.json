@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.ender_eye.name",
+  "advancement": "grimoireofgaia:main/ender_eye",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:ender_eye_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.ender_eye.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.doll_ender_girl.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/ender_eye"
+  ]
 }

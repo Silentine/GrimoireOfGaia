@@ -16,7 +16,7 @@ public class HarpyRenderer extends GaiaBabyMobRenderer<Harpy, HarpyModel> {
 
 	public HarpyRenderer(Context context) {
 		super(context, new HarpyModel(context.bakeLayer(ClientHandler.HARPY)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 	}
 
 	@Override

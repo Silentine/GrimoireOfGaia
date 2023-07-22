@@ -15,7 +15,7 @@ public class SharkoRenderer extends MobRenderer<Sharko, SharkoModel> {
 
 	public SharkoRenderer(Context context) {
 		super(context, new SharkoModel(context.bakeLayer(ClientHandler.SHARKO)), ClientHandler.medShadow);
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -21,8 +21,8 @@ public class DwarfRenderer extends MobRenderer<Dwarf, DwarfModel> {
 	public DwarfRenderer(Context context) {
 		super(context, new DwarfModel(context.bakeLayer(ClientHandler.DWARF)), ClientHandler.smallShadow);
 		this.addLayer(new DwarfEyeLayer(this));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

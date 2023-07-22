@@ -18,7 +18,7 @@ public class SphinxRenderer extends MobRenderer<Sphinx, SphinxModel> {
 
 	public SphinxRenderer(Context context) {
 		super(context, new SphinxModel(context.bakeLayer(ClientHandler.SPHINX)), ClientHandler.largeShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 		this.addLayer(new AuraLayer<>(this, () -> new SphinxModel(context.bakeLayer(ClientHandler.SPHINX))));
 	}
 

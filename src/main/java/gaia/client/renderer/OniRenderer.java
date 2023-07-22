@@ -17,8 +17,8 @@ public class OniRenderer extends MobRenderer<Oni, OniModel> {
 
 	public OniRenderer(Context context) {
 		super(context, new OniModel(context.bakeLayer(ClientHandler.ONI)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

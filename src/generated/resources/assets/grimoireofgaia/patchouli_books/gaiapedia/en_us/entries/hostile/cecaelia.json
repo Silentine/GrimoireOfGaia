@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.cecaelia.name",
+  "advancement": "grimoireofgaia:main/cecaelia",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:cecaelia_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.cecaelia.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/cecaelia"
+  ]
 }

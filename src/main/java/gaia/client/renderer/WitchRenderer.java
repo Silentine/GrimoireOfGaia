@@ -18,8 +18,8 @@ public class WitchRenderer extends MobRenderer<Witch, WitchModel> {
 
 	public WitchRenderer(Context context) {
 		super(context, new WitchModel(context.bakeLayer(ClientHandler.WITCH)), ClientHandler.tinyShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new GaiaItemInHandLayer<>(this, HumanoidArm.RIGHT));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new GaiaItemInHandLayer<>(this, HumanoidArm.RIGHT, context.getItemInHandRenderer()));
 	}
 
 	@Override

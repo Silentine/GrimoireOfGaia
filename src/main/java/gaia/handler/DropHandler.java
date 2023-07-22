@@ -9,7 +9,7 @@ public class DropHandler {
 
 	@SubscribeEvent
 	public void onLivingDrop(LivingDropsEvent event) {
-		LivingEntity livingEntity = event.getEntityLiving();
+		LivingEntity livingEntity = event.getEntity();
 		if (livingEntity.getPersistentData().contains(Reference.SUMMONED_TAG)) {
 			event.getDrops().clear();
 		}

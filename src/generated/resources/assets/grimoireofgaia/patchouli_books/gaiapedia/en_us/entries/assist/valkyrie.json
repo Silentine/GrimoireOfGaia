@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.valkyrie.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:valkyrie_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.valkyrie.name",
   "pages": [
     {
       "type": "patchouli:text",

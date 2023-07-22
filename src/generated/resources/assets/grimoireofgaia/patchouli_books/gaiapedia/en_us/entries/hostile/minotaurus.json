@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.minotaurus.name",
+  "advancement": "grimoireofgaia:main/minotaurus",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:minotaurus_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.minotaurus.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_battle.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/minotaurus"
+  ]
 }

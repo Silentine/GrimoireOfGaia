@@ -17,8 +17,8 @@ public class MummyRenderer extends MobRenderer<Mummy, MummyModel> {
 
 	public MummyRenderer(Context context) {
 		super(context, new MummyModel(context.bakeLayer(ClientHandler.MUMMY)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

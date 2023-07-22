@@ -17,8 +17,8 @@ public class GoblinRenderer extends MobRenderer<Goblin, GoblinModel<Goblin>> {
 
 	public GoblinRenderer(Context context) {
 		super(context, new GoblinModel(context.bakeLayer(ClientHandler.GOBLIN)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

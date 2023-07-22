@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.wither_cow.name",
+  "advancement": "grimoireofgaia:main/wither_cow",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:wither_cow_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.wither_cow.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_nether.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/wither_cow"
+  ]
 }

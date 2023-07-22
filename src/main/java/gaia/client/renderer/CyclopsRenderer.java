@@ -16,8 +16,8 @@ public class CyclopsRenderer extends MobRenderer<Cyclops, CyclopsModel> {
 
 	public CyclopsRenderer(Context context) {
 		super(context, new CyclopsModel(context.bakeLayer(ClientHandler.CYCLOPS)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

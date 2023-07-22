@@ -1,0 +1,15 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:ender_dragon_girl",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 1
+  },
+  "whitelist": [
+    "#minecraft:is_end",
+    "#forge:is_cold/end",
+    "#forge:is_dry/end"
+  ]
+}

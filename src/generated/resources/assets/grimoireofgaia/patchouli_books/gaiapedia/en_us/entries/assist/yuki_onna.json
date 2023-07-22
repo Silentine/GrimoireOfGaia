@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.yuki_onna.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:yuki_onna_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.yuki_onna.name",
   "pages": [
     {
       "type": "patchouli:text",

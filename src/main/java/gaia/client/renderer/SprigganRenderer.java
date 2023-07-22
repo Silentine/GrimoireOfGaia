@@ -17,8 +17,8 @@ public class SprigganRenderer extends MobRenderer<Spriggan, SprigganModel> {
 
 	public SprigganRenderer(Context context) {
 		super(context, new SprigganModel(context.bakeLayer(ClientHandler.SPRIGGAN)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new SprigganEyesLayer(this));
 	}
 

@@ -1,0 +1,6 @@
+// 1.19.2	2023-07-22T01:14:34.8335977	Tags for minecraft:block
+69c396cb051bbe9a130e6979b67065e5041b179d data/grimoireofgaia/tags/blocks/flower_spawnable_on.json
+d79ccb51bdd54950f5392a1ee345104fb8956702 data/grimoireofgaia/tags/blocks/gaia_spawnable_on.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/grimoireofgaia/tags/blocks/needs_book.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/grimoireofgaia/tags/blocks/needs_cursed_metal.json
+99fa44499df12e63f6a2146f265c132659b7fb5b data/minecraft/tags/blocks/mineable/pickaxe.json

@@ -127,7 +127,6 @@ import gaia.client.renderer.layer.WitherCowRenderer;
 import gaia.client.renderer.prop.AntHillRenderer;
 import gaia.client.renderer.prop.ChestRenderer;
 import gaia.client.renderer.prop.CyanFlowerRenderer;
-import gaia.entity.Arachne;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -137,18 +136,18 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterEntitySpectatorShadersEvent;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.resource.PathResourcePack;
+import net.minecraftforge.resource.PathPackResources;
 
 import java.io.IOException;
 
@@ -226,8 +225,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
 	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
 	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
-
-
+	
 	public static void onClientSetup(final FMLClientSetupEvent event) {
 		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_GORGON.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_SPHINX.get(), RenderType.cutout());
@@ -252,8 +250,6 @@ public class ClientHandler {
 			gaia.compat.curios.client.CuriosRendering.onRenderSetup();
 		}
 
-		ClientRegistry.registerEntityShader(Arachne.class, new ResourceLocation("shaders/post/spider.json"));
-
 		event.enqueueWork(() -> {
 			ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, livingEntity, i) ->
 					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
@@ -268,16 +264,20 @@ public class ClientHandler {
 		});
 	}
 
+	public static void setupSpectatingShaders(RegisterEntitySpectatorShadersEvent event) {
+		event.register(GaiaRegistry.ARACHNE.getEntityType(), new ResourceLocation("shaders/post/spider.json"));
+	}
+
 	public static void addPackFinders(AddPackFindersEvent event) {
 		try {
 			if (event.getPackType() == PackType.CLIENT_RESOURCES) {
 				var resourcePath = ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().findResource("optional_sound_pack");
-				var pack = new PathResourcePack(ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().getFileName() + ":" + resourcePath, resourcePath);
+				var pack = new PathPackResources(ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().getFileName() + ":" + resourcePath, resourcePath);
 				var metadataSection = pack.getMetadataSection(PackMetadataSection.SERIALIZER);
 				if (metadataSection != null) {
 					event.addRepositorySource((packConsumer, packConstructor) ->
 							packConsumer.accept(packConstructor.create(
-									"builtin/add_pack_finders_test", new TextComponent("\u00A76Optional GoG4 sound pack"), false,
+									"builtin/add_pack_finders_test", Component.literal("\u00A76Optional GoG4 sound pack"), false,
 									() -> pack, metadataSection, Pack.Position.TOP, PackSource.BUILT_IN, false)));
 				}
 			}

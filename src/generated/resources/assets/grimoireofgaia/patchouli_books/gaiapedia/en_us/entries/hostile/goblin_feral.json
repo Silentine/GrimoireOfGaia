@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.goblin_feral.name",
+  "advancement": "grimoireofgaia:main/goblin_feral",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:goblin_feral_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.goblin_feral.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -18,6 +19,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.iron_nugget.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/goblin_feral"
+  ]
 }

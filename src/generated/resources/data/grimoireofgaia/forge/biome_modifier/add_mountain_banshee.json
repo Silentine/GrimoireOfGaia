@@ -1,0 +1,17 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#forge:is_hot",
+    "#forge:is_dense"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:banshee",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 40
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#forge:is_mountain"
+  ]
+}

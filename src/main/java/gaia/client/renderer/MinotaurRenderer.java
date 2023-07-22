@@ -19,7 +19,7 @@ public class MinotaurRenderer extends MobRenderer<Minotaur, MinotaurModel> {
 
 	public MinotaurRenderer(Context context) {
 		super(context, new MinotaurModel(context.bakeLayer(ClientHandler.MINOTAUR)), ClientHandler.medShadow);
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new MinotaurEyesLayer(this));
 		this.addLayer(new AuraLayer<>(this, () -> new MinotaurModel(context.bakeLayer(ClientHandler.MINOTAUR))));
 	}

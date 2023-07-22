@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -73,6 +72,6 @@ public class SoulfireItem extends FuelItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.soulfire.desc").withStyle(ChatFormatting.ITALIC));
+		list.add(Component.translatable("text.grimoireofgaia.soulfire.desc").withStyle(ChatFormatting.ITALIC));
 	}
 }

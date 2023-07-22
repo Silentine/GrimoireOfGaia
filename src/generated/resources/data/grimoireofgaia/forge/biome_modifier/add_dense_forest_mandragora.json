@@ -1,0 +1,22 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#forge:is_coniferous",
+    "#forge:is_cold",
+    "#forge:is_hot",
+    "#forge:is_sparse",
+    "#forge:is_spooky"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:mandragora",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 60
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#minecraft:is_forest",
+    "#forge:is_dense",
+    "#forge:is_rare"
+  ]
+}

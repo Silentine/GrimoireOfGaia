@@ -2,7 +2,6 @@ package gaia.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -54,9 +53,9 @@ public class ExperienceItem extends Item {
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
 		if (levels > 1) {
-			list.add(new TranslatableComponent("text.grimoireofgaia.gain_level", levels).withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("text.grimoireofgaia.gain_level", levels).withStyle(ChatFormatting.GRAY));
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.gain_levels", levels).withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("text.grimoireofgaia.gain_levels", levels).withStyle(ChatFormatting.GRAY));
 		}
 	}
 

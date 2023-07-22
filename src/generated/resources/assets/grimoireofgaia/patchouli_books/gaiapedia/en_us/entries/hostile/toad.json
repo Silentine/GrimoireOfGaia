@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.toad.name",
+  "advancement": "grimoireofgaia:main/toad",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:toad_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.toad.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -30,6 +31,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_iron.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/toad"
+  ]
 }

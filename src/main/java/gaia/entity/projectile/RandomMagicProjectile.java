@@ -29,7 +29,8 @@ import net.minecraftforge.network.PlayMessages.SpawnEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RandomMagicProjectile extends SmallFireball {
-	private static final EntityDataAccessor<ResourceLocation> EFFECT_LOCATION = SynchedEntityData.defineId(RandomMagicProjectile.class, GaiaDataSerializers.RESOURCE_LOCATION);
+	private static final EntityDataAccessor<ResourceLocation> EFFECT_LOCATION = SynchedEntityData.defineId(RandomMagicProjectile.class,
+			GaiaDataSerializers.RESOURCE_LOCATION.get());
 
 	public RandomMagicProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
 		super(entityType, level);
@@ -66,7 +67,7 @@ public class RandomMagicProjectile extends SmallFireball {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(EFFECT_LOCATION, MobEffects.MOVEMENT_SLOWDOWN.getRegistryName());
+		this.entityData.define(EFFECT_LOCATION, ForgeRegistries.MOB_EFFECTS.getKey(MobEffects.MOVEMENT_SLOWDOWN));
 	}
 
 	public ResourceLocation getEffectLocation() {
@@ -82,7 +83,7 @@ public class RandomMagicProjectile extends SmallFireball {
 	}
 
 	public void setEffect(MobEffect effect) {
-		setEffectLocation(effect.getRegistryName());
+		setEffectLocation(ForgeRegistries.MOB_EFFECTS.getKey(effect));
 	}
 
 	@Override

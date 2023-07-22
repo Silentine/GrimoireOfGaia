@@ -4,7 +4,6 @@ import gaia.registry.GaiaSounds;
 import gaia.util.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -40,11 +39,11 @@ public class EnderBookItem extends WeaponBookItem {
 			return;
 		}
 		if (player.getOffhandItem() == stack) {
-			list.add(new TranslatableComponent("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
+			list.add(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
+			list.add(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
 		}
-		list.add(new TranslatableComponent(MobEffects.BLINDNESS.getDescriptionId()).append(" II (0:04)"));
+		list.add(Component.translatable(MobEffects.BLINDNESS.getDescriptionId()).append(" II (0:04)"));
 	}
 
 	@Override

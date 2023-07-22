@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.behender.name",
+  "advancement": "grimoireofgaia:main/behender",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:behender_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.behender.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -43,6 +44,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_ender.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/behender"
+  ]
 }

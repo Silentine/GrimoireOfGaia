@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.mandragora.name",
+  "advancement": "grimoireofgaia:main/mandragora",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:mandragora_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.mandragora.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.deco_garden_gnome.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/mandragora"
+  ]
 }

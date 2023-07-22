@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.brassgoggledcoders.patchouliprovider.BookBuilder;
 import xyz.brassgoggledcoders.patchouliprovider.CategoryBuilder;
@@ -227,7 +228,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		EntryBuilder entryBuilder = builder.addEntry(category + "/" + path, prefix(entryPrefix + ".name"),
 						mobReg.spawnEgg().getId().toString())
 				.addTextPage(prefix(entryPrefix + ".info")).build();
-		EntityPageBuilder entityBuilder = entryBuilder.addEntityPage(mobReg.entityType().getRegistryName()).setText(prefix(entryPrefix + ".info2"));
+		EntityPageBuilder entityBuilder = entryBuilder.addEntityPage(ForgeRegistries.ENTITY_TYPES.getKey(mobReg.entityType())).setText(prefix(entryPrefix + ".info2"));
 		if (scale != 1.0F) {
 			entityBuilder.setScale(scale);
 		}
@@ -242,7 +243,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 			if (stack.getItem() == Items.AIR) break;
 			entryBuilder.addSpotlightPage(stack)
 					.setLinkRecipe(true)
-					.setText(prefix("drop." + stack.getItem().getRegistryName().getPath() + ".info"))
+					.setText(prefix("drop." + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + ".info"))
 					.build();
 		}
 
@@ -277,7 +278,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				.setAdvancement(advancement)
 				.addTextPage(prefix(entryPrefix + ".info")).build();
 
-		EntityPageBuilder entityBuilder = entryBuilder.addEntityPage(mobReg.entityType().getRegistryName()).setText(prefix(entryPrefix + ".info2"));
+		EntityPageBuilder entityBuilder = entryBuilder.addEntityPage(ForgeRegistries.ENTITY_TYPES.getKey(mobReg.entityType())).setText(prefix(entryPrefix + ".info2"));
 		if (scale != 1.0F) {
 			entityBuilder.setScale(scale);
 		}
@@ -292,7 +293,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 			if (stack.getItem() == Items.AIR) break;
 			entryBuilder.addSpotlightPage(stack)
 					.setLinkRecipe(true)
-					.setText(prefix("drop." + stack.getItem().getRegistryName().getPath() + ".info"))
+					.setText(prefix("drop." + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + ".info"))
 					.build();
 		}
 

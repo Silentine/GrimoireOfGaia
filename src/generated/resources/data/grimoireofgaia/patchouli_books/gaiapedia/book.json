@@ -1,17 +1,17 @@
 {
-  "name": "info.grimoireofgaia.book.name",
-  "landing_text": "info.grimoireofgaia.book.landing",
   "book_texture": "patchouli:textures/gui/book_red.png",
-  "model": "patchouli:book_red",
-  "show_progress": true,
-  "version": "Alpha 30",
-  "subtitle": "info.grimoireofgaia.book.subtitle",
   "creative_tab": "statues.items",
   "i18n": true,
-  "use_resource_pack": true,
+  "landing_text": "info.grimoireofgaia.book.landing",
   "macros": {
     "$(item)": "$(#b0b)",
     "$(mob)": "$(#e50)",
     "$(thing)": "$(#490)"
-  }
+  },
+  "model": "patchouli:book_red",
+  "name": "info.grimoireofgaia.book.name",
+  "show_progress": true,
+  "subtitle": "info.grimoireofgaia.book.subtitle",
+  "use_resource_pack": true,
+  "version": "Alpha 30"
 }

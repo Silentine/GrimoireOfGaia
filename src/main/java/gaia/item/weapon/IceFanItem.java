@@ -7,7 +7,6 @@ import gaia.registry.GaiaRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -57,12 +56,12 @@ public class IceFanItem extends FanItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
 
-		list.add(new TranslatableComponent("effect.minecraft.slowness").append(" IV (0:05)").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("effect.minecraft.slowness").append(" IV (0:05)").withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override
 	public void fillItemCategory(CreativeModeTab modeTab, NonNullList<ItemStack> itemStacks) {
-		if (!this.allowdedIn(modeTab)) {
+		if (!this.allowedIn(modeTab)) {
 			return;
 		}
 

@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,8 +45,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(GoblinFeral.class, EntityDataSerializers.INT);
@@ -82,13 +81,19 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1() * 0.5F)
+				.add(Attributes.MAX_HEALTH, 20)
 				.add(Attributes.FOLLOW_RANGE, SharedEntityData.FOLLOW_RANGE_MIXED)
 				.add(Attributes.MOVEMENT_SPEED, SharedEntityData.MOVE_SPEED_1)
-				.add(Attributes.ATTACK_DAMAGE, SharedEntityData.getAttackDamage1() * 0.5)
+				.add(Attributes.ATTACK_DAMAGE, 2)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.ATTACK_KNOCKBACK, SharedEntityData.KNOCKBACK_1)
 				.add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F);
+	}
+
+	@Override
+	public void finalizeAttributes() {
+		getAttribute(Attributes.MAX_HEALTH).setBaseValue(SharedEntityData.getMaxHealth1() * 0.5F);
+		getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(SharedEntityData.getAttackDamage1() * 0.5F);
 	}
 
 	@Override
@@ -217,7 +222,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance instance) {
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		if (random.nextInt(4) == 0) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 			this.setVariant(1);
@@ -227,10 +232,10 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 			} else {
 				if (random.nextInt(4) == 0) {
 					this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_SWORD));
-					this.populateDefaultEquipmentEnchantments(instance);
+					this.populateDefaultEquipmentEnchantments(random, instance);
 				} else {
 					this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-					this.populateDefaultEquipmentEnchantments(instance);
+					this.populateDefaultEquipmentEnchantments(random, instance);
 				}
 				this.setVariant(0);
 			}
@@ -243,7 +248,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		this.populateDefaultEquipmentSlots(difficultyInstance);
+		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		setCombatTask();
 
@@ -301,7 +306,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkGoblinFeralSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkGoblinFeralSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

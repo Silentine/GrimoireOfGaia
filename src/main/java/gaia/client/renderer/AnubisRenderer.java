@@ -20,8 +20,8 @@ public class AnubisRenderer extends MobRenderer<Anubis, AnubisModel> {
 
 	public AnubisRenderer(Context context) {
 		super(context, new AnubisModel(context.bakeLayer(ClientHandler.ANUBIS)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

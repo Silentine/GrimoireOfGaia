@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.ender_girl.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:spawn_ender_girl",
+  "name": "info.grimoireofgaia.book.entry.ender_girl.name",
   "pages": [
     {
       "type": "patchouli:text",

@@ -17,7 +17,7 @@ public class WerecatRenderer extends MobRenderer<Werecat, WerecatModel> {
 
 	public WerecatRenderer(EntityRendererProvider.Context context) {
 		super(context, new WerecatModel(context.bakeLayer(ClientHandler.WERECAT)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 		this.addLayer(new WerecatEyesLayer(this));
 	}
 

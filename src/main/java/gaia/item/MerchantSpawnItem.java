@@ -7,6 +7,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -69,13 +70,14 @@ public class MerchantSpawnItem extends Item {
 		} else if (!(level instanceof ServerLevel)) {
 			return InteractionResultHolder.success(itemstack);
 		} else {
-			BlockHitResult blockhitresult = (BlockHitResult)hitresult;
+			BlockHitResult blockhitresult = (BlockHitResult) hitresult;
 			BlockPos blockpos = blockhitresult.getBlockPos();
 			if (!(level.getBlockState(blockpos).getBlock() instanceof LiquidBlock)) {
 				return InteractionResultHolder.pass(itemstack);
 			} else if (level.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos, blockhitresult.getDirection(), itemstack)) {
 				EntityType<?> entitytype = typeSupplier.get();
-				if (entitytype.spawn((ServerLevel)level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false) == null) {
+				Entity entity = entitytype.spawn((ServerLevel) level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
+				if (entity == null) {
 					return InteractionResultHolder.pass(itemstack);
 				} else {
 					if (!player.getAbilities().instabuild) {
@@ -83,7 +85,7 @@ public class MerchantSpawnItem extends Item {
 					}
 
 					player.awardStat(Stats.ITEM_USED.get(this));
-					level.gameEvent(GameEvent.ENTITY_PLACE, player);
+					level.gameEvent(player, GameEvent.ENTITY_PLACE, entity.position());
 					return InteractionResultHolder.consume(itemstack);
 				}
 			} else {

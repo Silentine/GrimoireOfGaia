@@ -16,8 +16,8 @@ public class ToadRenderer extends MobRenderer<Toad, ToadModel> {
 
 	public ToadRenderer(Context context) {
 		super(context, new ToadModel(context.bakeLayer(ClientHandler.TOAD)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

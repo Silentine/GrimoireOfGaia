@@ -1,0 +1,15 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:minotaur",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 10
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#minecraft:is_forest",
+    "#forge:is_spooky"
+  ]
+}

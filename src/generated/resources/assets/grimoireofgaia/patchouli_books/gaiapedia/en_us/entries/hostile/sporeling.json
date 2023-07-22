@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.sporeling.name",
+  "advancement": "grimoireofgaia:main/sporeling",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:sporeling_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.sporeling.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -12,6 +13,5 @@
       "entity": "grimoireofgaia:sporeling",
       "text": "info.grimoireofgaia.book.entry.sporeling.info2"
     }
-  ],
-  "advancement": "grimoireofgaia:main/sporeling"
+  ]
 }

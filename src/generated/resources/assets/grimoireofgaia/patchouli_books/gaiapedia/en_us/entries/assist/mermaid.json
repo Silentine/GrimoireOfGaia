@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.mermaid.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:mermaid_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.mermaid.name",
   "pages": [
     {
       "type": "patchouli:text",

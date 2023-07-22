@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.flesh_lich.name",
+  "advancement": "grimoireofgaia:main/flesh_lich",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:flesh_lich_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.flesh_lich.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.zombie_head.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/flesh_lich"
+  ]
 }

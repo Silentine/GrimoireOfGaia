@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.ant_salvager.name",
+  "advancement": "grimoireofgaia:main/ant_salvager",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:ant_salvager_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.ant_salvager.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -10,8 +11,8 @@
     {
       "type": "patchouli:entity",
       "entity": "grimoireofgaia:ant_salvager",
-      "scale": 0.5,
       "offset": -0.5,
+      "scale": 0.5,
       "text": "info.grimoireofgaia.book.entry.ant_salvager.info2"
     },
     {
@@ -38,6 +39,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/ant_salvager"
+  ]
 }

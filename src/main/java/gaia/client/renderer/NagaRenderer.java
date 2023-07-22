@@ -16,8 +16,8 @@ public class NagaRenderer extends MobRenderer<Naga, NagaModel> {
 
 	public NagaRenderer(Context context) {
 		super(context, new NagaModel(context.bakeLayer(ClientHandler.NAGA)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

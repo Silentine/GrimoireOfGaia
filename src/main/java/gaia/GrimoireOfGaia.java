@@ -4,9 +4,9 @@ import com.mojang.logging.LogUtils;
 import gaia.capability.CapabilityHandler;
 import gaia.client.ClientHandler;
 import gaia.config.GaiaConfig;
-import gaia.config.GaiaSpawningConfig;
 import gaia.handler.DropHandler;
 import gaia.registry.GaiaDataSerializers;
+import gaia.registry.GaiaModifiers;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.GaiaSpawning;
@@ -32,13 +32,13 @@ public class GrimoireOfGaia {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, GaiaConfig.clientSpec);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GaiaConfig.commonSpec);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GaiaSpawningConfig.commonSpec, "grimoireofgaia-spawning.toml");
 		eventBus.register(GaiaConfig.class);
 
 		GaiaRegistry.BLOCKS.register(eventBus);
 		GaiaRegistry.ITEMS.register(eventBus);
 		GaiaRegistry.ENTITIES.register(eventBus);
 		GaiaSounds.SOUND_EVENTS.register(eventBus);
+		GaiaModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 		GaiaDataSerializers.DATA_SERIALIZERS.register(eventBus);
 
 		if (ModList.get().isLoaded("curios")) {

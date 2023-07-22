@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.cyan_flower.name",
+  "advancement": "grimoireofgaia:main/cyan_flower",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:cyan_flower_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.cyan_flower.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -34,6 +35,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.mandrake.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/cyan_flower"
+  ]
 }

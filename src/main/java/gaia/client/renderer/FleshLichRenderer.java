@@ -16,8 +16,8 @@ public class FleshLichRenderer extends MobRenderer<FleshLich, FleshLichModel> {
 
 	public FleshLichRenderer(Context context) {
 		super(context, new FleshLichModel(context.bakeLayer(ClientHandler.FLESH_LICH)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

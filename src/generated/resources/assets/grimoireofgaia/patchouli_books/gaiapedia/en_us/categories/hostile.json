@@ -1,5 +1,5 @@
 {
-  "name": "info.grimoireofgaia.book.category.hostile.name",
   "description": "info.grimoireofgaia.book.category.hostile.desc",
-  "icon": "minecraft:stone_axe"
+  "icon": "minecraft:stone_axe",
+  "name": "info.grimoireofgaia.book.category.hostile.name"
 }

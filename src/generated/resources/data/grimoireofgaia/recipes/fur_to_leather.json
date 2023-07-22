@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
   "ingredient": {
     "item": "grimoireofgaia:fur"
   },
-  "result": "minecraft:leather",
-  "experience": 0.1,
-  "cookingtime": 200
+  "result": "minecraft:leather"
 }

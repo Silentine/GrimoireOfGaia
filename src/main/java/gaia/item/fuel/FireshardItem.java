@@ -5,7 +5,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -90,13 +89,13 @@ public class FireshardItem extends FuelItem {
 		return level.clip(new ClipContext(vec3, vec31, Block.OUTLINE, fluid, player));
 	}
 
-	private boolean canBlockContainFluid(Level worldIn, BlockPos posIn, BlockState blockstate) {
-		return blockstate.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) blockstate.getBlock()).canPlaceLiquid(worldIn, posIn, blockstate, Fluids.LAVA);
+	private boolean canBlockContainFluid(Level level, BlockPos posIn, BlockState blockstate) {
+		return blockstate.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) blockstate.getBlock()).canPlaceLiquid(level, posIn, blockstate, Fluids.LAVA);
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.fireshard.desc").withStyle(ChatFormatting.ITALIC));
+		list.add(Component.translatable("text.grimoireofgaia.fireshard.desc").withStyle(ChatFormatting.ITALIC));
 	}
 }

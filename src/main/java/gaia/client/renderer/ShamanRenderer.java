@@ -16,8 +16,8 @@ public class ShamanRenderer extends MobRenderer<Shaman, ShamanModel> {
 
 	public ShamanRenderer(Context context) {
 		super(context, new ShamanModel(context.bakeLayer(ClientHandler.SHAMAN)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.spriggan.name",
+  "advancement": "grimoireofgaia:main/spriggan",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:spriggan_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.spriggan.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -48,6 +49,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_nature.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/spriggan"
+  ]
 }

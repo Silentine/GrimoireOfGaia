@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.succubus.name",
+  "advancement": "grimoireofgaia:main/succubus",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:succubus_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.succubus.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.box_nether.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/succubus"
+  ]
 }

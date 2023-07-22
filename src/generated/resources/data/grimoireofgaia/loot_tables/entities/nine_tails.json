@@ -2,59 +2,65 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0.0,
-                "max": 2.0
+                "max": 2.0,
+                "min": 0.0
               },
-              "add": false
+              "function": "minecraft:set_count"
             },
             {
-              "function": "minecraft:looting_enchant",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0.0,
-                "max": 1.0
-              }
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             }
           ],
           "name": "grimoireofgaia:soulfire"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:tag",
+          "expand": true,
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0.0,
-                "max": 3.0
+                "max": 3.0,
+                "min": 0.0
               },
-              "add": false
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "forge:nuggets/gold",
-          "expand": true
+          "name": "forge:nuggets/gold"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.025,
+          "condition": "minecraft:random_chance_with_looting",
+          "looting_multiplier": 0.01
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
@@ -65,57 +71,51 @@
           "name": "grimoireofgaia:bag_book"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
-        }
-      ]
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "functions": [
             {
-              "function": "minecraft:set_enchantments",
+              "add": false,
               "enchantments": {
-                "minecraft:knockback": 1.0,
-                "minecraft:fire_aspect": 2.0
+                "minecraft:fire_aspect": 2.0,
+                "minecraft:knockback": 1.0
               },
-              "add": false
+              "function": "minecraft:set_enchantments"
             }
           ],
           "name": "grimoireofgaia:fan_fire"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:doll_nine_tails"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

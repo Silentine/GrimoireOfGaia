@@ -1,0 +1,14 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:naga",
+    "maxCount": 6,
+    "minCount": 4,
+    "weight": 60
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#forge:is_swamp"
+  ]
+}

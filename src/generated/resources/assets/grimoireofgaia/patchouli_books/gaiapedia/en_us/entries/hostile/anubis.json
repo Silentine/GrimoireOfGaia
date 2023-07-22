@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.anubis.name",
+  "advancement": "grimoireofgaia:main/anubis",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:anubis_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.anubis.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.book_of_memory.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/anubis"
+  ]
 }

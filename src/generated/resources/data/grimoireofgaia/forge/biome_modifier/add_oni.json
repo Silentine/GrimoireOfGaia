@@ -1,0 +1,17 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#forge:is_snowy"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:oni",
+    "maxCount": 6,
+    "minCount": 4,
+    "weight": 80
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#minecraft:is_forest",
+    "#forge:is_coniferous"
+  ]
+}

@@ -15,8 +15,8 @@ public class CreeperGirlRenderer extends MobRenderer<CreeperGirl, CreeperGirlMod
 
 	public CreeperGirlRenderer(Context context) {
 		super(context, new CreeperGirlModel(context.bakeLayer(ClientHandler.CREEPER_GIRL)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

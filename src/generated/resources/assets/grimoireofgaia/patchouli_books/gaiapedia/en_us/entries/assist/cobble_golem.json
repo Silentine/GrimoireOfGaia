@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.cobble_golem.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:cobble_golem_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.cobble_golem.name",
   "pages": [
     {
       "type": "patchouli:text",

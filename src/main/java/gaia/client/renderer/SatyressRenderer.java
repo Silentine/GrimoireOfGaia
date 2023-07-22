@@ -17,8 +17,8 @@ public class SatyressRenderer extends MobRenderer<Satyress, SatyressModel> {
 
 	public SatyressRenderer(Context context) {
 		super(context, new SatyressModel(context.bakeLayer(ClientHandler.SATYRESS)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

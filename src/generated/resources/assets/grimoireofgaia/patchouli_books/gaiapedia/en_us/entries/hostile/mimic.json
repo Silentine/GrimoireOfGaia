@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.mimic.name",
+  "advancement": "grimoireofgaia:main/mimic",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:mimic_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.mimic.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -46,6 +47,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.weapon_book_hunger.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/mimic"
+  ]
 }

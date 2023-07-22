@@ -1,0 +1,19 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [
+    "#minecraft:is_ocean",
+    "#minecraft:is_river",
+    "#minecraft:is_beach",
+    "#minecraft:is_forest"
+  ],
+  "spawners": {
+    "type": "grimoireofgaia:kobold",
+    "maxCount": 6,
+    "minCount": 4,
+    "weight": 60
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#forge:is_snowy"
+  ]
+}

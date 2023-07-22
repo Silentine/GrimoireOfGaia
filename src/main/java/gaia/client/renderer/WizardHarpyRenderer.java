@@ -17,8 +17,8 @@ public class WizardHarpyRenderer extends MobRenderer<WizardHarpy, WizardHarpyMod
 
 	public WizardHarpyRenderer(Context context) {
 		super(context, new WizardHarpyModel(context.bakeLayer(ClientHandler.WIZARD_HARPY)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 		this.addLayer(new WizardHarpyEyesLayer(this));
 	}
 

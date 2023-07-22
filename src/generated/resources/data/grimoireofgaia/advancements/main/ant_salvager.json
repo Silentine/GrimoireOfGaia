@@ -1,34 +1,34 @@
 {
   "parent": "grimoireofgaia:main/root",
-  "display": {
-    "icon": {
-      "item": "grimoireofgaia:projectile_poison"
-    },
-    "title": {
-      "translate": "advancement.grimoireofgaia.ant_salvager.title"
-    },
-    "description": {
-      "translate": "advancement.grimoireofgaia.ant_salvager.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
   "criteria": {
     "kill": {
-      "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
               "type": "grimoireofgaia:ant_salvager"
-            },
-            "entity": "this"
+            }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.grimoireofgaia.ant_salvager.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "grimoireofgaia:projectile_poison"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.grimoireofgaia.ant_salvager.title"
     }
   },
   "requirements": [

@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.ender_dragon_girl.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:ender_dragon_girl_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.ender_dragon_girl.name",
   "pages": [
     {
       "type": "patchouli:text",

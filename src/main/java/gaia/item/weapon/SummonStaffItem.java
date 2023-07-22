@@ -6,7 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -64,7 +63,7 @@ public class SummonStaffItem extends Item {
 			});
 
 			if (!level.isClientSide) {
-				BlockPos spawnPos = player.eyeBlockPosition().relative(player.getDirection());
+				BlockPos spawnPos = new BlockPos(player.getEyePosition()).relative(player.getDirection());
 				Mob summon = typeSupplier.get().create(level);
 				summon.moveTo(spawnPos, 0.0F, 0.0F);
 				summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(spawnPos), null, (SpawnGroupData) null, (CompoundTag) null);
@@ -105,7 +104,7 @@ public class SummonStaffItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.summoning_staff.desc", ForgeI18n.getPattern(typeSupplier.get().getDescriptionId())).withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("text.grimoireofgaia.summoning_staff.desc", ForgeI18n.getPattern(typeSupplier.get().getDescriptionId())).withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

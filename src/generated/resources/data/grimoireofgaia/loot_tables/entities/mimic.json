@@ -2,7 +2,6 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -29,114 +28,115 @@
           "type": "minecraft:loot_table",
           "name": "minecraft:entities/skeleton"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:tag",
+          "expand": true,
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0.0,
-                "max": 3.0
+                "max": 3.0,
+                "min": 0.0
               },
-              "add": false
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "forge:nuggets/iron",
-          "expand": true
+          "name": "forge:nuggets/iron"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.025,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:box_overworld"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:premium_monster_feed"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:spawn_trader"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:bag_record"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:random_chance_with_looting",
               "chance": 0.01,
+              "condition": "minecraft:random_chance_with_looting",
               "looting_multiplier": 0.01
             }
           ],
           "name": "grimoireofgaia:weapon_book_hunger"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

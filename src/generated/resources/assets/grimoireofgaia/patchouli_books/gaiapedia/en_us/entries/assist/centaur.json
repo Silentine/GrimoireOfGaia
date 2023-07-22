@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.centaur.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:centaur_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.centaur.name",
   "pages": [
     {
       "type": "patchouli:text",

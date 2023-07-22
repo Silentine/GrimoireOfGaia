@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.hunter.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:hunter_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.hunter.name",
   "pages": [
     {
       "type": "patchouli:text",

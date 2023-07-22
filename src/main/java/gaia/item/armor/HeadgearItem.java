@@ -2,7 +2,6 @@ package gaia.item.armor;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -26,7 +25,7 @@ public class HeadgearItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.headgear.tag").withStyle(ChatFormatting.YELLOW));
+		list.add(Component.translatable("text.grimoireofgaia.headgear.tag").withStyle(ChatFormatting.YELLOW));
 	}
 
 	@Nullable

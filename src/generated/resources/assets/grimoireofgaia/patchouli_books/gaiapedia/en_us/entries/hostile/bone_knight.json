@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.bone_knight.name",
+  "advancement": "grimoireofgaia:main/bone_knight",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:bone_knight_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.bone_knight.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -42,6 +43,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.skeleton_skull.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/bone_knight"
+  ]
 }

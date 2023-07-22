@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import gaia.registry.GaiaRegistry;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class GaiaMerchantTrades {
 	public static final Int2ObjectMap<VillagerTrades.ItemListing[]> MERCHANT_TRADES = toIntMap(ImmutableMap.of(
@@ -194,7 +194,7 @@ public class GaiaMerchantTrades {
 		}
 
 		@Nullable
-		public MerchantOffer getOffer(Entity entity, Random random) {
+		public MerchantOffer getOffer(Entity entity, RandomSource random) {
 			return new MerchantOffer(
 					new ItemStack(this.fromItem.getItem(), this.fromCount),
 					new ItemStack(this.toItem.getItem(), this.toCount),
@@ -261,7 +261,7 @@ public class GaiaMerchantTrades {
 			this.priceMultiplier = 0.05F;
 		}
 
-		public MerchantOffer getOffer(Entity entity, Random random) {
+		public MerchantOffer getOffer(Entity entity, RandomSource random) {
 			int i = 5 + random.nextInt(15);
 			ItemStack itemstack = EnchantmentHelper.enchantItem(random, new ItemStack(this.itemStack.getItem()), i, false);
 			int j = Math.min(this.tokenCost + i, 64);

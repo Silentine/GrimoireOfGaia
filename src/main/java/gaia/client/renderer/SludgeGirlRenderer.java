@@ -18,7 +18,7 @@ public class SludgeGirlRenderer extends MobRenderer<SludgeGirl, SludgeGirlModel>
 
 	public SludgeGirlRenderer(Context context) {
 		super(context, new SludgeGirlModel(context.bakeLayer(ClientHandler.SLUDGE_GIRL)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 		this.addLayer(new SludgeHairLayer(this, context.getModelSet()));
 	}
 

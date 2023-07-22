@@ -1,34 +1,34 @@
 {
   "parent": "grimoireofgaia:main/root",
-  "display": {
-    "icon": {
-      "item": "grimoireofgaia:withered_brain"
-    },
-    "title": {
-      "translate": "advancement.grimoireofgaia.wither_cow.title"
-    },
-    "description": {
-      "translate": "advancement.grimoireofgaia.wither_cow.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
   "criteria": {
     "kill": {
-      "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
               "type": "grimoireofgaia:wither_cow"
-            },
-            "entity": "this"
+            }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.grimoireofgaia.wither_cow.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "grimoireofgaia:withered_brain"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.grimoireofgaia.wither_cow.title"
     }
   },
   "requirements": [

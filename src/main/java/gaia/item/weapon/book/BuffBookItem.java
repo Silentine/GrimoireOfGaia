@@ -6,7 +6,6 @@ import gaia.util.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,14 +35,14 @@ public class BuffBookItem extends Item {
 			return;
 		}
 		if (player.getOffhandItem() == stack) {
-			list.add(new TranslatableComponent("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
+			list.add(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
+			list.add(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
 		}
 
-		list.add(new TranslatableComponent(MobEffects.DAMAGE_BOOST.getDescriptionId()).append(" I(1:00)"));
-		list.add(new TranslatableComponent(MobEffects.DAMAGE_RESISTANCE.getDescriptionId()).append(" (1:00)"));
-		list.add(new TranslatableComponent(MobEffects.REGENERATION.getDescriptionId()).append(" IV (0:04)"));
+		list.add(Component.translatable(MobEffects.DAMAGE_BOOST.getDescriptionId()).append(" I(1:00)"));
+		list.add(Component.translatable(MobEffects.DAMAGE_RESISTANCE.getDescriptionId()).append(" (1:00)"));
+		list.add(Component.translatable(MobEffects.REGENERATION.getDescriptionId()).append(" IV (0:04)"));
 	}
 
 	@Override

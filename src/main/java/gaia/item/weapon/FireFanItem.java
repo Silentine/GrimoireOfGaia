@@ -42,7 +42,7 @@ public class FireFanItem extends FanItem {
 
 	@Override
 	public void fillItemCategory(CreativeModeTab modeTab, NonNullList<ItemStack> itemStacks) {
-		if (!this.allowdedIn(modeTab)) {
+		if (!this.allowedIn(modeTab)) {
 			return;
 		}
 

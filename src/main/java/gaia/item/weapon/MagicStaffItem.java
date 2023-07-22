@@ -4,7 +4,6 @@ import gaia.entity.projectile.MagicProjectile;
 import gaia.registry.GaiaSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -75,7 +74,7 @@ public class MagicStaffItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(stack, level, list, flag);
-		list.add(new TranslatableComponent("text.grimoireofgaia.magic_staff.desc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("text.grimoireofgaia.magic_staff.desc").withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

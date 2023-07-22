@@ -1,0 +1,14 @@
+{
+  "type": "grimoireofgaia:add_configured_spawns",
+  "blacklist": [],
+  "spawners": {
+    "type": "grimoireofgaia:goblin",
+    "maxCount": 6,
+    "minCount": 2,
+    "weight": 30
+  },
+  "whitelist": [
+    "#minecraft:is_overworld",
+    "#minecraft:is_savanna"
+  ]
+}

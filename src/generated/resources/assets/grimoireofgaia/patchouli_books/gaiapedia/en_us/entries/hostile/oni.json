@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.oni.name",
+  "advancement": "grimoireofgaia:main/oni",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:oni_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.oni.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/oni"
+  ]
 }

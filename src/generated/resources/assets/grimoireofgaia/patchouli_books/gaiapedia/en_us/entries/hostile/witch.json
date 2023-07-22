@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.witch.name",
+  "advancement": "grimoireofgaia:main/witch",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:witch_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.witch.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -49,6 +50,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.deco_mandragora_pot.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/witch"
+  ]
 }

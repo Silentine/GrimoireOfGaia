@@ -1,7 +1,7 @@
 {
-  "name": "info.grimoireofgaia.book.entry.trader.name",
   "category": "grimoireofgaia:assist",
   "icon": "grimoireofgaia:spawn_trader",
+  "name": "info.grimoireofgaia.book.entry.trader.name",
   "pages": [
     {
       "type": "patchouli:text",

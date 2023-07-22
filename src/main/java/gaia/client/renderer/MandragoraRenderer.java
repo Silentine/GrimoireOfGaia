@@ -16,8 +16,8 @@ public class MandragoraRenderer extends GaiaBabyMobRenderer<Mandragora, Mandrago
 
 	public MandragoraRenderer(Context context) {
 		super(context, new MandragoraModel(context.bakeLayer(ClientHandler.MANDRAGORA)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-		this.addLayer(new ItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

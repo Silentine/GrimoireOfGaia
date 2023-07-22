@@ -3,7 +3,6 @@ package gaia.item.accessory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,10 +30,10 @@ public class HeavyBarbellItem extends AbstractAccessoryItem {
 		super.appendHoverText(stack, level, list, flag);
 		if (Screen.hasShiftDown()) {
 			for (Supplier<MobEffectInstance> effect : mobEffects) {
-				list.add(new TranslatableComponent(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
 			}
 		} else {
-			list.add(new TranslatableComponent("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

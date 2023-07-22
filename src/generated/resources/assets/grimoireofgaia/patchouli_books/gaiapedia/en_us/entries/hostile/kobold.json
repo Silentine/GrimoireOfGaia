@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.kobold.name",
+  "advancement": "grimoireofgaia:main/kobold",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:kobold_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.kobold.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -36,6 +37,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.bag_arrows.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/kobold"
+  ]
 }

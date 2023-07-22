@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,7 +35,6 @@ import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 public class AntHill extends AbstractPropEntity {
 	private static final EntityDataAccessor<Integer> DETECTION = SynchedEntityData.defineId(AntHill.class, EntityDataSerializers.INT);
@@ -50,8 +50,13 @@ public class AntHill extends AbstractPropEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, SharedEntityData.getMaxHealth1())
+				.add(Attributes.MAX_HEALTH, 40.0D)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+	}
+
+	@Override
+	public void finalizeAttributes() {
+		getAttribute(Attributes.MAX_HEALTH).setBaseValue(SharedEntityData.getMaxHealth1());
 	}
 
 	@Override
@@ -263,7 +268,7 @@ public class AntHill extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkAntHillSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkAntHillSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkPropSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

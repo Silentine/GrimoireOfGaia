@@ -1,7 +1,8 @@
 {
-  "name": "info.grimoireofgaia.book.entry.nine_tails.name",
+  "advancement": "grimoireofgaia:main/nine_tails",
   "category": "grimoireofgaia:hostile",
   "icon": "grimoireofgaia:nine_tails_spawn_egg",
+  "name": "info.grimoireofgaia.book.entry.nine_tails.name",
   "pages": [
     {
       "type": "patchouli:text",
@@ -48,6 +49,5 @@
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.doll_nine_tails.info"
     }
-  ],
-  "advancement": "grimoireofgaia:main/nine_tails"
+  ]
 }

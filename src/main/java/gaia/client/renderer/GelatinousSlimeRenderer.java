@@ -20,7 +20,7 @@ public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, Gelati
 	public GelatinousSlimeRenderer(Context context) {
 		super(context, new GelatinousSlimeModel(context.bakeLayer(ClientHandler.GELATINOUS_SLIME)), ClientHandler.smallShadow);
 		this.addLayer(new GelatinousSlimeLayer(this, context.getModelSet()));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 		this.addLayer(new SlimeItemLayer(this));
 	}
 

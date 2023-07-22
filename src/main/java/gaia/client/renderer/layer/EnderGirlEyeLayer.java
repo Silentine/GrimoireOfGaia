@@ -1,9 +1,7 @@
 package gaia.client.renderer.layer;
 
 import gaia.GrimoireOfGaia;
-import gaia.client.model.BansheeModel;
 import gaia.client.model.EnderGirlModel;
-import gaia.entity.Banshee;
 import gaia.entity.trader.EnderGirl;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;

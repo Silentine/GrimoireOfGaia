@@ -11,6 +11,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class CapabilityHandler {
 	public static final ResourceLocation FRIENDED_CAP = new ResourceLocation(GrimoireOfGaia.MOD_ID, "friended");
@@ -23,9 +24,12 @@ public class CapabilityHandler {
 	}
 
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof LivingEntity livingEntity && livingEntity.getType().getRegistryName() != null &&
-				livingEntity.getType().getRegistryName().getNamespace().equals(GrimoireOfGaia.MOD_ID)) {
-			event.addCapability(CapabilityHandler.FRIENDED_CAP, new FriendedCapability());
+
+		if (event.getObject() instanceof LivingEntity livingEntity) {
+			ResourceLocation location = ForgeRegistries.ENTITY_TYPES.getKey(livingEntity.getType());
+			if (location != null && location.getNamespace().equals(GrimoireOfGaia.MOD_ID)) {
+				event.addCapability(CapabilityHandler.FRIENDED_CAP, new FriendedCapability());
+			}
 		}
 	}
 }

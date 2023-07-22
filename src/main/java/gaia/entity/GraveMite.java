@@ -6,6 +6,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -30,8 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Random;
 
 public class GraveMite extends PathfinderMob {
 	private static final int MAX_LIFE = 2400;
@@ -124,7 +123,7 @@ public class GraveMite extends PathfinderMob {
 		return effectInstance.getEffect() != MobEffects.POISON && super.canBeAffected(effectInstance);
 	}
 
-	public static boolean checkMiteSpawnRules(EntityType<? extends PathfinderMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkMiteSpawnRules(EntityType<? extends PathfinderMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return (GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel()) &&
 				checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

@@ -16,7 +16,7 @@ public class BansheeRenderer extends MobRenderer<Banshee, BansheeModel> {
 
 	public BansheeRenderer(Context context) {
 		super(context, new BansheeModel(context.bakeLayer(ClientHandler.BANSHEE)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
 		this.addLayer(new BansheeGlowLayer(this));
 	}
 
