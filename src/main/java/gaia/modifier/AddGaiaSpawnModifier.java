@@ -31,7 +31,7 @@ public record AddGaiaSpawnModifier(List<HolderSet<Biome>> biomes,
 			if (biomes.stream().allMatch(biomeSet -> biomeSet.contains(biome)) &&
 					(biomeBlacklist.isEmpty() || !biomeBlacklist.isEmpty() && biomeBlacklist.stream().noneMatch(biomeSet -> biomeSet.contains(biome)))) {
 				for (SpawnerData spawner : this.spawners) {
-					GrimoireOfGaia.LOGGER.error("Adding {} to {}", ForgeRegistries.ENTITY_TYPES.getKey(spawner.type), biome.unwrapKey().get().location());
+//					GrimoireOfGaia.LOGGER.error("Adding {} to {}", ForgeRegistries.ENTITY_TYPES.getKey(spawner.type), biome.unwrapKey().get().location());
 					spawns.addSpawn(MobCategory.MONSTER, spawner);
 				}
 			}
