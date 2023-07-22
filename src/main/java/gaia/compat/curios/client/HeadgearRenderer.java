@@ -1,6 +1,7 @@
 package gaia.compat.curios.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -29,8 +30,9 @@ public class HeadgearRenderer implements ICurioRenderer {
 			ICurioRenderer.followHeadRotations(slotContext.entity(), headedModel.getHead());
 			headedModel.getHead().translateAndRotate(poseStack);
 
+			poseStack.translate(0.0D, -0.25D, 0.0D);
+			poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
 			poseStack.scale(0.625F, -0.625F, -0.625F);
-			poseStack.translate(0, 0.4375F, 0);
 
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.HEAD, light,
 					OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, 0);
