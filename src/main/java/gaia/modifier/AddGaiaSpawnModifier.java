@@ -1,7 +1,6 @@
 package gaia.modifier;
 
 import com.mojang.serialization.Codec;
-import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaModifiers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -11,7 +10,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
