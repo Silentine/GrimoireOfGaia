@@ -17,7 +17,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -48,7 +48,7 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
-	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Sharko.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Minotaur.class, EntityDataSerializers.INT);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_3, true);
 
 	private int buffEffect;
@@ -121,7 +121,7 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+			return !source.isIndirect() && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
@@ -137,9 +137,9 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 				}
 
@@ -158,11 +158,11 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -171,9 +171,9 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 			int j = Mth.floor(this.getY() - (double) 0.2F);
 			int k = Mth.floor(this.getZ());
 			BlockPos pos = new BlockPos(i, j, k);
-			BlockState blockstate = this.level.getBlockState(pos);
+			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
 
@@ -205,7 +205,7 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 
 		if (isDeadOrDying()) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.EXPLOSION,
+				this.level().addParticle(ParticleTypes.EXPLOSION,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);
@@ -229,7 +229,7 @@ public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 60, 0));
 	}

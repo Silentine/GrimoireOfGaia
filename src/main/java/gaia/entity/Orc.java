@@ -221,7 +221,7 @@ public class Orc extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
 	}
 

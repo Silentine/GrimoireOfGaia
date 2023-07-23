@@ -80,9 +80,9 @@ public class Dullahan extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -126,7 +126,7 @@ public class Dullahan extends AbstractGaiaEntity {
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
-		if (random.nextInt(8) == 0 && level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (random.nextInt(8) == 0 && this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			GaiaHorse gaiaHorse = createHorse(difficultyInstance);
 			if (gaiaHorse != null) {
 				startRiding(gaiaHorse);

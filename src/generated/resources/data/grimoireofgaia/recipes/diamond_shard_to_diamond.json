@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "S": {
       "item": "grimoireofgaia:diamond_shard"
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "minecraft:diamond"
-  }
+  },
+  "show_notification": true
 }

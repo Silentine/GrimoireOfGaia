@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_maid_doll": {
+    "has_stone_coal": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:doll_maid"
+              "grimoireofgaia:stone_coal"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:headgear_doll"
+        "recipe": "grimoireofgaia:stone_coal_to_coal_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_maid_doll",
+      "has_stone_coal",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:headgear_doll"
+      "grimoireofgaia:stone_coal_to_coal_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

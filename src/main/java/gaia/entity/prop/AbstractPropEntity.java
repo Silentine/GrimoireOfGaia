@@ -29,7 +29,7 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	public void tick() {
 		super.tick();
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 	}

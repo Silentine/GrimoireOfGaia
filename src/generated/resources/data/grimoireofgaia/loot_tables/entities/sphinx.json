@@ -142,5 +142,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "grimoireofgaia:entities/sphinx"
 }

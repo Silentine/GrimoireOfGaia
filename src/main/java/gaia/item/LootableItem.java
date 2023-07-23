@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -42,9 +42,9 @@ public class LootableItem extends Item {
 		}
 
 		if (!level.isClientSide) {
-			LootContext.Builder builder = new LootContext.Builder((ServerLevel) level);
-			LootTable lootTable = level.getServer().getLootTables().get(this.lootTable);
-			builder.withParameter(LootContextParams.ORIGIN, player.position());
+			LootTable lootTable = level.getServer().getLootData().getLootTable(this.lootTable);
+			LootParams.Builder builder = (new LootParams.Builder((ServerLevel) level))
+					.withParameter(LootContextParams.ORIGIN, player.position());
 			if (player != null) {
 				builder.withLuck(player.getLuck());
 			}

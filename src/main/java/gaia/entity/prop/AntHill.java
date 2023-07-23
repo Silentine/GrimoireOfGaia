@@ -17,6 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
@@ -61,7 +62,7 @@ public class AntHill extends AbstractPropEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
-		float input = source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, SharedEntityData.getBaseDefense1());
+		float input = source.is(DamageTypes.FELL_OUT_OF_WORLD) ? damage : Math.min(damage, SharedEntityData.getBaseDefense1());
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
@@ -86,11 +87,11 @@ public class AntHill extends AbstractPropEntity {
 				if ((spawnTime >= 0) && (spawnTime <= 60)) {
 					++spawnTime;
 				} else {
-					if (!this.level.isClientSide) {
+					if (!this.level().isClientSide) {
 						setSpawn(0);
 					}
 
-					hurt(DamageSource.GENERIC, getMaxHealth() / getSpawnAmount());
+					hurt(damageSources().generic(), getMaxHealth() / getSpawnAmount());
 
 					setSpawnAmount(getSpawnAmount() - 1);
 
@@ -101,7 +102,7 @@ public class AntHill extends AbstractPropEntity {
 			}
 		}
 
-		if (this.level.getDifficulty() == Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() == Difficulty.PEACEFUL) {
 			kill();
 		}
 
@@ -109,18 +110,18 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			if (id == 0) {
-				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(this.level);
+				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(this.level());
 				if (antWorker != null) {
 					antWorker.moveTo(blockPosition(), 0.0F, 0.0F);
-					antWorker.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(antWorker);
+					antWorker.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(antWorker);
 				}
 			}
 		}
 
-		level.broadcastEntityEvent(this, (byte) 6);
+		this.level().broadcastEntityEvent(this, (byte) 6);
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class AntHill extends AbstractPropEntity {
 	 */
 	private boolean playerDetection() {
 		AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(getDetection());
-		List<Player> list = level.getEntitiesOfClass(Player.class, aabb);
+		List<Player> list = this.level().getEntitiesOfClass(Player.class, aabb);
 
 		return !list.isEmpty();
 	}
@@ -214,7 +215,7 @@ public class AntHill extends AbstractPropEntity {
 			double d0 = random.nextGaussian() * 0.02D;
 			double d1 = random.nextGaussian() * 0.02D;
 			double d2 = random.nextGaussian() * 0.02D;
-			level.addParticle(particle,
+			this.level().addParticle(particle,
 					getX() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(),
 					getY() + 0.5D + (double) (random.nextFloat() * getBbHeight()),
 					getZ() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(), d0, d1, d2);

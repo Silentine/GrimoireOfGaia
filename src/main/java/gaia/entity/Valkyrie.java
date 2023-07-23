@@ -16,7 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -144,7 +144,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+			return !source.isIndirect() && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
@@ -161,10 +161,10 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 				int effectTime = 0;
 				int effectTime2 = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
 					effectTime2 = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 					effectTime2 = 20;
 				}
@@ -184,11 +184,11 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -204,7 +204,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 					}
 
 					if (aggression >= 50) {
-						level.broadcastEntityEvent(this, (byte) 11);
+						this.level().broadcastEntityEvent(this, (byte) 11);
 					}
 				}
 			} else {
@@ -255,7 +255,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 
 		if (isDeadOrDying()) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.EXPLOSION,
+				this.level().addParticle(ParticleTypes.EXPLOSION,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);
@@ -266,7 +266,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	private void setGoals(int id) {
-		if (level.isClientSide) return;
+		if (this.level().isClientSide) return;
 
 		if (id == 2) {
 			this.goalSelector.removeGoal(meleeAttackGoal);
@@ -283,7 +283,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
 	}

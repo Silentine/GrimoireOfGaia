@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_stone_coal": {
+    "has_iron_box": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:stone_coal"
+              "grimoireofgaia:box_iron"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:stone_coal_to_coal_block"
+        "recipe": "grimoireofgaia:experience_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_stone_coal",
+      "has_iron_box",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:stone_coal_to_coal_block"
+      "grimoireofgaia:experience_iron"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

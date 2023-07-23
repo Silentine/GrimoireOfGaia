@@ -114,9 +114,9 @@ public class Cyclops extends AbstractAssistGaiaEntity implements IDayMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -170,7 +170,7 @@ public class Cyclops extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
 	}
 

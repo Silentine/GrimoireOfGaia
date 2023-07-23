@@ -103,11 +103,11 @@ public class GraveMite extends PathfinderMob {
 	public void aiStep() {
 		super.aiStep();
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (!this.isPersistenceRequired()) {
 				++this.life;
 			}

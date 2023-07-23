@@ -73,7 +73,7 @@ public class CyanFlower extends AbstractPropEntity {
 	public void aiStep() {
 		if (getHealth() <= 0.0F) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.EXPLOSION,
+				this.level().addParticle(ParticleTypes.EXPLOSION,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(),
@@ -85,16 +85,16 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	private void spawnMandragora() {
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(this.level);
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(this.level());
 			if (mandragora != null) {
 				mandragora.moveTo(blockPosition(), 0.0F, 0.0F);
-				mandragora.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
-				level.addFreshEntity(mandragora);
+				mandragora.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				this.level().addFreshEntity(mandragora);
 			}
 		}
 
-		level.broadcastEntityEvent(this, (byte) 6);
+		this.level().broadcastEntityEvent(this, (byte) 6);
 	}
 
 	@Nullable
@@ -143,7 +143,7 @@ public class CyanFlower extends AbstractPropEntity {
 			double d0 = random.nextGaussian() * 0.02D;
 			double d1 = random.nextGaussian() * 0.02D;
 			double d2 = random.nextGaussian() * 0.02D;
-			level.addParticle(particle,
+			this.level().addParticle(particle,
 					getX() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(),
 					getY() + 0.5D + (double) (random.nextFloat() * getBbHeight()),
 					getZ() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(), d0, d1, d2);
@@ -170,12 +170,12 @@ public class CyanFlower extends AbstractPropEntity {
 	protected void dropCustomDeathLoot(DamageSource damageSource, int looting, boolean killedByPlayer) {
 		if (killedByPlayer) {
 			if (random.nextInt(4) == 0) {
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					spawnMandragora();
 					playSound(GaiaSounds.MANDRAGORA_SCREAM.get(), 2.0F, 2.0F);
 				}
 			} else {
-				level.broadcastEntityEvent(this, (byte) 6);
+				this.level().broadcastEntityEvent(this, (byte) 6);
 				super.dropCustomDeathLoot(damageSource, looting, killedByPlayer);
 			}
 		} else {

@@ -1,8 +1,8 @@
 {
     "pack": {
-        "description": "Grimoire Of Gaia resources",
-        "pack_format": 9,
-        "forge:resource_pack_format": 8,
-        "forge:data_pack_format": 9
+        "description": {
+            "text": "Grimoire Of Gaia resources"
+        },
+        "pack_format": 15
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -42,7 +43,7 @@ public class WebProjectile extends SmallFireball {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -73,24 +74,24 @@ public class WebProjectile extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
-				entityResult.getEntity().hurt(DamageSource.indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
+				entityResult.getEntity().hurt(damageSources().indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
 			}
 		}
 	}
 
 	@Override
 	protected void onHitBlock(BlockHitResult result) {
-		BlockState blockstate = this.level.getBlockState(result.getBlockPos());
-		blockstate.onProjectileHit(this.level, blockstate, result, this);
-		if (!this.level.isClientSide) {
+		BlockState blockstate = this.level().getBlockState(result.getBlockPos());
+		blockstate.onProjectileHit(this.level(), blockstate, result, this);
+		if (!this.level().isClientSide) {
 			Entity entity = this.getOwner();
-			if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+			if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
 				BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
-				if (this.level.isEmptyBlock(blockpos)) {
-					this.level.setBlockAndUpdate(blockpos, Blocks.COBWEB.defaultBlockState()); //TODO: WEB BLOCK
+				if (this.level().isEmptyBlock(blockpos)) {
+					this.level().setBlockAndUpdate(blockpos, Blocks.COBWEB.defaultBlockState()); //TODO: WEB BLOCK
 				}
 			}
 		}

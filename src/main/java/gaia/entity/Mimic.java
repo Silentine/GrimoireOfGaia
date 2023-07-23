@@ -97,9 +97,9 @@ public class Mimic extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 30;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 60;
 				}
 
@@ -123,7 +123,7 @@ public class Mimic extends AbstractGaiaEntity {
 		});
 
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
@@ -131,7 +131,7 @@ public class Mimic extends AbstractGaiaEntity {
 			if (hasItem()) {
 				setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
 
-				level.broadcastEntityEvent(this, (byte) 8);
+				this.level().broadcastEntityEvent(this, (byte) 8);
 				heal(getMaxHealth() * 0.20F);
 			}
 		}

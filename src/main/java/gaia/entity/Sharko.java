@@ -120,9 +120,9 @@ public class Sharko extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -140,7 +140,7 @@ public class Sharko extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isPassenger()) {
 				stopRiding();
 			}
@@ -149,7 +149,7 @@ public class Sharko extends AbstractGaiaEntity {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
@@ -194,7 +194,7 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
 	}
 
@@ -204,7 +204,7 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	public void updateSwimming() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
 				this.navigation = this.waterNavigation;
 				this.setSwimming(true);
@@ -332,7 +332,7 @@ public class Sharko extends AbstractGaiaEntity {
 				this.sharko.setSpeed(f2);
 				this.sharko.setDeltaMovement(this.sharko.getDeltaMovement().add((double) f2 * d0 * 0.005D, (double) f2 * d1 * 0.1D, (double) f2 * d2 * 0.005D));
 			} else {
-				if (!this.sharko.onGround) {
+				if (!this.sharko.onGround()) {
 					this.sharko.setDeltaMovement(this.sharko.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
 				}
 

@@ -1,11 +1,15 @@
 plugins {
+    id 'eclipse'
+    id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
 version = "${version}"
 group = "${package_group}"
-archivesBaseName = "${mod_name}-${mc_version}"
+base {
+    archivesName = "${mod_name}-${mc_version}"
+}
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -14,6 +18,8 @@ println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getPro
 minecraft {
     mappings channel: "${mcp_channel}", version: "${mcp_mappings}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    copyIdeResources = true
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -109,7 +115,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
 
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curios_version}")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
     implementation fg.deobf("xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}")

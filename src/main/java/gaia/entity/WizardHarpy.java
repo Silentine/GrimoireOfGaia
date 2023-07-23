@@ -45,7 +45,7 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(WizardHarpy.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<ItemStack> STORED_STACK = SynchedEntityData.defineId(WizardHarpy.class, EntityDataSerializers.ITEM_STACK);
 	private final RangedAttackGoal rangedAttackGoal = new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 20, 60, 15.0F);
-	private final AvoidEntityGoal<Player> avoidPlayerGoal = new AvoidEntityGoal(this, Player.class, 20.0F, SharedEntityData.ATTACK_SPEED_1, SharedEntityData.ATTACK_SPEED_3);
+	private final AvoidEntityGoal<Player> avoidPlayerGoal = new AvoidEntityGoal<>(this, Player.class, 20.0F, SharedEntityData.ATTACK_SPEED_1, SharedEntityData.ATTACK_SPEED_3);
 
 	private boolean animationPlay;
 	private int animationTimer;
@@ -168,7 +168,7 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 

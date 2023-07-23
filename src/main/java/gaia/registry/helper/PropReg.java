@@ -1,7 +1,6 @@
 package gaia.registry.helper;
 
 import gaia.registry.GaiaRegistry;
-import gaia.registry.GaiaTabs;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
@@ -43,6 +42,6 @@ public class PropReg<T extends Mob> {
 		this.name = name;
 		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
 		this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new ForgeSpawnEggItem(this.entityType, backgroundColor, highlightColor,
-				new Item.Properties().tab(GaiaTabs.GAIA_TAB)));
+				new Item.Properties()));
 	}
 }

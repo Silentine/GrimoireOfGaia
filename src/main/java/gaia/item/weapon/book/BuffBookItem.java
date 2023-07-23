@@ -51,7 +51,7 @@ public class BuffBookItem extends Item {
 			livingEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
 		});
 
-		attacker.level.playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
+		attacker.level().playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
 				1.0F, 1.0F);
 		target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0));
 		target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 0));

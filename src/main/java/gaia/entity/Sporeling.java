@@ -87,7 +87,7 @@ public class Sporeling extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 

@@ -5,6 +5,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -45,7 +46,7 @@ public class MagicProjectile extends SmallFireball {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -81,18 +82,18 @@ public class MagicProjectile extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
 				Entity entity = entityResult.getEntity();
-				entity.hurt(DamageSource.indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
+				entity.hurt(damageSources().indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
 
 				if (entity instanceof LivingEntity livingEntity) {
 					int effectTime = 0;
 
-					if (this.level.getDifficulty() == Difficulty.NORMAL) {
+					if (this.level().getDifficulty() == Difficulty.NORMAL) {
 						effectTime = 10;
-					} else if (this.level.getDifficulty() == Difficulty.HARD) {
+					} else if (this.level().getDifficulty() == Difficulty.HARD) {
 						effectTime = 20;
 					}
 

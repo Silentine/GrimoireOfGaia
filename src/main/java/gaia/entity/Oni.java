@@ -77,7 +77,7 @@ public class Oni extends AbstractGaiaEntity {
 	}
 
 	private void setBuff() {
-		level.broadcastEntityEvent(this, (byte) 7);
+		this.level().broadcastEntityEvent(this, (byte) 7);
 		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
 	}
 
@@ -111,9 +111,9 @@ public class Oni extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -179,7 +179,7 @@ public class Oni extends AbstractGaiaEntity {
 										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
 		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
 
-		if (level.random.nextInt(4) == 0) {
+		if (this.level().random.nextInt(4) == 0) {
 			setVariant(1);
 		}
 

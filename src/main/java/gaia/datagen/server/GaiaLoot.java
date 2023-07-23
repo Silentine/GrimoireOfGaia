@@ -1,38 +1,38 @@
 package gaia.datagen.server;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
 import gaia.registry.GaiaLootTables;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.loot.BlockLoot;
-import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTable.Builder;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
@@ -43,26 +43,27 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class GaiaLoot extends LootTableProvider {
-	public GaiaLoot(DataGenerator gen) {
-		super(gen);
+	public GaiaLoot(PackOutput packOutput) {
+		super(packOutput, Set.of(), List.of(
+				new SubProviderEntry(GaiaBlockTables::new, LootContextParamSets.BLOCK),
+				new SubProviderEntry(GaiaEntityLoot::new, LootContextParamSets.ENTITY),
+				new SubProviderEntry(GaiaBoxLoot::new, LootContextParamSets.GIFT)
+		));
 	}
 
-	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, Builder>>>, LootContextParamSet>> getTables() {
-		return ImmutableList.of(
-				Pair.of(GaiaBlockTables::new, LootContextParamSets.BLOCK),
-				Pair.of(GaiaEntityLoot::new, LootContextParamSets.ENTITY));
-	}
+	public static class GaiaBlockTables extends BlockLootSubProvider {
 
-	public static class GaiaBlockTables extends BlockLoot {
+		protected GaiaBlockTables() {
+			super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+		}
+
 		@Override
-		protected void addTables() {
+		public void generate() {
 			this.dropSelf(GaiaRegistry.BUST_GORGON.get());
 			this.dropSelf(GaiaRegistry.BUST_SPHINX.get());
 			this.dropSelf(GaiaRegistry.BUST_VALKYRIE.get());
@@ -88,10 +89,13 @@ public class GaiaLoot extends LootTableProvider {
 		}
 	}
 
-	private static class GaiaEntityLoot extends EntityLoot {
+	private static class GaiaEntityLoot extends EntityLootSubProvider {
+		protected GaiaEntityLoot() {
+			super(FeatureFlags.REGISTRY.allFlags());
+		}
 
 		@Override
-		protected void addTables() {
+		public void generate() {
 			this.add(GaiaRegistry.ANT_HILL.getEntityType(), LootTable.lootTable());
 			this.add(GaiaRegistry.ANT_WORKER.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -259,7 +263,7 @@ public class GaiaLoot extends LootTableProvider {
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
 			this.add(GaiaRegistry.CHEST.getEntityType(), LootTable.lootTable());
-			this.add(GaiaLootTables.CHEST_TABLES, LootTable.lootTable()
+			this.add(GaiaRegistry.CHEST.getEntityType(), GaiaLootTables.CHEST_TABLES, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootTableReference.lootTableReference(BuiltInLootTables.SIMPLE_DUNGEON))
 					)
@@ -417,7 +421,7 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
 			);
-			this.add(GaiaLootTables.DWARF_RANGED, LootTable.lootTable()
+			this.add(GaiaRegistry.DWARF.getEntityType(), GaiaLootTables.DWARF_RANGED, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.ARROW)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
@@ -433,7 +437,7 @@ public class GaiaLoot extends LootTableProvider {
 							.add(LootItem.lootTableItem(GaiaRegistry.BAG_ARROWS.get())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
 			);
-			this.add(GaiaLootTables.DWARF_MINER, LootTable.lootTable()
+			this.add(GaiaRegistry.DWARF.getEntityType(), GaiaLootTables.DWARF_MINER, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
@@ -685,24 +689,24 @@ public class GaiaLoot extends LootTableProvider {
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))))
 			);
 			this.add(GaiaRegistry.MINOTAURUS.getEntityType(), LootTable.lootTable()
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(Items.LEATHER)
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
-							.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
-							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(LootItem.lootTableItem(Items.LEATHER)
+											.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+											.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(TagEntry.expandTag(Tags.Items.NUGGETS_GOLD)
+											.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+									.add(LootItem.lootTableItem(GaiaRegistry.BOX_GOLD.get()))
+									.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get())))
 //					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 //							.add(LootItem.lootTableItem(GaiaRegistry.HOLSTAURUS.getSpawnEgg().get())
 //									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))))
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
-							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_BATTLE.get())))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.01F, 0.01F))
+									.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_BATTLE.get())))
 			);
-			this.add(GaiaLootTables.MINOTAURUS_RANGED, LootTable.lootTable()
+			this.add(GaiaRegistry.MINOTAURUS.getEntityType(), GaiaLootTables.MINOTAURUS_RANGED, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.ARROW)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
@@ -1114,9 +1118,196 @@ public class GaiaLoot extends LootTableProvider {
 		}
 
 		@Override
-		protected Iterable<EntityType<?>> getKnownEntities() {
-			Stream<EntityType<?>> entities = GaiaRegistry.ENTITIES.getEntries().stream().map(RegistryObject::get);
-			return (Iterable<EntityType<?>>) entities::iterator;
+		protected Stream<EntityType<?>> getKnownEntityTypes() {
+			return GaiaRegistry.ENTITIES.getEntries().stream().map(RegistryObject::get);
+		}
+	}
+
+	private static class GaiaBoxLoot implements LootTableSubProvider {
+		@Override
+		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+			consumer.accept(GaiaLootTables.BAG_ARROW, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 16.0F)))
+									.apply(SetPotionFunction.setPotion(Potions.SLOWNESS)).setWeight(10))
+							.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 16.0F)))
+									.apply(SetPotionFunction.setPotion(Potions.HARMING)).setWeight(10))
+							.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 16.0F)))
+									.apply(SetPotionFunction.setPotion(Potions.POISON)).setWeight(10))
+							.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 16.0F)))
+									.apply(SetPotionFunction.setPotion(Potions.WEAKNESS)).setWeight(10))
+					)
+			);
+			consumer.accept(GaiaLootTables.BAG_BOOK, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.BOOK)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(5, 20)).allowTreasure()))
+					)
+			);
+			consumer.accept(GaiaLootTables.BAG_RECORD, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(TagEntry.expandTag(GaiaTags.RECORDS))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_HAT, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_BOOK.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_MOB.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_BOLT.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_ARROW.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_DOLL.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.HEADGEAR_EARS_ELF.get()))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_OLD, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(GaiaRegistry.BAG_BOOK.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.GIGA_GEAR.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.WEAPON_BOOK_WITHER.get()))
+							.add(LootItem.lootTableItem(GaiaRegistry.BOX_EGG.get()))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_IRON, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.IRON_INGOT)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 9.0F))))
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.IRON_AXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_PICKAXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_HELMET)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_CHESTPLATE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_LEGGINGS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_BOOTS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_HORSE_ARMOR).setWeight(10))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_GOLD, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.GOLD_INGOT)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 9.0F))))
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.GOLDEN_AXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_PICKAXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_HELMET)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_CHESTPLATE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_LEGGINGS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_BOOTS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.GOLDEN_HORSE_ARMOR).setWeight(10))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_DIAMOND, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.DIAMOND)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 9.0F))))
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.DIAMOND_AXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_PICKAXE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_SHOVEL)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_HELMET)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_BOOTS)
+									.apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20, 39)).allowTreasure()).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_HORSE_ARMOR).setWeight(10))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_OVERWORLD, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.GOLD_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(10))
+							.add(LootItem.lootTableItem(Items.IRON_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(15))
+							.add(LootItem.lootTableItem(Items.COPPER_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(15))
+							.add(LootItem.lootTableItem(Items.COAL_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))).setWeight(15))
+							.add(LootItem.lootTableItem(Items.LAPIS_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(10))
+							.add(LootItem.lootTableItem(Items.DIAMOND_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).setWeight(5))
+							.add(LootItem.lootTableItem(Items.REDSTONE_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))).setWeight(10))
+							.add(LootItem.lootTableItem(Items.EMERALD_ORE).setWeight(5))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_END, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.OBSIDIAN)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))).setWeight(15))
+							.add(LootItem.lootTableItem(Items.END_STONE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))).setWeight(15))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_NETHER, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.name("main")
+							.add(LootItem.lootTableItem(Items.GLOWSTONE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(10))
+							.add(LootItem.lootTableItem(Items.NETHER_QUARTZ_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))).setWeight(15))
+							.add(LootItem.lootTableItem(Items.NETHER_GOLD_ORE)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))).setWeight(15))
+					)
+			);
+			consumer.accept(GaiaLootTables.BOXES_EGG, LootTable.lootTable()
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+											.name("main")
+											.add(LootItem.lootTableItem(GaiaRegistry.CREEPER_GIRL.getSpawnEgg().get()))
+											.add(LootItem.lootTableItem(GaiaRegistry.ENDER_GIRL.getSpawnEgg().get()))
+//							.add(LootItem.lootTableItem(GaiaRegistry.HOLSTAURUS.getSpawnEgg().get()))
+											.add(LootItem.lootTableItem(GaiaRegistry.SLIME_GIRL.getSpawnEgg().get()))
+											.add(LootItem.lootTableItem(GaiaRegistry.TRADER.getSpawnEgg().get()))
+//							.add(LootItem.lootTableItem(GaiaRegistry.WERESHEEP.getSpawnEgg().get()))
+							)
+			);
 		}
 	}
 
@@ -1133,7 +1324,7 @@ public class GaiaLoot extends LootTableProvider {
 		);
 		map.forEach((name, table) -> {
 			if (!ignored.contains(name)) {
-				LootTables.validate(validationContext, name, table);
+				table.validate(validationContext);
 			}
 		});
 	}

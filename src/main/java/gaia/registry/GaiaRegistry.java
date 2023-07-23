@@ -112,12 +112,17 @@ import gaia.item.weapon.book.WitherBookItem;
 import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import gaia.registry.helper.PropReg;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
@@ -126,8 +131,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.DeferredRegister;
@@ -140,6 +144,7 @@ public class GaiaRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, GrimoireOfGaia.MOD_ID);
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GrimoireOfGaia.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GrimoireOfGaia.MOD_ID);
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GrimoireOfGaia.MOD_ID);
 
 	public static final MobReg<AntSalvager> ANT_SALVAGER = new MobReg.Builder<>("ant_salvager", EntityType.Builder.of(AntSalvager::new, MobCategory.MONSTER).sized(0.5F, 0.5F).clientTrackingRange(8), 0x8a7264, 0x303030).withDefaultSounds().build();
 	public static final MobReg<AntWorker> ANT_WORKER = new MobReg.Builder<>("ant", EntityType.Builder.of(AntWorker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).clientTrackingRange(8), 0x303030, 0x8a7264).withDefaultSounds().build();
@@ -245,23 +250,23 @@ public class GaiaRegistry {
 
 
 	//Blocks
-	public static final RegistryObject<Block> BUST_GORGON = BLOCKS.register("bust_gorgon", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> BUST_MINOTAUR = BLOCKS.register("bust_minotaur", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> BUST_SPHINX = BLOCKS.register("bust_sphinx", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> BUST_VALKYRIE = BLOCKS.register("bust_valkyrie", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> BUST_VAMPIRE = BLOCKS.register("bust_vampire", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> DECO_GARDEN_GNOME = BLOCKS.register("deco_garden_gnome", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> DECO_MANDRAGORA_POT = BLOCKS.register("deco_mandragora_pot", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> DECO_NEST_HARPY = BLOCKS.register("deco_nest_harpy", () -> new DecorationBlock(Block.Properties.of(Material.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> DOLL_CREEPER_GIRL = BLOCKS.register("doll_creeper_girl", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_DRYAD = BLOCKS.register("doll_dryad", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_DULLAHAN = BLOCKS.register("doll_dullahan", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_ENDER_GIRL = BLOCKS.register("doll_ender_girl", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_MAID = BLOCKS.register("doll_maid", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_MERMAID = BLOCKS.register("doll_mermaid", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_NINE_TAILS = BLOCKS.register("doll_nine_tails", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> DOLL_SLIME_GIRL = BLOCKS.register("doll_slime_girl", () -> new DecorationBlock(Block.Properties.of(Material.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
-	public static final RegistryObject<Block> PEARL_BLOCK = BLOCKS.register("pearl_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.QUARTZ).requiresCorrectToolForDrops().strength(0.8F)));
+	public static final RegistryObject<Block> BUST_GORGON = BLOCKS.register("bust_gorgon", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> BUST_MINOTAUR = BLOCKS.register("bust_minotaur", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> BUST_SPHINX = BLOCKS.register("bust_sphinx", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> BUST_VALKYRIE = BLOCKS.register("bust_valkyrie", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> BUST_VAMPIRE = BLOCKS.register("bust_vampire", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> DECO_GARDEN_GNOME = BLOCKS.register("deco_garden_gnome", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> DECO_MANDRAGORA_POT = BLOCKS.register("deco_mandragora_pot", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> DECO_NEST_HARPY = BLOCKS.register("deco_nest_harpy", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.STONE).strength(0.8F, 6F).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> DOLL_CREEPER_GIRL = BLOCKS.register("doll_creeper_girl", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_DRYAD = BLOCKS.register("doll_dryad", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_DULLAHAN = BLOCKS.register("doll_dullahan", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_ENDER_GIRL = BLOCKS.register("doll_ender_girl", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_MAID = BLOCKS.register("doll_maid", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_MERMAID = BLOCKS.register("doll_mermaid", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_NINE_TAILS = BLOCKS.register("doll_nine_tails", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> DOLL_SLIME_GIRL = BLOCKS.register("doll_slime_girl", () -> new DecorationBlock(Block.Properties.of().mapColor(MapColor.WOOL).strength(0.8F, 6F).sound(SoundType.WOOL)));
+	public static final RegistryObject<Block> PEARL_BLOCK = BLOCKS.register("pearl_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).requiresCorrectToolForDrops().strength(0.8F)));
 
 
 	//BlockItems
@@ -384,6 +389,16 @@ public class GaiaRegistry {
 	public static final RegistryObject<Item> WERESHEEP_TOKEN = ITEMS.register("weresheep_token", () -> new Item(itemBuilder()));
 
 	private static Item.Properties itemBuilder() {
-		return new Item.Properties().tab(GaiaTabs.GAIA_TAB);
+		return new Item.Properties();
 	}
+
+	public static final RegistryObject<CreativeModeTab> GAIA_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
+			.icon(() -> new ItemStack(GaiaRegistry.DOLL_DRYAD.get()))
+			.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+			.title(Component.translatable("itemGroup.grimoireofgaia"))
+			.displayItems((features, output) -> {
+				List<ItemStack> stacks = GaiaRegistry.ITEMS.getEntries().stream()
+						.map(reg -> new ItemStack(reg.get())).toList();
+				output.acceptAll(stacks);
+			}).build());
 }

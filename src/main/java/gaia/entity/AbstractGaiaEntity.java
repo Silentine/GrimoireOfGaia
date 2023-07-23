@@ -17,6 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
@@ -107,12 +108,12 @@ public abstract class AbstractGaiaEntity extends Monster {
 	public abstract float getBaseDefense();
 
 	protected float getBaseDamage(DamageSource source, float damage) {
-		return source == DamageSource.OUT_OF_WORLD ? damage : Math.min(damage, getBaseDefense());
+		return source.is(DamageTypes.FELL_OUT_OF_WORLD) ? damage : Math.min(damage, getBaseDefense());
 	}
 
 	protected void spawnLingeringCloud(List<MobEffectInstance> effectInstances) {
 		if (!effectInstances.isEmpty()) {
-			AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+			AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
 			areaeffectcloud.setRadius(2.5F);
 			areaeffectcloud.setRadiusOnUse(-0.5F);
 			areaeffectcloud.setWaitTime(10);
@@ -123,18 +124,18 @@ public abstract class AbstractGaiaEntity extends Monster {
 				areaeffectcloud.addEffect(new MobEffectInstance(mobeffectinstance));
 			}
 
-			this.level.addFreshEntity(areaeffectcloud);
+			this.level().addFreshEntity(areaeffectcloud);
 		}
 	}
 
 	protected GaiaHorse createHorse(DifficultyInstance difficulty) {
-		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level);
+		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level());
 		if (entity instanceof GaiaHorse horse) {
-			horse.finalizeSpawn((ServerLevel) this.level, difficulty, null, (SpawnGroupData) null, (CompoundTag) null);
+			horse.finalizeSpawn((ServerLevel) this.level(), difficulty, null, (SpawnGroupData) null, (CompoundTag) null);
 			horse.setPos(this.getX(), this.getY(), this.getZ());
 			horse.setTamed(true);
 			horse.setAge(0);
-			level.addFreshEntity(horse);
+			this.level().addFreshEntity(horse);
 			return horse;
 		}
 		return null;
@@ -152,7 +153,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	protected boolean playerDetection(int range, TargetingConditions conditions) {
 		AABB box = new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1).inflate(range);
-		List<Player> list = level.getNearbyPlayers(conditions, this, box);
+		List<Player> list = this.level().getNearbyPlayers(conditions, this, box);
 
 		return !list.isEmpty();
 	}
@@ -164,9 +165,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * @param action The action to apply to the entities
 	 */
 	protected void beaconMonster(int range, Consumer<LivingEntity> action) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(range);
-			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, aabb);
+			List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, aabb);
 			for (LivingEntity livingEntity : entities) {
 				action.accept(livingEntity);
 			}

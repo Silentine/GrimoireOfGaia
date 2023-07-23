@@ -34,7 +34,7 @@ public abstract class AbstractAssistGaiaEntity extends AbstractGaiaEntity implem
 	}
 
 	protected void customServerAiStep() {
-		this.updatePersistentAnger((ServerLevel) this.level, true);
+		this.updatePersistentAnger((ServerLevel) this.level(), true);
 	}
 
 	@Override
@@ -72,6 +72,6 @@ public abstract class AbstractAssistGaiaEntity extends AbstractGaiaEntity implem
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-		this.readPersistentAngerSaveData(this.level, tag);
+		this.readPersistentAngerSaveData(this.level(), tag);
 	}
 }

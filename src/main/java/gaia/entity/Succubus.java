@@ -108,16 +108,16 @@ public class Succubus extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
 				if (effectTime > 0) {
 					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 0));
 
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 				}
 			}
@@ -131,7 +131,7 @@ public class Succubus extends AbstractGaiaEntity {
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 

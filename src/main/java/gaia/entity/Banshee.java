@@ -165,19 +165,19 @@ public class Banshee extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isPassenger()) {
 				stopRiding();
 			}
 
 			if (this.isAlive() && this.isSunBurnTick()) {
-				level.broadcastEntityEvent(this, (byte) 11);
-				hurt(DamageSource.OUT_OF_WORLD, getMaxHealth() * 0.25F);
+				this.level().broadcastEntityEvent(this, (byte) 11);
+				hurt(damageSources().fellOutOfWorld(), getMaxHealth() * 0.25F);
 			}
 		}
 
 		for (int i = 0; i < 2; ++i) {
-			level.addParticle(ParticleTypes.PORTAL,
+			this.level().addParticle(ParticleTypes.PORTAL,
 					getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 					getY() + random.nextDouble() * getBbHeight(),
 					getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);
@@ -344,7 +344,7 @@ public class Banshee extends AbstractGaiaEntity {
 
 			for (int i = 0; i < 3; ++i) {
 				BlockPos blockpos1 = blockpos.offset(this.banshee.random.nextInt(15) - 7, this.banshee.random.nextInt(11) - 5, this.banshee.random.nextInt(15) - 7);
-				if (this.banshee.level.isEmptyBlock(blockpos1)) {
+				if (this.banshee.level().isEmptyBlock(blockpos1)) {
 					this.banshee.getMoveControl().setWantedPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 0.25D);
 					if (this.banshee.getTarget() == null) {
 						this.banshee.getLookControl().setLookAt((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);

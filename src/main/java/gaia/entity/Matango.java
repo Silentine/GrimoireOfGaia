@@ -120,9 +120,9 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 			int j = Mth.floor(this.getY() - (double) 0.2F);
 			int k = Mth.floor(this.getZ());
 			BlockPos pos = new BlockPos(i, j, k);
-			BlockState blockstate = this.level.getBlockState(pos);
+			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
 
@@ -154,20 +154,20 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Entity entity = GaiaRegistry.SPORELING.getEntityType().create(this.level);
+				Entity entity = GaiaRegistry.SPORELING.getEntityType().create(this.level());
 				if (entity instanceof Sporeling summon) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(summon);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(summon);
 				}
 			}
 
-			level.broadcastEntityEvent(this, (byte) 8);
-			level.broadcastEntityEvent(this, (byte) 12);
+			this.level().broadcastEntityEvent(this, (byte) 8);
+			this.level().broadcastEntityEvent(this, (byte) 12);
 		}
 	}
 

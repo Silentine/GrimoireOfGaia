@@ -35,7 +35,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,7 +68,7 @@ public class Chest extends AbstractPropEntity {
 	@Override
 	public void aiStep() {
 		if (playerDetection() && getDrop() == 2) {
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				spawnMimic();
 			}
 			discard();
@@ -75,16 +78,16 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	private void spawnMimic() {
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
-			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(this.level);
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(this.level());
 			if (mimic != null) {
 				mimic.moveTo(blockPosition(), 0.0F, 0.0F);
-				mimic.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
-				level.addFreshEntity(mimic);
+				mimic.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				this.level().addFreshEntity(mimic);
 			}
 		}
 
-		level.broadcastEntityEvent(this, (byte) 6);
+		this.level().broadcastEntityEvent(this, (byte) 6);
 	}
 
 	/**
@@ -92,14 +95,14 @@ public class Chest extends AbstractPropEntity {
 	 */
 	private boolean playerDetection() {
 		AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(4);
-		List<Player> list = level.getEntitiesOfClass(Player.class, aabb);
+		List<Player> list = this.level().getEntitiesOfClass(Player.class, aabb);
 
 		return !list.isEmpty();
 	}
 
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-		hurt(DamageSource.GENERIC, 2.0F);
+		hurt(damageSources().generic(), 2.0F);
 		return super.mobInteract(player, hand);
 	}
 
@@ -191,7 +194,7 @@ public class Chest extends AbstractPropEntity {
 			double d0 = random.nextGaussian() * 0.02D;
 			double d1 = random.nextGaussian() * 0.02D;
 			double d2 = random.nextGaussian() * 0.02D;
-			level.addParticle(particle,
+			this.level().addParticle(particle,
 					getX() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(),
 					getY() + 0.5D + (double) (random.nextFloat() * getBbHeight()),
 					getZ() + (double) (random.nextFloat() * getBbWidth() * 2.0F) - (double) getBbWidth(), d0, d1, d2);
@@ -219,7 +222,7 @@ public class Chest extends AbstractPropEntity {
 		if (getDrop() == 2) {
 			return null;
 		} else if (getDrop() == 1) {
-			level.broadcastEntityEvent(this, (byte) 7);
+			this.level().broadcastEntityEvent(this, (byte) 7);
 			spawnMimic();
 			return null;
 		} else {
@@ -229,9 +232,19 @@ public class Chest extends AbstractPropEntity {
 
 	@Override
 	protected void dropCustomDeathLoot(DamageSource damageSource, int looting, boolean killedByPlayer) {
-		if (!this.level.isClientSide) {
-			List<ItemStack> stacks = LootHelper.getStacksFromTable((ServerLevel) this.level,
-					createLootContext(killedByPlayer, damageSource), LootContextParamSets.ENTITY, GaiaLootTables.CHEST_TABLES, 2 + Mth.clamp(looting, 0, 2));
+		if (!this.level().isClientSide) {
+			LootTable loottable = this.level().getServer().getLootData().getLootTable(GaiaLootTables.CHEST_TABLES);
+
+			LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) this.level()))
+					.withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.ORIGIN, this.position())
+					.withParameter(LootContextParams.DAMAGE_SOURCE, damageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, damageSource.getEntity())
+					.withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, damageSource.getDirectEntity());
+			if (killedByPlayer && this.lastHurtByPlayer != null) {
+				lootcontext$builder = lootcontext$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+			}
+
+			List<ItemStack> stacks = LootHelper.getStacksFromTable((ServerLevel) this.level(),
+					lootcontext$builder, LootContextParamSets.ENTITY, GaiaLootTables.CHEST_TABLES, 2 + Mth.clamp(looting, 0, 2));
 			stacks.forEach(this::spawnAtLocation);
 		}
 		super.dropCustomDeathLoot(damageSource, looting, killedByPlayer);

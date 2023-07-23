@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[47,)"
 issueTrackerURL="https://github.com/Silentine/GrimoireOfGaia/issues"
 license="Assets: ARR, Code: Creative Commons 0"
 
@@ -18,6 +18,6 @@ logoFile="logo.png"
 [[dependencies.grimoireofgaia]]
 modId="forge"
 mandatory=true
-versionRange="[40.1.16,)"
+versionRange="[47.1.0,)"
 ordering="NONE"
 side="BOTH"

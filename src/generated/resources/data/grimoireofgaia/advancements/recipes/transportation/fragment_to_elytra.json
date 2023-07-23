@@ -30,5 +30,6 @@
     "recipes": [
       "grimoireofgaia:fragment_to_elytra"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

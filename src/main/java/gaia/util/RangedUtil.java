@@ -59,15 +59,15 @@ public class RangedUtil {
 		double d1 = target.getY(0.3333333333333333D) - abstractarrow.getY();
 		double d2 = target.getZ() - shooter.getZ();
 		double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-		abstractarrow.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - shooter.level.getDifficulty().getId() * 4));
-		abstractarrow.setBaseDamage(distanceFactor * 2.0D + shooter.getRandom().nextGaussian() * 0.25D + shooter.level.getDifficulty().getId() * 0.11D);
+		abstractarrow.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - shooter.level().getDifficulty().getId() * 4));
+		abstractarrow.setBaseDamage(distanceFactor * 2.0D + shooter.getRandom().nextGaussian() * 0.25D + shooter.level().getDifficulty().getId() * 0.11D);
 
-		if (shooter.level.getDifficulty() == Difficulty.HARD && GaiaConfig.COMMON.baseDamageArchers.get() && abstractarrow instanceof Arrow arrow) {
+		if (shooter.level().getDifficulty() == Difficulty.HARD && GaiaConfig.COMMON.baseDamageArchers.get() && abstractarrow instanceof Arrow arrow) {
 			arrow.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 0));
 		}
 
 		shooter.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
-		shooter.level.addFreshEntity(abstractarrow);
+		shooter.level().addFreshEntity(abstractarrow);
 	}
 
 	public static AbstractArrow getArrow(LivingEntity shooter, ItemStack arrowStack, float distanceFactor) {
@@ -90,10 +90,10 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		GaiaSmallFireball smallFireball = new GaiaSmallFireball(shooter.level, shooter,
+		GaiaSmallFireball smallFireball = new GaiaSmallFireball(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		smallFireball.setPos(smallFireball.getX(), shooter.getY(0.5D) + 0.5D, smallFireball.getZ());
-		shooter.level.addFreshEntity(smallFireball);
+		shooter.level().addFreshEntity(smallFireball);
 	}
 
 	/**
@@ -113,13 +113,13 @@ public class RangedUtil {
 		double d3 = target.getZ() + vec3.z - shooter.getZ();
 		float f = Mth.sqrt((float) (d1 * d1 + d3 * d3));
 
-		ThrownPotion thrownpotion = new ThrownPotion(shooter.level, shooter);
+		ThrownPotion thrownpotion = new ThrownPotion(shooter.level(), shooter);
 		thrownpotion.setItem(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion));
 		thrownpotion.setXRot(thrownpotion.getXRot() + 20.0F);
 		thrownpotion.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
 
-		shooter.level.playSound((Player) null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.WITCH_THROW, shooter.getSoundSource(), 1.0F, 0.8F + shooter.getRandom().nextFloat() * 0.4F);
-		shooter.level.addFreshEntity(thrownpotion);
+		shooter.level().playSound((Player) null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.WITCH_THROW, shooter.getSoundSource(), 1.0F, 0.8F + shooter.getRandom().nextFloat() * 0.4F);
+		shooter.level().addFreshEntity(thrownpotion);
 	}
 
 	/**
@@ -138,10 +138,10 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		MagicProjectile magic = new MagicProjectile(shooter.level, shooter,
+		MagicProjectile magic = new MagicProjectile(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		magic.setPos(magic.getX(), shooter.getY(0.5D) + 0.5D, magic.getZ());
-		shooter.level.addFreshEntity(magic);
+		shooter.level().addFreshEntity(magic);
 	}
 
 	/**
@@ -160,11 +160,11 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		RandomMagicProjectile magic = new RandomMagicProjectile(shooter.level, shooter,
+		RandomMagicProjectile magic = new RandomMagicProjectile(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		magic.setPos(magic.getX(), shooter.getY(0.5D) + 0.5D + yOffset, magic.getZ());
 		magic.setEffect(mobEffect);
-		shooter.level.addFreshEntity(magic);
+		shooter.level().addFreshEntity(magic);
 	}
 
 	/**
@@ -183,10 +183,10 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		WebProjectile web = new WebProjectile(shooter.level, shooter,
+		WebProjectile web = new WebProjectile(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		web.setPos(web.getX(), shooter.getY(0.5D) + 0.5D, web.getZ());
-		shooter.level.addFreshEntity(web);
+		shooter.level().addFreshEntity(web);
 	}
 
 	/**
@@ -205,10 +205,10 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		BubbleProjectile bubble = new BubbleProjectile(shooter.level, shooter,
+		BubbleProjectile bubble = new BubbleProjectile(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		bubble.setPos(bubble.getX(), shooter.getY(0.5D) + 0.5D, bubble.getZ());
-		shooter.level.addFreshEntity(bubble);
+		shooter.level().addFreshEntity(bubble);
 	}
 
 	/**
@@ -227,10 +227,10 @@ public class RangedUtil {
 		double d2 = target.getZ() - shooter.getZ();
 		double f1 = Mth.sqrt(distanceFactor) * 0.5D;
 
-		PoisonProjectile poison = new PoisonProjectile(shooter.level, shooter,
+		PoisonProjectile poison = new PoisonProjectile(shooter.level(), shooter,
 				d0 + shooter.getRandom().nextGaussian() * f1, d1, d2 + shooter.getRandom().nextGaussian() * f1);
 		poison.setPos(poison.getX(), shooter.getY(0.5D) + 0.5D, poison.getZ());
-		shooter.level.addFreshEntity(poison);
+		shooter.level().addFreshEntity(poison);
 	}
 
 	/**
@@ -244,13 +244,13 @@ public class RangedUtil {
 	public static void bomb(LivingEntity target, LivingEntity shooter, float distanceFactor) {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
-		BombProjectile bomb = new BombProjectile(shooter.level, shooter);
+		BombProjectile bomb = new BombProjectile(shooter.level(), shooter);
 		double d0 = target.getEyeY() - (double) 1.1F;
 		double d1 = target.getX() - shooter.getX();
 		double d2 = d0 - bomb.getY();
 		double d3 = target.getZ() - shooter.getZ();
 		double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double) 0.2F;
 		bomb.shoot(d1, d2 + d4, d3, 0.75F, 8.0F);
-		shooter.level.addFreshEntity(bomb);
+		shooter.level().addFreshEntity(bomb);
 	}
 }

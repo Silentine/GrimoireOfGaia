@@ -1,8 +1,6 @@
 {
   "pack": {
     "description": "\u00A77Cute girl sound pack created by Silentine",
-    "pack_format": 9,
-    "forge:resource_pack_format": 8,
-    "forge:data_pack_format": 9
+    "pack_format": 15
   }
 }

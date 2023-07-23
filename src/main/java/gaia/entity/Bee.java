@@ -106,7 +106,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 	protected PathNavigation createNavigation(Level level) {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
 			public boolean isStableDestination(BlockPos pos) {
-				return !this.level.getBlockState(pos.below()).isAir();
+				return !level().getBlockState(pos.below()).isAir();
 			}
 
 			public void tick() {
@@ -139,7 +139,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 	}
 
 	public boolean isFlying() {
-		return !this.onGround;
+		return !this.onGround();
 	}
 
 	public boolean isMoving() {
@@ -186,9 +186,9 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -205,7 +205,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && (getHealth() >= getMaxHealth())) {
+		if (!this.level().isClientSide && (getHealth() >= getMaxHealth())) {
 			if (detectMovement() && !isMoving()) {
 				setMoving(true);
 			}
@@ -268,7 +268,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 
 	private boolean detectMovement() {
 		if (this.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F) {
-			BlockState blockstate = this.level.getBlockState(blockPosition().below());
+			BlockState blockstate = this.level().getBlockState(blockPosition().below());
 			if (!blockstate.isAir()) {
 				return true;
 			}

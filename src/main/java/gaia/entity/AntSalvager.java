@@ -16,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -92,7 +93,7 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
-		if (isHiding() && source != DamageSource.OUT_OF_WORLD) {
+		if (isHiding() && !source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
 			return false;
 		}
 		float input = getBaseDamage(source, damage);
@@ -112,9 +113,9 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -132,12 +133,12 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
-		if (!isOnGround() && tickCount > 40) {
-			level.broadcastEntityEvent(this, (byte) 11);
+		if (!onGround() && tickCount > 40) {
+			this.level().broadcastEntityEvent(this, (byte) 11);
 			remove(RemovalReason.KILLED);
 		}
 
@@ -155,7 +156,7 @@ public class AntSalvager extends AbstractGaiaEntity implements IDayMob, RangedAt
 			}
 		} else {
 			if (isHiding()) {
-				level.broadcastEntityEvent(this, (byte) 12);
+				this.level().broadcastEntityEvent(this, (byte) 12);
 				setGoals(0);
 				removeEffect(MobEffects.INVISIBILITY);
 				setHiding(false);

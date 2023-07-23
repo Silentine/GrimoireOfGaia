@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,7 +14,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -57,17 +55,6 @@ public class IceFanItem extends FanItem {
 		super.appendHoverText(stack, level, list, flag);
 
 		list.add(Component.translatable("effect.minecraft.slowness").append(" IV (0:05)").withStyle(ChatFormatting.GRAY));
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab modeTab, NonNullList<ItemStack> itemStacks) {
-		if (!this.allowedIn(modeTab)) {
-			return;
-		}
-
-		ItemStack stack = new ItemStack(this);
-		stack.enchant(Enchantments.KNOCKBACK, 4);
-		itemStacks.add(stack);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class FanItem extends Item {
 
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (!attacker.getLevel().isClientSide) {
+		if (!attacker.level().isClientSide) {
 			stack.hurtAndBreak(1, attacker, (entity) -> {
 				entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
 			});

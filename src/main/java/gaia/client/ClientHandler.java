@@ -139,7 +139,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -147,9 +147,6 @@ import net.minecraftforge.client.event.RegisterEntitySpectatorShadersEvent;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.resource.PathPackResources;
-
-import java.io.IOException;
 
 public class ClientHandler {
 	public static final float tinyShadow = 0.25F;
@@ -269,20 +266,16 @@ public class ClientHandler {
 	}
 
 	public static void addPackFinders(AddPackFindersEvent event) {
-		try {
-			if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-				var resourcePath = ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().findResource("optional_sound_pack");
-				var pack = new PathPackResources(ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().getFileName() + ":" + resourcePath, resourcePath);
-				var metadataSection = pack.getMetadataSection(PackMetadataSection.SERIALIZER);
-				if (metadataSection != null) {
-					event.addRepositorySource((packConsumer, packConstructor) ->
-							packConsumer.accept(packConstructor.create(
-									"builtin/add_pack_finders_test", Component.literal("\u00A76Optional GoG4 sound pack"), false,
-									() -> pack, metadataSection, Pack.Position.TOP, PackSource.BUILT_IN, false)));
-				}
-			}
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
+		if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+			var resourcePath = ModList.get().getModFileById(GrimoireOfGaia.MOD_ID).getFile().findResource("optional_sound_pack");
+			var pack = Pack.readMetaAndCreate("builtin/gaia_sound_pack",
+					Component.literal("\u00A76Optional GoG4 sound pack"),
+					false,
+					(path) -> new PathPackResources(path, resourcePath, false),
+					PackType.CLIENT_RESOURCES,
+					Pack.Position.TOP,
+					PackSource.BUILT_IN);
+			event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
 		}
 	}
 

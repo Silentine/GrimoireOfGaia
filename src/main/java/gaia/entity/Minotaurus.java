@@ -14,7 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -98,7 +98,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+			return !source.isIndirect() && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
@@ -114,9 +114,9 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -148,7 +148,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 		if (itemstack.getItem() instanceof BowItem) {
 			int i = 20;
 
-			if (this.level.getDifficulty() != Difficulty.HARD) {
+			if (this.level().getDifficulty() != Difficulty.HARD) {
 				i = 40;
 			}
 

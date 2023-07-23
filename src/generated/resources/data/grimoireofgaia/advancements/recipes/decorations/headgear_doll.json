@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_golden_apple_pie_slice": {
+    "has_maid_doll": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:golden_apple_pie_slice"
+              "grimoireofgaia:doll_maid"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:golden_apple_pie"
+        "recipe": "grimoireofgaia:headgear_doll"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_golden_apple_pie_slice",
+      "has_maid_doll",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:golden_apple_pie"
+      "grimoireofgaia:headgear_doll"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

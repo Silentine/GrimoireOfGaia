@@ -2,6 +2,7 @@ package gaia.entity.projectile;
 
 import gaia.registry.GaiaRegistry;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -28,7 +29,7 @@ public class GaiaSmallFireball extends SmallFireball {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -44,13 +45,13 @@ public class GaiaSmallFireball extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			Entity entity = entityResult.getEntity();
 			if (!entity.fireImmune()) {
 				Entity entity1 = this.getOwner();
 				int i = entity.getRemainingFireTicks();
 				entity.setSecondsOnFire(4);
-				boolean flag = entity.hurt(DamageSource.fireball(this, entity1), 4.0F);
+				boolean flag = entity.hurt(damageSources().fireball(this, entity1), 4.0F);
 				if (!flag) {
 					entity.setRemainingFireTicks(i);
 				} else if (entity1 instanceof LivingEntity) {

@@ -89,7 +89,7 @@ public class Deathword extends AbstractGaiaEntity {
 	protected PathNavigation createNavigation(Level level) {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
 			public boolean isStableDestination(BlockPos pos) {
-				return !this.level.getBlockState(pos.below()).isAir();
+				return !level().getBlockState(pos.below()).isAir();
 			}
 
 			public void tick() {
@@ -136,9 +136,9 @@ public class Deathword extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -155,7 +155,7 @@ public class Deathword extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -172,12 +172,12 @@ public class Deathword extends AbstractGaiaEntity {
 				}
 
 				if (spawnTimer == 60) {
-					level.broadcastEntityEvent(this, (byte) 9);
+					this.level().broadcastEntityEvent(this, (byte) 9);
 
-					if (!this.level.isClientSide) {
+					if (!this.level().isClientSide) {
 						switch (random.nextInt(4)) {
 							case 0 -> {
-								boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
+								boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this);
 								if (!flag) {
 									setSpawn(0);
 								} else {
@@ -205,14 +205,14 @@ public class Deathword extends AbstractGaiaEntity {
 		}
 
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
 		motion = this.getDeltaMovement();
 		if (motion.x > 0 || motion.y > 0 || motion.z > 0) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.ENCHANT,
+				this.level().addParticle(ParticleTypes.ENCHANT,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);
@@ -228,23 +228,23 @@ public class Deathword extends AbstractGaiaEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Creeper summon = EntityType.CREEPER.create(this.level);
+				Creeper summon = EntityType.CREEPER.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(summon);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(summon);
 				}
 			}
 
 			if (id == 1) {
-				Skeleton summon = EntityType.SKELETON.create(this.level);
+				Skeleton summon = EntityType.SKELETON.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -252,24 +252,24 @@ public class Deathword extends AbstractGaiaEntity {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					level.addFreshEntity(summon);
+					this.level().addFreshEntity(summon);
 				}
 			}
 
 			if (id == 2) {
-				Spider summon = EntityType.SPIDER.create(this.level);
+				Spider summon = EntityType.SPIDER.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(summon);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(summon);
 				}
 			}
 
 			if (id == 3) {
-				Zombie summon = EntityType.ZOMBIE.create(this.level);
+				Zombie summon = EntityType.ZOMBIE.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -277,12 +277,12 @@ public class Deathword extends AbstractGaiaEntity {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					level.addFreshEntity(summon);
+					this.level().addFreshEntity(summon);
 				}
 			}
 		}
 
-		level.broadcastEntityEvent(this, (byte) 6);
+		this.level().broadcastEntityEvent(this, (byte) 6);
 	}
 
 	private void setGoals(int id) {

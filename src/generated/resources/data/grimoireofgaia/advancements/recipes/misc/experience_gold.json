@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_experience_gold": {
+    "has_gold_box": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:experience_gold"
+              "grimoireofgaia:box_gold"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:monster_feed_1"
+        "recipe": "grimoireofgaia:experience_gold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_experience_gold",
+      "has_gold_box",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:monster_feed_1"
+      "grimoireofgaia:experience_gold"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

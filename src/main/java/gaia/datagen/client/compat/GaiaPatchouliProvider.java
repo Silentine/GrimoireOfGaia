@@ -5,7 +5,7 @@ import gaia.datagen.server.GaiaAdvancementProvider;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.helper.MobReg;
 import gaia.registry.helper.PropReg;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.EnchantedBookItem;
@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class GaiaPatchouliProvider extends PatchouliBookProvider {
-	public GaiaPatchouliProvider(DataGenerator gen) {
-		super(gen, GrimoireOfGaia.MOD_ID, "en_us");
+	public GaiaPatchouliProvider(PackOutput packOutput) {
+		super(packOutput, GrimoireOfGaia.MOD_ID, "en_us");
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		BookBuilder bookBuilder = createBookBuilder("gaiapedia",
 				prefix("name"), prefix("landing"))
 				.setSubtitle(prefix("subtitle"))
-				.setCreativeTab("statues.items")
+				.setCreativeTab("grimoireofgaia.tab")
 				.setModel("patchouli:book_red")
 				.setBookTexture("patchouli:textures/gui/book_red.png")
 				.setShowProgress(true)

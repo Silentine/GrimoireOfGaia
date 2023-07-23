@@ -115,9 +115,9 @@ public class Hunter extends AbstractAssistGaiaEntity implements RangedAttackMob,
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -249,7 +249,7 @@ public class Hunter extends AbstractAssistGaiaEntity implements RangedAttackMob,
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 
-		setCombatTask(this.level.getDifficulty());
+		setCombatTask(this.level().getDifficulty());
 	}
 
 	@Override

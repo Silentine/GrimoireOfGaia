@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -128,9 +129,9 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -173,7 +174,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAnimationState(0);
 
 				setSpawn(0);
@@ -191,7 +192,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAnimationState(0);
 
 				setSpawn(0);
@@ -236,13 +237,13 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Zombie summon = EntityType.ZOMBIE.create(this.level);
+				Zombie summon = EntityType.ZOMBIE.create(this.level());
 				summon.moveTo(blockpos, 0.0F, 0.0F);
-				summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+				summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 				summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_BOLT.get()));
 				summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 				summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -250,7 +251,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 				summon.setDropChance(EquipmentSlot.LEGS, 0);
 				summon.setDropChance(EquipmentSlot.CHEST, 0);
 				summon.setDropChance(EquipmentSlot.HEAD, 0);
-				level.addFreshEntity(summon);
+				this.level().addFreshEntity(summon);
 			}
 		}
 	}
@@ -297,14 +298,14 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	protected float getDamageAfterMagicAbsorb(DamageSource damageSource, float damage) {
-		damage = super.getDamageAfterMagicAbsorb(damageSource, damage);
+	protected float getDamageAfterMagicAbsorb(DamageSource source, float damage) {
+		damage = super.getDamageAfterMagicAbsorb(source, damage);
 
-		if (damageSource.getEntity() == this) {
+		if (source.getEntity() == this) {
 			damage = 0.0F;
 		}
 
-		if (damageSource.isMagic()) {
+		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			damage *= 0.15F;
 		}
 

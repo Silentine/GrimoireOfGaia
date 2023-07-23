@@ -30,5 +30,6 @@
     "recipes": [
       "grimoireofgaia:diamond_shard_to_diamond"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

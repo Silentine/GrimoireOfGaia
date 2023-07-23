@@ -54,7 +54,7 @@ public class MagicStaffItem extends Item {
 				magic.setPos(magic.getX(), livingEntity.getY(0.5D) + 0.5D, magic.getZ());
 				magic.setOwner(livingEntity);
 				magic.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-				livingEntity.level.addFreshEntity(magic);
+				livingEntity.level().addFreshEntity(magic);
 			}
 
 			player.playSound(SoundEvents.CHICKEN_EGG, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);

@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -137,7 +137,7 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 		float input = getBaseDamage(source, damage);
 		if (this.isInvulnerableTo(source)) {
 			return false;
-		} else if (source instanceof IndirectEntityDamageSource) {
+		} else if (source.isIndirect()) {
 			Entity entity = source.getDirectEntity();
 			boolean flag1;
 			if (entity instanceof ThrownPotion) {
@@ -155,7 +155,7 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 			return flag1;
 		} else {
 			boolean flag = super.hurt(source, input);
-			if (!this.level.isClientSide() && !(source.getEntity() instanceof LivingEntity) && this.random.nextInt(10) != 0) {
+			if (!this.level().isClientSide() && !(source.getEntity() instanceof LivingEntity) && this.random.nextInt(10) != 0) {
 				this.teleportRandomly();
 			}
 
@@ -178,9 +178,9 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			for (int i = 0; i < 2; ++i) {
-				this.level.addParticle(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() - 0.25D, this.getRandomZ(0.5D), (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+				this.level().addParticle(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() - 0.25D, this.getRandomZ(0.5D), (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
 			}
 		}
 
@@ -191,12 +191,12 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 
 	protected void customServerAiStep() {
 		if (isInWaterOrRain()) {
-			hurt(DamageSource.DROWN, 1.0F);
+			hurt(damageSources().drown(), 1.0F);
 		}
 
-		if (this.level.isDay() && this.tickCount >= this.targetChangeTime + 600) {
+		if (this.level().isDay() && this.tickCount >= this.targetChangeTime + 600) {
 			float f = this.getLightLevelDependentMagicValue();
-			if (f > 0.5F && this.level.canSeeSky(this.blockPosition()) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+			if (f > 0.5F && this.level().canSeeSky(this.blockPosition()) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
 				this.setTarget((LivingEntity) null);
 				this.teleportRandomly();
 			}
@@ -220,7 +220,7 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 	}
 
 	protected boolean teleportRandomly() {
-		if (!this.level.isClientSide() && this.isAlive()) {
+		if (!this.level().isClientSide() && this.isAlive()) {
 			double d0 = this.getX() + (this.random.nextDouble() - 0.5D) * 64.0D;
 			double d1 = this.getY() + (double) (this.random.nextInt(64) - 32);
 			double d2 = this.getZ() + (this.random.nextDouble() - 0.5D) * 64.0D;
@@ -233,19 +233,19 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 	private boolean teleport(double x, double y, double z) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
 
-		while (blockpos$mutableblockpos.getY() > this.level.getMinBuildHeight() && !this.level.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMotion()) {
+		while (blockpos$mutableblockpos.getY() > this.level().getMinBuildHeight() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
 			blockpos$mutableblockpos.move(Direction.DOWN);
 		}
 
-		BlockState blockstate = this.level.getBlockState(blockpos$mutableblockpos);
-		boolean flag = blockstate.getMaterial().blocksMotion();
+		BlockState blockstate = this.level().getBlockState(blockpos$mutableblockpos);
+		boolean flag = blockstate.blocksMotion();
 		boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
 		if (flag && !flag1) {
 			net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, x, y, z);
 			if (event.isCanceled()) return false;
 			boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
 			if (flag2 && !this.isSilent()) {
-				this.level.playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
+				this.level().playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
 				this.playSound(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.get(), 1.0F, 1.0F);
 			}
 
@@ -329,7 +329,7 @@ public class EnderDragonGirl extends AbstractAssistGaiaEntity {
 		}
 
 		public boolean canUse() {
-			this.pendingTarget = this.enderDragonGirl.level.getNearestPlayer(this.startAggroTargetConditions, this.enderDragonGirl);
+			this.pendingTarget = this.enderDragonGirl.level().getNearestPlayer(this.startAggroTargetConditions, this.enderDragonGirl);
 			return this.pendingTarget != null;
 		}
 

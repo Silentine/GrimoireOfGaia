@@ -12,7 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -104,7 +104,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+			return !source.isIndirect() && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
@@ -120,9 +120,9 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 				}
 
@@ -141,11 +141,11 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -153,7 +153,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 			if ((spawnTime > 0) && (spawnTime <= 200)) {
 				++spawnTime;
 			} else {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 
 				heal(getMaxHealth() * 0.10F);
 				spawnTime = 1;
@@ -162,7 +162,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 
 		if (isDeadOrDying()) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.EXPLOSION,
+				this.level().addParticle(ParticleTypes.EXPLOSION,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);

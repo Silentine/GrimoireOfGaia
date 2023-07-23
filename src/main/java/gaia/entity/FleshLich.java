@@ -133,7 +133,7 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 
 				if (flag) {
 					this.setSecondsOnFire(8);
-					hurt(DamageSource.OUT_OF_WORLD, getMaxHealth() * 0.25F);
+					hurt(damageSources().fellOutOfWorld(), getMaxHealth() * 0.25F);
 				}
 			}
 		}

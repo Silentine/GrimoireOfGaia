@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_experience_diamond": {
+    "has_golden_apple_pie_slice": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:experience_diamond"
+              "grimoireofgaia:golden_apple_pie_slice"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:monster_feed_2"
+        "recipe": "grimoireofgaia:golden_apple_pie"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_experience_diamond",
+      "has_golden_apple_pie_slice",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:monster_feed_2"
+      "grimoireofgaia:golden_apple_pie"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

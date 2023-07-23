@@ -82,8 +82,8 @@ public class Mummy extends AbstractGaiaEntity {
 		float input = getBaseDamage(source, damage);
 		Entity entity = source.getDirectEntity();
 
-		if (entity instanceof Player && random.nextBoolean() && !this.level.isClientSide) {
-			level.broadcastEntityEvent(this, (byte) 12);
+		if (entity instanceof Player && random.nextBoolean() && !this.level().isClientSide) {
+			this.level().broadcastEntityEvent(this, (byte) 12);
 			setSpawn(0);
 		}
 
@@ -96,9 +96,9 @@ public class Mummy extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -107,7 +107,7 @@ public class Mummy extends AbstractGaiaEntity {
 				}
 			}
 
-			float effectiveDifficulty = this.level.getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
+			float effectiveDifficulty = this.level().getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
 
 			if (this.getMainHandItem().isEmpty() && this.isOnFire() && this.random.nextFloat() < effectiveDifficulty * 0.3F) {
 				entityIn.setSecondsOnFire(2 * (int) effectiveDifficulty);
@@ -139,7 +139,7 @@ public class Mummy extends AbstractGaiaEntity {
 
 				if (flag) {
 					this.setSecondsOnFire(8);
-					this.hurt(DamageSource.OUT_OF_WORLD, getMaxHealth() * 0.10F);
+					this.hurt(damageSources().fellOutOfWorld(), getMaxHealth() * 0.10F);
 				}
 			}
 		}
@@ -148,14 +148,14 @@ public class Mummy extends AbstractGaiaEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 			if (id == 0) {
-				GraveMite mite = GaiaRegistry.GRAVEMITE.getEntityType().create(this.level);
+				GraveMite mite = GaiaRegistry.GRAVEMITE.getEntityType().create(this.level());
 				if (mite != null) {
 					mite.moveTo(blockpos, 0.0F, 0.0F);
-					mite.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(mite);
+					mite.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(mite);
 				}
 			}
 		}

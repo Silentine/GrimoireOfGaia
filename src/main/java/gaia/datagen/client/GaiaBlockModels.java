@@ -2,13 +2,13 @@ package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaRegistry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class GaiaBlockModels extends BlockModelProvider {
-	public GaiaBlockModels(DataGenerator gen, ExistingFileHelper helper) {
-		super(gen, GrimoireOfGaia.MOD_ID, helper);
+	public GaiaBlockModels(PackOutput packOutput, ExistingFileHelper helper) {
+		super(packOutput, GrimoireOfGaia.MOD_ID, helper);
 	}
 
 	@Override

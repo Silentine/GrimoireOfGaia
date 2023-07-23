@@ -3,7 +3,7 @@ package gaia.datagen.client;
 import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -12,8 +12,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GaiaBlockstates extends BlockStateProvider {
-	public GaiaBlockstates(DataGenerator gen, ExistingFileHelper helper) {
-		super(gen, GrimoireOfGaia.MOD_ID, helper);
+	public GaiaBlockstates(PackOutput packOutput, ExistingFileHelper helper) {
+		super(packOutput, GrimoireOfGaia.MOD_ID, helper);
 	}
 
 	@Override

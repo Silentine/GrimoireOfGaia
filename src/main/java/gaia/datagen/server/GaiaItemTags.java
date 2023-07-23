@@ -3,8 +3,8 @@ package gaia.datagen.server;
 import gaia.GrimoireOfGaia;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -12,7 +12,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+
+import java.util.concurrent.CompletableFuture;
 
 public class GaiaItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> HEAD = ItemTags.create(new ResourceLocation("curios", "head"));
@@ -21,12 +24,12 @@ public class GaiaItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> NECKLACE = ItemTags.create(new ResourceLocation("curios", "necklace"));
 	public static final TagKey<Item> RING = ItemTags.create(new ResourceLocation("curios", "ring"));
 
-	public GaiaItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
-		super(dataGenerator, blockTagsProvider, GrimoireOfGaia.MOD_ID, existingFileHelper);
+	public GaiaItemTags(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
+		super(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), GrimoireOfGaia.MOD_ID, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(GaiaTags.DIMENSIONAL_BOXES).add(GaiaRegistry.BOX_OVERWORLD.get(), GaiaRegistry.BOX_NETHER.get(), GaiaRegistry.BOX_END.get());
 		this.tag(GaiaTags.GOLDEN_TOOLS).add(Items.GOLDEN_AXE, Items.GOLDEN_SHOVEL, Items.GOLDEN_PICKAXE, Items.GOLDEN_HOE, Items.GOLDEN_SWORD);
 		this.tag(GaiaTags.TOOLS).addTags(GaiaTags.TOOLS_AXES, GaiaTags.TOOLS_SHOVELS);

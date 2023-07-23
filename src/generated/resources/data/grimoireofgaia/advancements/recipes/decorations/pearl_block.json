@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_box": {
+    "has_shiny_pearl": {
       "conditions": {
         "items": [
           {
             "items": [
-              "grimoireofgaia:box_iron"
+              "grimoireofgaia:shiny_pearl"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "grimoireofgaia:experience_iron"
+        "recipe": "grimoireofgaia:pearl_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_iron_box",
+      "has_shiny_pearl",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "grimoireofgaia:experience_iron"
+      "grimoireofgaia:pearl_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

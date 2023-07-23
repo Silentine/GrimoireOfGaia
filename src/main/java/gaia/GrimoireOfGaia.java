@@ -36,6 +36,7 @@ public class GrimoireOfGaia {
 
 		GaiaRegistry.BLOCKS.register(eventBus);
 		GaiaRegistry.ITEMS.register(eventBus);
+		GaiaRegistry.CREATIVE_MODE_TABS.register(eventBus);
 		GaiaRegistry.ENTITIES.register(eventBus);
 		GaiaSounds.SOUND_EVENTS.register(eventBus);
 		GaiaModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
@@ -55,6 +56,7 @@ public class GrimoireOfGaia {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::onClientSetup);
+			eventBus.addListener(ClientHandler::setupSpectatingShaders);
 			eventBus.addListener(ClientHandler::addPackFinders);
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);

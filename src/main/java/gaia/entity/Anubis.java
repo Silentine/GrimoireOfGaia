@@ -146,9 +146,9 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -192,7 +192,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAnimationState(0);
 
 				setSpawn(0);
@@ -210,7 +210,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAnimationState(0);
 
 				setSpawn(0);
@@ -247,14 +247,14 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Skeleton summon = EntityType.SKELETON.create(this.level);
+				Skeleton summon = EntityType.SKELETON.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -262,7 +262,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					this.level.addFreshEntity(summon);
+					this.level().addFreshEntity(summon);
 				}
 			}
 		}

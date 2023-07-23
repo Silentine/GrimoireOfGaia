@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -170,22 +171,22 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				potion = Potions.WEAKNESS;
 			}
 
-			ThrownPotion thrownpotion = new ThrownPotion(this.level, this);
+			ThrownPotion thrownpotion = new ThrownPotion(this.level(), this);
 			thrownpotion.setItem(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion));
 			thrownpotion.setXRot(thrownpotion.getXRot() + 20.0F);
 			thrownpotion.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
 			if (!this.isSilent()) {
-				this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_THROW, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
+				this.level().playSound((Player) null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_THROW, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 			}
 
-			this.level.addFreshEntity(thrownpotion);
+			this.level().addFreshEntity(thrownpotion);
 		}
 	}
 
 	@Override
 	public void aiStep() {
 		Vec3 motion = this.getDeltaMovement();
-		if (!this.onGround && motion.y < 0.0D) {
+		if (!this.onGround() && motion.y < 0.0D) {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
@@ -195,14 +196,14 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 		});
 
-		if (!this.level.isClientSide && isPassenger() && isRidingBroom()) {
+		if (!this.level().isClientSide && isPassenger() && isRidingBroom()) {
 			stopRiding();
 		}
 
 		motion = this.getDeltaMovement();
 		if (motion.x > 0 || motion.y > 0 || motion.z > 0) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.WITCH,
+				this.level().addParticle(ParticleTypes.WITCH,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(),
@@ -211,18 +212,18 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		}
 
 		if (getHealth() < getMaxHealth() * 0.75F && getHealth() > 0.0F && spawn == 0) {
-			level.broadcastEntityEvent(this, (byte) 9);
+			this.level().broadcastEntityEvent(this, (byte) 9);
 
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				setSpawn(0);
 			}
 			spawn = 1;
 		}
 
 		if (getHealth() < getMaxHealth() * 0.25F && getHealth() > 0.0F && spawn == 1) {
-			level.broadcastEntityEvent(this, (byte) 9);
+			this.level().broadcastEntityEvent(this, (byte) 9);
 
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				setSpawn(1);
 			}
 			spawn = 2;
@@ -249,7 +250,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			Potion potion = null;
 			if (this.random.nextFloat() < 0.15F && this.isEyeInFluid(FluidTags.WATER) && !this.hasEffect(MobEffects.WATER_BREATHING)) {
 				potion = Potions.WATER_BREATHING;
-			} else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().isFire()) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
+			} else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().is(DamageTypeTags.IS_FIRE)) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
 				potion = Potions.FIRE_RESISTANCE;
 			} else if (this.random.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
 				potion = Potions.HEALING;
@@ -262,7 +263,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				this.usingTime = this.getMainHandItem().getUseDuration();
 				this.setUsingItem(true);
 				if (!this.isSilent()) {
-					this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
+					this.level().playSound((Player) null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 				}
 
 				AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -290,13 +291,13 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			BlockPos blockpos = (blockPosition()).offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
-			Monster monster = id == 0 ? EntityType.ZOMBIE.create(this.level) : EntityType.SKELETON.create(this.level);
+			Monster monster = id == 0 ? EntityType.ZOMBIE.create(this.level()) : EntityType.SKELETON.create(this.level());
 			if (monster != null) {
 				monster.moveTo(blockpos, 0.0F, 0.0F);
-				monster.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+				monster.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
 				monster.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 				monster.setDropChance(EquipmentSlot.MAINHAND, 0);
 				monster.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -304,7 +305,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				monster.setDropChance(EquipmentSlot.LEGS, 0);
 				monster.setDropChance(EquipmentSlot.CHEST, 0);
 				monster.setDropChance(EquipmentSlot.HEAD, 0);
-				level.addFreshEntity(monster);
+				this.level().addFreshEntity(monster);
 			}
 		}
 	}

@@ -36,7 +36,7 @@ public class EdibleEffectItem extends Item {
 	}
 
 	protected void rewardEXP(Player player, int value) {
-		Level level = player.getLevel();
+		Level level = player.level();
 		ExperienceOrb orb = new ExperienceOrb(level, player.getX(), player.getY() + 1, player.getZ(), value);
 		if (!level.isClientSide) {
 			level.addFreshEntity(orb);

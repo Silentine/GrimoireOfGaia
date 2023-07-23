@@ -129,9 +129,9 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -149,12 +149,12 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
@@ -171,7 +171,7 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 	}
 
 	public void updateSwimming() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
 				this.navigation = this.waterNavigation;
 				this.setSwimming(true);
@@ -297,7 +297,7 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 				this.mermaid.setSpeed(f2);
 				this.mermaid.setDeltaMovement(this.mermaid.getDeltaMovement().add((double) f2 * d0 * 0.005D, (double) f2 * d1 * 0.1D, (double) f2 * d2 * 0.005D));
 			} else {
-				if (!this.mermaid.onGround) {
+				if (!this.mermaid.onGround()) {
 					this.mermaid.setDeltaMovement(this.mermaid.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
 				}
 

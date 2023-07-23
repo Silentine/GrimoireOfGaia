@@ -146,9 +146,9 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -165,12 +165,12 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
@@ -248,7 +248,7 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	public void updateSwimming() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
 				this.navigation = this.waterNavigation;
 				this.setSwimming(true);
@@ -366,7 +366,7 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 				this.cecaelia.setSpeed(f2);
 				this.cecaelia.setDeltaMovement(this.cecaelia.getDeltaMovement().add((double) f2 * d0 * 0.005D, (double) f2 * d1 * 0.1D, (double) f2 * d2 * 0.005D));
 			} else {
-				if (!this.cecaelia.onGround) {
+				if (!this.cecaelia.onGround()) {
 					this.cecaelia.setDeltaMovement(this.cecaelia.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
 				}
 

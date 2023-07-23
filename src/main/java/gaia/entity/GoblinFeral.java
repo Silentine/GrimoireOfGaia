@@ -38,7 +38,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -189,10 +188,10 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void explode() {
-		if (!this.level.isClientSide) {
-			Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+		if (!this.level().isClientSide) {
+			Level.ExplosionInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			this.dead = true;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius, explosion$blockinteraction);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius, explosion$blockinteraction);
 			this.discard();
 		}
 	}
@@ -211,7 +210,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getMainHandItem().getItem() instanceof ProjectileWeaponItem) {
 			int i = 20;
 
-			if (this.level.getDifficulty() != Difficulty.HARD) {
+			if (this.level().getDifficulty() != Difficulty.HARD) {
 				i = 40;
 			}
 			rangedAttackGoal.setMinAttackInterval(i);

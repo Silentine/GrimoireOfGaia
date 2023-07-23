@@ -30,5 +30,6 @@
     "recipes": [
       "grimoireofgaia:fur_to_leather"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

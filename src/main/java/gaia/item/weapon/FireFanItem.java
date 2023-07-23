@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import gaia.registry.GaiaRegistry;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -38,18 +36,6 @@ public class FireFanItem extends FanItem {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack) {
 		return equipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getAttributeModifiers(equipmentSlot, stack);
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab modeTab, NonNullList<ItemStack> itemStacks) {
-		if (!this.allowedIn(modeTab)) {
-			return;
-		}
-
-		ItemStack stack = new ItemStack(this);
-		stack.enchant(Enchantments.FIRE_ASPECT, 2);
-		stack.enchant(Enchantments.KNOCKBACK, 1);
-		itemStacks.add(stack);
 	}
 
 	@Override

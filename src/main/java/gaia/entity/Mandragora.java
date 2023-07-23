@@ -124,10 +124,10 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 				int effectTime = 0;
 				int effectTime2 = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 20;
 					effectTime2 = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 30;
 					effectTime2 = 20;
 				}
@@ -155,12 +155,12 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 			});
 		}
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
@@ -173,9 +173,9 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 			int j = Mth.floor(this.getY() - (double) 0.2F);
 			int k = Mth.floor(this.getZ());
 			BlockPos pos = new BlockPos(i, j, k);
-			BlockState blockstate = this.level.getBlockState(pos);
+			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
 
@@ -240,7 +240,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (isBaby() && itemstack.is(Items.BONE_MEAL)) {
 			for (int i = 0; i < 16; ++i) {
-				level.addParticle(ParticleTypes.HAPPY_VILLAGER,
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(),
@@ -249,7 +249,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 						random.nextGaussian() * 0.02D);
 			}
 			if((double) random.nextFloat() < 0.45D) {
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					setBaby(false);
 
 					if (!player.getAbilities().instabuild)
@@ -257,7 +257,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 				}
 			}
 
-			return InteractionResult.sidedSuccess(this.level.isClientSide);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
 		} else {
 			return super.mobInteract(player, hand);
 		}

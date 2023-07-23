@@ -5,6 +5,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,7 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -46,7 +46,7 @@ public class BubbleProjectile extends SmallFireball {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -82,18 +82,18 @@ public class BubbleProjectile extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
 				Entity entity = entityResult.getEntity();
-				entity.hurt(DamageSource.indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
+				entity.hurt(damageSources().indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
 
 				if (entity instanceof LivingEntity livingEntity) {
 					int effectTime = 0;
 
-					if (this.level.getDifficulty() == Difficulty.NORMAL) {
+					if (this.level().getDifficulty() == Difficulty.NORMAL) {
 						effectTime = 10;
-					} else if (this.level.getDifficulty() == Difficulty.HARD) {
+					} else if (this.level().getDifficulty() == Difficulty.HARD) {
 						effectTime = 20;
 					}
 
@@ -102,7 +102,7 @@ public class BubbleProjectile extends SmallFireball {
 					}
 				}
 			}
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Level.ExplosionInteraction.NONE);
 		}
 	}
 

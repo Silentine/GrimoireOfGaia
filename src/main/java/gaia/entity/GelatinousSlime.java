@@ -98,7 +98,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 		float input = getBaseDamage(source, damage);
 
 		if (source.getDirectEntity() instanceof AbstractArrow) {
-			level.broadcastEntityEvent(this, (byte) 8);
+			this.level().broadcastEntityEvent(this, (byte) 8);
 			heal(getMaxHealth() * 0.10F);
 		}
 
@@ -111,9 +111,9 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -159,7 +159,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -173,7 +173,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 			if (!getOffhandItem().isEmpty()) {
 				setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 
-				level.broadcastEntityEvent(this, (byte) 8);
+				this.level().broadcastEntityEvent(this, (byte) 8);
 				heal(getMaxHealth() * 0.20F);
 			}
 		}
@@ -183,7 +183,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 
 	@Override
 	protected void tickDeath() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			spawnLingeringCloud(List.of(new MobEffectInstance(MobEffects.POISON, 40, 0)));
 		}
 		super.tickDeath();

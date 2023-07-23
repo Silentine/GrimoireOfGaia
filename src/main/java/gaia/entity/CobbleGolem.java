@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -99,8 +100,8 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	@Override
 	public boolean doHurtTarget(Entity entityIn) {
 		this.attackAnimationTick = 10;
-		this.level.broadcastEntityEvent(this, (byte) 4);
-		boolean flag = entityIn.hurt(DamageSource.mobAttack(this), 7F + random.nextInt(15));
+		this.level().broadcastEntityEvent(this, (byte) 4);
+		boolean flag = entityIn.hurt(damageSources().mobAttack(this), 7F + random.nextInt(15));
 		if (flag) {
 			entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double) 0.6F, 0.0D));
 			this.doEnchantDamageEffects(this, entityIn);
@@ -127,7 +128,7 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	public void aiStep() {
 		super.aiStep();
 
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
@@ -140,9 +141,9 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 			int j = Mth.floor(this.getY() - (double) 0.2F);
 			int k = Mth.floor(this.getZ());
 			BlockPos pos = new BlockPos(i, j, k);
-			BlockState blockstate = this.level.getBlockState(pos);
+			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
 	}
@@ -195,7 +196,7 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 			damage = 0.0F;
 		}
 
-		if (source.isMagic()) {
+		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			damage *= 0.15F;
 		}
 

@@ -41,7 +41,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -169,26 +168,26 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (itemstack.is(Items.FLINT_AND_STEEL)) {
-			this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.FLINTANDSTEEL_USE, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
-			if (!this.level.isClientSide) {
+			this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.FLINTANDSTEEL_USE, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
+			if (!this.level().isClientSide) {
 				this.ignite();
 				itemstack.hurtAndBreak(1, player, (p_32290_) -> {
 					p_32290_.broadcastBreakEvent(hand);
 				});
 			}
 
-			return InteractionResult.sidedSuccess(this.level.isClientSide);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
 		} else {
 			return super.mobInteract(player, hand);
 		}
 	}
 
 	private void explodeCreep() {
-		if (!this.level.isClientSide) {
-			Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+		if (!this.level().isClientSide) {
+			Level.ExplosionInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, explosion$blockinteraction);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, explosion$blockinteraction);
 			this.discard();
 			this.spawnLingeringCloud(this.getActiveEffects().stream().toList());
 		}

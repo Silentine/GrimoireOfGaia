@@ -13,7 +13,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -100,7 +99,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	protected PathNavigation createNavigation(Level level) {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level) {
 			public boolean isStableDestination(BlockPos pos) {
-				return !this.level.getBlockState(pos.below()).isAir();
+				return !level().getBlockState(pos.below()).isAir();
 			}
 
 			public void tick() {
@@ -117,7 +116,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	public boolean hurt(DamageSource source, float damage) {
 		float input = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return !(source instanceof IndirectEntityDamageSource) && super.hurt(source, input);
+			return !source.isIndirect() && super.hurt(source, input);
 		}
 		return super.hurt(source, input);
 	}
@@ -144,20 +143,20 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide && isPassenger()) {
+		if (!this.level().isClientSide && isPassenger()) {
 			stopRiding();
 		}
 
-		if (level.isClientSide) {
+		if (this.level().isClientSide) {
 			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.PORTAL,
+				this.level().addParticle(ParticleTypes.PORTAL,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
 						getY() + random.nextDouble() * getBbHeight(),
 						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 
-		if (!this.level.isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
+		if (!this.level().isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
 			if (teleportTimer < 60) {
 				teleportTimer++;
 			} else {
@@ -170,7 +169,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	}
 
 	protected boolean teleportRandomly() {
-		if (!this.level.isClientSide() && this.isAlive()) {
+		if (!this.level().isClientSide() && this.isAlive()) {
 			double d0 = this.getX() + (this.random.nextDouble() - 0.5D) * 64.0D;
 			double d1 = this.getY() + (double) (this.random.nextInt(64) - 32);
 			double d2 = this.getZ() + (this.random.nextDouble() - 0.5D) * 64.0D;
@@ -183,19 +182,19 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	private boolean teleport(double x, double y, double z) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
 
-		while (blockpos$mutableblockpos.getY() > this.level.getMinBuildHeight() && !this.level.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMotion()) {
+		while (blockpos$mutableblockpos.getY() > this.level().getMinBuildHeight() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
 			blockpos$mutableblockpos.move(Direction.DOWN);
 		}
 
-		BlockState blockstate = this.level.getBlockState(blockpos$mutableblockpos);
-		boolean flag = blockstate.getMaterial().blocksMotion();
+		BlockState blockstate = this.level().getBlockState(blockpos$mutableblockpos);
+		boolean flag = blockstate.blocksMotion();
 		boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
 		if (flag && !flag1) {
 			net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, x, y, z);
 			if (event.isCanceled()) return false;
 			boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
 			if (flag2 && !this.isSilent()) {
-				this.level.playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.BEHENDER_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
+				this.level().playSound((Player) null, this.xo, this.yo, this.zo, GaiaSounds.BEHENDER_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
 				this.playSound(GaiaSounds.BEHENDER_TELEPORT.get(), 1.0F, 1.0F);
 			}
 

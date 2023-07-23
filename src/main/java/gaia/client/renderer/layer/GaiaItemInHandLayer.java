@@ -1,16 +1,16 @@
 package gaia.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class GaiaItemInHandLayer<T extends LivingEntity, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
@@ -36,19 +36,19 @@ public class GaiaItemInHandLayer<T extends LivingEntity, M extends EntityModel<T
 			}
 
 			this.renderArmWithItem(livingEntity, heldStack,
-					rightHanded ? ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND : ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
+					rightHanded ? ItemDisplayContext.THIRD_PERSON_RIGHT_HAND : ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
 					poseStack, bufferSource, packedLight);
 			poseStack.popPose();
 		}
 	}
 
-	protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType,
+	protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemDisplayContext transformType,
 									 PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			this.getParentModel().translateToHand(humanoidArm, poseStack);
-			poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-			poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+			poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = humanoidArm == HumanoidArm.LEFT;
 			poseStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
 			renderer.renderItem(livingEntity, stack, transformType, flag, poseStack, bufferSource, packedLight);

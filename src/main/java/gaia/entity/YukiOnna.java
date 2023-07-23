@@ -127,9 +127,9 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -166,7 +166,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 		}
 		/* FLEE DATA */
 
-		if (!this.level.isClientSide && level.getBiome(blockPosition()).value().getTemperature(blockPosition()) > 1.0F) {
+		if (!this.level().isClientSide && this.level().getBiome(blockPosition()).value().getTemperature(blockPosition()) > 1.0F) {
 			addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
 			addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 		}

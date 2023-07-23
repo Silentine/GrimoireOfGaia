@@ -35,12 +35,12 @@ public class MonsterFeedItem extends Item {
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
 		if (livingEntity instanceof AbstractGaiaEntity gaiaEntity) {
 			if (!gaiaEntity.isFriendly()) {
-				gaiaEntity.level.broadcastEntityEvent(gaiaEntity, (byte) 8);
+				gaiaEntity.level().broadcastEntityEvent(gaiaEntity, (byte) 8);
 				if (!player.getAbilities().instabuild) {
 					stack.shrink(1);
 				}
 				gaiaEntity.setFriendly(true, player.getUUID());
-				return InteractionResult.sidedSuccess(player.level.isClientSide);
+				return InteractionResult.sidedSuccess(player.level().isClientSide);
 			}
 		}
 		return InteractionResult.PASS;

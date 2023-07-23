@@ -102,9 +102,9 @@ public class BoneKnight extends AbstractGaiaEntity {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 10;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 20;
 				}
 
@@ -140,7 +140,7 @@ public class BoneKnight extends AbstractGaiaEntity {
 
 				if (flag) {
 					this.setSecondsOnFire(8);
-					hurt(DamageSource.OUT_OF_WORLD, getMaxHealth() * 0.25F);
+					hurt(damageSources().fellOutOfWorld(), getMaxHealth() * 0.25F);
 				}
 			}
 		}

@@ -151,9 +151,9 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -196,10 +196,10 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAttackType(0);
 
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					setSpawn(0);
 				}
 
@@ -216,10 +216,10 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 
 			if (spawnTimer == 30) {
-				level.broadcastEntityEvent(this, (byte) 9);
+				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAttackType(0);
 
-				if (!this.level.isClientSide) {
+				if (!this.level().isClientSide) {
 					setSpawn(0);
 				}
 
@@ -237,7 +237,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 		}
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.setClimbing(this.horizontalCollision);
 		}
 
@@ -245,18 +245,18 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (this.level.getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
 			if (id == 0) {
-				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(this.level);
+				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(this.level());
 				if (caveSpider != null) {
 					caveSpider.moveTo(blockPosition(), 0.0F, 0.0F);
-					caveSpider.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
-					level.addFreshEntity(caveSpider);
+					caveSpider.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					this.level().addFreshEntity(caveSpider);
 				}
 			}
 		}
 
-		level.broadcastEntityEvent(this, (byte) 6);
+		this.level().broadcastEntityEvent(this, (byte) 6);
 	}
 
 	private void setCombatTask() {

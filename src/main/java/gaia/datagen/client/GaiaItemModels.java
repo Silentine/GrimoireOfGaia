@@ -3,7 +3,7 @@ package gaia.datagen.client;
 import gaia.GrimoireOfGaia;
 import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -13,8 +13,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GaiaItemModels extends ItemModelProvider {
-	public GaiaItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, GrimoireOfGaia.MOD_ID, existingFileHelper);
+	public GaiaItemModels(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+		super(packOutput, GrimoireOfGaia.MOD_ID, existingFileHelper);
 	}
 
 	@Override

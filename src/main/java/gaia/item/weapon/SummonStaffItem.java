@@ -63,7 +63,7 @@ public class SummonStaffItem extends Item {
 			});
 
 			if (!level.isClientSide) {
-				BlockPos spawnPos = new BlockPos(player.getEyePosition()).relative(player.getDirection());
+				BlockPos spawnPos = BlockPos.containing(player.getEyePosition()).relative(player.getDirection());
 				Mob summon = typeSupplier.get().create(level);
 				summon.moveTo(spawnPos, 0.0F, 0.0F);
 				summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(spawnPos), null, (SpawnGroupData) null, (CompoundTag) null);

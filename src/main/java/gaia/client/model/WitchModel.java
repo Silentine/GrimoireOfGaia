@@ -2,7 +2,7 @@ package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import gaia.config.GaiaConfig;
 import gaia.entity.Witch;
 import net.minecraft.client.model.ArmedModel;
@@ -301,7 +301,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 0.5, 0.25);
-		poseStack.mulPose(Vector3f.XP.rotation(this.xRot));
+		poseStack.mulPose(Axis.XP.rotation(this.xRot));
 		poseStack.translate(0, -this.offset * 0.0725F, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}

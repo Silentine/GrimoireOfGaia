@@ -5,7 +5,7 @@ import gaia.datagen.client.helper.MobSoundHelper;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition.Sound;
@@ -15,8 +15,8 @@ import java.util.List;
 
 public class GaiaSoundProvider extends SoundDefinitionsProvider {
 
-	public GaiaSoundProvider(DataGenerator generator, ExistingFileHelper helper) {
-		super(generator, GrimoireOfGaia.MOD_ID, helper);
+	public GaiaSoundProvider(PackOutput packOutput, ExistingFileHelper helper) {
+		super(packOutput, GrimoireOfGaia.MOD_ID, helper);
 	}
 
 	@Override

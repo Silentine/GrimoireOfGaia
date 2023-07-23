@@ -1,16 +1,16 @@
 package gaia.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import gaia.client.model.GelatinousSlimeModel;
 import gaia.entity.GelatinousSlime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class SlimeItemLayer extends RenderLayer<GelatinousSlime, GelatinousSlimeModel> {
@@ -27,13 +27,13 @@ public class SlimeItemLayer extends RenderLayer<GelatinousSlime, GelatinousSlime
 				if (!stack.isEmpty()) {
 					poseStack.pushPose();
 					this.getParentModel().translateToHand(HumanoidArm.LEFT, poseStack);
-					poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-					poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+					poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+					poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 					poseStack.translate((double) ((float) (-1) / 16.0F), 0.125D, -0.625D);
 					Minecraft.getInstance()
 							.getItemRenderer()
-							.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY,
-									poseStack, bufferSource, (int) gelatinousSlime.blockPosition()
+							.renderStatic(stack, ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY,
+									poseStack, bufferSource, Minecraft.getInstance().level, (int) gelatinousSlime.blockPosition()
 											.asLong());
 					poseStack.popPose();
 				}

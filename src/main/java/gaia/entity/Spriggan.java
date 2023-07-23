@@ -107,12 +107,12 @@ public class Spriggan extends AbstractGaiaEntity {
 			}
 		}
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isInWaterOrRain()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;

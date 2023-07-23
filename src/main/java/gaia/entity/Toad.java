@@ -94,9 +94,9 @@ public class Toad extends AbstractGaiaEntity implements IDayMob {
 			if (entityIn instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -113,19 +113,19 @@ public class Toad extends AbstractGaiaEntity implements IDayMob {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
-					level.broadcastEntityEvent(this, (byte) 8);
+					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
 					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
 				}
 			}
 
-			if (this.level.getBiome(blockPosition()).value().getTemperature(blockPosition()) > 1.0F) {
+			if (this.level().getBiome(blockPosition()).value().getTemperature(blockPosition()) > 1.0F) {
 				addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
 				addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 			}

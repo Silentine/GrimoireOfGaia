@@ -21,7 +21,7 @@ public class GaiaHorse extends AbstractHorse {
 	protected void randomizeAttributes(RandomSource randomSource) {
 		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
 		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.30D);
-		this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateRandomJumpStrength(randomSource));
+		this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateJumpStrength(randomSource::nextDouble));
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class GaiaHorse extends AbstractHorse {
 	@Override
 	public void aiStep() {
 		if (!isVehicle()) {
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				if (!isPersistenceRequired()) {
 					++lifetime;
 				}
