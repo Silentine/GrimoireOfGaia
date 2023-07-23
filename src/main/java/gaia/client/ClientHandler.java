@@ -225,7 +225,7 @@ public class ClientHandler {
 	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
 	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
 	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(new ResourceLocation(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
-	
+
 	public static void onClientSetup(final FMLClientSetupEvent event) {
 		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_GORGON.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_SPHINX.get(), RenderType.cutout());
@@ -277,7 +277,7 @@ public class ClientHandler {
 				if (metadataSection != null) {
 					event.addRepositorySource((packConsumer, packConstructor) ->
 							packConsumer.accept(packConstructor.create(
-									"builtin/add_pack_finders_test", Component.literal("\u00A76Optional GoG4 sound pack"), false,
+									"builtin/optional_sound_pack", Component.literal("\u00A76Optional GoG4 sound pack"), false,
 									() -> pack, metadataSection, Pack.Position.TOP, PackSource.BUILT_IN, false)));
 				}
 			}
