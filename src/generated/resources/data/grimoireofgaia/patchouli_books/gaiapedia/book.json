@@ -6,7 +6,7 @@
   "show_progress": true,
   "version": "Alpha 30",
   "subtitle": "info.grimoireofgaia.book.subtitle",
-  "creative_tab": "statues.items",
+  "creative_tab": "grimoireofgaia",
   "i18n": true,
   "use_resource_pack": true,
   "macros": {
