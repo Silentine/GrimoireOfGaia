@@ -55,6 +55,7 @@ public class GrimoireOfGaia {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::onClientSetup);
+			eventBus.addListener(ClientHandler::setupSpectatingShaders);
 			eventBus.addListener(ClientHandler::addPackFinders);
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
