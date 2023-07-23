@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class Minotaur extends AbstractGaiaEntity implements PowerableMob {
-	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Sharko.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Minotaur.class, EntityDataSerializers.INT);
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_3, true);
 
 	private int buffEffect;
