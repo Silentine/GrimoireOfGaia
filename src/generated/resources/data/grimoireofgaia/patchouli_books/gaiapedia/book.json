@@ -1,6 +1,6 @@
 {
   "book_texture": "patchouli:textures/gui/book_red.png",
-  "creative_tab": "statues.items",
+  "creative_tab": "grimoireofgaia",
   "i18n": true,
   "landing_text": "info.grimoireofgaia.book.landing",
   "macros": {

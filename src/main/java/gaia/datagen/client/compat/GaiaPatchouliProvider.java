@@ -36,7 +36,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		BookBuilder bookBuilder = createBookBuilder("gaiapedia",
 				prefix("name"), prefix("landing"))
 				.setSubtitle(prefix("subtitle"))
-				.setCreativeTab("statues.items")
+				.setCreativeTab("grimoireofgaia")
 				.setModel("patchouli:book_red")
 				.setBookTexture("patchouli:textures/gui/book_red.png")
 				.setShowProgress(true)

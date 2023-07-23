@@ -1,4 +1,4 @@
-// 1.19.2	2023-07-22T01:14:34.8355969	Patchouli Book Provider
+// 1.19.2	2023-07-23T21:28:23.3060711	Patchouli Book Provider
 a9ac6d2a0daef6a21c88e774dab065f6688a2bc2 assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/categories/assist.json
 fef3c5d4af9f9047d2fe33df4f8b54318310509d assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/categories/hostile.json
 886f97f80214fa99c2c239838ab4d4d11fd98ac2 assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/entries/assist/bee.json
@@ -61,4 +61,4 @@ c9a592cf40af8b81553ff308537bf6ffabca80c7 assets/grimoireofgaia/patchouli_books/g
 ef1f28b034b1d7baa6c6379d7388730fe7362b0e assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/entries/hostile/werecat.json
 c011add3ebe1ddcf55636a3be444993f483f8b58 assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/entries/hostile/witch.json
 a80ba0565ceb0cdcae5fbb44f7e4453b1c44bca0 assets/grimoireofgaia/patchouli_books/gaiapedia/en_us/entries/hostile/wither_cow.json
-670783668fc4a55c14d03886a0c3bf7f10d0463b data/grimoireofgaia/patchouli_books/gaiapedia/book.json
+bee58012632420ccf4c4b308a9f3241292693776 data/grimoireofgaia/patchouli_books/gaiapedia/book.json
