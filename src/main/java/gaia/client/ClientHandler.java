@@ -277,7 +277,7 @@ public class ClientHandler {
 				if (metadataSection != null) {
 					event.addRepositorySource((packConsumer, packConstructor) ->
 							packConsumer.accept(packConstructor.create(
-									"builtin/add_pack_finders_test", new TextComponent("\u00A76Optional GoG4 sound pack"), false,
+									"builtin/optional_sound_pack", new TextComponent("\u00A76Optional GoG4 sound pack"), false,
 									() -> pack, metadataSection, Pack.Position.TOP, PackSource.BUILT_IN, false)));
 				}
 			}
