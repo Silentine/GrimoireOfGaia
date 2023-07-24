@@ -71,17 +71,7 @@ public class CyanFlower extends AbstractPropEntity {
 
 	@Override
 	public void aiStep() {
-		if (getHealth() <= 0.0F) {
-			for (int i = 0; i < 2; ++i) {
-				level.addParticle(ParticleTypes.EXPLOSION,
-						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
-						getY() + random.nextDouble() * getBbHeight(),
-						getZ() + (random.nextDouble() - 0.5D) * getBbWidth(),
-						0.0D, 0.0D, 0.0D);
-			}
-		} else {
-			super.aiStep();
-		}
+		super.aiStep();
 	}
 
 	private void spawnMandragora() {
@@ -136,10 +126,10 @@ public class CyanFlower extends AbstractPropEntity {
 		ParticleOptions particle = ParticleTypes.SMOKE;
 
 		if (!smoke) {
-			particle = ParticleTypes.EXPLOSION;
+			particle = ParticleTypes.POOF;
 		}
 
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 7; ++i) {
 			double d0 = random.nextGaussian() * 0.02D;
 			double d1 = random.nextGaussian() * 0.02D;
 			double d2 = random.nextGaussian() * 0.02D;

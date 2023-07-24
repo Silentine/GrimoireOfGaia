@@ -204,10 +204,10 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	protected void playParticleEffect(boolean smoke) {
-		ParticleOptions particle = ParticleTypes.LARGE_SMOKE;
+		ParticleOptions particle = ParticleTypes.SMOKE;
 
 		if (!smoke) {
-			particle = ParticleTypes.EXPLOSION;
+			particle = ParticleTypes.POOF;
 		}
 
 		for (int i = 0; i < 7; ++i) {
