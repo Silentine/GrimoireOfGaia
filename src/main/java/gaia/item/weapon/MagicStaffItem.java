@@ -51,7 +51,8 @@ public class MagicStaffItem extends Item {
 				livingEntity.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (livingEntity.getRandom().nextFloat() * 0.4F + 0.8F));
 
 				MagicProjectile magic = new MagicProjectile(level);
-				magic.setPos(magic.getX(), livingEntity.getY(0.5D) + 0.5D, magic.getZ());
+				magic.setOwner(livingEntity);
+				magic.setPos(livingEntity.getX(), livingEntity.getY(0.5D) + 0.5D, livingEntity.getZ());
 				magic.setOwner(livingEntity);
 				magic.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 				livingEntity.level.addFreshEntity(magic);
