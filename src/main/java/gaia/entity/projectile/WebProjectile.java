@@ -57,6 +57,13 @@ public class WebProjectile extends SmallFireball {
 	}
 
 	@Override
+	public void tick() {
+		super.tick();
+		if (this.tickCount > 60)
+			discard();
+	}
+
+	@Override
 	protected float getInertia() {
 		return isInvulnerable() ? 0.73F : super.getInertia();
 	}
