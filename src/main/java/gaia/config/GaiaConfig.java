@@ -77,10 +77,10 @@ public class GaiaConfig {
 			builder.comment("Tier 1")
 					.push("Tier1");
 			tier1maxHealth = builder
-					.comment("Defines the health of Tier 1 Gaia mobs (50 = half, 200 = double) [40 = 20 Hearts]")
+					.comment("Defines the health of Tier 1 Gaia mobs [40 = 20 Hearts]")
 					.defineInRange("tier1maxHealth", 40, 1, Integer.MAX_VALUE);
 			tier1attackDamage = builder
-					.comment("Defines the attack damage of Tier 1 Gaia mobs (50 = half, 200 = double) [4 = 2 Hearts]")
+					.comment("Defines the attack damage of Tier 1 Gaia mobs [4 = 2 Hearts]")
 					.defineInRange("tier1attackDamage", 4, 1, Integer.MAX_VALUE);
 			tier1baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 1 Gaia mobs (0 = disable)")
@@ -90,10 +90,10 @@ public class GaiaConfig {
 			builder.comment("Tier 2")
 					.push("Tier2");
 			tier2maxHealth = builder
-					.comment("Defines the health of Tier 2 Gaia mobs (50 = half, 200 = double) [80 = 40 Hearts]")
+					.comment("Defines the health of Tier 2 Gaia mobs [80 = 40 Hearts]")
 					.defineInRange("tier2maxHealth", 80, 1, Integer.MAX_VALUE);
 			tier2attackDamage = builder
-					.comment("Defines the attack damage of Tier 2 Gaia mobs (50 = half, 200 = double) [8 = 4 Hearts]")
+					.comment("Defines the attack damage of Tier 2 Gaia mobs [8 = 4 Hearts]")
 					.defineInRange("tier2attackDamage", 8, 1, Integer.MAX_VALUE);
 			tier2baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 2 Gaia mobs (0 = disable)")
@@ -103,10 +103,10 @@ public class GaiaConfig {
 			builder.comment("Tier 3")
 					.push("Tier3");
 			tier3maxHealth = builder
-					.comment("Defines the health of Tier 3 Gaia mobs (50 = half, 200 = double) [160 = 80 Hearts]")
+					.comment("Defines the health of Tier 3 Gaia mobs [160 = 80 Hearts]")
 					.defineInRange("tier3maxHealth", 160, 1, Integer.MAX_VALUE);
 			tier3attackDamage = builder
-					.comment("Defines the attack damage of Tier 3 Gaia mobs (50 = half, 200 = double) [12 = 6 Hearts]")
+					.comment("Defines the attack damage of Tier 3 Gaia mobs [12 = 6 Hearts]")
 					.defineInRange("tier3attackDamage", 12, 1, Integer.MAX_VALUE);
 			tier3baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 3 Gaia mobs (0 = disable)")
