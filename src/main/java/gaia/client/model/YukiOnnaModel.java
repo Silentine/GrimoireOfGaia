@@ -189,6 +189,7 @@ public class YukiOnnaModel extends EntityModel<YukiOnna> implements HeadedModel,
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		poseStack.translate(-0.0625, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
