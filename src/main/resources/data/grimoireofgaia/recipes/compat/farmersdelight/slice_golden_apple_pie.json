@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "modid": "farmersdelight",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "grimoireofgaia:golden_apple_pie"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  },
+  "result": [
+    {
+      "item": "grimoireofgaia:golden_apple_pie_slice",
+      "count": 4
+    }
+  ]
+}
