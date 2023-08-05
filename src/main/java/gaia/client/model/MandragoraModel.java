@@ -186,6 +186,7 @@ public class MandragoraModel extends EntityModel<Mandragora> implements HeadedMo
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		poseStack.translate(-0.0625, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
