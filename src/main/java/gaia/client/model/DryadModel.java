@@ -208,6 +208,7 @@ public class DryadModel extends EntityModel<Dryad> implements HeadedModel, Armed
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+		poseStack.translate(-0.0625, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }
