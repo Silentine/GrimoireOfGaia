@@ -267,7 +267,7 @@ public class GaiaLanguage extends LanguageProvider {
 		addKillAdvancement(GaiaRegistry.CYAN_FLOWER, "Cyan Flower", "Kill a Cyan Flower");
 		addKillAdvancement(GaiaRegistry.DEATHWORD, "Deathword", "Kill a Deathword");
 		addKillAdvancement(GaiaRegistry.DULLAHAN, "Dullahan", "Kill a Dullahan");
-		addKillAdvancement(GaiaRegistry.ENDER_EYE, "Ender Eye", "Kill anEnder Eye");
+		addKillAdvancement(GaiaRegistry.ENDER_EYE, "Ender Eye", "Kill an Ender Eye");
 		addKillAdvancement(GaiaRegistry.FLESH_LICH, "Flesh Lich", "Kill a Flesh Lich");
 		addKillAdvancement(GaiaRegistry.GELATINOUS_SLIME, "Gelatinous Slime", "Kill a Gelatinous Slime");
 		addKillAdvancement(GaiaRegistry.GOBLIN_FERAL, "Goblin Feral", "Kill a Goblin Feral");
