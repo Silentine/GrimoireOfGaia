@@ -331,7 +331,14 @@ public class Cecaelia extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	public static boolean checkCecaeliaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && !checkDaytime(levelAccessor) && checkAboveY(pos, (levelAccessor.getSeaLevel() - 16)) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		boolean daysPassed = checkDaysPassed(levelAccessor);
+		boolean isNight = !checkDaytime(levelAccessor);
+		boolean inWater = checkInWater(levelAccessor, pos, 5);
+		boolean darkEnough = isDarkEnoughToSpawn(levelAccessor, pos, random);
+		boolean notPeaceful = checkNotPeaceful(levelAccessor);
+		boolean matchRandom = random.nextInt(15) == 0;
+		
+		return matchRandom && daysPassed && isNight && inWater && darkEnough && notPeaceful;
 	}
 
 	static class CecaeliaMermaidMoveControl extends MoveControl {

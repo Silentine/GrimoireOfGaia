@@ -297,7 +297,16 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	public static boolean checkSharkoSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && !checkDaytime(levelAccessor) && checkAboveY(pos, (levelAccessor.getSeaLevel() - 16)) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		boolean daysPassed = checkDaysPassed(levelAccessor);
+		boolean isNight = !checkDaytime(levelAccessor);
+		boolean inWater = checkInWater(levelAccessor, pos, 20);
+		boolean darkEnough = isDarkEnoughToSpawn(levelAccessor, pos, random);
+		boolean notPeaceful = checkNotPeaceful(levelAccessor);
+		boolean matchRandom = random.nextInt(30) == 0;
+
+		return daysPassed && isNight && inWater && darkEnough && notPeaceful & matchRandom;
+
+
 	}
 
 	static class SharkoMoveControl extends MoveControl {

@@ -1,5 +1,6 @@
 package gaia.entity;
 
+import gaia.GrimoireOfGaia;
 import gaia.config.GaiaConfig;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
@@ -262,7 +263,13 @@ public class Mermaid extends AbstractAssistGaiaEntity {
 	}
 
 	public static boolean checkMermaidSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, Random random) {
-		return checkDaysPassed(levelAccessor) && !checkDaytime(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
+		boolean daysPassed = checkDaysPassed(levelAccessor);
+		boolean isNight = !checkDaytime(levelAccessor);
+		boolean inWater = checkInWater(levelAccessor, pos,5);
+		boolean notPeaceful = checkNotPeaceful(levelAccessor);
+		boolean matchRandom = random.nextInt(15) == 0;
+
+		return daysPassed && isNight && inWater && notPeaceful && matchRandom;
 	}
 
 	static class MermaidMoveControl extends MoveControl {
