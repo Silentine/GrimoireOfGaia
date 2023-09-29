@@ -37,10 +37,6 @@ public class LootableItem extends Item {
 
 		player.playSound(openSoundSupplier.get(), 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
 
-		if (!player.getAbilities().instabuild) {
-			stack.shrink(1);
-		}
-
 		if (!level.isClientSide) {
 			LootTable lootTable = level.getServer().getLootData().getLootTable(this.lootTable);
 			LootParams.Builder builder = (new LootParams.Builder((ServerLevel) level))
@@ -53,6 +49,10 @@ public class LootableItem extends Item {
 			for (ItemStack lootStack : lootStacks) {
 				ItemHandlerHelper.giveItemToPlayer(player, lootStack);
 			}
+		}
+
+		if (!player.getAbilities().instabuild) {
+			stack.shrink(1);
 		}
 
 		return InteractionResultHolder.success(stack);
