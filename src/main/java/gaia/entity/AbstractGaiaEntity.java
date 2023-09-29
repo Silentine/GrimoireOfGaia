@@ -12,9 +12,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -39,10 +41,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
@@ -388,6 +392,32 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	protected static boolean checkBelowSeaLevel(ServerLevelAccessor levelAccessor, BlockPos pos) {
 		return checkBelowY(pos, levelAccessor.getSeaLevel());
+	}
+
+	/**
+	 * Check if the position is below sea level and in water so the entity can spawn
+	 */
+	public static boolean checkInWater(LevelAccessor levelAccessor, BlockPos pos, int yOffset) {
+		int seaLevel = levelAccessor.getSeaLevel();
+		int belowSeaLevel = seaLevel - yOffset;
+		boolean below = pos.getY() <= belowSeaLevel;
+		boolean inWater = levelAccessor.getFluidState(pos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(pos.above()).is(Blocks.WATER);
+		return below && inWater;
+	}
+
+	/**
+	 * Check if the position is below sea level and in water so the entity can spawn
+	 */
+	public static boolean checkNotPeaceful(LevelAccessor levelAccessor) {
+		return levelAccessor.getDifficulty() != Difficulty.PEACEFUL;
+	}
+
+
+	/**
+	 * Check if the position is below sea level and in water so the entity can spawn
+	 */
+	public static boolean checkSpawner(LevelAccessor levelAccessor) {
+		return levelAccessor.getDifficulty() != Difficulty.PEACEFUL;
 	}
 
 	/**
