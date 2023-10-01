@@ -208,12 +208,15 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.putBoolean("IsBaby", this.isBaby());
+		tag.putBoolean("IsScreaming", this.isScreaming());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		this.setBaby(tag.getBoolean("IsBaby"));
+		if (tag.contains("IsScreaming"))
+			this.setIsScreaming(tag.getBoolean("IsScreaming"));
 	}
 
 	@Override
