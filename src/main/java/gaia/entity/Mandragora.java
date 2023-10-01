@@ -26,8 +26,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -46,14 +44,10 @@ import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_SCREAMING = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
-
-	private static final UUID KNOCKBACK_MODIFIER_UUID = UUID.fromString("E3E9A4AB-7D10-4380-9C8A-BBC61860A78A");
-	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_MODIFIER_UUID, "Knockback boost", 1.0D, Operation.ADDITION);
 
 	private byte inWaterTimer;
 
@@ -208,12 +202,15 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.putBoolean("IsBaby", this.isBaby());
+		tag.putBoolean("IsScreaming", this.isScreaming());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		this.setBaby(tag.getBoolean("IsBaby"));
+		if (tag.contains("IsScreaming"))
+			this.setIsScreaming(tag.getBoolean("IsScreaming"));
 	}
 
 	@Override
