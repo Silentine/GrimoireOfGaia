@@ -246,7 +246,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 *
 	 * @param friendly true if the entity is friendly, false if not
 	 */
-	private void setupFriendGoals(boolean friendly) {
+	protected void setupFriendGoals(boolean friendly) {
 		if (this.targetPlayerGoal == null) {
 			this.targetPlayerGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
 		}
