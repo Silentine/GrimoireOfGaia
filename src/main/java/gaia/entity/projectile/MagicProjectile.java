@@ -4,8 +4,12 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +27,8 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 public class MagicProjectile extends SmallFireball {
+	private static final EntityDataAccessor<Float> PROJECTILE_DAMAGE = SynchedEntityData.defineId(MagicProjectile.class, EntityDataSerializers.FLOAT);
+
 	public MagicProjectile(EntityType<? extends SmallFireball> entityType, Level level) {
 		super(entityType, level);
 	}
@@ -33,6 +39,12 @@ public class MagicProjectile extends SmallFireball {
 
 	public MagicProjectile(Level level, LivingEntity livingEntity, double accelX, double accelY, double accelZ) {
 		super(level, livingEntity, accelX, accelY, accelZ);
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.getEntityData().define(PROJECTILE_DAMAGE, SharedEntityData.getAttackDamage2() / 2.0F);
 	}
 
 	@Override
@@ -77,6 +89,14 @@ public class MagicProjectile extends SmallFireball {
 		return false;
 	}
 
+	protected float getProjectileDamage() {
+		return this.getEntityData().get(PROJECTILE_DAMAGE);
+	}
+
+	public void setDamage(float damage) {
+		this.getEntityData().set(PROJECTILE_DAMAGE, damage);
+	}
+
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
@@ -93,7 +113,7 @@ public class MagicProjectile extends SmallFireball {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
 				Entity entity = entityResult.getEntity();
-				entity.hurt(damageSources().indirectMagic(this, ownerEntity), SharedEntityData.getAttackDamage2() / 2.0F);
+				entity.hurt(damageSources().indirectMagic(this, ownerEntity), getProjectileDamage());
 
 				if (entity instanceof LivingEntity livingEntity) {
 					int effectTime = 0;
@@ -120,5 +140,16 @@ public class MagicProjectile extends SmallFireball {
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
 		return false;
+	}
+
+
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.putFloat("ProjectileDamage", this.getProjectileDamage());
+	}
+
+	public void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		setDamage(tag.getFloat("ProjectileDamage"));
 	}
 }
