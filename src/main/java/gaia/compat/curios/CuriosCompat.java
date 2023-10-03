@@ -18,7 +18,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 public class CuriosCompat {
 
 	public static void sendImc(InterModEnqueueEvent event) {
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm")
+		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("hands")
 				.size(1).build());
 		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("body")
 				.size(1).build());
