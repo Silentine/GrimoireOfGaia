@@ -259,6 +259,12 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 		}
 	}
 
+	@Override
+	protected void setupFriendGoals(boolean friendly) {
+		super.setupFriendGoals(friendly);
+		setIsScreaming(false);
+	}
+
 	/*
 	 * Baby stuff
 	 */
