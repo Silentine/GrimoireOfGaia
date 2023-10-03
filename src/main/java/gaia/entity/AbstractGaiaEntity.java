@@ -332,7 +332,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	public double getMyRidingOffset() {
-		return -0.6D;
+		return this.isBaby() ? 0.0D : -0.6D;
 	}
 
 	public void rideTick() {
