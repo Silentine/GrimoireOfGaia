@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 public class GaiaItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> HEAD = ItemTags.create(new ResourceLocation("curios", "head"));
 	public static final TagKey<Item> BODY = ItemTags.create(new ResourceLocation("curios", "body"));
-	public static final TagKey<Item> CHARM = ItemTags.create(new ResourceLocation("curios", "charm"));
+	public static final TagKey<Item> HANDS = ItemTags.create(new ResourceLocation("curios", "hands"));
 	public static final TagKey<Item> NECKLACE = ItemTags.create(new ResourceLocation("curios", "necklace"));
 	public static final TagKey<Item> RING = ItemTags.create(new ResourceLocation("curios", "ring"));
 
@@ -42,7 +42,7 @@ public class GaiaItemTags extends ItemTagsProvider {
 		this.tag(HEAD).add(GaiaRegistry.HEADGEAR_BOOK.get(), GaiaRegistry.HEADGEAR_MOB.get(), GaiaRegistry.HEADGEAR_BOLT.get(),
 				GaiaRegistry.HEADGEAR_ARROW.get(), GaiaRegistry.HEADGEAR_DOLL.get(), GaiaRegistry.HEADGEAR_EARS_ELF.get());
 		this.tag(BODY).add(GaiaRegistry.SEASHELL_HAIRPIN.get());
-		this.tag(CHARM).add(GaiaRegistry.KNUCKLES.get());
+		this.tag(HANDS).add(GaiaRegistry.KNUCKLES.get());
 		this.tag(NECKLACE).add(GaiaRegistry.HEAVY_BARBELL.get());
 		this.tag(RING).add(GaiaRegistry.RING_OF_SPEED.get(), GaiaRegistry.RING_OF_HASTE.get(), GaiaRegistry.RING_OF_JUMP.get(), GaiaRegistry.RING_OF_NIGHT.get());
 
