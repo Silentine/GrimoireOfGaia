@@ -75,9 +75,9 @@ public class SatyressModel extends EntityModel<Satyress> implements HeadedModel,
 				.texOffs(36, 39).addBox(5.0F, -5.5F, 0.5F, 2.0F, 3.0F, 2.0F)
 				.texOffs(36, 44).addBox(6.5F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition righthair = neck.addOrReplaceChild("righthair", CubeListBuilder.create().texOffs(36, 14).addBox(-5.5F, -4.5F, 1.5F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0873F, 0.0F, 0.0873F));
+		PartDefinition righthair = head.addOrReplaceChild("righthair", CubeListBuilder.create().texOffs(36, 14).addBox(-5.5F, -4.5F, 1.5F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0873F, 0.0F, 0.0873F));
 
-		PartDefinition lefthair = neck.addOrReplaceChild("lefthair", CubeListBuilder.create().texOffs(36, 14).addBox(1.5F, -4.5F, 1.5F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0873F, 0.0F, -0.0873F));
+		PartDefinition lefthair = head.addOrReplaceChild("lefthair", CubeListBuilder.create().texOffs(36, 14).addBox(1.5F, -4.5F, 1.5F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0873F, 0.0F, -0.0873F));
 
 		PartDefinition chest = bodytop.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(0, 36).addBox(-2.25F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F)
 				.texOffs(0, 36).mirror().addBox(0.25F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F).mirror(false), PartPose.offsetAndRotation(0.0F, -5.5F, -2.5F, 0.7854F, 0.0F, 0.0F));
