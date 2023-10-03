@@ -52,6 +52,7 @@ public class MagicStaffItem extends Item {
 
 				MagicProjectile magic = new MagicProjectile(level);
 				magic.setOwner(livingEntity);
+				magic.setDamage(4.0F);
 				magic.setPos(livingEntity.getX(), livingEntity.getY(0.5D) + 0.5D, livingEntity.getZ());
 				magic.setOwner(livingEntity);
 				magic.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
