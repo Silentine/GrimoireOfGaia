@@ -250,6 +250,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	public void setFriendly(boolean value, UUID friendedBy) {
 		this.getCapability(CapabilityHandler.CAPABILITY_FRIENDED).ifPresent(cap -> {
+			this.setTarget((LivingEntity) null);
 			cap.setFriendly(value);
 			cap.setFriendedBy(friendedBy);
 			setupFriendGoals(value);
