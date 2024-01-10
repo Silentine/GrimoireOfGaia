@@ -297,7 +297,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 			Monster monster = id == 0 ? EntityType.ZOMBIE.create(this.level()) : EntityType.SKELETON.create(this.level());
 			if (monster != null) {
 				monster.moveTo(blockpos, 0.0F, 0.0F);
-				monster.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+				monster.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 				monster.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 				monster.setDropChance(EquipmentSlot.MAINHAND, 0);
 				monster.setDropChance(EquipmentSlot.OFFHAND, 0);

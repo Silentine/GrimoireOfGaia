@@ -235,7 +235,7 @@ public class Deathword extends AbstractGaiaEntity {
 				Creeper summon = EntityType.CREEPER.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					this.level().addFreshEntity(summon);
 				}
 			}
@@ -244,7 +244,7 @@ public class Deathword extends AbstractGaiaEntity {
 				Skeleton summon = EntityType.SKELETON.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -260,7 +260,7 @@ public class Deathword extends AbstractGaiaEntity {
 				Spider summon = EntityType.SPIDER.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					this.level().addFreshEntity(summon);
 				}
 			}
@@ -269,7 +269,7 @@ public class Deathword extends AbstractGaiaEntity {
 				Zombie summon = EntityType.ZOMBIE.create(this.level());
 				if (summon != null) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);

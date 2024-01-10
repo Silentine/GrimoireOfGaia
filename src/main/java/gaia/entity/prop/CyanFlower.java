@@ -79,7 +79,7 @@ public class CyanFlower extends AbstractPropEntity {
 			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(this.level());
 			if (mandragora != null) {
 				mandragora.moveTo(blockPosition(), 0.0F, 0.0F);
-				mandragora.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				mandragora.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 				this.level().addFreshEntity(mandragora);
 			}
 		}
