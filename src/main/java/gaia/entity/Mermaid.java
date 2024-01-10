@@ -1,6 +1,5 @@
 package gaia.entity;
 
-import gaia.GrimoireOfGaia;
 import gaia.config.GaiaConfig;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
