@@ -155,7 +155,7 @@ public class Mummy extends AbstractGaiaEntity {
 				GraveMite mite = GaiaRegistry.GRAVEMITE.getEntityType().create(this.level);
 				if (mite != null) {
 					mite.moveTo(blockpos, 0.0F, 0.0F);
-					mite.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					mite.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(mite);
 				}
 			}

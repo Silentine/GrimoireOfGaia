@@ -109,7 +109,7 @@ public class AntHill extends AbstractPropEntity {
 				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(this.level);
 				if (antWorker != null) {
 					antWorker.moveTo(blockPosition(), 0.0F, 0.0F);
-					antWorker.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					antWorker.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(antWorker);
 				}
 			}

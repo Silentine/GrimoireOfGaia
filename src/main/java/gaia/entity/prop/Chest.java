@@ -79,7 +79,7 @@ public class Chest extends AbstractPropEntity {
 			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(this.level);
 			if (mimic != null) {
 				mimic.moveTo(blockPosition(), 0.0F, 0.0F);
-				mimic.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+				mimic.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
 				level.addFreshEntity(mimic);
 			}
 		}

@@ -243,7 +243,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 			if (id == 0) {
 				Zombie summon = EntityType.ZOMBIE.create(this.level);
 				summon.moveTo(blockpos, 0.0F, 0.0F);
-				summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+				summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 				summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_BOLT.get()));
 				summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 				summon.setDropChance(EquipmentSlot.OFFHAND, 0);
