@@ -134,7 +134,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	protected GaiaHorse createHorse(DifficultyInstance difficulty) {
 		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level);
 		if (entity instanceof GaiaHorse horse) {
-			horse.finalizeSpawn((ServerLevel) this.level, difficulty, null, (SpawnGroupData) null, (CompoundTag) null);
+			horse.finalizeSpawn((ServerLevel) this.level, difficulty, MobSpawnType.JOCKEY, (SpawnGroupData) null, (CompoundTag) null);
 			horse.setPos(this.getX(), this.getY(), this.getZ());
 			horse.setTamed(true);
 			horse.setAge(0);

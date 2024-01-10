@@ -161,7 +161,7 @@ public class Matango extends AbstractGaiaEntity implements IDayMob {
 				Entity entity = GaiaRegistry.SPORELING.getEntityType().create(this.level);
 				if (entity instanceof Sporeling summon) {
 					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), null, (SpawnGroupData) null, (CompoundTag) null);
+					summon.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(summon);
 				}
 			}

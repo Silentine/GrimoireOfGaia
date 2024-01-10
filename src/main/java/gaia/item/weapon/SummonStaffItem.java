@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -66,7 +67,7 @@ public class SummonStaffItem extends Item {
 				BlockPos spawnPos = new BlockPos(player.getEyePosition()).relative(player.getDirection());
 				Mob summon = typeSupplier.get().create(level);
 				summon.moveTo(spawnPos, 0.0F, 0.0F);
-				summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(spawnPos), null, (SpawnGroupData) null, (CompoundTag) null);
+				summon.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(spawnPos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 				summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_BOLT.get()));
 				summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 				summon.setDropChance(EquipmentSlot.OFFHAND, 0);

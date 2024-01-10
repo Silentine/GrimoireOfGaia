@@ -250,7 +250,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(this.level);
 				if (caveSpider != null) {
 					caveSpider.moveTo(blockPosition(), 0.0F, 0.0F);
-					caveSpider.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), null, (SpawnGroupData) null, (CompoundTag) null);
+					caveSpider.finalizeSpawn((ServerLevel) this.level, this.level.getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 					level.addFreshEntity(caveSpider);
 				}
 			}
