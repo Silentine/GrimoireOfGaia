@@ -84,7 +84,7 @@ public class GaiaConfig {
 					.defineInRange("tier1attackDamage", 4, 1, Integer.MAX_VALUE);
 			tier1baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 1 Gaia mobs (0 = disable)")
-					.defineInRange("tier1baseDefense", 2, 1, Integer.MAX_VALUE);
+					.defineInRange("tier1baseDefense", 2, 0, Integer.MAX_VALUE);
 			builder.pop();
 
 			builder.comment("Tier 2")
@@ -97,7 +97,7 @@ public class GaiaConfig {
 					.defineInRange("tier2attackDamage", 8, 1, Integer.MAX_VALUE);
 			tier2baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 2 Gaia mobs (0 = disable)")
-					.defineInRange("tier2baseDefense", 4, 1, Integer.MAX_VALUE);
+					.defineInRange("tier2baseDefense", 4, 0, Integer.MAX_VALUE);
 			builder.pop();
 
 			builder.comment("Tier 3")
@@ -110,7 +110,7 @@ public class GaiaConfig {
 					.defineInRange("tier3attackDamage", 12, 1, Integer.MAX_VALUE);
 			tier3baseDefense = builder
 					.comment("Defines the maximum amount of hits required to defeat Tier 3 Gaia mobs (0 = disable)")
-					.defineInRange("tier3baseDefense", 8, 1, Integer.MAX_VALUE);
+					.defineInRange("tier3baseDefense", 8, 0, Integer.MAX_VALUE);
 			builder.pop();
 
 			builder.pop();

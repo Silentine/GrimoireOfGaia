@@ -49,14 +49,20 @@ public class SharedEntityData {
 
 
 	public static float getBaseDefense1() {
+		if (GaiaConfig.COMMON.tier1baseDefense.get() == 0)
+			return 0;
 		return ((100.0F / GaiaConfig.COMMON.tier1baseDefense.get()) * 0.01F) * getMaxHealth1();
 	}
 
 	public static float getBaseDefense2() {
+		if (GaiaConfig.COMMON.tier2baseDefense.get() == 0)
+			return 0;
 		return ((100.0F / GaiaConfig.COMMON.tier2baseDefense.get()) * 0.01F) * getMaxHealth2();
 	}
 
 	public static float getBaseDefense3() {
+		if (GaiaConfig.COMMON.tier3baseDefense.get() == 0)
+			return 0;
 		return ((100.0F / GaiaConfig.COMMON.tier3baseDefense.get()) * 0.01F) * getMaxHealth3();
 	}
 
