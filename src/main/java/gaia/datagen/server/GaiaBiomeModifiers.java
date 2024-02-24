@@ -23,12 +23,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GaiaBiomeModifiers {
+	private static final TagKey<Biome> NO_DEFAULT_MONSTERS = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", "no_default_monsters"));
 
 	public static Map<ResourceLocation, BiomeModifier> getBiomeModifiers(RegistryOps<JsonElement> ops) {
 		Map<ResourceLocation, BiomeModifier> map = Maps.newHashMap();
 
 		List<TagKey<Biome>> overworld = List.of(BiomeTags.IS_OVERWORLD);
-		List<TagKey<Biome>> peaceful = List.of(BiomeTags.HAS_ANCIENT_CITY, Tags.Biomes.IS_MUSHROOM);
+		List<TagKey<Biome>> peaceful = List.of(BiomeTags.HAS_ANCIENT_CITY, Tags.Biomes.IS_MUSHROOM, NO_DEFAULT_MONSTERS);
 
 		List<TagKey<Biome>> overworldSandy = List.of(BiomeTags.IS_OVERWORLD, Tags.Biomes.IS_SANDY);
 		List<TagKey<Biome>> badlands = List.of(BiomeTags.IS_BADLANDS);
