@@ -2,7 +2,8 @@
   "type": "grimoireofgaia:add_configured_spawns",
   "blacklist": [
     "#minecraft:has_structure/ancient_city",
-    "#forge:is_mushroom"
+    "#forge:is_mushroom",
+    "#forge:no_default_monsters"
   ],
   "spawners": {
     "type": "grimoireofgaia:arachne",
