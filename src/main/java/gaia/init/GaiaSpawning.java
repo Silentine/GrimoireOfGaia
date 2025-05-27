@@ -61,7 +61,6 @@ public class GaiaSpawning {
 	public static void add(Class<? extends EntityLiving> entityClass, int weight, int min, int max, BiomeGenBase biome) {
 		if (weight > 0) {
 			biome.getSpawnableList(EnumCreatureType.MONSTER).add(new SpawnListEntry(entityClass, weight, min, max));
-			//EntityRegistry.addSpawn(entityClass, weight, min, max, EnumCreatureType.MONSTER, biome);
 			EntitySpawnPlacementRegistry.setPlacementType(entityClass, EntityLiving.SpawnPlacementType.ON_GROUND);
 		}
 	}
