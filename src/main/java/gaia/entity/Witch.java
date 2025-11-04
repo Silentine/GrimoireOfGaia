@@ -35,8 +35,11 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Skeleton;
@@ -67,16 +70,16 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final UUID SPEED_MODIFIER_DRINKING_UUID = UUID.fromString("E5EEE9D2-C325-415F-ADAF-A320D2AABC8B");
 	private static final AttributeModifier SPEED_MODIFIER_DRINKING = new AttributeModifier(SPEED_MODIFIER_DRINKING_UUID, "Drinking speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
 
-	protected final FlyingMoveControl flyingControl;
-	protected final MoveControl normalControl;
+	protected final FlyingMoveControl flyingControl = new FlyingMoveControl(this, 20, true);
+	protected final MoveControl groundControl = new MoveControl(this);;
+	protected final FlyingPathNavigation flyingNavigation = new FlyingPathNavigation(this, this.level());
+	protected final GroundPathNavigation groundNavigation = new GroundPathNavigation(this, this.level());
 	private int spawn;
 	private int usingTime;
 
 	public Witch(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
-		this.flyingControl = new FlyingMoveControl(this, 20, true);
-		this.normalControl = new MoveControl(this);
 		spawn = 0;
 	}
 
@@ -84,7 +87,12 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new RangedAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, 60, 10F));
-		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D) {
+			@Override public boolean canUse() { return super.canUse() && !isRidingBroom(); }
+		});
+		this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0d) {
+			@Override public boolean canUse() { return super.canUse() && isRidingBroom(); }
+		});
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
@@ -279,13 +287,14 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	@Override
 	public void setItemSlot(EquipmentSlot equipmentSlot, ItemStack stack) {
 		if (equipmentSlot == EquipmentSlot.OFFHAND) {
-			if (stack.is(GaiaRegistry.BROOM.get())) {
-				this.moveControl = this.flyingControl;
-				setRidingBroom(true);
-			} else {
-				this.moveControl = this.normalControl;
-				setRidingBroom(false);
-			}
+			boolean isRidingBroom = stack.is(GaiaRegistry.BROOM.get());
+			this.setRidingBroom(isRidingBroom);
+			// Update gravity when landing after removing the broom
+			if (!isRidingBroom && this.isNoGravity())
+				this.setNoGravity(false);
+			// Update move control and navigation
+			this.moveControl = isRidingBroom ? this.flyingControl : this.groundControl;
+			this.navigation = isRidingBroom ? this.flyingNavigation : this.groundNavigation;
 		}
 		super.setItemSlot(equipmentSlot, stack);
 	}
