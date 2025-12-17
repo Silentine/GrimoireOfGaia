@@ -15,7 +15,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -41,10 +40,6 @@ public class GrimoireOfGaia {
 		GaiaSounds.SOUND_EVENTS.register(eventBus);
 		GaiaModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 		GaiaDataSerializers.DATA_SERIALIZERS.register(eventBus);
-
-		if (ModList.get().isLoaded("curios")) {
-			eventBus.addListener(gaia.compat.curios.CuriosCompat::sendImc);
-		}
 
 		eventBus.addListener(GaiaSpawning::registerEntityAttributes);
 		eventBus.addListener(this::setup);

@@ -1,4 +1,4 @@
-package gaia.datagen.client.compat;
+package gaia.datagen.compat.client;
 
 import gaia.GrimoireOfGaia;
 import gaia.datagen.server.GaiaAdvancementProvider;

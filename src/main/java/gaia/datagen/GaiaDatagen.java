@@ -6,7 +6,8 @@ import gaia.datagen.client.GaiaBlockstates;
 import gaia.datagen.client.GaiaItemModels;
 import gaia.datagen.client.GaiaLanguage;
 import gaia.datagen.client.GaiaSoundProvider;
-import gaia.datagen.client.compat.GaiaPatchouliProvider;
+import gaia.datagen.compat.client.GaiaPatchouliProvider;
+import gaia.datagen.compat.server.GaiaCurioProvider;
 import gaia.datagen.server.GaiaAdvancementProvider;
 import gaia.datagen.server.GaiaBiomeModifiers;
 import gaia.datagen.server.GaiaBlockTags;
@@ -54,6 +55,8 @@ public class GaiaDatagen {
 
 			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
 					packOutput, lookupProvider, Set.of(GrimoireOfGaia.MOD_ID)));
+			if (ModList.get().isLoaded("curios"))
+				generator.addProvider(true, new GaiaCurioProvider(packOutput, helper, lookupProvider));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(true, new GaiaLanguage(packOutput));
