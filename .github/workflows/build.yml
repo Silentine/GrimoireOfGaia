@@ -1,19 +1,22 @@
 name: Build
 
-on: [pull_request, push]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: setup jdk 21
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 21
           cache: 'gradle'
-      - name: make gradle wrapper executable
+      - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: build
+      - name: Build with Gradle
         run: ./gradlew build
+      - uses: actions/upload-artifact@v5
+        with:
+          path: ./build/libs/
