@@ -5,11 +5,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.block.entity.FuelValues;
+import org.jspecify.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
+//TODO: Make this use the datamap!
 public class FuelItem extends Item {
 	private final int burnTime;
 
@@ -19,13 +22,13 @@ public class FuelItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.fuel_for_seconds", (getBurnTime(stack, null) / 2)).withStyle(ChatFormatting.GRAY));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.fuel_for_seconds",
+				(getBurnTime(itemStack, null, null) / 2)).withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override
-	public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+	public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType, FuelValues fuelValues) {
 		return burnTime;
 	}
 }

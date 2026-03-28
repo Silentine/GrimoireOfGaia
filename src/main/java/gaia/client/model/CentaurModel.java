@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.CentaurRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Centaur;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -14,12 +13,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.BowItem;
-import net.minecraft.world.phys.Vec3;
 
-public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, ArmedModel {
+public class CentaurModel extends EntityModel<CentaurRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart head;
@@ -40,6 +40,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 	private final ModelPart rightlegback3;
 
 	public CentaurModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("centaur");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
@@ -150,74 +151,69 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 	}
 
 	@Override
-	public void prepareMobModel(Centaur centaur, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(centaur, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !centaur.isBaby();
-	}
+	public void setupAnim(CentaurRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Centaur centaur, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		// arms
-		if (centaur.isMale()) {
+		if (state.isMale) {
 			rightarm.x = -3F;
 			leftarm.x = 3F;
 		}
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount * 0.5F;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.5F * state.walkAnimationSpeed * 0.5F;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed * 0.5F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
 
-		if (centaur.isAggressive() && (centaur.getMainHandItem().getItem() instanceof BowItem)) {
-			holdingBow(ageInTicks);
-		} else if (attackTime > 0.0F) {
-			holdingMelee();
+		if (state.isAggressive && (state.getMainHandItemStack().getItem() instanceof BowItem)) {
+			holdingBow(state);
+		} else if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
-		if (centaur.isFleeing()) {
-			Vec3 movement = centaur.getDeltaMovement();
-			if (movement.x * movement.x + movement.z * movement.z > 2.500000277905201E-7D) {
-				animationFlee();
-			}
+		if (state.isFleeing && state.moving) {
+			animationFlee();
 		}
 
-		rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-		leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+		rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+		leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 		// body
 		body1.xRot = -(5 * Mth.DEG_TO_RAD);
 		body2.xRot = (10 * Mth.DEG_TO_RAD);
-		tail.yRot = Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
+		tail.yRot = Mth.cos(((state.ageInTicks * 7) * Mth.DEG_TO_RAD)) * (10 * Mth.DEG_TO_RAD);
 		tail.xRot = -(45 * Mth.DEG_TO_RAD);
 
 		// legs
 		rightlegupper.zRot = -(5 * Mth.DEG_TO_RAD);
-		rightlegupper.xRot = Mth.cos(limbSwing * 0.7862F) * 0.8F * limbSwingAmount;
+		rightlegupper.xRot = Mth.cos(state.walkAnimationPos * 0.7862F) * 0.8F * state.walkAnimationSpeed;
 		leftlegupper.zRot = (5 * Mth.DEG_TO_RAD);
-		leftlegupper.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+		leftlegupper.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 
 		rightlegback1.zRot = -(5 * Mth.DEG_TO_RAD);
-		rightlegback1.xRot = Mth.cos(limbSwing * 0.7662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+		rightlegback1.xRot = Mth.cos(state.walkAnimationPos * 0.7662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 		rightlegback1.xRot -= 0.296706F;
 		leftlegback1.zRot = (5 * Mth.DEG_TO_RAD);
-		leftlegback1.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
+		leftlegback1.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
 		leftlegback1.xRot -= 0.296706F;
 		rightlegback2.xRot = (30 * Mth.DEG_TO_RAD);
 		leftlegback2.xRot = rightlegback2.xRot;
 		rightlegback3.xRot = -(18 * Mth.DEG_TO_RAD);
 		leftlegback3.xRot = rightlegback3.xRot;
 
-		if (riding) {
+		if (state.isRiding) {
 			body1.xRot = -(20 * Mth.DEG_TO_RAD);
 			body2.xRot = -(45 * Mth.DEG_TO_RAD);
 			tail.xRot = (65 * Mth.DEG_TO_RAD);
@@ -230,9 +226,9 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 		}
 	}
 
-	private void holdingBow(float ageInTicks) {
-		float f = Mth.sin(this.attackTime * (float) Math.PI);
-		float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float) Math.PI);
+	private void holdingBow(ArmedEntityRenderState state) {
+		float f = Mth.sin(state.attackTime * (float) Math.PI);
+		float f1 = Mth.sin((1.0F - (1.0F - state.attackTime) * (1.0F - state.attackTime)) * (float) Math.PI);
 		this.rightarm.zRot = 0.0F;
 		this.leftarm.zRot = 0.0F;
 		this.rightarm.yRot = -(0.1F - f * 0.6F);
@@ -241,30 +237,26 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 		this.leftarm.xRot = (-(float) Math.PI / 2F);
 		this.rightarm.xRot -= f * 1.2F - f1 * 0.4F;
 		this.leftarm.xRot -= f * 1.2F - f1 * 0.4F;
-		AnimationUtils.bobArms(this.rightarm, this.leftarm, ageInTicks);
+		AnimationUtils.bobArms(this.rightarm, this.leftarm, state.ageInTicks);
 	}
 
-	public void holdingMelee() {
-		float f6 = 1.0F - attackTime;
+	public void holdingMelee(ArmedEntityRenderState state) {
+		float f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		float f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
 	private void animationFlee() {
 		leftarm.xRot += 1.0472F;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -276,7 +268,7 @@ public class CentaurModel extends EntityModel<Centaur> implements HeadedModel, A
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(-0.0625, 0, -0.375);
 		getArm(arm).translateAndRotate(poseStack);
 	}

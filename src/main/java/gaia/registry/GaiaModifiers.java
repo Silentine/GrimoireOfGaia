@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import gaia.GrimoireOfGaia;
 import gaia.modifier.AddGaiaSpawnModifier;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -26,7 +27,7 @@ public class GaiaModifiers {
 					Biome.LIST_CODEC.listOf().fieldOf("blacklist").orElse(new ArrayList<>()).forGetter(AddGaiaSpawnModifier::biomeBlacklist),
 					// Allow either a list or single spawner, attempting to decode the list format first.
 					// Uses the better EitherCodec that logs both errors if both formats fail to parse.
-					Codec.either(MobSpawnSettings.SpawnerData.CODEC.listOf(), MobSpawnSettings.SpawnerData.CODEC).xmap(
+					Codec.either(Weighted.codec(MobSpawnSettings.SpawnerData.CODEC).listOf(), Weighted.codec(MobSpawnSettings.SpawnerData.CODEC)).xmap(
 							either -> either.map(Function.identity(), List::of), // convert list/singleton to list when decoding
 							list -> list.size() == 1 ? Either.right(list.getFirst()) : Either.left(list) // convert list to singleton/list when encoding
 					).fieldOf("spawners").forGetter(AddGaiaSpawnModifier::spawners)

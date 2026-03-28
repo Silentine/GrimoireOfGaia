@@ -8,8 +8,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -17,10 +17,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,13 +40,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-public class Behender extends AbstractGaiaEntity implements RangedAttackMob, PowerableMob {
+public class Behender extends AbstractGaiaEntity implements RangedAttackMob {
 	private int teleportTimer;
 
 	public Behender(EntityType<? extends Monster> entityType, Level level) {
@@ -111,20 +112,19 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 		};
 		flyingpathnavigation.setCanOpenDoors(false);
 		flyingpathnavigation.setCanFloat(false);
-		flyingpathnavigation.setCanPassDoors(true);
+
 		return flyingpathnavigation;
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return source.isDirect() && super.hurt(source, input);
+			return source.isDirect() && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
-	@Override
 	public boolean isPowered() {
 		return getHealth() < getMaxHealth() / 2.0F;
 	}
@@ -132,7 +132,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
-			List<Holder<MobEffect>> effects = List.of(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SPEED, MobEffects.CONFUSION,
+			List<Holder<MobEffect>> effects = List.of(MobEffects.SLOWNESS, MobEffects.HASTE, MobEffects.NAUSEA,
 					MobEffects.BLINDNESS, MobEffects.HUNGER, MobEffects.WEAKNESS, MobEffects.POISON, MobEffects.WITHER,
 					MobEffects.LEVITATION);
 			RangedUtil.magicRandom(target, this, distanceFactor, 0.5D, effects.get(random.nextInt(effects.size())));
@@ -140,17 +140,17 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.BEHENDER.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.BEHENDER.getEntityType());
 	}
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			for (int i = 0; i < 2; ++i) {
 				this.level().addParticle(ParticleTypes.PORTAL,
 						getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
@@ -159,7 +159,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 			}
 		}
 
-		if (!this.level().isClientSide && playerDetection(4, TargetingConditions.forNonCombat())) {
+		if (!this.level().isClientSide() && playerDetection(4, TargetingConditions.forNonCombat())) {
 			if (teleportTimer < 60) {
 				teleportTimer++;
 			} else {
@@ -185,7 +185,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 	private boolean teleport(double x, double y, double z) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
 
-		while (blockpos$mutableblockpos.getY() > this.level().getMinBuildHeight() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
+		while (blockpos$mutableblockpos.getY() > this.level().getMinY() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
 			blockpos$mutableblockpos.move(Direction.DOWN);
 		}
 
@@ -207,30 +207,32 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 		}
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		return data;
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -257,7 +259,7 @@ public class Behender extends AbstractGaiaEntity implements RangedAttackMob, Pow
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkBehenderSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkBehenderSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

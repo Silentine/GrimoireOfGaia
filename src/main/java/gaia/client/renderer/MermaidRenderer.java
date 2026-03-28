@@ -3,26 +3,39 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.MermaidModel;
+import gaia.client.state.MermaidRenderState;
 import gaia.entity.Mermaid;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class MermaidRenderer extends MobRenderer<Mermaid, MermaidModel> {
-	public static final ResourceLocation[] MERMAID_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid01.png"),
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid02.png")};
+public class MermaidRenderer extends MobRenderer<Mermaid, MermaidRenderState, MermaidModel> {
+	public static final Identifier[] MERMAID_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid01.png"),
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid02.png")};
 
 	public MermaidRenderer(Context context) {
 		super(context, new MermaidModel(context.bakeLayer(ClientHandler.MERMAID)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
-		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
+		this.addLayer(new ItemInHandLayer<>(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Mermaid mermaid) {
-		return MERMAID_LOCATIONS[mermaid.getVariant()];
+	public MermaidRenderState createRenderState() {
+		return new MermaidRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Mermaid entity, MermaidRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.isRiding = entity.isPassenger();
+	}
+
+	@Override
+	public Identifier getTextureLocation(MermaidRenderState state) {
+		return MERMAID_LOCATIONS[state.variant];
 	}
 }

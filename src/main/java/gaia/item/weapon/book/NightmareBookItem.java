@@ -10,40 +10,38 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class NightmareBookItem extends WeaponBookItem {
-	public NightmareBookItem(Tier tier, Properties properties) {
-		super(tier, properties);
+	public NightmareBookItem(ToolMaterial material, Properties properties) {
+		super(material, properties);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
 
 		final Player player = RandomUtil.getPlayer();
 		if (player == null) {
 			return;
 		}
-		if (player.getOffhandItem() == stack) {
-			list.add(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
+		if (player.getOffhandItem() == itemStack) {
+			builder.accept(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
+			builder.accept(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
 		}
-		list.add(Component.translatable(MobEffects.DIG_SLOWDOWN.value().getDescriptionId()).append(" II (0:04)"));
+		builder.accept(Component.translatable(MobEffects.MINING_FATIGUE.value().getDescriptionId()).append(" II (0:04)"));
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		super.hurtEnemy(stack, target, attacker);
 
 		attacker.level().playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
 				1.0F, 1.0F);
-		target.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 80, 1));
-
-		return true;
+		target.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 80, 1));
 	}
 }

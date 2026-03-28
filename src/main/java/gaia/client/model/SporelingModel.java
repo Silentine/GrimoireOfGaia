@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Sporeling;
+import gaia.client.state.SporelingRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,9 +9,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.util.Mth;
 
-public class SporelingModel extends EntityModel<Sporeling> implements HeadedModel {
+public class SporelingModel extends EntityModel<SporelingRenderState> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart head;
@@ -22,6 +21,7 @@ public class SporelingModel extends EntityModel<Sporeling> implements HeadedMode
 	private final ModelPart rightleg;
 
 	public SporelingModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("sporeling");
 		this.body = this.root.getChild("body");
 		this.head = body.getChild("head");
@@ -50,46 +50,40 @@ public class SporelingModel extends EntityModel<Sporeling> implements HeadedMode
 	}
 
 	@Override
-	public void prepareMobModel(Sporeling sporeling, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(sporeling, limbSwing, limbSwingAmount, partialTick);
-		this.head.visible = sporeling.getVariant() == 0;
-		this.headalt.visible = sporeling.getVariant() == 1;
-	}
+	public void setupAnim(SporelingRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Sporeling entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.head.visible = state.variant == 0;
+		this.headalt.visible = state.variant == 1;
+
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		headalt.yRot = netHeadYaw / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		headalt.yRot = state.yRot / 57.295776F;
 
 		// body
-		if (attackTime > 0.0F) {
-			holdingMelee();
+		if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
 		// legs
-		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-		leftleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+		rightleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed;
+		leftleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.5F * state.walkAnimationSpeed;
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(body.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(body.xRot - 0.7F) * 0.75F;
 
 		body.xRot -= (float) ((double) body.xRot - ((double) f7 * 1.2D + (double) f8));
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {

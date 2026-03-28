@@ -7,7 +7,6 @@ import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,11 +19,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -34,8 +32,8 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.animal.feline.Cat;
+import net.minecraft.world.entity.animal.feline.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -44,10 +42,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-public class Creep extends AbstractGaiaEntity implements PowerableMob {
+public class Creep extends AbstractGaiaEntity {
 	private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(Creep.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> DATA_IS_POWERED = SynchedEntityData.defineId(Creep.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> DATA_IS_IGNITED = SynchedEntityData.defineId(Creep.class, EntityDataSerializers.BOOLEAN);
@@ -99,6 +99,7 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 		return super.isInvisibleTo(player);
 	}
 
+	@Override
 	public void tick() {
 		if (this.isAlive() && !isInvisible()) {
 			this.oldSwell = this.swell;
@@ -126,6 +127,7 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 		super.tick();
 	}
 
+	@Override
 	public void setTarget(@Nullable LivingEntity livingEntity) {
 		if (!(livingEntity instanceof Goat)) {
 			super.setTarget(livingEntity);
@@ -160,29 +162,31 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 		this.entityData.set(DATA_SWELL_DIR, direction);
 	}
 
+	@Override
 	public void thunderHit(ServerLevel level, LightningBolt bolt) {
 		super.thunderHit(level, bolt);
 		this.entityData.set(DATA_IS_POWERED, true);
 	}
 
+	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (itemstack.is(Items.FLINT_AND_STEEL)) {
 			this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.FLINTANDSTEEL_USE, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				this.ignite();
-				itemstack.hurtAndBreak(1, player, Player.getSlotForHand(hand));
+				itemstack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 			}
 
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);
 		}
 	}
 
 	private void explodeCreep() {
-		if (!this.level().isClientSide) {
-			Level.ExplosionInteraction explosion$blockinteraction = EventHooks.canEntityGrief(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+		if (this.level() instanceof ServerLevel serverLevel) {
+			Level.ExplosionInteraction explosion$blockinteraction = EventHooks.canEntityGrief(serverLevel, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
 			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, explosion$blockinteraction);
@@ -205,30 +209,31 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		if (this.entityData.get(DATA_IS_POWERED)) {
-			tag.putBoolean("powered", true);
-		}
-
-		tag.putShort("Fuse", (short) this.maxSwell);
-		tag.putByte("ExplosionRadius", (byte) this.explosionRadius);
-		tag.putBoolean("ignited", this.isIgnited());
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.entityData.set(DATA_IS_POWERED, tag.getBoolean("powered"));
-		if (tag.contains("Fuse", 99)) {
-			this.maxSwell = tag.getShort("Fuse");
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		if (this.entityData.get(DATA_IS_POWERED)) {
+			output.putBoolean("powered", true);
 		}
 
-		if (tag.contains("ExplosionRadius", 99)) {
-			this.explosionRadius = tag.getByte("ExplosionRadius");
-		}
+		output.putShort("Fuse", (short) this.maxSwell);
+		output.putByte("ExplosionRadius", (byte) this.explosionRadius);
+		output.putBoolean("ignited", this.isIgnited());
+	}
 
-		if (tag.getBoolean("ignited")) {
+	@Override
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.entityData.set(DATA_IS_POWERED, input.getBooleanOr("powered", false));
+		this.maxSwell = input.getShortOr("Fuse", (short) 0);
+		this.explosionRadius = input.getByteOr("ExplosionRadius", (byte)0);
+
+		if (input.getBooleanOr("ignited", false)) {
 			this.ignite();
 		}
 	}
@@ -238,9 +243,10 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 		return this.getTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
-		boolean flag = super.causeFallDamage(distance, damageMultiplier, source);
-		this.swell += (int) (distance * 1.5F);
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
+		boolean flag = super.causeFallDamage(fallDistance, damageModifier, damageSource);
+		this.swell += (int) (fallDistance * 1.5F);
 		if (this.swell > this.maxSwell - 5) {
 			this.swell = this.maxSwell - 5;
 		}
@@ -269,7 +275,7 @@ public class Creep extends AbstractGaiaEntity implements PowerableMob {
 		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkCreepSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkCreepSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

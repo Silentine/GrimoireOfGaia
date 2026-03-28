@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "item": "grimoireofgaia:experience_gold"
-    }
+    "#c:seeds/wheat",
+    "#c:seeds/wheat",
+    "grimoireofgaia:experience_gold"
   ],
   "result": {
     "count": 2,

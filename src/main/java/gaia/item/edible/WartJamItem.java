@@ -1,7 +1,7 @@
 package gaia.item.edible;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 
 public class WartJamItem extends EdibleEffectItem {
 	public WartJamItem(Properties properties) {
@@ -9,7 +9,7 @@ public class WartJamItem extends EdibleEffectItem {
 	}
 
 	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.DRINK;
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
+		return ItemUseAnimation.DRINK;
 	}
 }

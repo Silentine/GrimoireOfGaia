@@ -6,10 +6,10 @@ import gaia.registry.GaiaSounds;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -17,10 +17,10 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,16 +34,18 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.common.ItemAbilities;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(GoblinFeral.class, EntityDataSerializers.INT);
@@ -133,18 +135,18 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		if (!getOffhandItem().isEmpty() && getOffhandItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
-			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		if (getOffhandItem().is(Tags.Items.TOOLS_SHIELD)) {
+			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		boolean flag = super.doHurtTarget(entityIn);
-		if (getVariant() == 2 && entityIn instanceof LivingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		boolean flag = super.doHurtTarget(level, target);
+		if (getVariant() == 2 && target instanceof LivingEntity) {
 			ignite();
 		}
 
@@ -188,10 +190,11 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void explode() {
-		if (!this.level().isClientSide) {
-			Level.ExplosionInteraction explosion$blockinteraction = EventHooks.canEntityGrief(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+		if (this.level() instanceof ServerLevel serverLevel) {
+			Level.ExplosionInteraction explosion$blockinteraction = EventHooks.canEntityGrief(serverLevel, this) ?
+					Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius, explosion$blockinteraction);
+			serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius, explosion$blockinteraction);
 			this.discard();
 		}
 	}
@@ -242,7 +245,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -254,25 +257,19 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putShort("Fuse", (short) this.maxSwell);
-		tag.putByte("ExplosionRadius", (byte) this.explosionRadius);
-		tag.putBoolean("ignited", this.isIgnited());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putShort("Fuse", (short) this.maxSwell);
+		output.putByte("ExplosionRadius", (byte) this.explosionRadius);
+		output.putBoolean("ignited", this.isIgnited());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("Fuse", 99)) {
-			this.maxSwell = tag.getShort("Fuse");
-		}
-
-		if (tag.contains("ExplosionRadius", 99)) {
-			this.explosionRadius = tag.getByte("ExplosionRadius");
-		}
-
-		if (tag.getBoolean("ignited")) {
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.maxSwell = input.getShortOr("Fuse", (short) 0);
+		this.explosionRadius = input.getByteOr("ExplosionRadius", (byte) 0);
+		if (input.getBooleanOr("ignited", false)) {
 			this.ignite();
 		}
 
@@ -280,8 +277,8 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.GOBLIN_FERAL.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.GOBLIN_FERAL.getEntityType());
 	}
 
 	@Override
@@ -304,7 +301,7 @@ public class GoblinFeral extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkGoblinFeralSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkGoblinFeralSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

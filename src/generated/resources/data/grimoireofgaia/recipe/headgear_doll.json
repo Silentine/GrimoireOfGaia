@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "grimoireofgaia:doll_maid"
-    }
+    "grimoireofgaia:doll_maid"
   ],
   "result": {
-    "count": 1,
     "id": "grimoireofgaia:headgear_doll"
   }
 }

@@ -3,26 +3,43 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.SatyressModel;
+import gaia.client.state.SatyressRenderState;
 import gaia.entity.Satyress;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.phys.Vec3;
 
-public class SatyressRenderer extends MobRenderer<Satyress, SatyressModel> {
-	public static final ResourceLocation[] DRYAD_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/satyress/satyress01.png"),
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/satyress/satyress02.png")};
+public class SatyressRenderer extends MobRenderer<Satyress, SatyressRenderState, SatyressModel> {
+	public static final Identifier[] DRYAD_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/satyress/satyress01.png"),
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/satyress/satyress02.png")};
 
 	public SatyressRenderer(Context context) {
 		super(context, new SatyressModel(context.bakeLayer(ClientHandler.SATYRESS)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
-		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
+		this.addLayer(new ItemInHandLayer<>(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Satyress dryad) {
-		return DRYAD_LOCATIONS[dryad.getVariant()];
+	public SatyressRenderState createRenderState() {
+		return null;
+	}
+
+	@Override
+	public void extractRenderState(Satyress entity, SatyressRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.isRiding = entity.isVehicle();
+		state.isFleeing = entity.isFleeing();
+		Vec3 movement = entity.getDeltaMovement();
+		state.moving = movement.x * movement.x + movement.z * movement.z > 2.500000277905201E-7D;
+	}
+
+	@Override
+	public Identifier getTextureLocation(SatyressRenderState state) {
+		return DRYAD_LOCATIONS[state.variant];
 	}
 }

@@ -3,7 +3,6 @@ package gaia.entity;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -15,10 +14,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -35,8 +34,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class Mummy extends AbstractGaiaEntity {
 
@@ -78,27 +79,27 @@ public class Mummy extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		Entity entity = source.getDirectEntity();
 
-		if (entity instanceof Player && random.nextBoolean() && !this.level().isClientSide) {
+		if (entity instanceof Player && random.nextBoolean() && !this.level().isClientSide()) {
 			this.level().broadcastEntityEvent(this, (byte) 12);
 			setSpawn(0);
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
-				if (this.level().getDifficulty() == Difficulty.NORMAL) {
+				if (level.getDifficulty() == Difficulty.NORMAL) {
 					effectTime = 5;
-				} else if (this.level().getDifficulty() == Difficulty.HARD) {
+				} else if (level.getDifficulty() == Difficulty.HARD) {
 					effectTime = 10;
 				}
 
@@ -107,10 +108,10 @@ public class Mummy extends AbstractGaiaEntity {
 				}
 			}
 
-			float effectiveDifficulty = this.level().getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
+			float effectiveDifficulty = level.getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
 
 			if (this.getMainHandItem().isEmpty() && this.isOnFire() && this.random.nextFloat() < effectiveDifficulty * 0.3F) {
-				entityIn.setRemainingFireTicks(20 * 2 * (int) effectiveDifficulty);
+				target.setRemainingFireTicks(20 * 2 * (int) effectiveDifficulty);
 			}
 
 			return true;
@@ -148,14 +149,14 @@ public class Mummy extends AbstractGaiaEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL && this.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 			if (id == 0) {
-				GraveMite mite = GaiaRegistry.GRAVEMITE.getEntityType().create(this.level());
+				GraveMite mite = GaiaRegistry.GRAVEMITE.getEntityType().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				if (mite != null) {
-					mite.moveTo(blockpos, 0.0F, 0.0F);
-					EventHooks.finalizeMobSpawn(mite, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-					this.level().addFreshEntity(mite);
+					mite.snapTo(blockpos, 0.0F, 0.0F);
+					EventHooks.finalizeMobSpawn(mite, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+					serverLevel.addFreshEntity(mite);
 				}
 			}
 		}
@@ -164,20 +165,20 @@ public class Mummy extends AbstractGaiaEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		return data;
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -205,7 +206,7 @@ public class Mummy extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkMummySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkMummySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

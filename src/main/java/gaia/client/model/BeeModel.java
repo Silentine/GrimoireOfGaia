@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.BeeRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Bee;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -13,10 +12,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedModel {
+public class BeeModel extends EntityModel<BeeRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodybottom;
 	private final ModelPart bodymiddle;
@@ -36,6 +37,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 	private float offset = 0.0F;
 
 	public BeeModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("bee");
 		this.bodybottom = this.root.getChild("bodybottom");
 		this.bodymiddle = this.bodybottom.getChild("bodymiddle");
@@ -121,23 +123,21 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 	}
 
 	@Override
-	public void prepareMobModel(Bee bee, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(bee, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !bee.isBaby();
-	}
+	public void setupAnim(BeeRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Bee bee, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		boolean moveExtremities;
 		float armsAngleMoving;
 		float legsAngleMoving;
 		float defaultAngle = 0;
 
-		boolean moving = limbSwingAmount > 0.1F;
+		boolean moving = state.walkAnimationSpeed > 0.1F;
 		if (moving) {
 			moveExtremities = false;
 			armsAngleMoving = -(90 * Mth.DEG_TO_RAD);
@@ -153,7 +153,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 			leftleg.xRot = legsAngleMoving;
 			rightleglower.xRot = (75 * Mth.DEG_TO_RAD);
 			leftleglower.xRot = (75 * Mth.DEG_TO_RAD);
-			head.xRot = -45F + (headPitch / 57.295776F);
+			head.xRot = -45F + (state.xRot / 57.295776F);
 		} else {
 			moveExtremities = true;
 			armsAngleMoving = defaultAngle;
@@ -171,15 +171,15 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 			leftleglower.xRot = defaultAngle;
 		}
 
-		this.offset = Mth.cos(ageInTicks * 0.18F) * 0.9F;
+		this.offset = Mth.cos(state.ageInTicks * 0.18F) * 0.9F;
 		root.y = 24.0F - offset;
 
 		// arms
-		int animationState = bee.getAnimationState();
+		int animationState = state.animationState;
 		if (animationState == 0) {
 			if (moveExtremities) {
-				rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-				leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+				rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+				leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 			}
 
 			if (!moveExtremities) {
@@ -190,14 +190,14 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > 0.0F) {
-				holdingMelee();
+			if (state.attackTime > 0.0F) {
+				holdingMelee(state);
 			}
 
-			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
-			rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
-			leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
+			rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
+			leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
+			rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
+			leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) + 0.1745329F;
 		}
 		if (animationState == 1) {
 			animationThrow();
@@ -208,18 +208,18 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		float angleRange = 1.0F;
 		float wingDefaultAngleY = 0.7853982F;
 
-		leftwing.yRot = Mth.cos(ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
+		leftwing.yRot = Mth.cos(state.ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
 		leftwing.yRot -= wingDefaultAngleY;
-		rightwing.yRot = Mth.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
+		rightwing.yRot = Mth.cos(state.ageInTicks * swingSpeed) * angleRange * 0.5F;
 		rightwing.yRot += wingDefaultAngleY;
 
-		thorax1.xRot += Mth.cos(((ageInTicks * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
+		thorax1.xRot += Mth.cos(((state.ageInTicks * 7) * Mth.DEG_TO_RAD)) * (2 * Mth.DEG_TO_RAD);
 
 		// legs
 		if (animationState == 0) {
 			if (moveExtremities) {
-				rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-				leftleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+				rightleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
+				leftleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 			}
 
 			float swingSpeed2 = 0.2F;
@@ -230,15 +230,15 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 				leftleg.xRot = legsAngleMoving;
 			}
 
-			rightleg.zRot = Mth.cos(ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * -0.5F;
-			leftleg.zRot = Mth.cos(ageInTicks * swingSpeed2) * angleRange2 * -0.5F;
+			rightleg.zRot = Mth.cos(state.ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * -0.5F;
+			leftleg.zRot = Mth.cos(state.ageInTicks * swingSpeed2) * angleRange2 * -0.5F;
 			rightleg.yRot = 0.0F;
 			leftleg.yRot = 0.0F;
 			rightleg.zRot = 0.0F;
 			leftleg.zRot = 0.0F;
 		}
 
-		if (riding) {
+		if (state.isRiding) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -250,20 +250,20 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		}
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
 	private void animationThrow() {
@@ -276,10 +276,6 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 		leftleg.xRot = legsAngleThrow;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -291,7 +287,7 @@ public class BeeModel extends EntityModel<Bee> implements HeadedModel, ArmedMode
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 		poseStack.translate(0, -(offset * 0.05F), 0);

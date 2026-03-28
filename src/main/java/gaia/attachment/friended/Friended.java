@@ -1,60 +1,50 @@
 package gaia.attachment.friended;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.UUIDUtil;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
-public class Friended implements IFriended, INBTSerializable<CompoundTag> {
-	private boolean friended = false;
-	private UUID friendedBy = null;
-	private boolean changed = false;
+public record Friended(boolean isFriendly, Optional<UUID> friendedBy) {
+	public static final MapCodec<Friended> MAP_CODEC = RecordCodecBuilder.mapCodec(
+			i -> i.group(
+							Codec.BOOL.fieldOf("isFriendly").forGetter(o -> o.isFriendly),
+							UUIDUtil.CODEC.lenientOptionalFieldOf("friendedBy").forGetter(o -> o.friendedBy)
+					)
+					.apply(i, Friended::new)
+	);
 
-	@Override
-	public boolean isFriendly() {
-		return friended;
+	public Friended() {
+		this(false, Optional.empty());
 	}
 
-	@Override
-	public UUID getFriendedBy() {
-		return friendedBy;
-	}
+	/**
+	 * Creates a new {@link Friended} instance with the given values.
+	 */
+	public static class Builder {
+		private boolean friended;
+		@Nullable
+		private Optional<UUID> friendedBy = Optional.empty();
 
-	@Override
-	public void setFriendedBy(UUID friendedBy) {
-		this.friendedBy = friendedBy;
-	}
+		public Builder() {
+		}
 
-	@Override
-	public boolean isChanged() {
-		return changed;
-	}
+		public Builder setFriended(boolean friended) {
+			this.friended = friended;
+			return this;
+		}
 
-	@Override
-	public void setFriendly(boolean value) {
-		this.friended = value;
-		this.setChanged(true);
-	}
+		public Builder setFriendedBy(@Nullable UUID friendedBy) {
+			this.friendedBy = Optional.ofNullable(friendedBy);
+			return this;
+		}
 
-	@Override
-	public void setChanged(boolean value) {
-		this.changed = value;
-	}
-
-	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-		CompoundTag tag = new CompoundTag();
-		tag.putBoolean("friended", this.isFriendly());
-		if (this.getFriendedBy() != null)
-			tag.putUUID("friendedBy", this.getFriendedBy());
-		return tag;
-	}
-
-	@Override
-	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-		this.setFriendly(tag.getBoolean("friended"));
-		if (tag.contains("friendedBy"))
-			this.setFriendedBy(tag.getUUID("friendedBy"));
+		public Friended build() {
+			return new Friended(friended, friendedBy);
+		}
 	}
 }

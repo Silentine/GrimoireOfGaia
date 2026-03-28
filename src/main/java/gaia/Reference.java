@@ -1,12 +1,12 @@
 package gaia;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class Reference {
 	public static final String SUMMONED_TAG = GrimoireOfGaia.MOD_ID + "_staff_summoned";
 	public static final String SUMMONER_TAG = GrimoireOfGaia.MOD_ID + "_staff_summoner";
 
-	public static ResourceLocation modLoc(String path) {
-		return ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path);
+	public static Identifier modLoc(String path) {
+		return Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path);
 	}
 }

@@ -15,46 +15,44 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class BuffBookItem extends Item {
 	public BuffBookItem(Properties properties) {
-		super(properties);
+		super(properties.repairable(GaiaRegistry.QUILL.get()));
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
 
 		final Player player = RandomUtil.getPlayer();
 		if (player == null) {
 			return;
 		}
-		if (player.getOffhandItem() == stack) {
-			list.add(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
+		if (player.getOffhandItem() == itemStack) {
+			builder.accept(Component.translatable("text.grimoireofgaia.bless.off_hand").withStyle(ChatFormatting.YELLOW));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
+			builder.accept(Component.translatable("text.grimoireofgaia.bless.main_hand").withStyle(ChatFormatting.YELLOW));
 		}
 
-		list.add(Component.translatable(MobEffects.DAMAGE_BOOST.value().getDescriptionId()).append(" I(1:00)"));
-		list.add(Component.translatable(MobEffects.DAMAGE_RESISTANCE.value().getDescriptionId()).append(" (1:00)"));
-		list.add(Component.translatable(MobEffects.REGENERATION.value().getDescriptionId()).append(" IV (0:04)"));
+		builder.accept(Component.translatable(MobEffects.STRENGTH.value().getDescriptionId()).append(" I(1:00)"));
+		builder.accept(Component.translatable(MobEffects.RESISTANCE.value().getDescriptionId()).append(" (1:00)"));
+		builder.accept(Component.translatable(MobEffects.REGENERATION.value().getDescriptionId()).append(" IV (0:04)"));
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 
 		attacker.level().playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
 				1.0F, 1.0F);
-		target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0));
-		target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 0));
+		target.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 600, 0));
+		target.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 600, 0));
 		target.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 80, 3));
-
-		return true;
 	}
 
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity) {
@@ -63,10 +61,5 @@ public class BuffBookItem extends Item {
 		}
 
 		return true;
-	}
-
-	@Override
-	public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
-		return repairStack.is(GaiaRegistry.QUILL.get());
 	}
 }

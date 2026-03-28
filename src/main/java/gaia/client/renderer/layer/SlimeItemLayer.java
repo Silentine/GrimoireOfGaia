@@ -3,40 +3,37 @@ package gaia.client.renderer.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import gaia.client.model.GelatinousSlimeModel;
-import gaia.entity.GelatinousSlime;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import gaia.client.state.GelatinousSlimeRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 
-public class SlimeItemLayer extends RenderLayer<GelatinousSlime, GelatinousSlimeModel> {
+public class SlimeItemLayer extends RenderLayer<GelatinousSlimeRenderState, GelatinousSlimeModel> {
 
-	public SlimeItemLayer(RenderLayerParent<GelatinousSlime, GelatinousSlimeModel> layerParent) {
+	public SlimeItemLayer(RenderLayerParent<GelatinousSlimeRenderState, GelatinousSlimeModel> layerParent) {
 		super(layerParent);
 	}
 
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, GelatinousSlime gelatinousSlime,
-					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (gelatinousSlime.isAlive() && !gelatinousSlime.isInvisible()) {
-			ItemStack stack = gelatinousSlime.getOffhandItem();
-			if (!stack.isEmpty()) {
-				if (!stack.isEmpty()) {
-					poseStack.pushPose();
-					this.getParentModel().translateToHand(HumanoidArm.LEFT, poseStack);
-					poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-					poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-					poseStack.translate((double) ((float) (-1) / 16.0F), 0.125D, -0.625D);
-					Minecraft.getInstance()
-							.getItemRenderer()
-							.renderStatic(stack, ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY,
-									poseStack, bufferSource, Minecraft.getInstance().level, (int) gelatinousSlime.blockPosition()
-											.asLong());
-					poseStack.popPose();
-				}
+	@Override
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, GelatinousSlimeRenderState state, float yRot, float xRot) {
+		if (!state.isInvisible) {
+			ItemStackRenderState stackRenderState = state.mainItemRenderState;
+			if (stackRenderState != null) {
+				poseStack.pushPose();
+
+				this.getParentModel().translateToHand(state, HumanoidArm.LEFT, poseStack);
+
+				poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+				poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+				poseStack.translate((double) ((float) (-1) / 16.0F), 0.125D, -0.625D);
+
+				stackRenderState.submit(poseStack, submitNodeCollector, state.lightCoords,
+						OverlayTexture.NO_OVERLAY, state.outlineColor);
+
+				poseStack.popPose();
 			}
 		}
 	}

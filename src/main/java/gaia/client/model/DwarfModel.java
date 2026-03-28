@@ -1,8 +1,7 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Dwarf;
+import gaia.client.state.DwarfRenderState;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -12,12 +11,14 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 
-public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, ArmedModel {
+public class DwarfModel extends EntityModel<DwarfRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart head;
 	private final ModelPart headLight;
 	private final ModelPart body;
@@ -27,6 +28,7 @@ public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, Armed
 	private final ModelPart leftleg;
 
 	public DwarfModel(ModelPart root) {
+		super(root);
 		this.head = root.getChild("head");
 		this.headLight = this.head.getChild("headlight");
 		this.body = root.getChild("body");
@@ -80,45 +82,43 @@ public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void prepareMobModel(Dwarf dwarf, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(dwarf, limbSwing, limbSwingAmount, partialTick);
-		this.headLight.visible = dwarf.getVariant() == 2;
-	}
+	public void setupAnim(DwarfRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Dwarf dwarf, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.headLight.visible = state.variant == 2;
+
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed * 0.5F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
 
-		ItemStack itemstack = dwarf.getMainHandItem();
-		if (dwarf.isAggressive() && (itemstack.getItem() instanceof BowItem)) {
-			holdingBow(ageInTicks);
-		} else if (attackTime > -9990.0F) {
-			holdingMelee();
+		ItemStack itemstack = state.getMainHandItemStack();
+		if (state.isAggressive && (itemstack.getItem() instanceof BowItem)) {
+			holdingBow(state);
+		} else if (state.attackTime > -9990.0F) {
+			holdingMelee(state);
 		}
 
-		rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.0872665F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-		leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.0872665F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+		rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.0872665F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+		leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.0872665F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 		// legs (walk_normal)
-		rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
-		leftleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
+		rightleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 1.4F * state.walkAnimationSpeed * 0.5F;
+		leftleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * state.walkAnimationSpeed * 0.5F;
 		rightleg.yRot = 0.0F;
 		leftleg.yRot = 0.0F;
 		rightleg.zRot = 0.0F;
 		leftleg.zRot = 0.0F;
 
-		if (riding) {
+		if (state.isRiding) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -130,9 +130,9 @@ public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, Armed
 		}
 	}
 
-	private void holdingBow(float ageInTicks) {
-		float f = Mth.sin(attackTime * (float) Math.PI);
-		float f1 = Mth.sin((1.0F - (1.0F - attackTime) * (1.0F - attackTime)) * (float) Math.PI);
+	private void holdingBow(ArmedEntityRenderState state) {
+		float f = Mth.sin(state.attackTime * (float) Math.PI);
+		float f1 = Mth.sin((1.0F - (1.0F - state.attackTime) * (1.0F - state.attackTime)) * (float) Math.PI);
 
 		rightarm.zRot = -0.3F;
 		leftarm.zRot = 0.3F;
@@ -142,36 +142,26 @@ public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, Armed
 		leftarm.xRot = -((float) Math.PI / 2F);
 		rightarm.xRot -= f * 1.2F - f1 * 0.4F;
 		leftarm.xRot -= f * 1.2F - f1 * 0.4F;
-		rightarm.zRot += Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		leftarm.zRot -= Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		rightarm.zRot += Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F;
+		leftarm.zRot -= Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (body.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-		body.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-		rightarm.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-		leftarm.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-		rightleg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-		leftleg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
 	@Override
@@ -184,7 +174,7 @@ public class DwarfModel extends EntityModel<Dwarf> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		getArm(arm).translateAndRotate(poseStack);
 	}
 }

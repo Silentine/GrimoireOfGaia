@@ -1,8 +1,6 @@
 package gaia.client.model.prop;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.prop.AntHill;
+import gaia.client.state.AntHillRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,11 +9,12 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class AntHillModel extends EntityModel<AntHill> {
+public class AntHillModel extends EntityModel<AntHillRenderState> {
 	private final ModelPart root;
 	private final ModelPart body01;
 
 	public AntHillModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("ant_hill");
 		ModelPart body = this.root.getChild("body");
 		this.body01 = body.getChild("body01");
@@ -39,12 +38,8 @@ public class AntHillModel extends EntityModel<AntHill> {
 	}
 
 	@Override
-	public void setupAnim(AntHill antHill, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		body01.visible = antHill.getSpawnAmount() <= 2;
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+	public void setupAnim(AntHillRenderState state) {
+		super.setupAnim(state);
+		body01.visible = state.spawnAmount <= 2;
 	}
 }

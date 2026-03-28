@@ -4,25 +4,37 @@ import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.SlimeGirlModel;
 import gaia.client.renderer.layer.SlimeGirlHairLayer;
+import gaia.client.state.SlimeGirlRenderState;
 import gaia.entity.trader.SlimeGirl;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class SlimeGirlRenderer extends MobRenderer<SlimeGirl, SlimeGirlModel> {
-	public static final ResourceLocation CREEPER_GIRL_LOCATION = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/slime_girl/slime_girl.png");
+public class SlimeGirlRenderer extends MobRenderer<SlimeGirl, SlimeGirlRenderState, SlimeGirlModel> {
+	public static final Identifier CREEPER_GIRL_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/slime_girl/slime_girl.png");
 
 	public SlimeGirlRenderer(Context context) {
 		super(context, new SlimeGirlModel(context.bakeLayer(ClientHandler.SLIME_GIRL)), ClientHandler.medShadow);
 		this.addLayer(new SlimeGirlHairLayer(this, context.getModelSet()));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
-		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
+		this.addLayer(new ItemInHandLayer<>(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(SlimeGirl slimeGirl) {
+	public SlimeGirlRenderState createRenderState() {
+		return new SlimeGirlRenderState();
+	}
+
+	@Override
+	public void extractRenderState(SlimeGirl entity, SlimeGirlRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.isRiding = entity.isPassenger();
+	}
+
+	@Override
+	public Identifier getTextureLocation(SlimeGirlRenderState state) {
 		return CREEPER_GIRL_LOCATION;
 	}
 }

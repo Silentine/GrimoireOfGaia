@@ -7,20 +7,20 @@ import gaia.util.EnchantUtil;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -41,10 +41,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
-	private static final ResourceLocation KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "nine_tails_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "nine_tails_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 2.0D, Operation.ADD_VALUE);
 	private static final EntityDataAccessor<Boolean> THROWING = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> WEAPON_TYPE = SynchedEntityData.defineId(NineTails.class, EntityDataSerializers.INT);
@@ -124,9 +126,9 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -141,9 +143,9 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			entityIn.setRemainingFireTicks(20 * 6);
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			target.setRemainingFireTicks(20 * 6);
 			return true;
 		} else {
 			return false;
@@ -230,7 +232,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		setCombatTask();
@@ -239,18 +241,16 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("WeaponType", getWeaponType());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("WeaponType", getWeaponType());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("WeaponType")) {
-			int weaponType = tag.getInt("WeaponType");
-			setWeaponType(weaponType);
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		int weaponType = input.getIntOr("WeaponType", 0);
+		setWeaponType(weaponType);
 		setCombatTask();
 	}
 
@@ -279,7 +279,7 @@ public class NineTails extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkNineTailsSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkNineTailsSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

@@ -1,8 +1,6 @@
 package gaia.client.model.prop;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.prop.Chest;
+import gaia.client.state.ChestRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,10 +10,11 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class ChestModel extends EntityModel<Chest> {
+public class ChestModel extends EntityModel<ChestRenderState> {
 	private final ModelPart root;
 
 	public ChestModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("mimic_chest");
 	}
 
@@ -34,17 +33,13 @@ public class ChestModel extends EntityModel<Chest> {
 	}
 
 	@Override
-	public void setupAnim(Chest entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		switch (entity.getRotation()) {
-			case 0 -> root.yRot = 0;
+	public void setupAnim(ChestRenderState state) {
+		super.setupAnim(state);
+		switch (state.rotation) {
 			case 1 -> root.yRot = (90 * Mth.DEG_TO_RAD);
 			case 2 -> root.yRot = (180 * Mth.DEG_TO_RAD);
 			case 3 -> root.yRot = (270 * Mth.DEG_TO_RAD);
+			default -> root.yRot = 0;
 		}
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
 	}
 }

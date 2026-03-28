@@ -6,19 +6,19 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,8 +36,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(WizardHarpy.class, EntityDataSerializers.INT);
@@ -120,13 +122,13 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 			ItemStack offhandItem = getOffhandItem();
 
 			if (offhandItem.is(GaiaRegistry.WEAPON_BOOK_FREEZING.get()))
-				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.MOVEMENT_SLOWDOWN);
+				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.SLOWNESS);
 
 			if (offhandItem.is(GaiaRegistry.WEAPON_BOOK_NIGHTMARE.get()))
-				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.DIG_SLOWDOWN);
+				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.MINING_FATIGUE);
 
 			if (offhandItem.is(GaiaRegistry.WEAPON_BOOK_METAL.get()))
-				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.CONFUSION);
+				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.NAUSEA);
 
 			if (offhandItem.is(GaiaRegistry.WEAPON_BOOK_ENDER.get()))
 				RangedUtil.magicRandom(target, this, distanceFactor, 0, MobEffects.BLINDNESS);
@@ -152,10 +154,12 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 		}
 	}
 
+
+
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -215,7 +219,8 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 		}
 	}
 
-	public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -249,7 +254,7 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -276,13 +281,13 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 		setCombatTask();
 	}
 
@@ -296,7 +301,7 @@ public class WizardHarpy extends AbstractAssistGaiaEntity implements RangedAttac
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkWizardHarpySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkWizardHarpySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

@@ -9,11 +9,11 @@ import gaia.registry.GaiaTags;
 import gaia.util.EnchantUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -22,10 +22,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -45,12 +45,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(YukiOnna.class, EntityDataSerializers.BOOLEAN);
 
-	private static final ResourceLocation KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "yuki_onna_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "yuki_onna_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 2.0D, Operation.ADD_VALUE);
 
 	private final MobAttackGoal mobAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
@@ -115,15 +117,15 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -133,7 +135,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 3));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 3));
 				}
 			}
 
@@ -165,8 +167,8 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 		}
 		/* FLEE DATA */
 
-		if (!this.level().isClientSide && this.level().getBiome(blockPosition()).value().getTemperature(blockPosition()) > 1.0F) {
-			addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
+		if (!this.level().isClientSide() && this.level().getBiome(blockPosition()).value().getTemperature(blockPosition(), level().getSeaLevel()) > 1.0F) {
+			addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 0));
 			addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 		}
 
@@ -213,7 +215,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -224,13 +226,13 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 
 		setGoals(0);
 	}
@@ -256,7 +258,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -265,7 +267,7 @@ public class YukiOnna extends AbstractAssistGaiaEntity implements IDayMob {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkYukiOnnaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkYukiOnnaSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

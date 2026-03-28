@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import gaia.registry.GaiaModifiers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
@@ -15,10 +16,10 @@ import java.util.List;
 
 public record AddGaiaSpawnModifier(List<HolderSet<Biome>> biomes,
 								   List<HolderSet<Biome>> biomeBlacklist,
-								   List<SpawnerData> spawners) implements BiomeModifier {
+								   List<Weighted<SpawnerData>> spawners) implements BiomeModifier {
 
 
-	public static AddGaiaSpawnModifier singleSpawn(List<HolderSet<Biome>> biomes, List<HolderSet<Biome>> blacklistBiomes, SpawnerData spawner) {
+	public static AddGaiaSpawnModifier singleSpawn(List<HolderSet<Biome>> biomes, List<HolderSet<Biome>> blacklistBiomes, Weighted<SpawnerData> spawner) {
 		return new AddGaiaSpawnModifier(biomes, blacklistBiomes, List.of(spawner));
 	}
 
@@ -28,9 +29,9 @@ public record AddGaiaSpawnModifier(List<HolderSet<Biome>> biomes,
 			MobSpawnSettingsBuilder spawns = builder.getMobSpawnSettings();
 			if (biomes.stream().allMatch(biomeSet -> biomeSet.contains(biome)) &&
 					(biomeBlacklist.isEmpty() || !biomeBlacklist.isEmpty() && biomeBlacklist.stream().noneMatch(biomeSet -> biomeSet.contains(biome)))) {
-				for (SpawnerData spawner : this.spawners) {
+				for (Weighted<SpawnerData> spawner : this.spawners) {
 //					GrimoireOfGaia.LOGGER.error("Adding {} to {}", ForgeRegistries.ENTITY_TYPES.getKey(spawner.type), biome.unwrapKey().get().location());
-					spawns.addSpawn(MobCategory.MONSTER, spawner);
+					spawns.addSpawn(MobCategory.MONSTER, spawner.weight(), spawner.value());
 				}
 			}
 		}

@@ -4,9 +4,8 @@ import gaia.entity.goal.MobAttackGoal;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -15,10 +14,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -28,14 +27,15 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -95,21 +95,21 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 
 		if (source.getDirectEntity() instanceof AbstractArrow) {
-			this.level().broadcastEntityEvent(this, (byte) 8);
+			level.broadcastEntityEvent(this, (byte) 8);
 			heal(getMaxHealth() * 0.10F);
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -160,13 +160,13 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
 		this.beaconMonster(4, (entity) -> {
 			if (!(entity instanceof Player)) {
-				entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1, true, true));
+				entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1, true, true));
 			}
 		});
 
@@ -184,7 +184,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 
 	@Override
 	protected void tickDeath() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			spawnLingeringCloud(List.of(new MobEffectInstance(MobEffects.POISON, 40, 0)));
 		}
 		super.tickDeath();
@@ -205,32 +205,28 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		this.setCanPickUpLoot(true);
 
+		if (random.nextBoolean()) {
+			this.lootTable = EntityType.SKELETON.getDefaultLootTable();
+		}
+
 		return data;
 	}
 
 	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		if (random.nextBoolean()) {
-			return EntityType.SKELETON.getDefaultLootTable();
-		}
-		return super.getDefaultLootTable();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-	}
-
-	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -263,7 +259,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkGelatinousSlimeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkGelatinousSlimeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

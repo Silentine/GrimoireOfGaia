@@ -4,13 +4,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -53,7 +54,7 @@ public class MerchantSpawnItem extends Item {
 			}
 
 			EntityType<?> entitytype = typeSupplier.get();
-			if (entitytype.spawn((ServerLevel) level, itemstack, context.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
+			if (entitytype.spawn((ServerLevel) level, itemstack, context.getPlayer(), blockpos1, EntitySpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
 				itemstack.shrink(1);
 				level.gameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
 			}
@@ -62,35 +63,46 @@ public class MerchantSpawnItem extends Item {
 		}
 	}
 
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-		ItemStack itemstack = player.getItemInHand(hand);
-		HitResult hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
-		if (hitresult.getType() != HitResult.Type.BLOCK) {
-			return InteractionResultHolder.pass(itemstack);
-		} else if (!(level instanceof ServerLevel)) {
-			return InteractionResultHolder.success(itemstack);
-		} else {
-			BlockHitResult blockhitresult = (BlockHitResult) hitresult;
-			BlockPos blockpos = blockhitresult.getBlockPos();
-			if (!(level.getBlockState(blockpos).getBlock() instanceof LiquidBlock)) {
-				return InteractionResultHolder.pass(itemstack);
-			} else if (level.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos, blockhitresult.getDirection(), itemstack)) {
-				EntityType<?> entitytype = typeSupplier.get();
-				Entity entity = entitytype.spawn((ServerLevel) level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
-				if (entity == null) {
-					return InteractionResultHolder.pass(itemstack);
-				} else {
-					if (!player.getAbilities().instabuild) {
-						itemstack.shrink(1);
-					}
-
+	@Override
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		BlockHitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
+		if (hitResult.getType() != HitResult.Type.BLOCK) {
+			return InteractionResult.PASS;
+		} else if (level instanceof ServerLevel) {
+			BlockPos pos = hitResult.getBlockPos();
+			if (!(level.getBlockState(pos).getBlock() instanceof LiquidBlock)) {
+				return InteractionResult.PASS;
+			} else if (level.mayInteract(player, pos) && player.mayUseItemAt(pos, hitResult.getDirection(), itemStack)) {
+				InteractionResult result = spawnMob(player, itemStack, level, pos, false, false);
+				if (result == InteractionResult.SUCCESS) {
 					player.awardStat(Stats.ITEM_USED.get(this));
-					level.gameEvent(player, GameEvent.ENTITY_PLACE, entity.position());
-					return InteractionResultHolder.consume(itemstack);
 				}
+
+				return result;
 			} else {
-				return InteractionResultHolder.fail(itemstack);
+				return InteractionResult.FAIL;
 			}
+		} else {
+			return InteractionResult.SUCCESS;
+		}
+	}
+
+	private InteractionResult spawnMob(
+			@Nullable LivingEntity user, ItemStack itemStack, Level level, BlockPos spawnPos, boolean tryMoveDown, boolean movedUp
+	) {
+		EntityType<?> type = typeSupplier.get();
+		if (type == null) {
+			return InteractionResult.FAIL;
+		} else if (!type.isAllowedInPeaceful() && level.getDifficulty() == Difficulty.PEACEFUL) {
+			return InteractionResult.FAIL;
+		} else {
+			if (type.spawn((ServerLevel)level, itemStack, user, spawnPos, EntitySpawnReason.SPAWN_ITEM_USE, tryMoveDown, movedUp) != null) {
+				itemStack.consume(1, user);
+				level.gameEvent(user, GameEvent.ENTITY_PLACE, spawnPos);
+			}
+
+			return InteractionResult.SUCCESS;
 		}
 	}
 }

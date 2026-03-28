@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:enchanted_book[minecraft:stored_enchantments={levels:{\"minecraft:sharpness\":1}}]",
+      "item": "minecraft:enchanted_book[minecraft:stored_enchantments={\"minecraft:sharpness\":1}]",
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
     }

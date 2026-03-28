@@ -4,30 +4,37 @@ import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.ArachneModel;
 import gaia.client.renderer.layer.ArachneEyesLayer;
+import gaia.client.state.ArachneRenderState;
 import gaia.entity.Arachne;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class ArachneRenderer extends MobRenderer<Arachne, ArachneModel> {
-	public static final ResourceLocation[] ARACHNE_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/arachne/arachne.png")};
+public class ArachneRenderer extends MobRenderer<Arachne, ArachneRenderState, ArachneModel> {
+	public static final Identifier[] ARACHNE_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/arachne/arachne.png")};
 
 	public ArachneRenderer(Context context) {
 		super(context, new ArachneModel(context.bakeLayer(ClientHandler.ARACHNE)), ClientHandler.largeShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
-		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
+		this.addLayer(new ItemInHandLayer<>(this));
 		this.addLayer(new ArachneEyesLayer(this));
 	}
 
-	protected float getFlipDegrees(Arachne arachne) {
+	@Override
+	public ArachneRenderState createRenderState() {
+		return null;
+	}
+
+	@Override
+	protected float getFlipDegrees() {
 		return 180.0F;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Arachne arachne) {
-		return ARACHNE_LOCATIONS[arachne.getVariant()];
+	public Identifier getTextureLocation(ArachneRenderState renderState) {
+		return ARACHNE_LOCATIONS[renderState.variant];
 	}
 }

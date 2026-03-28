@@ -5,6 +5,7 @@ import gaia.entity.AbstractGaiaEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 /**
  * A variation of the MobRenderer class that scales the model to half if the entity is a baby.
@@ -12,15 +13,16 @@ import net.minecraft.client.renderer.entity.MobRenderer;
  *
  * @see net.minecraft.client.renderer.entity.MobRenderer
  */
-public abstract class GaiaBabyMobRenderer<T extends AbstractGaiaEntity, M extends EntityModel<T>> extends MobRenderer<T, M> {
+public abstract class GaiaBabyMobRenderer<T extends AbstractGaiaEntity, S extends LivingEntityRenderState, M extends EntityModel<S>> extends MobRenderer<T, S, M> {
 
 	public GaiaBabyMobRenderer(Context context, M model, float shadowSize) {
 		super(context, model, shadowSize);
 	}
 
+	// TODO: Make custom baby models?
 	@Override
-	protected void scale(T gaia, PoseStack poseStack, float partialTicks) {
-		if (gaia.isBaby()) {
+	protected void scale(S state, PoseStack poseStack) {
+		if (state.isBaby) {
 			poseStack.scale(0.5F, 0.5F, 0.5F);
 		}
 	}

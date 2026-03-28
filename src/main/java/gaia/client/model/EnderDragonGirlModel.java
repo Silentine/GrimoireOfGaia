@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.EnderDragonGirlRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.EnderDragonGirl;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -13,10 +12,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implements HeadedModel, ArmedModel {
+public class EnderDragonGirlModel extends EntityModel<EnderDragonGirlRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart head;
@@ -35,6 +36,7 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 	private boolean isCarrying;
 
 	public EnderDragonGirlModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("ender_dragon_girl");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
@@ -131,22 +133,20 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 	}
 
 	@Override
-	public void prepareMobModel(EnderDragonGirl enderDragonGirl, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(enderDragonGirl, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !enderDragonGirl.isBaby();
-	}
+	public void setupAnim(EnderDragonGirlRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(EnderDragonGirl enderDragonGirl, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = (headPitch / 57.295776F) + 0.1745329F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = (state.xRot / 57.295776F) + 0.1745329F;
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
@@ -156,36 +156,36 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 			leftarm.xRot -= 0.5F;
 			rightarm.zRot += 0.05F;
 			leftarm.zRot -= 0.05F;
-		} else if (attackTime > 0.0F) {
-			holdingMelee();
+		} else if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
-		rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-		leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+		rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+		leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 		// body
-		rightwing.yRot = Mth.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
-		leftwing.yRot = Mth.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
+		rightwing.yRot = Mth.cos(state.ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * state.walkAnimationSpeed * 0.5F;
+		leftwing.yRot = Mth.cos(state.ageInTicks * 0.6662F) * 1.0F * state.walkAnimationSpeed * 0.5F;
 		rightwing.yRot -= 0.5235988F;
 		leftwing.yRot += 0.5235988F;
 
-		tail1.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
-		tail2.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (6 * Mth.DEG_TO_RAD);
-		tail3.yRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (9 * Mth.DEG_TO_RAD);
+		tail1.yRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (3 * Mth.DEG_TO_RAD);
+		tail2.yRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (6 * Mth.DEG_TO_RAD);
+		tail3.yRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (9 * Mth.DEG_TO_RAD);
 
 		// legs
-		rightleg.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 1.5F;
+		rightleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed) * 1.5F;
 		rightleg.xRot -= 0.3490659F;
-		leftleg.xRot = (Mth.cos(limbSwing * 0.6665F + (float) Math.PI) * 0.5F * limbSwingAmount) * 1.5F;
+		leftleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6665F + (float) Math.PI) * 0.5F * state.walkAnimationSpeed) * 1.5F;
 		leftleg.xRot -= 0.3490659F;
 		rightleg.yRot = 0.1745329F;
 		leftleg.yRot = -0.1745329F;
 		rightleg.zRot = 0.0F;
 		leftleg.zRot = 0.0F;
 
-		if (riding) {
+		if (state.isRiding) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -197,30 +197,26 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 		}
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
 	public void setCarrying(boolean carrying) {
 		isCarrying = carrying;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -232,7 +228,7 @@ public class EnderDragonGirlModel extends EntityModel<EnderDragonGirl> implement
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}

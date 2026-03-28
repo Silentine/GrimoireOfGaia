@@ -8,9 +8,9 @@ import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -19,9 +19,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -39,11 +39,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
-	private static final ResourceLocation KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gryphon_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gryphon_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 2.0D, AttributeModifier.Operation.ADD_VALUE);
 
 	public Gryphon(EntityType<? extends Monster> entityType, Level level) {
@@ -92,9 +94,9 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -104,7 +106,7 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
 				}
 			}
 
@@ -127,7 +129,7 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		AttributeInstance attributeinstance = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
@@ -138,13 +140,13 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -162,10 +164,12 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 		return GaiaRegistry.GRYPHON.getDeath();
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
@@ -174,7 +178,7 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkGryphonSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkGryphonSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

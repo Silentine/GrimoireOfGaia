@@ -3,26 +3,38 @@ package gaia.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
+import gaia.client.state.GryphonRenderState;
 import gaia.entity.Gryphon;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class GryphonRenderer extends MobRenderer<Gryphon, GryphonModel> {
-	public static final ResourceLocation[] GRYPHON_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gryphon/gryphon.png")};
+public class GryphonRenderer extends MobRenderer<Gryphon, GryphonRenderState, GryphonModel> {
+	public static final Identifier[] GRYPHON_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gryphon/gryphon.png")};
 
 	public GryphonRenderer(Context context) {
 		super(context, new GryphonModel(context.bakeLayer(ClientHandler.GRYPHON)), ClientHandler.largeShadow);
 	}
 
 	@Override
-	protected void scale(Gryphon gryphon, PoseStack poseStack, float partialTicks) {
+	public GryphonRenderState createRenderState() {
+		return new GryphonRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Gryphon entity, GryphonRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+	}
+
+	@Override
+	protected void scale(GryphonRenderState state, PoseStack poseStack) {
 		poseStack.scale(1.25F, 1.25F, 1.25F);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Gryphon gryphon) {
-		return GRYPHON_LOCATIONS[gryphon.getVariant()];
+	public Identifier getTextureLocation(GryphonRenderState renderState) {
+		return GRYPHON_LOCATIONS[renderState.variant];
 	}
 }

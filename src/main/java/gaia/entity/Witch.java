@@ -7,12 +7,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -23,10 +21,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -43,10 +41,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -56,10 +54,11 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> IS_DRINKING = SynchedEntityData.defineId(Witch.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_RIDING = SynchedEntityData.defineId(Witch.class, EntityDataSerializers.BOOLEAN);
 
-	private static final ResourceLocation DRINKING_ID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "drinking");
+	private static final Identifier DRINKING_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "drinking");
 	private static final AttributeModifier SPEED_MODIFIER_DRINKING = new AttributeModifier(DRINKING_ID, -0.25D, AttributeModifier.Operation.ADD_VALUE);
 
 	protected final FlyingMoveControl flyingControl;
@@ -145,10 +144,12 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.getBaseDefense2();
 	}
 
+
+
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
@@ -167,7 +168,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				}
 
 				this.setTarget((LivingEntity) null);
-			} else if (d3 >= 8.0D && !target.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+			} else if (d3 >= 8.0D && !target.hasEffect(MobEffects.SLOWNESS)) {
 				potion = Potions.SLOWNESS;
 			} else if (target.getHealth() >= 8.0F && !target.hasEffect(MobEffects.POISON)) {
 				potion = Potions.POISON;
@@ -175,17 +176,16 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				potion = Potions.WEAKNESS;
 			}
 
-			ThrownPotion thrownpotion = new ThrownPotion(this.level(), this);
 			ItemStack potionStack = new ItemStack(Items.SPLASH_POTION);
 			potionStack.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
-			thrownpotion.setItem(potionStack);
-			thrownpotion.setXRot(thrownpotion.getXRot() + 20.0F);
-			thrownpotion.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
+			ThrownSplashPotion splashPotion = new ThrownSplashPotion(this.level(), this, potionStack);
+			splashPotion.setXRot(splashPotion.getXRot() + 20.0F);
+			splashPotion.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
 			if (!this.isSilent()) {
 				this.level().playSound((Player) null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_THROW, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 			}
 
-			this.level().addFreshEntity(thrownpotion);
+			this.level().addFreshEntity(splashPotion);
 		}
 	}
 
@@ -198,11 +198,11 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 
 		this.beaconMonster(6, (entity) -> {
 			if (entity instanceof Zombie || entity instanceof Skeleton) {
-				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+				entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 300, 1, true, true));
 			}
 		});
 
-		if (!this.level().isClientSide && isPassenger() && isRidingBroom()) {
+		if (!this.level().isClientSide() && isPassenger() && isRidingBroom()) {
 			stopRiding();
 		}
 
@@ -220,7 +220,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getHealth() < getMaxHealth() * 0.75F && getHealth() > 0.0F && spawn == 0) {
 			this.level().broadcastEntityEvent(this, (byte) 9);
 
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				setSpawn(0);
 			}
 			spawn = 1;
@@ -229,7 +229,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		if (getHealth() < getMaxHealth() * 0.25F && getHealth() > 0.0F && spawn == 1) {
 			this.level().broadcastEntityEvent(this, (byte) 9);
 
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				setSpawn(1);
 			}
 			spawn = 2;
@@ -260,7 +260,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 				potion = Potions.FIRE_RESISTANCE;
 			} else if (this.random.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
 				potion = Potions.HEALING;
-			} else if (this.random.nextFloat() < 0.5F && this.getTarget() != null && !this.hasEffect(MobEffects.MOVEMENT_SPEED) && this.getTarget().distanceToSqr(this) > 121.0D) {
+			} else if (this.random.nextFloat() < 0.5F && this.getTarget() != null && !this.hasEffect(MobEffects.SPEED) && this.getTarget().distanceToSqr(this) > 121.0D) {
 				potion = Potions.SWIFTNESS;
 			}
 
@@ -299,13 +299,13 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockpos = (blockPosition()).offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
-			Monster monster = id == 0 ? EntityType.ZOMBIE.create(this.level()) : EntityType.SKELETON.create(this.level());
+			Monster monster = id == 0 ? EntityType.ZOMBIE.create(serverLevel, EntitySpawnReason.MOB_SUMMONED) : EntityType.SKELETON.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 			if (monster != null) {
-				monster.moveTo(blockpos, 0.0F, 0.0F);
-				EventHooks.finalizeMobSpawn(monster, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
+				monster.snapTo(blockpos, 0.0F, 0.0F);
+				EventHooks.finalizeMobSpawn(monster, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
 				monster.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 				monster.setDropChance(EquipmentSlot.MAINHAND, 0);
 				monster.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -319,18 +319,13 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-	}
-
-	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		return random.nextInt(2) == 0 ? super.getDefaultLootTable() : EntityType.WITCH.getDefaultLootTable();
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -345,7 +340,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		if (random.nextInt(4) == 0) {
@@ -354,16 +349,21 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
+		if (random.nextInt(2) != 0) {
+			this.lootTable = EntityType.WITCH.getDefaultLootTable();
+		}
+
 		return data;
 	}
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effectInstance) {
 		return effectInstance.getEffect() != MobEffects.POISON &&
-				effectInstance.getEffect() != MobEffects.HARM && super.canBeAffected(effectInstance);
+				effectInstance.getEffect() != MobEffects.INSTANT_DAMAGE && super.canBeAffected(effectInstance);
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -391,7 +391,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkWitchSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkWitchSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

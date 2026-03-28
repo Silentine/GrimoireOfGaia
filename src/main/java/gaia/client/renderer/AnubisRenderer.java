@@ -3,29 +3,44 @@ package gaia.client.renderer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.AnubisModel;
+import gaia.client.state.AnubisRenderState;
 import gaia.entity.Anubis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class AnubisRenderer extends MobRenderer<Anubis, AnubisModel> {
-	public static final ResourceLocation[] ANUBIS_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/anubis/anubis.png")
+public class AnubisRenderer extends MobRenderer<Anubis, AnubisRenderState, AnubisModel> {
+	public static final Identifier[] ANUBIS_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/anubis/anubis.png")
 	};
-	public static final ResourceLocation[] ANUBIS_MALE_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/anubis/anubis_male.png")
+	public static final Identifier[] ANUBIS_MALE_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/anubis/anubis_male.png")
 	};
 
 	public AnubisRenderer(Context context) {
 		super(context, new AnubisModel(context.bakeLayer(ClientHandler.ANUBIS)), ClientHandler.medShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
-		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
+		this.addLayer(new ItemInHandLayer<>(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Anubis anubis) {
-		return anubis.isMale() ? ANUBIS_MALE_LOCATIONS[anubis.getVariant()] : ANUBIS_LOCATIONS[anubis.getVariant()];
+	public AnubisRenderState createRenderState() {
+		return new AnubisRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Anubis entity, AnubisRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.isRiding = entity.isPassenger();
+		state.animationState = entity.getAnimationState();
+		state.isMale = entity.isMale();
+	}
+
+	@Override
+	public Identifier getTextureLocation(AnubisRenderState renderState) {
+		return renderState.isMale ? ANUBIS_MALE_LOCATIONS[renderState.variant] : ANUBIS_LOCATIONS[renderState.variant];
 	}
 }

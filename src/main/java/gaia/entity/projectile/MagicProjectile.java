@@ -4,10 +4,10 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,13 +15,16 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public class MagicProjectile extends SmallFireball {
 	private static final EntityDataAccessor<Float> PROJECTILE_DAMAGE = SynchedEntityData.defineId(MagicProjectile.class, EntityDataSerializers.FLOAT);
@@ -30,8 +33,8 @@ public class MagicProjectile extends SmallFireball {
 		super(pEntityType, pLevel);
 	}
 
-	public MagicProjectile(Level p_37375_, LivingEntity p_37376_, Vec3 p_347501_) {
-		super(p_37375_, p_37376_, p_347501_);
+	public MagicProjectile(Level level, LivingEntity livingEntity, Vec3 vec3) {
+		super(level, livingEntity, vec3);
 	}
 
 	public MagicProjectile(Level p_37367_, double p_37368_, double p_37369_, double p_37370_, Vec3 p_347543_) {
@@ -98,7 +101,7 @@ public class MagicProjectile extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
 				Entity entity = entityResult.getEntity();
@@ -114,7 +117,7 @@ public class MagicProjectile extends SmallFireball {
 					}
 
 					if (effectTime > 0) {
-						livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
+						livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 1));
 					}
 				}
 			}
@@ -122,23 +125,24 @@ public class MagicProjectile extends SmallFireball {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		return false;
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 
-
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putFloat("ProjectileDamage", this.getProjectileDamage());
+	@Override
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putFloat("ProjectileDamage", this.getProjectileDamage());
 	}
 
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		setDamage(tag.getFloat("ProjectileDamage"));
+	@Override
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setDamage(input.getFloatOr("ProjectileDamage", 0));
 	}
 }

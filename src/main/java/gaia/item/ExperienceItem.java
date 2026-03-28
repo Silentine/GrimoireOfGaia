@@ -5,16 +5,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ExperienceItem extends Item {
 	private final int levels;
@@ -31,8 +32,8 @@ public class ExperienceItem extends Item {
 				stack.shrink(1);
 			}
 
-			if (!level.isClientSide) {
-				level.playSound((Player) null, livingEntity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+			if (!level.isClientSide()) {
+				level.playSound((Player) null, livingEntity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
 				player.giveExperienceLevels(levels);
 			}
 		} else {
@@ -42,19 +43,17 @@ public class ExperienceItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-		ItemStack itemstack = player.getItemInHand(interactionHand);
-		player.startUsingItem(interactionHand);
-		return InteractionResultHolder.consume(itemstack);
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResult.CONSUME;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
 		if (levels == 1) {
-			list.add(Component.translatable("text.grimoireofgaia.gain_level", levels).withStyle(ChatFormatting.GRAY));
+			builder.accept(Component.translatable("text.grimoireofgaia.gain_level", levels).withStyle(ChatFormatting.GRAY));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.gain_levels", levels).withStyle(ChatFormatting.GRAY));
+			builder.accept(Component.translatable("text.grimoireofgaia.gain_levels", levels).withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -64,7 +63,7 @@ public class ExperienceItem extends Item {
 	}
 
 	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.BOW;
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
+		return ItemUseAnimation.BOW;
 	}
 }

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "item": "grimoireofgaia:stone_coal"
-    }
+    "C": "grimoireofgaia:stone_coal"
   },
   "pattern": [
     "CCC",
@@ -12,7 +10,6 @@
     "CCC"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:coal_block"
   }
 }

@@ -7,12 +7,12 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -21,8 +21,8 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -31,9 +31,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -61,19 +62,20 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = source.is(DamageTypes.FELL_OUT_OF_WORLD) ? damage : Math.min(damage, SharedEntityData.getBaseDefense1());
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = source.is(DamageTypes.FELL_OUT_OF_WORLD) ? damage : Math.min(damage, SharedEntityData.getBaseDefense1());
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
-			if (itemstack.canPerformAction(ItemAbilities.SHOVEL_DIG)) {
-				input = input * 8;
+			if (itemstack.is(ItemTags.SHOVELS)) {
+				damage = damage * 8;
 			} else {
-				input = 0F;
+				damage = 0F;
 			}
 		}
 
-		return super.hurt(source, input);
+
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -81,13 +83,15 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	@Override
-	public void aiStep() {
+	protected void customServerAiStep(ServerLevel level) {
+		super.customServerAiStep(level);
+
 		if (playerDetection()) {
 			if (getSpawnAmount() > 0) {
 				if ((spawnTime >= 0) && (spawnTime <= 60)) {
 					++spawnTime;
 				} else {
-					if (!this.level().isClientSide) {
+					if (!this.level().isClientSide()) {
 						setSpawn(0);
 					}
 
@@ -98,25 +102,23 @@ public class AntHill extends AbstractPropEntity {
 					spawnTime = 0;
 				}
 			} else {
-				kill();
+				kill(level);
 			}
 		}
 
 		if (this.level().getDifficulty() == Difficulty.PEACEFUL) {
-			kill();
+			kill(level);
 		}
-
-		super.aiStep();
 	}
 
 	private void setSpawn(int id) {
-		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL && this.level() instanceof ServerLevel serverLevel) {
 			if (id == 0) {
-				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(this.level());
+				AntWorker antWorker = GaiaRegistry.ANT_WORKER.getEntityType().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				if (antWorker != null) {
-					antWorker.moveTo(blockPosition(), 0.0F, 0.0F);
-					antWorker.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-					this.level().addFreshEntity(antWorker);
+					antWorker.snapTo(blockPosition(), 0.0F, 0.0F);
+					antWorker.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPosition()), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+					serverLevel.addFreshEntity(antWorker);
 				}
 			}
 		}
@@ -137,7 +139,7 @@ public class AntHill extends AbstractPropEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		yBodyRot = 180.0F;
@@ -186,22 +188,17 @@ public class AntHill extends AbstractPropEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("Detection", getDetection());
-		tag.putInt("SpawnAmount", getSpawnAmount());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("Detection", getDetection());
+		output.putInt("SpawnAmount", getSpawnAmount());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("Detection")) {
-			setDetection(tag.getInt("Detection"));
-		}
-
-		if (tag.contains("SpawnAmount")) {
-			setSpawnAmount(tag.getInt("SpawnAmount"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setDetection(input.getIntOr("Detection", 0));
+		setSpawnAmount(input.getIntOr("SpawnAmount", 0));
 	}
 
 	protected void playParticleEffect(boolean smoke) {
@@ -269,7 +266,7 @@ public class AntHill extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkAntHillSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkAntHillSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkPropSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

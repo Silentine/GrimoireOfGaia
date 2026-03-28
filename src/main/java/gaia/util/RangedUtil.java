@@ -8,6 +8,7 @@ import gaia.entity.projectile.MagicProjectile;
 import gaia.entity.projectile.PoisonProjectile;
 import gaia.entity.projectile.RandomMagicProjectile;
 import gaia.entity.projectile.WebProjectile;
+import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -19,10 +20,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,7 +39,7 @@ public class RangedUtil {
 	 * @param target         the entity to fire at
 	 * @param shooter        the entity that is shooting
 	 * @param distanceFactor bonus damage
-	 * @see net.minecraft.world.entity.monster.AbstractSkeleton#performRangedAttack(LivingEntity, float)
+	 * @see net.minecraft.world.entity.monster.skeleton.AbstractSkeleton#performRangedAttack(LivingEntity, float)
 	 */
 	public static void rangedAttack(LivingEntity target, LivingEntity shooter, float distanceFactor) {
 		ItemStack arrowStack = shooter.getProjectile(shooter.getItemInHand(ProjectileUtil.getWeaponHoldingHand(shooter, item -> item instanceof net.minecraft.world.item.BowItem)));
@@ -52,7 +53,7 @@ public class RangedUtil {
 	 * @param shooter        the entity that is shooting
 	 * @param distanceFactor bonus damage
 	 * @param arrowStack     the arrow stack
-	 * @see net.minecraft.world.entity.monster.AbstractSkeleton#performRangedAttack(LivingEntity, float)
+	 * @see net.minecraft.world.entity.monster.skeleton.AbstractSkeleton#performRangedAttack(LivingEntity, float)
 	 */
 	public static void rangedAttack(LivingEntity target, LivingEntity shooter, float distanceFactor, ItemStack arrowStack) {
 		AbstractArrow abstractarrow = getArrow(shooter, arrowStack, distanceFactor);
@@ -68,7 +69,7 @@ public class RangedUtil {
 		abstractarrow.setOwner(shooter);
 
 		if (shooter.level().getDifficulty() == Difficulty.HARD && GaiaConfig.COMMON.baseDamageArchers.get() && abstractarrow instanceof Arrow arrow) {
-			arrow.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 0));
+			arrow.addEffect(new MobEffectInstance(MobEffects.INSTANT_DAMAGE, 1, 0));
 		}
 
 		shooter.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -119,9 +120,10 @@ public class RangedUtil {
 		double d3 = target.getZ() + vec3.z - shooter.getZ();
 		float f = Mth.sqrt((float) (d1 * d1 + d3 * d3));
 
-		ThrownPotion thrownpotion = new ThrownPotion(shooter.level(), shooter);
 		ItemStack potionStack = Items.SPLASH_POTION.getDefaultInstance();
 		potionStack.set(DataComponents.POTION_CONTENTS, new PotionContents(potionHolder));
+
+		ThrownSplashPotion thrownpotion = new ThrownSplashPotion(shooter.level(), shooter, potionStack);
 		thrownpotion.setItem(potionStack);
 		thrownpotion.setXRot(thrownpotion.getXRot() + 20.0F);
 		thrownpotion.shoot(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
@@ -253,12 +255,12 @@ public class RangedUtil {
 	 * @param target         the entity to fire at
 	 * @param shooter        the entity that is shooting
 	 * @param distanceFactor bonus damage (Unused)
-	 * @see net.minecraft.world.entity.animal.SnowGolem#performRangedAttack
+	 * @see net.minecraft.world.entity.animal.golem.SnowGolem#performRangedAttack
 	 */
 	public static void bomb(LivingEntity target, LivingEntity shooter, float distanceFactor) {
 		shooter.playSound(GaiaSounds.GAIA_SHOOT.get(), 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
 
-		BombProjectile bomb = new BombProjectile(shooter.level(), shooter);
+		BombProjectile bomb = new BombProjectile(shooter.level(), shooter, GaiaRegistry.PROJECTILE_BOMB.toStack());
 		double d0 = target.getEyeY() - (double) 1.1F;
 		double d1 = target.getX() - shooter.getX();
 		double d2 = d0 - bomb.getY();

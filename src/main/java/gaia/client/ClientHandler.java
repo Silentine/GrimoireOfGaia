@@ -128,16 +128,13 @@ import gaia.client.renderer.prop.AntHillRenderer;
 import gaia.client.renderer.prop.ChestRenderer;
 import gaia.client.renderer.prop.CyanFlowerRenderer;
 import gaia.registry.GaiaRegistry;
-import net.minecraft.client.model.HorseModel;
+import net.minecraft.client.model.animal.equine.HorseModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -153,122 +150,103 @@ public class ClientHandler {
 	public static final float medShadow = 0.5F;
 	public static final float largeShadow = 0.7F;
 
-	public static final ModelLayerLocation ANT_HILL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_hill"), "main");
-	public static final ModelLayerLocation ANT_WORKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_worker"), "main");
-	public static final ModelLayerLocation ANT_SALVAGER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_salvager"), "main");
-	public static final ModelLayerLocation ANUBIS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "anubis"), "main");
-	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "arachne"), "main");
-	public static final ModelLayerLocation BANSHEE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "banshee"), "main");
-	public static final ModelLayerLocation BEE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "bee"), "main");
-	public static final ModelLayerLocation BEHENDER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "behender"), "main");
-	public static final ModelLayerLocation BONE_KNIGHT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "bone_knight"), "main");
-	public static final ModelLayerLocation CECAELIA = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cecaelia"), "main");
-	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "centaur"), "main");
-	public static final ModelLayerLocation CHEST = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "chest"), "main");
-	public static final ModelLayerLocation COBBLE_GOLEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cobble_golem"), "main");
-	public static final ModelLayerLocation COBBLESTONE_GOLEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cobblestone_golem"), "main");
-	public static final ModelLayerLocation CREEP = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creep"), "main");
-	public static final ModelLayerLocation CREEP_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creep"), "armor");
-	public static final ModelLayerLocation CYAN_FLOWER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cyan_flower"), "main");
-	public static final ModelLayerLocation CYCLOPS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cyclops"), "main");
-	public static final ModelLayerLocation DEATHWORD = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "deathword"), "main");
-	public static final ModelLayerLocation DRYAD = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dryad"), "main");
-	public static final ModelLayerLocation DULLAHAN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dullahan"), "main");
-	public static final ModelLayerLocation DWARF = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dwarf"), "main");
-	public static final ModelLayerLocation ENDER_EYE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_eye"), "main");
-	public static final ModelLayerLocation ENDER_DRAGON_GIRL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_dragon_girl"), "main");
-	public static final ModelLayerLocation FLESH_LICH = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "flesh_lich"), "main");
-	public static final ModelLayerLocation GELATINOUS_SLIME = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gelatinous_slime"), "main");
-	public static final ModelLayerLocation GOBLIN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "goblin"), "main");
-	public static final ModelLayerLocation GOBLIN_FERAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "goblin"), "feral");
-	public static final ModelLayerLocation GRAVEMITE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gravemite"), "main");
-	public static final ModelLayerLocation GRYPHON = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gryphon"), "main");
-	public static final ModelLayerLocation HARPY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "harpy"), "main");
-	public static final ModelLayerLocation HUNTER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "hunter"), "main");
-	public static final ModelLayerLocation KOBOLD = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "kobold"), "main");
-	public static final ModelLayerLocation MANDRAGORA = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mandragora"), "main");
-	public static final ModelLayerLocation MATANGO = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "matango"), "main");
-	public static final ModelLayerLocation MERMAID = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mermaid"), "main");
-	public static final ModelLayerLocation MINOTAUR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "minotaur"), "main");
-	public static final ModelLayerLocation MINOTAURUS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "minotaurus"), "main");
-	public static final ModelLayerLocation MIMIC = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mimic"), "main");
-	public static final ModelLayerLocation MUMMY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mummy"), "main");
-	public static final ModelLayerLocation NAGA = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "naga"), "main");
-	public static final ModelLayerLocation NINE_TAILS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "nine_tails"), "main");
-	public static final ModelLayerLocation ONI = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "oni"), "main");
-	public static final ModelLayerLocation ORC = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "orc"), "main");
-	public static final ModelLayerLocation SATYRESS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "satyress"), "main");
-	public static final ModelLayerLocation SHAMAN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "shaman"), "main");
-	public static final ModelLayerLocation SHARKO = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sharko"), "main");
-	public static final ModelLayerLocation SIREN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "siren"), "main");
-	public static final ModelLayerLocation SLUDGE_GIRL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sludge_girl"), "main");
-	public static final ModelLayerLocation SPHINX = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sphinx"), "main");
-	public static final ModelLayerLocation SPORELING = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sporeling"), "main");
-	public static final ModelLayerLocation SPRIGGAN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "spriggan"), "main");
-	public static final ModelLayerLocation SUCCUBUS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "succubus"), "main");
-	public static final ModelLayerLocation TOAD = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "toad"), "main");
-	public static final ModelLayerLocation VALKYRIE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "valkyrie"), "main");
-	public static final ModelLayerLocation WERECAT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "werecat"), "main");
-	public static final ModelLayerLocation WITCH = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "witch"), "main");
-	public static final ModelLayerLocation WITHER_COW = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "wither_cow"), "main");
-	public static final ModelLayerLocation WIZARD_HARPY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "wizard_harpy"), "main");
-	public static final ModelLayerLocation YUKI_ONNA = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "yuki_onna"), "main");
+	public static final ModelLayerLocation ANT_HILL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_hill"), "main");
+	public static final ModelLayerLocation ANT_WORKER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_worker"), "main");
+	public static final ModelLayerLocation ANT_SALVAGER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ant_salvager"), "main");
+	public static final ModelLayerLocation ANUBIS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "anubis"), "main");
+	public static final ModelLayerLocation ARACHNE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "arachne"), "main");
+	public static final ModelLayerLocation BANSHEE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "banshee"), "main");
+	public static final ModelLayerLocation BEE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "bee"), "main");
+	public static final ModelLayerLocation BEHENDER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "behender"), "main");
+	public static final ModelLayerLocation BONE_KNIGHT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "bone_knight"), "main");
+	public static final ModelLayerLocation CECAELIA = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cecaelia"), "main");
+	public static final ModelLayerLocation CENTAUR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "centaur"), "main");
+	public static final ModelLayerLocation CHEST = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "chest"), "main");
+	public static final ModelLayerLocation COBBLE_GOLEM = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cobble_golem"), "main");
+	public static final ModelLayerLocation COBBLESTONE_GOLEM = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cobblestone_golem"), "main");
+	public static final ModelLayerLocation CREEP = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creep"), "main");
+	public static final ModelLayerLocation CREEP_ARMOR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creep"), "armor");
+	public static final ModelLayerLocation CYAN_FLOWER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cyan_flower"), "main");
+	public static final ModelLayerLocation CYCLOPS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "cyclops"), "main");
+	public static final ModelLayerLocation DEATHWORD = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "deathword"), "main");
+	public static final ModelLayerLocation DRYAD = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dryad"), "main");
+	public static final ModelLayerLocation DULLAHAN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dullahan"), "main");
+	public static final ModelLayerLocation DWARF = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "dwarf"), "main");
+	public static final ModelLayerLocation ENDER_EYE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_eye"), "main");
+	public static final ModelLayerLocation ENDER_DRAGON_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_dragon_girl"), "main");
+	public static final ModelLayerLocation FLESH_LICH = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "flesh_lich"), "main");
+	public static final ModelLayerLocation GELATINOUS_SLIME = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gelatinous_slime"), "main");
+	public static final ModelLayerLocation GOBLIN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "goblin"), "main");
+	public static final ModelLayerLocation GOBLIN_FERAL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "goblin"), "feral");
+	public static final ModelLayerLocation GRAVEMITE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gravemite"), "main");
+	public static final ModelLayerLocation GRYPHON = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "gryphon"), "main");
+	public static final ModelLayerLocation HARPY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "harpy"), "main");
+	public static final ModelLayerLocation HUNTER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "hunter"), "main");
+	public static final ModelLayerLocation KOBOLD = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "kobold"), "main");
+	public static final ModelLayerLocation MANDRAGORA = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mandragora"), "main");
+	public static final ModelLayerLocation MATANGO = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "matango"), "main");
+	public static final ModelLayerLocation MERMAID = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mermaid"), "main");
+	public static final ModelLayerLocation MINOTAUR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "minotaur"), "main");
+	public static final ModelLayerLocation MINOTAURUS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "minotaurus"), "main");
+	public static final ModelLayerLocation MIMIC = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mimic"), "main");
+	public static final ModelLayerLocation MUMMY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "mummy"), "main");
+	public static final ModelLayerLocation NAGA = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "naga"), "main");
+	public static final ModelLayerLocation NINE_TAILS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "nine_tails"), "main");
+	public static final ModelLayerLocation ONI = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "oni"), "main");
+	public static final ModelLayerLocation ORC = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "orc"), "main");
+	public static final ModelLayerLocation SATYRESS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "satyress"), "main");
+	public static final ModelLayerLocation SHAMAN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "shaman"), "main");
+	public static final ModelLayerLocation SHARKO = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sharko"), "main");
+	public static final ModelLayerLocation SIREN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "siren"), "main");
+	public static final ModelLayerLocation SLUDGE_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sludge_girl"), "main");
+	public static final ModelLayerLocation SPHINX = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sphinx"), "main");
+	public static final ModelLayerLocation SPORELING = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "sporeling"), "main");
+	public static final ModelLayerLocation SPRIGGAN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "spriggan"), "main");
+	public static final ModelLayerLocation SUCCUBUS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "succubus"), "main");
+	public static final ModelLayerLocation TOAD = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "toad"), "main");
+	public static final ModelLayerLocation VALKYRIE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "valkyrie"), "main");
+	public static final ModelLayerLocation WERECAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "werecat"), "main");
+	public static final ModelLayerLocation WITCH = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "witch"), "main");
+	public static final ModelLayerLocation WITHER_COW = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "wither_cow"), "main");
+	public static final ModelLayerLocation WIZARD_HARPY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "wizard_harpy"), "main");
+	public static final ModelLayerLocation YUKI_ONNA = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "yuki_onna"), "main");
 
-	public static final ModelLayerLocation HORSE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "horse"), "main");
-	public static final ModelLayerLocation TRADER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "trader"), "main");
-	public static final ModelLayerLocation CREEPER_GIRL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creeper_girl"), "main");
-	public static final ModelLayerLocation ENDER_GIRL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_girl"), "main");
-	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
-	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
-	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
+	public static final ModelLayerLocation HORSE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "horse"), "main");
+	public static final ModelLayerLocation TRADER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "trader"), "main");
+	public static final ModelLayerLocation CREEPER_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "creeper_girl"), "main");
+	public static final ModelLayerLocation ENDER_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_girl"), "main");
+	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
+	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
+	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
 	
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_GORGON.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_SPHINX.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_VALKYRIE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_VAMPIRE.get(), RenderType.cutout());
-
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_CREEPER_GIRL.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_ENDER_GIRL.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_SLIME_GIRL.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_MAID.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_DULLAHAN.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_MERMAID.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_NINE_TAILS.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DOLL_DRYAD.get(), RenderType.cutout());
-
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DECO_GARDEN_GNOME.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DECO_MANDRAGORA_POT.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.BUST_MINOTAUR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(GaiaRegistry.DECO_NEST_HARPY.get(), RenderType.cutout());
-
-		if (ModList.get().isLoaded("curios")) {
+				if (ModList.get().isLoaded("curios")) {
 			gaia.compat.curios.client.CuriosRendering.onRenderSetup();
 		}
 
-		event.enqueueWork(() -> {
-			ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), ResourceLocation.parse("blocking"), (stack, level, livingEntity, i) ->
-					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-			ItemProperties.register(GaiaRegistry.IRON_SHIELD.get(), ResourceLocation.parse("blocking"), (stack, level, livingEntity, i) ->
-					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-			ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), ResourceLocation.parse("blocking"), (stack, level, livingEntity, i) ->
-					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-			ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), ResourceLocation.parse("blocking"), (stack, level, livingEntity, i) ->
-					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
-			ItemProperties.register(GaiaRegistry.SEASHELL_HAIRPIN.get(), ResourceLocation.parse("available"), (stack, level, livingEntity, i) ->
-					stack.getDamageValue() == 0 ? 1.0F : 0.0F);
-		});
+//		event.enqueueWork(() -> {
+//			ItemProperties.register(GaiaRegistry.STONE_SHIELD.get(), Identifier.parse("blocking"), (stack, level, livingEntity, i) ->
+//					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+//			ItemProperties.register(GaiaRegistry.IRON_SHIELD.get(), Identifier.parse("blocking"), (stack, level, livingEntity, i) ->
+//					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+//			ItemProperties.register(GaiaRegistry.GOLD_SHIELD.get(), Identifier.parse("blocking"), (stack, level, livingEntity, i) ->
+//					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+//			ItemProperties.register(GaiaRegistry.BONE_SHIELD.get(), Identifier.parse("blocking"), (stack, level, livingEntity, i) ->
+//					livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+//			ItemProperties.register(GaiaRegistry.SEASHELL_HAIRPIN.get(), Identifier.parse("available"), (stack, level, livingEntity, i) ->
+//					stack.getDamageValue() == 0 ? 1.0F : 0.0F);
+//		});
 	}
 
 	public static void setupSpectatingShaders(RegisterEntitySpectatorShadersEvent event) {
-		event.register(GaiaRegistry.ARACHNE.getEntityType(), ResourceLocation.parse("shaders/post/spider.json"));
+		event.register(GaiaRegistry.ARACHNE.getEntityType(), Identifier.parse("shaders/post/spider.json"));
 	}
 
 	public static void addPackFinders(AddPackFindersEvent event) {
 
 
 		if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-			event.addPackFinders(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "optional_sound_pack"), PackType.CLIENT_RESOURCES,
+			event.addPackFinders(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "optional_sound_pack"), PackType.CLIENT_RESOURCES,
 					Component.literal("\u00A76Optional GoG4 sound pack"), PackSource.BUILT_IN, false, Pack.Position.TOP);
 
 			// TODO: Check!

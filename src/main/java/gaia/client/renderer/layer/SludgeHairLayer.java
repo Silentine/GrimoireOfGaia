@@ -1,53 +1,58 @@
 package gaia.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.SludgeGirlModel;
-import gaia.entity.SludgeGirl;
-import net.minecraft.client.Minecraft;
+import gaia.client.state.SludgeGirlRenderState;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
-public class SludgeHairLayer extends RenderLayer<SludgeGirl, SludgeGirlModel> {
-	public static final ResourceLocation[] SLUDGE_GIRL_HAIR_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl01.png"),
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl02.png"),
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl03.png")};
+public class SludgeHairLayer extends RenderLayer<SludgeGirlRenderState, SludgeGirlModel> {
+	public static final Identifier[] SLUDGE_GIRL_HAIR_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl01.png"),
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl02.png"),
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl03.png")};
 
 	private final SludgeGirlModel model;
 
-	public SludgeHairLayer(RenderLayerParent<SludgeGirl, SludgeGirlModel> renderLayerParent, EntityModelSet modelSet) {
+	public SludgeHairLayer(RenderLayerParent<SludgeGirlRenderState, SludgeGirlModel> renderLayerParent, EntityModelSet modelSet) {
 		super(renderLayerParent);
 		this.model = new SludgeGirlModel(modelSet.bakeLayer(ClientHandler.SLUDGE_GIRL));
 	}
 
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, SludgeGirl sludgeGirl, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		Minecraft minecraft = Minecraft.getInstance();
-		boolean flag = minecraft.shouldEntityAppearGlowing(sludgeGirl) && sludgeGirl.isInvisible();
-		if (!sludgeGirl.isInvisible() || flag) {
-			VertexConsumer vertexconsumer;
-			if (flag) {
-				vertexconsumer = bufferSource.getBuffer(RenderType.outline(this.getTextureLocation(sludgeGirl)));
+	@Override
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, SludgeGirlRenderState state, float yRot, float xRot) {
+		boolean appearsGlowingWithInvisibility = state.appearsGlowing() && state.isInvisible;
+		if (!state.isInvisible || appearsGlowingWithInvisibility) {
+			int overlayCoords = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
+			if (appearsGlowingWithInvisibility) {
+				submitNodeCollector.order(1)
+						.submitModel(
+								this.model, state, poseStack, RenderTypes.outline(this.getTextureLocation(state)), lightCoords, overlayCoords, state.outlineColor, null
+						);
 			} else {
-				vertexconsumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(sludgeGirl)));
+				submitNodeCollector.order(1)
+						.submitModel(
+								this.model,
+								state,
+								poseStack,
+								RenderTypes.entityTranslucent(this.getTextureLocation(state)),
+								lightCoords,
+								overlayCoords,
+								state.outlineColor,
+								null
+						);
 			}
-
-			this.getParentModel().copyPropertiesTo(this.model);
-			this.model.prepareMobModel(sludgeGirl, limbSwing, limbSwingAmount, partialTicks);
-			this.model.setupAnim(sludgeGirl, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(sludgeGirl, 0.0F));
 		}
 	}
 
-	@Override
-	protected ResourceLocation getTextureLocation(SludgeGirl sludgeGirl) {
-		return SLUDGE_GIRL_HAIR_LOCATIONS[sludgeGirl.getVariant()];
+	protected Identifier getTextureLocation(SludgeGirlRenderState state) {
+		return SLUDGE_GIRL_HAIR_LOCATIONS[state.variant];
 	}
 }

@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:enchanted_book[minecraft:stored_enchantments={levels:{\"minecraft:luck_of_the_sea\":1}}]",
+      "item": "minecraft:enchanted_book[minecraft:stored_enchantments={\"minecraft:luck_of_the_sea\":1}]",
       "link_recipe": true,
       "text": "info.grimoireofgaia.book.drop.enchanted_book.info"
     }

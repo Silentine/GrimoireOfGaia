@@ -4,7 +4,6 @@ import gaia.config.GaiaConfig;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,8 +11,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -30,6 +29,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class GraveMite extends PathfinderMob {
 	private static final int MAX_LIFE = 2400;
@@ -83,25 +84,25 @@ public class GraveMite extends PathfinderMob {
 		this.playSound(GaiaRegistry.GRAVEMITE.getStep(), 0.15F, 1.0F);
 	}
 
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.life = tag.getInt("Lifetime");
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.life = input.getIntOr("Lifetime", 0);
 	}
 
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("Lifetime", this.life);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("Lifetime", this.life);
 	}
 
 	@Override
 	public void aiStep() {
 		super.aiStep();
 
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (!this.isPersistenceRequired()) {
 				++this.life;
 			}
@@ -117,7 +118,7 @@ public class GraveMite extends PathfinderMob {
 		return effectInstance.getEffect() != MobEffects.POISON && super.canBeAffected(effectInstance);
 	}
 
-	public static boolean checkMiteSpawnRules(EntityType<? extends PathfinderMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkMiteSpawnRules(EntityType<? extends PathfinderMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return (GaiaConfig.COMMON.disableYRestriction.get() || pos.getY() > levelAccessor.getSeaLevel()) &&
 				checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

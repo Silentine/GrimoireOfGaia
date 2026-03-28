@@ -6,11 +6,9 @@ import gaia.util.EnchantUtil;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,10 +19,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,10 +35,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
-import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.spider.CaveSpider;
+import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -48,9 +46,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Optional;
 
 public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Arachne.class, EntityDataSerializers.BYTE);
@@ -124,12 +125,6 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
-	}
-
-	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
 		if (target.isAlive()) {
 			RangedUtil.web(target, this, distanceFactor);
@@ -141,14 +136,14 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.ARACHNE.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.ARACHNE.getEntityType());
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -158,7 +153,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 1));
 				}
 			}
 
@@ -172,7 +167,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	public void aiStep() {
 		this.beaconMonster(6, (entity) -> {
 			if (entity instanceof Spider) {
-				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+				entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 300, 1, true, true));
 			}
 		});
 
@@ -199,7 +194,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAttackType(0);
 
-				if (!this.level().isClientSide) {
+				if (!this.level().isClientSide()) {
 					setSpawn(0);
 				}
 
@@ -219,7 +214,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 				this.level().broadcastEntityEvent(this, (byte) 9);
 				setAttackType(0);
 
-				if (!this.level().isClientSide) {
+				if (!this.level().isClientSide()) {
 					setSpawn(0);
 				}
 
@@ -237,7 +232,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 			}
 		}
 
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.setClimbing(this.horizontalCollision);
 		}
 
@@ -245,13 +240,13 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL && this.level() instanceof ServerLevel serverLevel) {
 			if (id == 0) {
-				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(this.level());
+				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				if (caveSpider != null) {
-					caveSpider.moveTo(blockPosition(), 0.0F, 0.0F);
-					caveSpider.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-					this.level().addFreshEntity(caveSpider);
+					caveSpider.snapTo(blockPosition(), 0.0F, 0.0F);
+					caveSpider.finalizeSpawn((ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockPosition()), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+					serverLevel.addFreshEntity(caveSpider);
 				}
 			}
 		}
@@ -298,8 +293,8 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		return random.nextInt(2) == 0 ? super.getDefaultLootTable() : EntityType.WITCH.getDefaultLootTable();
+	protected void dropFromLootTable(ServerLevel level, DamageSource source, boolean playerKilled) {
+		super.dropFromLootTable(level, source, playerKilled);
 	}
 
 	@Override
@@ -312,28 +307,30 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		setCombatTask();
 
+		if (random.nextInt(2) == 0) {
+			this.lootTable = Optional.of(EntityType.WITCH.getDefaultLootTable().get());
+		}
+
 		return data;
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("WeaponType", getAttackType());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("WeaponType", getAttackType());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("WeaponType")) {
-			setAttackType(tag.getInt("WeaponType"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setAttackType(input.getIntOr("WeaponType", 0));
 		setCombatTask();
 	}
 
@@ -382,7 +379,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkArachneSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkArachneSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

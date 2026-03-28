@@ -7,11 +7,9 @@ import gaia.util.LootHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,8 +22,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,14 +32,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Chest extends AbstractPropEntity {
 	private static final EntityDataAccessor<Integer> ROTATION = SynchedEntityData.defineId(Chest.class, EntityDataSerializers.INT);
@@ -65,28 +65,28 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	@Override
-	public void aiStep() {
+	protected void customServerAiStep(ServerLevel level) {
+		super.customServerAiStep(level);
+
 		if (playerDetection() && getDrop() == 2) {
-			if (!this.level().isClientSide) {
-				spawnMimic();
+			if (!this.level().isClientSide()) {
+				spawnMimic(level);
 			}
 			discard();
 		}
-
-		super.aiStep();
 	}
 
-	private void spawnMimic() {
-		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(this.level());
+	private void spawnMimic(ServerLevel serverLevel) {
+		if (serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+			Mimic mimic = GaiaRegistry.MIMIC.getEntityType().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 			if (mimic != null) {
-				mimic.moveTo(blockPosition(), 0.0F, 0.0F);
-				mimic.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-				this.level().addFreshEntity(mimic);
+				mimic.snapTo(blockPosition(), 0.0F, 0.0F);
+				mimic.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPosition()), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+				serverLevel.addFreshEntity(mimic);
 			}
 		}
 
-		this.level().broadcastEntityEvent(this, (byte) 6);
+		serverLevel.broadcastEntityEvent(this, (byte) 6);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Chest extends AbstractPropEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		yBodyRot = 180.0F;
@@ -136,7 +136,16 @@ public class Chest extends AbstractPropEntity {
 			setDrop(0);
 		}
 
+		if (getDrop() == 2 || getDrop() == 0) {
+			this.lootTable = Optional.empty();
+		}
+
 		return data;
+	}
+
+	@Override
+	protected void dropAllDeathLoot(ServerLevel level, DamageSource source) {
+		super.dropAllDeathLoot(level, source);
 	}
 
 	protected MovementEmission getMovementEmission() {
@@ -167,19 +176,17 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putByte("rotation", (byte) getRotation());
-		tag.putByte("drop", (byte) getDrop());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putByte("rotation", (byte) getRotation());
+		output.putByte("drop", (byte) getDrop());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("rotation"))
-			this.setRotation(tag.getByte("rotation"));
-		if (tag.contains("drop"))
-			this.setDrop(tag.getByte("drop"));
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.setRotation(input.getByteOr("rotation", (byte) 0));
+		this.setDrop(input.getByteOr("drop", (byte) 0));
 	}
 
 	protected void playParticleEffect(boolean smoke) {
@@ -217,32 +224,29 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		if (getDrop() == 2) {
-			return null;
-		} else if (getDrop() == 1) {
-			this.level().broadcastEntityEvent(this, (byte) 7);
-			spawnMimic();
-			return null;
-		} else {
-			return super.getDefaultLootTable();
-		}
-	}
-
-	@Override
 	protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean killedByPlayer) {
-		if (!this.level().isClientSide) {
+		if (getDrop() == 1) {
+			serverLevel.broadcastEntityEvent(this, (byte) 7);
+			spawnMimic(serverLevel);
+			discard();
+			return;
+		}
+
+		if (!this.level().isClientSide()) {
 			LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) this.level()))
 					.withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.ORIGIN, this.position())
 					.withParameter(LootContextParams.DAMAGE_SOURCE, damageSource).withOptionalParameter(LootContextParams.ATTACKING_ENTITY, damageSource.getEntity())
 					.withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, damageSource.getDirectEntity());
 			if (killedByPlayer && this.lastHurtByPlayer != null) {
-				lootcontext$builder = lootcontext$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+				Player player = this.lastHurtByPlayer.getEntity(this.level(), Player.class);
+				lootcontext$builder = lootcontext$builder
+						.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
+						.withLuck(player.getLuck());
 			}
 
 			List<ItemStack> stacks = LootHelper.getStacksFromTable((ServerLevel) this.level(),
 					lootcontext$builder, LootContextParamSets.ENTITY, GaiaLootTables.CHEST_TABLES, 2);
-			stacks.forEach(this::spawnAtLocation);
+			stacks.forEach(stack -> spawnAtLocation(serverLevel, stack));
 		}
 		super.dropCustomDeathLoot(serverLevel, damageSource, killedByPlayer);
 	}
@@ -273,7 +277,7 @@ public class Chest extends AbstractPropEntity {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		return false;
 	}
 
@@ -282,7 +286,7 @@ public class Chest extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkChestSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkChestSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkPropSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

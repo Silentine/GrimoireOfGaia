@@ -1,7 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.MimicRenderState;
 import gaia.entity.Mimic;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,12 +11,13 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class MimicModel extends EntityModel<Mimic> {
+public class MimicModel extends EntityModel<MimicRenderState> {
 	private final ModelPart root;
 	private final ModelPart top;
 	private final ModelPart bottom;
 
 	public MimicModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("mimic");
 		this.top = this.root.getChild("top");
 		this.bottom = this.root.getChild("bottom");
@@ -47,16 +47,14 @@ public class MimicModel extends EntityModel<Mimic> {
 	}
 
 	@Override
-	public void setupAnim(Mimic entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(MimicRenderState state) {
+		super.setupAnim(state);
+
 		// body
-		top.xRot = Mth.cos(ageInTicks * 1.8F + (float) Math.PI) * 0.8F * 0.5F;
-		bottom.xRot = Mth.cos(ageInTicks * 1.8F) * 0.8F * 0.5F;
+		top.xRot = Mth.cos(state.ageInTicks * 1.8F + (float) Math.PI) * 0.8F * 0.5F;
+		bottom.xRot = Mth.cos(state.ageInTicks * 1.8F) * 0.8F * 0.5F;
 		top.xRot -= 0.69813174F;
 		bottom.xRot += 0.3490659F;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

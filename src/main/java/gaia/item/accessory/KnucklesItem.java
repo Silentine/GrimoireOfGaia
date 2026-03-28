@@ -2,9 +2,8 @@ package gaia.item.accessory;
 
 import gaia.GrimoireOfGaia;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -12,12 +11,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class KnucklesItem extends AbstractAccessoryItem {
 	private static final int damage = 2;
-	private static final ResourceLocation BOOST_UUID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "knuckles_damage_boost");
+	private static final Identifier BOOST_UUID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "knuckles_strength");
 	private static final AttributeModifier BOOST = new AttributeModifier(BOOST_UUID, (double) damage, Operation.ADD_VALUE);
 
 	public KnucklesItem(Properties properties) {
@@ -25,14 +25,13 @@ public class KnucklesItem extends AbstractAccessoryItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.charm.tag").withStyle(ChatFormatting.YELLOW));
 
-		if (Screen.hasShiftDown()) {
-			list.add(Component.translatable("text.grimoireofgaia.charm.damage", damage));
+		if (tooltipFlag.hasShiftDown()) {
+			builder.accept(Component.translatable("text.grimoireofgaia.charm.damage", damage));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			builder.accept(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

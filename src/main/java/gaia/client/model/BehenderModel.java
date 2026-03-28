@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Behender;
+import gaia.client.state.BehenderRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class BehenderModel extends EntityModel<Behender> {
+public class BehenderModel extends EntityModel<BehenderRenderState> {
 	private final ModelPart root;
 	private final ModelPart headTop;
 	private final ModelPart headBottom;
@@ -27,6 +25,7 @@ public class BehenderModel extends EntityModel<Behender> {
 	private final ModelPart eye09b;
 
 	public BehenderModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("behender");
 		this.headTop = this.root.getChild("headtop01");
 		this.eye01b = this.headTop.getChild("eye01b");
@@ -147,37 +146,35 @@ public class BehenderModel extends EntityModel<Behender> {
 	}
 
 	@Override
-	public void setupAnim(Behender entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(BehenderRenderState state) {
+		super.setupAnim(state);
+
 		float floatSpeed = 0.25F;
 		float floatRange = 3.0F;
 
 		// anchor
-		root.y = 24.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+		root.y = 24.0F - Mth.cos((state.ageInTicks + 1.5F) * floatSpeed) * floatRange;
 
 
 		// head
-		headTop.yRot = netHeadYaw / 57.295776F;
-		headTop.xRot = headPitch / 57.295776F;
+		headTop.yRot = state.yRot / 57.295776F;
+		headTop.xRot = state.xRot / 57.295776F;
 
 		float angleRange = 0.15F;
 		float angleRange2 = 0.25F;
 
-		eye01b.xRot = Mth.cos(ageInTicks * floatSpeed) * angleRange * 0.5F;
+		eye01b.xRot = Mth.cos(state.ageInTicks * floatSpeed) * angleRange * 0.5F;
 		eye02b.xRot = eye01b.xRot;
 		eye03b.xRot = eye01b.xRot;
-		eye04b.xRot = Mth.cos(ageInTicks * floatSpeed) * angleRange2 * 0.5F;
+		eye04b.xRot = Mth.cos(state.ageInTicks * floatSpeed) * angleRange2 * 0.5F;
 		eye05b.xRot = eye04b.xRot;
 		eye06b.xRot = eye04b.xRot;
 		eye07b.xRot = eye04b.xRot;
 		eye08b.xRot = eye01b.xRot;
 		eye09b.xRot = eye01b.xRot;
 
-		headBottom.xRot = Mth.cos(ageInTicks * floatSpeed) * angleRange2 * 0.5F;
+		headBottom.xRot = Mth.cos(state.ageInTicks * floatSpeed) * angleRange2 * 0.5F;
 		headBottom.xRot += 0.5235988F;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

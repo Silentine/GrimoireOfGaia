@@ -1,6 +1,5 @@
 package gaia.registry;
 
-import gaia.GrimoireOfGaia;
 import gaia.entity.AntSalvager;
 import gaia.entity.AntWorker;
 import gaia.entity.Anubis;
@@ -73,7 +72,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
-@EventBusSubscriber(modid = GrimoireOfGaia.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class GaiaSpawning {
 
 	@SubscribeEvent

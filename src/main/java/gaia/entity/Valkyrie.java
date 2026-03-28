@@ -8,10 +8,10 @@ import gaia.util.EnchantUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -20,11 +20,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,10 +43,12 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, PowerableMob {
+public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> IS_BUFFED = SynchedEntityData.defineId(Valkyrie.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> ANNOYED = SynchedEntityData.defineId(Valkyrie.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Valkyrie.class, EntityDataSerializers.INT);
@@ -140,23 +141,22 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return source.isDirect() && super.hurt(source, input);
+			return source.isDirect() && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
-	@Override
 	public boolean isPowered() {
 		return getHealth() < getMaxHealth() / 2.0F;
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 				int effectTime2 = 0;
 
@@ -169,8 +169,8 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime2 * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime2 * 20, 0));
 				}
 			}
 
@@ -187,7 +187,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
@@ -265,7 +265,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	private void setGoals(int id) {
-		if (this.level().isClientSide) return;
+		if (this.level().isClientSide()) return;
 
 		if (id == 2) {
 			this.goalSelector.removeGoal(meleeAttackGoal);
@@ -283,8 +283,8 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 
 	private void setBuff() {
 		this.level().broadcastEntityEvent(this, (byte) 7);
-		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
-		addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, 0));
+		addEffect(new MobEffectInstance(MobEffects.SPEED, 20 * 60, 0));
+		addEffect(new MobEffectInstance(MobEffects.STRENGTH, 20 * 60, 0));
 	}
 
 	private void setCombatTask() {
@@ -304,7 +304,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		setGoals(1);
@@ -328,17 +328,15 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("annoyed", isAnnoyed());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("annoyed", isAnnoyed());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("annoyed")) {
-			setAnnoyed(tag.getBoolean("annoyed"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setAnnoyed(input.getBooleanOr("annoyed", false));
 		setCombatTask();
 	}
 
@@ -367,10 +365,12 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		return MovementEmission.NONE;
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
@@ -379,7 +379,7 @@ public class Valkyrie extends AbstractAssistGaiaEntity implements IDayMob, Power
 		return true;
 	}
 
-	public static boolean checkValkyrieSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkValkyrieSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

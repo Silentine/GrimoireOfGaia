@@ -4,6 +4,7 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,7 +12,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidType;
+import org.jspecify.annotations.Nullable;
 
 public class BubbleProjectile extends SmallFireball {
 	public BubbleProjectile(EntityType<? extends SmallFireball> entityType, Level pLevel) {
@@ -78,7 +80,7 @@ public class BubbleProjectile extends SmallFireball {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityResult) {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			Entity owner = this.getOwner();
 			if (owner instanceof LivingEntity ownerEntity) {
 				Entity entity = entityResult.getEntity();
@@ -94,7 +96,7 @@ public class BubbleProjectile extends SmallFireball {
 					}
 
 					if (effectTime > 0) {
-						livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 1));
+						livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime * 20, 1));
 					}
 				}
 			}
@@ -103,12 +105,12 @@ public class BubbleProjectile extends SmallFireball {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		return false;
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 

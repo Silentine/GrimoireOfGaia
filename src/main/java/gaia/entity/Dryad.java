@@ -7,19 +7,20 @@ import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -35,8 +36,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Dryad.class, EntityDataSerializers.BOOLEAN);
@@ -107,36 +109,36 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
-			if (itemstack.canPerformAction(ItemAbilities.AXE_DIG)) {
-				input = input * 1.5F;
+			if (itemstack.is(ItemTags.AXES)) {
+				damage = damage * 1.5F;
 			}
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
 					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
-					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
+					addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
 				}
 			}
 		}
 
 		if (isOnFire()) {
-			addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
+			addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 0));
 			addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 		}
 
@@ -178,7 +180,7 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		if (random.nextInt(4) == 0) {
@@ -194,15 +196,15 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("IsBaby", this.isBaby());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("IsBaby", this.isBaby());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.setBaby(tag.getBoolean("IsBaby"));
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.setBaby(input.getBooleanOr("IsBaby", false));
 
 		setGoals(0);
 	}
@@ -247,7 +249,7 @@ public class Dryad extends AbstractAssistGaiaEntity implements IDayMob {
 		super.onSyncedDataUpdated(dataAccessor);
 	}
 
-	public static boolean checkDryadSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkDryadSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

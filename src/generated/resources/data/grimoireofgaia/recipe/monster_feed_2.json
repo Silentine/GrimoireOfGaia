@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "item": "grimoireofgaia:experience_diamond"
-    }
+    "#c:seeds/wheat",
+    "#c:seeds/wheat",
+    "grimoireofgaia:experience_diamond"
   ],
   "result": {
     "count": 4,

@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "grimoireofgaia:golden_apple_pie_slice"
-    },
-    {
-      "item": "grimoireofgaia:golden_apple_pie_slice"
-    },
-    {
-      "item": "grimoireofgaia:golden_apple_pie_slice"
-    },
-    {
-      "item": "grimoireofgaia:golden_apple_pie_slice"
-    }
+    "grimoireofgaia:golden_apple_pie_slice",
+    "grimoireofgaia:golden_apple_pie_slice",
+    "grimoireofgaia:golden_apple_pie_slice",
+    "grimoireofgaia:golden_apple_pie_slice"
   ],
   "result": {
-    "count": 1,
     "id": "grimoireofgaia:golden_apple_pie"
   }
 }

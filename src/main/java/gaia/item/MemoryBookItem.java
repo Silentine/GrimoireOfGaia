@@ -5,16 +5,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class MemoryBookItem extends Item {
 	public MemoryBookItem(Properties properties) {
@@ -28,8 +29,9 @@ public class MemoryBookItem extends Item {
 				stack.shrink(1);
 			}
 
-			if (!level.isClientSide) {
-				level.playSound((Player) null, livingEntity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+			if (!level.isClientSide()) {
+				level.playSound((Player) null, livingEntity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, 
+						level.getRandom().nextFloat() * 0.1F + 0.9F);
 				player.giveExperienceLevels(10);
 			}
 		} else {
@@ -39,16 +41,14 @@ public class MemoryBookItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-		ItemStack itemstack = player.getItemInHand(interactionHand);
-		player.startUsingItem(interactionHand);
-		return InteractionResultHolder.consume(itemstack);
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResult.CONSUME;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.gain_levels", 10).withStyle(ChatFormatting.GRAY));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.gain_levels", 10).withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class MemoryBookItem extends Item {
 	}
 
 	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.BOW;
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
+		return ItemUseAnimation.BOW;
 	}
 }

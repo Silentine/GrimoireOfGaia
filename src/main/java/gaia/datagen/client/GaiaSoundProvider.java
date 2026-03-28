@@ -6,8 +6,7 @@ import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import gaia.registry.helper.MobReg;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinition.Sound;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
@@ -15,8 +14,8 @@ import java.util.List;
 
 public class GaiaSoundProvider extends SoundDefinitionsProvider {
 
-	public GaiaSoundProvider(PackOutput packOutput, ExistingFileHelper helper) {
-		super(packOutput, GrimoireOfGaia.MOD_ID, helper);
+	public GaiaSoundProvider(PackOutput packOutput) {
+		super(packOutput, GrimoireOfGaia.MOD_ID);
 	}
 
 	@Override
@@ -36,12 +35,12 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaSounds.METAL_BOOK_HIT, definition()
 				.subtitle(modSubtitle(GaiaSounds.BOOK_HIT.getId()))
 				.with(
-						sound(ResourceLocation.parse("step/stone1")),
-						sound(ResourceLocation.parse("step/stone2")),
-						sound(ResourceLocation.parse("step/stone3")),
-						sound(ResourceLocation.parse("step/stone4")),
-						sound(ResourceLocation.parse("step/stone5")),
-						sound(ResourceLocation.parse("step/stone6"))
+						sound(Identifier.parse("step/stone1")),
+						sound(Identifier.parse("step/stone2")),
+						sound(Identifier.parse("step/stone3")),
+						sound(Identifier.parse("step/stone4")),
+						sound(Identifier.parse("step/stone5")),
+						sound(Identifier.parse("step/stone6"))
 				));
 
 		this.add(GaiaSounds.BOX_OPEN, definition()
@@ -52,16 +51,16 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 
 		this.add(GaiaSounds.CREEP_PRIMED, definition()
 				.subtitle(modSubtitle(GaiaSounds.CREEP_PRIMED.getId()))
-				.with(sound(ResourceLocation.parse("random/fuse"))));
+				.with(sound(Identifier.parse("random/fuse"))));
 		this.add(GaiaSounds.GOBLIN_FERAL_PRIMED, definition()
 				.subtitle(modSubtitle(GaiaSounds.GOBLIN_FERAL_PRIMED.getId()))
-				.with(sound(ResourceLocation.parse("random/fuse"))));
+				.with(sound(Identifier.parse("random/fuse"))));
 		this.add(GaiaSounds.GAIA_SHOOT, definition()
 				.subtitle(modSubtitle(GaiaSounds.GAIA_SHOOT.getId()))
-				.with(sound(ResourceLocation.parse("mob/ghast/fireball4"))));
+				.with(sound(Identifier.parse("mob/ghast/fireball4"))));
 		this.add(GaiaSounds.BOMB_THROW, definition()
 				.subtitle(modSubtitle(GaiaSounds.BOMB_THROW.getId()))
-				.with(sound(ResourceLocation.parse("mob/ghast/fireball4"))));
+				.with(sound(Identifier.parse("mob/ghast/fireball4"))));
 		this.add(GaiaSounds.MANDRAGORA_SCREAM, definition()
 				.subtitle(modSubtitle(GaiaSounds.MANDRAGORA_SCREAM.getId()))
 				.with(sound(modLoc("entity/mandragora/scream"))));
@@ -71,57 +70,57 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.add(GaiaSounds.ENDER_EYE_SCREAM, definition()
 				.subtitle(modSubtitle(GaiaSounds.ENDER_EYE_SCREAM.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/scream1")),
-						sound(ResourceLocation.parse("mob/endermen/scream2")),
-						sound(ResourceLocation.parse("mob/endermen/scream3")),
-						sound(ResourceLocation.parse("mob/endermen/scream4"))
+						sound(Identifier.parse("mob/endermen/scream1")),
+						sound(Identifier.parse("mob/endermen/scream2")),
+						sound(Identifier.parse("mob/endermen/scream3")),
+						sound(Identifier.parse("mob/endermen/scream4"))
 				));
 		this.add(GaiaSounds.ENDER_EYE_TELEPORT, definition()
 				.subtitle(modSubtitle(GaiaSounds.ENDER_EYE_TELEPORT.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/portal")),
-						sound(ResourceLocation.parse("mob/endermen/portal2"))
+						sound(Identifier.parse("mob/endermen/portal")),
+						sound(Identifier.parse("mob/endermen/portal2"))
 				));
 		this.add(GaiaSounds.ENDER_DRAGON_GIRL_SCREAM, definition()
 				.subtitle(modSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_SCREAM.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/scream1")),
-						sound(ResourceLocation.parse("mob/endermen/scream2")),
-						sound(ResourceLocation.parse("mob/endermen/scream3")),
-						sound(ResourceLocation.parse("mob/endermen/scream4"))
+						sound(Identifier.parse("mob/endermen/scream1")),
+						sound(Identifier.parse("mob/endermen/scream2")),
+						sound(Identifier.parse("mob/endermen/scream3")),
+						sound(Identifier.parse("mob/endermen/scream4"))
 				));
 		this.add(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT, definition()
 				.subtitle(modSubtitle(GaiaSounds.ENDER_DRAGON_GIRL_TELEPORT.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/portal")),
-						sound(ResourceLocation.parse("mob/endermen/portal2"))
+						sound(Identifier.parse("mob/endermen/portal")),
+						sound(Identifier.parse("mob/endermen/portal2"))
 				));
 		this.add(GaiaSounds.BEHENDER_SCREAM, definition()
 				.subtitle(modSubtitle(GaiaSounds.BEHENDER_SCREAM.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/scream1")),
-						sound(ResourceLocation.parse("mob/endermen/scream2")),
-						sound(ResourceLocation.parse("mob/endermen/scream3")),
-						sound(ResourceLocation.parse("mob/endermen/scream4"))
+						sound(Identifier.parse("mob/endermen/scream1")),
+						sound(Identifier.parse("mob/endermen/scream2")),
+						sound(Identifier.parse("mob/endermen/scream3")),
+						sound(Identifier.parse("mob/endermen/scream4"))
 				));
 		this.add(GaiaSounds.BEHENDER_TELEPORT, definition()
 				.subtitle(modSubtitle(GaiaSounds.BEHENDER_TELEPORT.getId()))
 				.with(
-						sound(ResourceLocation.parse("mob/endermen/portal")),
-						sound(ResourceLocation.parse("mob/endermen/portal2"))
+						sound(Identifier.parse("mob/endermen/portal")),
+						sound(Identifier.parse("mob/endermen/portal2"))
 				));
 
 		this.generateMobSound();
 
 		this.add(GaiaRegistry.COBBLE_GOLEM.getAttack(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.COBBLE_GOLEM.getAttack().getLocation()))
+				.subtitle(modSubtitle(GaiaRegistry.COBBLE_GOLEM.getAttack().location()))
 				.with(
-						sound(ResourceLocation.parse("mob/irongolem/throw"))
+						sound(Identifier.parse("mob/irongolem/throw"))
 				));
 		this.add(GaiaRegistry.COBBLESTONE_GOLEM.getAttack(), definition()
-				.subtitle(modSubtitle(GaiaRegistry.COBBLESTONE_GOLEM.getAttack().getLocation()))
+				.subtitle(modSubtitle(GaiaRegistry.COBBLESTONE_GOLEM.getAttack().location()))
 				.with(
-						sound(ResourceLocation.parse("mob/irongolem/throw"))
+						sound(Identifier.parse("mob/irongolem/throw"))
 				));
 	}
 
@@ -156,38 +155,38 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("entity/bee/death2"))).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BEHENDER).withDefaults()
 				.withSay(
-						sound(ResourceLocation.parse("mob/endermen/idle1")),
-						sound(ResourceLocation.parse("mob/endermen/idle2")),
-						sound(ResourceLocation.parse("mob/endermen/idle3")),
-						sound(ResourceLocation.parse("mob/endermen/idle4")),
-						sound(ResourceLocation.parse("mob/endermen/idle5"))
+						sound(Identifier.parse("mob/endermen/idle1")),
+						sound(Identifier.parse("mob/endermen/idle2")),
+						sound(Identifier.parse("mob/endermen/idle3")),
+						sound(Identifier.parse("mob/endermen/idle4")),
+						sound(Identifier.parse("mob/endermen/idle5"))
 				).withHurt(
-						sound(ResourceLocation.parse("mob/endermen/hit1")),
-						sound(ResourceLocation.parse("mob/endermen/hit2")),
-						sound(ResourceLocation.parse("mob/endermen/hit3")),
-						sound(ResourceLocation.parse("mob/endermen/hit4"))
+						sound(Identifier.parse("mob/endermen/hit1")),
+						sound(Identifier.parse("mob/endermen/hit2")),
+						sound(Identifier.parse("mob/endermen/hit3")),
+						sound(Identifier.parse("mob/endermen/hit4"))
 				).withDeath(
-						sound(ResourceLocation.parse("mob/endermen/death"))
+						sound(Identifier.parse("mob/endermen/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.BONE_KNIGHT)
 				.withSay(
-						sound(ResourceLocation.parse("mob/skeleton/say1")),
-						sound(ResourceLocation.parse("mob/skeleton/say2")),
-						sound(ResourceLocation.parse("mob/skeleton/say3"))
+						sound(Identifier.parse("mob/skeleton/say1")),
+						sound(Identifier.parse("mob/skeleton/say2")),
+						sound(Identifier.parse("mob/skeleton/say3"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/skeleton/hurt1")),
-						sound(ResourceLocation.parse("mob/skeleton/hurt2")),
-						sound(ResourceLocation.parse("mob/skeleton/hurt3")),
-						sound(ResourceLocation.parse("mob/skeleton/hurt4"))
+						sound(Identifier.parse("mob/skeleton/hurt1")),
+						sound(Identifier.parse("mob/skeleton/hurt2")),
+						sound(Identifier.parse("mob/skeleton/hurt3")),
+						sound(Identifier.parse("mob/skeleton/hurt4"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/skeleton/death"))
+						sound(Identifier.parse("mob/skeleton/death"))
 				).withStep(
-						sound(ResourceLocation.parse("mob/skeleton/step1")),
-						sound(ResourceLocation.parse("mob/skeleton/step2")),
-						sound(ResourceLocation.parse("mob/skeleton/step3")),
-						sound(ResourceLocation.parse("mob/skeleton/step4"))
+						sound(Identifier.parse("mob/skeleton/step1")),
+						sound(Identifier.parse("mob/skeleton/step2")),
+						sound(Identifier.parse("mob/skeleton/step3")),
+						sound(Identifier.parse("mob/skeleton/step4"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CECAELIA).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.CENTAUR).withDefaults()
@@ -204,34 +203,34 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 						sound(modLoc("none"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/creeper/say1")),
-						sound(ResourceLocation.parse("mob/creeper/say2")),
-						sound(ResourceLocation.parse("mob/creeper/say3")),
-						sound(ResourceLocation.parse("mob/creeper/say4"))
+						sound(Identifier.parse("mob/creeper/say1")),
+						sound(Identifier.parse("mob/creeper/say2")),
+						sound(Identifier.parse("mob/creeper/say3")),
+						sound(Identifier.parse("mob/creeper/say4"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/creeper/death"))
+						sound(Identifier.parse("mob/creeper/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.COBBLE_GOLEM)
 				.withStep(
-						sound(ResourceLocation.parse("mob/irongolem/walk1")),
-						sound(ResourceLocation.parse("mob/irongolem/walk2")),
-						sound(ResourceLocation.parse("mob/irongolem/walk3")),
-						sound(ResourceLocation.parse("mob/irongolem/walk4"))
+						sound(Identifier.parse("mob/irongolem/walk1")),
+						sound(Identifier.parse("mob/irongolem/walk2")),
+						sound(Identifier.parse("mob/irongolem/walk3")),
+						sound(Identifier.parse("mob/irongolem/walk4"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/irongolem/death"))
+						sound(Identifier.parse("mob/irongolem/death"))
 				).build());
 
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.COBBLESTONE_GOLEM)
 				.withStep(
-						sound(ResourceLocation.parse("mob/irongolem/walk1")),
-						sound(ResourceLocation.parse("mob/irongolem/walk2")),
-						sound(ResourceLocation.parse("mob/irongolem/walk3")),
-						sound(ResourceLocation.parse("mob/irongolem/walk4"))
+						sound(Identifier.parse("mob/irongolem/walk1")),
+						sound(Identifier.parse("mob/irongolem/walk2")),
+						sound(Identifier.parse("mob/irongolem/walk3")),
+						sound(Identifier.parse("mob/irongolem/walk4"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/irongolem/death"))
+						sound(Identifier.parse("mob/irongolem/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DRYAD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.DULLAHAN).withDefaults().build());
@@ -247,52 +246,52 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_EYE).withDefaults()
 				.withSay(
-						sound(ResourceLocation.parse("mob/endermen/idle1")),
-						sound(ResourceLocation.parse("mob/endermen/idle2")),
-						sound(ResourceLocation.parse("mob/endermen/idle3")),
-						sound(ResourceLocation.parse("mob/endermen/idle4")),
-						sound(ResourceLocation.parse("mob/endermen/idle5"))
+						sound(Identifier.parse("mob/endermen/idle1")),
+						sound(Identifier.parse("mob/endermen/idle2")),
+						sound(Identifier.parse("mob/endermen/idle3")),
+						sound(Identifier.parse("mob/endermen/idle4")),
+						sound(Identifier.parse("mob/endermen/idle5"))
 				).withHurt(
-						sound(ResourceLocation.parse("mob/endermen/hit1")),
-						sound(ResourceLocation.parse("mob/endermen/hit2")),
-						sound(ResourceLocation.parse("mob/endermen/hit3")),
-						sound(ResourceLocation.parse("mob/endermen/hit4"))
+						sound(Identifier.parse("mob/endermen/hit1")),
+						sound(Identifier.parse("mob/endermen/hit2")),
+						sound(Identifier.parse("mob/endermen/hit3")),
+						sound(Identifier.parse("mob/endermen/hit4"))
 				).withDeath(
-						sound(ResourceLocation.parse("mob/endermen/death"))
+						sound(Identifier.parse("mob/endermen/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.ENDER_DRAGON_GIRL).withDefaults()
 				.withSay(
-						sound(ResourceLocation.parse("mob/endermen/idle1")),
-						sound(ResourceLocation.parse("mob/endermen/idle2")),
-						sound(ResourceLocation.parse("mob/endermen/idle3")),
-						sound(ResourceLocation.parse("mob/endermen/idle4")),
-						sound(ResourceLocation.parse("mob/endermen/idle5"))
+						sound(Identifier.parse("mob/endermen/idle1")),
+						sound(Identifier.parse("mob/endermen/idle2")),
+						sound(Identifier.parse("mob/endermen/idle3")),
+						sound(Identifier.parse("mob/endermen/idle4")),
+						sound(Identifier.parse("mob/endermen/idle5"))
 				).withHurt(
-						sound(ResourceLocation.parse("mob/endermen/hit1")),
-						sound(ResourceLocation.parse("mob/endermen/hit2")),
-						sound(ResourceLocation.parse("mob/endermen/hit3")),
-						sound(ResourceLocation.parse("mob/endermen/hit4"))
+						sound(Identifier.parse("mob/endermen/hit1")),
+						sound(Identifier.parse("mob/endermen/hit2")),
+						sound(Identifier.parse("mob/endermen/hit3")),
+						sound(Identifier.parse("mob/endermen/hit4"))
 				).withDeath(
-						sound(ResourceLocation.parse("mob/endermen/death"))
+						sound(Identifier.parse("mob/endermen/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.FLESH_LICH)
 				.withSay(
-						sound(ResourceLocation.parse("mob/zombie/say1")),
-						sound(ResourceLocation.parse("mob/zombie/say2")),
-						sound(ResourceLocation.parse("mob/zombie/say3"))
+						sound(Identifier.parse("mob/zombie/say1")),
+						sound(Identifier.parse("mob/zombie/say2")),
+						sound(Identifier.parse("mob/zombie/say3"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/zombie/hurt1")),
-						sound(ResourceLocation.parse("mob/zombie/hurt2"))
+						sound(Identifier.parse("mob/zombie/hurt1")),
+						sound(Identifier.parse("mob/zombie/hurt2"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/zombie/death"))
+						sound(Identifier.parse("mob/zombie/death"))
 				).withStep(
-						sound(ResourceLocation.parse("mob/zombie/step1")),
-						sound(ResourceLocation.parse("mob/zombie/step2")),
-						sound(ResourceLocation.parse("mob/zombie/step3")),
-						sound(ResourceLocation.parse("mob/zombie/step4")),
-						sound(ResourceLocation.parse("mob/zombie/step5"))
+						sound(Identifier.parse("mob/zombie/step1")),
+						sound(Identifier.parse("mob/zombie/step2")),
+						sound(Identifier.parse("mob/zombie/step3")),
+						sound(Identifier.parse("mob/zombie/step4")),
+						sound(Identifier.parse("mob/zombie/step5"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GELATINOUS_SLIME).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GOBLIN).withDefaults()
@@ -312,18 +311,18 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HUNTER).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.HORSE)
 				.withSay(
-						sound(ResourceLocation.parse("mob/horse/zombie/idle1")),
-						sound(ResourceLocation.parse("mob/horse/zombie/idle2")),
-						sound(ResourceLocation.parse("mob/horse/zombie/idle3"))
+						sound(Identifier.parse("mob/horse/zombie/idle1")),
+						sound(Identifier.parse("mob/horse/zombie/idle2")),
+						sound(Identifier.parse("mob/horse/zombie/idle3"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/horse/zombie/hit1")),
-						sound(ResourceLocation.parse("mob/horse/zombie/hit2")),
-						sound(ResourceLocation.parse("mob/horse/zombie/hit3")),
-						sound(ResourceLocation.parse("mob/horse/zombie/hit4"))
+						sound(Identifier.parse("mob/horse/zombie/hit1")),
+						sound(Identifier.parse("mob/horse/zombie/hit2")),
+						sound(Identifier.parse("mob/horse/zombie/hit3")),
+						sound(Identifier.parse("mob/horse/zombie/hit4"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/horse/zombie/death"))
+						sound(Identifier.parse("mob/horse/zombie/death"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.KOBOLD).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MANDRAGORA).withDefaults().build());
@@ -335,32 +334,32 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 				.withHurt(sound(modLoc("entity/minotaur/hurt1")),
 						sound(modLoc("entity/minotaur/hurt2")))
 				.withStep(
-						sound(ResourceLocation.parse("mob/irongolem/walk1")),
-						sound(ResourceLocation.parse("mob/irongolem/walk2")),
-						sound(ResourceLocation.parse("mob/irongolem/walk3")),
-						sound(ResourceLocation.parse("mob/irongolem/walk4"))
+						sound(Identifier.parse("mob/irongolem/walk1")),
+						sound(Identifier.parse("mob/irongolem/walk2")),
+						sound(Identifier.parse("mob/irongolem/walk3")),
+						sound(Identifier.parse("mob/irongolem/walk4"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MINOTAURUS).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.GRAVEMITE).withDefaults()
 				.withSay(
-						sound(ResourceLocation.parse("mob/silverfish/say1")),
-						sound(ResourceLocation.parse("mob/silverfish/say2")),
-						sound(ResourceLocation.parse("mob/silverfish/say3")),
-						sound(ResourceLocation.parse("mob/silverfish/say4"))
+						sound(Identifier.parse("mob/silverfish/say1")),
+						sound(Identifier.parse("mob/silverfish/say2")),
+						sound(Identifier.parse("mob/silverfish/say3")),
+						sound(Identifier.parse("mob/silverfish/say4"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/silverfish/hit1")),
-						sound(ResourceLocation.parse("mob/silverfish/hit2")),
-						sound(ResourceLocation.parse("mob/silverfish/hit3"))
+						sound(Identifier.parse("mob/silverfish/hit1")),
+						sound(Identifier.parse("mob/silverfish/hit2")),
+						sound(Identifier.parse("mob/silverfish/hit3"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/silverfish/kill"))
+						sound(Identifier.parse("mob/silverfish/kill"))
 				)
 				.withStep(
-						sound(ResourceLocation.parse("mob/silverfish/step1")),
-						sound(ResourceLocation.parse("mob/silverfish/step2")),
-						sound(ResourceLocation.parse("mob/silverfish/step3")),
-						sound(ResourceLocation.parse("mob/silverfish/step4"))
+						sound(Identifier.parse("mob/silverfish/step1")),
+						sound(Identifier.parse("mob/silverfish/step2")),
+						sound(Identifier.parse("mob/silverfish/step3")),
+						sound(Identifier.parse("mob/silverfish/step4"))
 				)
 				.build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.MUMMY).withDefaults().build());
@@ -406,20 +405,20 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITCH).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WITHER_COW)
 				.withSay(
-						sound(ResourceLocation.parse("mob/cow/say1")),
-						sound(ResourceLocation.parse("mob/cow/say2")),
-						sound(ResourceLocation.parse("mob/cow/say3")),
-						sound(ResourceLocation.parse("mob/cow/say4"))
+						sound(Identifier.parse("mob/cow/say1")),
+						sound(Identifier.parse("mob/cow/say2")),
+						sound(Identifier.parse("mob/cow/say3")),
+						sound(Identifier.parse("mob/cow/say4"))
 				)
 				.withHurt(
-						sound(ResourceLocation.parse("mob/cow/hurt1")),
-						sound(ResourceLocation.parse("mob/cow/hurt2")),
-						sound(ResourceLocation.parse("mob/cow/hurt3"))
+						sound(Identifier.parse("mob/cow/hurt1")),
+						sound(Identifier.parse("mob/cow/hurt2")),
+						sound(Identifier.parse("mob/cow/hurt3"))
 				)
 				.withDeath(
-						sound(ResourceLocation.parse("mob/cow/hurt1")),
-						sound(ResourceLocation.parse("mob/cow/hurt2")),
-						sound(ResourceLocation.parse("mob/cow/hurt3"))
+						sound(Identifier.parse("mob/cow/hurt1")),
+						sound(Identifier.parse("mob/cow/hurt2")),
+						sound(Identifier.parse("mob/cow/hurt3"))
 				).build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.WIZARD_HARPY).withDefaults().build());
 		this.setupMobSounds(new MobSoundHelper.Builder(GaiaRegistry.YUKI_ONNA).withDefaults().build());
@@ -439,28 +438,28 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 		if (mobReg.getSay() != null) {
 			List<Sound> sounds = helper.getSay().length > 0 ? List.of(helper.getSay()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getSay(), definition()
-					.subtitle(modSubtitle(mobReg.getSay().getLocation()))
+					.subtitle(modSubtitle(mobReg.getSay().location()))
 					.with(sounds.toArray(new Sound[]{})));
 		}
 
 		if (mobReg.getHurt() != null) {
 			List<Sound> sounds = helper.getHurt().length > 0 ? List.of(helper.getHurt()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getHurt(), definition()
-					.subtitle(modSubtitle(mobReg.getHurt().getLocation()))
+					.subtitle(modSubtitle(mobReg.getHurt().location()))
 					.with(sounds.toArray(new Sound[]{})));
 		}
 
 		if (mobReg.getDeath() != null) {
 			List<Sound> sounds = helper.getDeath().length > 0 ? List.of(helper.getDeath()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getDeath(), definition()
-					.subtitle(modSubtitle(mobReg.getDeath().getLocation()))
+					.subtitle(modSubtitle(mobReg.getDeath().location()))
 					.with(sounds.toArray(new Sound[]{})));
 		}
 
 		if (mobReg.getStep() != null) {
 			List<Sound> sounds = helper.getStep().length > 0 ? List.of(helper.getStep()) : List.of(sound(modLoc("none")));
 			this.add(mobReg.getStep(), definition()
-					.subtitle(modSubtitle(mobReg.getStep().getLocation()))
+					.subtitle(modSubtitle(mobReg.getStep().location()))
 					.with(sounds.toArray(new Sound[]{})));
 		}
 
@@ -468,38 +467,38 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 			if (mobReg.getMaleSay() != null) {
 				List<Sound> sounds = helper.getMaleSay().length > 0 ? List.of(helper.getMaleSay()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleSay(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleSay().getLocation()))
+						.subtitle(modSubtitle(mobReg.getMaleSay().location()))
 						.with(sounds.toArray(new Sound[]{})));
 			}
 
 			if (mobReg.getMaleHurt() != null) {
 				List<Sound> sounds = helper.getMaleHurt().length > 0 ? List.of(helper.getMaleHurt()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleHurt(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleHurt().getLocation()))
+						.subtitle(modSubtitle(mobReg.getMaleHurt().location()))
 						.with(sounds.toArray(new Sound[]{})));
 			}
 
 			if (mobReg.getMaleDeath() != null) {
 				List<Sound> sounds = helper.getMaleDeath().length > 0 ? List.of(helper.getMaleDeath()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleDeath(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleDeath().getLocation()))
+						.subtitle(modSubtitle(mobReg.getMaleDeath().location()))
 						.with(sounds.toArray(new Sound[]{})));
 			}
 
 			if (mobReg.getMaleStep() != null) {
 				List<Sound> sounds = helper.getMaleStep().length > 0 ? List.of(helper.getMaleStep()) : List.of(sound(modLoc("none")));
 				this.add(mobReg.getMaleStep(), definition()
-						.subtitle(modSubtitle(mobReg.getMaleStep().getLocation()))
+						.subtitle(modSubtitle(mobReg.getMaleStep().location()))
 						.with(sounds.toArray(new Sound[]{})));
 			}
 		}
 	}
 
-	public String modSubtitle(ResourceLocation id) {
+	public String modSubtitle(Identifier id) {
 		return GrimoireOfGaia.MOD_ID + ".subtitle." + id.getPath();
 	}
 
-	public ResourceLocation modLoc(String name) {
-		return ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name);
+	public Identifier modLoc(String name) {
+		return Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name);
 	}
 }

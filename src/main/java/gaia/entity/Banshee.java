@@ -4,19 +4,19 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -28,13 +28,15 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.SpectralArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.arrow.SpectralArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.EnumSet;
 
@@ -50,9 +52,13 @@ public class Banshee extends AbstractGaiaEntity {
 		this.xpReward = SharedEntityData.EXPERIENCE_VALUE_2;
 	}
 
+	@Override
+	protected boolean isAffectedByBlocks() {
+		return !this.isRemoved();
+	}
+
 	public void move(MoverType moverType, Vec3 pos) {
 		super.move(moverType, pos);
-		this.checkInsideBlocks();
 	}
 
 	@Override
@@ -128,25 +134,24 @@ public class Banshee extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		Entity entity = source.getDirectEntity();
-
 		if (entity instanceof Arrow) {
-			input += 2;
+			damage += 2;
 		}
 
 		if (entity instanceof SpectralArrow) {
-			input += 4;
+			damage += 4;
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			entityIn.setRemainingFireTicks(20 * 6);
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			target.setRemainingFireTicks(20 * 6);
 
 			return true;
 		} else {
@@ -164,7 +169,7 @@ public class Banshee extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (isPassenger()) {
 				stopRiding();
 			}
@@ -186,21 +191,15 @@ public class Banshee extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		if (this.boundOrigin != null) {
-			tag.putInt("BoundX", this.boundOrigin.getX());
-			tag.putInt("BoundY", this.boundOrigin.getY());
-			tag.putInt("BoundZ", this.boundOrigin.getZ());
-		}
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.storeNullable("Bound", BlockPos.CODEC, this.boundOrigin);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("BoundX")) {
-			this.boundOrigin = new BlockPos(tag.getInt("BoundX"), tag.getInt("BoundY"), tag.getInt("BoundZ"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		input.read("Bound", BlockPos.CODEC).ifPresent(blockPos -> this.boundOrigin = blockPos);
 	}
 
 	@Override
@@ -227,7 +226,7 @@ public class Banshee extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkBansheeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkBansheeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
@@ -305,7 +304,7 @@ public class Banshee extends AbstractGaiaEntity {
 			LivingEntity livingentity = this.banshee.getTarget();
 			if (livingentity != null) {
 				if (this.banshee.getBoundingBox().intersects(livingentity.getBoundingBox())) {
-					this.banshee.doHurtTarget(livingentity);
+					this.banshee.doHurtTarget(getServerLevel(this.banshee), livingentity);
 					this.banshee.setIsCharging(false);
 				} else {
 					double d0 = this.banshee.distanceToSqr(livingentity);

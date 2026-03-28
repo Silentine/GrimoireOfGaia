@@ -2,31 +2,35 @@ package gaia.client.renderer.layer;
 
 import gaia.client.ClientHandler;
 import gaia.client.model.CreepModel;
-import gaia.entity.Creep;
-import net.minecraft.client.model.EntityModel;
+import gaia.client.state.CreepRenderState;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class CreepPowerLayer extends EnergySwirlLayer<Creep, CreepModel> {
-	private static final ResourceLocation POWER_LOCATION = ResourceLocation.parse("textures/entity/creeper/creeper_armor.png");
+public class CreepPowerLayer extends EnergySwirlLayer<CreepRenderState, CreepModel> {
+	private static final Identifier POWER_LOCATION = Identifier.parse("textures/entity/creeper/creeper_armor.png");
 	private final CreepModel model;
 
-	public CreepPowerLayer(RenderLayerParent<Creep, CreepModel> renderLayerParent, EntityModelSet modelSet) {
+	public CreepPowerLayer(RenderLayerParent<CreepRenderState, CreepModel> renderLayerParent, EntityModelSet modelSet) {
 		super(renderLayerParent);
 		this.model = new CreepModel(modelSet.bakeLayer(ClientHandler.CREEP_ARMOR));
+	}
+
+	@Override
+	protected boolean isPowered(CreepRenderState state) {
+		return state.isPowered();
 	}
 
 	protected float xOffset(float offset) {
 		return offset * 0.01F;
 	}
 
-	protected ResourceLocation getTextureLocation() {
+	protected Identifier getTextureLocation() {
 		return POWER_LOCATION;
 	}
 
-	protected EntityModel<Creep> model() {
+	protected CreepModel model() {
 		return this.model;
 	}
 }

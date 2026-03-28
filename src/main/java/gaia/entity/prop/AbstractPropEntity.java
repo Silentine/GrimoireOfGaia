@@ -8,15 +8,15 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractPropEntity extends AgeableMob {
 
@@ -28,7 +28,7 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	public void tick() {
 		super.tick();
 
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 	}
@@ -40,14 +40,14 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	/**
 	 * A copy of Monster#checkAnyLightMonsterSpawnRules adjusted to take in an EntityType of AgeableMob
 	 */
-	public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends AgeableMob> entityType, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends AgeableMob> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return levelAccessor.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
 	/**
 	 * An adjusted version of Monster#checkMonsterSpawnRules adjusted for Prop mobs
 	 */
-	public static boolean checkPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return isDarkEnoughToSpawn(levelAccessor, pos, random) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
@@ -68,7 +68,7 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	/**
 	 * An adjusted version of Monster#checkMonsterSpawnRules adjusted for day time Prop mobs
 	 */
-	public static boolean checkDayPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkDayPropSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
@@ -119,7 +119,7 @@ public abstract class AbstractPropEntity extends AgeableMob {
 	 */
 	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return (int) (levelAccessor.dayTime() / 24000L) >= GaiaConfig.COMMON.spawnDaysSet.get();
+			return (int) (levelAccessor.getGameTime() / 24000L) >= GaiaConfig.COMMON.spawnDaysSet.get();
 		} else {
 			return true;
 		}
@@ -133,7 +133,7 @@ public abstract class AbstractPropEntity extends AgeableMob {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		this.finalizeAttributes();
 		return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 	}

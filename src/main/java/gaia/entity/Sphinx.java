@@ -7,8 +7,8 @@ import gaia.util.EnchantUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -17,11 +17,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,10 +38,12 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
+public class Sphinx extends AbstractGaiaEntity {
 	private int spawnTime;
 
 	public Sphinx(EntityType<? extends Monster> entityType, Level level) {
@@ -95,23 +96,22 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return source.isDirect() && super.hurt(source, input);
+			return source.isDirect() && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
-	@Override
 	public boolean isPowered() {
 		return getHealth() < getMaxHealth() / 2.0F;
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -121,8 +121,8 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime * 20, 0));
 				}
 			}
 
@@ -139,7 +139,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 			this.setDeltaMovement(motion.multiply(1.0D, 0.6D, 1.0D));
 		}
 
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
@@ -176,7 +176,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -184,21 +184,23 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		return data;
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -221,7 +223,7 @@ public class Sphinx extends AbstractGaiaEntity implements PowerableMob {
 		return SharedEntityData.CHUNK_LIMIT_3;
 	}
 
-	public static boolean checkSphinxSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkSphinxSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		boolean flag = checkAboveSeaLevel(levelAccessor, pos) && checkDaysPassed(levelAccessor);
 		if (GaiaConfig.COMMON.spawnLevel3Rain.get()) {
 			return flag && checkRaining(levelAccessor) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);

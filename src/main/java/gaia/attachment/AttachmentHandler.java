@@ -13,15 +13,16 @@ import java.util.function.Supplier;
 public class AttachmentHandler {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, GrimoireOfGaia.MOD_ID);
 
-	private static final Supplier<AttachmentType<Friended>> FRIENDED = ATTACHMENT_TYPES.register(
-			"friended", () -> AttachmentType.builder(Friended::new).build()
+	public static final Supplier<AttachmentType<Friended>> FRIENDED = ATTACHMENT_TYPES.register(
+			"is_friendly", () -> AttachmentType.builder(Friended::new).serialize(Friended.MAP_CODEC).build()
 	);
 
 	public static Friended getFriended(LivingEntity livingEntity) {
-		if(livingEntity instanceof AbstractGaiaEntity) {
+		if (livingEntity instanceof AbstractGaiaEntity) {
 			return livingEntity.getData(FRIENDED);
 		} else {
 			return null; //Do not attach this to non-gaia entities
 		}
 	}
+
 }

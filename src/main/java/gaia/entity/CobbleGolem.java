@@ -9,20 +9,20 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -38,8 +38,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 
@@ -88,36 +89,34 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
-			if (itemstack.canPerformAction(ItemAbilities.PICKAXE_DIG)) {
-				input += 5;
+			if (itemstack.is(ItemTags.PICKAXES)) {
+				damage += 5;
 			}
 		}
-
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
 		this.attackAnimationTick = 10;
-		this.level().broadcastEntityEvent(this, (byte) 4);
-		boolean flag = entityIn.hurt(damageSources().mobAttack(this), 7F + random.nextInt(15));
+		level.broadcastEntityEvent(this, (byte) 4);
+		boolean flag = target.hurtServer(level, damageSources().mobAttack(this), 7F + random.nextInt(15));
 		if (flag) {
 			DamageSource damagesource = this.damageSources().mobAttack(this);
-			entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, (double) 0.6F, 0.0D));
-			if (this.level() instanceof ServerLevel serverlevel) {
-				EnchantmentHelper.doPostAttackEffects(serverlevel, entityIn, damagesource);
-			}
+			target.setDeltaMovement(target.getDeltaMovement().add(0.0D, (double) 0.6F, 0.0D));
+			EnchantmentHelper.doPostAttackEffects(level, target, damagesource);
 		}
 
 		this.playSound(GaiaRegistry.COBBLE_GOLEM.getAttack(), 1.0F, 1.0F);
 		return flag;
 	}
 
+	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == 4) {
 			attackAnimationTick = 10;
@@ -135,7 +134,7 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	public void aiStep() {
 		super.aiStep();
 
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
@@ -150,19 +149,19 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 			BlockPos pos = new BlockPos(i, j, k);
 			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate, pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
 			}
 		}
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Nullable
@@ -194,9 +193,10 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 	@Override
 	public boolean canBeAffected(MobEffectInstance effectInstance) {
 		return effectInstance.getEffect() != MobEffects.POISON &&
-				effectInstance.getEffect() != MobEffects.HARM && super.canBeAffected(effectInstance);
+				effectInstance.getEffect() != MobEffects.INSTANT_DAMAGE && super.canBeAffected(effectInstance);
 	}
 
+	@Override
 	protected float getDamageAfterMagicAbsorb(DamageSource source, float damage) {
 		damage = super.getDamageAfterMagicAbsorb(source, damage);
 		if (source.getEntity() == this) {
@@ -215,7 +215,7 @@ public class CobbleGolem extends AbstractAssistGaiaEntity implements IDayMob {
 		return SharedEntityData.CHUNK_LIMIT_1;
 	}
 
-	public static boolean checkCobbleGolemSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkCobbleGolemSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

@@ -9,19 +9,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -39,7 +39,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -48,15 +48,15 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
+import org.jspecify.annotations.Nullable;
 
 public class EnderEye extends AbstractAssistGaiaEntity {
-	private static final ResourceLocation SPEED_ID = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_eye_speed");
+	private static final Identifier SPEED_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_eye_speed");
 	private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_ID, SharedEntityData.ATTACK_SPEED_BOOST, AttributeModifier.Operation.ADD_VALUE);
 	private static final EntityDataAccessor<Boolean> SCREAMING = SynchedEntityData.defineId(EnderEye.class, EntityDataSerializers.BOOLEAN);
 
@@ -84,11 +84,12 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		}
 	}
 
-	public boolean isAngryAt(LivingEntity livingEntity) {
-		if (!this.canAttack(livingEntity)) {
+	@Override
+	public boolean isAngryAt(LivingEntity entity, ServerLevel level) {
+		if (!this.canAttack(entity)) {
 			return false;
 		} else {
-			return this.getTarget() != null && livingEntity.getType() == EntityType.PLAYER;
+			return this.getTarget() != null && entity.getType() == EntityType.PLAYER;
 		}
 	}
 
@@ -109,7 +110,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		};
 		flyingpathnavigation.setCanOpenDoors(false);
 		flyingpathnavigation.setCanFloat(false);
-		flyingpathnavigation.setCanPassDoors(true);
+
 		return flyingpathnavigation;
 	}
 
@@ -155,15 +156,16 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		return this.entityData.get(SCREAMING);
 	}
 
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		if (this.isInvulnerableTo(source)) {
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		if (this.isInvulnerableTo(level, source)) {
 			return false;
 		} else if (!source.isDirect()) {
 			Entity entity = source.getDirectEntity();
 			boolean flag1;
-			if (entity instanceof ThrownPotion) {
-				flag1 = this.hurtWithCleanWater(source, (ThrownPotion) entity, input);
+			if (entity instanceof AbstractThrownPotion thrownPotion) {
+				flag1 = this.hurtWithCleanWater(level, source, thrownPotion, damage);
 			} else {
 				flag1 = false;
 			}
@@ -176,7 +178,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 
 			return flag1;
 		} else {
-			boolean flag = super.hurt(source, input);
+			boolean flag = super.hurtServer(level, source, damage);
 			if (!this.level().isClientSide() && !(source.getEntity() instanceof LivingEntity) && this.random.nextInt(10) != 0) {
 				this.teleportRandomly();
 			}
@@ -185,10 +187,10 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		}
 	}
 
-	private boolean hurtWithCleanWater(DamageSource pSource, ThrownPotion pPotion, float pAmount) {
+	private boolean hurtWithCleanWater(ServerLevel level, DamageSource pSource, AbstractThrownPotion pPotion, float pAmount) {
 		ItemStack itemstack = pPotion.getItem();
 		PotionContents potioncontents = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-		return potioncontents.is(Potions.WATER) && super.hurt(pSource, pAmount);
+		return potioncontents.is(Potions.WATER) && super.hurtServer(level, pSource, pAmount);
 	}
 
 	@Override
@@ -198,7 +200,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
@@ -216,34 +218,27 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		super.aiStep();
 	}
 
-	protected void customServerAiStep() {
+	@Override
+	protected void customServerAiStep(ServerLevel level) {
 		if (isInWaterOrRain()) {
 			hurt(damageSources().drown(), 1.0F);
 		}
 
-		if (this.level().isDay() && this.tickCount >= this.targetChangeTime + 600) {
+		if (level.isBrightOutside() && this.tickCount >= this.targetChangeTime + 600) {
 			float f = this.getLightLevelDependentMagicValue();
-			if (f > 0.5F && this.level().canSeeSky(this.blockPosition()) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+			if (f > 0.5F && level.canSeeSky(this.blockPosition()) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
 				this.setTarget((LivingEntity) null);
 				this.teleportRandomly();
 			}
 		}
 
-		super.customServerAiStep();
+		super.customServerAiStep(level);
 	}
 
-	public boolean shouldAttackPlayer(Player player) {
-		ItemStack itemstack = player.getInventory().armor.get(3);
-		if (itemstack.isEnderMask(player, null)) {
-			return false;
-		} else {
-			Vec3 vec3 = player.getViewVector(1.0F).normalize();
-			Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
-			double d0 = vec31.length();
-			vec31 = vec31.normalize();
-			double d1 = vec3.dot(vec31);
-			return d1 > 1.0D - 0.025D / d0 && player.hasLineOfSight(this);
-		}
+
+	private boolean isBeingStaredBy(Player player) {
+		return PLAYER_NOT_WEARING_DISGUISE_ITEM_FOR_TARGET.test(player, this) &&
+				this.isLookingAtMe(player, 0.025, true, false, this.getEyeY());
 	}
 
 	protected boolean teleportRandomly() {
@@ -260,7 +255,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 	private boolean teleport(double x, double y, double z) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
 
-		while (blockpos$mutableblockpos.getY() > this.level().getMinBuildHeight() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
+		while (blockpos$mutableblockpos.getY() > this.level().getMinY() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
 			blockpos$mutableblockpos.move(Direction.DOWN);
 		}
 
@@ -292,10 +287,12 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		return this.teleport(d1, d2, d3);
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
@@ -319,13 +316,13 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -333,7 +330,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkEnderEyeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkEnderEyeSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
@@ -346,16 +343,16 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		private final TargetingConditions startAggroTargetConditions;
 		private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
 
-		public LookForPlayerGoal(EnderEye enderEye, @Nullable Predicate<LivingEntity> livingEntityPredicate) {
+		public LookForPlayerGoal(EnderEye enderEye, TargetingConditions.@Nullable Selector livingEntityPredicate) {
 			super(enderEye, Player.class, 10, false, false, livingEntityPredicate);
 			this.enderEye = enderEye;
-			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((livingEntity) -> {
-				return enderEye.shouldAttackPlayer((Player) livingEntity);
+			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((livingEntity, level) -> {
+				return enderEye.isBeingStaredBy((Player) livingEntity);
 			});
 		}
 
 		public boolean canUse() {
-			this.pendingTarget = this.enderEye.level().getNearestPlayer(this.startAggroTargetConditions, this.enderEye);
+			this.pendingTarget = getServerLevel(this.enderEye).getNearestPlayer(this.startAggroTargetConditions, this.enderEye);
 			return this.pendingTarget != null;
 		}
 
@@ -371,14 +368,15 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 
 		public boolean canContinueToUse() {
 			if (this.pendingTarget != null) {
-				if (!this.enderEye.shouldAttackPlayer(this.pendingTarget)) {
+				if (!this.enderEye.isBeingStaredBy(this.pendingTarget)) {
 					return false;
 				} else {
 					this.enderEye.lookAt(this.pendingTarget, 10.0F, 10.0F);
 					return true;
 				}
 			} else {
-				return this.target != null && this.continueAggroTargetConditions.test(this.enderEye, this.target) || super.canContinueToUse();
+				return this.target != null && this.continueAggroTargetConditions.test(getServerLevel(this.enderEye), this.enderEye, this.target) ||
+						super.canContinueToUse();
 			}
 		}
 
@@ -395,7 +393,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 				}
 			} else {
 				if (this.target != null && !this.enderEye.isPassenger()) {
-					if (this.enderEye.shouldAttackPlayer((Player) this.target)) {
+					if (this.enderEye.isBeingStaredBy((Player) this.target)) {
 						if (this.target.distanceToSqr(this.enderEye) < 16.0D) {
 							this.enderEye.teleportRandomly();
 						}

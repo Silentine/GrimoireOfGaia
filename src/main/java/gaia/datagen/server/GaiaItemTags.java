@@ -5,27 +5,25 @@ import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 public class GaiaItemTags extends ItemTagsProvider {
-	public static final TagKey<Item> HEAD = ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "head"));
-	public static final TagKey<Item> BODY = ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "body"));
-	public static final TagKey<Item> HANDS = ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "hands"));
-	public static final TagKey<Item> NECKLACE = ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "necklace"));
-	public static final TagKey<Item> RING = ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "ring"));
+	public static final TagKey<Item> HEAD = ItemTags.create(Identifier.fromNamespaceAndPath("curios", "head"));
+	public static final TagKey<Item> BODY = ItemTags.create(Identifier.fromNamespaceAndPath("curios", "body"));
+	public static final TagKey<Item> HANDS = ItemTags.create(Identifier.fromNamespaceAndPath("curios", "hands"));
+	public static final TagKey<Item> NECKLACE = ItemTags.create(Identifier.fromNamespaceAndPath("curios", "necklace"));
+	public static final TagKey<Item> RING = ItemTags.create(Identifier.fromNamespaceAndPath("curios", "ring"));
 
-	public GaiaItemTags(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
-		super(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), GrimoireOfGaia.MOD_ID, existingFileHelper);
+	public GaiaItemTags(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider, GrimoireOfGaia.MOD_ID);
 	}
 
 	@Override

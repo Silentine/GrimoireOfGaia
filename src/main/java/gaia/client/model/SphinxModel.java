@@ -1,9 +1,7 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.SphinxRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Sphinx;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,7 +12,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
+public class SphinxModel extends EntityModel<SphinxRenderState> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart headeyes;
@@ -28,6 +26,7 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 	private final ModelPart tail;
 
 	public SphinxModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("sphinx");
 		ModelPart body3 = this.root.getChild("body3");
 		this.tail = body3.getChild("tail");
@@ -140,42 +139,36 @@ public class SphinxModel extends EntityModel<Sphinx> implements HeadedModel {
 	}
 
 	@Override
-	public void prepareMobModel(Sphinx sphinx, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(sphinx, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !sphinx.isBaby();
-	}
+	public void setupAnim(SphinxRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Sphinx sphinx, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 
 		// body
-		rightwing.yRot = Mth.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
-		leftwing.yRot = Mth.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
+		rightwing.yRot = Mth.cos(state.ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * state.walkAnimationSpeed * 0.5F;
+		leftwing.yRot = Mth.cos(state.ageInTicks * 0.6662F) * 1.0F * state.walkAnimationSpeed * 0.5F;
 		rightwing.yRot -= 0.5235988F;
 		leftwing.yRot += 0.5235988F;
 
-		tail.yRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
+		tail.yRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed;
 
 		// legs
-		rightleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
-		leftleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
+		rightleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
+		leftleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
 		rightleg.xRot -= 1.9F;
 		leftleg.xRot -= 1.9F;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {

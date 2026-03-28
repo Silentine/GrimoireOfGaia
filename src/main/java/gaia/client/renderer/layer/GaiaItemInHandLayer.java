@@ -4,54 +4,47 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 
-public class GaiaItemInHandLayer<T extends LivingEntity, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
+public class GaiaItemInHandLayer<T extends ArmedEntityRenderState, M extends EntityModel<T> & ArmedModel> extends RenderLayer<T, M> {
 	private final HumanoidArm humanoidArm;
-	private final ItemInHandRenderer renderer;
 
-	public GaiaItemInHandLayer(RenderLayerParent<T, M> renderLayerParent, HumanoidArm hand, ItemInHandRenderer renderer) {
+	public GaiaItemInHandLayer(RenderLayerParent<T, M> renderLayerParent, HumanoidArm hand) {
 		super(renderLayerParent);
 		this.humanoidArm = hand;
-		this.renderer = renderer;
 	}
 
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T livingEntity, float limbSwing,
-					   float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Override
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, T state, float yRot, float xRot) {
 		boolean rightHanded = this.humanoidArm == HumanoidArm.RIGHT;
-		ItemStack heldStack = rightHanded ? livingEntity.getMainHandItem() : livingEntity.getOffhandItem();
+		ItemStackRenderState heldStack = rightHanded ? state.rightHandItemState : state.leftHandItemState;
 		if (!heldStack.isEmpty()) {
 			poseStack.pushPose();
-			if (this.getParentModel().young) {
-				float f = 0.5F;
+			if (state.isBaby) {
 				poseStack.translate(0.0D, 0.75D, 0.0D);
 				poseStack.scale(0.5F, 0.5F, 0.5F);
 			}
 
-			this.renderArmWithItem(livingEntity, heldStack,
-					rightHanded ? ItemDisplayContext.THIRD_PERSON_RIGHT_HAND : ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
-					poseStack, bufferSource, packedLight);
+			this.renderArmWithItem(state, heldStack, poseStack, submitNodeCollector);
 			poseStack.popPose();
 		}
 	}
 
-	protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemDisplayContext transformType,
-									 PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-		if (!stack.isEmpty()) {
+	protected void renderArmWithItem(T state, ItemStackRenderState stackRenderState, PoseStack poseStack, SubmitNodeCollector nodeCollector) {
+		if (stackRenderState != null) {
 			poseStack.pushPose();
-			this.getParentModel().translateToHand(humanoidArm, poseStack);
+			this.getParentModel().translateToHand(state, humanoidArm, poseStack);
 			poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
 			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = humanoidArm == HumanoidArm.LEFT;
 			poseStack.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -0.625D);
-			renderer.renderItem(livingEntity, stack, transformType, flag, poseStack, bufferSource, packedLight);
+			stackRenderState.submit(poseStack, nodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 			poseStack.popPose();
 		}
 	}

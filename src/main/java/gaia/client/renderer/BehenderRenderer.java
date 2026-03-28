@@ -5,14 +5,15 @@ import gaia.client.ClientHandler;
 import gaia.client.model.BehenderModel;
 import gaia.client.renderer.layer.AuraLayer;
 import gaia.client.renderer.layer.BehenderEyesLayer;
+import gaia.client.state.BehenderRenderState;
 import gaia.entity.Behender;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class BehenderRenderer extends MobRenderer<Behender, BehenderModel> {
-	public static final ResourceLocation[] BEHENDER_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/behender/behender.png")
+public class BehenderRenderer extends MobRenderer<Behender, BehenderRenderState, BehenderModel> {
+	public static final Identifier[] BEHENDER_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/behender/behender.png")
 	};
 
 	public BehenderRenderer(Context context) {
@@ -22,7 +23,19 @@ public class BehenderRenderer extends MobRenderer<Behender, BehenderModel> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Behender behender) {
-		return BEHENDER_LOCATIONS[behender.getVariant()];
+	public BehenderRenderState createRenderState() {
+		return new BehenderRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Behender entity, BehenderRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.powered = entity.isPowered();
+	}
+
+	@Override
+	public Identifier getTextureLocation(BehenderRenderState renderState) {
+		return BEHENDER_LOCATIONS[renderState.variant];
 	}
 }

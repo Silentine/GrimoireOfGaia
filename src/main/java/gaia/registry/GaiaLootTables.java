@@ -2,8 +2,8 @@ package gaia.registry;
 
 import gaia.GrimoireOfGaia;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 public class GaiaLootTables {
@@ -26,6 +26,6 @@ public class GaiaLootTables {
 	public static final ResourceKey<LootTable> CHEST_TABLES = register("entities/chest_tables");
 
 	private static ResourceKey<LootTable> register(String path) {
-		return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path));
+		return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path));
 	}
 }

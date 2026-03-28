@@ -7,14 +7,19 @@ import gaia.registry.helper.MobReg;
 import gaia.registry.helper.PropReg;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.neoforge.registries.DeferredItem;
 import xyz.brassgoggledcoders.patchouliprovider.BookBuilder;
 import xyz.brassgoggledcoders.patchouliprovider.CategoryBuilder;
@@ -34,6 +39,8 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 
 	@Override
 	protected void addBooks(Consumer<BookBuilder> consumer, HolderLookup.Provider provider) {
+		HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = provider.lookupOrThrow(Registries.ENCHANTMENT);
+
 		//Initialize the book builder
 		BookBuilder bookBuilder = createBookBuilder("gaiapedia",
 				prefix("name"), prefix("landing"), provider)
@@ -52,18 +59,23 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 
 		//Info category
 		CategoryBuilder assistCategory = bookBuilder.addCategory("assist", prefix("category.assist.name"),
-				prefix("category.assist.desc"), new ItemStack(Items.OAK_SAPLING));
+				prefix("category.assist.desc"), new ItemStackTemplate(Items.OAK_SAPLING));
 
 		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.CENTAUR), 0.75F, 0.0F,
 				Items.LEATHER, Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get(), GaiaRegistry.BAG_ARROWS.get());
 		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.COBBLE_GOLEM), 1.0F, 0.0F,
 				Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get());
 
-		ItemStack sharpnessBook = new ItemStack(Items.ENCHANTED_BOOK);
-		sharpnessBook.enchant(provider.holderOrThrow(Enchantments.SHARPNESS), 1);
+		ItemEnchantments.Mutable sharpnessEnchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+		sharpnessEnchantments.set(enchantmentLookup.getOrThrow(Enchantments.SHARPNESS), 1);
+		DataComponentPatch components = DataComponentPatch.builder()
+				.set(DataComponents.STORED_ENCHANTMENTS, sharpnessEnchantments.toImmutable())
+				.build();
+		ItemStackTemplate sharpnessBook = new ItemStackTemplate(Items.ENCHANTED_BOOK, components);
+
 		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.CYCLOPS), 1.0F, 0.0F,
-				new ItemStack(GaiaRegistry.FUR.get()), new ItemStack(Items.IRON_NUGGET),
-				new ItemStack(GaiaRegistry.BOX_IRON.get()), sharpnessBook, new ItemStack(GaiaRegistry.KNUCKLES.get()));
+				new ItemStackTemplate(GaiaRegistry.FUR.get()), new ItemStackTemplate(Items.IRON_NUGGET),
+				new ItemStackTemplate(GaiaRegistry.BOX_IRON.get()), sharpnessBook, new ItemStackTemplate(GaiaRegistry.KNUCKLES.get()));
 
 		assistCategory = addMobEntry(assistCategory, "assist", generateHelper(GaiaRegistry.DRYAD), 1.0F, 0.0F,
 				GaiaRegistry.TAPROOT.get(), Items.DARK_OAK_LOG, Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get(), GaiaRegistry.DOLL_DRYAD_ITEM.get());
@@ -107,10 +119,15 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		CategoryBuilder hostileCategory = bookBuilder.addCategory("hostile", prefix("category.hostile.name"),
 				prefix("category.hostile.desc"), "minecraft:stone_axe");
 
-		ItemStack lootingBook = new ItemStack(Items.ENCHANTED_BOOK);
-		lootingBook.enchant(provider.holderOrThrow(Enchantments.LOOTING), 1);
+		ItemEnchantments.Mutable lootingEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+		lootingEnchants.set(enchantmentLookup.getOrThrow(Enchantments.LOOTING), 1);
+		DataComponentPatch lootingComponents = DataComponentPatch.builder()
+				.set(DataComponents.STORED_ENCHANTMENTS, lootingEnchants.toImmutable())
+				.build();
+		ItemStackTemplate lootingBook = new ItemStackTemplate(Items.ENCHANTED_BOOK, lootingComponents);
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.ANT_SALVAGER), 0.5F, -0.5F,
-				new ItemStack(GaiaRegistry.MEAT.get()), new ItemStack(Items.IRON_NUGGET), new ItemStack(GaiaRegistry.BAG_BOOK.get()), lootingBook);
+				new ItemStackTemplate(GaiaRegistry.MEAT.get()), new ItemStackTemplate(Items.IRON_NUGGET),
+				new ItemStackTemplate(GaiaRegistry.BAG_BOOK.get()), lootingBook);
 
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.ANT_WORKER), 1.0F, 0.0F,
 				Items.GREEN_DYE, GaiaRegistry.HONEYDEW.get(), Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get());
@@ -125,10 +142,14 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.BONE_KNIGHT), 1.0F, 0.0F,
 				Items.REDSTONE, Items.GOLD_NUGGET, GaiaRegistry.BOX_OVERWORLD.get(), Items.REDSTONE_BLOCK, Items.SKELETON_SKULL);
 
-		ItemStack fishingLuckBook = new ItemStack(Items.ENCHANTED_BOOK);
-		fishingLuckBook.enchant(provider.holderOrThrow(Enchantments.LUCK_OF_THE_SEA), 1);
+		ItemEnchantments.Mutable luckEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+		luckEnchants.set(enchantmentLookup.getOrThrow(Enchantments.LUCK_OF_THE_SEA), 1);
+		DataComponentPatch luckComponents = DataComponentPatch.builder()
+				.set(DataComponents.STORED_ENCHANTMENTS, luckEnchants.toImmutable())
+				.build();
+		ItemStackTemplate fishingLuckBook = new ItemStackTemplate(Items.ENCHANTED_BOOK, luckComponents);
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.CECAELIA), 1.0F, 0.0F,
-				new ItemStack(GaiaRegistry.SHINY_PEARL.get()), new ItemStack(Items.CLAY), new ItemStack(Items.IRON_NUGGET), fishingLuckBook);
+				new ItemStackTemplate(GaiaRegistry.SHINY_PEARL.get()), new ItemStackTemplate(Items.CLAY), new ItemStackTemplate(Items.IRON_NUGGET), fishingLuckBook);
 
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.COBBLESTONE_GOLEM), 1.0F, 0.0F,
 				Items.IRON_NUGGET, Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(),
@@ -177,7 +198,8 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 				GaiaRegistry.SOULFIRE.get(), Items.GOLD_NUGGET, GaiaRegistry.BOX_GOLD.get(), GaiaRegistry.BAG_BOOK.get(),
 				GaiaRegistry.FAN_FIRE.get(), GaiaRegistry.DOLL_NINE_TAILS_ITEM.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.ONI), 1.0F, 0.0F,
-				new ItemStack(GaiaRegistry.SOULFIRE.get()), new ItemStack(Items.IRON_NUGGET), new ItemStack(GaiaRegistry.BOX_IRON.get()), sharpnessBook);
+				new ItemStackTemplate(GaiaRegistry.SOULFIRE.get()), new ItemStackTemplate(Items.IRON_NUGGET),
+				new ItemStackTemplate(GaiaRegistry.BOX_IRON.get()), sharpnessBook);
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.ORC), 1.0F, 0.0F,
 				GaiaRegistry.MEAT.get(), Items.IRON_NUGGET, GaiaRegistry.BOX_IRON.get(), GaiaRegistry.BAG_BOOK.get());
 		hostileCategory = addLockedMobEntry(hostileCategory, "hostile", generateHelper(GaiaRegistry.SHAMAN), 0.75F, 0.0F,
@@ -223,7 +245,7 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 	}
 
 	private CategoryBuilder addMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
-										boolean extraPage, float scale, float offset, ItemStack... drops) {
+										boolean extraPage, float scale, float offset, ItemStackTemplate... drops) {
 		String path = mobReg.name();
 		String entryPrefix = "entry." + path;
 		//Add Entry
@@ -241,11 +263,10 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		if (extraPage) {
 			entryBuilder.addTextPage(prefix(entryPrefix + ".info3")).build();
 		}
-		for (ItemStack stack : drops) {
-			if (stack.getItem() == Items.AIR) break;
-			entryBuilder.addSpotlightPage(stack)
+		for (ItemStackTemplate template : drops) {
+			entryBuilder = entryBuilder.addSpotlightPage(template)
 					.setLinkRecipe(true)
-					.setText(prefix("drop." + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".info"))
+					.setText(prefix("drop." + template.item().unwrapKey().orElseThrow().identifier().getPath() + ".info"))
 					.build();
 		}
 
@@ -253,24 +274,24 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 	}
 
 	private CategoryBuilder addMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
-										float scale, float offset, ItemStack... drops) {
+										float scale, float offset, ItemStackTemplate... drops) {
 		return addMobEntry(builder, category, mobReg, false, scale, offset, drops);
 	}
 
 	private CategoryBuilder addMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
 										float scale, float offset, Item... drops) {
 		return addMobEntry(builder, category, mobReg, false, scale, offset,
-				Arrays.stream(drops).map(item -> new ItemStack(item)).toList().toArray(new ItemStack[]{}));
+				Arrays.stream(drops).map(ItemStackTemplate::new).toList().toArray(new ItemStackTemplate[]{}));
 	}
 
 	private CategoryBuilder addExtendedMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
 												float scale, float offset, Item... drops) {
 		return addMobEntry(builder, category, mobReg, true, scale, offset,
-				Arrays.stream(drops).map(item -> new ItemStack(item)).toList().toArray(new ItemStack[]{}));
+				Arrays.stream(drops).map(ItemStackTemplate::new).toList().toArray(new ItemStackTemplate[]{}));
 	}
 
 	private CategoryBuilder addLockedMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
-											  boolean extraPage, float scale, float offset, ItemStack... drops) {
+											  boolean extraPage, float scale, float offset, ItemStackTemplate... drops) {
 		String path = mobReg.name();
 		String entryPrefix = "entry." + path;
 		String advancement = GaiaAdvancementProvider.entityTypeAdvancementMap.get(mobReg.entityType()).id().toString();
@@ -291,11 +312,10 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 		if (extraPage) {
 			entryBuilder.addTextPage(prefix(entryPrefix + ".info3")).build();
 		}
-		for (ItemStack stack : drops) {
-			if (stack.getItem() == Items.AIR) break;
-			entryBuilder.addSpotlightPage(stack)
+		for (ItemStackTemplate template : drops) {
+			entryBuilder.addSpotlightPage(template)
 					.setLinkRecipe(true)
-					.setText(prefix("drop." + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".info"))
+					.setText(prefix("drop." + template.item().unwrapKey().orElseThrow().identifier().getPath() + ".info"))
 					.build();
 		}
 
@@ -303,20 +323,20 @@ public class GaiaPatchouliProvider extends PatchouliBookProvider {
 	}
 
 	private CategoryBuilder addLockedMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
-											  float scale, float offset, ItemStack... drops) {
+											  float scale, float offset, ItemStackTemplate... drops) {
 		return addLockedMobEntry(builder, category, mobReg, false, scale, offset, drops);
 	}
 
 	private CategoryBuilder addLockedMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
 											  float scale, float offset, Item... drops) {
 		return addLockedMobEntry(builder, category, mobReg, false, scale, offset,
-				Arrays.stream(drops).map(item -> new ItemStack(item)).toList().toArray(new ItemStack[]{}));
+				Arrays.stream(drops).filter(drop -> drop != Items.AIR).map(ItemStackTemplate::new).toList().toArray(new ItemStackTemplate[]{}));
 	}
 
 	private CategoryBuilder addExtendedLockedMobEntry(CategoryBuilder builder, String category, RegHelper mobReg,
 													  float scale, float offset, Item... drops) {
 		return addLockedMobEntry(builder, category, mobReg, true, scale, offset,
-				Arrays.stream(drops).map(item -> new ItemStack(item)).toList().toArray(new ItemStack[]{}));
+				Arrays.stream(drops).map(ItemStackTemplate::new).toList().toArray(new ItemStackTemplate[]{}));
 	}
 
 	private String prefix(String name) {

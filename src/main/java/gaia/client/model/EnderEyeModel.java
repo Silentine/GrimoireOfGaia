@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.EnderEye;
+import gaia.client.state.EnderEyeRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class EnderEyeModel extends EntityModel<EnderEye> {
+public class EnderEyeModel extends EntityModel<EnderEyeRenderState> {
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart eyelid1;
@@ -22,6 +20,7 @@ public class EnderEyeModel extends EntityModel<EnderEye> {
 	private final ModelPart rightwing;
 
 	public EnderEyeModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("ender_eye");
 		this.body = this.root.getChild("body");
 		this.eyelid1 = this.body.getChild("eyelid1");
@@ -57,40 +56,38 @@ public class EnderEyeModel extends EntityModel<EnderEye> {
 	}
 
 	@Override
-	public void setupAnim(EnderEye enderEye, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(EnderEyeRenderState state) {
+		super.setupAnim(state);
+
 		float floatSpeed = 0.5F;
 		float floatRange = 3.0F;
 
 		// anchor
-		root.y = 15.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+		root.y = 15.0F - Mth.cos((state.ageInTicks + 1.5F) * floatSpeed) * floatRange;
 
 		// body
-		body.yRot = netHeadYaw / 57.295776F;
+		body.yRot = state.yRot / 57.295776F;
 
 		float swingSpeed = 0.5F;
 		float angleRange = 0.2F;
 
-		eyelid1.xRot = Mth.cos(ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
-		eyelid2.xRot = Mth.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
+		eyelid1.xRot = Mth.cos(state.ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
+		eyelid2.xRot = Mth.cos(state.ageInTicks * swingSpeed) * angleRange * 0.5F;
 		eyelid2.xRot = (20 * Mth.DEG_TO_RAD);
 
 		float swingSpeed2 = 0.5F;
 		float angleRange2 = 1.0F;
 		float wingDefaultAngleZ = 1.570796F;
 
-		leftwing.zRot = Mth.cos(ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * 0.5F;
+		leftwing.zRot = Mth.cos(state.ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * 0.5F;
 		leftwing.zRot += wingDefaultAngleZ;
-		rightwing.zRot = Mth.cos(ageInTicks * swingSpeed2) * angleRange2 * 0.5F;
+		rightwing.zRot = Mth.cos(state.ageInTicks * swingSpeed2) * angleRange2 * 0.5F;
 		rightwing.zRot -= wingDefaultAngleZ;
 
 		float tailDefaultAngleX = 0.7853982F;
 
-		tail1.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
+		tail1.xRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
 		tail1.xRot += tailDefaultAngleX;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

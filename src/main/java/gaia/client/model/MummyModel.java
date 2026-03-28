@@ -1,10 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.MummyRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Mummy;
-import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -15,10 +13,14 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwingAnimationType;
 
-public class MummyModel extends EntityModel<Mummy> implements HeadedModel, ArmedModel {
+public class MummyModel extends EntityModel<MummyRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart head;
@@ -30,6 +32,7 @@ public class MummyModel extends EntityModel<Mummy> implements HeadedModel, Armed
 	private final ModelPart rightleg;
 
 	public MummyModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("mummy");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
@@ -89,44 +92,42 @@ public class MummyModel extends EntityModel<Mummy> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void prepareMobModel(Mummy mummy, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(mummy, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !mummy.isBaby();
-	}
+	public void setupAnim(MummyRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Mummy mummy, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
 
-		if (attackTime > 0.0F) {
-			holdingMelee();
+		if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
-		if (!riding) {
-			AnimationUtils.animateZombieArms(this.leftarm, this.rightarm, mummy.isAggressive(), this.attackTime, ageInTicks);
+		if (!state.isRiding) {
+			animateZombieArms(this.leftarm, this.rightarm, state.isAggressive, state);
 		} else {
-			rightarm.zRot = (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
-			rightarm.xRot = (Mth.sin(ageInTicks * 0.067F) * 0.025F);
-			leftarm.zRot = (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
-			leftarm.xRot = (Mth.sin(ageInTicks * 0.067F) * 0.025F);
+			rightarm.zRot = (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
+			rightarm.xRot = (Mth.sin(state.ageInTicks * 0.067F) * 0.025F);
+			leftarm.zRot = (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.2617994F;
+			leftarm.xRot = (Mth.sin(state.ageInTicks * 0.067F) * 0.025F);
 		}
 
 		// legs
-		rightleg.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount) * 0.5F;
-		leftleg.xRot = (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount) * 0.5F;
+		rightleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed) * 0.5F;
+		leftleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed) * 0.5F;
 		rightleg.yRot = 0.0F;
 		leftleg.yRot = 0.0F;
 		rightleg.zRot = -0.0349066F;
 		leftleg.zRot = 0.0349066F;
 
-		if (riding) {
+		if (state.isRiding) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -138,32 +139,60 @@ public class MummyModel extends EntityModel<Mummy> implements HeadedModel, Armed
 		}
 	}
 
-	public void holdingMelee() {
+	public static void animateZombieArms(ModelPart leftArm, ModelPart rightArm, boolean aggressive, MummyRenderState state) {
+		if (!state.isBaby || state.getMainHandItemStack() == ItemStack.EMPTY) {
+			boolean animateAttack = state.swingAnimationType != SwingAnimationType.STAB;
+			if (animateAttack) {
+				float attackTime = state.attackTime;
+				float armDrop = (float) -Math.PI / (aggressive ? 1.5F : 2.25F);
+				float attackYRotModifier = Mth.sin(attackTime * (float) Math.PI);
+				float attackXRotModifier = Mth.sin((1.0F - (1.0F - attackTime) * (1.0F - attackTime)) * (float) Math.PI);
+				rightArm.zRot = 0.0F;
+				rightArm.yRot = -(0.1F - attackYRotModifier * 0.6F);
+				rightArm.xRot = armDrop;
+				rightArm.xRot += attackYRotModifier * 1.2F - attackXRotModifier * 0.4F;
+				leftArm.zRot = 0.0F;
+				leftArm.yRot = 0.1F - attackYRotModifier * 0.6F;
+				leftArm.xRot = armDrop;
+				leftArm.xRot += attackYRotModifier * 1.2F - attackXRotModifier * 0.4F;
+			}
+
+			bobArms(rightArm, leftArm, state.ageInTicks);
+		}
+	}
+
+	public static void bobArms(ModelPart rightArm, ModelPart leftArm, float ageInTicks) {
+		bobModelPart(rightArm, ageInTicks, 1.0F);
+		bobModelPart(leftArm, ageInTicks, -1.0F);
+	}
+
+	public static void bobModelPart(ModelPart modelPart, float ageInTicks, float scale) {
+		modelPart.zRot = modelPart.zRot + scale * (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F);
+		modelPart.xRot = modelPart.xRot + scale * (Mth.sin(ageInTicks * 0.067F) * 0.05F);
+	}
+
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		// right arm
 		rightarm.xRot -= (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.yRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 
 		// left arm
 		leftarm.xRot -= (float) ((double) leftarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		leftarm.yRot += (bodytop.yRot * 2.0F);
-		leftarm.zRot -= (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		leftarm.zRot -= (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -175,7 +204,7 @@ public class MummyModel extends EntityModel<Mummy> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(-0.0625, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}

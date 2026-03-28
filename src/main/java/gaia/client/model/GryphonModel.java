@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Gryphon;
+import gaia.client.state.GryphonRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,9 +9,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.util.Mth;
 
-public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
+public class GryphonModel extends EntityModel<GryphonRenderState> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart backleftleg1;
@@ -25,6 +24,7 @@ public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
 	private final ModelPart tail1, tail2, tail3;
 
 	public GryphonModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("gryphon");
 		ModelPart body2 = this.root.getChild("body2");
 		ModelPart body1 = body2.getChild("body1");
@@ -108,27 +108,29 @@ public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
 	}
 
 	@Override
-	public void setupAnim(Gryphon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		// head
-		head.yRot = netHeadYaw / 57.295776F;
+	public void setupAnim(GryphonRenderState state) {
+		super.setupAnim(state);
 
-		if (attackTime > 0.0F) {
-			holdingMelee();
+		// head
+		head.yRot = state.yRot / 57.295776F;
+
+		if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
 		// arms
 		float baseFrontRot = -(Mth.DEG_TO_RAD * 60);
-		frontrightleg1.xRot = baseFrontRot + Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-		frontleftleg1.xRot = baseFrontRot + Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+		frontrightleg1.xRot = baseFrontRot + Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
+		frontleftleg1.xRot = baseFrontRot + Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 
 		// body
-		rightwing.yRot = Mth.cos(ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount * 0.5F;
-		leftwing.yRot = Mth.cos(ageInTicks * 0.6662F) * 1.0F * limbSwingAmount * 0.5F;
+		rightwing.yRot = Mth.cos(state.ageInTicks * 0.6662F + (float) Math.PI) * 1.0F * state.walkAnimationSpeed * 0.5F;
+		leftwing.yRot = Mth.cos(state.ageInTicks * 0.6662F) * 1.0F * state.walkAnimationSpeed * 0.5F;
 		rightwing.yRot = rightwing.yRot - 0.1745329F;
 		leftwing.yRot = leftwing.yRot + 0.1745329F;
 
-		tail1.yRot = Mth.cos(((float) ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
-		tail2.yRot = Mth.cos(((float) ageInTicks * 7) * Mth.DEG_TO_RAD) * (7 * Mth.DEG_TO_RAD);
+		tail1.yRot = Mth.cos(((float) state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (5 * Mth.DEG_TO_RAD);
+		tail2.yRot = Mth.cos(((float) state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (7 * Mth.DEG_TO_RAD);
 
 		tail1.xRot = -(60 * Mth.DEG_TO_RAD);
 		tail2.xRot = (30 * Mth.DEG_TO_RAD);
@@ -136,28 +138,24 @@ public class GryphonModel extends EntityModel<Gryphon> implements HeadedModel {
 
 		// legs
 		float baseBackRot = -(Mth.DEG_TO_RAD * 110);
-		backrightleg1.xRot = baseBackRot - Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
-		backleftleg1.xRot = baseBackRot - Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
+		backrightleg1.xRot = baseBackRot - Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
+		backleftleg1.xRot = baseBackRot - Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		head.xRot -= (float) ((double) head.xRot - ((double) f7 * 1.2D + (double) f8));
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {

@@ -6,36 +6,50 @@ import gaia.client.ClientHandler;
 import gaia.client.model.GelatinousSlimeModel;
 import gaia.client.renderer.layer.GelatinousSlimeLayer;
 import gaia.client.renderer.layer.SlimeItemLayer;
+import gaia.client.state.GelatinousSlimeRenderState;
 import gaia.entity.GelatinousSlime;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
 
-public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, GelatinousSlimeModel> {
-	public static final ResourceLocation[] GELATINOUS_SLIME_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gelatinous_slime/gelatinous_slime.png")};
+public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, GelatinousSlimeRenderState, GelatinousSlimeModel> {
+	public static final Identifier[] GELATINOUS_SLIME_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gelatinous_slime/gelatinous_slime.png")};
 
 	public GelatinousSlimeRenderer(Context context) {
 		super(context, new GelatinousSlimeModel(context.bakeLayer(ClientHandler.GELATINOUS_SLIME)), ClientHandler.smallShadow);
 		this.addLayer(new GelatinousSlimeLayer(this, context.getModelSet()));
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
 		this.addLayer(new SlimeItemLayer(this));
 	}
 
-	protected void scale(GelatinousSlime gelatinousSlime, PoseStack poseStack, float partialTicks) {
-		float f = 0.999F;
-		poseStack.scale(0.999F, 0.999F, 0.999F);
-		poseStack.translate(0.0D, (double) 0.001F, 0.0D);
-		float f1 = 1.0F;
-		float f2 = Mth.lerp(partialTicks, gelatinousSlime.oSquish, gelatinousSlime.squish) / (f1 * 0.5F + 1.0F);
-		float f3 = 1.0F / (f2 + 1.0F);
-		poseStack.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+	@Override
+	protected void scale(GelatinousSlimeRenderState state, PoseStack poseStack) {
+		float s = 0.999F;
+		poseStack.scale(s, s, s);
+		poseStack.translate(0.0F, 0.001F, 0.0F);
+		float ss = state.squish / (1 * 0.5F + 1.0F);
+		float w = 1.0F / (ss + 1.0F);
+		poseStack.scale(w, 1.0F / w, w);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(GelatinousSlime gelatinousSlime) {
-		return GELATINOUS_SLIME_LOCATIONS[gelatinousSlime.getVariant()];
+	public GelatinousSlimeRenderState createRenderState() {
+		return new GelatinousSlimeRenderState();
+	}
+
+	@Override
+	public void extractRenderState(GelatinousSlime entity, GelatinousSlimeRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.squish = Mth.lerp(partialTicks, entity.oSquish, entity.squish);
+		itemModelResolver.updateForLiving(state.mainItemRenderState, entity.getMainHandItem(), ItemDisplayContext.GROUND, entity);
+	}
+
+	@Override
+	public Identifier getTextureLocation(GelatinousSlimeRenderState renderState) {
+		return GELATINOUS_SLIME_LOCATIONS[renderState.variant];
 	}
 }

@@ -14,7 +14,6 @@
       "translate": "advancement.grimoireofgaia.root.desc"
     },
     "icon": {
-      "count": 1,
       "id": "grimoireofgaia:doll_dryad"
     },
     "show_toast": false,

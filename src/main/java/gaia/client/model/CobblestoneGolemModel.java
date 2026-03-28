@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.CobblestoneGolem;
+import gaia.client.state.CobblestoneGolemRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
+public class CobblestoneGolemModel extends EntityModel<CobblestoneGolemRenderState> {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart rightarm;
@@ -21,6 +19,7 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 	private final ModelPart leftleg;
 
 	public CobblestoneGolemModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("cobblestone_golem");
 		ModelPart body = this.root.getChild("bodymid").getChild("bodylower").getChild("body");
 		this.head = body.getChild("head");
@@ -75,45 +74,39 @@ public class CobblestoneGolemModel extends EntityModel<CobblestoneGolem> {
 	}
 
 	@Override
-	public void prepareMobModel(CobblestoneGolem cobbleGolem, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(cobbleGolem, limbSwing, limbSwingAmount, partialTick);
-		int i = cobbleGolem.getAttackAnimationTick();
+	public void setupAnim(CobblestoneGolemRenderState state) {
+		super.setupAnim(state);
+
+		int i = state.attackAnimationTick;
 
 		float rotation = 0;
 		if (i > 0) {
-			leftarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
-			rightarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - partialTick, 10.0F);
+			leftarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - state.partialTick, 10.0F);
+			rightarm.xRot = rotation - 2.0F + 1.5F * Mth.triangleWave((float) i - state.partialTick, 10.0F);
 		} else {
-			leftarm.xRot = rotation + (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
-			rightarm.xRot = rotation + (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
+			leftarm.xRot = rotation + (-0.2F + 1.5F * Mth.triangleWave(state.walkAnimationPos, 13.0F)) * state.walkAnimationSpeed;
+			rightarm.xRot = rotation + (-0.2F - 1.5F * Mth.triangleWave(state.walkAnimationPos, 13.0F)) * state.walkAnimationSpeed;
 		}
-	}
 
-	@Override
-	public void setupAnim(CobblestoneGolem cobbleGolem, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = (headPitch / 57.295776F) - 0.2617994F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = (state.xRot / 57.295776F) - 0.2617994F;
 
 		// arms
 
 		leftarm.zRot = 0.0F;
 		rightarm.zRot = 0.0F;
 
-		leftarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-		leftarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-		rightarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
-		rightarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		leftarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+		leftarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
+		rightarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) - 0.2617994F;
+		rightarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
 
 		// legs
-		rightleg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingAmount;
+		rightleg.xRot = -1.5F * Mth.triangleWave(state.walkAnimationPos, 13.0F) * state.walkAnimationSpeed;
 		rightleg.xRot -= 0.1745329F;
-		leftleg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingAmount;
+		leftleg.xRot = 1.5F * Mth.triangleWave(state.walkAnimationPos, 13.0F) * state.walkAnimationSpeed;
 		leftleg.xRot -= 0.1745329F;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

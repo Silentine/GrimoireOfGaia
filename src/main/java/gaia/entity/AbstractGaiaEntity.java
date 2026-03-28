@@ -2,13 +2,11 @@ package gaia.entity;
 
 import gaia.attachment.AttachmentHandler;
 import gaia.attachment.friended.Friended;
-import gaia.attachment.friended.IFriended;
 import gaia.config.GaiaConfig;
 import gaia.entity.type.IDayMob;
 import gaia.registry.GaiaRegistry;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,11 +22,11 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -48,9 +46,11 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.Tags;
+import org.jspecify.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -61,9 +61,9 @@ import java.util.function.Consumer;
 public abstract class AbstractGaiaEntity extends Monster {
 	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AbstractGaiaEntity.class, EntityDataSerializers.INT);
 	protected Goal targetPlayerGoal;
-	protected final Goal targetMobGoal = new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
+	protected final Goal targetMobGoal = new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity, level) -> {
 		return livingEntity instanceof Enemy && !(livingEntity instanceof Creeper) &&
-				(livingEntity instanceof AbstractAssistGaiaEntity assistMob && assistMob.isAngryAt(this));
+				(livingEntity instanceof AbstractAssistGaiaEntity assistMob && assistMob.isAngryAt(this, level));
 	});
 
 	public AbstractGaiaEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -137,9 +137,9 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	protected GaiaHorse createHorse(DifficultyInstance difficulty) {
-		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level());
+		Entity entity = GaiaRegistry.HORSE.getEntityType().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 		if (entity instanceof GaiaHorse horse) {
-			horse.finalizeSpawn((ServerLevel) this.level(), difficulty, MobSpawnType.JOCKEY, (SpawnGroupData) null);
+			horse.finalizeSpawn((ServerLevel) this.level(), difficulty, EntitySpawnReason.JOCKEY, (SpawnGroupData) null);
 			horse.setPos(this.getX(), this.getY(), this.getZ());
 			horse.setTamed(true);
 			horse.setAge(0);
@@ -161,9 +161,12 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	protected boolean playerDetection(int range, TargetingConditions conditions) {
 		AABB box = new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1).inflate(range);
-		List<Player> list = this.level().getNearbyPlayers(conditions, this, box);
+		if (this.level() instanceof ServerLevel serverLevel) {
+			List<Player> list = serverLevel.getNearbyPlayers(conditions, this, box);
 
-		return !list.isEmpty();
+			return !list.isEmpty();
+		}
+		return false;
 	}
 
 	/**
@@ -173,7 +176,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * @param action The action to apply to the entities
 	 */
 	protected void beaconMonster(int range, Consumer<LivingEntity> action) {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(range);
 			List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, aabb);
 			for (LivingEntity livingEntity : entities) {
@@ -185,7 +188,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-	                                    MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 		this.finalizeAttributes();
 
@@ -226,18 +229,16 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("Variant", getVariant());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("Variant", getVariant());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("Variant")) {
-			int variant = tag.getInt("Variant");
-			setVariant(variant);
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		int variant = input.getIntOr("Variant", 0);
+		setVariant(variant);
 		setupFriendGoals(isFriendly());
 	}
 
@@ -255,10 +256,15 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * @param friendedBy the player who set the entity to friendly
 	 */
 	public void setFriendly(boolean value, UUID friendedBy) {
-		Friended friended = AttachmentHandler.getFriended(this);
+		Friended friended = getData(AttachmentHandler.FRIENDED);
 		this.setTarget((LivingEntity) null);
-		friended.setFriendly(value);
-		friended.setFriendedBy(friendedBy);
+		Friended newFriended = new Friended.Builder()
+				.setFriended(value)
+				.setFriendedBy(friendedBy).build();
+		if (friended.equals(newFriended)) {
+			setData(AttachmentHandler.FRIENDED, newFriended);
+			onFriendlyChange(newFriended);
+		}
 		setupFriendGoals(value);
 		if (GaiaConfig.COMMON.friendlyPersistence.get()) {
 			setPersistenceRequired();
@@ -312,23 +318,12 @@ public abstract class AbstractGaiaEntity extends Monster {
 		}
 	}
 
-	@Override
-	public void aiStep() {
-		Friended friended = AttachmentHandler.getFriended(this);
-		if (friended.isChanged()) {
-			onFriendlyChange(friended);
-			friended.setChanged(false);
-		}
-
-		super.aiStep();
-	}
-
 	/**
 	 * Called when the friendly status of the entity changes
 	 *
 	 * @param cap the capability
 	 */
-	public void onFriendlyChange(IFriended cap) {
+	public void onFriendlyChange(Friended cap) {
 
 	}
 
@@ -344,11 +339,11 @@ public abstract class AbstractGaiaEntity extends Monster {
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
+	public boolean canAttack(LivingEntity target) {
 		if (this instanceof AbstractAssistGaiaEntity) {
-			return type != getType() && (type != EntityType.CREEPER && super.canAttackType(type));
+			return !target.is(this) && (!target.is(EntityType.CREEPER) && super.canAttack(target));
 		}
-		return super.canAttackType(type);
+		return super.canAttack(target);
 	}
 
 	@Override
@@ -356,7 +351,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 		return this instanceof IDayMob ? 0.0F : super.getWalkTargetValue(pos, levelReader);
 	}
 
-	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkGaiaDaySpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaylight(levelAccessor, pos) && checkAnyLightMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 
@@ -446,7 +441,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 * Checks if it's raining so the entity can spawn
 	 */
 	protected static boolean checkRaining(ServerLevelAccessor levelAccessor) {
-		return GaiaConfig.COMMON.spawnWeather.get() || levelAccessor.getLevelData().isRaining();
+		return GaiaConfig.COMMON.spawnWeather.get() || levelAccessor.getLevel().isRaining();
 	}
 
 	/**
@@ -454,7 +449,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	 */
 	protected static boolean checkDaysPassed(ServerLevelAccessor levelAccessor) {
 		if (GaiaConfig.COMMON.spawnDaysPassed.get()) {
-			return (int) (levelAccessor.dayTime() / 24000L) >= GaiaConfig.COMMON.spawnDaysSet.get();
+			return (int) (levelAccessor.getGameTime() / 24000L) >= GaiaConfig.COMMON.spawnDaysSet.get();
 		} else {
 			return true;
 		}
@@ -462,6 +457,6 @@ public abstract class AbstractGaiaEntity extends Monster {
 
 	protected boolean hasShield() {
 		ItemStack offStack = this.getItemBySlot(EquipmentSlot.OFFHAND);
-		return offStack.canPerformAction(ItemAbilities.SHIELD_BLOCK);
+		return offStack.is(Tags.Items.TOOLS_SHIELD); //TODO: Check behavior since ItemAbilities SHIELD is gone?
 	}
 }

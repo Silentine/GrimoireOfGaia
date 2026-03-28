@@ -5,10 +5,10 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.EnchantUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -18,10 +18,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -42,8 +42,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidType;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class Sharko extends AbstractGaiaEntity {
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Sharko.class, EntityDataSerializers.INT);
@@ -116,9 +118,9 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -128,8 +130,8 @@ public class Sharko extends AbstractGaiaEntity {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 2));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime * 20, 2));
 				}
 			}
 
@@ -141,7 +143,7 @@ public class Sharko extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (isPassenger()) {
 				stopRiding();
 			}
@@ -152,7 +154,7 @@ public class Sharko extends AbstractGaiaEntity {
 				} else {
 					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
-					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
+					addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
 				}
 			}
@@ -196,7 +198,7 @@ public class Sharko extends AbstractGaiaEntity {
 
 	private void setBuff() {
 		this.level().broadcastEntityEvent(this, (byte) 7);
-		addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
+		addEffect(new MobEffectInstance(MobEffects.SPEED, 20 * 60, 0));
 	}
 
 	boolean wantsToSwim() {
@@ -205,7 +207,7 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	public void updateSwimming() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
 				this.navigation = this.waterNavigation;
 				this.setSwimming(true);
@@ -231,7 +233,7 @@ public class Sharko extends AbstractGaiaEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		setGoals(0);
@@ -243,17 +245,16 @@ public class Sharko extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("AnimationState", getAnimationState());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("AnimationState", getAnimationState());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("AnimationState")) {
-			setAnimationState(tag.getInt("AnimationState"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		int state = input.getIntOr("AnimationState", 0);
+		setAnimationState(state);
 	}
 
 	@Override
@@ -291,7 +292,7 @@ public class Sharko extends AbstractGaiaEntity {
 		return reader.isUnobstructed(this);
 	}
 
-	public static boolean checkSharkoSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkSharkoSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		boolean daysPassed = checkDaysPassed(levelAccessor);
 		boolean isNight = !checkDaytime(levelAccessor);
 		boolean inWater = checkInWater(levelAccessor, pos, 20);

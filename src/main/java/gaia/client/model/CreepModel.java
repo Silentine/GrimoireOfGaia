@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Creep;
+import gaia.client.state.CreepRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,7 +11,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class CreepModel extends EntityModel<Creep> {
+public class CreepModel extends EntityModel<CreepRenderState> {
 	private final ModelPart root;
 	private final ModelPart body1;
 	private final ModelPart head1;
@@ -30,6 +28,7 @@ public class CreepModel extends EntityModel<Creep> {
 	private final ModelPart leg6;
 
 	public CreepModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("creep");
 		this.body1 = this.root.getChild("body1");
 		ModelPart body2 = this.body1.getChild("body2");
@@ -88,31 +87,29 @@ public class CreepModel extends EntityModel<Creep> {
 	}
 
 	@Override
-	public void setupAnim(Creep entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(CreepRenderState state) {
+		super.setupAnim(state);
+
 		// head
-		head1.xRot = Mth.cos(ageInTicks * 0.8F + (float) Math.PI) * 0.4F * limbSwingAmount * 0.5F;
+		head1.xRot = Mth.cos(state.ageInTicks * 0.8F + (float) Math.PI) * 0.4F * state.walkAnimationSpeed * 0.5F;
 		head2.xRot = head1.xRot - 0.2617994F;
 		head3.xRot = head1.xRot - 0.4363323F;
 		head1.xRot -= 0.6108652F;
-		smallhead1.xRot = Mth.cos(ageInTicks * 1.2F + (float) Math.PI) * 0.6F * limbSwingAmount * 0.5F;
+		smallhead1.xRot = Mth.cos(state.ageInTicks * 1.2F + (float) Math.PI) * 0.6F * state.walkAnimationSpeed * 0.5F;
 		smallhead2.xRot = smallhead1.xRot - 0.1745329F;
 		smallhead3.xRot = smallhead1.xRot + 0.0872665F;
 		smallhead1.xRot -= 0.2617994F;
 
 		// body
-		body1.yRot = netHeadYaw / 57.295776F;
-		body1.xRot = headPitch / 57.295776F;
+		body1.yRot = state.yRot / 57.295776F;
+		body1.xRot = state.xRot / 57.295776F;
 		// legs
-		leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		leg3.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leg4.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		leg5.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leg6.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leg1.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 1.4F * state.walkAnimationSpeed;
+		leg2.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * state.walkAnimationSpeed;
+		leg3.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 1.4F * state.walkAnimationSpeed;
+		leg4.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * state.walkAnimationSpeed;
+		leg5.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 1.4F * state.walkAnimationSpeed;
+		leg6.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * state.walkAnimationSpeed;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

@@ -2,18 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "tag": "c:seeds/wheat"
-    },
-    {
-      "item": "grimoireofgaia:experience_iron"
-    }
+    "#c:seeds/wheat",
+    "#c:seeds/wheat",
+    "grimoireofgaia:experience_iron"
   ],
   "result": {
-    "count": 1,
     "id": "grimoireofgaia:monster_feed"
   }
 }

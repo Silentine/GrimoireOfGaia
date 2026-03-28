@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.AntSalvager;
+import gaia.client.state.AntSalvagerRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class AntSalvagerModel extends EntityModel<AntSalvager> {
+public class AntSalvagerModel extends EntityModel<AntSalvagerRenderState> {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart rightarm;
@@ -20,6 +18,7 @@ public class AntSalvagerModel extends EntityModel<AntSalvager> {
 	private final ModelPart thorax1;
 
 	public AntSalvagerModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("ant_ranger");
 		ModelPart bodylower = this.root.getChild("bodylower");
 		ModelPart bodyupper = bodylower.getChild("bodyupper");
@@ -84,27 +83,25 @@ public class AntSalvagerModel extends EntityModel<AntSalvager> {
 	}
 
 	@Override
-	public void setupAnim(AntSalvager antSalvager, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(AntSalvagerRenderState state) {
+		super.setupAnim(state);
+
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		// body
 		float swingSpeed = 0.1F;
 		float angleRange = 0.1F;
 		float mandableDefaultAngleY = 0.1745329F;
 
-		rightarm.yRot = Mth.cos(ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
+		rightarm.yRot = Mth.cos(state.ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
 		rightarm.yRot -= mandableDefaultAngleY;
-		leftarm.yRot = Mth.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
+		leftarm.yRot = Mth.cos(state.ageInTicks * swingSpeed) * angleRange * 0.5F;
 		leftarm.yRot += mandableDefaultAngleY;
 
 		// body
-		thorax1.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		thorax1.xRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

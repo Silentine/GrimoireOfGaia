@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.SirenRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Siren;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -14,11 +13,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.BowItem;
 
-public class SirenModel extends EntityModel<Siren> implements HeadedModel, ArmedModel {
+public class SirenModel extends EntityModel<SirenRenderState> implements HeadedModel, ArmedModel {
 	private static final double CYCLES_PER_BLOCK = 0.1D;
 	private final float[][] undulationCycle = new float[][]{
 			{5F, 0F, -11.25F, -45F, -22.5F, 0F, 22.5F, 45F},
@@ -47,6 +48,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 	private final ModelPart[] tails = new ModelPart[8];
 
 	public SirenModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("siren");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		this.bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
@@ -141,18 +143,16 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void prepareMobModel(Siren siren, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(siren, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !siren.isBaby();
-	}
+	public void setupAnim(SirenRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Siren siren, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 		hair1.yRot = head.yRot;
 		hair1.xRot = head.xRot;
 		hair2.xRot = (head.xRot) * 0.75F;
@@ -160,22 +160,22 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		// arms
 		float armextraDefaultAngleX = 0.261799F;
 
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
 
-		if (siren.isAggressive() && (siren.getMainHandItem().getItem() instanceof BowItem)) {
-			holdingBow(ageInTicks);
-		} else if (attackTime > 0.0F) {
-			holdingMelee();
+		if (state.isAggressive && (state.getMainHandItemStack().getItem() instanceof BowItem)) {
+			holdingBow(state);
+		} else if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
-		rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-		leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+		rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+		leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.4363323F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 		rightarmextra.zRot = armextraDefaultAngleX;
 		leftarmextra.zRot = -armextraDefaultAngleX;
@@ -193,17 +193,17 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		tails[3].xRot = 0.785398F;
 		tails[7].xRot = 0.3926991F;
 
-		int cycleIndex = (int) ((limbSwing * CYCLES_PER_BLOCK) % undulationCycle.length);
+		int cycleIndex = (int) ((state.walkAnimationPos * CYCLES_PER_BLOCK) % undulationCycle.length);
 
-		tails[4].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][4]));
-		tails[5].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][5]));
-		tails[6].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][6]));
-		tails[7].zRot = 0.3F * Mth.cos(limbSwing * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][7]));
+		tails[4].zRot = 0.3F * Mth.cos(state.walkAnimationPos * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][4]));
+		tails[5].zRot = 0.3F * Mth.cos(state.walkAnimationPos * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][5]));
+		tails[6].zRot = 0.3F * Mth.cos(state.walkAnimationPos * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][6]));
+		tails[7].zRot = 0.3F * Mth.cos(state.walkAnimationPos * (Mth.DEG_TO_RAD * undulationCycle[cycleIndex][7]));
 	}
 
-	private void holdingBow(float ageInTicks) {
-		float f = Mth.sin(attackTime * (float) Math.PI);
-		float f1 = Mth.sin((1.0F - (1.0F - attackTime) * (1.0F - attackTime)) * (float) Math.PI);
+	private void holdingBow(ArmedEntityRenderState state) {
+		float f = Mth.sin(state.attackTime * (float) Math.PI);
+		float f1 = Mth.sin((1.0F - (1.0F - state.attackTime) * (1.0F - state.attackTime)) * (float) Math.PI);
 
 		rightarm.zRot = -0.3F;
 		leftarm.zRot = 0.3F;
@@ -213,32 +213,28 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 		leftarm.xRot = -((float) Math.PI / 2F);
 		rightarm.xRot -= f * 1.2F - f1 * 0.4F;
 		leftarm.xRot -= f * 1.2F - f1 * 0.4F;
-		rightarm.zRot += Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		leftarm.zRot -= Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		rightarm.zRot += Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F;
+		leftarm.zRot -= Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -250,7 +246,7 @@ public class SirenModel extends EntityModel<Siren> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(-0.125D, 0.5D, 0);
 		if (arm == HumanoidArm.LEFT) {
 			poseStack.translate(0.125F, 0, 0.0625D);

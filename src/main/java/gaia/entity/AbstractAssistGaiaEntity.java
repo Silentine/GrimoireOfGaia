@@ -1,23 +1,23 @@
 package gaia.entity;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.UUID;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractAssistGaiaEntity extends AbstractGaiaEntity implements NeutralMob {
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-	private int remainingPersistentAngerTime;
-	@Nullable
-	private UUID persistentAngerTarget;
+	private long remainingTime;
+	private @Nullable EntityReference<LivingEntity> persistentAngerTarget;
 
 	public AbstractAssistGaiaEntity(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
@@ -29,49 +29,49 @@ public abstract class AbstractAssistGaiaEntity extends AbstractGaiaEntity implem
 	}
 
 	@Override
-	public boolean isPreventingPlayerRest(Player player) {
-		return this.isAngryAt(player);
-	}
-
-	protected void customServerAiStep() {
-		this.updatePersistentAnger((ServerLevel) this.level(), true);
+	public boolean isPreventingPlayerRest(ServerLevel level, Player player) {
+		return this.isAngryAt(player, level);
 	}
 
 	@Override
-	public int getRemainingPersistentAngerTime() {
-		return this.remainingPersistentAngerTime;
-	}
-
-	@Override
-	public void setRemainingPersistentAngerTime(int remainingAngerTime) {
-		this.remainingPersistentAngerTime = remainingAngerTime;
-	}
-
-	@Nullable
-	@Override
-	public UUID getPersistentAngerTarget() {
-		return this.persistentAngerTarget;
-	}
-
-	@Override
-	public void setPersistentAngerTarget(@Nullable UUID uuid) {
-		this.persistentAngerTarget = uuid;
+	protected void customServerAiStep(ServerLevel level) {
+		this.updatePersistentAnger(level, true);
 	}
 
 	@Override
 	public void startPersistentAngerTimer() {
-		this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+		this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		this.addPersistentAngerSaveData(tag);
+	public void setPersistentAngerEndTime(long endTime) {
+		this.remainingTime = endTime;
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.readPersistentAngerSaveData(this.level(), tag);
+	public long getPersistentAngerEndTime() {
+		return this.remainingTime;
+	}
+
+	@Override
+	public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> persistentAngerTarget) {
+		this.persistentAngerTarget = persistentAngerTarget;
+	}
+
+	@Override
+	public @Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
+		return persistentAngerTarget;
+	}
+
+	@Override
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		this.addPersistentAngerSaveData(output);
+	}
+
+	@Override
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.readPersistentAngerSaveData(this.level(), input);
 	}
 }

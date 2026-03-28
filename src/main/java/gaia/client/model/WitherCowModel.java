@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.WitherCow;
+import gaia.client.state.WitherCowRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,9 +9,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.util.Mth;
 
-public class WitherCowModel extends EntityModel<WitherCow> implements HeadedModel {
+public class WitherCowModel extends EntityModel<WitherCowRenderState> implements HeadedModel {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart ribs;
@@ -23,6 +22,7 @@ public class WitherCowModel extends EntityModel<WitherCow> implements HeadedMode
 	private final ModelPart leg4;
 
 	public WitherCowModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("wither_cow");
 		this.head = this.root.getChild("body1").getChild("head");
 		this.ribs = this.root.getChild("ribs");
@@ -65,46 +65,44 @@ public class WitherCowModel extends EntityModel<WitherCow> implements HeadedMode
 	}
 
 	@Override
-	public void setupAnim(WitherCow witherCow, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(WitherCowRenderState state) {
+		super.setupAnim(state);
+
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = -90 + (headPitch / 57.295776F);
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = -90 + (state.xRot / 57.295776F);
 		head.yRot -= 0.1745329F;
 
-		if (attackTime > 0.0F) {
-			holdingMelee();
+		if (state.attackTime > 0.0F) {
+			holdingMelee(state);
 		}
 
 		// body
-		ribs.zRot = Mth.cos((ageInTicks * 24) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		ribs.zRot = Mth.cos((state.ageInTicks * 24) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		ribs.zRot -= 0.1745329F;
 
 		// legs
-		leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
-		leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
+		leg1.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed;
+		leg2.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed;
 		leg3.xRot = leg2.xRot - 0.0872665F;
 		leg4.xRot = leg1.xRot;
 		leg1.xRot += 0.1745329F;
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		head.xRot -= (float) ((double) head.xRot - ((double) f7 * 1.2D + (double) f8));
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {

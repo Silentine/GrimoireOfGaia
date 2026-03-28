@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class FanItem extends Item {
 
 	public FanItem(Properties properties) {
-		super(properties.durability(780).rarity(Rarity.RARE));
+		super(properties.durability(780).rarity(Rarity.RARE).repairable(Items.PAPER));
 	}
 
 	public static ItemAttributeModifiers createAttributes(float attackDamage) {
@@ -40,21 +40,16 @@ public class FanItem extends Item {
 	}
 
 	@Override
-	public boolean isValidRepairItem(ItemStack stack, ItemStack repairStack) {
-		return repairStack.is(Items.PAPER);
-	}
-
-	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (!attacker.level().isClientSide) {
-			stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
+	public void hurtEnemy(ItemStack itemStack, LivingEntity mob, LivingEntity attacker) {
+		if (!attacker.level().isClientSide()) {
+			itemStack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 		}
-		return super.hurtEnemy(stack, target, attacker);
+		super.hurtEnemy(itemStack, mob, attacker);
 	}
 
 	@Override
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			stack.hurtAndBreak(2, livingEntity, EquipmentSlot.MAINHAND);
 		}
 

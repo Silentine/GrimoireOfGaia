@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "grimoireofgaia:item/projectile_magic"
+  }
+}

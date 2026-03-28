@@ -7,11 +7,11 @@ import gaia.registry.GaiaTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -19,8 +19,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,8 +29,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class CyanFlower extends AbstractPropEntity {
 
@@ -57,17 +59,16 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = damage;
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		Entity entity = source.getEntity();
 		if (entity instanceof Player player) {
 			ItemStack heldStack = player.getItemInHand(player.getUsedItemHand());
-			if (heldStack.canPerformAction(ItemAbilities.SHOVEL_DIG)) {
-				input = input * 1.5F;
+			if (heldStack.is(ItemTags.SHOVELS)) {
+				damage = damage * 1.5F;
 			}
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -76,12 +77,12 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	private void spawnMandragora() {
-		if (this.level().getDifficulty() != Difficulty.PEACEFUL) {
-			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(this.level());
+		if (this.level().getDifficulty() != Difficulty.PEACEFUL && this.level() instanceof ServerLevel serverLevel) {
+			Mandragora mandragora = GaiaRegistry.MANDRAGORA.getEntityType().create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 			if (mandragora != null) {
-				mandragora.moveTo(blockPosition(), 0.0F, 0.0F);
-				mandragora.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockPosition()), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-				this.level().addFreshEntity(mandragora);
+				mandragora.snapTo(blockPosition(), 0.0F, 0.0F);
+				mandragora.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPosition()), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+				serverLevel.addFreshEntity(mandragora);
 			}
 		}
 
@@ -91,7 +92,7 @@ public class CyanFlower extends AbstractPropEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		yBodyRot = 180.0F;
@@ -114,13 +115,13 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	protected void playParticleEffect(boolean smoke) {
@@ -161,7 +162,7 @@ public class CyanFlower extends AbstractPropEntity {
 	protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean killedByPlayer) {
 		if (killedByPlayer) {
 			if (random.nextInt(4) == 0) {
-				if (!this.level().isClientSide) {
+				if (!this.level().isClientSide()) {
 					spawnMandragora();
 					playSound(GaiaSounds.MANDRAGORA_SCREAM.get(), 2.0F, 2.0F);
 				}
@@ -200,7 +201,7 @@ public class CyanFlower extends AbstractPropEntity {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		return false;
 	}
 
@@ -209,7 +210,7 @@ public class CyanFlower extends AbstractPropEntity {
 		return 0.0F;
 	}
 
-	public static boolean checkCyanFlowerSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkCyanFlowerSpawnRules(EntityType<? extends AgeableMob> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) &&
 				checkTagBlocks(levelAccessor, pos, GaiaTags.FLOWER_SPAWNABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) &&

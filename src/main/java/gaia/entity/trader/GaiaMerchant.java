@@ -1,8 +1,6 @@
 package gaia.entity.trader;
 
 import gaia.util.SharedEntityData;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -25,20 +23,20 @@ import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TradeWithPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.monster.Evoker;
-import net.minecraft.world.entity.monster.Illusioner;
-import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Vex;
-import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.monster.Zoglin;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.monster.illager.Illusioner;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public abstract class GaiaMerchant extends AbstractVillager {
 	private int wealth;
@@ -90,10 +88,12 @@ public abstract class GaiaMerchant extends AbstractVillager {
 		return null;
 	}
 
+	@Override
 	protected SoundEvent getTradeUpdatedSound(boolean success) {
 		return success ? SoundEvents.WANDERING_TRADER_YES : SoundEvents.WANDERING_TRADER_NO;
 	}
 
+	@Override
 	public SoundEvent getNotifyTradeSound() {
 		return SoundEvents.WANDERING_TRADER_YES;
 	}
@@ -104,13 +104,14 @@ public abstract class GaiaMerchant extends AbstractVillager {
 		return null;
 	}
 
+	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		if (this.isAlive() && !this.isTrading() && !this.isBaby()) {
 			if (hand == InteractionHand.MAIN_HAND) {
 				player.awardStat(Stats.TALKED_TO_VILLAGER);
 			}
 
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				if (this.getOffers().isEmpty()) {
 					return InteractionResult.CONSUME;
 				}
@@ -119,22 +120,24 @@ public abstract class GaiaMerchant extends AbstractVillager {
 				this.openTradingScreen(player, this.getDisplayName(), 1);
 			}
 
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);
 		}
 	}
 
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	@Override
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 
-		tag.putInt("Riches", wealth);
+		output.putInt("Riches", wealth);
 	}
 
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	@Override
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 
-		wealth = tag.getInt("Riches");
+		wealth = input.getIntOr("Riches", 0);
 
 		this.setAge(Math.max(0, this.getAge()));
 	}
@@ -148,15 +151,15 @@ public abstract class GaiaMerchant extends AbstractVillager {
 	}
 
 	@Override
-	protected void updateTrades() {
-		VillagerTrades.ItemListing[] itemListings = getTrades().get(1);
-		VillagerTrades.ItemListing[] itemListings1 = getTrades().get(2);
-		if (itemListings != null && itemListings1 != null) {
-			MerchantOffers merchantoffers = this.getOffers();
-			this.addOffersFromItemListings(merchantoffers, itemListings, 10);
-			this.addOffersFromItemListings(merchantoffers, itemListings1, 5);
-		}
+	protected void updateTrades(ServerLevel level) { // TODO: RE-implement merchant trades!
+//		VillagerTrades.ItemListing[] itemListings = getTrades().get(1);
+//		VillagerTrades.ItemListing[] itemListings1 = getTrades().get(2);
+//		if (itemListings != null && itemListings1 != null) {
+//			MerchantOffers merchantoffers = this.getOffers();
+//			this.addOffersFromItemListings(merchantoffers, itemListings, 10);
+//			this.addOffersFromItemListings(merchantoffers, itemListings1, 5);
+//		}
 	}
 
-	public abstract Int2ObjectMap<VillagerTrades.ItemListing[]> getTrades();
+//	public abstract Int2ObjectMap<VillagerTrades.ItemListing[]> getTrades();
 }

@@ -7,7 +7,6 @@ import gaia.registry.GaiaSounds;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -18,10 +17,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,18 +36,20 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class Deathword extends AbstractGaiaEntity {
 
@@ -99,7 +100,7 @@ public class Deathword extends AbstractGaiaEntity {
 		};
 		flyingpathnavigation.setCanOpenDoors(false);
 		flyingpathnavigation.setCanFloat(false);
-		flyingpathnavigation.setCanPassDoors(true);
+
 		return flyingpathnavigation;
 	}
 
@@ -126,15 +127,15 @@ public class Deathword extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -156,13 +157,13 @@ public class Deathword extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && isPassenger()) {
+		if (!this.level().isClientSide() && isPassenger()) {
 			stopRiding();
 		}
 
 		this.beaconMonster(6, (entity) -> {
 			if (!(entity instanceof Player)) {
-				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60 * 20, 1, true, true));
+				entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 60 * 20, 1, true, true));
 			}
 		});
 
@@ -175,10 +176,10 @@ public class Deathword extends AbstractGaiaEntity {
 				if (spawnTimer == 60) {
 					this.level().broadcastEntityEvent(this, (byte) 9);
 
-					if (!this.level().isClientSide) {
+					if (this.level() instanceof ServerLevel serverLevel) {
 						switch (random.nextInt(4)) {
 							case 0 -> {
-								boolean flag = EventHooks.canEntityGrief(this.level(), this);
+								boolean flag = EventHooks.canEntityGrief(serverLevel, this);
 								if (!flag) {
 									setSpawn(0);
 								} else {
@@ -229,23 +230,23 @@ public class Deathword extends AbstractGaiaEntity {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Creeper summon = EntityType.CREEPER.create(this.level());
+				Creeper summon = EntityType.CREEPER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					EventHooks.finalizeMobSpawn(summon, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-					this.level().addFreshEntity(summon);
+					summon.snapTo(blockpos, 0.0F, 0.0F);
+					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+					serverLevel.addFreshEntity(summon);
 				}
 			}
 
 			if (id == 1) {
-				Skeleton summon = EntityType.SKELETON.create(this.level());
+				Skeleton summon = EntityType.SKELETON.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					EventHooks.finalizeMobSpawn(summon, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
+					summon.snapTo(blockpos, 0.0F, 0.0F);
+					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -253,24 +254,24 @@ public class Deathword extends AbstractGaiaEntity {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					this.level().addFreshEntity(summon);
+					serverLevel.addFreshEntity(summon);
 				}
 			}
 
 			if (id == 2) {
-				Spider summon = EntityType.SPIDER.create(this.level());
+				Spider summon = EntityType.SPIDER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					EventHooks.finalizeMobSpawn(summon, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
-					this.level().addFreshEntity(summon);
+					summon.snapTo(blockpos, 0.0F, 0.0F);
+					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
+					serverLevel.addFreshEntity(summon);
 				}
 			}
 
 			if (id == 3) {
-				Zombie summon = EntityType.ZOMBIE.create(this.level());
+				Zombie summon = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					EventHooks.finalizeMobSpawn(summon, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
+					summon.snapTo(blockpos, 0.0F, 0.0F);
+					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -278,7 +279,7 @@ public class Deathword extends AbstractGaiaEntity {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					this.level().addFreshEntity(summon);
+					serverLevel.addFreshEntity(summon);
 				}
 			}
 		}
@@ -311,7 +312,7 @@ public class Deathword extends AbstractGaiaEntity {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -323,13 +324,13 @@ public class Deathword extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 		setCombatTask();
 	}
 
@@ -353,10 +354,12 @@ public class Deathword extends AbstractGaiaEntity {
 		return MovementEmission.NONE;
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
+	@Override
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource damageSource) {
 		return false;
 	}
 
+	@Override
 	protected void checkFallDamage(double p_27754_, boolean p_27755_, BlockState state, BlockPos pos) {
 	}
 
@@ -365,7 +368,7 @@ public class Deathword extends AbstractGaiaEntity {
 		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkDeathwordSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkDeathwordSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

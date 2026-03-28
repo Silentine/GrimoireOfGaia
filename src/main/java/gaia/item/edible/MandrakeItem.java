@@ -5,9 +5,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class MandrakeItem extends EdibleEffectItem {
 	public MandrakeItem(Properties properties) {
@@ -15,10 +16,9 @@ public class MandrakeItem extends EdibleEffectItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		list.add(Component.translatable("text.grimoireofgaia.gain_hearts", 2));
-		list.add(Component.translatable("text.grimoireofgaia.lose_hunger", 4));
-		super.appendHoverText(stack, context, list, flag);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.gain_hearts", 2));
+		builder.accept(Component.translatable("text.grimoireofgaia.lose_hunger", 4));
 	}
 
 	@Override

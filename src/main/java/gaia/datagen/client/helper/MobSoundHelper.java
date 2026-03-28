@@ -3,7 +3,7 @@ package gaia.datagen.client.helper;
 import gaia.GrimoireOfGaia;
 import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinition.Sound;
 import net.neoforged.neoforge.common.data.SoundDefinition.SoundType;
@@ -156,7 +156,7 @@ public class MobSoundHelper {
 		}
 
 		private SoundDefinition.Sound sound(String name) {
-			return SoundDefinition.Sound.sound(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name), SoundType.SOUND);
+			return SoundDefinition.Sound.sound(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name), SoundType.SOUND);
 		}
 
 		public MobSoundHelper build() {

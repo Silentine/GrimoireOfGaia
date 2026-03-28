@@ -4,8 +4,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class GigaGearItem extends FuelItem {
 	public GigaGearItem(Properties properties) {
@@ -13,8 +14,7 @@ public class GigaGearItem extends FuelItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.giga_gear.desc").withStyle(ChatFormatting.GRAY));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.giga_gear.desc").withStyle(ChatFormatting.GRAY));
 	}
 }

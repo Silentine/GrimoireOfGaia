@@ -6,8 +6,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -18,12 +19,12 @@ public class BombProjectile extends ThrowableItemProjectile {
 		super(entityType, level);
 	}
 
-	public BombProjectile(Level level, LivingEntity livingEntity) {
-		super(GaiaRegistry.BOMB.get(), livingEntity, level);
+	public BombProjectile(Level level, LivingEntity livingEntity, ItemStack stack) {
+		super(GaiaRegistry.BOMB.get(), livingEntity, level, stack);
 	}
 
-	public BombProjectile(Level level, double accelX, double accelY, double accelZ) {
-		super(GaiaRegistry.BOMB.get(), accelX, accelY, accelZ, level);
+	public BombProjectile(Level level, double accelX, double accelY, double accelZ, ItemStack stack) {
+		super(GaiaRegistry.BOMB.get(), accelX, accelY, accelZ, level, stack);
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class BombProjectile extends ThrowableItemProjectile {
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.discard();
 		}

@@ -1,14 +1,15 @@
 package gaia.item.accessory;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class RingItem extends AbstractAccessoryItem {
@@ -20,16 +21,15 @@ public class RingItem extends AbstractAccessoryItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.ring.tag").withStyle(ChatFormatting.YELLOW));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.ring.tag").withStyle(ChatFormatting.YELLOW));
 
-		if (Screen.hasShiftDown()) {
+		if (tooltipFlag.hasShiftDown()) {
 			for (Supplier<MobEffectInstance> effect : mobEffects) {
-				list.add(Component.translatable(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
+				builder.accept(Component.translatable(effect.get().getDescriptionId()).withStyle(ChatFormatting.GRAY));
 			}
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			builder.accept(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

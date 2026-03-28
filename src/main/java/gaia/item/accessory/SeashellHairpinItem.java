@@ -1,15 +1,15 @@
 package gaia.item.accessory;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class SeashellHairpinItem extends AbstractAccessoryItem {
 
@@ -18,16 +18,15 @@ public class SeashellHairpinItem extends AbstractAccessoryItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
 
-		list.add(Component.translatable("text.grimoireofgaia.trinket.tag").withStyle(ChatFormatting.YELLOW));
+		builder.accept(Component.translatable("text.grimoireofgaia.trinket.tag").withStyle(ChatFormatting.YELLOW));
 
 
-		if (Screen.hasShiftDown()) {
-			list.add(Component.translatable(MobEffects.WATER_BREATHING.value().getDescriptionId()).append(Component.literal(" (0:20)")).withStyle(ChatFormatting.GRAY));
+		if (tooltipFlag.hasShiftDown()) {
+			builder.accept(Component.translatable(MobEffects.WATER_BREATHING.value().getDescriptionId()).append(Component.literal(" (0:20)")).withStyle(ChatFormatting.GRAY));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
+			builder.accept(Component.translatable("text.grimoireofgaia.hold_shift").withStyle(ChatFormatting.ITALIC));
 		}
 	}
 

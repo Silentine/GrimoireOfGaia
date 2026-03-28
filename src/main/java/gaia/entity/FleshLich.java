@@ -4,18 +4,18 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,7 +33,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(FleshLich.class, EntityDataSerializers.INT);
@@ -95,9 +97,9 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -153,8 +155,8 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.FLESH_LICH.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.FLESH_LICH.getEntityType());
 	}
 
 	@Override
@@ -165,7 +167,7 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -175,17 +177,15 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putInt("AnimationState", getAnimationState());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("AnimationState", getAnimationState());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("AnimationState")) {
-			setAnimationState(tag.getInt("AnimationState"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setAnimationState(input.getIntOr("AnimationState", 0));
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class FleshLich extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_UNDERGROUND;
 	}
 
-	public static boolean checkFleshLichSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkFleshLichSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkBelowSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

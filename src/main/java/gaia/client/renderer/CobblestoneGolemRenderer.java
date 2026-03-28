@@ -5,32 +5,45 @@ import com.mojang.math.Axis;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.CobblestoneGolemModel;
+import gaia.client.state.CobblestoneGolemRenderState;
 import gaia.entity.CobblestoneGolem;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class CobblestoneGolemRenderer extends MobRenderer<CobblestoneGolem, CobblestoneGolemModel> {
-	public static final ResourceLocation[] COBBLESTONE_GOLEM_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/cobblestone_golem/cobblestone_golem.png")};
+public class CobblestoneGolemRenderer extends MobRenderer<CobblestoneGolem, CobblestoneGolemRenderState, CobblestoneGolemModel> {
+	public static final Identifier[] COBBLESTONE_GOLEM_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/cobblestone_golem/cobblestone_golem.png")};
 
 	public CobblestoneGolemRenderer(Context context) {
 		super(context, new CobblestoneGolemModel(context.bakeLayer(ClientHandler.COBBLESTONE_GOLEM)), ClientHandler.smallShadow);
 	}
 
 	@Override
-	protected void setupRotations(CobblestoneGolem cobblestoneGolem, PoseStack poseStack, float bob, float yBodyRot, float partialTick, float scale) {
-		super.setupRotations(cobblestoneGolem, poseStack, bob, yBodyRot, partialTick, scale);
-		if (!((double) cobblestoneGolem.walkAnimation.speed() < 0.01D)) {
+	public CobblestoneGolemRenderState createRenderState() {
+		return new CobblestoneGolemRenderState();
+	}
+
+	@Override
+	public void extractRenderState(CobblestoneGolem entity, CobblestoneGolemRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.attackAnimationTick = entity.getAttackAnimationTick();
+	}
+
+	@Override
+	protected void setupRotations(CobblestoneGolemRenderState state, PoseStack poseStack, float bodyRot, float entityScale) {
+		super.setupRotations(state, poseStack, bodyRot, entityScale);
+		if (!((double) state.walkAnimationSpeed < 0.01D)) {
 			float f = 13.0F;
-			float f1 = cobblestoneGolem.walkAnimation.position() - cobblestoneGolem.walkAnimation.speed() * (1.0F - partialTick) + 6.0F;
-			float f2 = (Math.abs(f1 % 13.0F - 6.5F) - 3.25F) / 3.25F;
+			float f1 = state.walkAnimationPos - state.walkAnimationSpeed * (1.0F - state.partialTick) + 6.0F;
+			float f2 = (Math.abs(f1 % f - 6.5F) - 3.25F) / 3.25F;
 			poseStack.mulPose(Axis.ZP.rotationDegrees(6.5F * f2));
 		}
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(CobblestoneGolem cobbleGolem) {
-		return COBBLESTONE_GOLEM_LOCATIONS[cobbleGolem.getVariant()];
+	public Identifier getTextureLocation(CobblestoneGolemRenderState renderState) {
+		return COBBLESTONE_GOLEM_LOCATIONS[renderState.variant];
 	}
 }

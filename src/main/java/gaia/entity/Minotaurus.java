@@ -7,9 +7,8 @@ import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -19,11 +18,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,6 +32,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.cow.CowSoundVariants;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -45,10 +44,13 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
-public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, PowerableMob {
+import java.util.Optional;
+
+public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob {
 
 	private final RangedBowAttackGoal<Minotaurus> rangedAttackGoal = new RangedBowAttackGoal<>(this, SharedEntityData.ATTACK_SPEED_2, 20, 15.0F);
 	private final MobAttackGoal collideAttackGoal = new MobAttackGoal(this, SharedEntityData.ATTACK_SPEED_2, true);
@@ -96,23 +98,22 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (isPowered()) {
-			return source.isDirect() && super.hurt(source, input);
+			return source.isDirect() && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
-	@Override
 	public boolean isPowered() {
 		return getHealth() < getMaxHealth() / 2.0F;
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -122,8 +123,8 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 1));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 1));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 1));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime * 20, 1));
 				}
 			}
 
@@ -163,7 +164,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		if (random.nextInt(4) == 0) {
@@ -172,7 +173,9 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 			mobClass(difficultyInstance, 0);
 		}
 
-
+		if (getVariant() != 0) {
+			this.lootTable = Optional.of(GaiaLootTables.MINOTAURUS_RANGED);
+		}
 		setCombatTask();
 
 		return data;
@@ -221,23 +224,18 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.MINOTAURUS.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.MINOTAURUS.getEntityType());
 	}
 
 	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		return getVariant() == 0 ? super.getDefaultLootTable() : GaiaLootTables.MINOTAURUS_RANGED;
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-	}
-
-	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 	}
 
 	@Override
@@ -257,7 +255,8 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
+		this.playSound(SoundEvents.COW_SOUNDS.get(CowSoundVariants.SoundSet.CLASSIC)
+				.stepSound().value(), 0.15F, 1.0F);
 	}
 
 	@Override
@@ -265,7 +264,7 @@ public class Minotaurus extends AbstractGaiaEntity implements RangedAttackMob, P
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkMinotaurusSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkMinotaurusSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

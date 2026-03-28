@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.Deathword;
+import gaia.client.state.DeathwordRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class DeathwordModel extends EntityModel<Deathword> {
+public class DeathwordModel extends EntityModel<DeathwordRenderState> {
 	private final ModelPart root;
 	private final ModelPart rightcover;
 	private final ModelPart leftcover;
@@ -22,6 +20,7 @@ public class DeathwordModel extends EntityModel<Deathword> {
 	private final ModelPart leftpagemiddle;
 
 	public DeathwordModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("deathword");
 		ModelPart binder = this.root.getChild("binder");
 		this.rightcover = binder.getChild("rightcover");
@@ -66,21 +65,23 @@ public class DeathwordModel extends EntityModel<Deathword> {
 	}
 
 	@Override
-	public void setupAnim(Deathword entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(DeathwordRenderState state) {
+		super.setupAnim(state);
+
 		float floatSpeed = 0.2F;
 		float floatRange = 3.0F;
 
 		// anchor
-		root.y = 18.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+		root.y = 18.0F - Mth.cos((state.ageInTicks + 1.5F) * floatSpeed) * floatRange;
 		root.x = ((4 * Mth.DEG_TO_RAD));
 
 		float swingSpeed = 0.4F;
 		float angleRange = 0.8F;
 
 		// body
-		rightcover.yRot = Mth.cos(ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
+		rightcover.yRot = Mth.cos(state.ageInTicks * swingSpeed + (float) Math.PI) * angleRange * 0.5F;
 		rightcover.yRot -= (30 * Mth.DEG_TO_RAD);
-		leftcover.yRot = Mth.cos(ageInTicks * swingSpeed) * angleRange * 0.5F;
+		leftcover.yRot = Mth.cos(state.ageInTicks * swingSpeed) * angleRange * 0.5F;
 		leftcover.yRot += (30 * Mth.DEG_TO_RAD);
 
 		rightpage.yRot = rightcover.yRot;
@@ -89,14 +90,10 @@ public class DeathwordModel extends EntityModel<Deathword> {
 		float swingSpeed2 = 0.4F;
 		float angleRange2 = 0.4F;
 
-		rightpagemiddle.yRot = Mth.cos(ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * 0.5F;
+		rightpagemiddle.yRot = Mth.cos(state.ageInTicks * swingSpeed2 + (float) Math.PI) * angleRange2 * 0.5F;
 		rightpagemiddle.yRot -= (210 * Mth.DEG_TO_RAD);
-		leftpagemiddle.yRot = Mth.cos(ageInTicks * swingSpeed2) * angleRange2 * 0.5F;
+		leftpagemiddle.yRot = Mth.cos(state.ageInTicks * swingSpeed2) * angleRange2 * 0.5F;
 		leftpagemiddle.yRot -= (-30 * Mth.DEG_TO_RAD);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

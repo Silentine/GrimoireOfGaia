@@ -6,20 +6,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 public class GaiaEntityTags extends EntityTypeTagsProvider {
-	public GaiaEntityTags(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-		super(packOutput, lookupProvider, GrimoireOfGaia.MOD_ID, existingFileHelper);
+	public GaiaEntityTags(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider, GrimoireOfGaia.MOD_ID);
 	}
 
-	public static final TagKey<EntityType<?>> MOB_ATTACK_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("minecolonies", "mob_attack_blacklist"));
+	public static final TagKey<EntityType<?>> MOB_ATTACK_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("minecolonies", "mob_attack_blacklist"));
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {

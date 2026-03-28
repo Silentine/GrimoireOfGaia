@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.TraderRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.trader.Trader;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -14,10 +13,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class TraderModel extends EntityModel<Trader> implements HeadedModel, ArmedModel {
+public class TraderModel extends EntityModel<TraderRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart headeyes;
@@ -33,6 +33,7 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 	private final ModelPart rightleg;
 
 	public TraderModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("trader");
 		ModelPart bodybottom = this.root.getChild("bodybottom");
 		ModelPart bodytop = bodybottom.getChild("bodymiddle").getChild("bodytop");
@@ -137,31 +138,29 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 	}
 
 	@Override
-	public void prepareMobModel(Trader trader, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(trader, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !trader.isBaby();
-	}
+	public void setupAnim(TraderRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Trader trader, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		float earDefaultAngleZ = 0.2617994F;
 
-		rightear.yRot = Mth.cos(Mth.DEG_TO_RAD * ((float) ageInTicks * 7)) * (Mth.DEG_TO_RAD * 4);
+		rightear.yRot = Mth.cos(Mth.DEG_TO_RAD * ((float) state.ageInTicks * 7)) * (Mth.DEG_TO_RAD * 4);
 		rightear.yRot += earDefaultAngleZ;
-		leftear.yRot = Mth.cos((Mth.DEG_TO_RAD * (float) ageInTicks * 7)) * -(Mth.DEG_TO_RAD * 4);
+		leftear.yRot = Mth.cos((Mth.DEG_TO_RAD * (float) state.ageInTicks * 7)) * -(Mth.DEG_TO_RAD * 4);
 		leftear.yRot -= earDefaultAngleZ;
 
 		// arms
-		rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-		leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+		rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+		leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 
 		rightarm.zRot = 0.0F;
 		leftarm.zRot = 0.0F;
@@ -169,23 +168,23 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 		float armDefaultAngleY = 0.349066F;
 		float armDefaultAngleZ = 0.174533F;
 
-		rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
 		rightarm.yRot = armDefaultAngleY;
-		rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
+		rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
 
-		leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.05F;
+		leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.05F;
 		leftarm.yRot = -armDefaultAngleY;
-		leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
+		leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.05F + 0.05F) + armDefaultAngleZ;
 
 		rightarmlower.xRot = -armDefaultAngleY;
 		leftarmlower.xRot = -armDefaultAngleY;
 
 		// body
-		tail.yRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
+		tail.yRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed;
 
 		// legs
-		rightleg.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount) * 0.5F;
-		leftleg.xRot = (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount) * 0.5F;
+		rightleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed) * 0.5F;
+		leftleg.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.5F * state.walkAnimationSpeed) * 0.5F;
 		rightleg.xRot += 0.3490659F;
 		leftleg.xRot += 0.3490659F;
 		rightleg.yRot = -0.0872665F;
@@ -193,7 +192,7 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 		rightleg.zRot = -0.0349066F;
 		leftleg.zRot = 0.0349066F;
 
-		if (riding) {
+		if (state.isRiding) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -205,10 +204,6 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 		}
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -220,7 +215,7 @@ public class TraderModel extends EntityModel<Trader> implements HeadedModel, Arm
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(-0.0625, 0.5, 0);
 		getArm(arm).translateAndRotate(poseStack);
 	}

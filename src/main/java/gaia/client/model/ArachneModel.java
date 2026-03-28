@@ -1,9 +1,8 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import gaia.client.state.ArachneRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Arachne;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -13,10 +12,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, ArmedModel {
+public class ArachneModel extends EntityModel<ArachneRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodytop;
 	private final ModelPart body4;
@@ -36,6 +37,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 	private final ModelPart leftFrontLeg;
 
 	public ArachneModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("arachne");
 		ModelPart bodybottom = this.root.getChild("body1").getChild("bodybottom");
 		ModelPart body3 = this.root.getChild("body3");
@@ -125,36 +127,34 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 	}
 
 	@Override
-	public void prepareMobModel(Arachne arachne, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(arachne, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !arachne.isBaby();
-	}
+	public void setupAnim(ArachneRenderState state) {
+		super.setupAnim(state);
 
-	@Override
-	public void setupAnim(Arachne arachne, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
+
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw * ((float) Math.PI / 180F);
-		head.xRot = headPitch * ((float) Math.PI / 180F);
+		head.yRot = state.yRot * ((float) Math.PI / 180F);
+		head.xRot = state.xRot * ((float) Math.PI / 180F);
 
 		// arms
-		int attackType = arachne.getAttackType();
+		int attackType = state.attackType;
 		if (attackType == 0) {
-			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+			rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+			leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > 0.0F) {
-				holdingMelee();
+			if (state.attackTime > 0.0F) {
+				holdingMelee(state);
 			}
 
-			rightarm.zRot += Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-			leftarm.zRot -= Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F;
-			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+			rightarm.zRot += Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F;
+			rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+			leftarm.zRot -= Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F;
+			leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 			rightarm.zRot += 0.3490659F;
 			leftarm.zRot -= 0.3490659F;
@@ -167,35 +167,35 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		// body
 		float chestDefaultRotateAngleX = 0.8726646F;
 
-		chest.xRot = Mth.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount + chestDefaultRotateAngleX;
+		chest.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.2F * state.walkAnimationSpeed + chestDefaultRotateAngleX;
 
-//		skull1.xRot = Mth.cos(limbSwing * 0.6662F) * 0.1F * limbSwingAmount + 0.1745329F;
-//		skull2.xRot = Mth.cos(limbSwing * 0.6662F) * 0.1F * limbSwingAmount + 0.2443461F;
-//		skull3.xRot = Mth.cos(limbSwing * 0.6662F) * 0.1F * limbSwingAmount + 0.1745329F;
+//		skull1.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.1F * state.walkAnimationSpeed + 0.1745329F;
+//		skull2.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.1F * state.walkAnimationSpeed + 0.2443461F;
+//		skull3.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.1F * state.walkAnimationSpeed + 0.1745329F;
 
-		body4.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.1F * limbSwingAmount);
-		body5.xRot = (Mth.cos(limbSwing * 0.6662F) * 0.05F * limbSwingAmount);
+		body4.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F) * 0.1F * state.walkAnimationSpeed);
+		body5.xRot = (Mth.cos(state.walkAnimationPos * 0.6662F) * 0.05F * state.walkAnimationSpeed);
 
 		body4.xRot -= 0.4363323F;
 
 		// legs
-		moveLegs(limbSwing, limbSwingAmount);
+		moveLegs(state);
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		leftarm.xRot = (float) ((double) leftarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		leftarm.xRot += (bodytop.yRot * 2.0F);
-		leftarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		leftarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
 	private void animationThrow() {
@@ -209,7 +209,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		leftarm.zRot = 0.261799F;
 	}
 
-	public void moveLegs(float limbSwing, float limbSwingAmount) {
+	public void moveLegs(ArachneRenderState state) {
 		float f = ((float) Math.PI / 4F);
 		this.rightHindLeg.zRot = (-f);
 		this.leftHindLeg.zRot = f;
@@ -228,14 +228,14 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		this.leftMiddleFrontLeg.yRot = f2;
 		this.rightFrontLeg.yRot = (-f);
 		this.leftFrontLeg.yRot = f;
-		float f3 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
-		float f4 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * limbSwingAmount;
-		float f5 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-		float f6 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
-		float f7 = Math.abs(Mth.sin(limbSwing * 0.6662F + 0.0F) * 0.4F) * limbSwingAmount;
-		float f8 = Math.abs(Mth.sin(limbSwing * 0.6662F + (float) Math.PI) * 0.4F) * limbSwingAmount;
-		float f9 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-		float f10 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float) Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
+		float f3 = -(Mth.cos(state.walkAnimationPos * 0.6662F * 2.0F + 0.0F) * 0.4F) * state.walkAnimationSpeed;
+		float f4 = -(Mth.cos(state.walkAnimationPos * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * state.walkAnimationSpeed;
+		float f5 = -(Mth.cos(state.walkAnimationPos * 0.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * state.walkAnimationSpeed;
+		float f6 = -(Mth.cos(state.walkAnimationPos * 0.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.4F) * state.walkAnimationSpeed;
+		float f7 = Math.abs(Mth.sin(state.walkAnimationPos * 0.6662F + 0.0F) * 0.4F) * state.walkAnimationSpeed;
+		float f8 = Math.abs(Mth.sin(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.4F) * state.walkAnimationSpeed;
+		float f9 = Math.abs(Mth.sin(state.walkAnimationPos * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * state.walkAnimationSpeed;
+		float f10 = Math.abs(Mth.sin(state.walkAnimationPos * 0.6662F + ((float) Math.PI * 1.5F)) * 0.4F) * state.walkAnimationSpeed;
 		this.rightHindLeg.yRot += f3;
 		this.leftHindLeg.yRot -= f3;
 		this.rightMiddleHindLeg.yRot += f4;
@@ -254,10 +254,6 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 		this.leftFrontLeg.zRot -= f10;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -269,7 +265,7 @@ public class ArachneModel extends EntityModel<Arachne> implements HeadedModel, A
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 0.5, -0.425);
 		getArm(arm).translateAndRotate(poseStack);
 	}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "grimoireofgaia:item/spawn/spawn_trader"
+    "layer0": "grimoireofgaia:item/spawn_trader"
   }
 }

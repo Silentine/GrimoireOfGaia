@@ -1,23 +1,14 @@
 package gaia.item.accessory;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.fml.ModList;
-
-import java.util.List;
 
 public abstract class AbstractAccessoryItem extends Item {
 	public AbstractAccessoryItem(Properties properties) {
 		super(properties.rarity(Rarity.RARE));
-	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
 	}
 
 	@Override

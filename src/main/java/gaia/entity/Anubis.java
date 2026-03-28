@@ -5,7 +5,6 @@ import gaia.registry.GaiaRegistry;
 import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,10 +17,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,13 +33,15 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> MALE = SynchedEntityData.defineId(Anubis.class, EntityDataSerializers.BOOLEAN);
@@ -123,9 +124,9 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
@@ -140,9 +141,9 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -152,7 +153,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
 					livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, effectTime * 20, 0));
 				}
 			}
@@ -167,7 +168,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	public void aiStep() {
 		this.beaconMonster(6, (entity) -> {
 			if (entity instanceof Zombie || entity instanceof Skeleton) {
-				entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1, true, true));
+				entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 300, 1, true, true));
 			}
 		});
 
@@ -246,14 +247,14 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	private void setSpawn(int id) {
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Skeleton summon = EntityType.SKELETON.create(this.level());
+				Skeleton summon = EntityType.SKELETON.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
-					summon.moveTo(blockpos, 0.0F, 0.0F);
-					summon.finalizeSpawn((ServerLevel) this.level(), this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
+					summon.snapTo(blockpos, 0.0F, 0.0F);
+					summon.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
 					summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_MOB.get()));
 					summon.setDropChance(EquipmentSlot.MAINHAND, 0);
 					summon.setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -261,7 +262,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 					summon.setDropChance(EquipmentSlot.LEGS, 0);
 					summon.setDropChance(EquipmentSlot.CHEST, 0);
 					summon.setDropChance(EquipmentSlot.HEAD, 0);
-					this.level().addFreshEntity(summon);
+					serverLevel.addFreshEntity(summon);
 				}
 			}
 		}
@@ -276,8 +277,8 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.ANUBIS.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.ANUBIS.getEntityType());
 	}
 
 	@Override
@@ -288,7 +289,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		if (random.nextInt(4) == 0) {
@@ -303,23 +304,20 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("Male", isMale());
-		tag.putInt("AnimationState", getAnimationState());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("Male", isMale());
+		output.putInt("AnimationState", getAnimationState());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("Male")) {
-			boolean male = tag.getBoolean("Male");
-			setMale(male);
-		}
-		if (tag.contains("AnimationState")) {
-			int state = tag.getInt("AnimationState");
-			setAnimationState(state);
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		boolean male = input.getBooleanOr("Male", false);
+		setMale(male);
+
+		int state = input.getIntOr("AnimationState", 0);
+		setAnimationState(state);
 	}
 
 	@Override
@@ -347,7 +345,7 @@ public class Anubis extends AbstractGaiaEntity implements RangedAttackMob {
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkAnubisSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkAnubisSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

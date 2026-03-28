@@ -1,8 +1,7 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.GelatinousSlime;
+import gaia.client.state.GelatinousSlimeRenderState;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -12,10 +11,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implements HeadedModel, ArmedModel {
+public class GelatinousSlimeModel extends EntityModel<GelatinousSlimeRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart bodyupper;
 	private final ModelPart head;
@@ -25,6 +25,7 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 	private final ModelPart leftleg;
 
 	public GelatinousSlimeModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("gelatinous_slime");
 		this.bodyupper = this.root.getChild("bodyupper");
 		this.head = this.bodyupper.getChild("head");
@@ -113,45 +114,43 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 	}
 
 	@Override
-	public void setupAnim(GelatinousSlime entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(GelatinousSlimeRenderState state) {
+		super.setupAnim(state);
+
 		float floatSpeed = 0.2F;
 		float floatRange = 0.2F;
 		// anchor
-		root.y = 24.0F - Mth.cos((ageInTicks + 1.5F) * floatSpeed) * floatRange;
+		root.y = 24.0F - Mth.cos((state.ageInTicks + 1.5F) * floatSpeed) * floatRange;
 
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		// arms
 		float rightarmDefaultAngleZ = 1.047198F;
 
-		rightarm.zRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		rightarm.zRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		rightarm.zRot += rightarmDefaultAngleZ;
 
 		// body
 		float bodyupperDefaultAngleX = 0.6108652F;
 
-		bodyupper.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		bodyupper.xRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		bodyupper.xRot += bodyupperDefaultAngleX;
 
 		float bodylowerDefaultAngleX = 1.047198F;
 
-		bodylower.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		bodylower.xRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		bodylower.xRot += bodylowerDefaultAngleX;
 
 		// legs
 		float leftlegDefaultAngleX = 0.7853982F;
 
-		leftleg.xRot = Mth.cos((ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
+		leftleg.xRot = Mth.cos((state.ageInTicks * 7) * Mth.DEG_TO_RAD) * (2 * Mth.DEG_TO_RAD);
 		leftleg.xRot -= leftlegDefaultAngleX;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -163,7 +162,7 @@ public class GelatinousSlimeModel extends EntityModel<GelatinousSlime> implement
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 1, 0);
 
 		getArm(arm).translateAndRotate(poseStack);

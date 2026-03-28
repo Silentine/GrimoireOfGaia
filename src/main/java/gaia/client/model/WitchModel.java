@@ -1,10 +1,9 @@
 package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import gaia.client.state.WitchRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Witch;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -15,10 +14,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class WitchModel extends EntityModel<Witch> implements HeadedModel, ArmedModel {
+public class WitchModel extends EntityModel<WitchRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
 	private final ModelPart broom;
 	private final ModelPart bodybottom;
@@ -42,6 +43,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 	private float offset = 0.0F;
 
 	public WitchModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("witch");
 		this.broom = this.root.getChild("broom");
 		this.bodybottom = this.root.getChild("bodybottom");
@@ -136,9 +138,10 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void prepareMobModel(Witch witch, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.prepareMobModel(witch, limbSwing, limbSwingAmount, partialTick);
-		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !witch.isBaby();
+	public void setupAnim(WitchRenderState state) {
+		super.setupAnim(state);
+
+		this.chest.visible = !GaiaConfig.CLIENT.genderNeutral.get() && !state.isBaby;
 
 		hat1.zRot = -(30 * Mth.DEG_TO_RAD);
 		hat3.xRot = -(20 * Mth.DEG_TO_RAD);
@@ -149,15 +152,12 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 		hat5.zRot = (20 * Mth.DEG_TO_RAD);
 		hat6.xRot = (10 * Mth.DEG_TO_RAD);
 		hat6.zRot = -(10 * Mth.DEG_TO_RAD);
-	}
 
-	@Override
-	public void setupAnim(Witch witch, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		headeyes.visible = ageInTicks % 60 == 0 && limbSwingAmount <= 0.1F;
+		headeyes.visible = state.ageInTicks % 60 == 0 && state.walkAnimationSpeed <= 0.1F;
 
 		// head
-		head.yRot = netHeadYaw / 57.295776F;
-		head.xRot = headPitch / 57.295776F;
+		head.yRot = state.yRot / 57.295776F;
+		head.xRot = state.xRot / 57.295776F;
 
 		root.y = 24.0F;
 
@@ -166,7 +166,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 		float leftArmAngleMoving;
 		float defaultAngle = 0;
 
-		if (witch.isRidingBroom()) {
+		if (state.ridingBroom) {
 			moveExtremities = false;
 			rightArmAngleMoving = (30 * Mth.DEG_TO_RAD);
 			leftArmAngleMoving = (45 * Mth.DEG_TO_RAD);
@@ -192,9 +192,9 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 			// broom
 			broom.visible = true;
 
-			this.xRot = (Mth.cos((6.0F * Mth.DEG_TO_RAD * ageInTicks)) * 0.1F);
+			this.xRot = (Mth.cos((6.0F * Mth.DEG_TO_RAD * state.ageInTicks)) * 0.1F);
 			root.xRot = this.xRot - 0.3F;
-			this.offset = Mth.cos(ageInTicks * 0.18F) * 0.9F;
+			this.offset = Mth.cos(state.ageInTicks * 0.18F) * 0.9F;
 			root.y = 24.0F - offset;
 		} else {
 			moveExtremities = true;
@@ -228,21 +228,21 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 
 		// arms
 		if (moveExtremities) {
-			rightarm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount * 0.5F;
-			leftarm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount * 0.5F;
+			rightarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.8F * state.walkAnimationSpeed * 0.5F;
+			leftarm.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.8F * state.walkAnimationSpeed * 0.5F;
 
-			rightarm.xRot += Mth.sin(ageInTicks * 0.067F) * 0.025F;
-			leftarm.xRot -= Mth.sin(ageInTicks * 0.067F) * 0.025F;
+			rightarm.xRot += Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
+			leftarm.xRot -= Mth.sin(state.ageInTicks * 0.067F) * 0.025F;
 
 			rightarm.zRot = 0.0F;
 			leftarm.zRot = 0.0F;
 
-			if (attackTime > 0.0F) {
-				holdingMelee();
+			if (state.attackTime > 0.0F) {
+				holdingMelee(state);
 			}
 
-			rightarm.zRot += (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
-			leftarm.zRot -= (Mth.cos(ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+			rightarm.zRot += (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
+			leftarm.zRot -= (Mth.cos(state.ageInTicks * 0.09F) * 0.025F + 0.025F) + 0.1745329F;
 		}
 
 		if (!moveExtremities) {
@@ -252,11 +252,11 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 
 		// legs
 		if (moveExtremities) {
-			rightleg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.5F * limbSwingAmount;
-			leftleg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+			rightleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F) * 0.5F * state.walkAnimationSpeed;
+			leftleg.xRot = Mth.cos(state.walkAnimationPos * 0.6662F + (float) Math.PI) * 0.5F * state.walkAnimationSpeed;
 		}
 
-		if (riding && !witch.isRidingBroom()) {
+		if (state.isRiding && !state.ridingBroom) {
 			rightarm.xRot -= ((float) Math.PI / 5F);
 			leftarm.xRot -= ((float) Math.PI / 5F);
 			rightleg.xRot = -1.4137167F;
@@ -268,26 +268,22 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 		}
 	}
 
-	public void holdingMelee() {
+	public void holdingMelee(ArmedEntityRenderState state) {
 		float f6;
 		float f7;
 
-		f6 = 1.0F - attackTime;
+		f6 = 1.0F - state.attackTime;
 		f6 *= f6;
 		f6 *= f6;
 		f6 = 1.0F - f6;
 		f7 = Mth.sin(f6 * (float) Math.PI);
-		float f8 = Mth.sin(attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
+		float f8 = Mth.sin(state.attackTime * (float) Math.PI) * -(head.xRot - 0.7F) * 0.75F;
 
 		rightarm.xRot = (float) ((double) rightarm.xRot - ((double) f7 * 1.2D + (double) f8));
 		rightarm.xRot += (bodytop.yRot * 2.0F);
-		rightarm.zRot = (Mth.sin(attackTime * (float) Math.PI) * -0.4F);
+		rightarm.zRot = (Mth.sin(state.attackTime * (float) Math.PI) * -0.4F);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 
 	@Override
 	public ModelPart getHead() {
@@ -299,7 +295,7 @@ public class WitchModel extends EntityModel<Witch> implements HeadedModel, Armed
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToHand(EntityRenderState state, HumanoidArm arm, PoseStack poseStack) {
 		poseStack.translate(0, 0.5, 0.25);
 		poseStack.mulPose(Axis.XP.rotation(this.xRot));
 		poseStack.translate(0, -this.offset * 0.0725F, 0);

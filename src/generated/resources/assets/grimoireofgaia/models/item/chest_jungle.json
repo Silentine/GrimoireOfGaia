@@ -1,6 +1,6 @@
 {
   "parent": "grimoireofgaia:item/chest",
   "textures": {
-    "0": "grimoireofgaia:item/box/chest_jungle"
+    "layer0": "grimoireofgaia:item/chest_jungle"
   }
 }

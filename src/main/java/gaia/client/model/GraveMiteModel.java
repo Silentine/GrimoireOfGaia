@@ -1,8 +1,6 @@
 package gaia.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import gaia.entity.GraveMite;
+import gaia.client.state.GraveMiteRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,10 +9,11 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class GraveMiteModel extends EntityModel<GraveMite> {
+public class GraveMiteModel extends EntityModel<GraveMiteRenderState> {
 	private final ModelPart root;
 
 	public GraveMiteModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("mite");
 	}
 
@@ -49,13 +48,4 @@ public class GraveMiteModel extends EntityModel<GraveMite> {
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
-	@Override
-	public void setupAnim(GraveMite graveMite, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int unused) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay);
-	}
 }

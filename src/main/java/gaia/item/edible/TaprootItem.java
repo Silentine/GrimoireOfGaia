@@ -4,10 +4,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.EffectCure;
 
+//TODO: Re-implement taproot behavior!
 public class TaprootItem extends Item {
-	public static final EffectCure TAPROOT = EffectCure.get("taproot");
+//	public static final EffectCure TAPROOT = EffectCure.get("taproot");
 
 
 	public TaprootItem(Properties properties) {
@@ -16,8 +16,8 @@ public class TaprootItem extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-		if (!level.isClientSide) {
-			livingEntity.removeEffectsCuredBy(TAPROOT);
+		if (!level.isClientSide()) {
+//			livingEntity.removeEffectsCuredBy(TAPROOT);
 
 //			livingEntity.getActiveEffects().forEach(effect -> { //TODO: Check if this is the correct way to cure effects
 //				if (!effect.getEffect().isBeneficial()) {

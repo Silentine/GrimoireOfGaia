@@ -10,8 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class MonsterFeedItem extends Item {
 	public MonsterFeedItem(Properties properties) {
@@ -19,17 +20,17 @@ public class MonsterFeedItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(stack, context, list, flag);
-		list.add(Component.translatable("text.grimoireofgaia.monster_feed.desc"));
-		if (stack.is(GaiaRegistry.MONSTER_FEED.get())) {
-			list.add(Component.translatable("text.grimoireofgaia.food_monster_feed.desc"));
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		builder.accept(Component.translatable("text.grimoireofgaia.monster_feed.desc"));
+		if (itemStack.is(GaiaRegistry.MONSTER_FEED.get())) {
+			builder.accept(Component.translatable("text.grimoireofgaia.food_monster_feed.desc"));
 		} else {
-			list.add(Component.translatable("text.grimoireofgaia.premium_food_monster_feed.desc"));
+			builder.accept(Component.translatable("text.grimoireofgaia.premium_food_monster_feed.desc"));
 		}
-		list.add(Component.translatable("item.grimoireofgaia.food_monster_feed2.desc"));
+		builder.accept(Component.translatable("item.grimoireofgaia.food_monster_feed2.desc"));
 	}
 
+	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
 		if (livingEntity instanceof AbstractGaiaEntity gaiaEntity) {
 			if (!gaiaEntity.isFriendly()) {
@@ -38,7 +39,7 @@ public class MonsterFeedItem extends Item {
 					stack.shrink(1);
 				}
 				gaiaEntity.setFriendly(true, player.getUUID());
-				return InteractionResult.sidedSuccess(player.level().isClientSide);
+				return InteractionResult.SUCCESS;
 			}
 		}
 		return InteractionResult.PASS;

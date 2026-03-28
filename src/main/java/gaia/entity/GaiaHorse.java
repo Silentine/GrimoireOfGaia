@@ -6,9 +6,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class GaiaHorse extends AbstractHorse {
 	private int lifetime;
@@ -29,11 +29,6 @@ public class GaiaHorse extends AbstractHorse {
 	}
 
 	@Override
-	public boolean isSaddleable() {
-		return false;
-	}
-
-	@Override
 	public boolean canBeLeashed() {
 		return false;
 	}
@@ -46,7 +41,7 @@ public class GaiaHorse extends AbstractHorse {
 	@Override
 	public void aiStep() {
 		if (!isVehicle()) {
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				if (!isPersistenceRequired()) {
 					++lifetime;
 				}

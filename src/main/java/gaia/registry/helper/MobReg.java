@@ -1,19 +1,22 @@
 package gaia.registry.helper;
 
 import gaia.GrimoireOfGaia;
+import gaia.Reference;
 import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -147,31 +150,30 @@ public class MobReg<T extends Mob> {
 		return ATTACK_MALE == null ? null : ATTACK_MALE.get();
 	}
 
-	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, int backgroundColor, int highlightColor, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg, boolean traderEgg) {
+	public MobReg(String name, EntityType.Builder<T> builder, GaiaMobType mobType, boolean say, boolean hurt, boolean death, boolean step, boolean attack, boolean hasGenders, boolean noSpawnEgg, boolean traderEgg) {
 		this.name = name;
-		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(name));
+		this.entityType = GaiaRegistry.ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, Reference.modLoc(name))));
 		this.gaiaMobType = mobType;
 		if (!noSpawnEgg) {
 			if (traderEgg) {
-				this.spawnEgg = GaiaRegistry.ITEMS.register("spawn_" + name, () -> new MerchantSpawnItem(this.entityType, new Item.Properties()));
+				this.spawnEgg = GaiaRegistry.ITEMS.registerItem("spawn_" + name, (properties) -> new MerchantSpawnItem(this.entityType, properties));
 			} else {
-				this.spawnEgg = GaiaRegistry.ITEMS.register(name + "_spawn_egg", () -> new DeferredSpawnEggItem(this.entityType, backgroundColor, highlightColor,
-						new Item.Properties()));
+				this.spawnEgg = GaiaRegistry.ITEMS.registerItem(name + "_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(this.entityType.get())));
 			}
 		}
 
-		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
-		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_hurt"))) : null;
-		this.DEATH = death ? GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_death"))) : null;
-		this.STEP = step ? GaiaSounds.SOUND_EVENTS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_step"))) : null;
-		this.ATTACK = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_attack", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_attack"))) : null;
+		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
+		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_hurt"))) : null;
+		this.DEATH = death ? GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_death"))) : null;
+		this.STEP = step ? GaiaSounds.SOUND_EVENTS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_step"))) : null;
+		this.ATTACK = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_attack", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_attack"))) : null;
 
 		if (hasGenders) {
-			this.SAY_MALE = say ? GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_say"))) : null;
-			this.HURT_MALE = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_hurt"))) : null;
-			this.DEATH_MALE = death ? GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_death"))) : null;
-			this.STEP_MALE = step ? GaiaSounds.SOUND_EVENTS.register(name + "_male_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_step"))) : null;
-			this.ATTACK_MALE = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_male_attack", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_attack"))) : null;
+			this.SAY_MALE = say ? GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_say"))) : null;
+			this.HURT_MALE = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_hurt"))) : null;
+			this.DEATH_MALE = death ? GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_death"))) : null;
+			this.STEP_MALE = step ? GaiaSounds.SOUND_EVENTS.register(name + "_male_step", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_step"))) : null;
+			this.ATTACK_MALE = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_male_attack", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_attack"))) : null;
 		}
 		this.hasGenders = hasGenders;
 	}
@@ -180,39 +182,18 @@ public class MobReg<T extends Mob> {
 		private final String name;
 		private final EntityType.Builder<T> builder;
 		private final GaiaMobType gaiaMobType;
-		private final int backgroundColor, highlightColor;
 		private boolean say, hurt, death, step, attack, hasGenders, noSpawnEgg, traderEgg;
-
-		public Builder(String name, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
-			this.name = name;
-			this.builder = builder;
-			this.gaiaMobType = GaiaMobType.AGGRESSIVE;
-			this.backgroundColor = backgroundColor;
-			this.highlightColor = highlightColor;
-		}
 
 		public Builder(String name, EntityType.Builder<T> builder) {
 			this.name = name;
 			this.builder = builder;
 			this.gaiaMobType = GaiaMobType.AGGRESSIVE;
-			this.backgroundColor = 0;
-			this.highlightColor = 0;
-		}
-
-		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder, int backgroundColor, int highlightColor) {
-			this.name = name;
-			this.builder = builder;
-			this.gaiaMobType = mobType;
-			this.backgroundColor = backgroundColor;
-			this.highlightColor = highlightColor;
 		}
 
 		public Builder(String name, GaiaMobType mobType, EntityType.Builder<T> builder) {
 			this.name = name;
 			this.builder = builder;
 			this.gaiaMobType = mobType;
-			this.backgroundColor = 0;
-			this.highlightColor = 0;
 		}
 
 		public Builder<T> withDefaultSounds() {
@@ -263,7 +244,7 @@ public class MobReg<T extends Mob> {
 		}
 
 		public MobReg<T> build() {
-			return new MobReg<>(name, builder, gaiaMobType, backgroundColor, highlightColor, say, hurt, death, step, attack, hasGenders, noSpawnEgg, traderEgg);
+			return new MobReg<>(name, builder, gaiaMobType, say, hurt, death, step, attack, hasGenders, noSpawnEgg, traderEgg);
 		}
 	}
 }

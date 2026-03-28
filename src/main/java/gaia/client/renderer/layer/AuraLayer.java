@@ -1,34 +1,39 @@
 package gaia.client.renderer.layer;
 
 import gaia.GrimoireOfGaia;
+import gaia.client.state.PoweredState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PowerableMob;
 
 import java.util.function.Supplier;
 
-public class AuraLayer<T extends LivingEntity & PowerableMob, M extends EntityModel<T>> extends EnergySwirlLayer<T, M> {
-	private static final ResourceLocation WITHER_ARMOR_LOCATION = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/layer/aura_immune_ranged.png");
-	private final EntityModel<T> model;
+public class AuraLayer<S extends LivingEntityRenderState & PoweredState, M extends EntityModel<S>> extends EnergySwirlLayer<S, M> {
+	private static final Identifier WITHER_ARMOR_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/layer/aura_immune_ranged.png");
+	private final M model;
 
-	public AuraLayer(RenderLayerParent<T, M> layerParent, Supplier<M> mSupplier) {
+	public AuraLayer(RenderLayerParent<S, M> layerParent, Supplier<M> mSupplier) {
 		super(layerParent);
 		this.model = mSupplier.get();
+	}
+
+	@Override
+	protected boolean isPowered(S state) {
+		return state.isPowered();
 	}
 
 	protected float xOffset(float offset) {
 		return Mth.cos(offset * 0.02F) * 3.0F;
 	}
 
-	protected ResourceLocation getTextureLocation() {
+	protected Identifier getTextureLocation() {
 		return WITHER_ARMOR_LOCATION;
 	}
 
-	protected EntityModel<T> model() {
+	protected M model() {
 		return this.model;
 	}
 }

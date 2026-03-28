@@ -2,7 +2,7 @@ package gaia.item.edible;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 
 public class HoneydewItem extends EdibleEffectItem {
 	public HoneydewItem(Properties properties) {
@@ -13,7 +13,7 @@ public class HoneydewItem extends EdibleEffectItem {
 		return 20;
 	}
 
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.DRINK;
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
+		return ItemUseAnimation.DRINK;
 	}
 }

@@ -1,54 +1,52 @@
 package gaia.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.GelatinousSlimeModel;
-import gaia.entity.GelatinousSlime;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.SlimeModel;
+import gaia.client.state.GelatinousSlimeRenderState;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
-public class GelatinousSlimeLayer extends RenderLayer<GelatinousSlime, GelatinousSlimeModel> {
-	private static final ResourceLocation SLIME_LAYER_LOCATION = ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gelatinous_slime/layer_gelatinous_slime.png");
+//TODO: RE-IMPLEMENT GELATINOUS SLIME LAYER
+public class GelatinousSlimeLayer extends RenderLayer<GelatinousSlimeRenderState, GelatinousSlimeModel> {
+	private static final Identifier SLIME_LAYER_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gelatinous_slime/layer_gelatinous_slime.png");
 
-	private final EntityModel<GelatinousSlime> model;
+	private final GelatinousSlimeModel model;
 
-	public GelatinousSlimeLayer(RenderLayerParent<GelatinousSlime, GelatinousSlimeModel> layerParent, EntityModelSet modelSet) {
+	public GelatinousSlimeLayer(RenderLayerParent<GelatinousSlimeRenderState, GelatinousSlimeModel> layerParent, EntityModelSet modelSet) {
 		super(layerParent);
-		this.model = new SlimeModel<>(modelSet.bakeLayer(ClientHandler.GELATINOUS_SLIME));
-	}
-
-	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn, GelatinousSlime gelatinousSlime,
-					   float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		Minecraft minecraft = Minecraft.getInstance();
-		boolean flag = minecraft.shouldEntityAppearGlowing(gelatinousSlime) && gelatinousSlime.isInvisible();
-		if (!gelatinousSlime.isInvisible() || flag) {
-			VertexConsumer vertexconsumer;
-			if (flag) {
-				vertexconsumer = bufferSource.getBuffer(RenderType.outline(this.getTextureLocation(gelatinousSlime)));
-			} else {
-				vertexconsumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(gelatinousSlime)));
-			}
-
-			this.getParentModel().copyPropertiesTo(this.model);
-			this.model.prepareMobModel(gelatinousSlime, limbSwing, limbSwingAmount, partialTicks);
-			this.model.setupAnim(gelatinousSlime, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-			this.model.renderToBuffer(poseStack, vertexconsumer, packedLightIn,
-					LivingEntityRenderer.getOverlayCoords(gelatinousSlime, 0F));
-		}
+		this.model = new GelatinousSlimeModel(modelSet.bakeLayer(ClientHandler.GELATINOUS_SLIME));
 	}
 
 	@Override
-	protected ResourceLocation getTextureLocation(GelatinousSlime gelatinousSlime) {
-		return SLIME_LAYER_LOCATION;
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, GelatinousSlimeRenderState state, float yRot, float xRot) {
+		boolean appearsGlowingWithInvisibility = state.appearsGlowing() && state.isInvisible;
+		if (!state.isInvisible || appearsGlowingWithInvisibility) {
+			int overlayCoords = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
+			if (appearsGlowingWithInvisibility) {
+				submitNodeCollector.order(1)
+						.submitModel(
+								this.model, state, poseStack, RenderTypes.outline(SLIME_LAYER_LOCATION), lightCoords, overlayCoords, state.outlineColor, null
+						);
+			} else {
+				submitNodeCollector.order(1)
+						.submitModel(
+								this.model,
+								state,
+								poseStack,
+								RenderTypes.entityTranslucent(SLIME_LAYER_LOCATION),
+								lightCoords,
+								overlayCoords,
+								state.outlineColor,
+								null
+						);
+			}
+		}
 	}
 }

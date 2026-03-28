@@ -4,24 +4,36 @@ import gaia.GrimoireOfGaia;
 import gaia.client.ClientHandler;
 import gaia.client.model.BansheeModel;
 import gaia.client.renderer.layer.BansheeGlowLayer;
+import gaia.client.state.BansheeRenderState;
 import gaia.entity.Banshee;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public class BansheeRenderer extends MobRenderer<Banshee, BansheeModel> {
-	public static final ResourceLocation[] BANSHEE_LOCATIONS = new ResourceLocation[]{
-			ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png")};
+public class BansheeRenderer extends MobRenderer<Banshee, BansheeRenderState, BansheeModel> {
+	public static final Identifier[] BANSHEE_LOCATIONS = new Identifier[]{
+			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png")};
 
 	public BansheeRenderer(Context context) {
 		super(context, new BansheeModel(context.bakeLayer(ClientHandler.BANSHEE)), ClientHandler.smallShadow);
-		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
 		this.addLayer(new BansheeGlowLayer(this));
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Banshee banshee) {
-		return BANSHEE_LOCATIONS[banshee.getVariant()];
+	public BansheeRenderState createRenderState() {
+		return new BansheeRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Banshee entity, BansheeRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+	}
+
+	@Override
+	public Identifier getTextureLocation(BansheeRenderState renderState) {
+		return BANSHEE_LOCATIONS[renderState.variant];
 	}
 }

@@ -6,6 +6,7 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -13,9 +14,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -71,16 +72,18 @@ public class WitherCow extends AbstractGaiaEntity {
 		return SharedEntityData.getBaseDefense1();
 	}
 
+
+
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		return super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -102,7 +105,7 @@ public class WitherCow extends AbstractGaiaEntity {
 
 	@Override
 	public void aiStep() {
-		beaconMonster(2, (entity) -> entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, true, true)));
+		beaconMonster(2, (entity) -> entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 0, true, true)));
 
 		for (int i = 0; i < 2; ++i) {
 			this.level().addParticle(ParticleTypes.SMOKE,
@@ -116,7 +119,7 @@ public class WitherCow extends AbstractGaiaEntity {
 
 	@Override
 	protected void tickDeath() {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			spawnLingeringCloud(List.of(new MobEffectInstance(MobEffects.WITHER, 200, 0)));
 		}
 		super.tickDeath();
@@ -152,7 +155,7 @@ public class WitherCow extends AbstractGaiaEntity {
 		return 1;
 	}
 
-	public static boolean checkWitherCowSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkWitherCowSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkAboveSeaLevel(levelAccessor, pos) && checkMonsterSpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
 }

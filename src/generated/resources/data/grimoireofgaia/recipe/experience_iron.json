@@ -3,11 +3,8 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "grimoireofgaia:box_iron"
-  },
+  "ingredient": "grimoireofgaia:box_iron",
   "result": {
-    "count": 1,
     "id": "grimoireofgaia:experience_iron"
   }
 }

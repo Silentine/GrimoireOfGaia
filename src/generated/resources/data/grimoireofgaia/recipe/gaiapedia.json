@@ -2,18 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:book"
-    },
-    {
-      "item": "minecraft:iron_nugget"
-    }
+    "minecraft:book",
+    "minecraft:iron_nugget"
   ],
   "result": {
     "components": {
       "patchouli:book": "grimoireofgaia:gaiapedia"
     },
-    "count": 1,
     "id": "patchouli:guide_book"
   }
 }

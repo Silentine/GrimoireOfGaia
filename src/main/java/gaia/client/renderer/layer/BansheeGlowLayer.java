@@ -2,16 +2,17 @@ package gaia.client.renderer.layer;
 
 import gaia.GrimoireOfGaia;
 import gaia.client.model.BansheeModel;
-import gaia.entity.Banshee;
-import net.minecraft.client.renderer.RenderType;
+import gaia.client.state.BansheeRenderState;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
-public class BansheeGlowLayer extends EyesLayer<Banshee, BansheeModel> {
-	private static final RenderType BANSHEE = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png"));
+public class BansheeGlowLayer extends EyesLayer<BansheeRenderState, BansheeModel> {
+	private static final RenderType BANSHEE = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png"));
 
-	public BansheeGlowLayer(RenderLayerParent<Banshee, BansheeModel> layerParent) {
+	public BansheeGlowLayer(RenderLayerParent<BansheeRenderState, BansheeModel> layerParent) {
 		super(layerParent);
 	}
 

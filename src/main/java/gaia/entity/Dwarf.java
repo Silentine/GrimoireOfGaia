@@ -11,11 +11,11 @@ import gaia.util.RangedUtil;
 import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -24,10 +24,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,7 +44,7 @@ import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -53,10 +53,13 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.Tags;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, IDayMob {
@@ -131,18 +134,18 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
-		if (!getOffhandItem().isEmpty() && getOffhandItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
-			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurt(source, input);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
+		if (!getOffhandItem().isEmpty() && getOffhandItem().is(Tags.Items.TOOLS_SHIELD)) {
+			return !(source.getDirectEntity() instanceof AbstractArrow) && super.hurtServer(level, source, damage);
 		}
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
@@ -152,8 +155,8 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effectTime * 20, 0));
 				}
 			}
 
@@ -191,15 +194,6 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 		} else {
 			this.goalSelector.addGoal(1, collideAttackGoal);
 		}
-	}
-
-	@Override
-	protected ResourceKey<LootTable> getDefaultLootTable() {
-		return switch (getVariant()) {
-			default -> super.getDefaultLootTable();
-			case 1 -> GaiaLootTables.DWARF_RANGED;
-			case 2 -> GaiaLootTables.DWARF_MINER;
-		};
 	}
 
 	@Override
@@ -269,7 +263,7 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+										EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
@@ -277,29 +271,34 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 
 		setCombatTask();
 
+		ResourceKey<LootTable> table = switch (getVariant()) {
+			case 1 -> GaiaLootTables.DWARF_RANGED;
+			case 2 -> GaiaLootTables.DWARF_MINER;
+			default -> getType().getDefaultLootTable().get();
+		};
+		this.lootTable = Optional.of(table);
+
 		return data;
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("RandomClass", applyRandomClass());
-		tag.putBoolean("CanBreakDoors", this.canBreakDoors());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("RandomClass", applyRandomClass());
+		output.putBoolean("CanBreakDoors", this.canBreakDoors());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		if (tag.contains("RandomClass")) {
-			setRandomClass(tag.getBoolean("RandomClass"));
-		}
-		this.setCanBreakDoors(tag.getBoolean("CanBreakDoors"));
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		setRandomClass(input.getBooleanOr("RandomClass", false));
+		this.setCanBreakDoors(input.getBooleanOr("CanBreakDoors", false));
 		setCombatTask();
 	}
 
 	@Override
-	public boolean canAttackType(EntityType<?> type) {
-		return super.canAttackType(type) && type != GaiaRegistry.DWARF.getEntityType();
+	public boolean canAttack(LivingEntity target) {
+		return super.canAttack(target) && !target.is(GaiaRegistry.DWARF.getEntityType());
 	}
 
 	@Override
@@ -322,7 +321,7 @@ public class Dwarf extends AbstractAssistGaiaEntity implements RangedAttackMob, 
 		return SharedEntityData.CHUNK_LIMIT_2;
 	}
 
-	public static boolean checkDwarfSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkDwarfSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}

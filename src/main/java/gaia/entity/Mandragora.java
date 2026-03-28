@@ -8,11 +8,12 @@ import gaia.util.SharedEntityData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -23,9 +24,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -40,8 +41,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
@@ -96,23 +98,23 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float damage) {
-		float input = getBaseDamage(source, damage);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		damage = getBaseDamage(source, damage);
 		if (source.getEntity() instanceof Player player) {
 			ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
-			if (itemstack.canPerformAction(ItemAbilities.SHOVEL_DIG)) {
-				input = input * 1.5F;
+			if (itemstack.is(ItemTags.SHOVELS)) {
+				damage = damage * 1.5F;
 			}
 		}
 
-		return super.hurt(source, input);
+		return super.hurtServer(level, source, damage);
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity entityIn) {
-		if (super.doHurtTarget(entityIn)) {
-			if (entityIn instanceof LivingEntity livingEntity) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
+		if (super.doHurtTarget(level, target)) {
+			if (target instanceof LivingEntity livingEntity) {
 				int effectTime = 0;
 				int effectTime2 = 0;
 
@@ -125,9 +127,9 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 				}
 
 				if (effectTime > 0) {
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effectTime * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effectTime * 20, 0));
 					livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, effectTime * 20, 0));
-					livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, effectTime2 * 20, 0));
+					livingEntity.addEffect(new MobEffectInstance(MobEffects.NAUSEA, effectTime2 * 20, 0));
 				}
 			}
 
@@ -142,19 +144,19 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 		if (isScreaming()) {
 			beaconMonster(2, (entity) -> {
 				if (entity instanceof Player) {
-					entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, true, true));
+					entity.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 100, 0, true, true));
 				}
 			});
 		}
 
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			if (isInWater()) {
 				if (inWaterTimer <= 100) {
 					++inWaterTimer;
 				} else {
 					this.level().broadcastEntityEvent(this, (byte) 8);
 					heal(getMaxHealth() * 0.10F);
-					addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5 * 20, 0));
+					addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 5 * 20, 0));
 					inWaterTimer = 0;
 				}
 			}
@@ -167,12 +169,18 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 			BlockPos pos = new BlockPos(i, j, k);
 			BlockState blockstate = this.level().getBlockState(pos);
 			if (!blockstate.isAir()) {
-				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(pos), this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), this.getY() + 0.1D, this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(), 4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D, ((double) this.random.nextFloat() - 0.5D) * 4.0D);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate, pos),
+						this.getX() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(),
+						this.getY() + 0.1D,
+						this.getZ() + ((double) this.random.nextFloat() - 0.5D) * (double) this.getBbWidth(),
+						4.0D * ((double) this.random.nextFloat() - 0.5D), 0.5D,
+						((double) this.random.nextFloat() - 0.5D) * 4.0D
+				);
 			}
 		}
 
 		if (isOnFire()) {
-			addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
+			addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 0));
 			addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 		}
 
@@ -182,7 +190,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData data) {
+	                                    EntitySpawnReason spawnType, @Nullable SpawnGroupData data) {
 		data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, data);
 
 		setBaby(true);
@@ -193,22 +201,21 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effectInstance) {
-		return effectInstance.getEffect() != MobEffects.CONFUSION && super.canBeAffected(effectInstance);
+		return effectInstance.getEffect() != MobEffects.NAUSEA && super.canBeAffected(effectInstance);
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("IsBaby", this.isBaby());
-		tag.putBoolean("IsScreaming", this.isScreaming());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("IsBaby", this.isBaby());
+		output.putBoolean("IsScreaming", this.isScreaming());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
-		this.setBaby(tag.getBoolean("IsBaby"));
-		if (tag.contains("IsScreaming"))
-			this.setIsScreaming(tag.getBoolean("IsScreaming"));
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.setBaby(input.getBooleanOr("IsBaby", false));
+		this.setIsScreaming(input.getBooleanOr("IsScreaming", false));
 	}
 
 	@Override
@@ -244,7 +251,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 						random.nextGaussian() * 0.02D);
 			}
 			if ((double) random.nextFloat() < 0.45D) {
-				if (!this.level().isClientSide) {
+				if (!this.level().isClientSide()) {
 					setBaby(false);
 
 					if (!player.getAbilities().instabuild)
@@ -252,7 +259,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 				}
 			}
 
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);
 		}
@@ -284,7 +291,7 @@ public class Mandragora extends AbstractGaiaEntity implements IDayMob {
 		super.onSyncedDataUpdated(dataAccessor);
 	}
 
-	public static boolean checkMandragoraSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+	public static boolean checkMandragoraSpawnRules(EntityType<? extends Monster> entityType, ServerLevelAccessor levelAccessor, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		return checkDaysPassed(levelAccessor) && checkDaytime(levelAccessor) && checkTagBlocks(levelAccessor, pos, GaiaTags.GAIA_SPAWABLE_ON) &&
 				checkAboveSeaLevel(levelAccessor, pos) && checkGaiaDaySpawnRules(entityType, levelAccessor, spawnType, pos, random);
 	}
