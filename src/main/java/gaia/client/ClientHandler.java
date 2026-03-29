@@ -1,6 +1,8 @@
 package gaia.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.Reference;
+import gaia.client.item.GaiaShieldRenderer;
 import gaia.client.model.AntSalvagerModel;
 import gaia.client.model.AntWorkerModel;
 import gaia.client.model.AnubisModel;
@@ -142,6 +144,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterEntitySpectatorShadersEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 public class ClientHandler {
@@ -218,9 +221,9 @@ public class ClientHandler {
 	public static final ModelLayerLocation HOLSTAURUS = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "holstaurus"), "main");
 	public static final ModelLayerLocation SLIME_GIRL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "slime_girl"), "main");
 	public static final ModelLayerLocation WERESHEEP = new ModelLayerLocation(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "weresheep"), "main");
-	
+
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-				if (ModList.get().isLoaded("curios")) {
+		if (ModList.get().isLoaded("curios")) {
 			gaia.compat.curios.client.CuriosRendering.onRenderSetup();
 		}
 
@@ -236,6 +239,10 @@ public class ClientHandler {
 //			ItemProperties.register(GaiaRegistry.SEASHELL_HAIRPIN.get(), Identifier.parse("available"), (stack, level, livingEntity, i) ->
 //					stack.getDamageValue() == 0 ? 1.0F : 0.0F);
 //		});
+	}
+
+	public static void registerSpecialModelRenderers(RegisterSpecialModelRendererEvent event) {
+		event.register(Reference.modLoc("shield"), GaiaShieldRenderer.Unbaked.MAP_CODEC);
 	}
 
 	public static void setupSpectatingShaders(RegisterEntitySpectatorShadersEvent event) {

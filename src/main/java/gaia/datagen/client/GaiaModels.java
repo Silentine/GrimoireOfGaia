@@ -1,6 +1,7 @@
 package gaia.datagen.client;
 
 import gaia.GrimoireOfGaia;
+import gaia.client.item.GaiaShieldRenderer;
 import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -14,6 +15,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -74,10 +76,10 @@ public class GaiaModels extends ModelProvider {
 		itemModels.declareCustomModelItem(GaiaRegistry.PROJECTILE_POISON.get());
 		itemModels.declareCustomModelItem(GaiaRegistry.PROJECTILE_BUBBLE.get());
 		itemModels.declareCustomModelItem(GaiaRegistry.FAN.get());
-		itemModels.generateShield(GaiaRegistry.STONE_SHIELD.get());
-		itemModels.generateShield(GaiaRegistry.IRON_SHIELD.get());
-		itemModels.generateShield(GaiaRegistry.GOLD_SHIELD.get());
-		itemModels.generateShield(GaiaRegistry.BONE_SHIELD.get());
+		generateShield(itemModels, GaiaRegistry.STONE_SHIELD.get());
+		generateShield(itemModels, GaiaRegistry.IRON_SHIELD.get());
+		generateShield(itemModels, GaiaRegistry.GOLD_SHIELD.get());
+		generateShield(itemModels, GaiaRegistry.BONE_SHIELD.get());
 
 		this.generatedItem(itemModels, GaiaRegistry.BOOK_OF_MEMORY);
 		this.generatedBook(itemModels, GaiaRegistry.WEAPON_BOOK_FREEZING);
@@ -151,6 +153,13 @@ public class GaiaModels extends ModelProvider {
 		this.generatedItem(itemModels, GaiaRegistry.TRADER_TOKEN);
 		this.generatedItem(itemModels, GaiaRegistry.HOLSTAURUS_TOKEN);
 		this.generatedItem(itemModels, GaiaRegistry.WERESHEEP_TOKEN);
+	}
+
+	public void generateShield(ItemModelGenerators itemModels, Item item) {
+		ItemModel.Unbaked normal = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item), new GaiaShieldRenderer.Unbaked());
+		ItemModel.Unbaked blocking = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item, "_blocking"), new GaiaShieldRenderer.Unbaked());
+		itemModels.itemModelOutput
+				.accept(item, ItemModelUtils.conditional(GaiaShieldRenderer.DEFAULT_TRANSFORMATION, ItemModelUtils.isUsingItem(), blocking, normal));
 	}
 
 	private static void generateHorizontal(BlockModelGenerators blockModels, DeferredHolder<Block, ? extends Block> registryObject) {

@@ -2,7 +2,6 @@ package gaia.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.client.state.SharkoRenderState;
-import gaia.entity.Sharko;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;

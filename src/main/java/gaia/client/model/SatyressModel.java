@@ -3,7 +3,6 @@ package gaia.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.client.state.SatyressRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Satyress;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -17,7 +16,6 @@ import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.phys.Vec3;
 
 public class SatyressModel extends EntityModel<SatyressRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;

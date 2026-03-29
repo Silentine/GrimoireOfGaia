@@ -1,12 +1,13 @@
 package gaia.registry;
 
-import java.util.List;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+
+import java.util.List;
 
 public class GaiaFoods {
 	public static final FoodProperties TAPROOT = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0).build();

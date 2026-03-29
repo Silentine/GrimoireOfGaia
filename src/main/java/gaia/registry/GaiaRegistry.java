@@ -111,11 +111,15 @@ import gaia.item.weapon.book.WitherBookItem;
 import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
 import gaia.registry.helper.PropReg;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -126,8 +130,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.neoforged.neoforge.common.Tags;
@@ -136,6 +142,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class GaiaRegistry {
@@ -394,10 +401,62 @@ public class GaiaRegistry {
 	public static final DeferredItem<WartJamItem> NETHER_WART_JAM = ITEMS.registerItem("nether_wart_jam", (properties) -> new WartJamItem(properties.food(GaiaFoods.NETHER_WART_JAM, GaiaFoods.NETHER_WART_JAM_CONSUMABLE)));
 	public static final DeferredItem<EdibleEffectItem> WITHERED_BRAIN = ITEMS.registerItem("withered_brain", (properties) -> new EdibleEffectItem(properties.stacksTo(1).food(GaiaFoods.WITHERED_BRAIN, GaiaFoods.WITHERED_BRAIN_CONSUMABLE)));
 
-	public static final DeferredItem<ShieldItem> STONE_SHIELD = ITEMS.registerItem("stone_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(150).repairable(Tags.Items.COBBLESTONES)));
-	public static final DeferredItem<ShieldItem> IRON_SHIELD = ITEMS.registerItem("iron_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(336).repairable(Tags.Items.INGOTS_IRON)));
-	public static final DeferredItem<ShieldItem> GOLD_SHIELD = ITEMS.registerItem("gold_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(260).repairable(Tags.Items.INGOTS_GOLD)));
-	public static final DeferredItem<ShieldItem> BONE_SHIELD = ITEMS.registerItem("bone_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(200).repairable(Tags.Items.BONES)));
+	public static final DeferredItem<ShieldItem> STONE_SHIELD = ITEMS.registerItem("stone_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(150)
+			.component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY).equippableUnswappable(EquipmentSlot.OFFHAND).repairable(Tags.Items.COBBLESTONES).delayedComponent(
+					DataComponents.BLOCKS_ATTACKS,
+					context -> new BlocksAttacks(
+							0.25F,
+							1.0F,
+							List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+							new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+							Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+							Optional.of(SoundEvents.SHIELD_BLOCK),
+							Optional.of(SoundEvents.SHIELD_BREAK)
+					)
+			)
+			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)));
+	public static final DeferredItem<ShieldItem> IRON_SHIELD = ITEMS.registerItem("iron_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(336)
+			.component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY).equippableUnswappable(EquipmentSlot.OFFHAND).repairable(Tags.Items.INGOTS_IRON).delayedComponent(
+					DataComponents.BLOCKS_ATTACKS,
+					context -> new BlocksAttacks(
+							0.25F,
+							1.0F,
+							List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+							new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+							Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+							Optional.of(SoundEvents.SHIELD_BLOCK),
+							Optional.of(SoundEvents.SHIELD_BREAK)
+					)
+			)
+			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)));
+	public static final DeferredItem<ShieldItem> GOLD_SHIELD = ITEMS.registerItem("gold_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(260)
+			.component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY).equippableUnswappable(EquipmentSlot.OFFHAND).repairable(Tags.Items.INGOTS_GOLD).delayedComponent(
+					DataComponents.BLOCKS_ATTACKS,
+					context -> new BlocksAttacks(
+							0.25F,
+							1.0F,
+							List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+							new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+							Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+							Optional.of(SoundEvents.SHIELD_BLOCK),
+							Optional.of(SoundEvents.SHIELD_BREAK)
+					)
+			)
+			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)));
+	public static final DeferredItem<ShieldItem> BONE_SHIELD = ITEMS.registerItem("bone_shield", (properties) -> new ShieldItem(properties.rarity(Rarity.UNCOMMON).durability(200)
+			.component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY).equippableUnswappable(EquipmentSlot.OFFHAND).repairable(Tags.Items.BONES).delayedComponent(
+					DataComponents.BLOCKS_ATTACKS,
+					context -> new BlocksAttacks(
+							0.25F,
+							1.0F,
+							List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+							new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+							Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+							Optional.of(SoundEvents.SHIELD_BLOCK),
+							Optional.of(SoundEvents.SHIELD_BREAK)
+					)
+			)
+			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)));
 
 	//Lootable Item
 	public static final DeferredItem<LootableItem> BAG_ARROWS = ITEMS.registerItem("bag_arrows", (properties) -> new LootableItem(properties.rarity(Rarity.RARE), GaiaLootTables.BAG_ARROW, GaiaSounds.BAG_OPEN));

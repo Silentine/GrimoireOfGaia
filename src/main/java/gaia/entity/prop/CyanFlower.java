@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.common.ItemAbilities;
 import org.jspecify.annotations.Nullable;
 
 public class CyanFlower extends AbstractPropEntity {

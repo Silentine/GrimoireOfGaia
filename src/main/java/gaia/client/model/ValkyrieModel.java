@@ -3,7 +3,6 @@ package gaia.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import gaia.client.state.ValkyrieRenderState;
 import gaia.config.GaiaConfig;
-import gaia.entity.Valkyrie;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;

@@ -3,7 +3,6 @@ package gaia.client.renderer.layer;
 import gaia.GrimoireOfGaia;
 import gaia.client.model.SprigganModel;
 import gaia.client.state.SprigganRenderState;
-import gaia.entity.Spriggan;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;

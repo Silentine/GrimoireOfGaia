@@ -1,7 +1,6 @@
 package gaia.client.model;
 
 import gaia.client.state.MimicRenderState;
-import gaia.entity.Mimic;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

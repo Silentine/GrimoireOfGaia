@@ -44,5 +44,14 @@ public class GaiaItemTags extends ItemTagsProvider {
 		this.tag(GaiaTags.NUGGETS_DIAMOND).add(GaiaRegistry.DIAMOND_SHARD.get());
 		this.tag(GaiaTags.NUGGETS_EMERALD).add(GaiaRegistry.EMERALD_SHARD.get());
 		this.tag(Tags.Items.NUGGETS).addTags(GaiaTags.NUGGETS_DIAMOND, GaiaTags.NUGGETS_EMERALD);
+
+		this.tag(Tags.Items.TOOLS_SHIELD).add(
+				GaiaRegistry.BONE_SHIELD.get(), GaiaRegistry.STONE_SHIELD.get(),
+				GaiaRegistry.IRON_SHIELD.get(), GaiaRegistry.GOLD_SHIELD.get()
+		);
+		this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(
+				GaiaRegistry.BONE_SHIELD.get(), GaiaRegistry.STONE_SHIELD.get(),
+				GaiaRegistry.IRON_SHIELD.get(), GaiaRegistry.GOLD_SHIELD.get()
+		);
 	}
 }

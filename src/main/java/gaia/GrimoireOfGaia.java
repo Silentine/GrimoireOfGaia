@@ -51,6 +51,7 @@ public class GrimoireOfGaia {
 			container.registerConfig(ModConfig.Type.CLIENT, GaiaConfig.clientSpec);
 			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 			eventBus.addListener(ClientHandler::onClientSetup);
+			eventBus.addListener(ClientHandler::registerSpecialModelRenderers);
 			eventBus.addListener(ClientHandler::setupSpectatingShaders);
 			eventBus.addListener(ClientHandler::addPackFinders);
 			eventBus.addListener(ClientHandler::registerEntityRenders);

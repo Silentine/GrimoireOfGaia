@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.phys.Vec3;
 
 public class WerecatModel extends EntityModel<WerecatRenderState> implements HeadedModel, ArmedModel {
 	private final ModelPart root;
