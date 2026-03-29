@@ -1,8 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:item/broom"
-	},
+		"0": "grimoireofgaia:item/broom",
+    "particle": "grimoireofgaia:item/broom"
+  },
 	"elements": [
 		{
 			"name": "body",

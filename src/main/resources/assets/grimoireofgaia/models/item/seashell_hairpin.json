@@ -1,10 +1,21 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "grimoireofgaia:item/seashell_hairpin_available"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "grimoireofgaia:item/seashell_hairpin_available",
+    "particle": "grimoireofgaia:item/seashell_hairpin_available"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "active": 0.0
+      },
+      "model": "grimoireofgaia:item/seashell_hairpin_unavailable"
     },
-    "overrides": [
-        { "predicate": { "active": 0.0 }, "model": "grimoireofgaia:item/seashell_hairpin_unavailable" },
-        { "predicate": { "active": 1.0 }, "model": "grimoireofgaia:item/seashell_hairpin_available" }
-    ]
+    {
+      "predicate": {
+        "active": 1.0
+      },
+      "model": "grimoireofgaia:item/seashell_hairpin_available"
+    }
+  ]
 }

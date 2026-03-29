@@ -2,8 +2,9 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"layer0": "grimoireofgaia:item/weapon_book"
-	},
+		"layer0": "grimoireofgaia:item/weapon_book",
+    "particle": "grimoireofgaia:item/weapon_book"
+  },
 	"elements": [
 		{
 			"name": "body1",

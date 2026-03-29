@@ -126,7 +126,8 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 				.add(Attributes.ATTACK_DAMAGE, 4.0D)
 				.add(Attributes.ARMOR, SharedEntityData.RATE_ARMOR_1)
 				.add(Attributes.KNOCKBACK_RESISTANCE, SharedEntityData.KNOCKBACK_1)
-				.add(Attributes.STEP_HEIGHT, 1.0F);
+				.add(Attributes.STEP_HEIGHT, 1.0F)
+				.add(Attributes.TEMPT_RANGE, 10.0);
 	}
 
 	@Override

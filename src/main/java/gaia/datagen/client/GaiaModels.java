@@ -127,8 +127,8 @@ public class GaiaModels extends ModelProvider {
 		this.handheldItem(itemModels, GaiaRegistry.CAVE_SPIDER_STAFF);
 		this.handheldItem(itemModels, GaiaRegistry.MAGIC_STAFF);
 
-		this.parentItem(itemModels, GaiaRegistry.FAN_FIRE, modLocation("item/fan"));
-		this.parentItem(itemModels, GaiaRegistry.FAN_ICE, modLocation("item/fan"));
+		this.parentItem(itemModels, GaiaRegistry.FAN_FIRE, modLocation("fan"));
+		this.parentItem(itemModels, GaiaRegistry.FAN_ICE, modLocation("fan"));
 		this.generatedItem(itemModels, GaiaRegistry.NETHER_WART_JAM);
 		this.generatedItem(itemModels, GaiaRegistry.WITHERED_BRAIN);
 
@@ -162,22 +162,8 @@ public class GaiaModels extends ModelProvider {
 		);
 	}
 
-	private static void generateSimple(BlockModelGenerators blockModels, DeferredHolder<Block, ? extends Block> registryObject) {
-		blockModels.blockStateOutput.accept(
-				BlockModelGenerators.createSimpleBlock(
-						registryObject.get(),
-						BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(registryObject.get()))
-				)
-		);
-	}
-
 	public static final ModelTemplate CHEST = ModelTemplates.createItem("grimoireofgaia:chest", TextureSlot.LAYER0);
 	public static final ModelTemplate BOOK = ModelTemplates.createItem("grimoireofgaia:weapon_book", TextureSlot.LAYER0);
-
-//	private void withBlockParent(ItemModelGenerators itemModels, DeferredHolder<Block, ? extends Block> registryObject) {
-//		Identifier location = registryObject.getId();
-//		withExistingParent(location.getPath(), modLoc("block/" + location.getPath()));
-//	}
 
 	private void generatedItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject) {
 		itemModels.generateFlatItem(registryObject.get(), ModelTemplates.FLAT_ITEM);

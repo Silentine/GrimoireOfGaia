@@ -1,8 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:item/minotaur_hammer"
-	},
+		"0": "grimoireofgaia:item/minotaur_hammer",
+    "particle": "grimoireofgaia:item/minotaur_hammer"
+  },
 	"elements": [
 		{
 			"name": "head1",

@@ -3,8 +3,9 @@
 	"ambientocclusion": false,
 	"textures": {
 		"1": "grimoireofgaia:item/headgear_doll_head",
-		"2": "grimoireofgaia:item/headgear_doll_body"
-	},
+		"2": "grimoireofgaia:item/headgear_doll_body",
+    "particle": "grimoireofgaia:item/headgear_doll_head"
+  },
 	"elements": [
 		{
 			"name": "head1",

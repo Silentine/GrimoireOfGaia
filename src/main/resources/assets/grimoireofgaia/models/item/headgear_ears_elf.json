@@ -2,8 +2,9 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "grimoireofgaia:item/headgear_ears_elf"
-	},
+		"0": "grimoireofgaia:item/headgear_ears_elf",
+    "particle": "grimoireofgaia:item/headgear_ears_elf"
+  },
 	"elements": [
 		{
 			"name": "rightear",

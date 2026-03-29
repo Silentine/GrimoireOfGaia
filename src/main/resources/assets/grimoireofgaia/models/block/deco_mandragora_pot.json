@@ -1,8 +1,9 @@
 {
 	"credit": "Made by Silentine, with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:block/deco_mandragora_pot"
-	},
+		"0": "grimoireofgaia:block/deco_mandragora_pot",
+    "particle": "grimoireofgaia:block/deco_mandragora_pot"
+  },
 	"elements": [
 		{
 			"name": "head",

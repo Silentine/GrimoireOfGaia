@@ -1,7 +1,8 @@
 {
     "__comment": "Model animated using Fizzy's model animator - http://fizzy81.github.io/animated-models/", 
     "textures": {
-        "main": "grimoireofgaia:item/projectile_magic"
+        "main": "grimoireofgaia:item/projectile_magic",
+        "particle": "grimoireofgaia:item/projectile_magic"
     }, 
 	"display": {
         "gui": {

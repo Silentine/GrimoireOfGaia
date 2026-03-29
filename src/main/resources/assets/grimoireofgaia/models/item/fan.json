@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "grimoireofgaia:item/fan"
+		"0": "grimoireofgaia:item/fan",
+    "particle": "grimoireofgaia:item/fan"
 	},
 	"elements": [
 		{

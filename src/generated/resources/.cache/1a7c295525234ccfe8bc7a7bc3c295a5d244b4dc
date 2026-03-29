@@ -1,4 +1,4 @@
-// 26.1	2026-03-29T20:55:25.5846511	Model Definitions - grimoireofgaia
+// 26.1	2026-03-29T22:18:14.0766105	Model Definitions - grimoireofgaia
 97a0b32736177d0d978cc2a8dcae41dc8f0261d5 assets/grimoireofgaia/blockstates/bust_gorgon.json
 754dd45f96d2fa40408d454637be23d2417be856 assets/grimoireofgaia/blockstates/bust_minotaur.json
 85029b76b9fbec0d6de5782ab42188ff95738402 assets/grimoireofgaia/blockstates/bust_sphinx.json
@@ -234,8 +234,8 @@ ae90ebb71783254e9a97bd3ae35dd454927e2852 assets/grimoireofgaia/models/item/emera
 d6b37c50dacee36e490328a66933b825b75285ed assets/grimoireofgaia/models/item/experience_diamond.json
 c6a88a67950fb405d633faee75ac1ca9fa849042 assets/grimoireofgaia/models/item/experience_gold.json
 5ae311a9543841b4f8a71c5cd5f9d55708f807fd assets/grimoireofgaia/models/item/experience_iron.json
-877aa796a85f3c121fbe548cf053d9c1f78bdf26 assets/grimoireofgaia/models/item/fan_fire.json
-f1095036361c5fd6b6bd1ba53a1aafedac4427a8 assets/grimoireofgaia/models/item/fan_ice.json
+9ad964150ad5bdd2ea9e7274c1958957ee3519ec assets/grimoireofgaia/models/item/fan_fire.json
+9f8423464f039fd3aca37db390ff906ab92461e7 assets/grimoireofgaia/models/item/fan_ice.json
 49cb8bcdeb31980ba723d0c4333f3863147829e0 assets/grimoireofgaia/models/item/fireshard.json
 561484327a6852277b0463d28b1f1e55274f4dfc assets/grimoireofgaia/models/item/flesh_lich_spawn_egg.json
 cb43a97230c7aca200e4c23745892f692a630f4d assets/grimoireofgaia/models/item/fur.json

@@ -1,5 +1,5 @@
 {
-  "parent": "grimoireofgaia:item/item/fan",
+  "parent": "grimoireofgaia:item/fan",
   "textures": {
     "layer0": "grimoireofgaia:item/fan_ice"
   }

@@ -2,7 +2,8 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"1": "grimoireofgaia:item/headgear_arrow"
+		"1": "grimoireofgaia:item/headgear_arrow",
+    "particle": "grimoireofgaia:item/headgear_arrow"
 	},
 	"elements": [
 		{
