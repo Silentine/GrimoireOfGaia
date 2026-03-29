@@ -1,0 +1,16 @@
+{
+  "values": {
+    "grimoireofgaia:fireshard": {
+      "burn_time": 20000
+    },
+    "grimoireofgaia:giga_gear": {
+      "burn_time": 1240000
+    },
+    "grimoireofgaia:soulfire": {
+      "burn_time": 11600
+    },
+    "grimoireofgaia:stone_coal": {
+      "burn_time": 3600
+    }
+  }
+}

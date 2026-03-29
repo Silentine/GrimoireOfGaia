@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "grimoireofgaia:item/box/chest_dungeon"
+		"layer0": "grimoireofgaia:item/chest_dungeon"
 	},
 	"elements": [
 		{
@@ -9,12 +9,12 @@
 			"from": [4, 0, 4],
 			"to": [12, 8, 12],
 			"faces": {
-				"north": {"uv": [0, 8, 8, 16], "texture": "#0"},
-				"east": {"uv": [0, 8, 8, 16], "texture": "#0"},
-				"south": {"uv": [8, 8, 16, 16], "texture": "#0"},
-				"west": {"uv": [0, 8, 8, 16], "texture": "#0"},
-				"up": {"uv": [8, 0, 16, 8], "texture": "#0"},
-				"down": {"uv": [8, 0, 16, 8], "texture": "#0"}
+				"north": {"uv": [0, 8, 8, 16], "texture": "#layer0"},
+				"east": {"uv": [0, 8, 8, 16], "texture": "#layer0"},
+				"south": {"uv": [8, 8, 16, 16], "texture": "#layer0"},
+				"west": {"uv": [0, 8, 8, 16], "texture": "#layer0"},
+				"up": {"uv": [8, 0, 16, 8], "texture": "#layer0"},
+				"down": {"uv": [8, 0, 16, 8], "texture": "#layer0"}
 			}
 		},
 		{
@@ -22,11 +22,11 @@
 			"from": [7, 4, 12],
 			"to": [9, 7, 13],
 			"faces": {
-				"east": {"uv": [4, 1, 3, 4], "texture": "#0"},
-				"south": {"uv": [1, 1, 3, 4], "texture": "#0"},
-				"west": {"uv": [0, 1, 1, 4], "texture": "#0"},
-				"up": {"uv": [1, 0, 3, 1], "rotation": 180, "texture": "#0"},
-				"down": {"uv": [3, 0, 5, 1], "texture": "#0"}
+				"east": {"uv": [4, 1, 3, 4], "texture": "#layer0"},
+				"south": {"uv": [1, 1, 3, 4], "texture": "#layer0"},
+				"west": {"uv": [0, 1, 1, 4], "texture": "#layer0"},
+				"up": {"uv": [1, 0, 3, 1], "rotation": 180, "texture": "#layer0"},
+				"down": {"uv": [3, 0, 5, 1], "texture": "#layer0"}
 			}
 		}
 	],

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "grimoireofgaia:item/accessory/heavy_barbell"
+    "layer0": "grimoireofgaia:item/heavy_barbell"
   }
 }

@@ -7,6 +7,7 @@ import gaia.datagen.client.GaiaSoundProvider;
 import gaia.datagen.server.GaiaAdvancementProvider;
 import gaia.datagen.server.GaiaBiomeModifiers;
 import gaia.datagen.server.GaiaBlockTags;
+import gaia.datagen.server.GaiaDatamapProvider;
 import gaia.datagen.server.GaiaEntityTags;
 import gaia.datagen.server.GaiaItemTags;
 import gaia.datagen.server.GaiaLoot;
@@ -44,6 +45,7 @@ public class GaiaDatagen {
 		generator.addProvider(true, new GaiaBlockTags(packOutput, lookupProvider));
 		generator.addProvider(true, new GaiaItemTags(packOutput, lookupProvider));
 		generator.addProvider(true, new GaiaEntityTags(packOutput, lookupProvider));
+		generator.addProvider(true, new GaiaDatamapProvider(packOutput, lookupProvider));
 
 		generator.addProvider(true, new DatapackBuiltinEntriesProvider(
 				packOutput, CompletableFuture.supplyAsync(GaiaDatagen::getProvider), Set.of(GrimoireOfGaia.MOD_ID)));

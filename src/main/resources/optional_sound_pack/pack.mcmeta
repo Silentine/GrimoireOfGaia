@@ -1,6 +1,8 @@
 {
   "pack": {
     "description": "\u00A77Cute girl sound pack created by Silentine",
-    "pack_format": 101.1
+    "pack_format": 101,
+    "min_format": 101,
+    "max_format": 101
   }
 }

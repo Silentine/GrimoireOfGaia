@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 public class FireshardItem extends FuelItem {
 
 	public FireshardItem(Properties properties) {
-		super(properties, 20000);
+		super(properties);
 	}
 
 	@Override

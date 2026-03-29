@@ -25,7 +25,14 @@ public class ArachneRenderer extends MobRenderer<Arachne, ArachneRenderState, Ar
 
 	@Override
 	public ArachneRenderState createRenderState() {
-		return null;
+		return new ArachneRenderState();
+	}
+
+	@Override
+	public void extractRenderState(Arachne entity, ArachneRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.variant = entity.getVariant();
+		state.attackType = entity.getAttackType();
 	}
 
 	@Override

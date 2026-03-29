@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "grimoireofgaia:item/weapon/summoning_staff"
+    "layer0": "grimoireofgaia:item/cave_spider_staff"
   }
 }

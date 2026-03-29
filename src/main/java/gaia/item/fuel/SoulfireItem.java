@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 public class SoulfireItem extends FuelItem {
 
 	public SoulfireItem(Properties properties) {
-		super(properties, 11600);
+		super(properties);
 	}
 
 	@Override

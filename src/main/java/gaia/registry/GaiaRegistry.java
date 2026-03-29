@@ -379,7 +379,7 @@ public class GaiaRegistry {
 	public static final DeferredItem<MonsterFeedItem> MONSTER_FEED = ITEMS.registerItem("monster_feed", (properties) -> new MonsterFeedItem(properties.stacksTo(4).food(GaiaFoods.MONSTER_FEED)));
 	public static final DeferredItem<MonsterFeedItem> PREMIUM_MONSTER_FEED = ITEMS.registerItem("premium_monster_feed", (properties) -> new MonsterFeedItem(properties.stacksTo(1).food(GaiaFoods.PREMIUM_MONSTER_FEED)));
 	public static final DeferredItem<EdibleEffectItem> ROTTEN_HEART = ITEMS.registerItem("rotten_heart", (properties) -> new EdibleEffectItem(properties.food(GaiaFoods.ROTTEN_HEART, GaiaFoods.ROTTEN_HEART_CONSUMABLE).stacksTo(1)));
-	public static final DeferredItem<FuelItem> STONE_COAL = ITEMS.registerItem("stone_coal", (properties) -> new FuelItem(properties, 3600));
+	public static final DeferredItem<FuelItem> STONE_COAL = ITEMS.registerItem("stone_coal", FuelItem::new);
 	public static final DeferredItem<TaprootItem> TAPROOT = ITEMS.registerItem("taproot", (properties) -> new TaprootItem(properties.food(GaiaFoods.TAPROOT)));
 	public static final DeferredItem<SummonStaffItem> ZOMBIE_STAFF = ITEMS.registerItem("zombie_staff", (properties) -> new SummonStaffItem(properties.rarity(Rarity.RARE).durability(10), () -> EntityType.ZOMBIE, Items.ROTTEN_FLESH));
 	public static final DeferredItem<SummonStaffItem> SKELETON_STAFF = ITEMS.registerItem("skeleton_staff", (properties) -> new SummonStaffItem(properties.rarity(Rarity.RARE).durability(10), () -> EntityType.SKELETON, Items.BONE));

@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 public class GigaGearItem extends FuelItem {
 	public GigaGearItem(Properties properties) {
-		super(properties, 1240000);
+		super(properties);
 	}
 
 	@Override

@@ -2,7 +2,7 @@
 	"credit": "Made by Silentine, with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "grimoireofgaia:item/weapon/book/weapon_book"
+		"layer0": "grimoireofgaia:item/weapon_book"
 	},
 	"elements": [
 		{
@@ -10,9 +10,9 @@
 			"from": [7, 0, 5],
 			"to": [9, 10, 11],
 			"faces": {
-				"east": {"uv": [10, 2, 16, 12], "texture": "#0"},
-				"south": {"uv": [8, 2, 10, 12], "texture": "#0"},
-				"west": {"uv": [2, 2, 8, 12], "texture": "#0"}
+				"east": {"uv": [10, 2, 16, 12], "texture": "#layer0"},
+				"south": {"uv": [8, 2, 10, 12], "texture": "#layer0"},
+				"west": {"uv": [2, 2, 8, 12], "texture": "#layer0"}
 			}
 		},
 		{
@@ -20,9 +20,9 @@
 			"from": [7, 1, 6],
 			"to": [9, 9, 11],
 			"faces": {
-				"north": {"uv": [0, 2, 2, 12], "texture": "#0"},
-				"up": {"uv": [2, 0, 8, 2], "rotation": 90, "texture": "#0"},
-				"down": {"uv": [8, 0, 14, 2], "rotation": 270, "texture": "#0"}
+				"north": {"uv": [0, 2, 2, 12], "texture": "#layer0"},
+				"up": {"uv": [2, 0, 8, 2], "rotation": 90, "texture": "#layer0"},
+				"down": {"uv": [8, 0, 14, 2], "rotation": 270, "texture": "#layer0"}
 			}
 		},
 		{
@@ -30,10 +30,10 @@
 			"from": [8.99, 0, 5],
 			"to": [9, 10, 11],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 12], "texture": "#0"},
-				"west": {"uv": [16, 2, 10, 12], "texture": "#0"},
-				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#0"},
-				"down": {"uv": [2, 2, 8, 3], "rotation": 270, "texture": "#0"}
+				"north": {"uv": [2, 2, 3, 12], "texture": "#layer0"},
+				"west": {"uv": [16, 2, 10, 12], "texture": "#layer0"},
+				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#layer0"},
+				"down": {"uv": [2, 2, 8, 3], "rotation": 270, "texture": "#layer0"}
 			}
 		},
 		{
@@ -41,10 +41,10 @@
 			"from": [7, 0, 5],
 			"to": [7.01, 10, 11],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 12], "texture": "#0"},
-				"east": {"uv": [8, 2, 2, 12], "texture": "#0"},
-				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#0"},
-				"down": {"uv": [2, 11, 8, 12], "rotation": 270, "texture": "#0"}
+				"north": {"uv": [2, 2, 3, 12], "texture": "#layer0"},
+				"east": {"uv": [8, 2, 2, 12], "texture": "#layer0"},
+				"up": {"uv": [2, 2, 8, 3], "rotation": 90, "texture": "#layer0"},
+				"down": {"uv": [2, 11, 8, 12], "rotation": 270, "texture": "#layer0"}
 			}
 		},
 		{
@@ -52,9 +52,9 @@
 			"from": [7, 0, 10.99],
 			"to": [9, 10, 11],
 			"faces": {
-				"north": {"uv": [9, 2, 8, 12], "texture": "#0"},
-				"up": {"uv": [8, 2, 9, 3], "texture": "#0"},
-				"down": {"uv": [8, 2, 9, 3], "texture": "#0"}
+				"north": {"uv": [9, 2, 8, 12], "texture": "#layer0"},
+				"up": {"uv": [8, 2, 9, 3], "texture": "#layer0"},
+				"down": {"uv": [8, 2, 9, 3], "texture": "#layer0"}
 			}
 		}
 	],

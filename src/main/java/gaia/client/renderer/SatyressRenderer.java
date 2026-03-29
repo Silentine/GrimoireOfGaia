@@ -25,7 +25,7 @@ public class SatyressRenderer extends MobRenderer<Satyress, SatyressRenderState,
 
 	@Override
 	public SatyressRenderState createRenderState() {
-		return null;
+		return new SatyressRenderState();
 	}
 
 	@Override

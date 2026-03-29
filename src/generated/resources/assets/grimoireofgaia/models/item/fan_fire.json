@@ -1,6 +1,6 @@
 {
   "parent": "grimoireofgaia:item/item/fan",
   "textures": {
-    "layer0": "grimoireofgaia:item/weapon/fan/fan_fire"
+    "layer0": "grimoireofgaia:item/fan_fire"
   }
 }

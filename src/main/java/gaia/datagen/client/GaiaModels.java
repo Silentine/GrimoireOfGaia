@@ -13,6 +13,7 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -45,7 +46,7 @@ public class GaiaModels extends ModelProvider {
 		generateHorizontal(blockModels, GaiaRegistry.DOLL_MERMAID);
 		generateHorizontal(blockModels, GaiaRegistry.DOLL_NINE_TAILS);
 		generateHorizontal(blockModels, GaiaRegistry.DOLL_SLIME_GIRL);
-		generateSimple(blockModels, GaiaRegistry.PEARL_BLOCK);
+		blockModels.createTrivialBlock(GaiaRegistry.PEARL_BLOCK.get(), TexturedModel.TOP_BOTTOM_WITH_WALL);
 
 		for (DeferredHolder<Item, ? extends Item> item : GaiaRegistry.ITEMS.getEntries()) {
 			if (item.get() instanceof MerchantSpawnItem) {
@@ -88,8 +89,8 @@ public class GaiaModels extends ModelProvider {
 		this.generatedBook(itemModels, GaiaRegistry.WEAPON_BOOK_NATURE);
 		this.generatedBook(itemModels, GaiaRegistry.WEAPON_BOOK_WITHER);
 		this.generatedBook(itemModels, GaiaRegistry.WEAPON_BOOK_BUFF);
-		this.handheldItem(itemModels, GaiaRegistry.CURSED_METAL_SWORD, "weapon");
-		this.handheldItem(itemModels, GaiaRegistry.METAL_CLUB, "weapon");
+		this.handheldItem(itemModels, GaiaRegistry.CURSED_METAL_SWORD);
+		this.handheldItem(itemModels, GaiaRegistry.METAL_CLUB);
 		this.generatedItem(itemModels, GaiaRegistry.EXPERIENCE_IRON);
 		this.generatedItem(itemModels, GaiaRegistry.EXPERIENCE_GOLD);
 		this.generatedItem(itemModels, GaiaRegistry.EXPERIENCE_DIAMOND);
@@ -105,27 +106,29 @@ public class GaiaModels extends ModelProvider {
 		this.generatedItem(itemModels, GaiaRegistry.GOLDEN_APPLE_PIE_SLICE);
 		this.generatedItem(itemModels, GaiaRegistry.MANDRAKE);
 		this.generatedItem(itemModels, GaiaRegistry.HONEYDEW);
-		this.generatedItem(itemModels, GaiaRegistry.KNUCKLES, "accessory");
-		this.generatedItem(itemModels, GaiaRegistry.RING_OF_SPEED, "accessory");
-		this.generatedItem(itemModels, GaiaRegistry.RING_OF_HASTE, "accessory");
-		this.generatedItem(itemModels, GaiaRegistry.RING_OF_JUMP, "accessory");
-		this.generatedItem(itemModels, GaiaRegistry.RING_OF_NIGHT, "accessory");
-		this.generatedItem(itemModels, GaiaRegistry.HEAVY_BARBELL, "accessory");
+		this.generatedItem(itemModels, GaiaRegistry.KNUCKLES);
+		this.generatedItem(itemModels, GaiaRegistry.RING_OF_SPEED);
+		this.generatedItem(itemModels, GaiaRegistry.RING_OF_HASTE);
+		this.generatedItem(itemModels, GaiaRegistry.RING_OF_JUMP);
+		this.generatedItem(itemModels, GaiaRegistry.RING_OF_NIGHT);
+		this.generatedItem(itemModels, GaiaRegistry.HEAVY_BARBELL);
 		this.generatedItem(itemModels, GaiaRegistry.MEAT);
 		this.generatedItem(itemModels, GaiaRegistry.MONSTER_FEED);
 		this.generatedItem(itemModels, GaiaRegistry.PREMIUM_MONSTER_FEED);
-		this.handheldItem(itemModels, GaiaRegistry.METAL_DAGGER, "weapon");
+		this.handheldItem(itemModels, GaiaRegistry.METAL_DAGGER);
 		this.generatedItem(itemModels, GaiaRegistry.QUILL);
 		this.generatedItem(itemModels, GaiaRegistry.ROTTEN_HEART);
 		this.generatedItem(itemModels, GaiaRegistry.SOULFIRE);
 		this.generatedItem(itemModels, GaiaRegistry.STONE_COAL);
 		this.generatedItem(itemModels, GaiaRegistry.TAPROOT);
-		this.handheldItem(itemModels, GaiaRegistry.ZOMBIE_STAFF, "weapon", "summoning_staff");
-		this.handheldItem(itemModels, GaiaRegistry.SKELETON_STAFF, "weapon", "summoning_staff");
-		this.handheldItem(itemModels, GaiaRegistry.CAVE_SPIDER_STAFF, "weapon", "summoning_staff");
-		this.handheldItem(itemModels, GaiaRegistry.MAGIC_STAFF, "weapon", "summoning_staff");
-		this.parentItem(itemModels, GaiaRegistry.FAN_FIRE, modLocation("item/fan"), "weapon/fan");
-		this.parentItem(itemModels, GaiaRegistry.FAN_ICE, modLocation("item/fan"), "weapon/fan");
+
+		this.handheldItem(itemModels, GaiaRegistry.ZOMBIE_STAFF);
+		this.handheldItem(itemModels, GaiaRegistry.SKELETON_STAFF);
+		this.handheldItem(itemModels, GaiaRegistry.CAVE_SPIDER_STAFF);
+		this.handheldItem(itemModels, GaiaRegistry.MAGIC_STAFF);
+
+		this.parentItem(itemModels, GaiaRegistry.FAN_FIRE, modLocation("item/fan"));
+		this.parentItem(itemModels, GaiaRegistry.FAN_ICE, modLocation("item/fan"));
 		this.generatedItem(itemModels, GaiaRegistry.NETHER_WART_JAM);
 		this.generatedItem(itemModels, GaiaRegistry.WITHERED_BRAIN);
 
@@ -138,12 +141,12 @@ public class GaiaModels extends ModelProvider {
 		this.generatedBox(itemModels, GaiaRegistry.CHEST_DESERT);
 		this.generatedBox(itemModels, GaiaRegistry.CHEST_DUNGEON);
 		this.generatedBox(itemModels, GaiaRegistry.CHEST_JUNGLE);
-		this.generatedItem(itemModels, GaiaRegistry.BAG_ARROWS, "bag");
-		this.generatedItem(itemModels, GaiaRegistry.BAG_BOOK, "bag");
-		this.generatedItem(itemModels, GaiaRegistry.BAG_RECORD, "bag");
-		this.generatedItem(itemModels, GaiaRegistry.BOX_HAT, "box");
-		this.generatedItem(itemModels, GaiaRegistry.BOX_OLD, "box");
-		this.generatedItem(itemModels, GaiaRegistry.BOX_EGG, "spawn");
+		this.generatedItem(itemModels, GaiaRegistry.BAG_ARROWS);
+		this.generatedItem(itemModels, GaiaRegistry.BAG_BOOK);
+		this.generatedItem(itemModels, GaiaRegistry.BAG_RECORD);
+		this.generatedItem(itemModels, GaiaRegistry.BOX_HAT);
+		this.generatedItem(itemModels, GaiaRegistry.BOX_OLD);
+		this.generatedItem(itemModels, GaiaRegistry.BOX_EGG);
 
 		this.generatedItem(itemModels, GaiaRegistry.TRADER_TOKEN);
 		this.generatedItem(itemModels, GaiaRegistry.HOLSTAURUS_TOKEN);
@@ -187,43 +190,16 @@ public class GaiaModels extends ModelProvider {
 //				"layer0", Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/spawn/" + location.getPath()));
 	}
 
-	private void handheldItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject, String subFolder) {
-		itemModels.itemModelOutput.accept(registryObject.get(), ItemModelUtils.plainModel(
-				ModelTemplates.FLAT_HANDHELD_ITEM.create(
-						ModelLocationUtils.getModelLocation(registryObject.get()),
-						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + registryObject.getId().getPath()))),
-						itemModels.modelOutput
-				)
-		));
+	private void handheldItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject) {
+		itemModels.generateFlatItem(registryObject.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
 	}
 
-	private void handheldItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject, String subFolder, String textureName) {
-		itemModels.itemModelOutput.accept(registryObject.get(), ItemModelUtils.plainModel(
-				ModelTemplates.FLAT_HANDHELD_ITEM.create(
-						ModelLocationUtils.getModelLocation(registryObject.get()),
-						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + textureName))),
-						itemModels.modelOutput
-				)
-		));
-	}
-
-
-	private void generatedItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject, String subFolder) {
-		itemModels.itemModelOutput.accept(registryObject.get(), ItemModelUtils.plainModel(
-				ModelTemplates.FLAT_ITEM.create(
-						ModelLocationUtils.getModelLocation(registryObject.get()),
-						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + registryObject.getId().getPath()))),
-						itemModels.modelOutput
-				)
-		));
-	}
-
-	private void parentItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject, Identifier parent, String subFolder) {
+	private void parentItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject, Identifier parent) {
 		ModelTemplate PARENT_TEMPLATE = ModelTemplates.createItem(parent.toString(), TextureSlot.LAYER0);
 		itemModels.itemModelOutput.accept(registryObject.get(), ItemModelUtils.plainModel(
 				PARENT_TEMPLATE.create(
 						ModelLocationUtils.getModelLocation(registryObject.get()),
-						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + subFolder + "/" + registryObject.getId().getPath()))),
+						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + registryObject.getId().getPath()))),
 						itemModels.modelOutput
 				)
 		));
