@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-27T19:16:05.4626022	Tags for minecraft:item mod id grimoireofgaia
+// 26.1.2	2026-04-27T21:08:32.8911444	Tags for minecraft:item mod id grimoireofgaia
 5991696f1996600a1dea1afb9feeaacebd304b13 data/curios/tags/item/body.json
 a636f60d8af31ad1435573797b047d222010e8dd data/curios/tags/item/hands.json
 8d89fe470a31f85f30f5b4762c84b3caed9d9778 data/curios/tags/item/head.json
@@ -9,6 +9,8 @@ aeffd60889b81257f03d300e1adcfda27396cf42 data/curios/tags/item/ring.json
 ca1c040448916edc4aa816de9041a574bece54fe data/c/tags/item/nuggets/emerald.json
 2ab4c9222d485f87ec74272e4ee14313fe077364 data/c/tags/item/records.json
 8d2a9ba5b9a075a7b801bd2e34b7cc528c501722 data/c/tags/item/tools/shield.json
+2c61771d13e4bd8e89efd28ca893edd3823979d7 data/grimoireofgaia/tags/item/book_repair_items.json
+454298ba11e5430d70aa25a16ce400e94ac31715 data/grimoireofgaia/tags/item/cursed_metal_repair_items.json
 2427cd0f424eff561f7b613f203c6b758942802f data/grimoireofgaia/tags/item/dimensional_boxes.json
 c44a5a3999b92845919737c79f942d93d860e93a data/grimoireofgaia/tags/item/golden_tools.json
 8d2a9ba5b9a075a7b801bd2e34b7cc528c501722 data/minecraft/tags/item/enchantable/durability.json
