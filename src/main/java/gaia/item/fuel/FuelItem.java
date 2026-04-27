@@ -9,7 +9,6 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.function.Consumer;
 
-//TODO: Make this use the datamap!
 public class FuelItem extends Item {
 	public FuelItem(Properties properties) {
 		super(properties);

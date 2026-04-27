@@ -187,10 +187,5 @@ public class Gryphon extends AbstractAssistGaiaEntity implements IDayMob {
 		public LeapAttack(Gryphon gryphon) {
 			super(gryphon, SharedEntityData.ATTACK_SPEED_1, true);
 		}
-
-//		@Override TODO: Check if this is still needed
-//		protected double getAttackReachSqr(LivingEntity livingEntity) {
-//			return 4.0D + livingEntity.getBbWidth();
-//		}
 	}
 }
