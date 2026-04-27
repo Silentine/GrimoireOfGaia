@@ -1,5 +1,6 @@
 package gaia.registry;
 
+import gaia.item.edible.consume_effects.ClearNegativeStatusEffectsConsumeEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public class GaiaFoods {
 	public static final FoodProperties TAPROOT = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0).build();
+	public static final Consumable TAPROOT_CONSUMABLE = Consumables.defaultFood().onConsume(
+			ClearNegativeStatusEffectsConsumeEffect.INSTANCE).build();
 	public static final FoodProperties MEAT = (new FoodProperties.Builder()).nutrition(6).saturationModifier(1.2F).build();
 	public static final FoodProperties ROTTEN_HEART = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.0F).alwaysEdible().build();
 	public static final Consumable ROTTEN_HEART_CONSUMABLE = Consumables.defaultFood()

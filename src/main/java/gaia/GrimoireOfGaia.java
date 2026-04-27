@@ -5,8 +5,8 @@ import gaia.attachment.AttachmentHandler;
 import gaia.client.ClientHandler;
 import gaia.compat.curios.CuriosCompat;
 import gaia.config.GaiaConfig;
-import gaia.handler.CureHandler;
 import gaia.handler.DropHandler;
+import gaia.registry.GaiaConsumeEffects;
 import gaia.registry.GaiaDataSerializers;
 import gaia.registry.GaiaModifiers;
 import gaia.registry.GaiaRegistry;
@@ -32,6 +32,7 @@ public class GrimoireOfGaia {
 		container.registerConfig(ModConfig.Type.COMMON, GaiaConfig.commonSpec);
 		eventBus.register(GaiaConfig.class);
 
+		GaiaConsumeEffects.CONSUME_EFFECT_TYPES.register(eventBus);
 		GaiaRegistry.BLOCKS.register(eventBus);
 		GaiaRegistry.ITEMS.register(eventBus);
 		GaiaRegistry.CREATIVE_MODE_TABS.register(eventBus);
