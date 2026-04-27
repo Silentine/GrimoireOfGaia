@@ -5,7 +5,6 @@ import gaia.attachment.AttachmentHandler;
 import gaia.client.ClientHandler;
 import gaia.compat.curios.CuriosCompat;
 import gaia.config.GaiaConfig;
-import gaia.handler.DropHandler;
 import gaia.registry.GaiaConsumeEffects;
 import gaia.registry.GaiaDataSerializers;
 import gaia.registry.GaiaModifiers;
@@ -20,7 +19,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 @Mod(GrimoireOfGaia.MOD_ID)
@@ -41,8 +39,6 @@ public class GrimoireOfGaia {
 		GaiaModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 		GaiaDataSerializers.DATA_SERIALIZERS.register(eventBus);
 		AttachmentHandler.ATTACHMENT_TYPES.register(eventBus);
-
-		NeoForge.EVENT_BUS.register(new DropHandler());
 
 		if (ModList.get().isLoaded("curios")) {
 			eventBus.addListener(CuriosCompat::registerCapabilities);

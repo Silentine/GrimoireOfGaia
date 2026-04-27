@@ -72,7 +72,11 @@ public class EnderBookItem extends WeaponBookItem {
 	@Override
 	public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		super.hurtEnemy(stack, target, attacker);
+		executeHurtEffect(stack, target, attacker);
+	}
 
+	@Override
+	public void executeHurtEffect(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		attacker.level().playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
 				1.0F, 1.0F);
 		target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80, 1));

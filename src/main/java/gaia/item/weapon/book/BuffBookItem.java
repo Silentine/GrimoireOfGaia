@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Consumer;
 
-public class BuffBookItem extends Item {
+public class BuffBookItem extends GaiaBookItem {
 	public BuffBookItem(Properties properties) {
 		super(properties.repairable(GaiaRegistry.QUILL.get()));
 	}
@@ -46,6 +46,11 @@ public class BuffBookItem extends Item {
 
 	@Override
 	public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		executeHurtEffect(stack, target, attacker);
+	}
+
+	@Override
+	public void executeHurtEffect(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 
 		attacker.level().playSound((Player) null, attacker.getX(), attacker.getY(), attacker.getZ(), GaiaSounds.BOOK_HIT.get(), SoundSource.NEUTRAL,
