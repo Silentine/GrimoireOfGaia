@@ -43,7 +43,6 @@ public class GrimoireOfGaia {
 		AttachmentHandler.ATTACHMENT_TYPES.register(eventBus);
 
 		NeoForge.EVENT_BUS.register(new DropHandler());
-		NeoForge.EVENT_BUS.register(new CureHandler());
 
 		if (ModList.get().isLoaded("curios")) {
 			eventBus.addListener(CuriosCompat::registerCapabilities);
