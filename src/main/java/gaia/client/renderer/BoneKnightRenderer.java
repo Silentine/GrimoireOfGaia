@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class BoneKnightRenderer extends MobRenderer<BoneKnight, BoneKnightRenderState, BoneKnightModel> {
 	public static final Identifier[] BONE_KNIGHT_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/bone_knight/bone_knight.png")};
+			GrimoireOfGaia.modLoc("textures/entity/bone_knight/bone_knight.png")};
 
 	public BoneKnightRenderer(Context context) {
 		super(context, new BoneKnightModel(context.bakeLayer(ClientHandler.BONE_KNIGHT)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class BoneKnightRenderer extends MobRenderer<BoneKnight, BoneKnightRender
 	@Override
 	public void extractRenderState(BoneKnight entity, BoneKnightRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

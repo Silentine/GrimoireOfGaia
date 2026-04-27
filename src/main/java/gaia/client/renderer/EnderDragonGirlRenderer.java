@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
@@ -18,7 +19,7 @@ import java.util.Random;
 public class EnderDragonGirlRenderer extends MobRenderer<EnderDragonGirl, EnderDragonGirlRenderState, EnderDragonGirlModel> {
 	private final Random random = new Random();
 	public static final Identifier[] ENDER_DRAGON_GIRL_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/ender_dragon_girl/ender_dragon_girl.png")
+			GrimoireOfGaia.modLoc("textures/entity/ender_dragon_girl/ender_dragon_girl.png")
 	};
 
 	public EnderDragonGirlRenderer(Context context) {
@@ -46,6 +47,7 @@ public class EnderDragonGirlRenderer extends MobRenderer<EnderDragonGirl, EnderD
 	@Override
 	public void extractRenderState(EnderDragonGirl entity, EnderDragonGirlRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isScreaming = entity.isScreaming();

@@ -9,11 +9,12 @@ import gaia.client.state.CobblestoneGolemRenderState;
 import gaia.entity.CobblestoneGolem;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class CobblestoneGolemRenderer extends MobRenderer<CobblestoneGolem, CobblestoneGolemRenderState, CobblestoneGolemModel> {
 	public static final Identifier[] COBBLESTONE_GOLEM_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/cobblestone_golem/cobblestone_golem.png")};
+			GrimoireOfGaia.modLoc("textures/entity/cobblestone_golem/cobblestone_golem.png")};
 
 	public CobblestoneGolemRenderer(Context context) {
 		super(context, new CobblestoneGolemModel(context.bakeLayer(ClientHandler.COBBLESTONE_GOLEM)), ClientHandler.smallShadow);
@@ -27,6 +28,7 @@ public class CobblestoneGolemRenderer extends MobRenderer<CobblestoneGolem, Cobb
 	@Override
 	public void extractRenderState(CobblestoneGolem entity, CobblestoneGolemRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.attackAnimationTick = entity.getAttackAnimationTick();
 	}

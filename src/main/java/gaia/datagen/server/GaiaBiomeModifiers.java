@@ -402,6 +402,6 @@ public class GaiaBiomeModifiers {
 	}
 
 	private static ResourceKey<BiomeModifier> generateKey(String name) {
-		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name));
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, GrimoireOfGaia.modLoc(name));
 	}
 }

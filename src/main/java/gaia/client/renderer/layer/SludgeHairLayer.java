@@ -15,9 +15,9 @@ import net.minecraft.resources.Identifier;
 
 public class SludgeHairLayer extends RenderLayer<SludgeGirlRenderState, SludgeGirlModel> {
 	public static final Identifier[] SLUDGE_GIRL_HAIR_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl02.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/hair_sludge_girl03.png")};
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/hair_sludge_girl01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/hair_sludge_girl02.png"),
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/hair_sludge_girl03.png")};
 
 	private final SludgeGirlModel model;
 

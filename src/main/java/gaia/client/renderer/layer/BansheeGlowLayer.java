@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class BansheeGlowLayer extends EyesLayer<BansheeRenderState, BansheeModel> {
-	private static final RenderType BANSHEE = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png"));
+	private static final RenderType BANSHEE = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/banshee/banshee.png"));
 
 	public BansheeGlowLayer(RenderLayerParent<BansheeRenderState, BansheeModel> layerParent) {
 		super(layerParent);

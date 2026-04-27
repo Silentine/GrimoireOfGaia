@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class OniRenderer extends MobRenderer<Oni, OniRenderState, OniModel> {
 	public static final Identifier[] ONI_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/oni/oni01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/oni/oni02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/oni/oni01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/oni/oni02.png")};
 
 	public OniRenderer(Context context) {
 		super(context, new OniModel(context.bakeLayer(ClientHandler.ONI)), ClientHandler.smallShadow);
@@ -30,6 +31,7 @@ public class OniRenderer extends MobRenderer<Oni, OniRenderState, OniModel> {
 	@Override
 	public void extractRenderState(Oni entity, OniRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.buffed = entity.isBuffed();

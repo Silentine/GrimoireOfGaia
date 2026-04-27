@@ -8,11 +8,12 @@ import gaia.entity.Mandragora;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MandragoraRenderer extends GaiaBabyMobRenderer<Mandragora, MandragorarenderState, MandragoraModel> {
 	public static final Identifier[] MANDRAGORA_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mandragora/mandragora.png")
+			GrimoireOfGaia.modLoc("textures/entity/mandragora/mandragora.png")
 	};
 
 	public MandragoraRenderer(Context context) {
@@ -29,6 +30,7 @@ public class MandragoraRenderer extends GaiaBabyMobRenderer<Mandragora, Mandrago
 	@Override
 	public void extractRenderState(Mandragora entity, MandragorarenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

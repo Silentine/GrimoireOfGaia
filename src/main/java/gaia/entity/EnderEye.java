@@ -56,7 +56,7 @@ import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import org.jspecify.annotations.Nullable;
 
 public class EnderEye extends AbstractAssistGaiaEntity {
-	private static final Identifier SPEED_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "ender_eye_speed");
+	private static final Identifier SPEED_ID = GrimoireOfGaia.modLoc("ender_eye_speed");
 	private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_ID, SharedEntityData.ATTACK_SPEED_BOOST, AttributeModifier.Operation.ADD_VALUE);
 	private static final EntityDataAccessor<Boolean> SCREAMING = SynchedEntityData.defineId(EnderEye.class, EntityDataSerializers.BOOLEAN);
 

@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MatangoRenderer extends MobRenderer<Matango, MatangoRenderState, MatangoModel> {
 	public static final Identifier[] MATANGO_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/matango/matango.png")};
+			GrimoireOfGaia.modLoc("textures/entity/matango/matango.png")};
 
 	public MatangoRenderer(Context context) {
 		super(context, new MatangoModel(context.bakeLayer(ClientHandler.MATANGO)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class MatangoRenderer extends MobRenderer<Matango, MatangoRenderState, Ma
 	@Override
 	public void extractRenderState(Matango entity, MatangoRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

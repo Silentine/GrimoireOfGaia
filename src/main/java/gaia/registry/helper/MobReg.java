@@ -162,18 +162,18 @@ public class MobReg<T extends Mob> {
 			}
 		}
 
-		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_say"))) : null;
-		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_hurt"))) : null;
-		this.DEATH = death ? GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_death"))) : null;
-		this.STEP = step ? GaiaSounds.SOUND_EVENTS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_step"))) : null;
-		this.ATTACK = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_attack", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_attack"))) : null;
+		this.SAY = say ? GaiaSounds.SOUND_EVENTS.register(name + "_say", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_say"))) : null;
+		this.HURT = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_hurt"))) : null;
+		this.DEATH = death ? GaiaSounds.SOUND_EVENTS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_death"))) : null;
+		this.STEP = step ? GaiaSounds.SOUND_EVENTS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_step"))) : null;
+		this.ATTACK = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_attack", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_attack"))) : null;
 
 		if (hasGenders) {
-			this.SAY_MALE = say ? GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_say"))) : null;
-			this.HURT_MALE = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_hurt"))) : null;
-			this.DEATH_MALE = death ? GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_death"))) : null;
-			this.STEP_MALE = step ? GaiaSounds.SOUND_EVENTS.register(name + "_male_step", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_step"))) : null;
-			this.ATTACK_MALE = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_male_attack", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name + "_male_attack"))) : null;
+			this.SAY_MALE = say ? GaiaSounds.SOUND_EVENTS.register(name + "_male_say", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_male_say"))) : null;
+			this.HURT_MALE = hurt ? GaiaSounds.SOUND_EVENTS.register(name + "_male_hurt", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_male_hurt"))) : null;
+			this.DEATH_MALE = death ? GaiaSounds.SOUND_EVENTS.register(name + "_male_death", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_male_death"))) : null;
+			this.STEP_MALE = step ? GaiaSounds.SOUND_EVENTS.register(name + "_male_step", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_male_step"))) : null;
+			this.ATTACK_MALE = attack ? GaiaSounds.SOUND_EVENTS.register(name + "_male_attack", () -> SoundEvent.createVariableRangeEvent(GrimoireOfGaia.modLoc(name + "_male_attack"))) : null;
 		}
 		this.hasGenders = hasGenders;
 	}

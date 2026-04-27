@@ -499,6 +499,6 @@ public class GaiaSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public Identifier modLoc(String name) {
-		return Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, name);
+		return GrimoireOfGaia.modLoc(name);
 	}
 }

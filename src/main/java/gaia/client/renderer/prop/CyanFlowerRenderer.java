@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
 
 public class CyanFlowerRenderer extends MobRenderer<CyanFlower, CyanFlowerRenderState, CyanFlowerModel> {
-	public static final Identifier CYAN_FLOWER_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mandragora/mandragora_flower.png");
+	public static final Identifier CYAN_FLOWER_LOCATION = GrimoireOfGaia.modLoc("textures/entity/mandragora/mandragora_flower.png");
 
 	public CyanFlowerRenderer(EntityRendererProvider.Context context) {
 		super(context, new CyanFlowerModel(context.bakeLayer(ClientHandler.CYAN_FLOWER)), 0.0F);

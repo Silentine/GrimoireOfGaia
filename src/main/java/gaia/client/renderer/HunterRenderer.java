@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class HunterRenderer extends MobRenderer<Hunter, HunterRenderState, HunterModel> {
 	public static final Identifier[] HUNTER_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/hunter/hunter.png")};
+			GrimoireOfGaia.modLoc("textures/entity/hunter/hunter.png")};
 
 	public HunterRenderer(Context context) {
 		super(context, new HunterModel(context.bakeLayer(ClientHandler.HUNTER)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class HunterRenderer extends MobRenderer<Hunter, HunterRenderState, Hunte
 	@Override
 	public void extractRenderState(Hunter entity, HunterRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 		state.isAggressive = entity.isAggressive();

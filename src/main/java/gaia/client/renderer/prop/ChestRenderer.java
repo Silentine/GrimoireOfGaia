@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.neoforged.fml.ModList;
 
 public class ChestRenderer extends MobRenderer<Chest, ChestRenderState, ChestModel> {
-	public static final Identifier CHEST_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mimic/mimic_chest.png");
+	public static final Identifier CHEST_LOCATION = GrimoireOfGaia.modLoc("textures/entity/mimic/mimic_chest.png");
 	public static final Identifier LOOTR_LOCATION = Identifier.fromNamespaceAndPath("lootr", "textures/chest.png");
 
 	public ChestRenderer(Context context) {

@@ -9,13 +9,14 @@ import gaia.entity.Werecat;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 public class WerecatRenderer extends MobRenderer<Werecat, WerecatRenderState, WerecatModel> {
 	public static final Identifier[] WERECAT_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/werecat/werecat01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/werecat/werecat02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/werecat/werecat01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/werecat/werecat02.png")};
 
 	public WerecatRenderer(EntityRendererProvider.Context context) {
 		super(context, new WerecatModel(context.bakeLayer(ClientHandler.WERECAT)), ClientHandler.smallShadow);
@@ -31,6 +32,7 @@ public class WerecatRenderer extends MobRenderer<Werecat, WerecatRenderState, We
 	@Override
 	public void extractRenderState(Werecat entity, WerecatRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 		state.isFleeing = entity.isFleeing();

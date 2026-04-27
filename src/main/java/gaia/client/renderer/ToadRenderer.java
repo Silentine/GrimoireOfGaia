@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class ToadRenderer extends MobRenderer<Toad, ToadRenderState, ToadModel> {
 	public static final Identifier[] TOAD_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/toad/toad.png")};
+			GrimoireOfGaia.modLoc("textures/entity/toad/toad.png")};
 
 	public ToadRenderer(Context context) {
 		super(context, new ToadModel(context.bakeLayer(ClientHandler.TOAD)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class ToadRenderer extends MobRenderer<Toad, ToadRenderState, ToadModel> 
 	@Override
 	public void extractRenderState(Toad entity, ToadRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 	}

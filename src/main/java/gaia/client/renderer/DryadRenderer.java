@@ -8,13 +8,14 @@ import gaia.entity.Dryad;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 public class DryadRenderer extends GaiaBabyMobRenderer<Dryad, DryadRenderState, DryadModel> {
 	public static final Identifier[] DRYAD_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/dryad/dryad01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/dryad/dryad02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/dryad/dryad01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/dryad/dryad02.png")};
 
 	public DryadRenderer(Context context) {
 		super(context, new DryadModel(context.bakeLayer(ClientHandler.DRYAD)), ClientHandler.smallShadow);
@@ -30,6 +31,7 @@ public class DryadRenderer extends GaiaBabyMobRenderer<Dryad, DryadRenderState, 
 	@Override
 	public void extractRenderState(Dryad entity, DryadRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isFleeing = entity.isFleeing();

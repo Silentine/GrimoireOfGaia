@@ -14,7 +14,7 @@ import net.minecraft.util.Mth;
 
 public class CreepRenderer extends MobRenderer<Creep, CreepRenderState, CreepModel> {
 	public static final Identifier[] CREEP_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/creep/creep.png")};
+			GrimoireOfGaia.modLoc("textures/entity/creep/creep.png")};
 
 	public CreepRenderer(Context context) {
 		super(context, new CreepModel(context.bakeLayer(ClientHandler.CREEP)), ClientHandler.smallShadow);

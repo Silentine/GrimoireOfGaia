@@ -7,11 +7,12 @@ import gaia.client.state.AntSalvagerRenderState;
 import gaia.entity.AntSalvager;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class AntSalvagerRenderer extends MobRenderer<AntSalvager, AntSalvagerRenderState, AntSalvagerModel> {
 	public static final Identifier[] ANT_SALVAGER_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/ant/ant_salvager.png")};
+			GrimoireOfGaia.modLoc("textures/entity/ant/ant_salvager.png")};
 
 	public AntSalvagerRenderer(Context context) {
 		super(context, new AntSalvagerModel(context.bakeLayer(ClientHandler.ANT_SALVAGER)), ClientHandler.smallShadow);
@@ -25,6 +26,7 @@ public class AntSalvagerRenderer extends MobRenderer<AntSalvager, AntSalvagerRen
 	@Override
 	public void extractRenderState(AntSalvager entity, AntSalvagerRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 	}
 

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class WizardHarpyEyesLayer extends EyesLayer<WizardHarpyRenderState, WizardHarpyModel> {
-	private static final RenderType WIZARD_HARPY_EYES = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/wizard_harpy/wizard_harpy_eyes.png"));
+	private static final RenderType WIZARD_HARPY_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/wizard_harpy/wizard_harpy_eyes.png"));
 
 	public WizardHarpyEyesLayer(RenderLayerParent<WizardHarpyRenderState, WizardHarpyModel> layerParent) {
 		super(layerParent);

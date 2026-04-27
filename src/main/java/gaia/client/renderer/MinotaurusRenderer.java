@@ -10,12 +10,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MinotaurusRenderer extends MobRenderer<Minotaurus, MinotaurusRenderState, MinotaurusModel> {
 	public static final Identifier[] MINOTAURUS_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/minotaurus/minotaurus01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/minotaurus/minotaurus02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/minotaurus/minotaurus01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/minotaurus/minotaurus02.png")};
 
 	public MinotaurusRenderer(Context context) {
 		super(context, new MinotaurusModel(context.bakeLayer(ClientHandler.MINOTAURUS)), ClientHandler.smallShadow);
@@ -32,6 +33,7 @@ public class MinotaurusRenderer extends MobRenderer<Minotaurus, MinotaurusRender
 	@Override
 	public void extractRenderState(Minotaurus entity, MinotaurusRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isAggressive = entity.isAggressive();

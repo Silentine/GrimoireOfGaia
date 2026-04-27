@@ -10,14 +10,15 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class GoblinFeralRenderer extends MobRenderer<GoblinFeral, GoblinRenderState, GoblinModel> {
 	public static final Identifier[] GOBLIN_FERAL_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/goblin/goblin_feral01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/goblin/goblin_feral02.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/goblin/goblin_feral03.png")};
+			GrimoireOfGaia.modLoc("textures/entity/goblin/goblin_feral01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/goblin/goblin_feral02.png"),
+			GrimoireOfGaia.modLoc("textures/entity/goblin/goblin_feral03.png")};
 
 	public GoblinFeralRenderer(Context context) {
 		super(context, new GoblinModel(context.bakeLayer(ClientHandler.GOBLIN_FERAL)), ClientHandler.smallShadow);
@@ -51,6 +52,7 @@ public class GoblinFeralRenderer extends MobRenderer<GoblinFeral, GoblinRenderSt
 	@Override
 	public void extractRenderState(GoblinFeral entity, GoblinRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 		state.isAggresive = entity.isAggressive();

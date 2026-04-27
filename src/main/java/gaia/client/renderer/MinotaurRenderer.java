@@ -11,11 +11,12 @@ import gaia.entity.Minotaur;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MinotaurRenderer extends MobRenderer<Minotaur, MinotaurRenderState, MinotaurModel> {
 	public static final Identifier[] MINOTAURUS_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/minotaur/minotaur.png")
+			GrimoireOfGaia.modLoc("textures/entity/minotaur/minotaur.png")
 	};
 
 	public MinotaurRenderer(Context context) {
@@ -33,6 +34,7 @@ public class MinotaurRenderer extends MobRenderer<Minotaur, MinotaurRenderState,
 	@Override
 	public void extractRenderState(Minotaur entity, MinotaurRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.animationState = entity.getAnimationState();

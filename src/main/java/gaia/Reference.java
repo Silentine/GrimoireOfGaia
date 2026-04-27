@@ -7,6 +7,6 @@ public class Reference {
 	public static final String SUMMONER_TAG = GrimoireOfGaia.MOD_ID + "_staff_summoner";
 
 	public static Identifier modLoc(String path) {
-		return Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path);
+		return GrimoireOfGaia.modLoc(path);
 	}
 }

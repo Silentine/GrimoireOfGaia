@@ -11,6 +11,7 @@ import gaia.registry.GaiaDataSerializers;
 import gaia.registry.GaiaModifiers;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -57,5 +58,9 @@ public class GrimoireOfGaia {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
 		}
+	}
+
+	public static Identifier modLoc(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 }

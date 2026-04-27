@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MummyRenderer extends MobRenderer<Mummy, MummyRenderState, MummyModel> {
 	public static final Identifier[] MUMMY_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mummy/mummy.png")
+			GrimoireOfGaia.modLoc("textures/entity/mummy/mummy.png")
 	};
 
 	public MummyRenderer(Context context) {
@@ -30,6 +31,7 @@ public class MummyRenderer extends MobRenderer<Mummy, MummyRenderState, MummyMod
 	@Override
 	public void extractRenderState(Mummy entity, MummyRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isAggressive = entity.isAggressive();

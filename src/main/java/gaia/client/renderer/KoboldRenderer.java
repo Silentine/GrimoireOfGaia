@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class KoboldRenderer extends MobRenderer<Kobold, KoboldRenderState, KoboldModel> {
 	public static final Identifier[] KOBOLD_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/kobold/kobold01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/kobold/kobold02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/kobold/kobold01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/kobold/kobold02.png")};
 
 	public KoboldRenderer(Context context) {
 		super(context, new KoboldModel(context.bakeLayer(ClientHandler.KOBOLD)), ClientHandler.smallShadow);
@@ -30,6 +31,7 @@ public class KoboldRenderer extends MobRenderer<Kobold, KoboldRenderState, Kobol
 	@Override
 	public void extractRenderState(Kobold entity, KoboldRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isAggressive = entity.isAggressive();

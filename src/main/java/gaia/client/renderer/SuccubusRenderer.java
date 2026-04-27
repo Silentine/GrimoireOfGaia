@@ -9,13 +9,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SuccubusRenderer extends MobRenderer<Succubus, SuccubusRenderState, SuccubusModel> {
 	public static final Identifier[] SUCCUBUS_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/succubus/succubus.png")};
+			GrimoireOfGaia.modLoc("textures/entity/succubus/succubus.png")};
 	public static final Identifier[] SUCCUBUS_MALE_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/succubus/succubus_male.png")};
+			GrimoireOfGaia.modLoc("textures/entity/succubus/succubus_male.png")};
 
 	public SuccubusRenderer(Context context) {
 		super(context, new SuccubusModel(context.bakeLayer(ClientHandler.SUCCUBUS)), ClientHandler.smallShadow);
@@ -31,6 +32,7 @@ public class SuccubusRenderer extends MobRenderer<Succubus, SuccubusRenderState,
 	@Override
 	public void extractRenderState(Succubus entity, SuccubusRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isMale = entity.isMale();

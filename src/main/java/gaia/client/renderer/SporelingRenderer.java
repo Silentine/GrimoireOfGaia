@@ -9,12 +9,13 @@ import gaia.entity.Sporeling;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SporelingRenderer extends MobRenderer<Sporeling, SporelingRenderState, SporelingModel> {
 	public static final Identifier[] SPORELING_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sporeling/sporeling01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sporeling/sporeling02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/sporeling/sporeling01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/sporeling/sporeling02.png")};
 
 	public SporelingRenderer(Context context) {
 		super(context, new SporelingModel(context.bakeLayer(ClientHandler.SPORELING)), ClientHandler.tinyShadow);
@@ -29,6 +30,7 @@ public class SporelingRenderer extends MobRenderer<Sporeling, SporelingRenderSta
 	@Override
 	public void extractRenderState(Sporeling entity, SporelingRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 	}
 

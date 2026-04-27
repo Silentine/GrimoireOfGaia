@@ -7,11 +7,12 @@ import gaia.client.state.DeathwordRenderState;
 import gaia.entity.Deathword;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class DeathwordRenderer extends MobRenderer<Deathword, DeathwordRenderState, DeathwordModel> {
 	public static final Identifier[] DEATHWORD_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/deathword/deathword.png")};
+			GrimoireOfGaia.modLoc("textures/entity/deathword/deathword.png")};
 
 	public DeathwordRenderer(Context context) {
 		super(context, new DeathwordModel(context.bakeLayer(ClientHandler.DEATHWORD)), ClientHandler.smallShadow);
@@ -25,6 +26,7 @@ public class DeathwordRenderer extends MobRenderer<Deathword, DeathwordRenderSta
 	@Override
 	public void extractRenderState(Deathword entity, DeathwordRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 	}
 

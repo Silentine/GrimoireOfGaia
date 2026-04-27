@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
 
 public class AntHillRenderer extends MobRenderer<AntHill, AntHillRenderState, AntHillModel> {
-	public static final Identifier ANT_HILL_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/prop/ant_hill/ant_hill.png");
+	public static final Identifier ANT_HILL_LOCATION = GrimoireOfGaia.modLoc("textures/entity/prop/ant_hill/ant_hill.png");
 
 	public AntHillRenderer(Context context) {
 		super(context, new AntHillModel(context.bakeLayer(ClientHandler.ANT_HILL)), 0.0F);

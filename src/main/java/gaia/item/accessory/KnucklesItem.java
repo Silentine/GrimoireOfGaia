@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 public class KnucklesItem extends AbstractAccessoryItem {
 	private static final int damage = 2;
-	private static final Identifier BOOST_UUID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "knuckles_strength");
+	private static final Identifier BOOST_UUID = GrimoireOfGaia.modLoc("knuckles_strength");
 	private static final AttributeModifier BOOST = new AttributeModifier(BOOST_UUID, (double) damage, Operation.ADD_VALUE);
 
 	public KnucklesItem(Properties properties) {

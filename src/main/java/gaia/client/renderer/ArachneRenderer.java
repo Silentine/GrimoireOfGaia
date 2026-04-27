@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class ArachneRenderer extends MobRenderer<Arachne, ArachneRenderState, ArachneModel> {
 	public static final Identifier[] ARACHNE_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/arachne/arachne.png")};
+			GrimoireOfGaia.modLoc("textures/entity/arachne/arachne.png")};
 
 	public ArachneRenderer(Context context) {
 		super(context, new ArachneModel(context.bakeLayer(ClientHandler.ARACHNE)), ClientHandler.largeShadow);
@@ -31,6 +32,7 @@ public class ArachneRenderer extends MobRenderer<Arachne, ArachneRenderState, Ar
 	@Override
 	public void extractRenderState(Arachne entity, ArachneRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.attackType = entity.getAttackType();
 	}

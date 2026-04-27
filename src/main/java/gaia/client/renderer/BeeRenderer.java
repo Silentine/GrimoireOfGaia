@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class BeeRenderer extends MobRenderer<Bee, BeeRenderState, BeeModel> {
 	public static final Identifier[] BEE_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/bee/bee.png")};
+			GrimoireOfGaia.modLoc("textures/entity/bee/bee.png")};
 
 	public BeeRenderer(Context context) {
 		super(context, new BeeModel(context.bakeLayer(ClientHandler.BEE)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class BeeRenderer extends MobRenderer<Bee, BeeRenderState, BeeModel> {
 	@Override
 	public void extractRenderState(Bee entity, BeeRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.animationState = entity.getAnimationState();
 		state.isRiding = entity.isVehicle();

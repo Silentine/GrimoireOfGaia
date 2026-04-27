@@ -9,13 +9,14 @@ import gaia.entity.SludgeGirl;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SludgeGirlRenderer extends MobRenderer<SludgeGirl, SludgeGirlRenderState, SludgeGirlModel> {
 	public static final Identifier[] SLUDGE_GIRL_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/sludge_girl01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/sludge_girl02.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sludge_girl/sludge_girl03.png")};
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/sludge_girl01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/sludge_girl02.png"),
+			GrimoireOfGaia.modLoc("textures/entity/sludge_girl/sludge_girl03.png")};
 
 	public SludgeGirlRenderer(Context context) {
 		super(context, new SludgeGirlModel(context.bakeLayer(ClientHandler.SLUDGE_GIRL)), ClientHandler.smallShadow);
@@ -31,6 +32,7 @@ public class SludgeGirlRenderer extends MobRenderer<SludgeGirl, SludgeGirlRender
 	@Override
 	public void extractRenderState(SludgeGirl entity, SludgeGirlRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

@@ -67,7 +67,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> IS_DRINKING = SynchedEntityData.defineId(Witch.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_RIDING = SynchedEntityData.defineId(Witch.class, EntityDataSerializers.BOOLEAN);
 
-	private static final Identifier DRINKING_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "drinking");
+	private static final Identifier DRINKING_ID = GrimoireOfGaia.modLoc("drinking");
 	private static final AttributeModifier SPEED_MODIFIER_DRINKING = new AttributeModifier(DRINKING_ID, -0.25D, AttributeModifier.Operation.ADD_VALUE);
 
 	protected final FlyingMoveControl flyingControl;

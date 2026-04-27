@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SirenRenderer extends MobRenderer<Siren, SirenRenderState, SirenModel> {
 	public static final Identifier[] SIREN_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/siren/siren.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/siren/siren_halloween.png")};
+			GrimoireOfGaia.modLoc("textures/entity/siren/siren.png"),
+			GrimoireOfGaia.modLoc("textures/entity/siren/siren_halloween.png")};
 
 	public SirenRenderer(Context context) {
 		super(context, new SirenModel(context.bakeLayer(ClientHandler.SIREN)), ClientHandler.smallShadow);
@@ -30,6 +31,7 @@ public class SirenRenderer extends MobRenderer<Siren, SirenRenderState, SirenMod
 	@Override
 	public void extractRenderState(Siren entity, SirenRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isAggressive = entity.isAggressive();

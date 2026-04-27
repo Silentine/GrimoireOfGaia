@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class EnderDragonGirlEyesLayer extends EyesLayer<EnderDragonGirlRenderState, EnderDragonGirlModel> {
-	private static final RenderType ENDER_DRAGON_GIRL_EYES = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/ender_dragon_girl/eyes_ender_dragon_girl.png"));
+	private static final RenderType ENDER_DRAGON_GIRL_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/ender_dragon_girl/eyes_ender_dragon_girl.png"));
 
 	public EnderDragonGirlEyesLayer(RenderLayerParent<EnderDragonGirlRenderState, EnderDragonGirlModel> renderLayerParent) {
 		super(renderLayerParent);

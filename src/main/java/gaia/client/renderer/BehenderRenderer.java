@@ -13,7 +13,7 @@ import net.minecraft.resources.Identifier;
 
 public class BehenderRenderer extends MobRenderer<Behender, BehenderRenderState, BehenderModel> {
 	public static final Identifier[] BEHENDER_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/behender/behender.png")
+			GrimoireOfGaia.modLoc("textures/entity/behender/behender.png")
 	};
 
 	public BehenderRenderer(Context context) {

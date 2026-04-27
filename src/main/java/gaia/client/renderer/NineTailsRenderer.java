@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class NineTailsRenderer extends MobRenderer<NineTails, NineTailsRenderState, NineTailsModel> {
 	public static final Identifier[] NINE_TAILS_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/nine_tails/nine_tails.png")};
+			GrimoireOfGaia.modLoc("textures/entity/nine_tails/nine_tails.png")};
 
 	public NineTailsRenderer(Context context) {
 		super(context, new NineTailsModel(context.bakeLayer(ClientHandler.NINE_TAILS)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class NineTailsRenderer extends MobRenderer<NineTails, NineTailsRenderSta
 	@Override
 	public void extractRenderState(NineTails entity, NineTailsRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

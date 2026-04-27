@@ -9,13 +9,14 @@ import gaia.entity.Witch;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class WitchRenderer extends MobRenderer<Witch, WitchRenderState, WitchModel> {
 	public static final Identifier[] WITCH_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/witch/witch01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/witch/witch02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/witch/witch01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/witch/witch02.png")};
 
 	public WitchRenderer(Context context) {
 		super(context, new WitchModel(context.bakeLayer(ClientHandler.WITCH)), ClientHandler.tinyShadow);
@@ -31,6 +32,7 @@ public class WitchRenderer extends MobRenderer<Witch, WitchRenderState, WitchMod
 	@Override
 	public void extractRenderState(Witch entity, WitchRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 		state.ridingBroom = entity.isRidingBroom();

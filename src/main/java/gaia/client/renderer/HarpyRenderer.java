@@ -7,14 +7,15 @@ import gaia.client.state.HarpyRenderState;
 import gaia.entity.Harpy;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 public class HarpyRenderer extends GaiaBabyMobRenderer<Harpy, HarpyRenderState, HarpyModel> {
 	public static final Identifier[] HARPY_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/harpy/harpy01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/harpy/harpy02.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/harpy/harpy03.png")};
+			GrimoireOfGaia.modLoc("textures/entity/harpy/harpy01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/harpy/harpy02.png"),
+			GrimoireOfGaia.modLoc("textures/entity/harpy/harpy03.png")};
 
 	public HarpyRenderer(Context context) {
 		super(context, new HarpyModel(context.bakeLayer(ClientHandler.HARPY)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class HarpyRenderer extends GaiaBabyMobRenderer<Harpy, HarpyRenderState, 
 	@Override
 	public void extractRenderState(Harpy entity, HarpyRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.isFleeing = entity.isFleeing();

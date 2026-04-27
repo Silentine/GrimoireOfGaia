@@ -11,13 +11,14 @@ import gaia.entity.GelatinousSlime;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 
 public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, GelatinousSlimeRenderState, GelatinousSlimeModel> {
 	public static final Identifier[] GELATINOUS_SLIME_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gelatinous_slime/gelatinous_slime.png")};
+			GrimoireOfGaia.modLoc("textures/entity/gelatinous_slime/gelatinous_slime.png")};
 
 	public GelatinousSlimeRenderer(Context context) {
 		super(context, new GelatinousSlimeModel(context.bakeLayer(ClientHandler.GELATINOUS_SLIME)), ClientHandler.smallShadow);
@@ -44,6 +45,7 @@ public class GelatinousSlimeRenderer extends MobRenderer<GelatinousSlime, Gelati
 	@Override
 	public void extractRenderState(GelatinousSlime entity, GelatinousSlimeRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.squish = Mth.lerp(partialTicks, entity.oSquish, entity.squish);
 		itemModelResolver.updateForLiving(state.mainItemRenderState, entity.getMainHandItem(), ItemDisplayContext.GROUND, entity);
 	}

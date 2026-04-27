@@ -10,10 +10,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SlimeGirlRenderer extends MobRenderer<SlimeGirl, SlimeGirlRenderState, SlimeGirlModel> {
-	public static final Identifier CREEPER_GIRL_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/slime_girl/slime_girl.png");
+	public static final Identifier CREEPER_GIRL_LOCATION = GrimoireOfGaia.modLoc("textures/entity/slime_girl/slime_girl.png");
 
 	public SlimeGirlRenderer(Context context) {
 		super(context, new SlimeGirlModel(context.bakeLayer(ClientHandler.SLIME_GIRL)), ClientHandler.medShadow);
@@ -30,6 +31,7 @@ public class SlimeGirlRenderer extends MobRenderer<SlimeGirl, SlimeGirlRenderSta
 	@Override
 	public void extractRenderState(SlimeGirl entity, SlimeGirlRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.isRiding = entity.isPassenger();
 	}
 

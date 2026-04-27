@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class WizardHarpyRenderer extends MobRenderer<WizardHarpy, WizardHarpyRenderState, WizardHarpyModel> {
 	public static final Identifier[] WIZARD_HARPY_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/wizard_harpy/wizard_harpy.png")};
+			GrimoireOfGaia.modLoc("textures/entity/wizard_harpy/wizard_harpy.png")};
 
 	public WizardHarpyRenderer(Context context) {
 		super(context, new WizardHarpyModel(context.bakeLayer(ClientHandler.WIZARD_HARPY)), ClientHandler.smallShadow);
@@ -31,6 +32,7 @@ public class WizardHarpyRenderer extends MobRenderer<WizardHarpy, WizardHarpyRen
 	@Override
 	public void extractRenderState(WizardHarpy entity, WizardHarpyRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.animationState = entity.getAnimationState();

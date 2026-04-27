@@ -10,10 +10,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class EnderGirlRenderer extends MobRenderer<EnderGirl, EnderGirlRenderState, EnderGirlModel> {
-	public static final Identifier ENDER_GIRL_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/ender_girl/ender_girl.png");
+	public static final Identifier ENDER_GIRL_LOCATION = GrimoireOfGaia.modLoc("textures/entity/ender_girl/ender_girl.png");
 
 	public EnderGirlRenderer(Context context) {
 		super(context, new EnderGirlModel(context.bakeLayer(ClientHandler.ENDER_GIRL)), ClientHandler.medShadow);
@@ -30,6 +31,7 @@ public class EnderGirlRenderer extends MobRenderer<EnderGirl, EnderGirlRenderSta
 	@Override
 	public void extractRenderState(EnderGirl entity, EnderGirlRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.isRiding = entity.isPassenger();
 	}
 

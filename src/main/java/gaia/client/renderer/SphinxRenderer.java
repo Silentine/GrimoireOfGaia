@@ -10,11 +10,12 @@ import gaia.entity.Sphinx;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SphinxRenderer extends MobRenderer<Sphinx, SphinxRenderState, SphinxModel> {
 	public static final Identifier[] SPHINX_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sphinx/sphinx.png")
+			GrimoireOfGaia.modLoc("textures/entity/sphinx/sphinx.png")
 	};
 
 	public SphinxRenderer(Context context) {
@@ -31,6 +32,7 @@ public class SphinxRenderer extends MobRenderer<Sphinx, SphinxRenderState, Sphin
 	@Override
 	public void extractRenderState(Sphinx entity, SphinxRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.powered = entity.isPowered();
 	}

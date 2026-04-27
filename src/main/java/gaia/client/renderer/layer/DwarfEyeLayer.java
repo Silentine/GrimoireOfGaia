@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class DwarfEyeLayer extends EyesLayer<DwarfRenderState, DwarfModel> {
-	private static final RenderType DWARF_EYE_EYES = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/dwarf/eyes_dwarf03.png"));
+	private static final RenderType DWARF_EYE_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/dwarf/eyes_dwarf03.png"));
 
 	public DwarfEyeLayer(RenderLayerParent<DwarfRenderState, DwarfModel> renderLayerParent) {
 		super(renderLayerParent);

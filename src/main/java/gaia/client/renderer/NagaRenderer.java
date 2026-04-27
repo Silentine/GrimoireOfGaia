@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class NagaRenderer extends MobRenderer<Naga, NagaRenderState, NagaModel> {
 	public static final Identifier[] NAGA_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/naga/naga.png")};
+			GrimoireOfGaia.modLoc("textures/entity/naga/naga.png")};
 
 	public NagaRenderer(Context context) {
 		super(context, new NagaModel(context.bakeLayer(ClientHandler.NAGA)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class NagaRenderer extends MobRenderer<Naga, NagaRenderState, NagaModel> 
 	@Override
 	public void extractRenderState(Naga entity, NagaRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.animationState = entity.getAnimationState();

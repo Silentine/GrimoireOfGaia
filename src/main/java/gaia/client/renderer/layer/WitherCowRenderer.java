@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class WitherCowRenderer extends MobRenderer<WitherCow, WitherCowRenderState, WitherCowModel> {
 	public static final Identifier[] WITHER_COW_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/wither_cow/wither_cow.png")};
+			GrimoireOfGaia.modLoc("textures/entity/wither_cow/wither_cow.png")};
 
 	public WitherCowRenderer(Context context) {
 		super(context, new WitherCowModel(context.bakeLayer(ClientHandler.WITHER_COW)), ClientHandler.smallShadow);

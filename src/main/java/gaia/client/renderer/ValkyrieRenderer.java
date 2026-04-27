@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class ValkyrieRenderer extends MobRenderer<Valkyrie, ValkyrieRenderState, ValkyrieModel> {
 	public static final Identifier[] VALKYRIE_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/valkyrie/valkyrie.png")
+			GrimoireOfGaia.modLoc("textures/entity/valkyrie/valkyrie.png")
 	};
 
 	public ValkyrieRenderer(Context context) {
@@ -32,6 +33,7 @@ public class ValkyrieRenderer extends MobRenderer<Valkyrie, ValkyrieRenderState,
 	@Override
 	public void extractRenderState(Valkyrie entity, ValkyrieRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 		state.animationState = entity.getAnimationState();

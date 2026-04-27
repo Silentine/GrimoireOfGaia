@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class MermaidRenderer extends MobRenderer<Mermaid, MermaidRenderState, MermaidModel> {
 	public static final Identifier[] MERMAID_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid01.png"),
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mermaid/mermaid02.png")};
+			GrimoireOfGaia.modLoc("textures/entity/mermaid/mermaid01.png"),
+			GrimoireOfGaia.modLoc("textures/entity/mermaid/mermaid02.png")};
 
 	public MermaidRenderer(Context context) {
 		super(context, new MermaidModel(context.bakeLayer(ClientHandler.MERMAID)), ClientHandler.smallShadow);
@@ -30,6 +31,7 @@ public class MermaidRenderer extends MobRenderer<Mermaid, MermaidRenderState, Me
 	@Override
 	public void extractRenderState(Mermaid entity, MermaidRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isPassenger();
 	}

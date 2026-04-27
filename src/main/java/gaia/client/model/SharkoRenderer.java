@@ -12,7 +12,7 @@ import net.minecraft.resources.Identifier;
 
 public class SharkoRenderer extends MobRenderer<Sharko, SharkoRenderState, SharkoModel> {
 	public static final Identifier[] SHARKO_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/sharko/sharko.png")};
+			GrimoireOfGaia.modLoc("textures/entity/sharko/sharko.png")};
 
 	public SharkoRenderer(Context context) {
 		super(context, new SharkoModel(context.bakeLayer(ClientHandler.SHARKO)), ClientHandler.medShadow);

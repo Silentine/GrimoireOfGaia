@@ -48,7 +48,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 public class Matango extends AbstractGaiaEntity implements IDayMob {
-	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "matango_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = GrimoireOfGaia.modLoc("matango_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 1.0D, Operation.ADD_VALUE);
 
 	private int spawnLimit;

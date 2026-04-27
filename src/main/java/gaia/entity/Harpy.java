@@ -48,7 +48,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 public class Harpy extends AbstractGaiaEntity {
-	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "harpy_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = GrimoireOfGaia.modLoc("harpy_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 2.0D, Operation.ADD_VALUE);
 
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Harpy.class, EntityDataSerializers.BOOLEAN);

@@ -46,7 +46,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 public class Werecat extends AbstractGaiaEntity {
-	private static final Identifier KNOCKBACK_ID = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "werecat_knockback_modifier");
+	private static final Identifier KNOCKBACK_ID = GrimoireOfGaia.modLoc("werecat_knockback_modifier");
 	private static final AttributeModifier KNOCKBACK_MODIFIER = new AttributeModifier(KNOCKBACK_ID, 2.0D, Operation.ADD_VALUE);
 	private static final EntityDataAccessor<Boolean> FLEEING = SynchedEntityData.defineId(Werecat.class, EntityDataSerializers.BOOLEAN);
 

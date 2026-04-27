@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class GryphonRenderer extends MobRenderer<Gryphon, GryphonRenderState, GryphonModel> {
 	public static final Identifier[] GRYPHON_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/gryphon/gryphon.png")};
+			GrimoireOfGaia.modLoc("textures/entity/gryphon/gryphon.png")};
 
 	public GryphonRenderer(Context context) {
 		super(context, new GryphonModel(context.bakeLayer(ClientHandler.GRYPHON)), ClientHandler.largeShadow);

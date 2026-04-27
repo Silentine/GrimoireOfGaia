@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class SlimeGirlHairLayer extends RenderLayer<SlimeGirlRenderState, SlimeGirlModel> {
-	private static final Identifier HAIR_LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/slime_girl/hair_slime_girl.png");
+	private static final Identifier HAIR_LOCATION = GrimoireOfGaia.modLoc("textures/entity/slime_girl/hair_slime_girl.png");
 
 	private final SlimeGirlModel model;
 

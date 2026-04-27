@@ -9,11 +9,12 @@ import gaia.entity.Banshee;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class BansheeRenderer extends MobRenderer<Banshee, BansheeRenderState, BansheeModel> {
 	public static final Identifier[] BANSHEE_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/banshee/banshee.png")};
+			GrimoireOfGaia.modLoc("textures/entity/banshee/banshee.png")};
 
 	public BansheeRenderer(Context context) {
 		super(context, new BansheeModel(context.bakeLayer(ClientHandler.BANSHEE)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class BansheeRenderer extends MobRenderer<Banshee, BansheeRenderState, Ba
 	@Override
 	public void extractRenderState(Banshee entity, BansheeRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 	}
 

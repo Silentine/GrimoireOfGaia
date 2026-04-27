@@ -26,6 +26,6 @@ public class GaiaLootTables {
 	public static final ResourceKey<LootTable> CHEST_TABLES = register("entities/chest_tables");
 
 	private static ResourceKey<LootTable> register(String path) {
-		return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, path));
+		return ResourceKey.create(Registries.LOOT_TABLE, GrimoireOfGaia.modLoc(path));
 	}
 }

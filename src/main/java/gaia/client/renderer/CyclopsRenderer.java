@@ -9,11 +9,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class CyclopsRenderer extends MobRenderer<Cyclops, CyclopsRenderState, CyclopsModel> {
 	public static final Identifier[] CYCLOPS_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/cyclops/cyclops.png")};
+			GrimoireOfGaia.modLoc("textures/entity/cyclops/cyclops.png")};
 
 	public CyclopsRenderer(Context context) {
 		super(context, new CyclopsModel(context.bakeLayer(ClientHandler.CYCLOPS)), ClientHandler.smallShadow);
@@ -29,6 +30,7 @@ public class CyclopsRenderer extends MobRenderer<Cyclops, CyclopsRenderState, Cy
 	@Override
 	public void extractRenderState(Cyclops entity, CyclopsRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 		state.isFleeing = entity.isFleeing();

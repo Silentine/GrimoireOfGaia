@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class BehenderEyesLayer extends EyesLayer<BehenderRenderState, BehenderModel> {
-	private static final RenderType BEHENDER_EYE_EYES = RenderTypes.eyes(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/behender/eyes_beholder.png"));
+	private static final RenderType BEHENDER_EYE_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/behender/eyes_beholder.png"));
 
 	public BehenderEyesLayer(RenderLayerParent<BehenderRenderState, BehenderModel> renderLayerParent) {
 		super(renderLayerParent);

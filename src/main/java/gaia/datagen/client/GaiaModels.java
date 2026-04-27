@@ -182,7 +182,7 @@ public class GaiaModels extends ModelProvider {
 		itemModels.generateFlatItem(registryObject.get(), ModelTemplates.FLAT_ITEM);
 //		Identifier location = registryObject.getId();
 //		singleTexture(location.getPath(), Identifier.parse("item/generated"),
-//				"layer0", Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/spawn/" + location.getPath()));
+//				"layer0", GrimoireOfGaia.modLoc("item/spawn/" + location.getPath()));
 	}
 
 	private void handheldItem(ItemModelGenerators itemModels, DeferredHolder<Item, ? extends Item> registryObject) {
@@ -194,7 +194,7 @@ public class GaiaModels extends ModelProvider {
 		itemModels.itemModelOutput.accept(registryObject.get(), ItemModelUtils.plainModel(
 				PARENT_TEMPLATE.create(
 						ModelLocationUtils.getModelLocation(registryObject.get()),
-						TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "item/" + registryObject.getId().getPath()))),
+						TextureMapping.layer0(new Material(GrimoireOfGaia.modLoc("item/" + registryObject.getId().getPath()))),
 						itemModels.modelOutput
 				)
 		));

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
 
 public class GraveMiteRenderer extends MobRenderer<GraveMite, GraveMiteRenderState, GraveMiteModel> {
-	private static final Identifier LOCATION = Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/mummy/mummy_mite.png");
+	private static final Identifier LOCATION = GrimoireOfGaia.modLoc("textures/entity/mummy/mummy_mite.png");
 
 	public GraveMiteRenderer(EntityRendererProvider.Context context) {
 		super(context, new GraveMiteModel(context.bakeLayer(ClientHandler.GRAVEMITE)), 0.3F);

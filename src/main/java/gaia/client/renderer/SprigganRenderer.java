@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class SprigganRenderer extends MobRenderer<Spriggan, SprigganRenderState, SprigganModel> {
 	public static final Identifier[] SPRIGGAN_LOCATIONS = new Identifier[]{
-			Identifier.fromNamespaceAndPath(GrimoireOfGaia.MOD_ID, "textures/entity/spriggan/spriggan.png")};
+			GrimoireOfGaia.modLoc("textures/entity/spriggan/spriggan.png")};
 
 	public SprigganRenderer(Context context) {
 		super(context, new SprigganModel(context.bakeLayer(ClientHandler.SPRIGGAN)), ClientHandler.smallShadow);
@@ -31,6 +32,7 @@ public class SprigganRenderer extends MobRenderer<Spriggan, SprigganRenderState,
 	@Override
 	public void extractRenderState(Spriggan entity, SprigganRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
+		ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, partialTicks);
 		state.variant = entity.getVariant();
 		state.isRiding = entity.isVehicle();
 	}
