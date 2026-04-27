@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
-//TODO: RE-IMPLEMENT GELATINOUS SLIME LAYER
 public class GelatinousSlimeLayer extends RenderLayer<GelatinousSlimeRenderState, GelatinousSlimeModel> {
 	private static final Identifier SLIME_LAYER_LOCATION = GrimoireOfGaia.modLoc("textures/entity/gelatinous_slime/layer_gelatinous_slime.png");
 
