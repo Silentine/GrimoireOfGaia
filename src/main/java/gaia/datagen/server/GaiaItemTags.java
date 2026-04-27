@@ -53,5 +53,8 @@ public class GaiaItemTags extends ItemTagsProvider {
 				GaiaRegistry.BONE_SHIELD.get(), GaiaRegistry.STONE_SHIELD.get(),
 				GaiaRegistry.IRON_SHIELD.get(), GaiaRegistry.GOLD_SHIELD.get()
 		);
+
+		this.tag(GaiaTags.BOOK_REPAIR_ITEMS).add(GaiaRegistry.QUILL.get());
+		this.tag(GaiaTags.CURSED_METAL_REPAIR_ITEMS).addTag(Tags.Items.OBSIDIANS_NORMAL);
 	}
 }

@@ -19,4 +19,6 @@ public class GaiaTags {
 	public static final TagKey<Item> RECORDS = ItemTags.create(Identifier.fromNamespaceAndPath("c", "records"));
 	public static final TagKey<Item> NUGGETS_DIAMOND = ItemTags.create(Identifier.fromNamespaceAndPath("c", "nuggets/diamond"));
 	public static final TagKey<Item> NUGGETS_EMERALD = ItemTags.create(Identifier.fromNamespaceAndPath("c", "nuggets/emerald"));
+	public static final TagKey<Item> BOOK_REPAIR_ITEMS = ItemTags.create(GrimoireOfGaia.modLoc("book_repair_items"));
+	public static final TagKey<Item> CURSED_METAL_REPAIR_ITEMS = ItemTags.create(GrimoireOfGaia.modLoc("cursed_metal_repair_items"));
 }
