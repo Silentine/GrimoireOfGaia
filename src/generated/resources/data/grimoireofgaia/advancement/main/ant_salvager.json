@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "grimoireofgaia:ant_salvager"
+              "minecraft:entity_type": "grimoireofgaia:ant_salvager"
             }
           }
         ]

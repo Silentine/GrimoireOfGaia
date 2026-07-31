@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.Identifier;
 
 public class DwarfEyeLayer extends EyesLayer<DwarfRenderState, DwarfModel> {
 	private static final RenderType DWARF_EYE_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/dwarf/eyes_dwarf03.png"));

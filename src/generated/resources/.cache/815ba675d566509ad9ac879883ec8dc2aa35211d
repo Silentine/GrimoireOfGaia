@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-27T19:16:05.4656924	Tags for minecraft:entity_type mod id grimoireofgaia
+// 26.2	2026-08-01T00:24:11.1063077	Tags for minecraft:entity_type mod id grimoireofgaia
 c6feee23b9598f085bb1c78fa9fb10d13a5f8a79 data/minecolonies/tags/entity_type/mob_attack_blacklist.json
 f9855fff0798c38d3d083e3cd6d5e0d3b513d7fd data/minecraft/tags/entity_type/arthropod.json
 ef55dd06f0badd60f106bad7692b0041cfd2adf3 data/minecraft/tags/entity_type/beehive_inhabitors.json

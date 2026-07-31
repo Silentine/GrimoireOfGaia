@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "grimoireofgaia:werecat"
+              "minecraft:entity_type": "grimoireofgaia:werecat"
             }
           }
         ]

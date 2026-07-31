@@ -1,7 +1,7 @@
 plugins {
     id 'idea'
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.142'
 }
 
 version = "${version}"
@@ -107,11 +107,11 @@ dependencies {
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     localRuntime "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
-    compileOnly "vazkii.patchouli:patchouli-neoforge:${patchouli_version}"
-    localRuntime "vazkii.patchouli:patchouli-neoforge:${patchouli_version}"
-
-    compileOnly "xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}"
-    localRuntime "xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}"
+//    compileOnly "vazkii.patchouli:patchouli-neoforge:${patchouli_version}"
+//    localRuntime "vazkii.patchouli:patchouli-neoforge:${patchouli_version}"
+//
+//    compileOnly "xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}"
+//    localRuntime "xyz.brassgoggledcoders:PatchouliProvider:${patchouli_provider_version}"
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

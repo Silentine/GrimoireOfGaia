@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.Identifier;
 
 public class WerecatEyesLayer extends EyesLayer<WerecatRenderState, WerecatModel> {
 	private static final RenderType WERECAT_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/werecat/eyes_werecat.png"));

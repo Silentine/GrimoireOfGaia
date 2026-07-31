@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.Identifier;
 
 public class ArachneEyesLayer extends EyesLayer<ArachneRenderState, ArachneModel> {
 	private static final RenderType ARACHNE_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/arachne/arachne_eyes.png"));

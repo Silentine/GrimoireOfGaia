@@ -21,6 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -89,7 +90,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 		if (!this.canAttack(entity)) {
 			return false;
 		} else {
-			return this.getTarget() != null && entity.getType() == EntityType.PLAYER;
+			return this.getTarget() != null && entity.getType() == EntityTypes.PLAYER;
 		}
 	}
 

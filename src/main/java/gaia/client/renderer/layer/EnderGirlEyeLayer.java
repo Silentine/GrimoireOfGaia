@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.Identifier;
 
 public class EnderGirlEyeLayer extends EyesLayer<EnderGirlRenderState, EnderGirlModel> {
 	private static final RenderType ENDER_GIRL_EYES = RenderTypes.eyes(GrimoireOfGaia.modLoc("textures/entity/ender_girl/eyes_ender_girl.png"));

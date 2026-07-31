@@ -23,6 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -143,7 +144,6 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 	public float getBaseDefense() {
 		return SharedEntityData.getBaseDefense2();
 	}
-
 
 
 	@Override
@@ -302,7 +302,9 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		if (this.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockpos = (blockPosition()).offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
-			Monster monster = id == 0 ? EntityType.ZOMBIE.create(serverLevel, EntitySpawnReason.MOB_SUMMONED) : EntityType.SKELETON.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+			Monster monster = id == 0 ?
+					EntityTypes.ZOMBIE.create(serverLevel, EntitySpawnReason.MOB_SUMMONED) :
+					EntityTypes.SKELETON.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 			if (monster != null) {
 				monster.snapTo(blockpos, 0.0F, 0.0F);
 				EventHooks.finalizeMobSpawn(monster, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
@@ -350,7 +352,7 @@ public class Witch extends AbstractGaiaEntity implements RangedAttackMob {
 		this.populateDefaultEquipmentSlots(random, difficultyInstance);
 
 		if (random.nextInt(2) != 0) {
-			this.lootTable = EntityType.WITCH.getDefaultLootTable();
+			this.lootTable = EntityTypes.WITCH.getDefaultLootTable();
 		}
 
 		return data;

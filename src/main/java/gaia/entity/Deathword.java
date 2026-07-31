@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -234,7 +235,7 @@ public class Deathword extends AbstractGaiaEntity {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Creeper summon = EntityType.CREEPER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+				Creeper summon = EntityTypes.CREEPER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
 					summon.snapTo(blockpos, 0.0F, 0.0F);
 					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
@@ -243,7 +244,7 @@ public class Deathword extends AbstractGaiaEntity {
 			}
 
 			if (id == 1) {
-				Skeleton summon = EntityType.SKELETON.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+				Skeleton summon = EntityTypes.SKELETON.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
 					summon.snapTo(blockpos, 0.0F, 0.0F);
 					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
@@ -259,7 +260,7 @@ public class Deathword extends AbstractGaiaEntity {
 			}
 
 			if (id == 2) {
-				Spider summon = EntityType.SPIDER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+				Spider summon = EntityTypes.SPIDER.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
 					summon.snapTo(blockpos, 0.0F, 0.0F);
 					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
@@ -268,7 +269,7 @@ public class Deathword extends AbstractGaiaEntity {
 			}
 
 			if (id == 3) {
-				Zombie summon = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
+				Zombie summon = EntityTypes.ZOMBIE.create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 				if (summon != null) {
 					summon.snapTo(blockpos, 0.0F, 0.0F);
 					EventHooks.finalizeMobSpawn(summon, (ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);

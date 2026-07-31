@@ -3,9 +3,9 @@ package gaia.datagen.server;
 import gaia.registry.GaiaLootTables;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaTags;
-import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -107,7 +108,7 @@ public class GaiaLoot extends LootTableProvider {
 			this.add(GaiaRegistry.ANT_HILL.getEntityType(), LootTable.lootTable());
 			this.add(GaiaRegistry.ANT_WORKER.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(Items.GREEN_DYE)
+							.add(LootItem.lootTableItem(Items.DYE.green())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -731,12 +732,12 @@ public class GaiaLoot extends LootTableProvider {
 			);
 			this.add(GaiaRegistry.MIMIC.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(NestedLootTable.lootTableReference(EntityType.CREEPER.getDefaultLootTable().get()))
-							.add(NestedLootTable.lootTableReference(EntityType.SPIDER.getDefaultLootTable().get()))
-							.add(NestedLootTable.lootTableReference(EntityType.ENDERMAN.getDefaultLootTable().get()))
-							.add(NestedLootTable.lootTableReference(EntityType.SLIME.getDefaultLootTable().get()))
-							.add(NestedLootTable.lootTableReference(EntityType.ZOMBIE.getDefaultLootTable().get()))
-							.add(NestedLootTable.lootTableReference(EntityType.SKELETON.getDefaultLootTable().get())))
+							.add(NestedLootTable.lootTableReference(EntityTypes.CREEPER.getDefaultLootTable().get()))
+							.add(NestedLootTable.lootTableReference(EntityTypes.SPIDER.getDefaultLootTable().get()))
+							.add(NestedLootTable.lootTableReference(EntityTypes.ENDERMAN.getDefaultLootTable().get()))
+							.add(NestedLootTable.lootTableReference(EntityTypes.SLIME.getDefaultLootTable().get()))
+							.add(NestedLootTable.lootTableReference(EntityTypes.ZOMBIE.getDefaultLootTable().get()))
+							.add(NestedLootTable.lootTableReference(EntityTypes.SKELETON.getDefaultLootTable().get())))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(TagEntry.expandTag(Tags.Items.NUGGETS_IRON)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))))
@@ -1090,7 +1091,7 @@ public class GaiaLoot extends LootTableProvider {
 
 			this.add(GaiaRegistry.HORSE.getEntityType(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(NestedLootTable.lootTableReference(EntityType.ZOMBIE_HORSE.getDefaultLootTable().get())))
+							.add(NestedLootTable.lootTableReference(EntityTypes.ZOMBIE_HORSE.getDefaultLootTable().get())))
 			);
 
 			//Merchant

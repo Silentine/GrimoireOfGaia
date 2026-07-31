@@ -28,33 +28,33 @@ public class GaiaItemTags extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(GaiaTags.DIMENSIONAL_BOXES).add(GaiaRegistry.BOX_OVERWORLD.get(), GaiaRegistry.BOX_NETHER.get(), GaiaRegistry.BOX_END.get());
-		this.tag(GaiaTags.GOLDEN_TOOLS).add(Items.GOLDEN_AXE, Items.GOLDEN_SHOVEL, Items.GOLDEN_PICKAXE, Items.GOLDEN_HOE, Items.GOLDEN_SWORD);
-		this.tag(GaiaTags.RECORDS).add(Items.MUSIC_DISC_13, Items.MUSIC_DISC_CAT, Items.MUSIC_DISC_BLOCKS, Items.MUSIC_DISC_CHIRP,
-				Items.MUSIC_DISC_FAR, Items.MUSIC_DISC_MALL, Items.MUSIC_DISC_MELLOHI, Items.MUSIC_DISC_STAL, Items.MUSIC_DISC_STRAD,
-				Items.MUSIC_DISC_WARD, Items.MUSIC_DISC_11, Items.MUSIC_DISC_WAIT, Items.MUSIC_DISC_OTHERSIDE, Items.MUSIC_DISC_PIGSTEP);
+		this.tag(GaiaTags.DIMENSIONAL_BOXES).add(GaiaRegistry.BOX_OVERWORLD.getKey(), GaiaRegistry.BOX_NETHER.getKey(), GaiaRegistry.BOX_END.getKey());
+		this.tag(GaiaTags.GOLDEN_TOOLS).add(Items.GOLDEN_AXE.builtInRegistryHolder().getKey(), Items.GOLDEN_SHOVEL.builtInRegistryHolder().getKey(), Items.GOLDEN_PICKAXE.builtInRegistryHolder().getKey(), Items.GOLDEN_HOE.builtInRegistryHolder().getKey(), Items.GOLDEN_SWORD.builtInRegistryHolder().getKey());
+		this.tag(GaiaTags.RECORDS).add(Items.MUSIC_DISC_13.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_CAT.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_BLOCKS.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_CHIRP.builtInRegistryHolder().getKey(),
+				Items.MUSIC_DISC_FAR.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_MALL.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_MELLOHI.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_STAL.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_STRAD.builtInRegistryHolder().getKey(),
+				Items.MUSIC_DISC_WARD.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_11.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_WAIT.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_OTHERSIDE.builtInRegistryHolder().getKey(), Items.MUSIC_DISC_PIGSTEP.builtInRegistryHolder().getKey());
 
-		this.tag(HEAD).add(GaiaRegistry.HEADGEAR_BOOK.get(), GaiaRegistry.HEADGEAR_MOB.get(), GaiaRegistry.HEADGEAR_BOLT.get(),
-				GaiaRegistry.HEADGEAR_ARROW.get(), GaiaRegistry.HEADGEAR_DOLL.get(), GaiaRegistry.HEADGEAR_EARS_ELF.get());
-		this.tag(BODY).add(GaiaRegistry.SEASHELL_HAIRPIN.get());
-		this.tag(HANDS).add(GaiaRegistry.KNUCKLES.get());
-		this.tag(NECKLACE).add(GaiaRegistry.HEAVY_BARBELL.get());
-		this.tag(RING).add(GaiaRegistry.RING_OF_SPEED.get(), GaiaRegistry.RING_OF_HASTE.get(), GaiaRegistry.RING_OF_JUMP.get(), GaiaRegistry.RING_OF_NIGHT.get());
+		this.tag(HEAD).add(GaiaRegistry.HEADGEAR_BOOK.getKey(), GaiaRegistry.HEADGEAR_MOB.getKey(), GaiaRegistry.HEADGEAR_BOLT.getKey(),
+				GaiaRegistry.HEADGEAR_ARROW.getKey(), GaiaRegistry.HEADGEAR_DOLL.getKey(), GaiaRegistry.HEADGEAR_EARS_ELF.getKey());
+		this.tag(BODY).add(GaiaRegistry.SEASHELL_HAIRPIN.getKey());
+		this.tag(HANDS).add(GaiaRegistry.KNUCKLES.getKey());
+		this.tag(NECKLACE).add(GaiaRegistry.HEAVY_BARBELL.getKey());
+		this.tag(RING).add(GaiaRegistry.RING_OF_SPEED.getKey(), GaiaRegistry.RING_OF_HASTE.getKey(), GaiaRegistry.RING_OF_JUMP.getKey(), GaiaRegistry.RING_OF_NIGHT.getKey());
 
-		this.tag(GaiaTags.NUGGETS_DIAMOND).add(GaiaRegistry.DIAMOND_SHARD.get());
-		this.tag(GaiaTags.NUGGETS_EMERALD).add(GaiaRegistry.EMERALD_SHARD.get());
+		this.tag(GaiaTags.NUGGETS_DIAMOND).add(GaiaRegistry.DIAMOND_SHARD.getKey());
+		this.tag(GaiaTags.NUGGETS_EMERALD).add(GaiaRegistry.EMERALD_SHARD.getKey());
 		this.tag(Tags.Items.NUGGETS).addTags(GaiaTags.NUGGETS_DIAMOND, GaiaTags.NUGGETS_EMERALD);
 
 		this.tag(Tags.Items.TOOLS_SHIELD).add(
-				GaiaRegistry.BONE_SHIELD.get(), GaiaRegistry.STONE_SHIELD.get(),
-				GaiaRegistry.IRON_SHIELD.get(), GaiaRegistry.GOLD_SHIELD.get()
+				GaiaRegistry.BONE_SHIELD.getKey(), GaiaRegistry.STONE_SHIELD.getKey(),
+				GaiaRegistry.IRON_SHIELD.getKey(), GaiaRegistry.GOLD_SHIELD.getKey()
 		);
 		this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(
-				GaiaRegistry.BONE_SHIELD.get(), GaiaRegistry.STONE_SHIELD.get(),
-				GaiaRegistry.IRON_SHIELD.get(), GaiaRegistry.GOLD_SHIELD.get()
+				GaiaRegistry.BONE_SHIELD.getKey(), GaiaRegistry.STONE_SHIELD.getKey(),
+				GaiaRegistry.IRON_SHIELD.getKey(), GaiaRegistry.GOLD_SHIELD.getKey()
 		);
 
-		this.tag(GaiaTags.BOOK_REPAIR_ITEMS).add(GaiaRegistry.QUILL.get());
+		this.tag(GaiaTags.BOOK_REPAIR_ITEMS).add(GaiaRegistry.QUILL.getKey());
 		this.tag(GaiaTags.CURSED_METAL_REPAIR_ITEMS).addTag(Tags.Items.OBSIDIANS_NORMAL);
 	}
 }

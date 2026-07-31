@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "grimoireofgaia:sporeling"
+              "minecraft:entity_type": "grimoireofgaia:sporeling"
             }
           }
         ]

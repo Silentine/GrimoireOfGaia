@@ -3,7 +3,6 @@ package gaia.datagen.server;
 import gaia.Reference;
 import gaia.registry.GaiaRegistry;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -17,7 +16,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
-import vazkii.patchouli.common.item.PatchouliDataComponents;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -101,10 +99,10 @@ public class GaiaRecipes extends RecipeProvider {
 
 	public static ItemStackTemplate getGuideBook() {
 		Item guideBook = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("patchouli", "guide_book"));
-		if (guideBook != null) {
-			return new ItemStackTemplate(guideBook, DataComponentPatch.builder()
-					.set(PatchouliDataComponents.BOOK, Reference.modLoc("gaiapedia")).build());
-		}
+//		if (guideBook != null) {
+//			return new ItemStackTemplate(guideBook, DataComponentPatch.builder()
+//					.set(PatchouliDataComponents.BOOK, Reference.modLoc("gaiapedia")).build());
+//		}
 		return null;
 	}
 

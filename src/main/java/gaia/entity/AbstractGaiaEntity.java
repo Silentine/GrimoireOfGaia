@@ -24,6 +24,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -341,7 +342,7 @@ public abstract class AbstractGaiaEntity extends Monster {
 	@Override
 	public boolean canAttack(LivingEntity target) {
 		if (this instanceof AbstractAssistGaiaEntity) {
-			return !target.is(this) && (!target.is(EntityType.CREEPER) && super.canAttack(target));
+			return !target.is(this) && (!target.is(EntityTypes.CREEPER) && super.canAttack(target));
 		}
 		return super.canAttack(target);
 	}

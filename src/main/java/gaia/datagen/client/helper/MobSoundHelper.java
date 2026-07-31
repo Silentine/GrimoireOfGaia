@@ -3,7 +3,6 @@ package gaia.datagen.client.helper;
 import gaia.GrimoireOfGaia;
 import gaia.registry.helper.GaiaMobType;
 import gaia.registry.helper.MobReg;
-import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinition.Sound;
 import net.neoforged.neoforge.common.data.SoundDefinition.SoundType;

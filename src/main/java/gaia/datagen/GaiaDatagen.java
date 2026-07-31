@@ -16,7 +16,6 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -43,8 +42,8 @@ public class GaiaDatagen {
 		generator.addProvider(true, new GaiaLanguage(packOutput));
 		generator.addProvider(true, new GaiaSoundProvider(packOutput));
 		generator.addProvider(true, new GaiaModels(packOutput));
-		if (ModList.get().isLoaded("patchouli"))
-			generator.addProvider(true, new gaia.datagen.client.compat.GaiaPatchouliProvider(packOutput, lookupProvider));
+//		if (ModList.get().isLoaded("patchouli"))
+//			generator.addProvider(true, new gaia.datagen.client.compat.GaiaPatchouliProvider(packOutput, lookupProvider));
 		
 	}
 

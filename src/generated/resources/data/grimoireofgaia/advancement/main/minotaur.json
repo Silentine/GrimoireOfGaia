@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "grimoireofgaia:minotaur"
+              "minecraft:entity_type": "grimoireofgaia:minotaur"
             }
           }
         ]

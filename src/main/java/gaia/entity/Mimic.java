@@ -172,7 +172,11 @@ public class Mimic extends AbstractGaiaEntity {
 	}
 
 	@Override
-	public void knockback(double strength, double xRatio, double zRatio) {
+	public void knockback(double power, double xd, double zd, DamageSource source, float damage) {
+	}
+
+	@Override
+	public void knockback(double power, double xd, double zd, DamageSource source, float damage, boolean comesFromEffect) {
 	}
 
 	@Override

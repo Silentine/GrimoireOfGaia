@@ -16,6 +16,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -213,7 +214,7 @@ public class GelatinousSlime extends AbstractGaiaEntity {
 		this.setCanPickUpLoot(true);
 
 		if (random.nextBoolean()) {
-			this.lootTable = EntityType.SKELETON.getDefaultLootTable();
+			this.lootTable = EntityTypes.SKELETON.getDefaultLootTable();
 		}
 
 		return data;

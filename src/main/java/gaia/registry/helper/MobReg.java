@@ -6,7 +6,6 @@ import gaia.item.MerchantSpawnItem;
 import gaia.registry.GaiaRegistry;
 import gaia.registry.GaiaSounds;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;

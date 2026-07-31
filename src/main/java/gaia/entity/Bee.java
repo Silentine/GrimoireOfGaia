@@ -39,7 +39,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -51,7 +50,7 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnimal, RangedAttackMob {
+public class Bee extends AbstractAssistGaiaEntity implements IDayMob, RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> MOVING = SynchedEntityData.defineId(Bee.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(Bee.class, EntityDataSerializers.INT);
 
@@ -85,7 +84,7 @@ public class Bee extends AbstractAssistGaiaEntity implements IDayMob, FlyingAnim
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, i -> i.is(ItemTags.FLOWERS), false));
+		this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, i -> i.is(ItemTags.BEE_FOOD), false));
 		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 		this.goalSelector.addGoal(6, new FloatGoal(this));

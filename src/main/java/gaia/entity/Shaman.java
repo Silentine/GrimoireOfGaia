@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -244,7 +245,7 @@ public class Shaman extends AbstractGaiaEntity implements RangedAttackMob {
 			BlockPos blockpos = blockPosition().offset(-1 + random.nextInt(3), 1, -1 + random.nextInt(3));
 
 			if (id == 0) {
-				Zombie summon = EntityType.ZOMBIE.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+				Zombie summon = EntityTypes.ZOMBIE.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				summon.snapTo(blockpos, 0.0F, 0.0F);
 				summon.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
 				summon.setItemSlot(EquipmentSlot.HEAD, new ItemStack(GaiaRegistry.HEADGEAR_BOLT.get()));

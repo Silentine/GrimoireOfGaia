@@ -22,40 +22,40 @@ public class GaiaEntityTags extends EntityTypeTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(EntityTypeTags.BEEHIVE_INHABITORS).add(GaiaRegistry.BEE.getEntityType());
+		this.tag(EntityTypeTags.BEEHIVE_INHABITORS).add(GaiaRegistry.BEE.getEntityType().builtInRegistryHolder().key());
 
 		this.tag(MOB_ATTACK_BLACKLIST).add(
-				GaiaRegistry.BEE.getEntityType(), GaiaRegistry.CENTAUR.getEntityType(),
-				GaiaRegistry.COBBLE_GOLEM.getEntityType(), GaiaRegistry.CYCLOPS.getEntityType(),
-				GaiaRegistry.DRYAD.getEntityType(), GaiaRegistry.GOBLIN.getEntityType(),
-				GaiaRegistry.HUNTER.getEntityType(), GaiaRegistry.MERMAID.getEntityType(),
-				GaiaRegistry.SATYRESS.getEntityType(), GaiaRegistry.WIZARD_HARPY.getEntityType(),
-				GaiaRegistry.YUKI_ONNA.getEntityType()
+				GaiaRegistry.BEE.getEntityType().builtInRegistryHolder().key(), GaiaRegistry.CENTAUR.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.COBBLE_GOLEM.getEntityType().builtInRegistryHolder().key(), GaiaRegistry.CYCLOPS.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.DRYAD.getEntityType().builtInRegistryHolder().key(), GaiaRegistry.GOBLIN.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.HUNTER.getEntityType().builtInRegistryHolder().key(), GaiaRegistry.MERMAID.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.SATYRESS.getEntityType().builtInRegistryHolder().key(), GaiaRegistry.WIZARD_HARPY.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.YUKI_ONNA.getEntityType().builtInRegistryHolder().key()
 		);
 
 		this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(
-				GaiaRegistry.CECAELIA.getEntityType(),
-				GaiaRegistry.MERMAID.getEntityType(),
-				GaiaRegistry.MINOTAUR.getEntityType(),
-				GaiaRegistry.SHARKO.getEntityType(),
-				GaiaRegistry.VALKYRIE.getEntityType()
+				GaiaRegistry.CECAELIA.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.MERMAID.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.MINOTAUR.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.SHARKO.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.VALKYRIE.getEntityType().builtInRegistryHolder().key()
 		);
 
 		this.tag(EntityTypeTags.ARTHROPOD).add(
-				GaiaRegistry.ANT_SALVAGER.getEntityType(),
-				GaiaRegistry.ANT_WORKER.getEntityType(),
-				GaiaRegistry.ARACHNE.getEntityType(),
-				GaiaRegistry.BEE.getEntityType(),
-				GaiaRegistry.GRAVEMITE.getEntityType()
+				GaiaRegistry.ANT_SALVAGER.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.ANT_WORKER.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.ARACHNE.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.BEE.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.GRAVEMITE.getEntityType().builtInRegistryHolder().key()
 		);
 
 		this.tag(EntityTypeTags.UNDEAD).add(
-				GaiaRegistry.BONE_KNIGHT.getEntityType(),
-				GaiaRegistry.FLESH_LICH.getEntityType(),
-				GaiaRegistry.YUKI_ONNA.getEntityType(),
-				GaiaRegistry.MUMMY.getEntityType(),
-				GaiaRegistry.BANSHEE.getEntityType(),
-				GaiaRegistry.WITHER_COW.getEntityType()
+				GaiaRegistry.BONE_KNIGHT.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.FLESH_LICH.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.YUKI_ONNA.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.MUMMY.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.BANSHEE.getEntityType().builtInRegistryHolder().key(),
+				GaiaRegistry.WITHER_COW.getEntityType().builtInRegistryHolder().key()
 		);
 	}
 }

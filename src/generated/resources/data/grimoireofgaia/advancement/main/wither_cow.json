@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "grimoireofgaia:wither_cow"
+              "minecraft:entity_type": "grimoireofgaia:wither_cow"
             }
           }
         ]

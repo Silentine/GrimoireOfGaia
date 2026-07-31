@@ -7,11 +7,11 @@ import gaia.registry.helper.PropReg;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.criterion.EnterBlockTrigger;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.KilledTrigger;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.EnterBlockTrigger;
+import net.minecraft.advancements.triggers.KilledTrigger;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -59,7 +59,7 @@ public class GaiaAdvancementProvider extends AdvancementProvider {
 
 			//Generate an advancement for every mob in GaiaRegistry
 			addKillAdvancement(consumer, entityTypes, GaiaRegistry.ANT_SALVAGER, GaiaRegistry.PROJECTILE_POISON.get(), root);
-			addKillAdvancement(consumer, entityTypes, GaiaRegistry.ANT_WORKER, Items.GREEN_DYE, root);
+			addKillAdvancement(consumer, entityTypes, GaiaRegistry.ANT_WORKER, Items.DYE.green(), root);
 			addKillAdvancement(consumer, entityTypes, GaiaRegistry.ANUBIS, GaiaRegistry.SKELETON_STAFF.get(), root);
 			addKillAdvancement(consumer, entityTypes, GaiaRegistry.ARACHNE, GaiaRegistry.CAVE_SPIDER_STAFF.get(), root);
 			addKillAdvancement(consumer, entityTypes, GaiaRegistry.BANSHEE, GaiaRegistry.SOULFIRE.get(), root);

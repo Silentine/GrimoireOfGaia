@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -242,7 +243,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 	private void setSpawn(int id) {
 		if (this.level().getDifficulty() != Difficulty.PEACEFUL && this.level() instanceof ServerLevel serverLevel) {
 			if (id == 0) {
-				CaveSpider caveSpider = EntityType.CAVE_SPIDER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+				CaveSpider caveSpider = EntityTypes.CAVE_SPIDER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
 				if (caveSpider != null) {
 					caveSpider.snapTo(blockPosition(), 0.0F, 0.0F);
 					caveSpider.finalizeSpawn((ServerLevel) serverLevel, serverLevel.getCurrentDifficultyAt(blockPosition()), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
@@ -315,7 +316,7 @@ public class Arachne extends AbstractGaiaEntity implements RangedAttackMob {
 		setCombatTask();
 
 		if (random.nextInt(2) == 0) {
-			this.lootTable = Optional.of(EntityType.WITCH.getDefaultLootTable().get());
+			this.lootTable = Optional.of(EntityTypes.WITCH.getDefaultLootTable().get());
 		}
 
 		return data;
