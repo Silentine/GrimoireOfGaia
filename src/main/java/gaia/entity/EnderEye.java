@@ -353,7 +353,7 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 			super(enderEye, Player.class, 10, false, false, livingEntityPredicate);
 			this.enderEye = enderEye;
 			this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector((livingEntity) -> {
-				return enderEye.shouldAttackPlayer((Player) livingEntity);
+				return livingEntity instanceof Player player && enderEye.shouldAttackPlayer(player);
 			});
 		}
 
@@ -397,8 +397,8 @@ public class EnderEye extends AbstractAssistGaiaEntity {
 					super.start();
 				}
 			} else {
-				if (this.target != null && !this.enderEye.isPassenger()) {
-					if (this.enderEye.shouldAttackPlayer((Player) this.target)) {
+				if (this.target != null && !this.enderEye.isPassenger() && this.target instanceof Player player) {
+					if (this.enderEye.shouldAttackPlayer(player)) {
 						if (this.target.distanceToSqr(this.enderEye) < 16.0D) {
 							this.enderEye.teleportRandomly();
 						}
